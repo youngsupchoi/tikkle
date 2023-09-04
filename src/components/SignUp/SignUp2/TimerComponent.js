@@ -1,0 +1,44 @@
+// TimerComponent.js
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {COLOR_ERROR} from '../../Global/Colors/Colors';
+import {M11} from '../../Global/Typography/Typography';
+import {SPACING_2, SPACING_4} from '../../Global/Spacing/BaseSpacing';
+
+export default function TimerComponent({initialTime}) {
+  const [timeLeft, setTimeLeft] = useState(initialTime);
+
+  // Function to convert seconds to mm:ss format
+  const formatTime = seconds => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+    return `${formattedMinutes}:${formattedSeconds}`;
+  };
+
+  const decreaseTime = () => {
+    setTimeLeft(prevTime => prevTime - 1);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(decreaseTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <View style={styles.timeContainer}>
+      <M11 customStyle={{color: COLOR_ERROR}}>
+        남은 시간 : {formatTime(timeLeft)}
+      </M11>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  timeContainer: {
+    alignItems: 'flex-end',
+    paddingHorizontal: SPACING_4,
+    paddingVertical: SPACING_2,
+  },
+});

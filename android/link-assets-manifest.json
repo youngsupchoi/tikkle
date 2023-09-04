@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoB.ttf",
+      "sha1": "bfefecc3ca3876da332f8f71d6f2cda65d3a0fc3"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoEB.ttf",
+      "sha1": "c250d8412e6e7616b1978a1e4134efceb502eefc"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoH.ttf",
+      "sha1": "97a5fb9b8d518fa528efec5d042cca6f3f6fd474"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoL.ttf",
+      "sha1": "b5d98556c827791877c5048edd90fafe8f5b8dcf"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoM.ttf",
+      "sha1": "675426f18f269f24ed4f58bbb59ae2bfc86737f4"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoR.ttf",
+      "sha1": "50bc48829f4ecfc932b4524256236bd45b1dc74b"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoSB.ttf",
+      "sha1": "406b1653d97f4911cdf7577cb45a04251fa43390"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoT.ttf",
+      "sha1": "e3bef7498b995401029ab629d22b2fd1ca48b37c"
+    },
+    {
+      "path": "src/assets/fonts/AppleSDGothicNeoUL.ttf",
+      "sha1": "e7a97499ae6e6716c21b3b3acbf2e0a3f92608bb"
+    },
+    {
+      "path": "src/assets/fonts/CherryBombOne-Regular.ttf",
+      "sha1": "3cff461d1184264a261d62abce5d017d445411e8"
+    }
+  ]
+}

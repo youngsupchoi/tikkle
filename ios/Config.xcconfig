@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  tikkle_revive_ios
+//
+//  Created by 이흥규 on 2023/09/04.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include? "tmp.xcconfig"
