@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-// import {post_auth_phoneCheck} from '../../components/Axios/post_auth_phoneCheck';
+import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {InstructionText} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneInputScreenComponents/InstructionText';
 import {PhoneNumberInput} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneInputScreenComponents/PhoneNumberInput';
 import {SubmitButton} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneInputScreenComponents/SubmitButton';
@@ -26,15 +26,18 @@ export default function SignUpScreen1() {
   };
 
   const buttonPress = () => {
-    // post_auth_phoneCheck(phoneNumber).then(res => {
-    navigation.navigate('signup2', {
-      phoneNumber: phoneNumber,
-      // message: res.message,
-      // userId: res.userId,
-      message: 'login',
-      userId: 48,
+    post_auth_phoneCheck(phoneNumber).then(res => {
+      console.log(
+        '🚀 ~ file: PhoneInputScreen.js:30 ~ post_auth_phoneCheck ~ phoneNumber:',
+        res,
+      );
+
+      navigation.navigate('signup2', {
+        phoneNumber: phoneNumber,
+        message: res.message,
+        userId: res.userId,
+      });
     });
-    // });
   };
 
   return (

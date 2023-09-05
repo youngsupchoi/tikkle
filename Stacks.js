@@ -70,7 +70,7 @@ import SearchAddressScreen from './src/screens/3_MainScreens/StartTikklingScreen
 // import {BlurView} from '@react-native-community/blur';
 import PaymentScreen from './src/screens/3_MainScreens/PaymentScreens/PaymentScreen';
 import PaymentSuccessScreen from './src/screens/3_MainScreens/PaymentSuccessScreens/PaymentSuccessScreen';
-
+import {MainViewStateProvider} from './src/viewState/mainStates/MainState';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -438,7 +438,11 @@ const MyBottomTab = () => {
       }}>
       <BottomTab.Screen
         name="home"
-        component={HomeScreen}
+        component={() => (
+          <MainViewStateProvider>
+            <HomeScreen />
+          </MainViewStateProvider>
+        )}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '홈',

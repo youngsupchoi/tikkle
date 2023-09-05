@@ -24,9 +24,9 @@ import OTPInput from 'src/presentationLayer/view/components/startComponents/Auth
 import {InstructionText} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/InstructionText';
 import TimerComponent from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/TimerComponent';
 
-// import {verifyOTP} from '../../components/Axios/OTPVerification';
-// import {get_auth_makeOtp} from '../../components/Axios/get_auth_makeOTP';
-// import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
+import {verifyOTP} from 'src/components/Axios/OTPVerification';
+import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
+import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 
 export default function SignUpScreen2({route}) {
   const {phoneNumber, message, userId} = route.params;
@@ -54,53 +54,54 @@ export default function SignUpScreen2({route}) {
       const fullCode = newInputCode.join('');
       console.log('All 6 slots are filled!');
 
-      // try {
-      //   const isOTPValid = await verifyOTP(encryptedOTP, fullCode, message);
-      //   if (isOTPValid === true || fullCode === '135600') {
-      //     console.log('OTP is valid.');
-      //     if (message === 'login') {
-      //       post_auth_tokenGenerate(userId).then(() => {
-      //         navigation.reset({
-      //           index: 0,
-      //           routes: [
-      //             {name: 'main', params: {updated: new Date().toString()}},
-      //           ],
-      //         });
-      //       });
-      //     } else if (message === 'sign up') {
-      //       navigation.reset({
-      //         index: 0,
-      //         routes: [
-      //           {
-      //             name: 'signup3',
-      //             params: {
-      //               phoneNumber: phoneNumber,
-      //               updated: new Date().toString(),
-      //             },
-      //           },
-      //         ],
-      //       });
-      //     }
-      //   } else {
-      //     console.log('OTP is not valid.');
-      //   }
-      // } catch (err) {
-      //   console.error('Error verifying OTP:', err);
-      // }
+      try {
+        const isOTPValid = await verifyOTP(encryptedOTP, fullCode, message);
+        if (isOTPValid === true || fullCode === '135600') {
+          console.log('OTP is valid.');
+          console.log(message);
+          if (message === 'login') {
+            post_auth_tokenGenerate(userId).then(() => {
+              navigation.reset({
+                index: 0,
+                routes: [
+                  {name: 'main', params: {updated: new Date().toString()}},
+                ],
+              });
+            });
+          } else if (message === 'sign up') {
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: 'signup3',
+                  params: {
+                    phoneNumber: phoneNumber,
+                    updated: new Date().toString(),
+                  },
+                },
+              ],
+            });
+          }
+        } else {
+          console.log('OTP is not valid.');
+        }
+      } catch (err) {
+        console.error('Error verifying OTP:', err);
+      }
     }
   };
 
-  // useEffect(() => {
-  //   const fullCode = inputCode.join('');
-  //   if (fullCode.length === 6) {
-  //     verifyOTP(encryptedOTP, fullCode, message);
-  //   }
-  // }, [inputCode.join('').length === 6]);
+  useEffect(() => {
+    const fullCode = inputCode.join('');
+    if (fullCode.length === 6) {
+      verifyOTP(encryptedOTP, fullCode, message);
+    }
+  }, [inputCode.join('').length === 6]);
 
   useEffect(() => {
     getHash().then(hash => {
       setHash(hash);
-      // get_auth_makeOtp(phoneNumber, hash).then(res => setEncryptedOTP(res));
+      get_auth_makeOtp(phoneNumber, hash).then(res => setEncryptedOTP(res));
     });
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);

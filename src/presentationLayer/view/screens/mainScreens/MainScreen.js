@@ -57,73 +57,25 @@ import Add from 'src/assets/icons/Add';
 import Detail from 'src/assets/icons/Detail';
 import Delete from 'src/assets/icons/Delete';
 import LottieView from 'lottie-react-native';
-// import {printTokensFromAsyncStorage} from 'src/presentationLayer/view/components/AsyncStorage/printTokensFromAsyncStorage';
-// import {get_user_info} from 'src/presentationLayer/view/components/Axios/get_user_info';
-// import {get_user_checkTikkling} from 'src/presentationLayer/view/components/Axios/get_user_checkTikkling';
-// import {get_user_myWishlist} from 'src/presentationLayer/view/components/Axios/get_user_myWishlist';
-// import {get_tikkling_info} from 'src/presentationLayer/view/components/Axios/get_tikkling_info';
-// import {get_tikkling_friendinfo} from 'src/presentationLayer/view/components/Axios/get_tikkling_friendinfo';
-// import {get_friend_event} from 'src/presentationLayer/view/components/Axios/get_friend_event';
-// import {get_user_isNotice} from 'src/presentationLayer/view/components/Axios/get_user_isNotice';
-// import {put_tikkling_cancel} from 'src/presentationLayer/view/components/Axios/put_tikkling_cancel';
-// import {put_tikkling_end} from 'src/presentationLayer/view/components/Axios/put_tikkling_end';
+import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
+import {printTokensFromAsyncStorage} from 'src/presentationLayer/view/components/AsyncStorage/printTokensFromAsyncStorage';
+import {get_user_info} from 'src/components/Axios/get_user_info';
+import {get_user_checkTikkling} from 'src/components/Axios/get_user_checkTikkling';
+import {get_user_myWishlist} from 'src/components/Axios/get_user_myWishlist';
+import {get_tikkling_info} from 'src/components/Axios/get_tikkling_info';
+import {get_tikkling_friendinfo} from 'src/components/Axios/get_tikkling_friendinfo';
+import {get_friend_event} from 'src/components/Axios/get_friend_event';
+import {get_user_isNotice} from 'src/components/Axios/get_user_isNotice';
+import {put_tikkling_cancel} from 'src/components/Axios/put_tikkling_cancel';
+import {put_tikkling_end} from 'src/components/Axios/put_tikkling_end';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   // AsyncStorage.clear();
-  const [userData, setUserData] = useState([]);
-  const [isTikkling, setIsTikkling] = useState(false);
-  const [tikklingId, setTikklingId] = useState(null);
-  const [wishlistData, setWishlistData] = useState([]);
-  const [myTikklingData, setMyTikklingData] = useState([]);
-  const [friendTikklingData, setFriendTikklingData] = useState(null);
-  const [friendEventData, setFriendEventData] = useState([]);
-  const [isNotice, setIsNotice] = useState();
-  const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    // get_user_checkTikkling({setIsTikkling}).then(res =>
-    //   res === true ? get_tikkling_info({setMyTikklingData, setLoading}) : null,
-    // );
-    // get_user_info({setUserData});
-    // get_tikkling_friendinfo({setFriendTikklingData});
-    // get_user_isNotice({setIsNotice});
-    // get_friend_event({setFriendEventData});
-    // get_user_myWishlist({setWishlistData, setLoading});
-    setRefreshing(false);
-  };
-
-  const buttonPress = () => {
-    if (myTikklingData.tikkle_count === '0') {
-      put_tikkling_cancel(myTikklingData);
-      setDropdownVisible(false);
-    } else {
-      put_tikkling_end(myTikklingData);
-      setDropdownVisible(false);
-    }
-  };
-
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-  const dropdownAnimation = useRef(new Animated.Value(0)).current;
-  const showDropdown = () => {
-    setDropdownVisible(true);
-    Animated.timing(dropdownAnimation, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const hideDropdown = () => {
-    Animated.timing(dropdownAnimation, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => setDropdownVisible(false));
-  };
+  const {ref, state, actions} = useMainViewModel();
+  const {dropdownAnimation, snackbarAnimation} = ref;
+  //TODO: 이부분이 여기에 들어가는게 맞는지 모르겠음
   const dropdownStyle = {
     opacity: dropdownAnimation,
     transform: [
@@ -136,11 +88,8 @@ export default function HomeScreen() {
     ],
   };
 
-  const [snackbarMessage, setSnackbarMessage] = useState(null);
-  const snackbarAnimation = useRef(new Animated.Value(0)).current;
-
   const showSnackbar = message => {
-    setSnackbarMessage(message);
+    actions.setSnackbarMessage(message);
     Animated.timing(snackbarAnimation, {
       toValue: 1,
       duration: 300,
@@ -151,13 +100,13 @@ export default function HomeScreen() {
       }, 5000);
     });
   };
-
+  //TODO: 전체적으로 쓴다고 한 것
   const hideSnackbar = () => {
     Animated.timing(snackbarAnimation, {
       toValue: 0,
       duration: 300,
       useNativeDriver: true,
-    }).start(() => setSnackbarMessage(null));
+    }).start(() => actions.setSnackbarMessage(null));
   };
   const snackbarStyle = {
     opacity: snackbarAnimation,
@@ -176,19 +125,27 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    // get_user_info({setUserData});
-    // get_user_checkTikkling({setIsTikkling}).then(res =>
-    //   res === true ? get_tikkling_info({setMyTikklingData}) : null,
-    // );
-    // get_tikkling_friendinfo({setFriendTikklingData});
-    // get_user_isNotice({setIsNotice});
-    // get_friend_event({setFriendEventData});
-    // get_user_myWishlist({setWishlistData, setLoading});
+    //TODO: 이것도 함수화 필요, 함수화 후 뷰 모델에서 가져다 써야할 부분
+    get_user_info({setUserData: actions.setUserData});
+    get_user_checkTikkling({setIsTikkling: actions.setIsTikkling}).then(res =>
+      res === true
+        ? get_tikkling_info({setMyTikklingData: actions.setMyTikklingData})
+        : null,
+    );
+    get_tikkling_friendinfo({
+      setFriendTikklingData: actions.setFriendTikklingData,
+    });
+    get_user_isNotice({setIsNotice: actions.setIsNotice});
+    get_friend_event({setFriendEventData: actions.setFriendEventData});
+    get_user_myWishlist({
+      setWishlistData: actions.setWishlistData,
+      setLoading: actions.setLoading,
+    });
   }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      {snackbarMessage && (
+      {state.snackbarMessage && (
         <Animated.View
           style={[
             snackbarStyle,
@@ -204,7 +161,7 @@ export default function HomeScreen() {
               zIndex: 10,
             },
           ]}>
-          <Text>{snackbarMessage}</Text>
+          <Text>{state.snackbarMessage}</Text>
         </Animated.View>
       )}
 
@@ -213,19 +170,22 @@ export default function HomeScreen() {
           stickyHeaderIndices={[0]}
           showsVerticalScrollIndicator={false}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl
+              refreshing={state.refreshing}
+              onRefresh={actions.onRefresh}
+            />
           }
           style={styles.HomeContainer}>
           <HomeHeader
-            isNotice={isNotice}
-            tikkling_ticket={userData.tikkling_ticket}
+            isNotice={state.isNotice}
+            tikkling_ticket={state.userData.tikkling_ticket}
           />
-          {loading ? (
+          {state.loading ? (
             <HomeLoader width={windowWidth} height={windowHeight}></HomeLoader>
           ) : null}
 
           <SecondHero />
-          {isTikkling ? (
+          {state.isTikkling ? (
             <View
               style={{
                 marginVertical: 12,
@@ -244,10 +204,10 @@ export default function HomeScreen() {
                 <B20 customStyle={{fontFamily: EB}}>내 티클링</B20>
                 <AnimatedButton
                   onPress={() => {
-                    if (dropdownVisible) {
-                      hideDropdown();
+                    if (state.dropdownVisible) {
+                      actions.hideDropdown();
                     } else {
-                      showDropdown();
+                      actions.showDropdown();
                     }
                   }}
                   style={{padding: 10}}>
@@ -259,7 +219,7 @@ export default function HomeScreen() {
                     scale={1}
                   />
                 </AnimatedButton>
-                {dropdownVisible && (
+                {state.dropdownVisible && (
                   <Animated.View
                     style={[
                       dropdownStyle,
@@ -275,7 +235,7 @@ export default function HomeScreen() {
                     ]}>
                     <AnimatedButton
                       onPress={() => {
-                        buttonPress();
+                        actions.buttonPress();
                       }}
                       style={{
                         flexDirection: 'row',
@@ -299,22 +259,22 @@ export default function HomeScreen() {
                   </Animated.View>
                 )}
               </View>
-              {myTikklingData.length === 0 ? null : (
+              {state.myTikklingData.length === 0 ? null : (
                 <FirstHero
                   navigation={navigation}
-                  myTikklingData={myTikklingData}
-                  setVisible={setVisible}
-                  userData={userData}
+                  myTikklingData={state.myTikklingData}
+                  setVisible={actions.setVisible}
+                  userData={state.userData}
                   put_tikkling_end={put_tikkling_end}
                   put_tikkling_cancel={put_tikkling_cancel}
                 />
               )}
-              {/* {console.log('myTikklingData', myTikklingData)} */}
+              {/* {console.log('myTikklingData', state.myTikklingData)} */}
             </View>
           ) : null}
 
-          {friendTikklingData === null ||
-          friendTikklingData.length === 0 ? null : (
+          {state.friendTikklingData === null ||
+          state.friendTikklingData.length === 0 ? null : (
             <View
               style={{
                 marginVertical: 12,
@@ -344,7 +304,7 @@ export default function HomeScreen() {
               </View>
               <View style={styles.friendsTikklingCarousel}>
                 {/* {console.log(transformedFriendsData)} */}
-                <FriendsTikklingCarousel data={friendTikklingData} />
+                <FriendsTikklingCarousel data={state.friendTikklingData} />
               </View>
             </View>
           )}
@@ -379,8 +339,8 @@ export default function HomeScreen() {
               </AnimatedButton>
             </View>
             <View style={{padding: 20, paddingTop: 8}}>
-              {wishlistData.length !== 0 ? (
-                wishlistData.map((wishlist, index) => {
+              {state.wishlistData.length !== 0 ? (
+                state.wishlistData.map((wishlist, index) => {
                   return (
                     <View
                       key={keyExtractor(wishlist, index)}
@@ -416,7 +376,7 @@ export default function HomeScreen() {
                           </B12>
                         </View>
                       </View>
-                      {isTikkling ? null : (
+                      {state.isTikkling ? null : (
                         <AnimatedButton
                           onPress={() => {
                             navigation.navigate('startTikkling', wishlist);
@@ -489,7 +449,8 @@ export default function HomeScreen() {
               /> */}
           </View>
 
-          {friendEventData === null || friendEventData.length === 0 ? null : (
+          {state.friendEventData === null ||
+          state.friendEventData.length === 0 ? null : (
             <View
               style={{
                 marginVertical: 12,
@@ -516,8 +477,8 @@ export default function HomeScreen() {
                 </AnimatedButton>
               </View>
               <View style={styles.friendsEvent}>
-                {friendEventData.length !== 0 ? (
-                  <FriendsEvent friendsEventData={friendEventData} />
+                {state.friendEventData.length !== 0 ? (
+                  <FriendsEvent friendsEventData={state.friendEventData} />
                 ) : null}
               </View>
             </View>

@@ -13,6 +13,7 @@ import FriendsManagementScreen from 'src/presentationLayer/view/screens/friendSc
 import HomeScreen from 'src/presentationLayer/view/screens/mainScreens/MainScreen';
 import ProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/MyPageScreen';
 import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/productScreens/ProductMainScreen';
+import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -37,7 +38,11 @@ export default function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="home"
-        component={HomeScreen}
+        component={() => (
+          <MainViewStateProvider>
+            <HomeScreen />
+          </MainViewStateProvider>
+        )}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '홈',
