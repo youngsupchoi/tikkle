@@ -1,0 +1,104 @@
+import {apiModel} from '../APIModel/ApiModel';
+import {getToken} from '../APIModel/GetToken';
+import {resetToken} from '../APIModel/ResetToken';
+
+export async function createNewFriendData(friendId) {
+  //------ get token ------------------------------------------------------//
+  let authorization = null;
+
+  try {
+    authorization = await getToken();
+    if (!authorization) {
+      throw new Error();
+    }
+  } catch (error) {
+    return {
+      state: 3,
+      data: null,
+      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+    };
+  }
+
+  //console.log('auth get : ', authorization);
+
+  //------ collect data ---------------------------------------------------//
+  /** if there is some data control for company that will be added here **/
+
+  //------ call post_user_friend -------------------------------------------------------//
+  let response;
+  const body = {
+    friendId: friendId,
+  };
+
+  try {
+    response = await apiModel('post_user_friend', authorization, body, null);
+    if (!response) {
+      //  error
+      throw new Error();
+    }
+  } catch (error) {
+    return {
+      state: 2,
+      data: null,
+      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
+  }
+
+  //console.log(response);
+
+  //------ control result & error of post_user_friend-----------------------------------------//
+
+  if (response.status === 400) {
+    if (response.data.detail_code === '00') {
+      return {
+        state: 1,
+        data: null,
+        message: '자신과는 친구 등록을 할 수 없어요.',
+      };
+    } else {
+      return {
+        state: 2,
+        data: null,
+        message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      };
+    }
+  } else if (response.status !== 200) {
+    return {
+      state: 2,
+      data: null,
+      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
+  }
+
+  //case control
+  let message;
+  if (response.data.detail_code === '10') {
+    message = '이미 친구인 유저입니다.';
+  } else if (response.data.detail_code === '11') {
+    message = '친구 추가에 성공했어요.';
+  }
+
+  //------ update token ---------------------------------------------------//
+  //console.log('response.data.returnToken : ', response.data.returnToken);
+  if (response.data.returnToken) {
+    const response_setToken = await resetToken(
+      response.data.returnToken,
+      authorization,
+    );
+    if (!response_setToken) {
+      return {
+        state: 3,
+        data: null,
+        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      };
+    }
+  }
+
+  //------ return response ------------------------------------------------//
+
+  return {
+    state: 0,
+    data: null,
+    message: message,
+  };
+}
