@@ -249,8 +249,9 @@ export default function FriendsManagementScreen() {
           alignItems: 'center',
         }}>
         <View style={{}}>
-          {item.meta_data &&
-          JSON.parse(item.meta_data).source_user_profile !== null ? (
+          {item.meta_data !==
+          //  &&JSON.parse(item.meta_data).source_user_profile
+          null ? (
             <Image
               source={{
                 uri:

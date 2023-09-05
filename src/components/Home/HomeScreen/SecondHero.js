@@ -224,6 +224,7 @@ export default function SecondHero() {
                 easing: Easing.ease,
                 useNativeDriver: false,
               }).start();
+
               setActivePage(i);
             }}>
             <View

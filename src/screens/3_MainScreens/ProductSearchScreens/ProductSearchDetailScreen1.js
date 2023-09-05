@@ -62,6 +62,7 @@ import ArrowLeft from '../../../assets/icons/ArrowLeft';
 // import AutoHeightImage from 'react-native-auto-height-image';
 import ArrowRight from '../../../assets/icons/ArrowRight';
 import Config from 'react-native-config';
+import {printTokensFromAsyncStorage} from '../../../components/AsyncStorage/printTokensFromAsyncStorage';
 
 const containerWidth = windowWidth - SPACING_6;
 

@@ -48,7 +48,7 @@ import {Linking} from 'react-native';
 
 import {captureRef} from 'react-native-view-shot';
 
-// import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import AnimatedButton from '../../Global/Buttons/AnimatedButton';
 
 import axios from 'axios';
@@ -66,31 +66,31 @@ import Config from 'react-native-config';
 //-------------------------------------------------------------------------
 
 // Check permission
-// check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
-//   switch (result) {
-//     case RESULTS.UNAVAILABLE:
-//       console.log(
-//         'This feature is not available (on this device / in this context)',
-//       );
-//       break;
-//     case RESULTS.DENIED:
-//       console.log(
-//         'The permission has not been requested / is denied but requestable',
-//       );
-//       break;
-//     case RESULTS.GRANTED:
-//       console.log('The permission is granted');
-//       break;
-//     case RESULTS.BLOCKED:
-//       console.log('The permission is denied and not requestable anymore');
-//       break;
-//   }
-// });
+check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
+  switch (result) {
+    case RESULTS.UNAVAILABLE:
+      console.log(
+        'This feature is not available (on this device / in this context)',
+      );
+      break;
+    case RESULTS.DENIED:
+      console.log(
+        'The permission has not been requested / is denied but requestable',
+      );
+      break;
+    case RESULTS.GRANTED:
+      console.log('The permission is granted');
+      break;
+    case RESULTS.BLOCKED:
+      console.log('The permission is denied and not requestable anymore');
+      break;
+  }
+});
 
-// // Request permission
-// request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
-//   // handle the result
-// });
+// Request permission
+request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
+  // handle the result
+});
 
 const FirstHero = props => {
   const {
