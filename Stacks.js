@@ -426,26 +426,10 @@ const MyBottomTab = () => {
           backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent background
           width: windowWidth,
           alignSelf: 'center',
-          // bottom: 10,
           borderColor: COLOR_SEPARATOR,
           borderWidth: 2,
           elevation: 3,
-          // padding: 12,
         },
-        // tabBarBackground: () => (
-        //   <BlurView
-        //     style={{
-        //       width: '100%',
-        //       height: '100%',
-        //       borderRadius: 24,
-        //       borderColor: 'red',
-        //       // borderWidth: 2,
-        //     }}
-        //     blurType="light" // or "dark" or "extraDark"
-        //     blurAmount={2}
-        //     reducedTransparencyFallbackColor="white"
-        //   />
-        // ),
         tabBarShowLabel: false,
         tabBarLabelStyle: {
           fontFamily: B,

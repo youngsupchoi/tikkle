@@ -1,14 +1,10 @@
 import React, {useEffect} from 'react';
-import MyStack from './Stacks';
+// import MyStack from './Stacks';
 import {StatusBar, View} from 'react-native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
-// import TEST_SAMPLESCREEN from './src/screens/3_MainScreens/TEST_SAMPLESCREEN';
+import MainStackNavigator from 'src/navigation/stackNavigators/MainStackNavigator';
 
 export default function App() {
-  // SystemNavigationBar.setNavigationColor('transparent');
-  // SystemNavigationBar.setBarMode('dark');
-  // SystemNavigationBar.navigationShow(1);
-  // SystemNavigationBar.fullScreen(0);
   SystemNavigationBar.setBarMode('dark');
   return (
     <>
@@ -17,7 +13,7 @@ export default function App() {
         barStyle={'dark-content'}
         backgroundColor="transparent"
       />
-      <MyStack />
+      <MainStackNavigator />
       {/* <TEST_SAMPLESCREEN /> */}
     </>
   );
