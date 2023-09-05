@@ -13,7 +13,7 @@ export async function getSearchFriendData(nick) {
     }
   } catch (error) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -35,7 +35,7 @@ export async function getSearchFriendData(nick) {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -46,13 +46,13 @@ export async function getSearchFriendData(nick) {
   //------ control result & error of get_friend_search-----------------------------------------//
   if (response.status === 400) {
     return {
-      state: 1,
+      DScode: 1,
       data: null,
       message: '검색어가 비어있거나 오류가있어요.',
     };
   } else if (response.status !== 200) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -68,7 +68,7 @@ export async function getSearchFriendData(nick) {
     );
     if (!response_setToken) {
       return {
-        state: 3,
+        DScode: 3,
         data: null,
         message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
@@ -78,7 +78,7 @@ export async function getSearchFriendData(nick) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {info: info},
     message: '닉네임으로 친구 검색에 성공했어요.',
   };

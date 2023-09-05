@@ -13,7 +13,7 @@ export async function loginTokenData() {
     }
   } catch (error) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -35,7 +35,7 @@ export async function loginTokenData() {
     }
   } catch (error) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -51,7 +51,7 @@ export async function loginTokenData() {
     response.data.detail_code !== '11'
   ) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -66,7 +66,7 @@ export async function loginTokenData() {
     );
     if (!response_setToken) {
       return {
-        state: 3,
+        DScode: 3,
         data: null,
         message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
@@ -76,7 +76,7 @@ export async function loginTokenData() {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {login: true},
     message: '로그인에 성공했어요.',
   };

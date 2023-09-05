@@ -20,7 +20,7 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -33,14 +33,14 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
   if (response.status === 400) {
     // input data error
     return {
-      state: 1,
+      DScode: 1,
       data: null,
       message:
         '입력하신 전화번호의 형식이 올바르지 않아요. ' - ' 없이 입력해주세요.',
     };
   } else if (response.status !== 200) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -70,7 +70,7 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message:
         '입력하신 전화번호로 메세지 전송에 실패했어요. 다시 시도해주세요.',
@@ -82,7 +82,7 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
   if (response.status !== 200) {
     // input data error
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message:
         '입력하신 전화번호로 메세지 전송에 실패했어요. 다시 시도해주세요.',
@@ -92,7 +92,7 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {
       encrypted_otp: response2.data.data,
       userId: userId,

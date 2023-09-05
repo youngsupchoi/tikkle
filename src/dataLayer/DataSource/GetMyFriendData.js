@@ -13,7 +13,7 @@ export async function getMyFriendData() {
     }
   } catch (error) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -40,7 +40,7 @@ export async function getMyFriendData() {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -52,7 +52,7 @@ export async function getMyFriendData() {
 
   if (response.status !== 200 || response.data.detail_code !== '02') {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -68,7 +68,7 @@ export async function getMyFriendData() {
     );
     if (!response_setToken) {
       return {
-        state: 3,
+        DScode: 3,
         data: null,
         message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
@@ -78,7 +78,7 @@ export async function getMyFriendData() {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {info: info},
     message: '친구 리스트 불러오기에 성공했어요.',
   };

@@ -20,7 +20,7 @@ export async function loginPhoneData(userId) {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -33,19 +33,19 @@ export async function loginPhoneData(userId) {
   if (response.status === 400) {
     // input data error
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   } else if (response.status === 404) {
     return {
-      state: 1,
+      DScode: 1,
       data: null,
       message: '삭제되었거나 등록되지 않은 사용자의 전화번호에요.',
     };
   } else if (response.status !== 200) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -60,7 +60,7 @@ export async function loginPhoneData(userId) {
     );
     if (!response_setToken) {
       return {
-        state: 2,
+        DScode: 2,
         data: null,
         message:
           '디바이스에 로그인 데이터 저장시 오류가 발생했어요. 다시 시도해주세요.',
@@ -71,7 +71,7 @@ export async function loginPhoneData(userId) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {success: true},
     message: '로그인에 성공했어요.',
   };

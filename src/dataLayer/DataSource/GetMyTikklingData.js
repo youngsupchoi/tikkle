@@ -13,7 +13,7 @@ export async function getMyTikklingData() {
     }
   } catch (error) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -38,7 +38,7 @@ export async function getMyTikklingData() {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -50,7 +50,7 @@ export async function getMyTikklingData() {
 
   if (response.status !== 200) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -59,13 +59,13 @@ export async function getMyTikklingData() {
   // check is Tikkling
   if (response.data.detail_code === '11') {
     return {
-      state: 0,
+      DScode: 0,
       data: {is_tikkling: false},
       message: '진행중인 티클링이 없어요.',
     };
   } else if (response.data.detail_code !== '10') {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -83,7 +83,7 @@ export async function getMyTikklingData() {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -96,19 +96,19 @@ export async function getMyTikklingData() {
   if (response2.status === 400) {
     // input data error
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   } else if (response2.status === 404) {
     return {
-      state: 1,
+      DScode: 1,
       data: null,
       message: '티클링이 종료되었거나 등록되지 않은 티클링에요.',
     };
   } else if (response2.status !== 200) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -117,7 +117,7 @@ export async function getMyTikklingData() {
   //check detail_code
   if (response2.data.detail_code !== '01') {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -134,7 +134,7 @@ export async function getMyTikklingData() {
     );
     if (!response_setToken) {
       return {
-        state: 3,
+        DScode: 3,
         data: null,
         message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
@@ -144,7 +144,7 @@ export async function getMyTikklingData() {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {is_tikkling: true, info: info},
     message: '티클링이 진행중이에요.',
   };

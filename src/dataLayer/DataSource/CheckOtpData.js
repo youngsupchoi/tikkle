@@ -12,14 +12,14 @@ export async function checkOtpData(encryptOTP, inputOTP) {
 
   if (ret === null) {
     return {
-      state: 1,
+      DScode: 1,
       data: null,
       message: 'OTP 확인 중 오류가 발생했어요. 다시 시도해주세요.',
     };
   }
 
   return {
-    state: 0,
+    DScode: 0,
     data: {verified: ret},
     message: 'OTP 확인에 성공했어요.',
   };

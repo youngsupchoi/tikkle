@@ -17,7 +17,7 @@ export async function createSendTikkleData(
     }
   } catch (error) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -49,7 +49,7 @@ export async function createSendTikkleData(
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -61,19 +61,19 @@ export async function createSendTikkleData(
   if (response.status === 403 || response.status === 404) {
     if (response.data.detail_code === '01') {
       return {
-        state: 2,
+        DScode: 2,
         data: null,
         message: '이미 티클링이 종료되었거나 없는 티클링 이에요.',
       };
     } else if (response.data.detail_code === '02') {
       return {
-        state: 2,
+        DScode: 2,
         data: null,
         message: '줄 수 있는 티클링의 한도를 초과해요',
       };
     } else if (response.data.detail_code === '03') {
       return {
-        state: 2,
+        DScode: 2,
         data: null,
         message: '누군가 티클을 보내서 티클을 줄 수 있는 개수가 줄어 버렸어요.',
       };
@@ -82,7 +82,7 @@ export async function createSendTikkleData(
     throw new Error();
   } else if (response.status !== 200) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -103,7 +103,7 @@ export async function createSendTikkleData(
     );
     if (!response_setToken) {
       return {
-        state: 3,
+        DScode: 3,
         data: null,
         message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
@@ -113,7 +113,7 @@ export async function createSendTikkleData(
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {success: true},
     message: suc_message,
   };

@@ -13,7 +13,7 @@ export async function getMyWishlistData() {
     }
   } catch (error) {
     return {
-      state: 3,
+      DScode: 3,
       data: null,
       message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
@@ -35,7 +35,7 @@ export async function getMyWishlistData() {
     }
   } catch (error) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -47,7 +47,7 @@ export async function getMyWishlistData() {
 
   if (response.status !== 200) {
     return {
-      state: 2,
+      DScode: 2,
       data: null,
       message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
@@ -63,7 +63,7 @@ export async function getMyWishlistData() {
     );
     if (!response_setToken) {
       return {
-        state: 3,
+        DScode: 3,
         data: null,
         message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
@@ -73,7 +73,7 @@ export async function getMyWishlistData() {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
+    DScode: 0,
     data: {info: info},
     message: '나의 위시리스트 가져오기에 성공했어요.',
   };
