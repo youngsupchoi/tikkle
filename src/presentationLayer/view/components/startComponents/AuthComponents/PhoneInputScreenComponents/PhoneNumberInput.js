@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
-import {COLOR_BLACK} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  COLOR_BLACK,
+  COLOR_GRAY,
+  COLOR_SEPARATOR,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 
@@ -38,11 +42,12 @@ const styles = StyleSheet.create({
   },
   nativeInput: {
     color: COLOR_GRAY,
-    fontSize: 36, // Adjusted font size
+    fontSize: 28, // Adjusted font size
     fontFamily: B,
     padding: 10, // Added padding for a more spacious feel
     borderBottomWidth: 1, // Added a bottom border for both iOS and Android
     borderBottomColor: COLOR_SEPARATOR,
     color: COLOR_BLACK,
+    width: '80%',
   },
 });

@@ -29,8 +29,10 @@ export default function SignUpScreen1() {
     // post_auth_phoneCheck(phoneNumber).then(res => {
     navigation.navigate('signup2', {
       phoneNumber: phoneNumber,
-      message: res.message,
-      userId: res.userId,
+      // message: res.message,
+      // userId: res.userId,
+      message: 'login',
+      userId: 48,
     });
     // });
   };

@@ -1,5 +1,8 @@
 import React from 'react';
-import {B28} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  B28,
+  M15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {COLOR_GRAY} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 export const InstructionText = () => (
