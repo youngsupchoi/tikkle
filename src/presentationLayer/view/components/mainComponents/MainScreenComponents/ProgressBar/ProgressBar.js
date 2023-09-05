@@ -1,14 +1,17 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {SPACING_2} from '../../Global/Spacing/BaseSpacing';
-import {M11, M15} from '../../Global/Typography/Typography';
+import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  M11,
+  M15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_SECONDARY,
   COLOR_SEPARATOR,
-} from '../../Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import LinearGradient from 'react-native-linear-gradient';
 
 const BarComponent = ({totalPieces, gatheredPieces}) => {

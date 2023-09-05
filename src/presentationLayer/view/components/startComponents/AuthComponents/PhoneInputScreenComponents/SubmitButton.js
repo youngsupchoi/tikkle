@@ -1,12 +1,13 @@
 import React from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {B15} from '../../Global/Typography/Typography';
-import AnimatedButton from '../../Global/Buttons/AnimatedButton';
-import {SPACING_6} from '../../Global/Spacing/BaseSpacing';
-import {COLOR_BLACK, COLOR_GRAY, COLOR_WHITE} from '../../Global/Colors/Colors';
-// import { B15 } from '../../components/Global/Typography/Typography';
-// import { COLOR_BLACK, COLOR_WHITE, COLOR_GRAY } from '../../components/Global/Colors/Colors';
-// import AnimatedButton from '../../Global/Buttons/AnimatedButton';
+import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  COLOR_BLACK,
+  COLOR_GRAY,
+  COLOR_WHITE,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 export const SubmitButton = ({isValidPhoneNumber, onPress}) => (
   <View style={styles.buttonContainer}>

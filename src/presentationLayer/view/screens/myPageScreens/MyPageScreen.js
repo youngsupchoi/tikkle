@@ -17,7 +17,7 @@ import {
   SPACING_3,
   SPACING_4,
   SPACING_6,
-} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B,
   B15,
@@ -31,7 +31,7 @@ import {
   M15,
   M20,
   M22,
-} from '../../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -39,25 +39,25 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
-import BackHeader from '../../../components/Global/Headers/BackHeader';
-import HomeHeader from '../../../components/Global/Headers/HomeHeader';
+import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
+import HomeHeader from 'src/presentationLayer/view/components/globalComponents/Headers/HomeHeader';
 
 import axios from 'axios';
 import {USER_AGENT, BASE_URL} from '@env';
 axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ArrowRight from '../../../assets/icons/ArrowRight';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
-import SecurityUser from '../../../assets/icons/SecurityUser';
-import Receipt1 from '../../../assets/icons/Receipt1';
-import TickSquare from '../../../assets/icons/TickSquare';
-import ProfileHeader from '../../../components/Global/Headers/ProfileHeader';
+import ArrowRight from 'src/assets/icons/ArrowRight';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import SecurityUser from 'src/assets/icons/SecurityUser';
+import Receipt1 from 'src/assets/icons/Receipt1';
+import TickSquare from 'src/assets/icons/TickSquare';
+import ProfileHeader from 'src/presentationLayer/view/components/globalComponents/Headers/ProfileHeader';
 
 export default function ProfileScreen() {
   const [loading, setLoading] = useState(true);

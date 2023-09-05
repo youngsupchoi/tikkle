@@ -10,7 +10,7 @@ import {
   FlatList,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import HomeHeader from '../../components/Global/Headers/HomeHeader';
+import HomeHeader from 'src/presentationLayer/view/components/globalComponents/Headers/HomeHeader';
 import {
   B12,
   B15,
@@ -19,7 +19,7 @@ import {
   B22,
   EB,
   M22,
-} from '../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_ERROR,
@@ -29,41 +29,44 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
-} from '../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   SPACING_2,
   SPACING_3,
   SPACING_4,
-} from '../../components/Global/Spacing/BaseSpacing';
-import FriendsTikklingCarousel from '../../components/Home/FriendsTikklingCarousel/FriendsTikklingCarousel';
-import FriendsEvent from '../../components/Home/FriendsEvent/FriendsEvent';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import FriendsTikklingCarousel from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FriendsTikklingCarousel/FriendsTikklingCarousel';
+// import FriendsTikklingCarousel from 'src/presentationLayer/view/components/Home/FriendsTikklingCarousel/FriendsTikklingCarousel';
+// import FriendsEvent from 'src/presentationLayer/view/components/Home/FriendsEvent/FriendsEvent';
+import FriendsEvent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FriendsEvent/FriendsEvent';
 import {useNavigation} from '@react-navigation/native';
-import {HomeLoader} from '../../components/Global/Skeletons/Skeletons';
-import FirstHero from '../../components/Home/HomeScreen/FirstHero';
-import FirstHeroNotTikkling from '../../components/Home/HomeScreen/FirstHeroNotTikkling';
+import {HomeLoader} from 'src/presentationLayer/view/components/globalComponents/Skeletons/Skeletons';
+import FirstHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FirstHero';
+import FirstHeroNotTikkling from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FirstHeroNotTikkling';
+// import FirstHeroNotTikkling from 'src/presentationLayer/view/components/Home/HomeScreen/FirstHeroNotTikkling';
 import {RefreshControl} from 'react-native-gesture-handler';
-import SecondHero from '../../components/Home/HomeScreen/SecondHero';
-import ThirdHero from '../../components/Home/HomeScreen/ThirdHero';
-import AnimatedButton from '../../components/Global/Buttons/AnimatedButton';
-import ArrowRight from '../../assets/icons/ArrowRight';
-import Add from '../../assets/icons/Add';
-import Detail from '../../assets/icons/Detail';
-import Delete from '../../assets/icons/Delete';
+import SecondHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/SecondHero';
+import ThirdHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ThirdHero';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import ArrowRight from 'src/assets/icons/ArrowRight';
+import Add from 'src/assets/icons/Add';
+import Detail from 'src/assets/icons/Detail';
+import Delete from 'src/assets/icons/Delete';
 import LottieView from 'lottie-react-native';
-import {printTokensFromAsyncStorage} from '../../components/AsyncStorage/printTokensFromAsyncStorage';
-import {get_user_info} from '../../components/Axios/get_user_info';
-import {get_user_checkTikkling} from '../../components/Axios/get_user_checkTikkling';
-import {get_user_myWishlist} from '../../components/Axios/get_user_myWishlist';
-import {get_tikkling_info} from '../../components/Axios/get_tikkling_info';
-import {get_tikkling_friendinfo} from '../../components/Axios/get_tikkling_friendinfo';
-import {get_friend_event} from '../../components/Axios/get_friend_event';
-import {get_user_isNotice} from '../../components/Axios/get_user_isNotice';
-import {put_tikkling_cancel} from '../../components/Axios/put_tikkling_cancel';
-import {put_tikkling_end} from '../../components/Axios/put_tikkling_end';
+// import {printTokensFromAsyncStorage} from 'src/presentationLayer/view/components/AsyncStorage/printTokensFromAsyncStorage';
+// import {get_user_info} from 'src/presentationLayer/view/components/Axios/get_user_info';
+// import {get_user_checkTikkling} from 'src/presentationLayer/view/components/Axios/get_user_checkTikkling';
+// import {get_user_myWishlist} from 'src/presentationLayer/view/components/Axios/get_user_myWishlist';
+// import {get_tikkling_info} from 'src/presentationLayer/view/components/Axios/get_tikkling_info';
+// import {get_tikkling_friendinfo} from 'src/presentationLayer/view/components/Axios/get_tikkling_friendinfo';
+// import {get_friend_event} from 'src/presentationLayer/view/components/Axios/get_friend_event';
+// import {get_user_isNotice} from 'src/presentationLayer/view/components/Axios/get_user_isNotice';
+// import {put_tikkling_cancel} from 'src/presentationLayer/view/components/Axios/put_tikkling_cancel';
+// import {put_tikkling_end} from 'src/presentationLayer/view/components/Axios/put_tikkling_end';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -82,14 +85,14 @@ export default function HomeScreen() {
 
   const onRefresh = () => {
     setRefreshing(true);
-    get_user_checkTikkling({setIsTikkling}).then(res =>
-      res === true ? get_tikkling_info({setMyTikklingData, setLoading}) : null,
-    );
-    get_user_info({setUserData});
-    get_tikkling_friendinfo({setFriendTikklingData});
-    get_user_isNotice({setIsNotice});
-    get_friend_event({setFriendEventData});
-    get_user_myWishlist({setWishlistData, setLoading});
+    // get_user_checkTikkling({setIsTikkling}).then(res =>
+    //   res === true ? get_tikkling_info({setMyTikklingData, setLoading}) : null,
+    // );
+    // get_user_info({setUserData});
+    // get_tikkling_friendinfo({setFriendTikklingData});
+    // get_user_isNotice({setIsNotice});
+    // get_friend_event({setFriendEventData});
+    // get_user_myWishlist({setWishlistData, setLoading});
     setRefreshing(false);
   };
 
@@ -173,14 +176,14 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    get_user_info({setUserData});
-    get_user_checkTikkling({setIsTikkling}).then(res =>
-      res === true ? get_tikkling_info({setMyTikklingData}) : null,
-    );
-    get_tikkling_friendinfo({setFriendTikklingData});
-    get_user_isNotice({setIsNotice});
-    get_friend_event({setFriendEventData});
-    get_user_myWishlist({setWishlistData, setLoading});
+    // get_user_info({setUserData});
+    // get_user_checkTikkling({setIsTikkling}).then(res =>
+    //   res === true ? get_tikkling_info({setMyTikklingData}) : null,
+    // );
+    // get_tikkling_friendinfo({setFriendTikklingData});
+    // get_user_isNotice({setIsNotice});
+    // get_friend_event({setFriendEventData});
+    // get_user_myWishlist({setWishlistData, setLoading});
   }, []);
 
   return (
@@ -445,7 +448,7 @@ export default function HomeScreen() {
                   }}>
                   <B20>위시리스트가 비었어요!</B20>
                   <LottieView
-                    source={require('../../assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
+                    source={require('src/assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
                     autoPlay
                     loop
                     style={{

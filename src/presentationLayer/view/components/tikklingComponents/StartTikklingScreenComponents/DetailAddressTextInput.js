@@ -1,7 +1,7 @@
 import {View, Text, TextInput} from 'react-native';
 import React, {useState} from 'react';
-import {COLOR_GRAY} from '../Global/Colors/Colors';
-import {B} from '../Global/Typography/Typography';
+import {COLOR_GRAY} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 export default function DetailAddressTextInput(props) {
   const {setDetailAddress, detailAddress} = props;

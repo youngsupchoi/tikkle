@@ -19,16 +19,18 @@ import {
   M17,
   M20,
   UNIQUE,
-} from '../../Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 // import {windowWidth} from '../Global/Containers/MainContainer';
-import {windowWidth} from '../../Global/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   SPACING_1,
   SPACING_2,
   SPACING_3,
-} from '../../Global/Spacing/BaseSpacing';
-import BarComponent from '../ProgressBar/ProgressBar';
-import SmallBarComponent from '../ProgressBar/ProgressBarSmall';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+// import BarComponent from '../ProgressBar/ProgressBar';
+import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
+// import SmallBarComponent from '../ProgressBar/ProgressBarSmall';
+import SmallBarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBarSmall';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   COLOR_BLACK,
@@ -37,13 +39,15 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useNavigation} from '@react-navigation/core';
-import HomeCard from '../HomeScreen/HomeCard';
-import FriendsTikklingCard from './FriendsTikklingCard';
-import AnimatedButton from '../../Global/Buttons/AnimatedButton';
-import TimerComponent from '../HomeScreen/HomeTimer';
-import BuyTikkleModal from '../../MyTikkling/BuyTikkleModal';
+// import HomeCard from '../HomeScreen/HomeCard';
+// import FriendsTikklingCard from './FriendsTikklingCard';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+// import TimerComponent from '../HomeScreen/HomeTimer';
+import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
+// import BuyTikkleModal from '../../MyTikkling/BuyTikkleModal';
+import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/BuyTikkleModal';
 
 export default function FriendsTikklingCarousel(data) {
   const [showBuyModal, setShowBuyModal] = useState(false);

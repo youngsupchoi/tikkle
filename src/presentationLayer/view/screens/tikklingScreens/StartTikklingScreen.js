@@ -11,11 +11,12 @@ import {
 } from 'react-native';
 import {Calendar} from 'react-native-calendars'; // Add this import at the beginning of your file
 import {LocaleConfig} from 'react-native-calendars';
-import Image1 from '../../../assets/icons/undraw_watch_application_uhc9.svg';
+// import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
+import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
 import Postcode from '@actbase/react-daum-postcode';
 
-import {USER_AGENT, BASE_URL} from '@env';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
+// import {USER_AGENT, BASE_URL} from '@env';
+// axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 import Modal from 'react-native-modal';
 
 LocaleConfig.locales['fr'] = {
@@ -69,63 +70,43 @@ dayjs.locale('ko'); // set locale to Korean
 
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_1,
   SPACING_2,
   SPACING_3,
-  SPACING_4,
   SPACING_6,
-} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
-  B,
-  B12,
   B15,
-  B17,
   B20,
-  B22,
-  B28,
-  B34,
   EB,
-  M,
   M11,
   M15,
-  M17,
-  M20,
-  M22,
-} from '../../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_SECONDARY,
-  COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
-import BackHeader from '../../../components/Global/Headers/BackHeader';
-import CloseCircle from '../../../assets/icons/CloseCircle';
-import ArrowRight from '../../../assets/icons/ArrowRight';
-import Bubble from '../../../assets/icons/Bubble';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import dayjs from 'dayjs';
 import DatePicker from 'react-native-date-picker';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
+import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Refresh from '../../../assets/icons/Refresh';
-import Information from '../../../assets/icons/Information';
-import Birthday from '../../../assets/icons/undraw_birthday_cake_re_bsw5.svg';
-import Cat from '../../../assets/icons/undraw_cat_epte.svg';
-import SearchNormal1 from '../../../assets/icons/SearchNormal1';
-import Location from '../../../assets/icons/Location';
-import ArrowLeft2 from '../../../assets/icons/ArrowLeft2';
-import DetailAddressInput from '../../../components/StartTikkling/DetailAddressInput';
+import Refresh from 'src/assets/icons/Refresh';
+import Information from 'src/assets/icons/Information';
+import Birthday from 'src/assets/icons/undraw_birthday_cake_re_bsw5.svg';
+import Cat from 'src/assets/icons/undraw_cat_epte.svg';
+import SearchNormal1 from 'src/assets/icons/SearchNormal1';
+import Location from 'src/assets/icons/Location';
+import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 
 const generateMarkedDates = (startDate, endDate) => {
   let dates = {};
@@ -623,7 +604,7 @@ export default function StartTikklingScreen(route) {
                   alignItems: 'center',
                 }}>
                 <Image
-                  source={require('../../../assets/images/TIKKLE_LOGO.png')}
+                  source={require('src/assets/images/TIKKLE_LOGO.png')}
                   style={{
                     width: 100,
                     height: 100,

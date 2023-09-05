@@ -18,7 +18,7 @@ import {
   SPACING_3,
   SPACING_4,
   SPACING_6,
-} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B,
   B12,
@@ -34,7 +34,7 @@ import {
   M15,
   M17,
   M28,
-} from '../../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -44,23 +44,23 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
-import BackHeader from '../../../components/Global/Headers/BackHeader';
+import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
 import LinearGradient from 'react-native-linear-gradient';
-import CloseCircle from '../../../assets/icons/CloseCircle';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
+import CloseCircle from 'src/assets/icons/CloseCircle';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import axios from 'axios';
 import {USER_AGENT, BASE_URL} from '@env';
 axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ArrowLeft from '../../../assets/icons/ArrowLeft';
-import AutoHeightImage from 'react-native-auto-height-image';
-import ArrowRight from '../../../assets/icons/ArrowRight';
+import ArrowLeft from 'src/assets/icons/ArrowLeft';
+// import AutoHeightImage from 'react-native-auto-height-image';
+import ArrowRight from 'src/assets/icons/ArrowRight';
 
 const containerWidth = windowWidth - SPACING_6;
 
@@ -420,12 +420,13 @@ export default function ProductSearchDetailScreen1(route) {
             marginBottom: 200,
           }}>
           {selected === '상세정보' ? (
-            <AutoHeightImage
-              source={{
-                uri: data.thumbnail_image !== null ? data.thumbnail_image : '',
-              }}
-              width={windowWidth}
-            />
+            // <AutoHeightImage
+            //   source={{
+            //     uri: data.thumbnail_image !== null ? data.thumbnail_image : '',
+            //   }}
+            //   width={windowWidth}
+            // />
+            <View />
           ) : (
             <View></View>
           )}

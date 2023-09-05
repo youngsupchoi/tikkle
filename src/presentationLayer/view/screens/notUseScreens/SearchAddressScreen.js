@@ -2,25 +2,25 @@ import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Postcode from '@actbase/react-daum-postcode';
 import {
-  windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+  windowHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
-import BackHeader from '../../../components/Global/Headers/BackHeader';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
-import ArrowLeft from '../../../assets/icons/ArrowLeft';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import {
   HEADER_HEIGHT,
   StatusBarHeight,
-} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {useNavigation} from '@react-navigation/native';
-import ArrowLeft2 from '../../../assets/icons/ArrowLeft2';
-import {B20} from '../../../components/Global/Typography/Typography';
+import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
+import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 export default function SearchAddressScreen(props) {
   const [address, setAddress] = useState('');

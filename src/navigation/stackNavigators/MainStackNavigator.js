@@ -1,12 +1,15 @@
 // mainStack.js
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import BottomTabNavigator from 'src/navigation/tabNavigators/BottomTabNavigator';
 import SplashScreen from 'src/presentationLayer/view/screens/startScreens/SplashScreen';
 import SignUpScreen1 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/PhoneInputScreen';
 import SignUpScreen2 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/PhoneCheckScreen';
 import SignUpScreen3 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/NameInputScreen';
-import SignUpScreen4 from 'src/presentationLayer/view/screens/notUseScreens/FindFriendsByContactsScreen';
+import SignUpScreen4 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/GenderInputScreen';
 import SignUpScreen5 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/BirthDayInputScreen';
 import SignUpScreen6 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/IdInput';
 import StartTikklingScreen from 'src/presentationLayer/view/screens/tikklingScreens/StartTikklingScreen';
@@ -18,6 +21,10 @@ import SearchAddressScreen from 'src/presentationLayer/view/screens/notUseScreen
 import WishlistManagementScreen from 'src/presentationLayer/view/screens/notUseScreens/WishlistManagementScreen';
 import PaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleScreen';
 import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleSuccessScreen';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {Easing} from 'react-native';
+import ProductSearchDetailScreen1 from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
 
 const MainStack = createStackNavigator();
 const MyTheme = {
@@ -26,6 +33,53 @@ const MyTheme = {
     ...DefaultTheme.colors,
     background: COLOR_WHITE,
   },
+};
+
+const customTransitionSpec = {
+  open: {
+    animation: 'timing',
+    config: {
+      duration: 300,
+      easing: Easing.inOut(Easing.ease),
+    },
+  },
+  close: {
+    animation: 'timing',
+    config: {
+      duration: 300,
+      easing: Easing.inOut(Easing.ease),
+    },
+  },
+};
+
+// Define a custom card style interpolator
+const customCardStyleInterpolator = ({current, next, layouts}) => {
+  return {
+    cardStyle: {
+      transform: [
+        {
+          translateX: current.progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [layouts.screen.width, 0], // transition from right to left
+          }),
+        },
+        {
+          scale: next
+            ? next.progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, 0.9],
+              })
+            : 1,
+        },
+      ],
+    },
+    overlayStyle: {
+      opacity: current.progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+      }),
+    },
+  };
 };
 
 export default function MainStackNavigator() {
@@ -76,7 +130,7 @@ export default function MainStackNavigator() {
           name="findFriendsByContacts"
           component={FindFriendsByContactsScreen}
         /> */}
-        <MainStack.Screen
+        {/* <MainStack.Screen
           name="myTikkling"
           component={MyTikklingScreen}
           options={() => ({
@@ -92,8 +146,8 @@ export default function MainStackNavigator() {
               };
             },
           })}
-        />
-        <MainStack.Screen
+        /> */}
+        {/* <MainStack.Screen
           name="friendsTikkling"
           component={FriendsTikklingScreen}
           options={() => ({
@@ -109,7 +163,7 @@ export default function MainStackNavigator() {
               };
             },
           })}
-        />
+        /> */}
         <MainStack.Screen
           name="searchAddress"
           component={SearchAddressScreen}

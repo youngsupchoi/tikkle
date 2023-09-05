@@ -7,24 +7,30 @@ import {
   Platform,
 } from 'react-native';
 import React from 'react';
-import {windowWidth} from '../Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../Colors/Colors';
-import {B17, B20, B22, H1, UNIQUE22} from '../Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  B17,
+  B20,
+  B22,
+  H1,
+  UNIQUE22,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
-import Notification from '../../../assets/icons/Notification.js';
-import HamburgerMenu from '../../../assets/icons/Hambergermenu.js';
+import Notification from 'src/assets/icons/Notification.js';
+import HamburgerMenu from 'src/assets/icons/Hambergermenu.js';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,
   SPACING_2,
-} from '../Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {useNavigation} from '@react-navigation/native';
-import AnimatedButton from '../Buttons/AnimatedButton';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
 export default function WishlistManagementHeader() {
   const navigation = useNavigation();

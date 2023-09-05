@@ -8,17 +8,29 @@ import {
   Animated,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {windowHeight, windowWidth} from '../Global/Containers/MainContainer';
-import {SPACING_1, SPACING_2, SPACING_4} from '../Global/Spacing/BaseSpacing';
+import {
+  windowHeight,
+  windowWidth,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {
+  SPACING_1,
+  SPACING_2,
+  SPACING_4,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../Global/Colors/Colors';
-import {B12, B17, M11, M17} from '../Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  B12,
+  B17,
+  M11,
+  M17,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {useNavigation} from '@react-navigation/native';
-import AnimatedButton from '../Global/Buttons/AnimatedButton';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);

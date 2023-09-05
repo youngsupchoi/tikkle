@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {B12} from '../Global/Typography/Typography';
+import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_PRIMARY,
@@ -15,8 +15,8 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../Global/Colors/Colors';
-import AnimatedButton from '../Global/Buttons/AnimatedButton';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
 const SelectedStateHeader = ({
   scrollY,

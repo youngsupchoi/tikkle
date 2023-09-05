@@ -5,8 +5,8 @@ import {
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-} from '../../Global/Colors/Colors';
-import {B} from '../../Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {useRef} from 'react';
 
 function OTPInput({handleTextChange, inputCode, inputRefs}) {

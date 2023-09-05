@@ -1,14 +1,14 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
-import {B20} from '../../../components/Global/Typography/Typography';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_PRIMARY,
   COLOR_WHITE,
-} from '../../../components/Global/Colors/Colors';
-import {StatusBarHeight} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {useNavigation} from '@react-navigation/native';
-import {windowWidth} from '../../../components/Global/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 export default function PaymentScreen(route) {
   const data = route.route.params;

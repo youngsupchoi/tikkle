@@ -15,14 +15,19 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../Global/Colors/Colors';
-import SearchNormal1 from '../../assets/icons/SearchNormal1';
-import FilterSearch from '../../assets/icons/FilterSearch';
-import {windowWidth} from '../Global/Containers/MainContainer';
-import {B, B12, B15, M} from '../Global/Typography/Typography';
-import AnimatedButton from '../Global/Buttons/AnimatedButton';
-import Refresh from '../../assets/icons/Refresh';
-import ProductSearchChips from './ProductSearchChips';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import SearchNormal1 from 'src/assets/icons/SearchNormal1';
+import FilterSearch from 'src/assets/icons/FilterSearch';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {
+  B,
+  B12,
+  B15,
+  M,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import Refresh from 'src/assets/icons/Refresh';
+import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
 
 export default function ProductSearch(props) {
   const {

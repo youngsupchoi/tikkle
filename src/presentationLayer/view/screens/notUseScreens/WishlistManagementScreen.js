@@ -18,7 +18,7 @@ import {
   SPACING_3,
   SPACING_4,
   SPACING_6,
-} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B,
   B12,
@@ -33,7 +33,7 @@ import {
   M15,
   M17,
   M20,
-} from '../../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -41,22 +41,22 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
-import BackHeader from '../../../components/Global/Headers/BackHeader';
-import CloseCircle from '../../../assets/icons/CloseCircle';
-import {WishlistManagementLoader} from '../../../components/Global/Skeletons/Skeletons';
-import MenuHeader from '../../../components/Global/Headers/MenuHeader';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
+import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
+import CloseCircle from 'src/assets/icons/CloseCircle';
+import {WishlistManagementLoader} from 'src/presentationLayer/view/components/globalComponents/Skeletons/Skeletons';
+import MenuHeader from 'src/presentationLayer/view/components/globalComponents/Headers/MenuHeader';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import axios from 'axios';
 import {USER_AGENT, BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RefreshControl} from 'react-native-gesture-handler';
-import WishlistManagementHeader from '../../../components/Global/Headers/WishlistManagementHeader';
+import WishlistManagementHeader from 'src/presentationLayer/view/components/globalComponents/Headers/WishlistManagementHeader';
 import {Defs, LinearGradient, Path, Stop, Svg} from 'react-native-svg';
 axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 

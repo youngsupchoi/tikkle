@@ -6,22 +6,26 @@ import {
   SPACING_2,
   SPACING_4,
   SPACING_6,
-} from '../../components/Global/Spacing/BaseSpacing';
-import {B15, B28, M} from '../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  B15,
+  B28,
+  M,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_WHITE,
   COLOR_GRAY,
   COLOR_SEPARATOR,
-  COLOR_WHITE,
   backgroundColor,
-} from '../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
-  windowHeight,
   windowWidth,
-} from '../../components/Global/Containers/MainContainer';
+  windowHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import BackIcon from 'src/assets/icons/ArrowLeft2';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
-import BackIcon from '../../assets/icons/ArrowLeft2.js';
-import AnimatedButton from '../../components/Global/Buttons/AnimatedButton';
 
 const SignUpHeader = ({onBackPress}) => {
   return (

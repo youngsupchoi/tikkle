@@ -6,13 +6,22 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../Global/Colors/Colors';
-import {SPACING_1, SPACING_2} from '../../Global/Spacing/BaseSpacing';
-import {B12, B15, B17, M11, M15} from '../../Global/Typography/Typography';
-import Present from '../../../assets/icons/Present.js';
-import {windowWidth} from '../../Global/Containers/MainContainer';
-import AnimatedButton from '../../Global/Buttons/AnimatedButton';
-import MessageQuestion from '../../../assets/icons/MessageQuestion';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  SPACING_1,
+  SPACING_2,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  B12,
+  B15,
+  B17,
+  M11,
+  M15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import Present from 'src/assets/icons/Present.js';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import MessageQuestion from 'src/assets/icons/MessageQuestion';
 
 const FriendsEvents = props => {
   const {friendsEventData} = props;

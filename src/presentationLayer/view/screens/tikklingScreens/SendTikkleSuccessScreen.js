@@ -1,14 +1,18 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import {B20, B34, EB} from '../../../components/Global/Typography/Typography';
-import {StatusBarHeight} from '../../../components/Global/Spacing/BaseSpacing';
+import {
+  B20,
+  B34,
+  EB,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import LottieView from 'lottie-react-native';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {
   COLOR_PRIMARY,
   COLOR_WHITE,
-} from '../../../components/Global/Colors/Colors';
-import {windowWidth} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
 
 export default function PaymentSuccessScreen(route) {
@@ -24,7 +28,7 @@ export default function PaymentSuccessScreen(route) {
       }}>
       <B34 customStyle={{fontFamily: EB}}>티클을 보냈어요!</B34>
       <LottieView
-        source={require('../../../assets/animations/animation_llp1ytgd.json')} // replace with your Lottie file path
+        source={require('src/assets/animations/animation_llp1ytgd.json')} // replace with your Lottie file path
         autoPlay
         loop
         style={{

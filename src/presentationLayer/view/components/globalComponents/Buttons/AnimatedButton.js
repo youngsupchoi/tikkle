@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Animated, StyleSheet} from 'react-native';
-import {usePressAnimation} from '../Animations/UsePressAnimation';
-import {COLOR_GRAY} from '../Colors/Colors';
+import {usePressAnimation} from 'src/presentationLayer/view/components/globalComponents/animations/UsePressAnimation';
+import {COLOR_GRAY} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 const AnimatedButton = ({
   children,

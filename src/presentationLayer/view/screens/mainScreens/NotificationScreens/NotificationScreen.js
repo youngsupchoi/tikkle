@@ -1,65 +1,34 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  FlatList,
-} from 'react-native';
+import {View, Image, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_1,
-  SPACING_2,
-  SPACING_3,
-  SPACING_4,
-  SPACING_6,
-} from '../../../components/Global/Spacing/BaseSpacing';
-import {
-  B,
   B12,
-  B15,
   B17,
-  B20,
-  B22,
-  B28,
-  B34,
-  M,
-  M11,
-  M15,
-  M20,
-  UNIQUE22,
-} from '../../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
+  COLOR_WHITE,
+  COLOR_SEPARATOR,
   COLOR_PRIMARY,
   COLOR_SECONDARY,
-  COLOR_SEPARATOR,
-  COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
-import {
-  windowHeight,
-  windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
-import BackIcon from '../../../assets/icons/ArrowLeft2.js';
-import Setting2 from '../../../assets/icons/Setting2';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
-
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RefreshControl} from 'react-native-gesture-handler';
-import ArrowLeft from '../../../assets/icons/ArrowLeft';
-import Verify from '../../../assets/icons/Verify';
-import Cake from '../../../assets/icons/Cake';
-import Timer from '../../../assets/icons/Timer';
+import Setting2 from 'src/assets/icons/Setting2';
+import ArrowLeft from 'src/assets/icons/ArrowLeft';
+import Verify from 'src/assets/icons/Verify';
+import Cake from 'src/assets/icons/Cake';
+import Timer from 'src/assets/icons/Timer';
+
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+
+// import axios from 'axios';
+// import {USER_AGENT, BASE_URL} from '@env';
+// axios.defaults.headers.common['User-Agent'] = USER_AGENT;
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function NotificationScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -128,9 +97,9 @@ export default function NotificationScreen() {
     }
   }
 
-  useEffect(() => {
-    get_notification_list();
-  }, []);
+  // useEffect(() => {
+  //   get_notification_list();
+  // }, []);
 
   //-------------------------------------------------------------------------
 

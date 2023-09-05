@@ -1,8 +1,14 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {COLOR_PRIMARY, COLOR_SEPARATOR} from '../../Global/Colors/Colors';
-import {SPACING_1, SPACING_2} from '../../Global/Spacing/BaseSpacing';
-import {M11} from '../../Global/Typography/Typography';
+import {
+  COLOR_PRIMARY,
+  COLOR_SEPARATOR,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  SPACING_1,
+  SPACING_2,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {M11} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 const SmallBarComponent = ({totalPieces, gatheredPieces}) => {
   // Calculate the percentage of pieces gathered

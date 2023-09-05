@@ -1,7 +1,8 @@
 import {View, Text, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
-import {windowWidth} from '../Global/Containers/MainContainer';
+// import {windowWidth} from '../Global/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -9,13 +10,24 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../Global/Colors/Colors';
-import AnimatedButton from '../Global/Buttons/AnimatedButton';
-import ArrowLeft2 from '../../assets/icons/ArrowLeft2';
-import SearchNormal1 from '../../assets/icons/SearchNormal1';
-import Location from '../../assets/icons/Location';
-import {B, B15, M11} from '../Global/Typography/Typography';
-import DetailAddressTextInput from './DetailAddressTextInput';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
+import SearchNormal1 from 'src/assets/icons/SearchNormal1';
+import Location from 'src/assets/icons/Location';
+import {
+  B,
+  B15,
+  M11,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import DetailAddressTextInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressTextInput';
+// import AnimatedButton from '../Global/Buttons/AnimatedButton';
+// import ArrowLeft2 from '../../assets/icons/ArrowLeft2';
+// import SearchNormal1 from '../../assets/icons/SearchNormal1';
+// import Location from '../../assets/icons/Location';
+// import {B, B15, M11} from '../Global/Typography/Typography';
+// import DetailAddressTextInput from './DetailAddressTextInput';
+// import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 const DetailAddressInput = props => {
   const {

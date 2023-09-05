@@ -1,65 +1,28 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  Animated,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, Animated} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_1,
   SPACING_2,
-  SPACING_3,
-  SPACING_4,
-  SPACING_6,
-} from '../../../components/Global/Spacing/BaseSpacing';
-import {
-  B,
-  B15,
-  B17,
-  B20,
-  B22,
-  B28,
-  B34,
-  M,
-  M11,
-  M15,
-} from '../../../components/Global/Typography/Typography';
-import {
-  COLOR_BLACK,
-  COLOR_GRAY,
-  COLOR_PRIMARY,
-  COLOR_SECONDARY,
-  COLOR_SEPARATOR,
-  COLOR_WHITE,
-  backgroundColor,
-} from '../../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
-import {useNavigation} from '@react-navigation/native';
-import BackHeader from '../../../components/Global/Headers/BackHeader';
-import CategoryCarousel from '../../../components/ProductSearchLanding/CategoryCarousel';
-import ProductSearch from '../../../components/ProductSearchLanding/ProductSearch';
-import ProductSearchChips from '../../../components/ProductSearchLanding/ProductSearchChips';
-import SearchedProductItems from '../../../components/ProductSearchLanding/SearchedProductItems';
-import MenuHeader from '../../../components/Global/Headers/MenuHeader';
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
-import SelectedStateHeader from '../../../components/ProductSearchLanding/SelectedStateHeader';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
-import {HomeLoader} from '../../components/Global/Skeletons/Skeletons'; // Import the HomeLoader component
-import AsyncStorage from '@react-native-async-storage/async-storage';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import CategoryCarousel from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/CategoryCarousel';
+import ProductSearch from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearch';
+import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
+import SearchedProductItems from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/SearchedProductItems';
+import MenuHeader from 'src/presentationLayer/view/components/globalComponents/Headers/MenuHeader';
+import SelectedStateHeader from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/SelectedStateHeader';
+// import CategoryCarousel from 'src/presentationLayer/view/components/ProductSearchLanding/CategoryCarousel';
+// import ProductSearch from 'src/presentationLayer/view/components/ProductSearchLanding/ProductSearch';
+// import ProductSearchChips from 'src/presentationLayer/view/components/ProductSearchLanding/ProductSearchChips';
+// import SearchedProductItems from 'src/presentationLayer/view/components/ProductSearchLanding/SearchedProductItems';
+// import MenuHeader from 'src/presentationLayer/view/components/globalComponents/Headers/MenuHeader';
+// import SelectedStateHeader from 'src/presentationLayer/view/components/ProductSearchLanding/SelectedStateHeader';
 import {RefreshControl} from 'react-native-gesture-handler';
-import SearchHeader from '../../../components/Global/Headers/SearchHeader';
-import {post_product_list} from '../../../components/Axios/post_product_list';
+// import {post_product_list} from 'src/presentationLayer/view/components/Axios/post_product_list';
 
 export default function ProductSearchLandingScreen(route) {
   useEffect(() => {
@@ -94,32 +57,32 @@ export default function ProductSearchLandingScreen(route) {
   //---------------------------------------------------------------------
   //페이징 관련(페이징)
   const [getNum, setGetNum] = useState(0);
-  useEffect(() => {
-    post_product_list({
-      setSearchedData,
-      categoryId,
-      priceMin,
-      priceMax,
-      sortAttribute,
-      sortWay,
-      search,
-      selectedCategory,
-    });
-  }, [
-    categoryId,
-    priceMin,
-    priceMax,
-    sortAttribute,
-    sortWay,
-    search,
-    selectedCategory,
-  ]);
+  // useEffect(() => {
+  //   post_product_list({
+  //     setSearchedData,
+  //     categoryId,
+  //     priceMin,
+  //     priceMax,
+  //     sortAttribute,
+  //     sortWay,
+  //     search,
+  //     selectedCategory,
+  //   });
+  // }, [
+  //   categoryId,
+  //   priceMin,
+  //   priceMax,
+  //   sortAttribute,
+  //   sortWay,
+  //   search,
+  //   selectedCategory,
+  // ]);
 
   const scrollY = new Animated.Value(0); // Animated value for scroll position
   const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = async () => {
+  const onRefresh = () => {
     setRefreshing(true);
-    await post_product_list();
+    // post_product_list();
     setRefreshing(false);
   };
 

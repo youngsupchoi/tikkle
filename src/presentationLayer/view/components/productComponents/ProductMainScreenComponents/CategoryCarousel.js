@@ -7,18 +7,21 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
-import {B, B12, B15, M11} from '../Global/Typography/Typography';
+import {
+  B,
+  B12,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-} from '../Global/Colors/Colors';
-import AnimatedButton from '../Global/Buttons/AnimatedButton';
-import Image1 from '../../assets/icons/undraw_watch_application_uhc9.svg';
-import Image2 from '../../assets/icons/undraw_gaming_re_cma2.svg';
-import Image3 from '../../assets/icons/undraw_jewelry_iima.svg';
-import Image4 from '../../assets/icons/undraw_studying_re_deca.svg';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
+import Image2 from 'src/assets/icons/undraw_gaming_re_cma2.svg';
+import Image3 from 'src/assets/icons/undraw_jewelry_iima.svg';
+import Image4 from 'src/assets/icons/undraw_studying_re_deca.svg';
 const categories = [
   {
     id: 1,

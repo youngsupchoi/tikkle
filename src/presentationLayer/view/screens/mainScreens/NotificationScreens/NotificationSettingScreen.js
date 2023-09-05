@@ -17,7 +17,7 @@ import {
   SPACING_3,
   SPACING_4,
   SPACING_6,
-} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B,
   B15,
@@ -28,7 +28,7 @@ import {
   B34,
   M,
   M15,
-} from '../../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -36,15 +36,15 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
-import BackIcon from '../../../assets/icons/ArrowLeft2.js';
-import Setting2 from '../../../assets/icons/Setting2';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
+import BackIcon from 'src/assets/icons/ArrowLeft2.js';
+import Setting2 from 'src/assets/icons/Setting2';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
 export default function NotificationSettingScreen() {
   const [notification1Enabled, setNotification1Enabled] = useState(false);

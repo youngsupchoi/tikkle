@@ -1,9 +1,12 @@
 // TimerComponent.js
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {COLOR_ERROR} from '../../Global/Colors/Colors';
-import {M11} from '../../Global/Typography/Typography';
-import {SPACING_2, SPACING_4} from '../../Global/Spacing/BaseSpacing';
+import {COLOR_ERROR} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {M11} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  SPACING_2,
+  SPACING_4,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 
 export default function TimerComponent({initialTime}) {
   const [timeLeft, setTimeLeft] = useState(initialTime);

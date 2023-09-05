@@ -22,7 +22,7 @@ import {
   M17,
   M20,
   M22,
-} from '../../Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -30,7 +30,7 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   SPACING_1,
   SPACING_2,
@@ -38,18 +38,18 @@ import {
   SPACING_4,
   SPACING_5,
   SPACING_6,
-} from '../../Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import LinearGradient from 'react-native-linear-gradient';
-import {windowWidth} from '../../Global/Containers/MainContainer';
-import ShoppingBagAdd1 from '../../../assets/icons/shopping-bag-add-1';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import ShoppingBagAdd1 from 'src/assets/icons/shopping-bag-add-1';
 import LottieView from 'lottie-react-native';
-import AnimatedButton from '../../Global/Buttons/AnimatedButton';
-import Image1 from '../../../assets/icons/undraw_watch_application_uhc9.svg';
-import Image2 from '../../../assets/icons/undraw_gaming_re_cma2.svg';
-import Image3 from '../../../assets/icons/undraw_jewelry_iima.svg';
-import Image4 from '../../../assets/icons/undraw_studying_re_deca.svg';
-import Image5 from '../../../assets/icons/undraw_happy_birthday_re_c16u.svg';
-import Start from '../../../assets/icons/Start';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
+import Image2 from 'src/assets/icons/undraw_gaming_re_cma2.svg';
+import Image3 from 'src/assets/icons/undraw_jewelry_iima.svg';
+import Image4 from 'src/assets/icons/undraw_studying_re_deca.svg';
+import Image5 from 'src/assets/icons/undraw_happy_birthday_re_c16u.svg';
+import Start from 'src/assets/icons/Start';
 
 const imageSize = windowWidth - 2 * SPACING_4;
 const itemWidth = imageSize + 2 * SPACING_2;
@@ -345,7 +345,7 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
               //     />
               //   ) : (
               //     <LottieView
-              //       source={require('../../../assets/loader/animation_ll3b4ync.json')} // replace with your Lottie file path
+              //       source={require('src/assets/loader/animation_ll3b4ync.json')} // replace with your Lottie file path
               //       autoPlay
               //       loop
               //       style={{
@@ -653,7 +653,7 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
               //     />
               //   ) : (
               //     <LottieView
-              //       source={require('../../../assets/loader/animation_ll3b4ync.json')} // replace with your Lottie file path
+              //       source={require('src/assets/loader/animation_ll3b4ync.json')} // replace with your Lottie file path
               //       autoPlay
               //       loop
               //       style={{

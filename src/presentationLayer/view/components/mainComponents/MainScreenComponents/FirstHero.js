@@ -19,7 +19,7 @@ import {
   T,
   UNIQUE,
   UNIQUE22,
-} from '../../Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -29,27 +29,27 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   SPACING_1,
   SPACING_2,
   SPACING_3,
   SPACING_4,
   SPACING_6,
-} from '../../Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import TimerComponent from './HomeTimer';
-import BarComponent from '../../../components/Home/ProgressBar/ProgressBar';
-import {windowWidth} from '../../Global/Containers/MainContainer';
+// import BarComponent from 'src/presentationLayer/view/components/Home/ProgressBar/ProgressBar';
+import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 import Modal from 'react-native-modal';
-import HomeCard from './HomeCard';
 import Share, {Social} from 'react-native-share';
 import {Linking} from 'react-native';
 
 import {captureRef} from 'react-native-view-shot';
 
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
-import AnimatedButton from '../../Global/Buttons/AnimatedButton';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
 import axios from 'axios';
 import {USER_AGENT, BASE_URL} from '@env';
@@ -57,10 +57,10 @@ axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Svg, {Path, Defs, LinearGradient, Stop} from 'react-native-svg';
 import {LinearGradient as RNLinearGradient} from 'react-native-linear-gradient';
-import SearchNormal1 from '../../../assets/icons/SearchNormal1';
-import BuyTikkleModal from '../../MyTikkling/BuyTikkleModal';
+import SearchNormal1 from 'src/assets/icons/SearchNormal1';
+import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/BuyTikkleModal';
 import LottieView from 'lottie-react-native';
-import Location from '../../../assets/icons/Location';
+import Location from 'src/assets/icons/Location';
 
 //-------------------------------------------------------------------------
 
@@ -330,7 +330,7 @@ const FirstHero = props => {
               이제 티클을 상품으로 바꿀 수 있어요.
             </B15>
             <LottieView
-              source={require('../../../assets/animations/PLPjYPq7Vm.json')} // replace with your Lottie file path
+              source={require('src/assets/animations/PLPjYPq7Vm.json')} // replace with your Lottie file path
               autoPlay
               loop
               style={{
@@ -602,7 +602,7 @@ const FirstHero = props => {
 
           <View style={{paddingHorizontal: 8, paddingBottom: 12}}>
             <LottieView
-              source={require('../../../assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
+              source={require('src/assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
               autoPlay
               loop
               style={{

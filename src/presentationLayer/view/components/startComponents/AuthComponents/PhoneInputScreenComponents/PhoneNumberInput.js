@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
-import {
-  COLOR_BLACK,
-  COLOR_GRAY,
-  COLOR_SEPARATOR,
-} from '../../Global/Colors/Colors';
-import {B} from '../../Global/Typography/Typography';
-import {SPACING_6} from '../../Global/Spacing/BaseSpacing';
+import {COLOR_BLACK} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 
 export const PhoneNumberInput = ({onPhoneNumberChange}) => {
   const [phoneNumber, setPhoneNumber] = useState('');

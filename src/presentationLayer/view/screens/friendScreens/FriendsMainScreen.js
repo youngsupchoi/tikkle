@@ -16,7 +16,7 @@
 //   SPACING_3,
 //   SPACING_4,
 //   SPACING_6,
-// } from '../../../components/Global/Spacing/BaseSpacing';
+// } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 // import {
 //   B,
 //   B15,
@@ -28,7 +28,7 @@
 //   M,
 //   M11,
 //   M15,
-// } from '../../../components/Global/Typography/Typography';
+// } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 // import {
 //   COLOR_BLACK,
 //   COLOR_GRAY,
@@ -37,31 +37,31 @@
 //   COLOR_SEPARATOR,
 //   COLOR_WHITE,
 //   backgroundColor,
-// } from '../../../components/Global/Colors/Colors';
+// } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 // import {
 //   windowHeight,
 //   windowWidth,
-// } from '../../../components/Global/Containers/MainContainer';
-// import LongFilledButton from '../../../components/Global/Buttons/LongFilledButton';
+// } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+// import LongFilledButton from 'src/presentationLayer/view/components/globalComponents/Buttons/LongFilledButton';
 // import {useNavigation} from '@react-navigation/native';
-// import BackIcon from '../../../assets/icons/ArrowLeft2.js';
-// import FriendsList from '../../../assets/icons/Profile2User.js';
-// import SearchNewFriends from '../../../assets/icons/Globalsearch.js';
-// import DeletedFriendsList from '../../../assets/icons/ProfileDelete.js';
-// import Refresh from '../../../assets/icons/Refresh';
+// import BackIcon from 'src/assets/icons/ArrowLeft2.js';
+// import FriendsList from 'src/assets/icons/Profile2User.js';
+// import SearchNewFriends from 'src/assets/icons/Globalsearch.js';
+// import DeletedFriendsList from 'src/assets/icons/ProfileDelete.js';
+// import Refresh from 'src/assets/icons/Refresh';
 // import FriendsManagementSearch1 from '../../../components/FriendsManagement/FriendsManagementSearch1';
 // import FriendsManagementList1 from '../../../components/FriendsManagement/FriendsManagementList1';
-// import BackHeader from '../../../components/Global/Headers/BackHeader';
-// import MenuHeader from '../../../components/Global/Headers/MenuHeader';
-// import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
+// import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
+// import MenuHeader from 'src/presentationLayer/view/components/globalComponents/Headers/MenuHeader';
+// import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 // import axios from 'axios';
 // import {USER_AGENT, BASE_URL} from '@env';
 // axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {RefreshControl} from 'react-native-gesture-handler';
 // import FriendsSearchingList from '../../../components/FriendsManagement/FriendsSearchingList';
-// import CloseCircle from '../../../assets/icons/CloseCircle';
-// import FriendsManagementHeader from '../../../components/Global/Headers/FriendsManagementHeader';
+// import CloseCircle from 'src/assets/icons/CloseCircle';
+// import FriendsManagementHeader from 'src/presentationLayer/view/components/globalComponents/Headers/FriendsManagementHeader';
 
 // export default function FriendsManagementScreen() {
 //   const [refreshing, setRefreshing] = useState(false);
@@ -572,27 +572,27 @@ import React, {useEffect, useState, useRef} from 'react';
 import {
   HEADER_HEIGHT,
   StatusBarHeight,
-} from '../../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../../../components/Global/Colors/Colors';
-import SearchNormal1 from '../../../assets/icons/SearchNormal1';
-import AnimatedButton from '../../../components/Global/Buttons/AnimatedButton';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import SearchNormal1 from 'src/assets/icons/SearchNormal1';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {
   windowHeight,
   windowWidth,
-} from '../../../components/Global/Containers/MainContainer';
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   B,
   B12,
   B15,
   B17,
-} from '../../../components/Global/Typography/Typography';
-import Detail from '../../../assets/icons/Detail';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import Detail from 'src/assets/icons/Detail';
 import axios from 'axios';
 import {USER_AGENT, BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';

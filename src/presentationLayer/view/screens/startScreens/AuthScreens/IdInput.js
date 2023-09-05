@@ -7,7 +7,7 @@ import {
   SPACING_2,
   SPACING_4,
   SPACING_6,
-} from '../../components/Global/Spacing/BaseSpacing';
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B15,
   B28,
@@ -15,25 +15,25 @@ import {
   M15,
   M17,
   M34,
-} from '../../components/Global/Typography/Typography';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
+  COLOR_WHITE,
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
-  COLOR_WHITE,
   backgroundColor,
-} from '../../components/Global/Colors/Colors';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
-  windowHeight,
   windowWidth,
-} from '../../components/Global/Containers/MainContainer';
+  windowHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
-import BackIcon from '../../assets/icons/ArrowLeft2.js';
-import AnimatedButton from '../../components/Global/Buttons/AnimatedButton';
-import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
-import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
-import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
+import BackIcon from 'src/assets/icons/ArrowLeft2';
+// import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
+// import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
+// import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
 
 export default function SignUpScreen6({route}) {
   // const {firstName, lastName, name, gender, birthday, phoneNumber} =
@@ -57,30 +57,30 @@ export default function SignUpScreen6({route}) {
   };
 
   const buttonPress = async () => {
-    const responseData = await post_auth_registerUser(
-      name,
-      birthday,
-      userId,
-      phoneNumber,
-      gender,
-    );
-    if (responseData.success) {
-      console.log(responseData.data);
-      try {
-        await post_auth_tokenGenerate(responseData.data);
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'findFriendsByContacts',
-              params: {updated: new Date().toString()},
-            },
-          ],
-        });
-      } catch (error) {
-        console.error('Error saving data to AsyncStorage:', error);
-      }
-    }
+    // const responseData = await post_auth_registerUser(
+    //   name,
+    //   birthday,
+    //   userId,
+    //   phoneNumber,
+    //   gender,
+    // );
+    // if (responseData.success) {
+    //   console.log(responseData.data);
+    //   try {
+    //     await post_auth_tokenGenerate(responseData.data);
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'main',
+          params: {updated: new Date().toString()},
+        },
+      ],
+    });
+    // } catch (error) {
+    //   console.error('Error saving data to AsyncStorage:', error);
+    // }
+    // }
   };
 
   const userIdRef = useRef(null); // Create a ref
@@ -95,17 +95,17 @@ export default function SignUpScreen6({route}) {
     setValidationMessage(validityMessage);
   }, [userId]);
 
-  useEffect(() => {
-    if (validationMessage === 'Valid') {
-      const duplicityMessage = post_auth_IdDuplicationCheck(
-        userId,
-        setDuplicationMessage,
-      );
-      setDuplicationMessage(duplicityMessage);
-    } else {
-      setDuplicationMessage(''); // Clear the duplication message if the format is not valid
-    }
-  }, [userId]);
+  // useEffect(() => {
+  //   if (validationMessage === 'Valid') {
+  //     const duplicityMessage = post_auth_IdDuplicationCheck(
+  //       userId,
+  //       setDuplicationMessage,
+  //     );
+  //     setDuplicationMessage(duplicityMessage);
+  //   } else {
+  //     setDuplicationMessage(''); // Clear the duplication message if the format is not valid
+  //   }
+  // }, [userId]);
 
   function validateUserId(userId) {
     const MIN_LENGTH = 5;

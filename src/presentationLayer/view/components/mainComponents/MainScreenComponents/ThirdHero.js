@@ -8,21 +8,27 @@ import {
   Image,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {B15, B17, B22, M20, M22} from '../../Global/Typography/Typography';
+import {
+  B15,
+  B17,
+  B22,
+  M20,
+  M22,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_PRIMARY,
   COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-} from '../../Global/Colors/Colors';
-import {windowWidth} from '../../Global/Containers/MainContainer';
-import AnimatedButton from '../../Global/Buttons/AnimatedButton';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {WithLocalSvg} from 'react-native-svg';
-import Image1 from '../../../assets/icons/undraw_wishlist_re_m7tv.svg';
-import Image2 from '../../../assets/icons/undraw_online_wishes_dlmr.svg';
-import Welcome from '../../../assets/icons/undraw_welcome_cats_thqn.svg';
-import ArrowRight from '../../../assets/icons/ArrowRight';
+import Image1 from 'src/assets/icons/undraw_wishlist_re_m7tv.svg';
+import Image2 from 'src/assets/icons/undraw_online_wishes_dlmr.svg';
+import Welcome from 'src/assets/icons/undraw_welcome_cats_thqn.svg';
+import ArrowRight from 'src/assets/icons/ArrowRight';
 
 export default function ThirdHero() {
   const [activePage, setActivePage] = useState(0);

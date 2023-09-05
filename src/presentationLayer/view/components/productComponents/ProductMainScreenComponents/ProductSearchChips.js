@@ -7,14 +7,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {B12, B15, M11} from '../Global/Typography/Typography';
+// import {B12, B15, M11} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  B12,
+  B15,
+  M11,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../Global/Colors/Colors';
-import AnimatedButton from '../Global/Buttons/AnimatedButton';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 const categories = [
   {
     id: 1,

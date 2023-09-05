@@ -20,8 +20,8 @@ import {
   M,
   M15,
   M20,
-} from '../Global/Typography/Typography';
-import Bubble from '../../assets/icons/Bubble';
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import Bubble from 'src/assets/icons/Bubble';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -29,12 +29,12 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
-} from '../Global/Colors/Colors';
-import DollarCircle from '../../assets/icons/DollarCircle';
-import CloseCircle from '../../assets/icons/CloseCircle';
-import {SPACING_2} from '../Global/Spacing/BaseSpacing';
-import {windowWidth} from '../Global/Containers/MainContainer';
-import AnimatedButton from '../Global/Buttons/AnimatedButton';
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import DollarCircle from 'src/assets/icons/DollarCircle';
+import CloseCircle from 'src/assets/icons/CloseCircle';
+import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import axios from 'axios';
 import {USER_AGENT, BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
