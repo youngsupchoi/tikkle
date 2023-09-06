@@ -13,9 +13,9 @@ export async function getProductInfoData(productId) {
     }
   } catch (error) {
     return {
-      state: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DScode: 3,
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -38,9 +38,9 @@ export async function getProductInfoData(productId) {
     }
   } catch (error) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -49,15 +49,15 @@ export async function getProductInfoData(productId) {
   //------ control result & error of post_product_info-----------------------------------------//
   if (response.status === 400) {
     return {
-      state: 1,
-      data: null,
-      message: '검색어가 비어있거나 오류가있어요.',
+      DScode: 1,
+      DSdata: null,
+      DSmessage: '검색어가 비어있거나 오류가있어요.',
     };
   } else if (response.status !== 200) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
   const info = response.data.data;
@@ -71,9 +71,9 @@ export async function getProductInfoData(productId) {
     );
     if (!response_setToken) {
       return {
-        state: 3,
-        data: null,
-        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+        DScode: 3,
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
     }
   }
@@ -99,8 +99,8 @@ export async function getProductInfoData(productId) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
-    data: {info: info},
-    message: '상품정보 로드에 성공했어요.',
+    DScode: 0,
+    DSdata: {info: info},
+    DSmessage: '상품정보 로드에 성공했어요.',
   };
 }

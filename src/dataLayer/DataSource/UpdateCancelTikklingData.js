@@ -13,9 +13,9 @@ export async function updateCancelTikklingData(tikkling_id) {
     }
   } catch (error) {
     return {
-      state: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DScode: 3,
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -38,9 +38,9 @@ export async function updateCancelTikklingData(tikkling_id) {
     }
   } catch (error) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -49,27 +49,27 @@ export async function updateCancelTikklingData(tikkling_id) {
   //------ control result & error of put_tikkling_cancel-----------------------------------------//
   if (response.status === 400) {
     return {
-      state: 2,
-      data: null,
-      message: '이미 종료된 티클링 이에요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '이미 종료된 티클링 이에요.',
     };
   } else if (response.status === 401) {
     return {
-      state: 2,
-      data: null,
-      message: '받은 티클이 생겨서 티클링을 취소할 수 없어요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '받은 티클이 생겨서 티클링을 취소할 수 없어요.',
     };
   } else if (response.status === 404) {
     return {
-      state: 2,
-      data: null,
-      message: '존재하지 않는 티클링 이에요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '존재하지 않는 티클링 이에요.',
     };
   } else if (response.status !== 200) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -82,9 +82,9 @@ export async function updateCancelTikklingData(tikkling_id) {
     );
     if (!response_setToken) {
       return {
-        state: 3,
-        data: null,
-        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+        DScode: 3,
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
     }
   }
@@ -92,8 +92,8 @@ export async function updateCancelTikklingData(tikkling_id) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
-    data: {success: true},
-    message: '성공적으로 티클링이 취소 되었습니다.',
+    DScode: 0,
+    DSdata: {success: true},
+    DSmessage: '성공적으로 티클링이 취소 되었습니다.',
   };
 }

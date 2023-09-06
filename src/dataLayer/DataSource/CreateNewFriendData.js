@@ -13,9 +13,9 @@ export async function createNewFriendData(friendId) {
     }
   } catch (error) {
     return {
-      state: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DScode: 3,
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -38,9 +38,9 @@ export async function createNewFriendData(friendId) {
     }
   } catch (error) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -51,22 +51,22 @@ export async function createNewFriendData(friendId) {
   if (response.status === 400) {
     if (response.data.detail_code === '00') {
       return {
-        state: 1,
-        data: null,
-        message: '자신과는 친구 등록을 할 수 없어요.',
+        DScode: 1,
+        DSdata: null,
+        DSmessage: '자신과는 친구 등록을 할 수 없어요.',
       };
     } else {
       return {
-        state: 2,
-        data: null,
-        message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+        DScode: 2,
+        DSdata: null,
+        DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
       };
     }
   } else if (response.status !== 200) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -87,9 +87,9 @@ export async function createNewFriendData(friendId) {
     );
     if (!response_setToken) {
       return {
-        state: 3,
-        data: null,
-        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+        DScode: 3,
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
     }
   }
@@ -97,8 +97,8 @@ export async function createNewFriendData(friendId) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
-    data: null,
-    message: message,
+    DScode: 0,
+    DSdata: null,
+    DSmessage: message,
   };
 }

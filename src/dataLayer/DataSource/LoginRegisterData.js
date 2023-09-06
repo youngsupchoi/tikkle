@@ -24,9 +24,9 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
     }
   } catch (error) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -53,15 +53,15 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
     }
 
     return {
-      state: 1,
-      data: null,
-      message: message,
+      DScode: 1,
+      DSdata: null,
+      DSmessage: message,
     };
   } else if (response.status !== 200) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -79,9 +79,9 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
     }
   } catch (error) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -92,21 +92,21 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
   if (response2.status === 400) {
     // input data error
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   } else if (response2.status === 404) {
     return {
-      state: 1,
-      data: null,
-      message: '삭제되었거나 등록되지 않은 사용자의 전화번호에요.',
+      DScode: 1,
+      DSdata: null,
+      DSmessage: '삭제되었거나 등록되지 않은 사용자의 전화번호에요.',
     };
   } else if (response2.status !== 200) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -119,9 +119,9 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
     );
     if (!response_setToken) {
       return {
-        state: 2,
-        data: null,
-        message:
+        DScode: 2,
+        DSdata: null,
+        DSmessage:
           '디바이스에 로그인 데이터 저장시 오류가 발생했어요. 다시 시도해주세요.',
       };
     }
@@ -130,8 +130,8 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
-    data: {success: true},
-    message: '로그인에 성공했어요.',
+    DScode: 0,
+    DSdata: {success: true},
+    DSmessage: '로그인에 성공했어요.',
   };
 }

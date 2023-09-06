@@ -20,9 +20,9 @@ export async function checkNickDuplicationData(nick) {
     }
   } catch (error) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -33,16 +33,16 @@ export async function checkNickDuplicationData(nick) {
   if (response.status === 400) {
     // input data error
     return {
-      state: 1,
-      data: null,
-      message:
+      DScode: 1,
+      DSdata: null,
+      DSmessage:
         '입력하신 닉네임의 형식이 올바르지 않아요. 형식에 맞추어 다시 시도해주세요.',
     };
   } else if (response.status !== 200) {
     return {
-      state: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -57,10 +57,10 @@ export async function checkNickDuplicationData(nick) {
   //------ return response ------------------------------------------------//
 
   return {
-    state: 0,
-    data: {
+    DScode: 0,
+    DSdata: {
       nick_valid: nick_valid,
     },
-    message: '입력하신 닉네임은 사용 가능해요.',
+    DSmessage: '입력하신 닉네임은 사용 가능해요.',
   };
 }
