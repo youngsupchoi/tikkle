@@ -3,7 +3,7 @@ import {getToken} from '../APIModel/GetToken';
 import {resetToken} from '../APIModel/ResetToken';
 
 export async function getProductListData(
-  category_id,
+  categoryId,
   priceMin,
   priceMax,
   sortAttribute,
@@ -35,7 +35,7 @@ export async function getProductListData(
   //------ call post_product_list -------------------------------------------------------//
   let response;
   const body = {
-    category_id: category_id,
+    category_id: categoryId,
     priceMin: priceMin,
     priceMax: priceMax,
     sortAttribute: sortAttribute,
