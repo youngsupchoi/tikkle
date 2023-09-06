@@ -76,7 +76,7 @@ export async function createSendTikkleData(
         DScode: 2,
         DSdata: null,
         DSmessage:
-          '누군가 티클을 보내서 티클을 줄 수 있는 개수가 줄어 버렸어요.',
+          '누군가 티클을 보내서 티클을 줄 수 있는 개수가 줄었어요.',
       };
     }
 
@@ -92,7 +92,7 @@ export async function createSendTikkleData(
   //티켓 받은 메시지 추가
   let suc_message = '티클을 성공적으로 보냈어요.';
   if (response.data.detail_code === '03') {
-    suc_message = '티클을 보내서 티클링 티켓을 받았어요.';
+    suc_message = '티클을 보내고 티클링 티켓을 받았어요.';
   }
 
   //------ update token ---------------------------------------------------//
@@ -102,13 +102,6 @@ export async function createSendTikkleData(
       response.data.returnToken,
       authorization,
     );
-    if (!response_setToken) {
-      return {
-        DScode: 3,
-        DSdata: null,
-        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
-      };
-    }
   }
 
   //------ return response ------------------------------------------------//

@@ -55,7 +55,7 @@ export async function updateCancelTikklingData(tikkling_id) {
     };
   } else if (response.status === 401) {
     return {
-      DScode: 2,
+      DScode: 1,
       DSdata: null,
       DSmessage: '받은 티클이 생겨서 티클링을 취소할 수 없어요.',
     };
@@ -80,13 +80,6 @@ export async function updateCancelTikklingData(tikkling_id) {
       response.data.returnToken,
       authorization,
     );
-    if (!response_setToken) {
-      return {
-        DScode: 3,
-        DSdata: null,
-        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
-      };
-    }
   }
 
   //------ return response ------------------------------------------------//

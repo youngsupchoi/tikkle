@@ -98,9 +98,9 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
     };
   } else if (response2.status === 404) {
     return {
-      DScode: 1,
+      DScode: 2,
       DSdata: null,
-      DSmessage: '삭제되었거나 등록되지 않은 사용자의 전화번호에요.',
+      DSmessage: '사용자의 정보를 찾을 수 없어요.',
     };
   } else if (response2.status !== 200) {
     return {

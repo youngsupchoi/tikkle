@@ -70,7 +70,7 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
     }
   } catch (error) {
     return {
-      DScode: 2,
+      DScode: 1,
       DSdata: null,
       DSmessage:
         '입력하신 전화번호로 메세지 전송에 실패했어요. 다시 시도해주세요.',
@@ -82,7 +82,7 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
   if (response.status !== 200) {
     // input data error
     return {
-      DScode: 2,
+      DScode: 1,
       DSdata: null,
       DSmessage:
         '입력하신 전화번호로 메세지 전송에 실패했어요. 다시 시도해주세요.',
