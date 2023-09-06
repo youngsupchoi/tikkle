@@ -51,3 +51,69 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+
+// import React, {useState, useRef} from 'react';
+// import {TextInput, View, Animated, Platform, StyleSheet} from 'react-native';
+
+// export const PhoneNumberInput = () => {
+//   const [isFocused, setIsFocused] = useState(false);
+//   const focusAnim = useRef(new Animated.Value(0)).current;
+
+//   const handleFocus = () => {
+//     setIsFocused(true);
+//     Animated.timing(focusAnim, {
+//       toValue: 1,
+//       duration: 200,
+//       useNativeDriver: false,
+//     }).start();
+//   };
+
+//   const handleBlur = () => {
+//     setIsFocused(false);
+//     Animated.timing(focusAnim, {
+//       toValue: 0,
+//       duration: 200,
+//       useNativeDriver: false,
+//     }).start();
+//   };
+
+//   const borderBottomColor = focusAnim.interpolate({
+//     inputRange: [0, 1],
+//     outputRange: ['#ddd', '#444'],
+//   });
+
+//   return (
+//     <View style={styles.container}>
+//       <Animated.View
+//         style={{
+//           ...styles.inputWrapper,
+//           borderBottomColor: borderBottomColor,
+//         }}>
+//         <TextInput
+//           placeholder="전화번호를 입력하세요"
+//           style={styles.textInput}
+//           onFocus={handleFocus}
+//           onBlur={handleBlur}
+//           keyboardType="phone-pad"
+//           maxLength={13}
+//         />
+//       </Animated.View>
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     padding: 10,
+//   },
+//   inputWrapper: {
+//     borderBottomWidth: 1.5,
+//   },
+//   textInput: {
+//     height: 40,
+//     fontSize: 16,
+//     paddingVertical: Platform.OS === 'ios' ? 10 : 0,
+//   },
+// });
+
+// export default NativeTextInput;
