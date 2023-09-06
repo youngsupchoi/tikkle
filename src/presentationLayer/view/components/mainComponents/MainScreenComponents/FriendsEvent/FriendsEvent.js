@@ -37,8 +37,25 @@ const FriendsEvents = props => {
     sortedData[formatDate(date)] = [];
   }
 
+  function getUpcomingBirthday(birthdayString) {
+    const today = new Date();
+    const birthday = new Date(birthdayString);
+
+    // 현재 연도의 해당 날짜로 설정
+    birthday.setFullYear(today.getFullYear());
+
+    // 만약 현재 연도의 생일이 이미 지나갔다면, 다음 연도로 설정
+    if (today > birthday) {
+      birthday.setFullYear(today.getFullYear() + 1);
+    }
+
+    return birthday.toISOString();
+  }
+
   friendsEventData.forEach(friend => {
-    const diff = calculateDifference(friend.birthday);
+    console.log('friend: ', friend);
+    const diff = calculateDifference(getUpcomingBirthday(friend.birthday));
+    console.log('diff: ', diff);
     switch (diff) {
       case 0:
         sortedData['오늘'].push(friend);
@@ -50,50 +67,15 @@ const FriendsEvents = props => {
         if (diff < 7) {
           const date = new Date(friend.birthday);
           const key = formatDate(date);
-          sortedData[key].push(friend);
+          if (sortedData[key]) {
+            sortedData[key].push(friend);
+          } else {
+            console.warn(`Key ${key} not found in sortedData`);
+          }
         }
         break;
     }
   });
-
-  const todayData = friendsEventData.filter(
-    friend => calculateDifference(friend.birthday) === 0,
-  );
-  const tomorrowData = friendsEventData.filter(
-    friend => calculateDifference(friend.birthday) === 1,
-  );
-  const upcomingData = friendsEventData.filter(
-    friend => calculateDifference(friend.birthday) > 1,
-  );
-  const renderItem = (event, index) => (
-    <View key={index} style={styles.itemContainer}>
-      <View style={styles.leftContainer}>
-        <View style={styles.line} />
-        <Image
-          resizeMode="cover"
-          style={styles.profileImage}
-          source={{
-            uri:
-              event.profileImage !== ''
-                ? event.profileImage
-                : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-          }}
-        />
-        <M15 customStyle={styles.eventText}>@{event.userID}님의 생일</M15>
-      </View>
-      <AnimatedButton style={styles.rightContainer}>
-        <Present
-          width={24}
-          height={24}
-          stroke={COLOR_PRIMARY}
-          strokeWidth={1.6}
-          scale={1.2}
-        />
-
-        <M11 customStyle={{color: COLOR_PRIMARY}}>선물하기</M11>
-      </AnimatedButton>
-    </View>
-  );
 
   //==============================================================================
   //util
@@ -116,64 +98,7 @@ const FriendsEvents = props => {
     return diffInDays;
   }
 
-  ////==============================================================================
-
-  // Group the events by date
-  // const groupedEvents = friendsEventData.friendsEventData.reduce(
-  //   (groups, event) => {
-  //     const date = event.date;
-  //     if (!groups[date]) {
-  //       groups[date] = [];
-  //     }
-  //     groups[date].push(event);
-  //     return groups;
-  //   },
-  //   {},
-  // );
-
-  // // Get today's date
-  // const today = new Date().toISOString().slice(0, 10);
-
-  // // Get the date for tomorrow and the day after tomorrow
-  // const tomorrow = new Date();
-  // tomorrow.setDate(tomorrow.getDate() + 1);
-  // const dayAfterTomorrow = new Date();
-  // dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
-
-  // const formatDate = date => {
-  //   const options = {month: 'short', day: 'numeric'};
-  //   return new Date(date).toLocaleDateString(undefined, options);
-  // };
-
   return (
-    // <View style={styles.container}>
-    //   {console.log(friendsEventData)}
-    //   {groupedEvents[today] && (
-    //     <View style={styles.sectionContainer}>
-    //       <B17>오늘</B17>
-    //       {groupedEvents[today].map((event, index) => renderItem(event, index))}
-    //     </View>
-    //   )}
-
-    //   {groupedEvents[tomorrow.toISOString().slice(0, 10)] && (
-    //     <View style={styles.sectionContainer}>
-    //       <B17>내일</B17>
-    //       {groupedEvents[tomorrow.toISOString().slice(0, 10)].map(
-    //         (event, index) => renderItem(event, index),
-    //       )}
-    //     </View>
-    //   )}
-
-    //   {groupedEvents[dayAfterTomorrow.toISOString().slice(0, 10)] && (
-    //     <View style={styles.sectionContainer}>
-    //       <B17>모레</B17>
-    //       {groupedEvents[dayAfterTomorrow.toISOString().slice(0, 10)].map(
-    //         (event, index) => renderItem(event, index),
-    //       )}
-    //     </View>
-    //   )}
-    // </View>
-
     <View>
       {Object.entries(sortedData).map(([key, value], index) => {
         if (value.length > 0) {
