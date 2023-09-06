@@ -102,9 +102,9 @@ export async function getMyTikklingData() {
     };
   } else if (response2.status === 404) {
     return {
-      DScode: 1,
-      DSdata: null,
-      DSmessage: '티클링이 종료되었거나 등록되지 않은 티클링에요.',
+      DScode: 0,
+      DSdata: {is_tikkling: false},
+      DSmessage: '진행중인 티클링이 없어요.',
     };
   } else if (response2.status !== 200) {
     return {

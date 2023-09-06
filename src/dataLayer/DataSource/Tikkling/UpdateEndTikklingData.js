@@ -55,7 +55,7 @@ export async function updateEndTikklingData(tikkling_id) {
     };
   } else if (response.status === 403) {
     return {
-      DScode: 2,
+      DScode: 1,
       DSdata: null,
       DSmessage:
         '받은 티클이 없으면 티클링을 종료할 수 없어요. 티클링을 취소 해주세요',

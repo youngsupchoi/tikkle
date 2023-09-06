@@ -3,11 +3,14 @@ import bcrypt from 'react-native-bcrypt';
 export async function checkOtpData(encryptOTP, inputOTP) {
   const isMatch = bcrypt.compareSync(inputOTP, encryptOTP);
   let ret = null;
+  let returnMessage;
 
   if (isMatch) {
     ret = true;
+    returnMessage = 'OTP가 일치해요.';
   } else {
     ret = false;
+    returnMessage = 'OTP가 일치하지 않아요.';
   }
 
   if (ret === null) {
@@ -21,6 +24,6 @@ export async function checkOtpData(encryptOTP, inputOTP) {
   return {
     DScode: 0,
     DSdata: {verified: ret},
-    DSmessage: 'OTP 확인에 성공했어요.',
+    DSmessage: returnMessage,
   };
 }
