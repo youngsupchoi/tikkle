@@ -67,7 +67,7 @@ export default function ProductSearchLandingScreen(route) {
       sortAttribute,
       sortWay,
       search,
-      selectedCategory,
+      getNum,
     );
     getProductListData({
       categoryId,
@@ -76,17 +76,9 @@ export default function ProductSearchLandingScreen(route) {
       sortAttribute,
       sortWay,
       search,
-      selectedCategory,
+      getNum,
     }).then(res => console.log(res));
-  }, [
-    categoryId,
-    priceMin,
-    priceMax,
-    sortAttribute,
-    sortWay,
-    search,
-    selectedCategory,
-  ]);
+  }, [categoryId, priceMin, priceMax, sortAttribute, sortWay, search, getNum]);
 
   const scrollY = new Animated.Value(0); // Animated value for scroll position
   const [refreshing, setRefreshing] = useState(false);
