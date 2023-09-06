@@ -14,8 +14,8 @@ export async function createMyInquireData(title, content) {
   } catch (error) {
     return {
       DScode: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -40,8 +40,8 @@ export async function createMyInquireData(title, content) {
   } catch (error) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -51,8 +51,8 @@ export async function createMyInquireData(title, content) {
   if (response.status !== 200) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -66,8 +66,8 @@ export async function createMyInquireData(title, content) {
     if (!response_setToken) {
       return {
         DScode: 3,
-        data: null,
-        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
     }
   }
@@ -76,7 +76,7 @@ export async function createMyInquireData(title, content) {
 
   return {
     DScode: 0,
-    data: {success: true},
-    message: '문의 메일 전송에 성공했어요.',
+    DSdata: {success: true},
+    DSmessage: '문의 메일 전송에 성공했어요.',
   };
 }

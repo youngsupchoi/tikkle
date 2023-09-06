@@ -14,8 +14,8 @@ export async function getNoticeListData() {
   } catch (error) {
     return {
       DScode: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -41,8 +41,8 @@ export async function getNoticeListData() {
   } catch (error) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -53,8 +53,8 @@ export async function getNoticeListData() {
   if (response.status !== 200) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -70,8 +70,8 @@ export async function getNoticeListData() {
     if (!response_setToken) {
       return {
         DScode: 3,
-        data: null,
-        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
     }
   }
@@ -80,7 +80,7 @@ export async function getNoticeListData() {
 
   return {
     DScode: 0,
-    data: {info: info},
-    message: '나의 알림 정보 가져오기에 성공했어요.',
+    DSdata: {info: info},
+    DSmessage: '나의 알림 정보 가져오기에 성공했어요.',
   };
 }

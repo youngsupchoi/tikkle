@@ -21,8 +21,8 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
   } catch (error) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -34,15 +34,15 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
     // input data error
     return {
       DScode: 1,
-      data: null,
-      message:
+      DSdata: null,
+      DSmessage:
         '입력하신 전화번호의 형식이 올바르지 않아요. ' - ' 없이 입력해주세요.',
     };
   } else if (response.status !== 200) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -71,8 +71,8 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
   } catch (error) {
     return {
       DScode: 2,
-      data: null,
-      message:
+      DSdata: null,
+      DSmessage:
         '입력하신 전화번호로 메세지 전송에 실패했어요. 다시 시도해주세요.',
     };
   }
@@ -83,8 +83,8 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
     // input data error
     return {
       DScode: 2,
-      data: null,
-      message:
+      DSdata: null,
+      DSmessage:
         '입력하신 전화번호로 메세지 전송에 실패했어요. 다시 시도해주세요.',
     };
   }
@@ -93,11 +93,11 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
 
   return {
     DScode: 0,
-    data: {
+    DSdata: {
       encrypted_otp: response2.data.data,
       userId: userId,
       login_or_signup: login_or_signup,
     },
-    message: '메세지 전송에 성공했어요. OTP를 입력해주세요.',
+    DSmessage: '메세지 전송에 성공했어요. OTP를 입력해주세요.',
   };
 }

@@ -14,8 +14,8 @@ export async function loginTokenData() {
   } catch (error) {
     return {
       DScode: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -36,8 +36,8 @@ export async function loginTokenData() {
   } catch (error) {
     return {
       DScode: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -52,8 +52,8 @@ export async function loginTokenData() {
   ) {
     return {
       DScode: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -67,8 +67,8 @@ export async function loginTokenData() {
     if (!response_setToken) {
       return {
         DScode: 3,
-        data: null,
-        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
     }
   }
@@ -77,7 +77,7 @@ export async function loginTokenData() {
 
   return {
     DScode: 0,
-    data: {login: true},
-    message: '로그인에 성공했어요.',
+    DSdata: {login: true},
+    DSmessage: '로그인에 성공했어요.',
   };
 }

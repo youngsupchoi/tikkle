@@ -14,8 +14,8 @@ export async function createNewFriendData(friendId) {
   } catch (error) {
     return {
       DScode: 3,
-      data: null,
-      message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DSdata: null,
+      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -39,8 +39,8 @@ export async function createNewFriendData(friendId) {
   } catch (error) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -52,21 +52,21 @@ export async function createNewFriendData(friendId) {
     if (response.data.detail_code === '00') {
       return {
         DScode: 1,
-        data: null,
-        message: '자신과는 친구 등록을 할 수 없어요.',
+        DSdata: null,
+        DSmessage: '자신과는 친구 등록을 할 수 없어요.',
       };
     } else {
       return {
         DScode: 2,
-        data: null,
-        message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+        DSdata: null,
+        DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
       };
     }
   } else if (response.status !== 200) {
     return {
       DScode: 2,
-      data: null,
-      message: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
 
@@ -88,8 +88,8 @@ export async function createNewFriendData(friendId) {
     if (!response_setToken) {
       return {
         DScode: 3,
-        data: null,
-        message: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
       };
     }
   }
@@ -98,7 +98,7 @@ export async function createNewFriendData(friendId) {
 
   return {
     DScode: 0,
-    data: null,
-    message: message,
+    DSdata: null,
+    DSmessage: message,
   };
 }
