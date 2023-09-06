@@ -15,9 +15,9 @@ export const useCustomViewModel = () => {
   //const [exampleData, setExampleData] = useState([]);
 
   //default
-  //TODO: 에러 처리
+  //TODO: 에러 처리 함수
 
-  //TODO: 성공 처리
+  //TODO: 성공 처리 함수
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const fetchExample = async () => {
