@@ -98,6 +98,28 @@ export async function createTikklingData(
       response.data.returnToken,
       authorization,
     );
+    if (!response_setToken) {
+      return {
+        DScode: 3,
+        DSdata: null,
+        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      };
+    }
+  }
+
+  //------ call post_notification_send -------------------------------------------------------//
+
+  const body3 = {receive_user_id: null, notification_type_id: 3};
+
+  try {
+    const response3 = await apiModel(
+      'post_notification_send',
+      authorization,
+      body3,
+      null,
+    );
+  } catch (error) {
+    console.log('send notification failed');
   }
 
   //------ return response ------------------------------------------------//
