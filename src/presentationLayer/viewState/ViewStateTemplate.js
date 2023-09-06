@@ -16,16 +16,22 @@ export const useCustomViewState = () => {
 //provider작명규칙 - view이름 + Provider
 export const CustomViewStateProvider = ({children}) => {
   // 3. 필요한 상태 추가하기
+  const [message, setMessage] = useState('');
+  const [DScode, setDScode] = useState(-1);
   const [exampleState, setExampleState] = useState(null);
   // ... 다른 상태들
 
   const state = {
     exampleState,
+    message,
+    DScode,
     // ... 다른 상태들
   };
 
   const actions = {
     setExampleState,
+    setMessage,
+    setDScode,
     // ... 다른 상태 설정 함수들
   };
 
