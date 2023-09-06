@@ -69,13 +69,6 @@ export async function getProductInfoData(productId) {
       response.data.returnToken,
       authorization,
     );
-    if (!response_setToken) {
-      return {
-        DScode: 3,
-        DSdata: null,
-        DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
-      };
-    }
   }
 
   //------ call put_product_viewIncrease -------------------------------------------------------//
