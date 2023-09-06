@@ -47,11 +47,14 @@ export async function checkNickDuplicationData(nick) {
   }
 
   let nick_valid;
+  let returnMessage;
 
   if (response.data.detail_code === '10') {
     nick_valid = true;
+    returnMessage = '입력하신 닉네임은 사용 가능해요.';
   } else if (response.data.detail_code === '11') {
     nick_valid = false;
+    returnMessage = '입력하신 닉네임은 이미 사용 중이에요.';
   }
 
   //------ return response ------------------------------------------------//
@@ -61,6 +64,6 @@ export async function checkNickDuplicationData(nick) {
     DSdata: {
       nick_valid: nick_valid,
     },
-    DSmessage: '입력하신 닉네임은 사용 가능해요.',
+    DSmessage: returnMessage,
   };
 }
