@@ -22,6 +22,7 @@ import SelectedStateHeader from 'src/presentationLayer/view/components/productCo
 // import MenuHeader from 'src/presentationLayer/view/components/globalComponents/Headers/MenuHeader';
 // import SelectedStateHeader from 'src/presentationLayer/view/components/ProductSearchLanding/SelectedStateHeader';
 import {RefreshControl} from 'react-native-gesture-handler';
+import {getProductListData} from 'src/dataLayer/DataSource/GetProductListData';
 // import {post_product_list} from 'src/presentationLayer/view/components/Axios/post_product_list';
 
 export default function ProductSearchLandingScreen(route) {
@@ -57,32 +58,50 @@ export default function ProductSearchLandingScreen(route) {
   //---------------------------------------------------------------------
   //페이징 관련(페이징)
   const [getNum, setGetNum] = useState(0);
-  // useEffect(() => {
-  //   post_product_list({
-  //     setSearchedData,
-  //     categoryId,
-  //     priceMin,
-  //     priceMax,
-  //     sortAttribute,
-  //     sortWay,
-  //     search,
-  //     selectedCategory,
-  //   });
-  // }, [
-  //   categoryId,
-  //   priceMin,
-  //   priceMax,
-  //   sortAttribute,
-  //   sortWay,
-  //   search,
-  //   selectedCategory,
-  // ]);
+  useEffect(() => {
+    console.log(
+      'inputData:',
+      categoryId,
+      priceMin,
+      priceMax,
+      sortAttribute,
+      sortWay,
+      search,
+      selectedCategory,
+    );
+    getProductListData({
+      categoryId,
+      priceMin,
+      priceMax,
+      sortAttribute,
+      sortWay,
+      search,
+      selectedCategory,
+    }).then(res => console.log(res));
+  }, [
+    categoryId,
+    priceMin,
+    priceMax,
+    sortAttribute,
+    sortWay,
+    search,
+    selectedCategory,
+  ]);
 
   const scrollY = new Animated.Value(0); // Animated value for scroll position
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = () => {
     setRefreshing(true);
     // post_product_list();
+    getProductListData(
+      categoryId,
+      priceMin,
+      priceMax,
+      sortAttribute,
+      sortWay,
+      search,
+      getNum,
+    );
     setRefreshing(false);
   };
 
