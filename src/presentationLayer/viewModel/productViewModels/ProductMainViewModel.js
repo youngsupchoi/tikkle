@@ -5,15 +5,7 @@ import {useMainViewState} from '../../viewState/mainStates/MainState';
 import {useProductMainViewState} from 'src/presentationLayer/viewState/productStates/ProductMainState';
 
 // 2. 데이터 소스 또는 API 가져오기
-import {get_user_info} from 'src/components/Axios/get_user_info';
-import {get_user_checkTikkling} from 'src/components/Axios/get_user_checkTikkling';
-import {get_user_myWishlist} from 'src/components/Axios/get_user_myWishlist';
-import {get_tikkling_info} from 'src/components/Axios/get_tikkling_info';
-import {get_tikkling_friendinfo} from 'src/components/Axios/get_tikkling_friendinfo';
-import {get_friend_event} from 'src/components/Axios/get_friend_event';
-import {get_user_isNotice} from 'src/components/Axios/get_user_isNotice';
-import {put_tikkling_cancel} from 'src/components/Axios/put_tikkling_cancel';
-import {put_tikkling_end} from 'src/components/Axios/put_tikkling_end';
+import {getProductListData} from 'src/dataLayer/DataSource/GetProductListData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {

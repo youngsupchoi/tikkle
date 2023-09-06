@@ -57,10 +57,9 @@ export default function ProductSearchLandingScreen(route) {
 
   //---------------------------------------------------------------------
   //페이징 관련(페이징)
-  const [getNum, setGetNum] = useState(0);
+  const [getNum, setGetNum] = useState(1);
   useEffect(() => {
-    console.log(
-      'inputData:',
+    getProductListData(
       categoryId,
       priceMin,
       priceMax,
@@ -68,16 +67,7 @@ export default function ProductSearchLandingScreen(route) {
       sortWay,
       search,
       getNum,
-    );
-    getProductListData({
-      categoryId,
-      priceMin,
-      priceMax,
-      sortAttribute,
-      sortWay,
-      search,
-      getNum,
-    }).then(res => console.log(res));
+    ).then(res => setSearchedData(res.DSdata.info));
   }, [categoryId, priceMin, priceMax, sortAttribute, sortWay, search, getNum]);
 
   const scrollY = new Animated.Value(0); // Animated value for scroll position
@@ -93,7 +83,7 @@ export default function ProductSearchLandingScreen(route) {
       sortWay,
       search,
       getNum,
-    );
+    ).then(res => setSearchedData(res.DSdata.info));
     setRefreshing(false);
   };
 
