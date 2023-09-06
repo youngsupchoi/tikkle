@@ -25,6 +25,7 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {Easing} from 'react-native';
 import ProductSearchDetailScreen1 from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 
 const MainStack = createStackNavigator();
 const MyTheme = {
@@ -96,7 +97,15 @@ export default function MainStackNavigator() {
         }}>
         <MainStack.Screen name="splash" component={SplashScreen} />
         {/* <MainStack.Screen name="signupNotUsed" component={SignUpNotUsedScreen} /> */}
-        <MainStack.Screen name="signup1" component={SignUpScreen1} />
+        <MainStack.Screen
+          name="signup1"
+          component={() => (
+            //TODO: 여기 코드 더 간단하게 쓸 수 있지 않을까 너무 많은 반복이 있음
+            <StartViewStateProvider>
+              <SignUpScreen1 />
+            </StartViewStateProvider>
+          )}
+        />
         <MainStack.Screen name="signup2" component={SignUpScreen2} />
         <MainStack.Screen name="signup3" component={SignUpScreen3} />
         <MainStack.Screen name="signup4" component={SignUpScreen4} />
