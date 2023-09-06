@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updateFriendBlockData(friend_id) {
+export async function updateFriendUnlockData(friend_id) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -28,7 +28,7 @@ export async function updateFriendBlockData(friend_id) {
   let response;
   const body = {
     friend_id: friend_id,
-    blocked: false,
+    blocked: true,
   };
 
   try {
