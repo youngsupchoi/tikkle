@@ -92,6 +92,25 @@ export async function createPhoneFriendData(phone_list) {
     );
   }
 
+
+
+ //------ call post_notification_send -------------------------------------------------------//
+
+ const body3 = {receive_user_id: null, notification_type_id: 1,};
+
+ try {
+   const response3 = await apiModel(
+     'post_notification_send',
+     authorization,
+     body3,
+     null,
+   );
+ } catch (error) {
+   console.log("send notification failed");
+ }
+
+
+ 
   //------ return response ------------------------------------------------//
 
   return {
