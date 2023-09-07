@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {getHash, startOtpListener} from 'react-native-otp-verify';
 import {verifyOTP} from 'src/components/Axios/OTPVerification';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
-import {useStartViewState} from 'src/presentationLayer/viewState/startStates/AuthState';
+import { useStartViewState } from 'src/presentationLayer/viewState/startStates/AuthState';
 
 // 2. 데이터 소스 또는 API 가져오기
 import {checkPhoneNumberData} from 'src/dataLayer/DataSource/CheckPhoneNumberData';
@@ -15,35 +15,57 @@ export const useStartViewModel = () => {
   const navigation = useNavigation();
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useStartViewState();
-
+ 
+  
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
-  const [hash, setHash] = useState();
+  
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onPhoneNumberChange = (number, isValid) => {
     actions.setPhoneNumber(number);
+    console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
     actions.setIsValidPhoneNumber(isValid);
+    
   };
 
-  const buttonPress = () => {
-    post_auth_phoneCheck(state.phoneNumber).then(res => {
-      navigation.navigate('signup2', {
-        phoneNumber: state.phoneNumber,
-        message: res.message,
-        userId: res.userId,
-      });
-    });
+  const phoneInputbuttonPress = async () => {
+    
+    /* .then( async res => {
+
+      console.log("start1")
+      await actions.setMessage(res.message)
+      console.log("🚀 ~ file: AuthViewModel.js:35 ~ post_auth_phoneCheck ~ res.message:", res.message)
+      await actions.setUserId(res.userId);
+      console.log("🚀 ~ file: AuthViewModel.js:37 ~ post_auth_phoneCheck ~ res.userId:", res.userId)
+      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
+
+      await actions.setPhoneNumber("12341234");
+      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
+
+      
+    }).then(() => {
+      console.log("start2");
+      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
+      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.userId:", state.userId)
+      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.message:", state.message)
+      navigation.navigate('signup2');
+      }); */
+    const res = await post_auth_phoneCheck(state.phoneNumber)
+    await actions.setUserId(res.userId);
+    await actions.setMessage(res.message);
+
   };
 
-  const phoneAuth = () => {
+  const phoneAuth = (phoneNumber) => {
+    
     getHash().then(hash => {
-      setHash(hash);
-      get_auth_makeOtp(state.phoneNumber, hash).then(res => actions.setEncryptedOTP(res));
+    actions.setHash(hash);
+      get_auth_makeOtp(phoneNumber, hash).then(res => actions.setEncryptedOTP(res));
     });
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);
       if (message) {
-        setInputCode(message[0].split(''));
+        actions.setInputCode(message[0].split(''));
       }
       const timer = setInterval(decreaseTime, 1000);
       return () => clearInterval(timer);
@@ -52,7 +74,7 @@ export const useStartViewModel = () => {
   const handleTextChange = async (text, index) => {
     const newInputCode = [...inputCode];
     newInputCode[index] = text;
-    setInputCode(newInputCode);
+    actions.setInputCode(newInputCode);
 
     if (text.length === 1 && index < 5) {
       inputRefs.current[index + 1].focus();
@@ -114,11 +136,12 @@ export const useStartViewModel = () => {
     },
     actions: {
       ...actions,
-      buttonPress,
+      phoneInputbuttonPress,
       onPhoneNumberChange,
       handleTextChange,
       checkOTPEqual,
       phoneAuth,
+      navigation
     },
   };
 };

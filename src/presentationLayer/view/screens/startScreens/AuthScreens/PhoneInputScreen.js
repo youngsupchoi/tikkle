@@ -23,11 +23,8 @@ export default function SignUpScreen1() {
     <View style={styles.signupContainer}>
       <View style={styles.signUpHeader}></View>
       <InstructionText />
-      <PhoneNumberInput onPhoneNumberChange={actions.onPhoneNumberChange} />
-      <SubmitButton
-        isValidPhoneNumber={state.isValidPhoneNumber}
-        onPress={actions.buttonPress}
-      />
+      <PhoneNumberInput />
+      <SubmitButton />
     </View>
   );
 }

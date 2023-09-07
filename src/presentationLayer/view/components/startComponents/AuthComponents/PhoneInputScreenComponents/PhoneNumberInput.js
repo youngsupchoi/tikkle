@@ -7,10 +7,11 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export const PhoneNumberInput = ({onPhoneNumberChange}) => {
-  const [phoneNumber, setPhoneNumber] = useState('');
+export const PhoneNumberInput = () => {
 
+  const {ref, state, actions} = useStartViewModel();
   const validatePhoneNumber = number => /^010\d{8}$/.test(number);
 
   return (
@@ -23,10 +24,11 @@ export const PhoneNumberInput = ({onPhoneNumberChange}) => {
         style={styles.nativeInput}
         underlineColorAndroid="transparent"
         clearButtonMode="while-editing"
-        value={phoneNumber}
+        value={state.phoneNumber}
         onChangeText={text => {
-          setPhoneNumber(text);
-          onPhoneNumberChange(text, validatePhoneNumber(text));
+          /* actions.setPhoneNumber(text); */
+          console.log(text);
+          actions.onPhoneNumberChange(text, validatePhoneNumber(text));
         }}
       />
     </View>

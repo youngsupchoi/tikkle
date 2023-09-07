@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
@@ -8,17 +8,34 @@ import {
   COLOR_GRAY,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export const SubmitButton = ({isValidPhoneNumber, onPress}) => (
+
+
+export const SubmitButton = () => {
+  const {state, actions} = useStartViewModel();
+
+  useEffect(() => {
+
+    if (state.message && state.userId){
+      console.log("🚀 ~ file: SubmitButton.js:20 ~ useEffect ~ state.userId:", state.userId)
+      console.log("🚀 ~ file: SubmitButton.js:20 ~ useEffect ~ state.message:", state.message)
+      console.log("🚀 ~ file: SubmitButton.js:24 ~ useEffect ~ state.phoneNumber:", state.phoneNumber)
+      actions.navigation.navigate('signup2');
+    }
+  }, [state.message, state.userId]);
+
+  
+  return (
   <View style={styles.buttonContainer}>
     <AnimatedButton
-      onPress={onPress}
-      style={[styles.button, !isValidPhoneNumber && styles.disabledButton]}
-      disabled={!isValidPhoneNumber}>
+      onPress={actions.phoneInputbuttonPress}
+      style={[styles.button, !state.isValidPhoneNumber && styles.disabledButton]}
+      disabled={!state.isValidPhoneNumber}>
       <B15 customStyle={{color: COLOR_WHITE}}>인증번호 전송</B15>
     </AnimatedButton>
   </View>
-);
+)};
 
 const styles = StyleSheet.create({
   buttonContainer: {

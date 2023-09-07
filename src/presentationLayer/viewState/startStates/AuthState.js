@@ -18,8 +18,11 @@ export const StartViewStateProvider = ({children}) => {
   // 3. 필요한 상태 추가하기
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('init');
   const [encryptedOTP, setEncryptedOTP] = useState();
+  const [message, setMessage] = useState('');
+  const [userId, setUserId] = useState();
+  const [hash, setHash] = useState();
   const inputRefs = useRef([]);
 
   const ref = {
@@ -30,14 +33,20 @@ export const StartViewStateProvider = ({children}) => {
     isValidPhoneNumber,
     inputCode,
     phoneNumber,
-    encryptedOTP
+    encryptedOTP,
+    message,
+    userId,
+    hash,
   };
 
   const actions = {
     setIsValidPhoneNumber,
     setInputCode,
     setPhoneNumber,
-    setEncryptedOTP
+    setEncryptedOTP,
+    setMessage,
+    setUserId,
+    setHash,
   };
 
   return (
