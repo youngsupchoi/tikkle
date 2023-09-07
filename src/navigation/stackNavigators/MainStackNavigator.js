@@ -84,6 +84,20 @@ const customCardStyleInterpolator = ({current, next, layouts}) => {
 };
 
 export default function MainStackNavigator() {
+  function SignUpWrapper1() {
+    return (
+      <StartViewStateProvider>
+        <SignUpScreen1 />
+      </StartViewStateProvider>
+    );
+  }
+  function SignUpWrapper2() {
+    return (
+      <StartViewStateProvider>
+        <SignUpScreen2 />
+      </StartViewStateProvider>
+    );
+  }
   return (
     <NavigationContainer theme={MyTheme}>
       <MainStack.Navigator
@@ -97,15 +111,7 @@ export default function MainStackNavigator() {
         }}>
         <MainStack.Screen name="splash" component={SplashScreen} />
         {/* <MainStack.Screen name="signupNotUsed" component={SignUpNotUsedScreen} /> */}
-        <MainStack.Screen
-          name="signup1"
-          component={() => (
-            //TODO: 여기 코드 더 간단하게 쓸 수 있지 않을까 너무 많은 반복이 있음
-            <StartViewStateProvider>
-              <SignUpScreen1 />
-            </StartViewStateProvider>
-          )}
-        />
+        <MainStack.Screen name="signup1" component={SignUpWrapper1} />
         <MainStack.Screen name="signup2" component={SignUpScreen2} />
         <MainStack.Screen name="signup3" component={SignUpScreen3} />
         <MainStack.Screen name="signup4" component={SignUpScreen4} />

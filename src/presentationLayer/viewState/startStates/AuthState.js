@@ -19,6 +19,7 @@ export const StartViewStateProvider = ({children}) => {
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [encryptedOTP, setEncryptedOTP] = useState();
   const inputRefs = useRef([]);
 
   const ref = {
@@ -29,12 +30,14 @@ export const StartViewStateProvider = ({children}) => {
     isValidPhoneNumber,
     inputCode,
     phoneNumber,
+    encryptedOTP
   };
 
   const actions = {
     setIsValidPhoneNumber,
     setInputCode,
     setPhoneNumber,
+    setEncryptedOTP
   };
 
   return (

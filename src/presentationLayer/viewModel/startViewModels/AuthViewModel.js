@@ -17,19 +17,18 @@ export const useStartViewModel = () => {
   const {ref, state, actions} = useStartViewState();
 
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [hash, setHash] = useState();
-  const [encryptedOTP, setEncryptedOTP] = useState();
+
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onPhoneNumberChange = (number, isValid) => {
-    setPhoneNumber(number);
+    actions.setPhoneNumber(number);
     actions.setIsValidPhoneNumber(isValid);
   };
 
   const buttonPress = () => {
-    post_auth_phoneCheck(phoneNumber).then(res => {
+    post_auth_phoneCheck(state.phoneNumber).then(res => {
       navigation.navigate('signup2', {
-        phoneNumber: phoneNumber,
+        phoneNumber: state.phoneNumber,
         message: res.message,
         userId: res.userId,
       });
@@ -39,7 +38,7 @@ export const useStartViewModel = () => {
   const phoneAuth = () => {
     getHash().then(hash => {
       setHash(hash);
-      get_auth_makeOtp(phoneNumber, hash).then(res => setEncryptedOTP(res));
+      get_auth_makeOtp(state.phoneNumber, hash).then(res => actions.setEncryptedOTP(res));
     });
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);
@@ -64,7 +63,7 @@ export const useStartViewModel = () => {
       console.log('All 6 slots are filled!');
 
       try {
-        const isOTPValid = await verifyOTP(encryptedOTP, fullCode, message);
+        const isOTPValid = await verifyOTP(state.encryptedOTP, fullCode, message);
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
           if (message === 'login') {
@@ -83,7 +82,7 @@ export const useStartViewModel = () => {
                 {
                   name: 'signup3',
                   params: {
-                    phoneNumber: phoneNumber,
+                    phoneNumber: state.phoneNumber,
                     updated: new Date().toString(),
                   },
                 },
