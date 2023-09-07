@@ -1,41 +1,16 @@
+import {View, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
+import React, {useEffect} from 'react';
+import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  FlatList,
-} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_1,
-  SPACING_2,
-  SPACING_3,
-  SPACING_4,
-  SPACING_6,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import {
-  B,
   B15,
   B17,
   B20,
-  B22,
-  B28,
-  B34,
-  M,
   M11,
   M15,
-  M20,
-  M22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
-  COLOR_PRIMARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -45,12 +20,7 @@ import {
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
-import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
-import HomeHeader from 'src/presentationLayer/view/components/globalComponents/Headers/HomeHeader';
 
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
@@ -59,181 +29,29 @@ import Receipt1 from 'src/assets/icons/Receipt1';
 import TickSquare from 'src/assets/icons/TickSquare';
 import ProfileHeader from 'src/presentationLayer/view/components/globalComponents/Headers/ProfileHeader';
 
+import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
+
 export default function ProfileScreen() {
-  const [loading, setLoading] = useState(true);
-
-  //-------------------------------------------------------------------------
-  //토큰 가져오기
-  const printTokensFromAsyncStorage = async () => {
-    try {
-      const tokens = await AsyncStorage.getItem('tokens');
-
-      if (tokens !== null) {
-        const token = tokens;
-        const {accessToken} = JSON.parse(token);
-        const {refreshToken} = JSON.parse(token);
-        const authorization = `${refreshToken},${accessToken}`;
-        return authorization;
-      } else {
-        console.log('No tokens');
-      }
-    } catch (error) {
-      console.error('Error retrieving tokens', error);
-    }
-  };
-
-  //-------------------------------------------------------------------------
-  //프로필 정보 가져오기
-  const [userData, setUserData] = useState({
-    image:
-      'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-    name: '',
-    nick: '',
-  });
-
-  async function get_user_info() {
-    try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_user_info`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data && response.data.data) {
-        console.log(response.data.data);
-        setUserData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
-    } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('get wishlist [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('get wishlist response data : ', error.response.data);
-      }
-    }
-  }
-  //-------------------------------------------------------------------------
-  //프로필 정보 가져오기
-  const [endTikklingsData, setEndTikklingData] = useState([]);
-
-  async function get_user_endTikklings() {
-    try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_user_endTikklings`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data && response.data.data) {
-        setEndTikklingData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
-    } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('get wishlist [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('get wishlist response data : ', error.response.data);
-      }
-    }
-  }
-  //-------------------------------------------------------------------------
-  //프로필 정보 가져오기
-  const [paymentHistoryData, setPaymentHistoryData] = useState([]);
-
-  async function get_user_paymentHistory() {
-    try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_user_paymentHistory`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data && response.data.data) {
-        setPaymentHistoryData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
-    } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('get wishlist [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('get wishlist response data : ', error.response.data);
-      }
-    }
-  }
+  const {ref, state, actions} = useMyPageViewModel();
 
   useEffect(() => {
-    get_user_info();
-    get_user_endTikklings();
-    get_user_paymentHistory;
+    actions.get_user_info();
+    actions.get_user_endTikklings();
+    actions.get_user_paymentHistory();
   }, []);
 
   useEffect(() => {
-    setLoading(false);
-  }, [userData, endTikklingsData, paymentHistoryData]);
-
-  //util==============================================================================================
-
-  const calculateDaysUntilNextBirthday = birthdayString => {
-    const currentDate = new Date();
-
-    const birthDate = new Date(birthdayString);
-
-    // Set the birthDate to this year or next year
-    const nextBirthday = new Date(
-      currentDate.getFullYear(),
-      birthDate.getMonth(),
-      birthDate.getDate(),
-    );
-
-    if (currentDate > nextBirthday) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-    }
-
-    const timeDiff = nextBirthday - currentDate;
-    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-
-    return dayDiff;
-  };
-
-  function formatDate(isoDateString) {
-    const date = new Date(isoDateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0 indexed, hence +1
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  }
+    actions.setLoading_profile(false);
+  }, [
+    state.userData_profile,
+    state.endTikklingsData,
+    state.paymentHistoryData,
+  ]);
 
   //==============================================================================================
 
-  if (!userData) return <ActivityIndicator size="large" color="#0000ff" />;
+  if (!state.userData_profile)
+    return <ActivityIndicator size="large" color="#0000ff" />;
   const navigation = useNavigation();
 
   return (
@@ -241,7 +59,7 @@ export default function ProfileScreen() {
       stickyHeaderIndices={[0]}
       style={{backgroundColor: backgroundColor}}>
       <ProfileHeader>Profile</ProfileHeader>
-      {loading ? null : (
+      {state.loading_profile ? null : (
         <View>
           <View style={{}}>
             <AnimatedButton
@@ -298,19 +116,22 @@ export default function ProfileScreen() {
                     resizeMode="contain"
                     source={{
                       uri:
-                        userData.image ||
+                        state.userData_profile.image ||
                         'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
                     }}
                     style={{width: 48, height: 48, borderRadius: 60}}
                   />
 
                   <View style={{alignItems: 'flex-start', marginLeft: 16}}>
-                    <B17>{userData.name}님</B17>
+                    <B17>{state.userData_profile.name}님</B17>
                     <M15 customStyle={{color: COLOR_GRAY}}>
-                      @{userData.nick}
+                      @{state.userData_profile.nick}
                     </M15>
                     <M11 customStyle={{color: COLOR_GRAY}}>
-                      생일이 {calculateDaysUntilNextBirthday(userData.birthday)}
+                      생일이{' '}
+                      {actions.calculateDaysUntilNextBirthday(
+                        state.userData_profile.birthday,
+                      )}
                       일 남았어요.
                     </M11>
                   </View>
@@ -366,9 +187,9 @@ export default function ProfileScreen() {
                 paddingTop: 24,
                 // backgroundColor: 'red',
               }}>
-              {endTikklingsData.length > 0 ? (
+              {state.endTikklingsData.length > 0 ? (
                 <FlatList
-                  data={endTikklingsData}
+                  data={state.endTikklingsData}
                   showsHorizontalScrollIndicator={false}
                   horizontal
                   ItemSeparatorComponent={() => {
@@ -409,7 +230,7 @@ export default function ProfileScreen() {
                         </M11>
                         <B15 customStyle={{}}>{item.product_name}</B15>
                         <M11 customStyle={{color: COLOR_GRAY}}>
-                          {formatDate(item.created_at)}
+                          {actions.formatDate(item.created_at)}
                         </M11>
                       </AnimatedButton>
                     );
@@ -476,10 +297,10 @@ export default function ProfileScreen() {
                 paddingTop: 24,
                 // backgroundColor: 'red',
               }}>
-              {console.log('paymentHistory', paymentHistoryData)}
-              {paymentHistoryData.length > 0 ? (
+              {console.log('paymentHistory', state.paymentHistoryData)}
+              {state.paymentHistoryData.length > 0 ? (
                 <FlatList
-                  data={paymentHistoryData}
+                  data={state.paymentHistoryData}
                   showsHorizontalScrollIndicator={false}
                   horizontal
                   ItemSeparatorComponent={() => {
@@ -520,7 +341,7 @@ export default function ProfileScreen() {
                         </M11>
                         <B15 customStyle={{}}>{item.product_name}</B15>
                         <M11 customStyle={{color: COLOR_GRAY}}>
-                          {formatDate(item.created_at)}
+                          {actions.formatDate(item.created_at)}
                         </M11>
                       </AnimatedButton>
                     );
