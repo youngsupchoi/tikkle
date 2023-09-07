@@ -7,14 +7,9 @@ import {
   SPACING_4,
   SPACING_6,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import {
-  B15,
-  B28,
-  M,
-} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
-  COLOR_WHITE,
   COLOR_GRAY,
   COLOR_SEPARATOR,
   backgroundColor,
@@ -25,7 +20,6 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {useNavigation} from '@react-navigation/native';
 
 export default function SignUpHeader({onBackPress}) {
   const PaginationComponent = () => {
@@ -88,69 +82,5 @@ const styles = StyleSheet.create({
     height: 8,
     marginHorizontal: 6,
     borderRadius: 4,
-  },
-  instructionContainer: {
-    marginBottom: SPACING_6,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-    alignItems: 'center',
-  },
-  firstNameInputContainer: {
-    // borderBottomColor: COLOR_BLACK,
-    // borderBottomWidth: 1,
-    // height: 50,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  firstNameInput: {
-    color: COLOR_GRAY,
-    fontSize: 20,
-    fontFamily: M,
-  },
-  LastNameInputContainer: {
-    // borderBottomColor: COLOR_BLACK,
-    // borderBottomWidth: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    // height: 50,
-  },
-  LastNameInput: {
-    color: COLOR_GRAY,
-    fontSize: 20,
-    fontFamily: M,
-  },
-  nativeInput: {
-    color: COLOR_GRAY,
-    fontSize: 36, // Adjusted font size
-    fontFamily: M,
-    padding: 10, // Added padding for a more spacious feel
-    borderBottomWidth: 1, // Added a bottom border for both iOS and Android
-    borderBottomColor: COLOR_SEPARATOR,
-  },
-  buttonContainer: {
-    marginTop: SPACING_6,
-    width: '100%',
-  },
-  button: {
-    backgroundColor: COLOR_BLACK,
-    width: '90%',
-    height: 50,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-  },
-  inactiveButton: {
-    backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
-    shadowOpacity: 0, // Remove shadow for inactive button
   },
 });

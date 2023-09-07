@@ -27,23 +27,7 @@ import BackIcon from 'src/assets/icons/ArrowLeft2';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
-
-const NameInput = ({value, placeholder, onChange, onSubmit, refValue}) => {
-  return (
-    <TextInput
-      ref={refValue}
-      keyboardType="default"
-      placeholder={placeholder}
-      placeholderTextColor={COLOR_GRAY}
-      style={styles.nativeInput}
-      underlineColorAndroid="transparent"
-      clearButtonMode="while-editing"
-      value={value}
-      onChangeText={onChange}
-      onSubmitEditing={onSubmit}
-    />
-  );
-};
+import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
 
 const SignUpButton = ({disabled, onPress}) => {
   return (
