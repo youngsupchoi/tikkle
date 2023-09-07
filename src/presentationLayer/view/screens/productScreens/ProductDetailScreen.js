@@ -62,6 +62,7 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 // import AutoHeightImage from 'react-native-auto-height-image';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {printTokensFromAsyncStorage} from 'src/components/AsyncStorage/printTokensFromAsyncStorage';
 
 const containerWidth = windowWidth - SPACING_6;
 
@@ -478,7 +479,7 @@ export default function ProductSearchDetailScreen1(route) {
           <View>
             <AnimatedButton
               onPress={() => {
-                // post_user_wishlist(data);
+                post_user_wishlist(data);
                 // setSnackbarVisible(true);
                 actions.showSnackbar('위시리스트에 상품을 추가했어요!', 1);
               }}

@@ -13,6 +13,7 @@ import {get_friend_event} from 'src/components/Axios/get_friend_event';
 import {get_user_isNotice} from 'src/components/Axios/get_user_isNotice';
 import {put_tikkling_cancel} from 'src/components/Axios/put_tikkling_cancel';
 import {put_tikkling_end} from 'src/components/Axios/put_tikkling_end';
+import {useNavigation} from '@react-navigation/native';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -22,10 +23,9 @@ export const useMainViewModel = () => {
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
-  // 5. 필요한 로직 작성하기 (예: 데이터 검색)
-  const onRefresh = async () => {
-    actions.setRefreshing(true);
+  const navigation = useNavigation();
 
+  const loadData = async () => {
     Promise.all([
       get_user_checkTikkling({setIsTikkling: actions.setIsTikkling}).then(res =>
         res === true
@@ -46,7 +46,12 @@ export const useMainViewModel = () => {
         setLoading: actions.setLoading,
       }),
     ]);
+  };
 
+  // 5. 필요한 로직 작성하기 (예: 데이터 검색)
+  const onRefresh = async () => {
+    actions.setRefreshing(true);
+    loadData();
     actions.setRefreshing(false);
   };
 
@@ -66,6 +71,11 @@ export const useMainViewModel = () => {
       useNativeDriver: true,
     }).start(() => actions.setDropdownVisible(false));
   };
+
+  const keyExtractor = (item, index) => {
+    return index.toString();
+  };
+
   //우측 상단 종료하기 버튼
   const buttonPress = () => {
     if (state.myTikklingData.tikkle_count === '0') {
@@ -87,6 +97,9 @@ export const useMainViewModel = () => {
       showDropdown,
       hideDropdown,
       buttonPress,
+      loadData,
+      keyExtractor,
+      navigation,
     },
   };
 };

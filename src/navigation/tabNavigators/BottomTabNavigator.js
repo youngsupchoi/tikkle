@@ -16,6 +16,11 @@ import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/produ
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 
 const BottomTab = createBottomTabNavigator();
+const Home = () => (
+  <MainViewStateProvider>
+    <HomeScreen />
+  </MainViewStateProvider>
+);
 
 export default function BottomTabNavigator() {
   return (
@@ -38,11 +43,7 @@ export default function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="home"
-        component={() => (
-          <MainViewStateProvider>
-            <HomeScreen />
-          </MainViewStateProvider>
-        )}
+        component={Home}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '홈',
