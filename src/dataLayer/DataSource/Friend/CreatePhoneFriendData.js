@@ -97,7 +97,7 @@ export async function createPhoneFriendData(phone_list) {
   const body3 = {receive_user_id: null, notification_type_id: 1};
 
   try {
-    const response3 = await apiModel(
+    const response3 = apiModel(
       'post_notification_send',
       authorization,
       body3,
