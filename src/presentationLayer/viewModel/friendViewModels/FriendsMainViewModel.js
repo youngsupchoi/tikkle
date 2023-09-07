@@ -16,14 +16,6 @@ export const useFriendMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useFriendMainViewState();
 
-  // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
-  //const [exampleData, setExampleData] = useState([]);
-
-  //default
-  //TODO: 에러 처리 함수
-
-  //TODO: 성공 처리 함수
-
   const printTokensFromAsyncStorage = async () => {
     try {
       const tokens = await AsyncStorage.getItem('tokens');
