@@ -13,6 +13,7 @@ import FriendsManagementScreen from 'src/presentationLayer/view/screens/friendSc
 import HomeScreen from 'src/presentationLayer/view/screens/mainScreens/MainScreen';
 import ProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/MyPageScreen';
 import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/productScreens/ProductMainScreen';
+import {FriendMainViewStateProvider} from 'src/presentationLayer/viewState/friendStates/FriendsMainState';
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 
 const BottomTab = createBottomTabNavigator();
@@ -86,7 +87,12 @@ export default function BottomTabNavigator() {
         /> */}
       <BottomTab.Screen
         name="friendsManagement"
-        component={FriendsManagementScreen}
+        // component={FriendsManagementScreen}
+        component={() => (
+          <FriendMainViewStateProvider>
+            <FriendsManagementScreen />
+          </FriendMainViewStateProvider>
+        )}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '친구 관리',
