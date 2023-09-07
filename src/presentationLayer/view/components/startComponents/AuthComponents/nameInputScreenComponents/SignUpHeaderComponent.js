@@ -26,88 +26,25 @@ import {
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
-import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
 
-const NameInput = ({value, placeholder, onChange, onSubmit, refValue}) => {
-  return (
-    <TextInput
-      ref={refValue}
-      keyboardType="default"
-      placeholder={placeholder}
-      placeholderTextColor={COLOR_GRAY}
-      style={styles.nativeInput}
-      underlineColorAndroid="transparent"
-      clearButtonMode="while-editing"
-      value={value}
-      onChangeText={onChange}
-      onSubmitEditing={onSubmit}
-    />
-  );
-};
-
-const SignUpButton = ({disabled, onPress}) => {
-  return (
-    <AnimatedButton
-      onPress={onPress}
-      style={[styles.button, disabled ? styles.inactiveButton : {}]}
-      disabled={disabled}>
-      <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
-    </AnimatedButton>
-  );
-};
-
-// 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
-export default function SignUpScreen3({route}) {
-  // const phoneNumber = route.params
-  const phoneNumber = '01046328480';
-  const navigation = useNavigation();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
-
-  useEffect(() => {
-    setTimeout(() => firstNameRef.current.focus(), 100);
-  }, []);
-
-  const handleBackPress = () => navigation.goBack();
-  const handleButtonPress = () => {
-    navigation.navigate('signup4', {
-      phoneNumber: phoneNumber,
-      name: firstName + lastName,
-      firstName: firstName,
-      lastName: lastName,
-    });
+export default function SignUpHeader({onBackPress}) {
+  const PaginationComponent = () => {
+    return (
+      <View style={styles.paginationContainer}>
+        <View style={styles.selectedPagination} />
+        <View style={styles.pagination} />
+        <View style={styles.pagination} />
+        <View style={styles.pagination} />
+      </View>
+    );
   };
-
   return (
-    <View style={styles.signupContainer}>
-      <SignUpHeader onBackPress={handleBackPress} />
-      <View style={styles.instructionContainer}>
-        <B28>당신의 이름을 알려주세요.</B28>
-      </View>
-      <View style={styles.inputContainer}>
-        <NameInput
-          value={firstName}
-          placeholder="성"
-          onChange={setFirstName}
-          onSubmit={() => lastNameRef.current.focus()}
-          refValue={firstNameRef}
-        />
-        <NameInput
-          value={lastName}
-          placeholder="이름"
-          onChange={setLastName}
-          onSubmit={handleButtonPress}
-          refValue={lastNameRef}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <SignUpButton
-          disabled={!firstName || !lastName}
-          onPress={handleButtonPress}
-        />
-      </View>
+    <View style={styles.signUpHeader}>
+      <AnimatedButton onPress={onBackPress} style={styles.backButton}>
+        <BackIcon width={24} height={24} stroke={COLOR_BLACK} strokeWidth={1} />
+      </AnimatedButton>
+      <PaginationComponent />
+      <View style={{width: 44}} />
     </View>
   );
 }
