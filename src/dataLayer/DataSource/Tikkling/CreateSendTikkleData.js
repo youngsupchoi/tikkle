@@ -33,7 +33,7 @@ export async function createSendTikkleData(
   const body = {
     tikkling_id: tikkling_id,
     tikkle_quantity: tikkle_quantity,
-    DSmessage: message,
+    message: message,
   };
 
   try {
@@ -75,8 +75,7 @@ export async function createSendTikkleData(
       return {
         DScode: 2,
         DSdata: null,
-        DSmessage:
-          '누군가 티클을 보내서 티클을 줄 수 있는 개수가 줄었어요.',
+        DSmessage: '누군가 티클을 보내서 티클을 줄 수 있는 개수가 줄었어요.',
       };
     }
 
@@ -102,6 +101,21 @@ export async function createSendTikkleData(
       response.data.returnToken,
       authorization,
     );
+  }
+
+  //------ call post_notification_send -------------------------------------------------------//
+
+  const body3 = {receive_user_id: tikkling_id, notification_type_id: 5};
+
+  try {
+    const response3 = apiModel(
+      'post_notification_send',
+      authorization,
+      body3,
+      null,
+    );
+  } catch (error) {
+    console.log('send notification failed');
   }
 
   //------ return response ------------------------------------------------//

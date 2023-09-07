@@ -83,6 +83,21 @@ export async function updateEndTikklingData(tikkling_id) {
     );
   }
 
+  //------ call post_notification_send -------------------------------------------------------//
+
+  const body3 = {receive_user_id: null, notification_type_id: 6};
+
+  try {
+    const response3 = apiModel(
+      'post_notification_send',
+      authorization,
+      body3,
+      null,
+    );
+  } catch (error) {
+    console.log('send notification failed');
+  }
+
   //------ return response ------------------------------------------------//
 
   return {
