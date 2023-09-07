@@ -23,6 +23,7 @@ export const StartViewStateProvider = ({children}) => {
   const [message, setMessage] = useState('');
   const [userId, setUserId] = useState();
   const [hash, setHash] = useState();
+  const [done1, setDone1] = useState();
   const inputRefs = useRef([]);
 
   const ref = {
@@ -37,6 +38,7 @@ export const StartViewStateProvider = ({children}) => {
     message,
     userId,
     hash,
+    done1,
   };
 
   const actions = {
@@ -47,6 +49,7 @@ export const StartViewStateProvider = ({children}) => {
     setMessage,
     setUserId,
     setHash,
+    setDone1,
   };
 
   return (

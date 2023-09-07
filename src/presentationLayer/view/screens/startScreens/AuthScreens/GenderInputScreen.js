@@ -10,6 +10,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B15,
+  B20,
   B28,
   M,
   M15,

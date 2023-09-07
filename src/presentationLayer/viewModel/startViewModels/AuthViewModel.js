@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {getHash, startOtpListener} from 'react-native-otp-verify';
 import {verifyOTP} from 'src/components/Axios/OTPVerification';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
-import { useStartViewState } from 'src/presentationLayer/viewState/startStates/AuthState';
+import {useStartViewState} from 'src/presentationLayer/viewState/startStates/AuthState';
 
 // 2. 데이터 소스 또는 API 가져오기
 import {checkPhoneNumberData} from 'src/dataLayer/DataSource/CheckPhoneNumberData';
@@ -15,21 +15,21 @@ export const useStartViewModel = () => {
   const navigation = useNavigation();
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useStartViewState();
- 
-  
+
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
-  
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onPhoneNumberChange = (number, isValid) => {
     actions.setPhoneNumber(number);
-    console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
+    console.log(
+      '🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:',
+      state.phoneNumber,
+    );
     actions.setIsValidPhoneNumber(isValid);
-    
   };
 
   const phoneInputbuttonPress = async () => {
-    
+    console.log('nono');
     /* .then( async res => {
 
       console.log("start1")
@@ -50,17 +50,22 @@ export const useStartViewModel = () => {
       console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.message:", state.message)
       navigation.navigate('signup2');
       }); */
-    const res = await post_auth_phoneCheck(state.phoneNumber)
-    await actions.setUserId(res.userId);
-    await actions.setMessage(res.message);
-
+    const res = await post_auth_phoneCheck(state.phoneNumber);
+    if (res.userId === undefined) {
+      await actions.setMessage(res.message);
+      await actions.setUserId(0);
+    } else {
+      await actions.setUserId(res.userId);
+      await actions.setMessage(res.message);
+    }
   };
 
-  const phoneAuth = (phoneNumber) => {
-    
+  const phoneAuth = phoneNumber => {
     getHash().then(hash => {
-    actions.setHash(hash);
-      get_auth_makeOtp(phoneNumber, hash).then(res => actions.setEncryptedOTP(res));
+      actions.setHash(hash);
+      get_auth_makeOtp(phoneNumber, hash).then(res =>
+        actions.setEncryptedOTP(res),
+      );
     });
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);
@@ -85,7 +90,11 @@ export const useStartViewModel = () => {
       console.log('All 6 slots are filled!');
 
       try {
-        const isOTPValid = await verifyOTP(state.encryptedOTP, fullCode, message);
+        const isOTPValid = await verifyOTP(
+          state.encryptedOTP,
+          fullCode,
+          message,
+        );
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
           if (message === 'login') {
@@ -141,7 +150,7 @@ export const useStartViewModel = () => {
       handleTextChange,
       checkOTPEqual,
       phoneAuth,
-      navigation
+      navigation,
     },
   };
 };
