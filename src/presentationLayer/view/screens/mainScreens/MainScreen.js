@@ -57,7 +57,9 @@ import Add from 'src/assets/icons/Add';
 import Detail from 'src/assets/icons/Detail';
 import Delete from 'src/assets/icons/Delete';
 import LottieView from 'lottie-react-native';
+
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
+
 import {printTokensFromAsyncStorage} from 'src/presentationLayer/view/components/AsyncStorage/printTokensFromAsyncStorage';
 import {get_user_info} from 'src/components/Axios/get_user_info';
 import {get_user_checkTikkling} from 'src/components/Axios/get_user_checkTikkling';
@@ -126,21 +128,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     //TODO: 이것도 함수화 필요, 함수화 후 뷰 모델에서 가져다 써야할 부분
-    get_user_info({setUserData: actions.setUserData});
-    get_user_checkTikkling({setIsTikkling: actions.setIsTikkling}).then(res =>
-      res === true
-        ? get_tikkling_info({setMyTikklingData: actions.setMyTikklingData})
-        : null,
-    );
-    get_tikkling_friendinfo({
-      setFriendTikklingData: actions.setFriendTikklingData,
-    });
-    get_user_isNotice({setIsNotice: actions.setIsNotice});
-    get_friend_event({setFriendEventData: actions.setFriendEventData});
-    get_user_myWishlist({
-      setWishlistData: actions.setWishlistData,
-      setLoading: actions.setLoading,
-    });
+    actions.onRefresh();
   }, []);
 
   return (
