@@ -15,6 +15,7 @@ import ProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/MyPa
 import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/productScreens/ProductMainScreen';
 import {FriendMainViewStateProvider} from 'src/presentationLayer/viewState/friendStates/FriendsMainState';
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
+import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -109,7 +110,11 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="profile"
-        component={ProfileScreen}
+        component={() => (
+          <MyPageViewStateProvider>
+            <ProfileScreen />
+          </MyPageViewStateProvider>
+        )}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '프로필',
