@@ -18,7 +18,6 @@ import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels
 
 export default function SignUpScreen1() {
   const {state, actions} = useStartViewModel();
-  console.log('hihi');
   return (
     <View style={styles.signupContainer}>
       <View style={styles.signUpHeader}></View>

@@ -28,17 +28,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNavigation} from '@react-navigation/native';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
 import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
-
-const SignUpButton = ({disabled, onPress}) => {
-  return (
-    <AnimatedButton
-      onPress={onPress}
-      style={[styles.button, disabled ? styles.inactiveButton : {}]}
-      disabled={disabled}>
-      <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
-    </AnimatedButton>
-  );
-};
+import SignUpButton from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpButtonComponent';
 
 // 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
 export default function SignUpScreen3({route}) {

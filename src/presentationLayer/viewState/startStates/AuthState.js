@@ -24,6 +24,8 @@ export const StartViewStateProvider = ({children}) => {
   const [userId, setUserId] = useState();
   const [hash, setHash] = useState();
   const [done1, setDone1] = useState();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const inputRefs = useRef([]);
 
   const ref = {
@@ -39,6 +41,8 @@ export const StartViewStateProvider = ({children}) => {
     userId,
     hash,
     done1,
+    firstName,
+    lastName,
   };
 
   const actions = {
@@ -50,6 +54,8 @@ export const StartViewStateProvider = ({children}) => {
     setUserId,
     setHash,
     setDone1,
+    setFirstName,
+    setLastName,
   };
 
   return (
