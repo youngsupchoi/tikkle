@@ -29,27 +29,6 @@ export const useStartViewModel = () => {
   };
 
   const phoneInputbuttonPress = async () => {
-    console.log('nono');
-    /* .then( async res => {
-
-      console.log("start1")
-      await actions.setMessage(res.message)
-      console.log("🚀 ~ file: AuthViewModel.js:35 ~ post_auth_phoneCheck ~ res.message:", res.message)
-      await actions.setUserId(res.userId);
-      console.log("🚀 ~ file: AuthViewModel.js:37 ~ post_auth_phoneCheck ~ res.userId:", res.userId)
-      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
-
-      await actions.setPhoneNumber("12341234");
-      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
-
-      
-    }).then(() => {
-      console.log("start2");
-      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:", state.phoneNumber)
-      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.userId:", state.userId)
-      console.log("🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.message:", state.message)
-      navigation.navigate('signup2');
-      }); */
     const res = await post_auth_phoneCheck(state.phoneNumber);
     if (res.userId === undefined) {
       await actions.setMessage(res.message);

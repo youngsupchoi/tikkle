@@ -18,7 +18,8 @@ export const StartViewStateProvider = ({children}) => {
   // 3. 필요한 상태 추가하기
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
-  const [phoneNumber, setPhoneNumber] = useState('init');
+  //FIXME: 테스트용 전화번호
+  const [phoneNumber, setPhoneNumber] = useState('01053783514');
   const [encryptedOTP, setEncryptedOTP] = useState();
   const [message, setMessage] = useState('');
   const [userId, setUserId] = useState();
