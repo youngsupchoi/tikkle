@@ -14,6 +14,7 @@ import {
 import {
   COLOR_BLACK,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_TEXT,
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -94,7 +95,8 @@ export default function CategoryCarousel(props) {
           </View>
           <B12
             customStyle={{
-              color: categoryId === category.id ? COLOR_WHITE : COLOR_BLACK,
+              color:
+                categoryId === category.id ? COLOR_PRIMARY_TEXT : COLOR_BLACK,
             }}>
             #{category.name}
           </B12>

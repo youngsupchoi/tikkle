@@ -22,6 +22,7 @@ import SelectedStateHeader from 'src/presentationLayer/view/components/productCo
 // import MenuHeader from 'src/presentationLayer/view/components/globalComponents/Headers/MenuHeader';
 // import SelectedStateHeader from 'src/presentationLayer/view/components/ProductSearchLanding/SelectedStateHeader';
 import {RefreshControl} from 'react-native-gesture-handler';
+import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 // import {post_product_list} from 'src/presentationLayer/view/components/Axios/post_product_list';
 
 export default function ProductSearchLandingScreen(route) {
@@ -56,33 +57,33 @@ export default function ProductSearchLandingScreen(route) {
 
   //---------------------------------------------------------------------
   //페이징 관련(페이징)
-  const [getNum, setGetNum] = useState(0);
-  // useEffect(() => {
-  //   post_product_list({
-  //     setSearchedData,
-  //     categoryId,
-  //     priceMin,
-  //     priceMax,
-  //     sortAttribute,
-  //     sortWay,
-  //     search,
-  //     selectedCategory,
-  //   });
-  // }, [
-  //   categoryId,
-  //   priceMin,
-  //   priceMax,
-  //   sortAttribute,
-  //   sortWay,
-  //   search,
-  //   selectedCategory,
-  // ]);
+  const [getNum, setGetNum] = useState(1);
+  useEffect(() => {
+    getProductListData(
+      categoryId,
+      priceMin,
+      priceMax,
+      sortAttribute,
+      sortWay,
+      search,
+      getNum,
+    ).then(res => setSearchedData(res.DSdata.info));
+  }, [categoryId, priceMin, priceMax, sortAttribute, sortWay, search, getNum]);
 
   const scrollY = new Animated.Value(0); // Animated value for scroll position
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = () => {
     setRefreshing(true);
     // post_product_list();
+    getProductListData(
+      categoryId,
+      priceMin,
+      priceMax,
+      sortAttribute,
+      sortWay,
+      search,
+      getNum,
+    ).then(res => setSearchedData(res.DSdata.info));
     setRefreshing(false);
   };
 

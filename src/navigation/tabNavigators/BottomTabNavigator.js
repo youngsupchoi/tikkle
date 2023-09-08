@@ -18,6 +18,11 @@ import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/
 import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
 
 const BottomTab = createBottomTabNavigator();
+const Home = () => (
+  <MainViewStateProvider>
+    <HomeScreen />
+  </MainViewStateProvider>
+);
 
 export default function BottomTabNavigator() {
   return (
@@ -40,11 +45,7 @@ export default function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="home"
-        component={() => (
-          <MainViewStateProvider>
-            <HomeScreen />
-          </MainViewStateProvider>
-        )}
+        component={Home}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '홈',

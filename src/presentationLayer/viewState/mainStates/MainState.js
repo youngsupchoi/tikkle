@@ -19,7 +19,7 @@ export const MainViewStateProvider = ({children}) => {
   const [tikklingId, setTikklingId] = useState(null);
   const [wishlistData, setWishlistData] = useState([]);
   const [myTikklingData, setMyTikklingData] = useState([]);
-  const [friendTikklingData, setFriendTikklingData] = useState(null);
+  const [friendTikklingData, setFriendTikklingData] = useState([]);
   const [friendEventData, setFriendEventData] = useState([]);
   const [isNotice, setIsNotice] = useState();
   const [loading, setLoading] = useState(true);

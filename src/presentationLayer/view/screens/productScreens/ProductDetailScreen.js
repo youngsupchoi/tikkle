@@ -61,10 +61,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
 // import AutoHeightImage from 'react-native-auto-height-image';
 import ArrowRight from 'src/assets/icons/ArrowRight';
-
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {printTokensFromAsyncStorage} from 'src/components/AsyncStorage/printTokensFromAsyncStorage';
+import {createMyWishlistData} from 'src/dataLayer/DataSource/Product/CreateMyWishlistData';
 const containerWidth = windowWidth - SPACING_6;
 
 export default function ProductSearchDetailScreen1(route) {
+  const {actions, state} = useTopViewModel();
   const [selected, setSelected] = useState('상세정보');
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const Snackbar = ({isVisible, onClose}) => {
@@ -476,8 +479,8 @@ export default function ProductSearchDetailScreen1(route) {
           <View>
             <AnimatedButton
               onPress={() => {
-                post_user_wishlist(data);
-                setSnackbarVisible(true);
+                createMyWishlistData(data.id);
+                actions.showSnackbar('위시리스트에 상품을 추가했어요!', 1);
               }}
               style={{
                 paddingVertical: 12,

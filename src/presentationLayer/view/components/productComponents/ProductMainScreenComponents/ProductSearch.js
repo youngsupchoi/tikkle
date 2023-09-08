@@ -194,8 +194,6 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     flexDirection: 'row',
     width: windowWidth - 16 - 16 - 40 - 40 - 12 - 24,
-    height: 40,
-    alignItems: 'center',
   },
   input: {
     marginLeft: 4,
@@ -203,6 +201,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     lineHeight: 20,
     fontFamily: M,
+    padding: 0,
+    // backgroundColor: 'red',
+    paddingVertical: 10,
   },
   searchIconContainer: {
     width: 40,
