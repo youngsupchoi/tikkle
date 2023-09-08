@@ -16,6 +16,7 @@ import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/produ
 import {FriendMainViewStateProvider} from 'src/presentationLayer/viewState/friendStates/FriendsMainState';
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
+import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
@@ -56,7 +57,11 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="search"
-        component={ProductSearchLandingScreen}
+        component={() => (
+          <ProductMainViewStateProvider>
+            <ProductSearchLandingScreen />
+          </ProductMainViewStateProvider>
+        )}
         options={{
           tabBarLabel: '둘러보기',
           tabBarIcon: ({color, size}) => (

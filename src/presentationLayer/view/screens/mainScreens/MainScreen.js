@@ -66,7 +66,6 @@ export default function HomeScreen() {
   const delay = 200; // 각 컴포넌트 사이의 시간 차이 (밀리초)
 
   useEffect(() => {
-
     actions.loadData();
 
     setTimeout(() => {
@@ -95,10 +94,6 @@ export default function HomeScreen() {
       });
     }, 5 * delay); // 다섯 번째 컴포넌트
   }, [state.loading]);
-
-  
-  }, []);
-
 
   return (
     <SafeAreaView style={{flex: 1}}>
