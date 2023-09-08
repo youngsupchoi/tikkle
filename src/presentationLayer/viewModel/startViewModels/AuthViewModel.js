@@ -59,6 +59,9 @@ export const useStartViewModel = () => {
       await actions.setMessage(res.message);
     }
   };
+  const decreaseTime = () => {
+    setTimeLeft(prevTime => prevTime - 1);
+  };
 
   const phoneAuth = phoneNumber => {
     getHash().then(hash => {
