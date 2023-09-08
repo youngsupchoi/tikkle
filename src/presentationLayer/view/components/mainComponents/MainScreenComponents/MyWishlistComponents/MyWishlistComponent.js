@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React from 'react';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {
@@ -53,6 +53,7 @@ export default function MyWishlistComponent() {
         </AnimatedButton>
       </View>
       <View style={{padding: 20, paddingTop: 8}}>
+        {/* {console.log(state.myWishlistData)} */}
         {state.wishlistData.length !== 0 ? (
           state.wishlistData.map((wishlist, index) => {
             return (
