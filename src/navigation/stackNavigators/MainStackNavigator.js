@@ -28,6 +28,7 @@ import ProductSearchDetailScreen1 from 'src/presentationLayer/view/screens/produ
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 
 const MainStack = createStackNavigator();
+const SignUpStack = createStackNavigator();
 const MyTheme = {
   ...DefaultTheme,
   colors: {
@@ -83,73 +84,74 @@ const customCardStyleInterpolator = ({current, next, layouts}) => {
   };
 };
 
-export default function MainStackNavigator() {
-  function SignUpWrapper1() {
-    return (
-      <StartViewStateProvider>
-        <SignUpScreen1 />
-      </StartViewStateProvider>
-    );
-  }
-  function SignUpWrapper2() {
-    return (
-      <StartViewStateProvider>
-        <SignUpScreen2 />
-      </StartViewStateProvider>
-    );
-  }
+function SignUpNavigator() {
   return (
     <StartViewStateProvider>
-      <NavigationContainer theme={MyTheme}>
-        <MainStack.Navigator
-          initialRouteName="splash"
-          screenOptions={{
+      <SignUpStack.Navigator
+        initialRouteName="splash"
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          cardStyleInterpolator: customCardStyleInterpolator,
+          transitionSpec: customTransitionSpec,
+        }}>
+        <SignUpStack.Screen name="splash" component={SplashScreen} />
+        <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
+        <SignUpStack.Screen name="signup2" component={SignUpScreen2} />
+        <SignUpStack.Screen name="signup3" component={SignUpScreen3} />
+        <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
+        <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
+        <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
+      </SignUpStack.Navigator>
+    </StartViewStateProvider>
+  );
+}
+
+export default function MainStackNavigator() {
+  return (
+    <NavigationContainer theme={MyTheme}>
+      <MainStack.Navigator
+        initialRouteName="SignUpNavigator"
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          cardStyleInterpolator: customCardStyleInterpolator,
+          transitionSpec: customTransitionSpec,
+        }}>
+        {/*  <MainStack.Screen name="splash" component={SplashScreen} /> */}
+
+        <MainStack.Screen name="SignUpNavigator" component={SignUpNavigator} />
+        <MainStack.Screen
+          name="main"
+          component={BottomTabNavigator}
+          options={{
             headerShown: false,
             gestureEnabled: true,
-            cardOverlayEnabled: true,
-            cardStyleInterpolator: customCardStyleInterpolator, // apply the custom card style interpolator
-            transitionSpec: customTransitionSpec, // use the previously defined custom transition spec
-          }}>
-          <MainStack.Screen name="splash" component={SplashScreen} />
-          {/* <MainStack.Screen name="signupNotUsed" component={SignUpNotUsedScreen} /> */}
-          <MainStack.Screen name="signup1" component={SignUpScreen1} />
-          <MainStack.Screen name="signup2" component={SignUpScreen2} />
-          <MainStack.Screen name="signup3" component={SignUpScreen3} />
-          <MainStack.Screen name="signup4" component={SignUpScreen4} />
-          <MainStack.Screen name="signup5" component={SignUpScreen5} />
-          <MainStack.Screen name="signup6" component={SignUpScreen6} />
-          <MainStack.Screen
-            name="main"
-            component={BottomTabNavigator}
-            options={{
-              headerShown: false,
-              gestureEnabled: true,
-              cardOverlayEnabled: false,
-              cardStyleInterpolator:
-                CardStyleInterpolators.forScaleFromCenterAndroid,
-            }}
-          />
-          <MainStack.Screen
-            name="startTikkling"
-            component={StartTikklingScreen}
-          />
-          <MainStack.Screen
-            name="productSearchDetail1"
-            component={ProductSearchDetailScreen1}
-          />
-          <MainStack.Screen
-            name="notification"
-            component={NotificationScreen}
-          />
-          <MainStack.Screen
-            name="notificationSetting"
-            component={NotificationSettingScreen}
-          />
-          {/* <MainStack.Screen
+            cardOverlayEnabled: false,
+            cardStyleInterpolator:
+              CardStyleInterpolators.forScaleFromCenterAndroid,
+          }}
+        />
+        <MainStack.Screen
+          name="startTikkling"
+          component={StartTikklingScreen}
+        />
+        <MainStack.Screen
+          name="productSearchDetail1"
+          component={ProductSearchDetailScreen1}
+        />
+        <MainStack.Screen name="notification" component={NotificationScreen} />
+        <MainStack.Screen
+          name="notificationSetting"
+          component={NotificationSettingScreen}
+        />
+        {/* <MainStack.Screen
           name="findFriendsByContacts"
           component={FindFriendsByContactsScreen}
         /> */}
-          {/* <MainStack.Screen
+        {/* <MainStack.Screen
           name="myTikkling"
           component={MyTikklingScreen}
           options={() => ({
@@ -166,7 +168,7 @@ export default function MainStackNavigator() {
             },
           })}
         /> */}
-          {/* <MainStack.Screen
+        {/* <MainStack.Screen
           name="friendsTikkling"
           component={FriendsTikklingScreen}
           options={() => ({
@@ -183,35 +185,34 @@ export default function MainStackNavigator() {
             },
           })}
         /> */}
-          <MainStack.Screen
-            name="searchAddress"
-            component={SearchAddressScreen}
-            options={() => ({
-              transitionSpec: {
-                open: {animation: 'timing', config: {duration: 200}},
-                close: {animation: 'timing', config: {duration: 200}},
-              },
-              cardStyleInterpolator: ({current: {progress}}) => {
-                return {
-                  cardStyle: {
-                    opacity: progress,
-                  },
-                };
-              },
-            })}
-          />
-          <MainStack.Screen
-            name="wishlistManagement"
-            component={WishlistManagementScreen}
-          />
-          <MainStack.Screen name="payment" component={PaymentScreen} />
-          <MainStack.Screen
-            name="paymentSuccess"
-            component={PaymentSuccessScreen}
-          />
-          {/* <MainStack.Screen name="main" component={MyBottomTab} /> */}
-        </MainStack.Navigator>
-      </NavigationContainer>
-    </StartViewStateProvider>
+        <MainStack.Screen
+          name="searchAddress"
+          component={SearchAddressScreen}
+          options={() => ({
+            transitionSpec: {
+              open: {animation: 'timing', config: {duration: 200}},
+              close: {animation: 'timing', config: {duration: 200}},
+            },
+            cardStyleInterpolator: ({current: {progress}}) => {
+              return {
+                cardStyle: {
+                  opacity: progress,
+                },
+              };
+            },
+          })}
+        />
+        <MainStack.Screen
+          name="wishlistManagement"
+          component={WishlistManagementScreen}
+        />
+        <MainStack.Screen name="payment" component={PaymentScreen} />
+        <MainStack.Screen
+          name="paymentSuccess"
+          component={PaymentSuccessScreen}
+        />
+        {/* <MainStack.Screen name="main" component={MyBottomTab} /> */}
+      </MainStack.Navigator>
+    </NavigationContainer>
   );
 }

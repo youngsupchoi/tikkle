@@ -547,7 +547,7 @@ export default function ProfileScreen() {
             <AnimatedButton
               onPress={() => {
                 AsyncStorage.clear();
-                navigation.navigate('splash', {
+                navigation.navigate('SignUpNavigator', {
                   updated_at: new Date().toString(),
                 });
               }}>
