@@ -8,7 +8,7 @@ import {
   SPACING_4,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
-
+//TODO: viewmodel 분리
 export default function TimerComponent() {
   const {ref, state, actions} = useStartViewModel();
 

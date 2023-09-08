@@ -8,13 +8,11 @@ import {
   SPACING_6,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
-  B15,
   B28,
   M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
-  COLOR_WHITE,
   COLOR_GRAY,
   COLOR_SEPARATOR,
   backgroundColor,
@@ -23,9 +21,7 @@ import {
   windowWidth,
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import BackIcon from 'src/assets/icons/ArrowLeft2';
-import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {useNavigation} from '@react-navigation/native';
+
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
 import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
 import SignUpButton from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpButtonComponent';
@@ -34,7 +30,6 @@ import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels
 // 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
 export default function SignUpScreen3({route}) {
   const {ref, state, actions} = useStartViewModel();
-  const navigation = useNavigation();
 
   useEffect(() => {
     setTimeout(() => ref.firstNameRef.current.focus(), 100);

@@ -36,7 +36,6 @@ export default function SignUpScreen2({phoneNumber}) {
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
   const inputRefs = useRef([]);
   const navigation = useNavigation();
-  const [hash, setHash] = useState();
 
   useEffect(() => {
     console.log(
@@ -114,7 +113,7 @@ export default function SignUpScreen2({phoneNumber}) {
   useEffect(() => {
     const fullCode = inputCode.join('');
     if (fullCode.length === 6) {
-      verifyOTP(encryptedOTP, fullCode, state.message);
+      verifyOTP(state.encryptedOTP, fullCode, state.message);
     }
   }, [inputCode.join('').length === 6]);
 

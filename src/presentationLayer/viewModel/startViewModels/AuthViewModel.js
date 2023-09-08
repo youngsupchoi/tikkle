@@ -40,7 +40,7 @@ export const useStartViewModel = () => {
     }
   };
   const decreaseTime = () => {
-    setTimeLeft(prevTime => prevTime - 1);
+    actions.setTimeLeft(prevTime => prevTime - 1);
   };
 
   const phoneAuth = phoneNumber => {

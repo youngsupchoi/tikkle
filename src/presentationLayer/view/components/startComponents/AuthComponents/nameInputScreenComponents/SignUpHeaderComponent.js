@@ -20,8 +20,10 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export default function SignUpHeader({onBackPress}) {
+export default function SignUpHeader() {
+  const {ref, state, actions} = useStartViewModel();
   const PaginationComponent = () => {
     return (
       <View style={styles.paginationContainer}>
@@ -34,7 +36,7 @@ export default function SignUpHeader({onBackPress}) {
   };
   return (
     <View style={styles.signUpHeader}>
-      <AnimatedButton onPress={onBackPress} style={styles.backButton}>
+      <AnimatedButton onPress={actions.onBackPress} style={styles.backButton}>
         <BackIcon width={24} height={24} stroke={COLOR_BLACK} strokeWidth={1} />
       </AnimatedButton>
       <PaginationComponent />

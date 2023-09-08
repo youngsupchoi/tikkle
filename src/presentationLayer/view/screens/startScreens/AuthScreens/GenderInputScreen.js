@@ -32,14 +32,13 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 export default function SignUpScreen4({route}) {
   const navigation = useNavigation();
+  const {ref, state, actions} = useStartViewModel();
   const {firstName, lastName, name, phoneNumber} = route.params; // Get the name data from navigation parameters
 
-  const backPress = () => {
-    navigation.goBack();
-  };
   const buttonPress = () => {
     navigation.navigate('signup5', {
       phoneNumber: phoneNumber,
@@ -65,7 +64,7 @@ export default function SignUpScreen4({route}) {
       <View style={styles.signUpHeader}>
         <AnimatedButton
           onPress={() => {
-            backPress();
+            actions.handleBackPress();
           }}
           style={styles.backButton}>
           <BackIcon
