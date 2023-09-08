@@ -27,6 +27,7 @@ export const useStartViewModel = () => {
     );
     actions.setIsValidPhoneNumber(isValid);
   };
+  const handleBackPress = () => navigation.goBack();
 
   const phoneInputbuttonPress = async () => {
     const res = await post_auth_phoneCheck(state.phoneNumber);
@@ -110,6 +111,16 @@ export const useStartViewModel = () => {
       }
     }
   };
+
+  const handleButtonPress = () => {
+    navigation.navigate('signup4', {
+      phoneNumber: state.phoneNumber,
+      name: state.firstName + state.lastName,
+      firstName: state.firstName,
+      lastName: state.lastName,
+    });
+  };
+
   //TODO : 기존 verifyOTP함수 삭제한 뒤 이 함수 이름 verifyOTP로 바꿀것
   const checkOTPEqual = () => {
     const fullCode = state.inputCode.join('');
@@ -133,6 +144,8 @@ export const useStartViewModel = () => {
       checkOTPEqual,
       phoneAuth,
       navigation,
+      handleBackPress,
+      handleButtonPress,
     },
   };
 };

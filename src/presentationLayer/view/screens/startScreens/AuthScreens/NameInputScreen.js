@@ -29,57 +29,43 @@ import {useNavigation} from '@react-navigation/native';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
 import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
 import SignUpButton from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpButtonComponent';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 // 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
 export default function SignUpScreen3({route}) {
-  // const phoneNumber = route.params
-  const phoneNumber = '01046328480';
+  const {ref, state, actions} = useStartViewModel();
   const navigation = useNavigation();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
 
   useEffect(() => {
-    setTimeout(() => firstNameRef.current.focus(), 100);
+    setTimeout(() => ref.firstNameRef.current.focus(), 100);
   }, []);
-
-  const handleBackPress = () => navigation.goBack();
-  const handleButtonPress = () => {
-    navigation.navigate('signup4', {
-      phoneNumber: phoneNumber,
-      name: firstName + lastName,
-      firstName: firstName,
-      lastName: lastName,
-    });
-  };
 
   return (
     <View style={styles.signupContainer}>
-      <SignUpHeader onBackPress={handleBackPress} />
+      <SignUpHeader onBackPress={actions.handleBackPress} />
       <View style={styles.instructionContainer}>
         <B28>당신의 이름을 알려주세요.</B28>
       </View>
       <View style={styles.inputContainer}>
         <NameInput
-          value={firstName}
+          value={state.firstName}
           placeholder="성"
-          onChange={setFirstName}
-          onSubmit={() => lastNameRef.current.focus()}
-          refValue={firstNameRef}
+          onChange={actions.setFirstName}
+          onSubmit={() => ref.lastNameRef.current.focus()}
+          refValue={ref.firstNameRef}
         />
         <NameInput
-          value={lastName}
+          value={state.lastName}
           placeholder="이름"
-          onChange={setLastName}
-          onSubmit={handleButtonPress}
-          refValue={lastNameRef}
+          onChange={actions.setLastName}
+          onSubmit={actions.handleButtonPress}
+          refValue={ref.lastNameRef}
         />
       </View>
       <View style={styles.buttonContainer}>
         <SignUpButton
-          disabled={!firstName || !lastName}
-          onPress={handleButtonPress}
+          disabled={!state.firstName || !state.lastName}
+          onPress={actions.handleButtonPress}
         />
       </View>
     </View>

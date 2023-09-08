@@ -7,9 +7,10 @@ import {
   SPACING_2,
   SPACING_4,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export default function TimerComponent({initialTime}) {
-  const [timeLeft, setTimeLeft] = useState(initialTime);
+export default function TimerComponent() {
+  const {ref, state, actions} = useStartViewModel();
 
   // Function to convert seconds to mm:ss format
   const formatTime = seconds => {
@@ -21,7 +22,7 @@ export default function TimerComponent({initialTime}) {
   };
 
   const decreaseTime = () => {
-    setTimeLeft(prevTime => prevTime - 1);
+    actions.setTimeLeft(prevTime => prevTime - 1);
   };
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function TimerComponent({initialTime}) {
   return (
     <View style={styles.timeContainer}>
       <M11 customStyle={{color: COLOR_ERROR}}>
-        남은 시간 : {formatTime(timeLeft)}
+        남은 시간 : {formatTime(state.timeLeft)}
       </M11>
     </View>
   );

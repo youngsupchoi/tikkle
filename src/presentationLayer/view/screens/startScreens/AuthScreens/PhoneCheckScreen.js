@@ -27,8 +27,7 @@ import TimerComponent from 'src/presentationLayer/view/components/startComponent
 import {verifyOTP} from 'src/components/Axios/OTPVerification';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
-import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
-
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 export default function SignUpScreen2({phoneNumber}) {
   //const {phoneNumber, message, userId} = route.params;
@@ -40,9 +39,18 @@ export default function SignUpScreen2({phoneNumber}) {
   const [hash, setHash] = useState();
 
   useEffect(() => {
-    console.log("🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.phoneNumber:", state.phoneNumber)
-    console.log("🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.userId:", state.userId)
-    console.log("🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.message:", state.message)
+    console.log(
+      '🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.phoneNumber:',
+      state.phoneNumber,
+    );
+    console.log(
+      '🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.userId:',
+      state.userId,
+    );
+    console.log(
+      '🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.message:',
+      state.message,
+    );
   }, []);
   const buttonPress = () => {
     // verifyOTP();
@@ -63,7 +71,11 @@ export default function SignUpScreen2({phoneNumber}) {
       console.log('All 6 slots are filled!');
 
       try {
-        const isOTPValid = await verifyOTP(state.encryptedOTP, fullCode, state.message);
+        const isOTPValid = await verifyOTP(
+          state.encryptedOTP,
+          fullCode,
+          state.message,
+        );
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
           console.log(state.message);
@@ -107,9 +119,11 @@ export default function SignUpScreen2({phoneNumber}) {
   }, [inputCode.join('').length === 6]);
 
   useEffect(() => {
-    console.log("🚀 ~ file: PhoneCheckScreen.js:108 ~ useEffect ~ state.phoneNumber:", state.phoneNumber)
+    console.log(
+      '🚀 ~ file: PhoneCheckScreen.js:108 ~ useEffect ~ state.phoneNumber:',
+      state.phoneNumber,
+    );
     actions.phoneAuth(state.phoneNumber);
-    
   }, []);
 
   return (
@@ -122,7 +136,7 @@ export default function SignUpScreen2({phoneNumber}) {
           inputCode={inputCode}
           inputRefs={inputRefs}
         />
-        <TimerComponent initialTime={180} />
+        <TimerComponent />
       </View>
       <View style={styles.buttonContainer}>
         <AnimatedButton
