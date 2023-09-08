@@ -1,7 +1,8 @@
 import {useState} from 'react';
 
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
-import {useTopViewState} from './TopViewState';
+// import {useTopViewState} from './TopViewState';
+import {useTopViewState} from 'src/presentationLayer/viewState/topStates/TopViewState';
 
 // 2. 데이터 소스 또는 API 가져오기
 // 만약 API나 다른 데이터 소스 함수가 필요하다면, 여기서 import 하세요.
