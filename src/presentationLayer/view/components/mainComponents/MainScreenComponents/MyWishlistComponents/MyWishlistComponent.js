@@ -53,7 +53,6 @@ export default function MyWishlistComponent() {
         </AnimatedButton>
       </View>
       <View style={{padding: 20, paddingTop: 8}}>
-        {/* {console.log(state.myWishlistData)} */}
         {state.wishlistData.length !== 0 ? (
           state.wishlistData.map((wishlist, index) => {
             return (
