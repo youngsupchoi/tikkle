@@ -37,7 +37,7 @@ export const ProductMainViewStateProvider = ({children}) => {
   const [search, setSearch] = useState(null);
   //---------------------------------------------------------------------
   //페이징 관련(페이징)
-  const [getNum, setGetNum] = useState(0);
+  const [getNum, setGetNum] = useState(1);
 
   // ... 다른 상태들
   const ref = {};
