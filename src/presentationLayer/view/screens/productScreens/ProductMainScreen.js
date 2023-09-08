@@ -22,7 +22,7 @@ import SelectedStateHeader from 'src/presentationLayer/view/components/productCo
 // import MenuHeader from 'src/presentationLayer/view/components/globalComponents/Headers/MenuHeader';
 // import SelectedStateHeader from 'src/presentationLayer/view/components/ProductSearchLanding/SelectedStateHeader';
 import {RefreshControl} from 'react-native-gesture-handler';
-import {getProductListData} from 'src/dataLayer/DataSource/GetProductListData';
+import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 // import {post_product_list} from 'src/presentationLayer/view/components/Axios/post_product_list';
 
 export default function ProductSearchLandingScreen(route) {

@@ -5,7 +5,7 @@ import {useMainViewState} from '../../viewState/mainStates/MainState';
 import {useProductMainViewState} from 'src/presentationLayer/viewState/productStates/ProductMainState';
 
 // 2. 데이터 소스 또는 API 가져오기
-import {getProductListData} from 'src/dataLayer/DataSource/GetProductListData';
+import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {

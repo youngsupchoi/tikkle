@@ -63,8 +63,7 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {printTokensFromAsyncStorage} from 'src/components/AsyncStorage/printTokensFromAsyncStorage';
-import {createMyWishlistData} from 'src/dataLayer/DataSource/CreateMyWishlistData';
-
+import {createMyWishlistData} from 'src/dataLayer/DataSource/Product/CreateMyWishlistData';
 const containerWidth = windowWidth - SPACING_6;
 
 export default function ProductSearchDetailScreen1(route) {

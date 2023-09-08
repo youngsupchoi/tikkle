@@ -14,12 +14,12 @@ import {get_user_isNotice} from 'src/components/Axios/get_user_isNotice';
 import {put_tikkling_cancel} from 'src/components/Axios/put_tikkling_cancel';
 import {put_tikkling_end} from 'src/components/Axios/put_tikkling_end';
 import {useNavigation} from '@react-navigation/native';
-import {getMyUserInfoData} from 'src/dataLayer/DataSource/GetMyUserInfoData';
-import {getFriendTikklingData} from 'src/dataLayer/DataSource/GetFriendTikklingData';
-import {getMyIsNoticeData} from 'src/dataLayer/DataSource/GetMyIsNoticeData';
-import {getFriendEventData} from 'src/dataLayer/DataSource/GetFriendEventData';
-import {getMyWishlistData} from 'src/dataLayer/DataSource/GetMyWishlistData';
-import {updateCancelTikklingData} from 'src/dataLayer/DataSource/UpdateCancelTikklingData';
+import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
+import {getFriendTikklingData} from 'src/dataLayer/DataSource/Friend/GetFriendTikklingData';
+import {getMyIsNoticeData} from 'src/dataLayer/DataSource/User/GetMyIsNoticeData';
+import {getFriendEventData} from 'src/dataLayer/DataSource/Friend/GetFriendEventData';
+import {getMyWishlistData} from 'src/dataLayer/DataSource/User/GetMyWishlistData';
+import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancelTikklingData';
 import {useGlobalViewModel} from 'src/presentationLayer/viewModel/globalViewModels/globalViewModel';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
