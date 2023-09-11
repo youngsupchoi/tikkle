@@ -39,7 +39,7 @@ export default function SignUpScreen2({phoneNumber}) {
   const handleTextChange = async (text, index) => {
     const newInputCode = [...state.inputCode];
     newInputCode[index] = text;
-    setInputCode(newInputCode);
+    actions.setInputCode(newInputCode);
 
     if (text.length === 1 && index < 5) {
       ref.inputRefs.current[index + 1].focus();
@@ -119,7 +119,7 @@ export default function SignUpScreen2({phoneNumber}) {
       </View>
       <View style={styles.buttonContainer}>
         <AnimatedButton
-          disabled={inputCode.join('').length !== 6}
+          disabled={state.inputCode.join('').length !== 6}
           onPress={() => buttonPress()}
           style={styles.button}>
           <B15 customStyle={{color: COLOR_WHITE}}>인증번호 전송</B15>
