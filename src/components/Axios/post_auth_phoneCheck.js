@@ -2,7 +2,6 @@ import api from './api'; // 위에서 만든 api.js 를 불러옵니다.
 
 export const post_auth_phoneCheck = async phoneNumber => {
   try {
-    console.log('check');
     const response = await api.post('/dev/post_auth_phoneCheck', {
       phone: phoneNumber,
     });

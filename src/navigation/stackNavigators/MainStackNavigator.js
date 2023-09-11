@@ -1,5 +1,5 @@
 // mainStack.js
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -24,9 +24,34 @@ import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScr
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {Easing} from 'react-native';
-import ProductSearchDetailScreen1 from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+
+import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
+import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
+import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
+import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
+
+const ProductDetail = () => (
+  <ProductDetailViewStateProvider>
+    <ProductDetailScreen />
+  </ProductDetailViewStateProvider>
+);
+
+const StartTikkling = () => (
+  <StartTikklingViewStateProvider>
+    <StartTikklingScreen />
+  </StartTikklingViewStateProvider>
+);
+
+const Notification = () => (
+  <NotificationViewStateProvider>
+    <NotificationScreen />
+  </NotificationViewStateProvider>
+);
+
 
 const MainStack = createStackNavigator();
+const SignUpStack = createStackNavigator();
 const MyTheme = {
   ...DefaultTheme,
   colors: {
@@ -81,27 +106,55 @@ const customCardStyleInterpolator = ({current, next, layouts}) => {
     },
   };
 };
+export const navigationRef = React.createRef();
 
-export default function MainStackNavigator() {
+export function navigate(name, params) {
+  navigationRef.current?.navigate(name, params);
+}
+
+export function reset(routes) {
+  navigationRef.current?.reset(routes);
+}
+
+function SignUpNavigator() {
   return (
-    <NavigationContainer theme={MyTheme}>
-      <MainStack.Navigator
+    <StartViewStateProvider>
+      <SignUpStack.Navigator
         initialRouteName="splash"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
           cardOverlayEnabled: true,
-          cardStyleInterpolator: customCardStyleInterpolator, // apply the custom card style interpolator
-          transitionSpec: customTransitionSpec, // use the previously defined custom transition spec
+          cardStyleInterpolator: customCardStyleInterpolator,
+          transitionSpec: customTransitionSpec,
         }}>
-        <MainStack.Screen name="splash" component={SplashScreen} />
-        {/* <MainStack.Screen name="signupNotUsed" component={SignUpNotUsedScreen} /> */}
-        <MainStack.Screen name="signup1" component={SignUpScreen1} />
-        <MainStack.Screen name="signup2" component={SignUpScreen2} />
-        <MainStack.Screen name="signup3" component={SignUpScreen3} />
-        <MainStack.Screen name="signup4" component={SignUpScreen4} />
-        <MainStack.Screen name="signup5" component={SignUpScreen5} />
-        <MainStack.Screen name="signup6" component={SignUpScreen6} />
+        <SignUpStack.Screen name="splash" component={SplashScreen} />
+        <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
+        <SignUpStack.Screen name="signup2" component={SignUpScreen2} />
+        <SignUpStack.Screen name="signup3" component={SignUpScreen3} />
+        <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
+        <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
+        <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
+      </SignUpStack.Navigator>
+    </StartViewStateProvider>
+  );
+}
+
+export default function MainStackNavigator() {
+  return (
+    <NavigationContainer theme={MyTheme} ref={navigationRef}>
+      <MainStack.Navigator
+        initialRouteName="SignUpNavigator"
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          cardStyleInterpolator: customCardStyleInterpolator,
+          transitionSpec: customTransitionSpec,
+        }}>
+        {/*  <MainStack.Screen name="splash" component={SplashScreen} /> */}
+
+        <MainStack.Screen name="SignUpNavigator" component={SignUpNavigator} />
         <MainStack.Screen
           name="main"
           component={BottomTabNavigator}
@@ -113,15 +166,9 @@ export default function MainStackNavigator() {
               CardStyleInterpolators.forScaleFromCenterAndroid,
           }}
         />
-        <MainStack.Screen
-          name="startTikkling"
-          component={StartTikklingScreen}
-        />
-        <MainStack.Screen
-          name="productSearchDetail1"
-          component={ProductSearchDetailScreen1}
-        />
-        <MainStack.Screen name="notification" component={NotificationScreen} />
+        <MainStack.Screen name="startTikkling" component={StartTikkling} />
+        <MainStack.Screen name="productDetail" component={ProductDetail} />
+        <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen
           name="notificationSetting"
           component={NotificationSettingScreen}

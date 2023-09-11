@@ -65,7 +65,7 @@ import Location from 'src/assets/icons/Location';
 //-------------------------------------------------------------------------
 
 // Check permission
-check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
+/* check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
   switch (result) {
     case RESULTS.UNAVAILABLE:
       console.log(
@@ -89,7 +89,7 @@ check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
 // Request permission
 request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
   // handle the result
-});
+}); */
 
 const FirstHero = props => {
   const {

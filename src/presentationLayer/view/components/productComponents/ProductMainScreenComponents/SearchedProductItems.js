@@ -1,17 +1,12 @@
 import {
   View,
-  Text,
-  FlatList,
   Image,
   StyleSheet,
   TouchableOpacity,
   Animated,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {
-  windowHeight,
-  windowWidth,
-} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   SPACING_1,
   SPACING_2,
@@ -21,54 +16,38 @@ import {
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B12,
   B17,
-  M11,
-  M17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-
-const AnimatedTouchableOpacity =
-  Animated.createAnimatedComponent(TouchableOpacity);
+import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 
 export default function SearchedProductItems({productData, category}) {
-  // console.log(productData);
-  const [loading, setLoading] = useState(false);
+  const {state, actions} = useProductMainViewModel();
 
   useEffect(() => {
-    if (transformedData.length === 0) {
-      setLoading(true);
+    if (state.searchedData.length === 0) {
+      actions.setLoading(true);
       setTimeout(() => {
-        setLoading(false);
+        actions.setLoading(false);
       }, 2000);
     }
-  }, [transformedData]);
+  }, [state.searchedData]);
 
-  const transformedData = productData.map(item => ({
-    id: item.id,
-    category: item.cat_name, // Assuming you want to use the passed category prop
-    brand: item.brand_name, // Assuming brand_id is the brand name, you might need to adjust this
-    title: item.name,
-    price: item.price,
-    image: item.thumbnail_image,
-    description: item.description,
-  }));
-
-  const data = productData.length > 0 ? productData : [];
+  const data = state.searchedData.length > 0 ? state.searchedData : [];
   const scaleValues = data.map(() => new Animated.Value(1));
 
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      {data.map((item, index) => (
+      {state.searchedData.map((item, index) => (
         <AnimatedButton
           onPress={() => {
-            navigation.navigate('productSearchDetail1', item);
+            navigation.navigate('productDetail', item);
           }}
           style={[
             styles.itemContainer,
@@ -88,7 +67,6 @@ export default function SearchedProductItems({productData, category}) {
           </View>
         </AnimatedButton>
       ))}
-      {/* {console.log(category)} */}
     </View>
   );
 }

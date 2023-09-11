@@ -7,10 +7,11 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export const PhoneNumberInput = ({onPhoneNumberChange}) => {
-  const [phoneNumber, setPhoneNumber] = useState('');
+export const PhoneNumberInput = () => {
 
+  const {ref, state, actions} = useStartViewModel();
   const validatePhoneNumber = number => /^010\d{8}$/.test(number);
 
   return (
@@ -23,10 +24,11 @@ export const PhoneNumberInput = ({onPhoneNumberChange}) => {
         style={styles.nativeInput}
         underlineColorAndroid="transparent"
         clearButtonMode="while-editing"
-        value={phoneNumber}
+        value={state.phoneNumber}
         onChangeText={text => {
-          setPhoneNumber(text);
-          onPhoneNumberChange(text, validatePhoneNumber(text));
+          /* actions.setPhoneNumber(text); */
+          console.log(text);
+          actions.onPhoneNumberChange(text, validatePhoneNumber(text));
         }}
       />
     </View>
@@ -51,3 +53,69 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+
+// import React, {useState, useRef} from 'react';
+// import {TextInput, View, Animated, Platform, StyleSheet} from 'react-native';
+
+// export const PhoneNumberInput = () => {
+//   const [isFocused, setIsFocused] = useState(false);
+//   const focusAnim = useRef(new Animated.Value(0)).current;
+
+//   const handleFocus = () => {
+//     setIsFocused(true);
+//     Animated.timing(focusAnim, {
+//       toValue: 1,
+//       duration: 200,
+//       useNativeDriver: false,
+//     }).start();
+//   };
+
+//   const handleBlur = () => {
+//     setIsFocused(false);
+//     Animated.timing(focusAnim, {
+//       toValue: 0,
+//       duration: 200,
+//       useNativeDriver: false,
+//     }).start();
+//   };
+
+//   const borderBottomColor = focusAnim.interpolate({
+//     inputRange: [0, 1],
+//     outputRange: ['#ddd', '#444'],
+//   });
+
+//   return (
+//     <View style={styles.container}>
+//       <Animated.View
+//         style={{
+//           ...styles.inputWrapper,
+//           borderBottomColor: borderBottomColor,
+//         }}>
+//         <TextInput
+//           placeholder="전화번호를 입력하세요"
+//           style={styles.textInput}
+//           onFocus={handleFocus}
+//           onBlur={handleBlur}
+//           keyboardType="phone-pad"
+//           maxLength={13}
+//         />
+//       </Animated.View>
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     padding: 10,
+//   },
+//   inputWrapper: {
+//     borderBottomWidth: 1.5,
+//   },
+//   textInput: {
+//     height: 40,
+//     fontSize: 16,
+//     paddingVertical: Platform.OS === 'ios' ? 10 : 0,
+//   },
+// });
+
+// export default NativeTextInput;

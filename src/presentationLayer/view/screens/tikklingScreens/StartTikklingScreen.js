@@ -1,73 +1,7 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  FlatList,
-  Button,
-} from 'react-native';
-import {Calendar} from 'react-native-calendars'; // Add this import at the beginning of your file
-import {LocaleConfig} from 'react-native-calendars';
+import {View, StyleSheet, ScrollView, Image, Button} from 'react-native';
 // import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
-import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
 import Postcode from '@actbase/react-daum-postcode';
-
-// import {USER_AGENT, BASE_URL} from '@env';
-// axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 import Modal from 'react-native-modal';
-
-LocaleConfig.locales['fr'] = {
-  monthNames: [
-    'Janvier',
-    'Février',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juillet',
-    'Août',
-    'Septembre',
-    'Octobre',
-    'Novembre',
-    'Décembre',
-  ],
-  monthNamesShort: [
-    'Janv.',
-    'Févr.',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juil.',
-    'Août',
-    'Sept.',
-    'Oct.',
-    'Nov.',
-    'Déc.',
-  ],
-  dayNames: [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ],
-  dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-  today: "Aujourd'hui",
-};
-LocaleConfig.defaultLocale = 'fr';
-import 'dayjs/locale/ko'; // import Korean locale
-import localizedFormat from 'dayjs/plugin/localizedFormat'; // import plugin
-import axios from 'axios';
-
-dayjs.extend(localizedFormat); // extend dayjs with plugin
-dayjs.locale('ko'); // set locale to Korean
-
 import React, {useEffect, useRef, useState} from 'react';
 import {
   SPACING_2,
@@ -94,12 +28,9 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {useNavigation} from '@react-navigation/native';
-import dayjs from 'dayjs';
 import DatePicker from 'react-native-date-picker';
 import BackHeader from 'src/presentationLayer/view/components/globalComponents/Headers/BackHeader';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Refresh from 'src/assets/icons/Refresh';
 import Information from 'src/assets/icons/Information';
 import Birthday from 'src/assets/icons/undraw_birthday_cake_re_bsw5.svg';
@@ -107,367 +38,35 @@ import Cat from 'src/assets/icons/undraw_cat_epte.svg';
 import SearchNormal1 from 'src/assets/icons/SearchNormal1';
 import Location from 'src/assets/icons/Location';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
+import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
 
-const generateMarkedDates = (startDate, endDate) => {
-  let dates = {};
-  let current = dayjs(startDate);
-
-  while (current.isBefore(endDate) || current.isSame(endDate)) {
-    if (current.isSame(startDate)) {
-      dates[current.format('YYYY-MM-DD')] = {
-        startingDay: true,
-        color: COLOR_PRIMARY,
-        textColor: COLOR_WHITE,
-      };
-    } else if (current.isSame(endDate)) {
-      dates[current.format('YYYY-MM-DD')] = {
-        endingDay: true,
-        color: COLOR_PRIMARY,
-        textColor: COLOR_WHITE,
-      };
-    } else {
-      dates[current.format('YYYY-MM-DD')] = {
-        color: COLOR_PRIMARY,
-        textColor: COLOR_WHITE,
-      };
-    }
-    current = current.add(1, 'day');
-  }
-  return dates;
-};
-
-const wishlistRenderItem = ({item, onPressItem, isItemSelected}) => {
-  const borderColor = isItemSelected ? COLOR_PRIMARY : COLOR_WHITE;
-
-  return (
-    <AnimatedButton onPress={() => onPressItem(item.productId)}>
-      <Image
-        source={{uri: item.wishlistImage}}
-        style={[
-          styles.wishlistImage,
-          {borderColor: borderColor, borderWidth: 0.5},
-        ]}
-      />
-    </AnimatedButton>
-  );
-};
-
-export default function StartTikklingScreen(route) {
-  //-------------------------------------------------------------------
-
-  const printTokensFromAsyncStorage = async () => {
-    try {
-      const tokens = await AsyncStorage.getItem('tokens');
-      if (tokens !== null) {
-        const token = tokens;
-        const {accessToken} = JSON.parse(token);
-        const {refreshToken} = JSON.parse(token);
-        const authorization = `${refreshToken},${accessToken}`;
-        return authorization;
-      } else {
-        console.log('No tokens');
-      }
-    } catch (error) {
-      console.error('Error retrieving tokens', error);
-    }
-  };
-  //-------------------------------------------------------------------------
-  //프로필 정보 가져오기
-  const [userData, setUserData] = useState([]);
-
-  async function get_user_info() {
-    try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_user_info`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data && response.data.data) {
-        setUserData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
-    } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('get wishlist [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('get wishlist response data : ', error.response.data);
-      }
-    }
-  }
-  //-------------------------------------------------------------------
-
-  async function postTikklingCreate() {
-    console.log(
-      endDate,
-      selectedItem.price / 5000,
-      data[0].product_id,
-      eventType,
-    );
-    try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-
-      // Ensure data exists and is an array with at least one item
-      if (Array.isArray(data) && data.length > 0) {
-        const response = await axios.post(
-          `https://${BASE_URL}/dev/post_tikkling_create`,
-          {
-            funding_limit: endDate,
-            tikkle_quantity: selectedItem.price / 5000,
-            product_id: data[0].product_id, // Access the productId of the first item in the data array
-            type: eventType,
-          },
-          {
-            headers: {
-              authorization: authorization,
-            },
-          },
-        );
-
-        if (response && response.data) {
-        } else {
-          console.log('Response or response data is undefined');
-        }
-      } else {
-        console.log('Data is either not an array or is empty');
-      }
-    } catch (error) {
-      if (error.response && error.response.status) {
-        console.error(
-          'post_tikkling_create [status code] ',
-          error.response.status,
-        );
-      }
-      if (error.response && error.response.data) {
-        console.error(
-          'post_tikkling_create response data : ',
-          error.response.data,
-        );
-      }
-    }
-  }
-  //-------------------------------------------------------------------
-  //주소 저장하기
-  async function put_user_address() {
-    try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.put(
-        `https://${BASE_URL}/dev/put_user_address`,
-        {
-          zonecode: zonecode,
-          address: address,
-          detail_address: detailAddress,
-        },
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-
-      if (response && response.data) {
-        console.log('put_user_address : ', response.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
-    } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('put_user_address [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('put_user_address response data : ', error.response.data);
-      }
-    }
-  }
-
-  //-------------------------------------------------------------------
-  //utils
-  const calculateDaysUntilNextBirthday = birthdayString => {
-    const currentDate = new Date();
-
-    // Resetting the hours, minutes, seconds, and milliseconds
-    currentDate.setHours(0, 0, 0, 0);
-
-    const birthDate = new Date(birthdayString);
-
-    // Set the birthDate to this year or next year
-    const nextBirthday = new Date(
-      currentDate.getFullYear(),
-      birthDate.getMonth(),
-      birthDate.getDate(),
-    );
-
-    // If the birthday is today, return 0
-    if (currentDate.getTime() === nextBirthday.getTime()) {
-      return 0;
-    }
-
-    if (currentDate > nextBirthday) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-    }
-
-    const timeDiff = nextBirthday - currentDate;
-    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-
-    return dayDiff;
-  };
-
-  function formatDate(isoDateString) {
-    const date = new Date(isoDateString);
-    const currentDate = new Date();
-
-    // 기념일이 이미 지나갔는지 확인
-    if (
-      date.getMonth() < currentDate.getMonth() ||
-      (date.getMonth() === currentDate.getMonth() &&
-        date.getDate() < currentDate.getDate())
-    ) {
-      // 지나갔다면, 연도를 1년 증가
-      date.setFullYear(currentDate.getFullYear() + 1);
-    }
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return {
-      label: `${year}년 ${month}월 ${day}일`,
-      value: `${year}-${month}-${day}`,
-    };
-  }
-
-  function getNextBirthday(birthdayString) {
-    // 현재 날짜와 주어진 생일을 Date 객체로 변환합니다.
-    const today = new Date();
-    const birthDate = new Date(birthdayString);
-
-    // 현재 연도와 생일의 월/일을 기반으로 다음 생일을 결정합니다.
-    let nextBirthdayYear = today.getFullYear();
-    if (
-      today.getMonth() > birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() &&
-        today.getDate() > birthDate.getDate())
-    ) {
-      nextBirthdayYear += 1;
-    }
-
-    // 다음 생일의 Date 객체를 생성합니다.
-    const nextBirthday = new Date(
-      nextBirthdayYear,
-      birthDate.getMonth(),
-      birthDate.getDate(),
-    );
-
-    // Date 객체를 주어진 형식의 문자열로 변환합니다.
-    return nextBirthday.toISOString();
-  }
-
-  //-------------------------------------------------------------------
-  const buttonPress = () => {
-    put_user_address();
-    postTikklingCreate();
-
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'main', params: {updated: new Date().toString()}}],
-    });
-  };
-
-  const navigation = useNavigation();
-
-  const [data, setData] = useState([route.route.params]);
-
-  // console.log(route.route.params);
-  const [show, setShow] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(
-    route.route.params ? route.route.params : null,
-  );
-
-  const [date, setDate] = useState(new Date());
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
-  let currentDate = startDate ? dayjs(startDate).add(1, 'day') : null;
-  while (currentDate && endDate && currentDate.isBefore(endDate)) {
-    markedDates[currentDate.format('YYYY-MM-DD')] = {
-      color: '#00adf5',
-      textColor: 'white',
-    };
-    currentDate = currentDate.add(1, 'day');
-  }
-  const events = [
-    {
-      type: 'birthday',
-      label: '생일',
-      value: 'birthday',
-    },
-    {
-      type: 'none',
-      label: '기타',
-      value: 'none',
-    },
-  ];
-
-  const [address, setAddress] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [zonecode, setZonecode] = useState(null);
-  const [detailAddress, setDetailAddress] = useState(null);
-  // let isButtonEnabled;
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-
-  const [eventType, setEventType] = useState(null);
-  const [event, setEvent] = useState(null);
-
-  const [showSearchModal, setShowSearchModal] = useState(false);
-  const [showDetailModal, setShowDetailModal] = useState(false);
-  const onCloseSearchModal = () => {
-    setShowSearchModal(false);
-  };
-
-  const onCloseDetailModal = () => {
-    setShowDetailModal(false);
-  };
-
+export default function StartTikklingScreen() {
+  const {state, actions} = useStartTikklingViewModel();
   useEffect(() => {
-    get_user_info();
+    actions.loadData();
   }, []);
 
   useEffect(() => {
-    setIsButtonEnabled(
-      zonecode !== null &&
-        address !== null &&
-        detailAddress !== null &&
-        eventType !== null,
+    actions.setIsButtonEnabled(
+      state.zonecode !== null &&
+        state.address !== null &&
+        state.detailAddress !== null &&
+        state.eventType !== null,
     );
-  }, [zonecode, address, detailAddress, event]);
+  }, [state.zonecode, state.address, state.detailAddress, state.event]);
 
   useEffect(() => {
-    userData.birthday !== undefined
-      ? setEndDate(getNextBirthday(userData.birthday))
+    state.userData.birthday !== undefined
+      ? actions.setEndDate(actions.getNextBirthday(state.userData.birthday))
       : null;
-    setAddress(userData.address);
-    setZonecode(userData.zonecode);
-    setDetailAddress(
-      userData.detailAddress !== undefined ? userData.detailAddress : null,
+    actions.setAddress(state.userData.address);
+    actions.setZonecode(state.userData.zonecode);
+    actions.setDetailAddress(
+      state.userData.detailAddress !== undefined
+        ? state.userData.detailAddress
+        : null,
     );
-  }, [userData]);
+  }, [state.userData]);
   return (
     <View style={{}}>
       <ScrollView
@@ -476,7 +75,7 @@ export default function StartTikklingScreen(route) {
         style={styles.container}>
         <BackHeader
           style={{backgroundColor: COLOR_WHITE}}
-          tikkling_ticket={userData.tikkling_ticket}>
+          tikkling_ticket={state.userData.tikkling_ticket}>
           {/* Let's TIKKLE! */}
         </BackHeader>
         <View
@@ -529,7 +128,6 @@ export default function StartTikklingScreen(route) {
             }}>
             <View
               style={{
-                // width: '30%',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
@@ -544,7 +142,7 @@ export default function StartTikklingScreen(route) {
                   alignItems: 'center',
                 }}>
                 <Image
-                  source={{uri: data[0].thumbnail_image}}
+                  source={{uri: state.selectedItem.thumbnail_image}}
                   style={{
                     width: 100,
                     height: 100,
@@ -554,12 +152,12 @@ export default function StartTikklingScreen(route) {
                   }}
                 />
                 <View style={{alignItems: 'center', marginTop: 8}}>
-                  <B15>{data[0].name}</B15>
+                  <B15>{state.selectedItem.name}</B15>
                   <M11 customStyle={{color: COLOR_GRAY}}>
-                    {data[0].brand_name}
+                    {state.selectedItem.brand_name}
                   </M11>
                   <M11 customStyle={{color: COLOR_GRAY, marginTop: 8}}>
-                    ￦ {Number(data[0].price).toLocaleString()}
+                    ￦ {Number(state.selectedItem.price).toLocaleString()}
                   </M11>
                 </View>
               </View>
@@ -617,7 +215,7 @@ export default function StartTikklingScreen(route) {
                   <B15>티클</B15>
                   <M11 customStyle={{color: COLOR_GRAY}}>TIKKLE</M11>
                   <M11 customStyle={{color: COLOR_GRAY, marginTop: 8}}>
-                    {(data[0].price / 5000).toLocaleString()} 개
+                    {(state.selectedItem.price / 5000).toLocaleString()} 개
                   </M11>
                 </View>
               </View>
@@ -674,17 +272,19 @@ export default function StartTikklingScreen(route) {
               flexDirection: 'row',
               overflow: 'hidden',
             }}>
-            {events.map(item => (
+            {state.events.map(item => (
               <AnimatedButton
                 onPress={() => {
-                  setEventType(item.type);
-                  setEvent(item);
-                  item.type === 'none' ? setOpen(true) : null;
+                  actions.setEventType(item.type);
+                  actions.setEvent(item);
+                  item.type === 'none' ? actions.setOpen(true) : null;
                 }}
                 key={item.label}
                 style={{
                   backgroundColor:
-                    item.type === eventType ? COLOR_SECONDARY : COLOR_WHITE,
+                    item.type === state.eventType
+                      ? COLOR_SECONDARY
+                      : COLOR_WHITE,
                   padding: 12,
                   paddingTop: 40,
                   borderColor: COLOR_SEPARATOR,
@@ -704,7 +304,10 @@ export default function StartTikklingScreen(route) {
                 </View>
                 <B20
                   customStyle={{
-                    color: item.type === eventType ? COLOR_WHITE : COLOR_BLACK,
+                    color:
+                      item.type === state.eventType
+                        ? COLOR_PRIMARY
+                        : COLOR_BLACK,
                     marginBottom: 12,
                   }}>
                   {item.label}
@@ -725,9 +328,14 @@ export default function StartTikklingScreen(route) {
                       customStyle={{
                         alignSelf: 'flex-end',
                         color:
-                          item.type === eventType ? COLOR_WHITE : COLOR_BLACK,
+                          item.type === state.eventType
+                            ? COLOR_PRIMARY
+                            : COLOR_BLACK,
                       }}>
-                      D-{calculateDaysUntilNextBirthday(userData.birthday)}
+                      D-
+                      {actions.calculateDaysUntilNextBirthday(
+                        state.userData.birthday,
+                      )}
                     </B15>
                   </View>
                 ) : (
@@ -746,9 +354,14 @@ export default function StartTikklingScreen(route) {
                       customStyle={{
                         alignSelf: 'flex-end',
                         color:
-                          item.type === eventType ? COLOR_WHITE : COLOR_BLACK,
+                          item.type === state.eventType
+                            ? COLOR_PRIMARY
+                            : COLOR_BLACK,
                       }}>
-                      D-{date ? calculateDaysUntilNextBirthday(date) : null}
+                      D-
+                      {state.date
+                        ? actions.calculateDaysUntilNextBirthday(state.date)
+                        : null}
                     </B15>
                   </View>
                 )}
@@ -757,9 +370,11 @@ export default function StartTikklingScreen(route) {
                     <M15
                       customStyle={{
                         color:
-                          item.type === eventType ? COLOR_WHITE : COLOR_BLACK,
+                          item.type === state.eventType
+                            ? COLOR_PRIMARY
+                            : COLOR_BLACK,
                       }}>
-                      {formatDate(userData.birthday).label}
+                      {actions.formatDate(state.userData.birthday).label}
                     </M15>
                   </View>
                 ) : (
@@ -767,9 +382,11 @@ export default function StartTikklingScreen(route) {
                     <M15
                       customStyle={{
                         color:
-                          item.type === eventType ? COLOR_WHITE : COLOR_BLACK,
+                          item.type === state.eventType
+                            ? COLOR_PRIMARY
+                            : COLOR_BLACK,
                       }}>
-                      {date ? formatDate(date).label : null}
+                      {state.date ? actions.formatDate(state.date).label : null}
                     </M15>
                   </View>
                 )}
@@ -779,12 +396,12 @@ export default function StartTikklingScreen(route) {
         </View>
         <DatePicker
           modal
-          open={open}
-          date={date}
+          open={state.open}
+          date={state.date}
           onConfirm={date => {
-            setOpen(false);
-            setDate(date);
-            setEndDate(date);
+            actions.setOpen(false);
+            actions.setDate(date);
+            actions.setEndDate(date);
           }}
           onCancel={() => {
             setOpen(false);
@@ -795,7 +412,6 @@ export default function StartTikklingScreen(route) {
           confirmText="확인"
           cancelText="취소"
         />
-        {console.log(eventType)}
 
         <View
           style={{
@@ -845,8 +461,7 @@ export default function StartTikklingScreen(route) {
             }}>
             <AnimatedButton
               onPress={() => {
-                // navigation.navigate('searchAddress');
-                setShowSearchModal(true);
+                actions.setShowSearchModal(true);
               }}
               style={{
                 marginTop: 16,
@@ -882,8 +497,8 @@ export default function StartTikklingScreen(route) {
                   />
                 </View>
                 <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                  {zonecode !== null && address !== null
-                    ? `${address}(${zonecode})`
+                  {state.zonecode !== null && state.address !== null
+                    ? `${state.address}(${state.zonecode})`
                     : '도로명주소 검색'}
                 </B15>
               </View>
@@ -891,7 +506,7 @@ export default function StartTikklingScreen(route) {
             <AnimatedButton
               onPress={() => {
                 // navigation.navigate('searchAddress');
-                setShowDetailModal(true);
+                actions.setShowDetailModal(true);
               }}
               style={{
                 marginTop: 12,
@@ -912,19 +527,11 @@ export default function StartTikklingScreen(route) {
                   width: '100%',
                   flexDirection: 'row',
                   alignItems: 'center',
-                  // marginHorizontal: 24,
-                  // alignItems: 'flex-start',
                 }}>
                 <View
                   style={{
-                    // backgroundColor: COLOR_WHITE,
-                    // borderColor: COLOR_SEPARATOR,
                     alignSelf: 'center',
-                    // borderWidth: 1,
-                    // borderRadius: 12,
-                    // elevation: 4,
                     padding: 4,
-                    // marginHorizontal: 24,
                     alignItems: 'center',
                   }}>
                   <Location
@@ -936,8 +543,8 @@ export default function StartTikklingScreen(route) {
                   />
                 </View>
                 <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                  {detailAddress !== null
-                    ? `${detailAddress}`
+                  {state.detailAddress !== null
+                    ? `${state.detailAddress}`
                     : '상세주소 입력'}
                 </B15>
               </View>
@@ -946,7 +553,7 @@ export default function StartTikklingScreen(route) {
         </View>
 
         <AnimatedButton
-          onPress={buttonPress}
+          onPress={actions.buttonPress}
           style={{
             backgroundColor: COLOR_PRIMARY,
             borderRadius: 12,
@@ -957,20 +564,15 @@ export default function StartTikklingScreen(route) {
             marginTop: 24,
             marginBottom: SPACING_6 + 8,
             alignSelf: 'center',
-            // position: 'absolute',
-            // bottom: 0,
-            // left: 0,
-            // right: 0,
           }}
-          disabled={!isButtonEnabled} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
+          disabled={!state.isButtonEnabled} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
         >
-          {console.log(isButtonEnabled, 'asdfasdfasdfasdf')}
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
       </ScrollView>
       <Modal
-        onBackdropPress={onCloseSearchModal}
-        isVisible={showSearchModal}
+        onBackdropPress={actions.onCloseSearchModal}
+        isVisible={state.showSearchModal}
         backdropOpacity={0.5}>
         <View
           style={{
@@ -985,30 +587,24 @@ export default function StartTikklingScreen(route) {
               backgroundColor: backgroundColor,
             }}
             jsOptions={{animation: true}}
-            onSelected={
-              data => {
-                setAddress(data.address);
-                setZonecode(data.zonecode);
-                setShowSearchModal(false);
-                setShowDetailModal(true);
-              }
-              // console.log(
-              //   JSON.stringify(data.address),
-              //   JSON.stringify(data.zonecode),
-              // )
-            }
+            onSelected={data => {
+              actions.setAddress(data.address);
+              actions.setZonecode(data.zonecode);
+              actions.setShowSearchModal(false);
+              actions.setShowDetailModal(true);
+            }}
           />
         </View>
       </Modal>
       <DetailAddressInput
-        showDetailModal={showDetailModal}
-        setShowDetailModal={setShowDetailModal}
-        setShowSearchModal={setShowSearchModal}
-        zonecode={zonecode}
-        address={address}
-        setDetailAddress={setDetailAddress}
-        detailAddress={detailAddress}
-        onCloseDetailModal={onCloseDetailModal}
+        showDetailModal={state.showDetailModal}
+        setShowDetailModal={actions.setShowDetailModal}
+        setShowSearchModal={actions.setShowSearchModal}
+        zonecode={state.zonecode}
+        address={state.address}
+        setDetailAddress={actions.setDetailAddress}
+        detailAddress={state.detailAddress}
+        onCloseDetailModal={actions.onCloseDetailModal}
       />
     </View>
   );
