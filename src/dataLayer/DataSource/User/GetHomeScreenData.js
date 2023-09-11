@@ -107,7 +107,7 @@ export async function getHomeScreenData() {
   let info = {
     user_info: a.data.data,
     friend_tikkling: b.data.data,
-    is_notification: c.data.data,
+    is_notification: c.data.data.is_notification,
     friend_event: d.data.data,
     my_wishlist: e.data.data,
     my_tikkling: f,
