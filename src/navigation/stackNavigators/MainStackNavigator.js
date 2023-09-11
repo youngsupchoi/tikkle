@@ -27,6 +27,7 @@ import {Easing} from 'react-native';
 import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
 import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
+import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -38,6 +39,12 @@ const StartTikkling = () => (
   <StartTikklingViewStateProvider>
     <StartTikklingScreen />
   </StartTikklingViewStateProvider>
+);
+
+const Notification = () => (
+  <NotificationViewStateProvider>
+    <NotificationScreen />
+  </NotificationViewStateProvider>
 );
 
 const MainStack = createStackNavigator();
@@ -138,7 +145,7 @@ export default function MainStackNavigator() {
         />
         <MainStack.Screen name="startTikkling" component={StartTikkling} />
         <MainStack.Screen name="productDetail" component={ProductDetail} />
-        <MainStack.Screen name="notification" component={NotificationScreen} />
+        <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen
           name="notificationSetting"
           component={NotificationSettingScreen}
