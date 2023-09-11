@@ -5,13 +5,11 @@ import {
   HEADER_HEIGHT,
   SPACING_2,
   SPACING_4,
-  SPACING_6,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
-  COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {

@@ -17,52 +17,32 @@ import {
   windowWidth,
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {getHash, startOtpListener} from 'react-native-otp-verify';
 import OTPInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/OTPInput';
 import {InstructionText} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/InstructionText';
 import TimerComponent from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/TimerComponent';
 
 import {verifyOTP} from 'src/components/Axios/OTPVerification';
-import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 export default function SignUpScreen2({phoneNumber}) {
   //const {phoneNumber, message, userId} = route.params;
   const {ref, state, actions} = useStartViewModel();
-  const [encryptedOTP, setEncryptedOTP] = useState();
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
-  const inputRefs = useRef([]);
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.phoneNumber:',
-      state.phoneNumber,
-    );
-    console.log(
-      '🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.userId:',
-      state.userId,
-    );
-    console.log(
-      '🚀 ~ file: PhoneCheckScreen.js:44 ~ useEffect ~ state.message:',
-      state.message,
-    );
-  }, []);
   const buttonPress = () => {
     // verifyOTP();
-    navigation.navigate('signup3', {phoneNumber: state.phoneNumber});
+    actions.navigation.navigate('signup3', {phoneNumber: state.phoneNumber});
   };
 
   const handleTextChange = async (text, index) => {
-    const newInputCode = [...inputCode];
+    const newInputCode = [...state.inputCode];
     newInputCode[index] = text;
     setInputCode(newInputCode);
 
     if (text.length === 1 && index < 5) {
-      inputRefs.current[index + 1].focus();
+      ref.inputRefs.current[index + 1].focus();
     }
 
     if (newInputCode.join('').length === 6) {
@@ -111,11 +91,11 @@ export default function SignUpScreen2({phoneNumber}) {
   };
 
   useEffect(() => {
-    const fullCode = inputCode.join('');
+    const fullCode = state.inputCode.join('');
     if (fullCode.length === 6) {
       verifyOTP(state.encryptedOTP, fullCode, state.message);
     }
-  }, [inputCode.join('').length === 6]);
+  }, [state.inputCode.join('').length === 6]);
 
   useEffect(() => {
     console.log(
@@ -132,8 +112,8 @@ export default function SignUpScreen2({phoneNumber}) {
       <View style={styles.changeContainer}>
         <OTPInput
           handleTextChange={handleTextChange}
-          inputCode={inputCode}
-          inputRefs={inputRefs}
+          inputCode={state.inputCode}
+          inputRefs={ref.inputRefs}
         />
         <TimerComponent />
       </View>
