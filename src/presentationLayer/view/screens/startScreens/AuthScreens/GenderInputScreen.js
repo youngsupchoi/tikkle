@@ -33,21 +33,13 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/SignUpHeaderComponent';
 
 export default function SignUpScreen4({route}) {
   const navigation = useNavigation();
   const {ref, state, actions} = useStartViewModel();
-  const {firstName, lastName, name, phoneNumber} = route.params; // Get the name data from navigation parameters
 
-  const buttonPress = () => {
-    navigation.navigate('signup5', {
-      phoneNumber: state.phoneNumber,
-      firstName: state.firstName,
-      lastName: state.lastName,
-      name: name,
-      gender: actions.formattedGender,
-    });
-  };
+
   useEffect(() => {
     if (state.gender === '남성') {
       actions.setFormattedGender('male');
@@ -59,29 +51,7 @@ export default function SignUpScreen4({route}) {
   }, [state.gender]);
   return (
     <View style={styles.signupContainer}>
-      <View style={styles.signUpHeader}>
-        <AnimatedButton
-          onPress={() => {
-            actions.handleBackPress();
-          }}
-          style={styles.backButton}>
-          <BackIcon
-            width={24}
-            height={24}
-            stroke={COLOR_BLACK}
-            strokeWidth={1}
-          />
-          {console.log(state.firstName, state.lastName, name, state.gender)}
-        </AnimatedButton>
-        <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.selectedPagination} />
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-        </View>
-
-        <View style={{width: 44}} />
-      </View>
+      <SignUpHeader />
 
       <View style={styles.instructionContainer}>
         <B28>당신의 성별은 무엇인가요?</B28>
@@ -146,7 +116,15 @@ export default function SignUpScreen4({route}) {
 
       <View style={styles.nextButtonContainer}>
         <AnimatedButton
-          onPress={() => buttonPress()}
+          onPress={() => {
+            navigation.navigate('signup5', {
+              phoneNumber: state.phoneNumber,
+              firstName: state.firstName,
+              lastName: state.lastName,
+              name: state.firstName + state.lastName,
+              gender: actions.formattedGender,
+            });
+          }}
           style={[
             styles.nextButton,
             state.gender === '' ? styles.inactiveButton : {},
