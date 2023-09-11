@@ -41,7 +41,7 @@ export default function NotificationScreen() {
   useEffect(() => {
     actions.get_notification_list();
   }, []);
-
+  //ㅎㅎㅎㅎㅎㅎ
   const navigation = useNavigation();
 
   const renderItem = ({item, index}) => {
