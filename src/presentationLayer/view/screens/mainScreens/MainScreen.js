@@ -9,6 +9,7 @@ import {
 import {HomeLoader} from 'src/presentationLayer/view/components/globalComponents/Skeletons/Skeletons';
 import {RefreshControl} from 'react-native-gesture-handler';
 import SecondHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/SecondHero';
+
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import MyTikklingComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/MyTikklingComponent';
 import FriendsTikklingComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FriendsTikklingComponents/FriendsTikklingComponent';

@@ -6,7 +6,6 @@ import {useProductMainViewState} from 'src/presentationLayer/viewState/productSt
 import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
-
 export const useProductMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useProductMainViewState();
