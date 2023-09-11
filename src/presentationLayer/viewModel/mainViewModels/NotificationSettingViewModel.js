@@ -74,7 +74,17 @@ export const useNotificationSettingViewModel = () => {
     },
     actions: {
       ...actions,
-      // process
+      handleToggle1,
+      handleToggle2,
+      handleToggle3,
+      handleToggle4,
+      handleToggle5,
+      handleToggle6,
+      handleToggle7,
+      handleToggle8,
+      handleToggle9,
+      handleToggle10,
+      backPress,
     },
   };
 };
