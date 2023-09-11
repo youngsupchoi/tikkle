@@ -31,6 +31,7 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
+import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/SignUpHeaderComponent';
 
 export default function SignUpScreen5({route}) {
   const navigation = useNavigation();
@@ -71,35 +72,7 @@ export default function SignUpScreen5({route}) {
   }, []);
   return (
     <View style={styles.signupContainer}>
-      <View style={styles.signUpHeader}>
-        <AnimatedButton
-          onPress={() => {
-            backPress();
-          }}
-          style={styles.backButton}>
-          <BackIcon
-            width={24}
-            height={24}
-            stroke={COLOR_BLACK}
-            strokeWidth={1}
-          />
-        </AnimatedButton>
-        <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-          <View style={styles.selectedPagination} />
-          <View style={styles.pagination} />
-        </View>
-        <View style={{width: 44}} />
-        {/* <AnimatedButton
-          onPress={() => {
-            buttonPress();
-          }}
-          style={styles.backButton}>
-          <B20 customStyle={{color: COLOR_GRAY}}>다음</B20>
-        </AnimatedButton> */}
-      </View>
-
+      <SignUpHeader />
       <View style={styles.instructionContainer}>
         <B28>당신의 생일을 알려주세요.</B28>
         <M15 customStyle={{color: COLOR_GRAY}}>
