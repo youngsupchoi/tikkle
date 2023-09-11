@@ -341,7 +341,9 @@ export default function ProfileScreen() {
                         </M11>
                         <B15 customStyle={{}}>{item.product_name}</B15>
                         <M11 customStyle={{color: COLOR_GRAY}}>
+
                           {actions.formatDate(item.tikkling_terminated_at)}
+
                         </M11>
                       </AnimatedButton>
                     );
@@ -368,7 +370,7 @@ export default function ProfileScreen() {
             <AnimatedButton
               onPress={() => {
                 AsyncStorage.clear();
-                navigation.navigate('splash', {
+                navigation.navigate('SignUpNavigator', {
                   updated_at: new Date().toString(),
                 });
               }}>

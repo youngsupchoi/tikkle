@@ -98,7 +98,6 @@ export async function createTikklingData(
       response.data.returnToken,
       authorization,
     );
-
   }
 
   //------ call post_notification_send -------------------------------------------------------//

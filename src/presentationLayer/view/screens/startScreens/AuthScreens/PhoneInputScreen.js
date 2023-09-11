@@ -14,41 +14,16 @@ import {
   windowWidth,
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 export default function SignUpScreen1() {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
-  const navigation = useNavigation();
-
-  const onPhoneNumberChange = (number, isValid) => {
-    setPhoneNumber(number);
-    setIsValidPhoneNumber(isValid);
-  };
-
-  const buttonPress = () => {
-    post_auth_phoneCheck(phoneNumber).then(res => {
-      console.log(
-        '🚀 ~ file: PhoneInputScreen.js:30 ~ post_auth_phoneCheck ~ phoneNumber:',
-        res,
-      );
-
-      navigation.navigate('signup2', {
-        phoneNumber: phoneNumber,
-        message: res.message,
-        userId: res.userId,
-      });
-    });
-  };
-
+  const {state, actions} = useStartViewModel();
   return (
     <View style={styles.signupContainer}>
       <View style={styles.signUpHeader}></View>
       <InstructionText />
-      <PhoneNumberInput onPhoneNumberChange={onPhoneNumberChange} />
-      <SubmitButton
-        isValidPhoneNumber={isValidPhoneNumber}
-        onPress={buttonPress}
-      />
+      <PhoneNumberInput />
+      <SubmitButton />
     </View>
   );
 }

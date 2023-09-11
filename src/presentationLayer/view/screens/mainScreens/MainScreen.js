@@ -67,7 +67,6 @@ export default function HomeScreen() {
 
   useEffect(() => {
     actions.loadData();
-
     setTimeout(() => {
       translateYSecondHero.value = withTiming(0, {
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
@@ -94,6 +93,7 @@ export default function HomeScreen() {
       });
     }, 5 * delay); // 다섯 번째 컴포넌트
   }, [state.loading]);
+
 
   return (
     <SafeAreaView style={{flex: 1}}>

@@ -17,37 +17,32 @@ import {
   windowWidth,
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {getHash, startOtpListener} from 'react-native-otp-verify';
 import OTPInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/OTPInput';
 import {InstructionText} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/InstructionText';
 import TimerComponent from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/TimerComponent';
 
 import {verifyOTP} from 'src/components/Axios/OTPVerification';
-import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export default function SignUpScreen2({route}) {
-  const {phoneNumber, message, userId} = route.params;
-  const [encryptedOTP, setEncryptedOTP] = useState();
+export default function SignUpScreen2({phoneNumber}) {
+  //const {phoneNumber, message, userId} = route.params;
+  const {ref, state, actions} = useStartViewModel();
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
-  const inputRefs = useRef([]);
-  const navigation = useNavigation();
-  const [hash, setHash] = useState();
 
   const buttonPress = () => {
     // verifyOTP();
-    navigation.navigate('signup3', {phoneNumber: phoneNumber});
+    actions.navigation.navigate('signup3', {phoneNumber: state.phoneNumber});
   };
 
   const handleTextChange = async (text, index) => {
-    const newInputCode = [...inputCode];
+    const newInputCode = [...state.inputCode];
     newInputCode[index] = text;
-    setInputCode(newInputCode);
+    actions.setInputCode(newInputCode);
 
     if (text.length === 1 && index < 5) {
-      inputRefs.current[index + 1].focus();
+      ref.inputRefs.current[index + 1].focus();
     }
 
     if (newInputCode.join('').length === 6) {
@@ -55,27 +50,31 @@ export default function SignUpScreen2({route}) {
       console.log('All 6 slots are filled!');
 
       try {
-        const isOTPValid = await verifyOTP(encryptedOTP, fullCode, message);
+        const isOTPValid = await verifyOTP(
+          state.encryptedOTP,
+          fullCode,
+          state.message,
+        );
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
-          console.log(message);
-          if (message === 'login') {
-            post_auth_tokenGenerate(userId).then(() => {
-              navigation.reset({
+          console.log(state.message);
+          if (state.message === 'login') {
+            post_auth_tokenGenerate(state.userId).then(() => {
+              actions.navigation.reset({
                 index: 0,
                 routes: [
                   {name: 'main', params: {updated: new Date().toString()}},
                 ],
               });
             });
-          } else if (message === 'sign up') {
-            navigation.reset({
+          } else if (state.message === 'sign up') {
+            actions.navigation.reset({
               index: 0,
               routes: [
                 {
                   name: 'signup3',
                   params: {
-                    phoneNumber: phoneNumber,
+                    phoneNumber: state.phoneNumber,
                     updated: new Date().toString(),
                   },
                 },
@@ -92,25 +91,18 @@ export default function SignUpScreen2({route}) {
   };
 
   useEffect(() => {
-    const fullCode = inputCode.join('');
+    const fullCode = state.inputCode.join('');
     if (fullCode.length === 6) {
-      verifyOTP(encryptedOTP, fullCode, message);
+      verifyOTP(state.encryptedOTP, fullCode, state.message);
     }
-  }, [inputCode.join('').length === 6]);
+  }, [state.inputCode.join('').length === 6]);
 
   useEffect(() => {
-    getHash().then(hash => {
-      setHash(hash);
-      get_auth_makeOtp(phoneNumber, hash).then(res => setEncryptedOTP(res));
-    });
-    startOtpListener(msg => {
-      const message = msg.match(/\d{6}/);
-      if (message) {
-        setInputCode(message[0].split(''));
-      }
-      const timer = setInterval(decreaseTime, 1000);
-      return () => clearInterval(timer);
-    });
+    console.log(
+      '🚀 ~ file: PhoneCheckScreen.js:108 ~ useEffect ~ state.phoneNumber:',
+      state.phoneNumber,
+    );
+    actions.phoneAuth(state.phoneNumber);
   }, []);
 
   return (
@@ -120,14 +112,14 @@ export default function SignUpScreen2({route}) {
       <View style={styles.changeContainer}>
         <OTPInput
           handleTextChange={handleTextChange}
-          inputCode={inputCode}
-          inputRefs={inputRefs}
+          inputCode={state.inputCode}
+          inputRefs={ref.inputRefs}
         />
-        <TimerComponent initialTime={180} />
+        <TimerComponent />
       </View>
       <View style={styles.buttonContainer}>
         <AnimatedButton
-          disabled={inputCode.join('').length !== 6}
+          disabled={state.inputCode.join('').length !== 6}
           onPress={() => buttonPress()}
           style={styles.button}>
           <B15 customStyle={{color: COLOR_WHITE}}>인증번호 전송</B15>

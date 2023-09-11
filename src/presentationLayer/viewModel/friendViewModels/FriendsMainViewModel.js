@@ -4,6 +4,7 @@ import {Keyboard, Animated, Platform} from 'react-native';
 import {useFriendMainViewState} from '../../viewState/friendStates/FriendsMainState';
 
 // 2. 데이터 소스 또는 API 가져오기
+
 import {getMyFriendData} from 'src/dataLayer/DataSource/Friend/GetMyFriendData';
 import {getBlockedFriendData} from 'src/dataLayer/DataSource/Friend/GetBlockedFriendData';
 import {getSearchFriendData} from 'src/dataLayer/DataSource/Friend/GetSearchFriendData';

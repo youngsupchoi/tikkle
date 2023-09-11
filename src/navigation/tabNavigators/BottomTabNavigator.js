@@ -19,6 +19,7 @@ import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/
 import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
 import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
 
+
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
   <MainViewStateProvider>

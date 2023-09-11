@@ -4,10 +4,12 @@ import {useState} from 'react';
 import {useMyPageViewState} from '../../viewState/myPageStates/MyPageState';
 
 // 2. 데이터 소스 또는 API 가져오기
+
 import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
 import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikklingData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
+
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
@@ -15,12 +17,14 @@ export const useMyPageViewModel = () => {
   const {ref, state, actions} = useMyPageViewState();
   const {topActions} = useTopViewModel();
 
+
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
   //default
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
+
 
   /**
    * MyPageScreen에서 나의 정보를 불러오는 함수
@@ -81,6 +85,7 @@ export const useMyPageViewModel = () => {
    * @param {String (date)} isoDateString
    * @returns
    */
+
   function formatDate(isoDateString) {
     const date = new Date(isoDateString);
     const year = date.getFullYear();
@@ -95,6 +100,7 @@ export const useMyPageViewModel = () => {
    * @param {string(date)} birthdayString
    * @returns
    */
+
   function calculateDaysUntilNextBirthday(birthdayString) {
     const currentDate = new Date();
 
