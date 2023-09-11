@@ -6,6 +6,7 @@ import SearchFavorite1 from 'src/assets/icons/SearchFavorite1';
 import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
+  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
@@ -16,12 +17,28 @@ import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/produ
 import {FriendMainViewStateProvider} from 'src/presentationLayer/viewState/friendStates/FriendsMainState';
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
+import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
   <MainViewStateProvider>
     <HomeScreen />
   </MainViewStateProvider>
+);
+const Search = () => (
+  <ProductMainViewStateProvider>
+    <ProductSearchLandingScreen />
+  </ProductMainViewStateProvider>
+);
+const FriendsManagement = () => (
+  <FriendMainViewStateProvider>
+    <FriendsManagementScreen />
+  </FriendMainViewStateProvider>
+);
+const MyPage = () => (
+  <MyPageViewStateProvider>
+    <ProfileScreen />
+  </MyPageViewStateProvider>
 );
 
 export default function BottomTabNavigator() {
@@ -30,7 +47,7 @@ export default function BottomTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent background
+          backgroundColor: backgroundColor, // Semi-transparent background
           width: windowWidth,
           alignSelf: 'center',
           borderColor: COLOR_SEPARATOR,
@@ -56,7 +73,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="search"
-        component={ProductSearchLandingScreen}
+        component={Search}
         options={{
           tabBarLabel: '둘러보기',
           tabBarIcon: ({color, size}) => (
@@ -90,11 +107,7 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="friendsManagement"
         // component={FriendsManagementScreen}
-        component={() => (
-          <FriendMainViewStateProvider>
-            <FriendsManagementScreen />
-          </FriendMainViewStateProvider>
-        )}
+        component={FriendsManagement}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '친구 관리',
@@ -111,11 +124,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="profile"
-        component={() => (
-          <MyPageViewStateProvider>
-            <ProfileScreen />
-          </MyPageViewStateProvider>
-        )}
+        component={MyPage}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '프로필',

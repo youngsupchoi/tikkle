@@ -1,7 +1,6 @@
 import {View, Text, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
-// import {windowWidth} from '../Global/Containers/MainContainer';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_BLACK,
@@ -20,14 +19,6 @@ import {
   B15,
   M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import DetailAddressTextInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressTextInput';
-// import AnimatedButton from '../Global/Buttons/AnimatedButton';
-// import ArrowLeft2 from '../../assets/icons/ArrowLeft2';
-// import SearchNormal1 from '../../assets/icons/SearchNormal1';
-// import Location from '../../assets/icons/Location';
-// import {B, B15, M11} from '../Global/Typography/Typography';
-// import DetailAddressTextInput from './DetailAddressTextInput';
-// import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 const DetailAddressInput = props => {
   const {
@@ -97,20 +88,14 @@ const DetailAddressInput = props => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
-              // marginHorizontal: 24,
-              // alignItems: 'flex-start',
             }}>
             <B15 customStyle={{color: COLOR_GRAY}}>
               {`${address}(${zonecode})`}
             </B15>
             <View
               style={{
-                // borderColor: COLOR_SEPARATOR,
                 alignSelf: 'center',
-                // borderWidth: 1,
-                // elevation: 4,
                 padding: 4,
-                // marginHorizontal: 24,
                 alignItems: 'center',
               }}>
               <SearchNormal1
@@ -128,9 +113,7 @@ const DetailAddressInput = props => {
           style={{
             marginTop: 16,
             flexDirection: 'row',
-            // marginHorizontal: 24,
             alignSelf: 'center',
-            // width: windowWidth - 32,
             justifyContent: 'space-between',
           }}>
           <View
@@ -145,11 +128,6 @@ const DetailAddressInput = props => {
               justifyContent: 'space-between',
               alignItems: 'center',
             }}>
-            {/* <DetailAddressTextInput
-              setDetailAddress={setDetailAddress}
-              detailAddress={detailAddress}
-            /> */}
-
             <TextInput
               placeholder={'상세주소'}
               blurOnSubmit={false}
@@ -165,7 +143,6 @@ const DetailAddressInput = props => {
               }}
               onChangeText={text => {
                 temp = text;
-                // console.log(text);
               }}
               onSubmitEditing={() => {
                 setDetailAddress(temp); // 여기서 확정
@@ -173,7 +150,6 @@ const DetailAddressInput = props => {
               }}
               value={temp} // 임시 상태 값을 사용
             />
-            {console.log(props)}
             <View
               style={{
                 backgroundColor: COLOR_WHITE,
@@ -226,12 +202,7 @@ const DetailAddressInput = props => {
             style={{
               width: '50%',
               padding: 10,
-              // borderRadius: 8,
-              // backgroundColor: backgroundColor,
-              // elevation: 4,
               alignItems: 'center',
-              // borderColor: COLOR_PRIMARY,
-              // borderWidth: 1,
             }}>
             <B15 customStyle={{color: COLOR_PRIMARY}}>취소</B15>
           </AnimatedButton>

@@ -1,13 +1,11 @@
 import React, {forwardRef} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {
-  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
-import {PanGestureHandler} from 'react-native-gesture-handler';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -39,23 +37,6 @@ import TimerComponent from '../Timer/HomeTimer';
 
 const HomeCard = forwardRef(({data}, ref) => {
   const imageSource = data.wishlistImage !== null ? data.wishlistImage : '';
-  const rotateX = useSharedValue(0);
-
-  const onGestureEvent = useAnimatedGestureHandler({
-    onStart: (event, ctx) => {
-      ctx.startX = rotateX.value;
-    },
-    onActive: (event, ctx) => {
-      rotateX.value = ctx.startX + event.translationX;
-    },
-    onEnd: (event, ctx) => {
-      if (event.translationX > 50) {
-        rotateX.value = withSpring(180); // Change this to 360 for a full rotation
-      } else {
-        rotateX.value = withSpring(0);
-      }
-    },
-  });
 
   const frontAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -70,7 +51,7 @@ const HomeCard = forwardRef(({data}, ref) => {
   });
 
   return (
-    <PanGestureHandler onGestureEvent={onGestureEvent}>
+    <PanGestureHandler>
       <Animated.View style={{flex: 1}}>
         <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
           <Image source={{uri: imageSource}} style={styles.smallImage} />

@@ -18,24 +18,34 @@ export const TopViewProvider = ({children}) => {
   const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarStatus, setSnackbarStatus] = useState(null);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalStatus, setModalStatus] = useState(null);
   // ... 다른 상태들 (필요하면 추가하세요)
 
-  const state = {
+  const topState = {
     isSnackbarVisible,
     snackbarMessage,
     snackbarStatus,
+    isModalVisible,
+    modalMessage,
+    modalStatus,
     // ... 다른 상태들
   };
 
-  const actions = {
+  const topActions = {
     setIsSnackbarVisible,
     setSnackbarMessage,
     setSnackbarStatus,
+    setIsModalVisible,
+    setModalMessage,
+    setModalStatus,
     // ... 다른 상태 설정 함수들
   };
 
   return (
-    <TopViewContext.Provider value={{state, actions}}>
+    <TopViewContext.Provider value={{topState, topActions}}>
       {children}
     </TopViewContext.Provider>
   );

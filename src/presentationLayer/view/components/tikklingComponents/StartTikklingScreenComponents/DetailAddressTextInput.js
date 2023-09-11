@@ -22,7 +22,6 @@ export default function DetailAddressTextInput(props) {
       }}
       onChangeText={text => {
         setTemp(text);
-        // console.log(text);
       }}
       onSubmitEditing={() => {
         setDetailAddress(temp); // 여기서 확정

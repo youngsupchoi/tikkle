@@ -1,30 +1,18 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Animated,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {Animated, ScrollView, StyleSheet} from 'react-native';
 import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
-  COLOR_PRIMARY,
-  COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 
-const SelectedStateHeader = ({
-  scrollY,
-  selectedCategory,
-  selectedRange,
-  selectedSort,
-  search,
-}) => {
+const SelectedStateHeader = ({scrollY}) => {
+  const {state, actions} = useProductMainViewModel();
+
   const headerOpacity = scrollY.interpolate({
     inputRange: [0, 50],
     outputRange: [1, 0],
@@ -47,24 +35,24 @@ const SelectedStateHeader = ({
         },
       ]}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {selectedCategory && (
+        {state.selectedCategory && (
           <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{selectedCategory}</B12>
+            <B12 customStyle={styles.chipText}>{state.selectedCategory}</B12>
           </AnimatedButton>
         )}
-        {selectedRange !== null && (
+        {state.selectedRange !== null && (
           <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{selectedRange}</B12>
+            <B12 customStyle={styles.chipText}>{state.selectedRange}</B12>
           </AnimatedButton>
         )}
-        {selectedSort && (
+        {state.selectedSort && (
           <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{selectedSort}</B12>
+            <B12 customStyle={styles.chipText}>{state.selectedSort}</B12>
           </AnimatedButton>
         )}
-        {search && (
+        {state.search && (
           <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{search}</B12>
+            <B12 customStyle={styles.chipText}>{state.search}</B12>
           </AnimatedButton>
         )}
       </ScrollView>
