@@ -153,31 +153,7 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     marginBottom: SPACING_4,
   },
-  backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paginationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pagination: {
-    backgroundColor: COLOR_GRAY,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
-  selectedPagination: {
-    backgroundColor: COLOR_BLACK,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
+
   instructionContainer: {
     marginBottom: SPACING_6,
   },
