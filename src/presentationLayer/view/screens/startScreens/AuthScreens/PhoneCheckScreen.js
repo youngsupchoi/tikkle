@@ -60,7 +60,7 @@ export default function SignUpScreen2({phoneNumber}) {
           console.log(state.message);
           if (state.message === 'login') {
             post_auth_tokenGenerate(state.userId).then(() => {
-              navigation.reset({
+              actions.navigation.reset({
                 index: 0,
                 routes: [
                   {name: 'main', params: {updated: new Date().toString()}},
@@ -68,7 +68,7 @@ export default function SignUpScreen2({phoneNumber}) {
               });
             });
           } else if (state.message === 'sign up') {
-            navigation.reset({
+            actions.navigation.reset({
               index: 0,
               routes: [
                 {
