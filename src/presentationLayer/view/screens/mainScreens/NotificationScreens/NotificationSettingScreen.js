@@ -49,52 +49,6 @@ import {useNotificationSettingViewModel} from 'src/presentationLayer/viewModel/m
 export default function NotificationSettingScreen() {
   const {ref, state, actions} = useNotificationSettingViewModel();
 
-  const handleToggle1 = value => {
-    actions.setNotification1Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle2 = value => {
-    actions.setNotification2Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle3 = value => {
-    actions.setNotification3Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle4 = value => {
-    actions.setNotification4Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle5 = value => {
-    actions.setNotification5Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle6 = value => {
-    actions.setNotification6Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle7 = value => {
-    actions.setNotification7Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle8 = value => {
-    actions.setNotification8Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle9 = value => {
-    actions.setNotification9Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-  const handleToggle10 = value => {
-    actions.setNotification10Enabled(value);
-    // Save the toggle state to your storage or server
-  };
-
-  const navigation = useNavigation();
-
-  const backPress = () => {
-    navigation.goBack();
-  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -104,7 +58,7 @@ export default function NotificationSettingScreen() {
         <View style={styles.friendsManagementHeader}>
           <AnimatedButton
             onPress={() => {
-              backPress();
+              actions.backPress();
             }}
             style={styles.backButton}>
             <BackIcon
@@ -134,7 +88,7 @@ export default function NotificationSettingScreen() {
         <B17 customStyle={styles.mainText}>생일 알림</B17>
         <Switch
           value={state.notification1Enabled}
-          onValueChange={handleToggle1}
+          onValueChange={actions.handleToggle1}
         />
       </View>
       <View style={styles.separator} />
@@ -142,7 +96,7 @@ export default function NotificationSettingScreen() {
         <B17 customStyle={styles.mainText}>티클 알림</B17>
         <Switch
           value={state.notification2Enabled}
-          onValueChange={handleToggle2}
+          onValueChange={actions.handleToggle2}
         />
       </View>
       <View style={styles.separator} />
@@ -150,7 +104,7 @@ export default function NotificationSettingScreen() {
         <M15 customStyle={styles.subText}>티클 수령</M15>
         <Switch
           value={state.notification3Enabled}
-          onValueChange={handleToggle3}
+          onValueChange={actions.handleToggle3}
         />
       </View>
       <View style={styles.separator} />
@@ -158,7 +112,7 @@ export default function NotificationSettingScreen() {
         <M15 customStyle={styles.subText}>티클 전송</M15>
         <Switch
           value={state.notification4Enabled}
-          onValueChange={handleToggle4}
+          onValueChange={actions.handleToggle4}
         />
       </View>
       <View style={styles.separator} />
@@ -166,7 +120,7 @@ export default function NotificationSettingScreen() {
         <M15 customStyle={styles.subText}>티클링 시작</M15>
         <Switch
           value={state.notification5Enabled}
-          onValueChange={handleToggle5}
+          onValueChange={actions.handleToggle5}
         />
       </View>
       <View style={styles.separator} />
@@ -174,7 +128,7 @@ export default function NotificationSettingScreen() {
         <B17 customStyle={styles.mainText}>티클링 예정</B17>
         <Switch
           value={state.notification6Enabled}
-          onValueChange={handleToggle6}
+          onValueChange={actions.handleToggle6}
         />
       </View>
       <View style={styles.separator} />
@@ -182,7 +136,7 @@ export default function NotificationSettingScreen() {
         <M15 customStyle={styles.subText}>티클 수령</M15>
         <Switch
           value={state.notification7Enabled}
-          onValueChange={handleToggle7}
+          onValueChange={actions.handleToggle7}
         />
       </View>
       <View style={styles.separator} />
@@ -190,7 +144,7 @@ export default function NotificationSettingScreen() {
         <M15 customStyle={styles.subText}>티클 전송</M15>
         <Switch
           value={state.notification8Enabled}
-          onValueChange={handleToggle8}
+          onValueChange={actions.handleToggle8}
         />
       </View>
       <View style={styles.separator} />
@@ -198,7 +152,7 @@ export default function NotificationSettingScreen() {
         <M15 customStyle={styles.subText}>티클링 시작</M15>
         <Switch
           value={state.notification9Enabled}
-          onValueChange={handleToggle9}
+          onValueChange={actions.handleToggle9}
         />
       </View>
       <View style={styles.separator} />
