@@ -31,6 +31,9 @@ export const StartViewStateProvider = ({children}) => {
   const [timeLeft, setTimeLeft] = useState(180);
   const [gender, setGender] = useState('');
   const [formattedGender, setFormattedGender] = useState('');
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
 
@@ -54,6 +57,9 @@ export const StartViewStateProvider = ({children}) => {
     timeLeft,
     gender,
     formattedGender,
+    year,
+    month,
+    day,
   };
 
   const actions = {
@@ -70,6 +76,9 @@ export const StartViewStateProvider = ({children}) => {
     setTimeLeft,
     setGender,
     setFormattedGender,
+    setYear,
+    setMonth,
+    setDay,
   };
 
   return (

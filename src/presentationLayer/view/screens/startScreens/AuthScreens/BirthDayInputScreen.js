@@ -32,24 +32,20 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/SignUpHeaderComponent';
+import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 export default function SignUpScreen5({route}) {
   const navigation = useNavigation();
   const {firstName, lastName, name, gender, phoneNumber} = route.params; // Get the name and gender data from navigation parameters
-
-  const [year, setYear] = useState('');
-  const [month, setMonth] = useState('');
-  const [day, setDay] = useState('');
+  const {ref, state, actions} = useStartViewModel();
+  
 
   const yearRef = useRef(null); // Ref for day input
   const monthRef = useRef(null); // Ref for month input
   const dayRef = useRef(null); // Ref for day input
 
-  const backPress = () => {
-    navigation.goBack();
-  };
   const buttonPress = () => {
-    const birthday = `${year}-${month.padStart(2, '0')}-${day.padStart(
+    const birthday = `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
       2,
       '0',
     )}`; // Format the birthday
@@ -92,7 +88,7 @@ export default function SignUpScreen5({route}) {
             underlineColorAndroid="transparent" // Remove underline for Android
             clearButtonMode="while-editing" // Show clear button on iOS
             onChangeText={text => {
-              setYear(text);
+              actions.setYear(text);
               if (text.length === 4) {
                 monthRef.current.focus(); // Focus month input when year has 4 digits
               }
@@ -110,7 +106,7 @@ export default function SignUpScreen5({route}) {
             underlineColorAndroid="transparent" // Remove underline for Android
             clearButtonMode="while-editing" // Show clear button on iOS
             onChangeText={text => {
-              setMonth(text);
+              actions.setMonth(text);
               if (text.length === 2) {
                 dayRef.current.focus(); // Focus day input when month has 2 digits
               }
@@ -127,8 +123,8 @@ export default function SignUpScreen5({route}) {
             style={styles.nativeInput}
             underlineColorAndroid="transparent" // Remove underline for Android
             clearButtonMode="while-editing" // Show clear button on iOS
-            value={day}
-            onChangeText={setDay}
+            value={state.day}
+            onChangeText={actions.setDay}
           />
         </View>
       </View>
@@ -138,11 +134,11 @@ export default function SignUpScreen5({route}) {
           onPress={() => buttonPress()}
           style={[
             styles.button,
-            year.length !== 4 || month.length !== 2 || day.length !== 2
+            state.year.length !== 4 || state.month.length !== 2 || state.day.length !== 2
               ? styles.inactiveButton
               : {},
           ]}
-          disabled={year.length !== 4 || month.length !== 2 || day.length !== 2} // Disable the button if gender is an empty string
+          disabled={state.year.length !== 4 || state.month.length !== 2 || state.day.length !== 2} // Disable the button if gender is an empty string
         >
           <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
         </AnimatedButton>
