@@ -10,13 +10,13 @@ import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikkli
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
 
+import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useMyPageViewState();
   const {topActions} = useTopViewModel();
-
 
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
@@ -25,54 +25,20 @@ export const useMyPageViewModel = () => {
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
-
   /**
-   * MyPageScreen에서 나의 정보를 불러오는 함수
+   * MyPageScreen에서 페이지에 필요한 정보를 불러오는 함수
    */
-  async function get_user_info() {
+  async function MyPageData() {
     try {
-      await getMyUserInfoData()
+      await getMyPageScreenData()
         .then(res => {
           return topActions.setStateAndError(res);
         })
         .then(res => {
-          actions.setUserData_profile(res.info);
-        });
-    } catch (error) {
-      //에러 처리 필요 -> 정해야함
-      console.log("[Error in MyPageViewModel's get_user_info]\n", error);
-    }
-  }
-
-  /**
-   * MyPageScreen에서 나의 종료된 티클링을 불러오는 함수
-   */
-  async function get_user_endTikklings() {
-    try {
-      await getMyEndTikklingData()
-        .then(res => {
-          return topActions.setStateAndError(res);
-        })
-        .then(res => {
-          actions.setEndTikklingData(res.info);
-        });
-    } catch (error) {
-      //에러 처리 필요 -> 정해야함
-      console.log("[Error in MyPageViewModel's get_user_info]\n", error);
-    }
-  }
-
-  /**
-   * MyPageScreen에서 나의 결제내역을 불러오는 함수
-   */
-  async function get_user_paymentHistory() {
-    try {
-      await getMyPaymentData()
-        .then(res => {
-          return topActions.setStateAndError(res);
-        })
-        .then(res => {
-          actions.setPaymentHistoryData(res.info);
+          console.log('@@@ : ', res);
+          actions.setUserData_profile(res.user_info);
+          actions.setEndTikklingData(res.end_tikkling);
+          actions.setPaymentHistoryData(res.payment);
         });
     } catch (error) {
       //에러 처리 필요 -> 정해야함
@@ -132,9 +98,7 @@ export const useMyPageViewModel = () => {
     },
     actions: {
       ...actions,
-      get_user_info,
-      get_user_endTikklings,
-      get_user_paymentHistory,
+      MyPageData,
       formatDate,
       calculateDaysUntilNextBirthday,
     },

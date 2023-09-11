@@ -35,9 +35,7 @@ export default function ProfileScreen() {
   const {ref, state, actions} = useMyPageViewModel();
 
   useEffect(() => {
-    actions.get_user_info();
-    actions.get_user_endTikklings();
-    actions.get_user_paymentHistory();
+    actions.MyPageData();
   }, []);
 
   useEffect(() => {
@@ -341,9 +339,7 @@ export default function ProfileScreen() {
                         </M11>
                         <B15 customStyle={{}}>{item.product_name}</B15>
                         <M11 customStyle={{color: COLOR_GRAY}}>
-
                           {actions.formatDate(item.tikkling_terminated_at)}
-
                         </M11>
                       </AnimatedButton>
                     );
