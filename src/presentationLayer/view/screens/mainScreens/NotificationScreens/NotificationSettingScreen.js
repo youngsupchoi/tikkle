@@ -43,63 +43,55 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2.js';
-import Setting2 from 'src/assets/icons/Setting2';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {useNotificationSettingViewModel} from 'src/presentationLayer/viewModel/mainViewModels/NotificationSettingViewModel';
 
 export default function NotificationSettingScreen() {
-  const [notification1Enabled, setNotification1Enabled] = useState(false);
-  const [notification2Enabled, setNotification2Enabled] = useState(false);
-  const [notification3Enabled, setNotification3Enabled] = useState(false);
-  const [notification4Enabled, setNotification4Enabled] = useState(false);
-  const [notification5Enabled, setNotification5Enabled] = useState(false);
-  const [notification6Enabled, setNotification6Enabled] = useState(false);
-  const [notification7Enabled, setNotification7Enabled] = useState(false);
-  const [notification8Enabled, setNotification8Enabled] = useState(false);
-  const [notification9Enabled, setNotification9Enabled] = useState(false);
-  const [notification10Enabled, setNotification10Enabled] = useState(false);
+  const {ref, state, actions} = useNotificationSettingViewModel();
 
   const handleToggle1 = value => {
-    setNotification1Enabled(value);
+    actions.setNotification1Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle2 = value => {
-    setNotification2Enabled(value);
+    actions.setNotification2Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle3 = value => {
-    setNotification3Enabled(value);
+    actions.setNotification3Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle4 = value => {
-    setNotification4Enabled(value);
+    actions.setNotification4Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle5 = value => {
-    setNotification5Enabled(value);
+    actions.setNotification5Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle6 = value => {
-    setNotification6Enabled(value);
+    actions.setNotification6Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle7 = value => {
-    setNotification7Enabled(value);
+    actions.setNotification7Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle8 = value => {
-    setNotification8Enabled(value);
+    actions.setNotification8Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle9 = value => {
-    setNotification9Enabled(value);
+    actions.setNotification9Enabled(value);
     // Save the toggle state to your storage or server
   };
   const handleToggle10 = value => {
-    setNotification10Enabled(value);
+    actions.setNotification10Enabled(value);
     // Save the toggle state to your storage or server
   };
 
   const navigation = useNavigation();
+
   const backPress = () => {
     navigation.goBack();
   };
@@ -140,47 +132,74 @@ export default function NotificationSettingScreen() {
 
       <View style={styles.main}>
         <B17 customStyle={styles.mainText}>생일 알림</B17>
-        <Switch value={notification1Enabled} onValueChange={handleToggle1} />
+        <Switch
+          value={state.notification1Enabled}
+          onValueChange={handleToggle1}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.main}>
         <B17 customStyle={styles.mainText}>티클 알림</B17>
-        <Switch value={notification2Enabled} onValueChange={handleToggle2} />
+        <Switch
+          value={state.notification2Enabled}
+          onValueChange={handleToggle2}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.sub}>
         <M15 customStyle={styles.subText}>티클 수령</M15>
-        <Switch value={notification3Enabled} onValueChange={handleToggle3} />
+        <Switch
+          value={state.notification3Enabled}
+          onValueChange={handleToggle3}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.sub}>
         <M15 customStyle={styles.subText}>티클 전송</M15>
-        <Switch value={notification4Enabled} onValueChange={handleToggle4} />
+        <Switch
+          value={state.notification4Enabled}
+          onValueChange={handleToggle4}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.sub}>
         <M15 customStyle={styles.subText}>티클링 시작</M15>
-        <Switch value={notification5Enabled} onValueChange={handleToggle5} />
+        <Switch
+          value={state.notification5Enabled}
+          onValueChange={handleToggle5}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.main}>
         <B17 customStyle={styles.mainText}>티클링 예정</B17>
-        <Switch value={notification6Enabled} onValueChange={handleToggle6} />
+        <Switch
+          value={state.notification6Enabled}
+          onValueChange={handleToggle6}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.sub}>
         <M15 customStyle={styles.subText}>티클 수령</M15>
-        <Switch value={notification7Enabled} onValueChange={handleToggle7} />
+        <Switch
+          value={state.notification7Enabled}
+          onValueChange={handleToggle7}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.sub}>
         <M15 customStyle={styles.subText}>티클 전송</M15>
-        <Switch value={notification8Enabled} onValueChange={handleToggle8} />
+        <Switch
+          value={state.notification8Enabled}
+          onValueChange={handleToggle8}
+        />
       </View>
       <View style={styles.separator} />
       <View style={styles.sub}>
         <M15 customStyle={styles.subText}>티클링 시작</M15>
-        <Switch value={notification9Enabled} onValueChange={handleToggle9} />
+        <Switch
+          value={state.notification9Enabled}
+          onValueChange={handleToggle9}
+        />
       </View>
       <View style={styles.separator} />
 
