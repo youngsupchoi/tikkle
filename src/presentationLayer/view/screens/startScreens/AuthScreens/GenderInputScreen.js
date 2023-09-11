@@ -41,24 +41,22 @@ export default function SignUpScreen4({route}) {
 
   const buttonPress = () => {
     navigation.navigate('signup5', {
-      phoneNumber: phoneNumber,
-      firstName: firstName,
-      lastName: lastName,
+      phoneNumber: state.phoneNumber,
+      firstName: state.firstName,
+      lastName: state.lastName,
       name: name,
-      gender: formattedGender,
+      gender: actions.formattedGender,
     });
   };
-  const [gender, setGender] = useState('');
-  const [formattedGender, setFormattedGender] = useState('');
   useEffect(() => {
-    if (gender === '남성') {
-      setFormattedGender('male');
-    } else if (gender === '여성') {
-      setFormattedGender('female');
-    } else if (gender === '기타') {
-      setFormattedGender('others');
+    if (state.gender === '남성') {
+      actions.setFormattedGender('male');
+    } else if (state.gender === '여성') {
+      actions.setFormattedGender('female');
+    } else if (state.gender === '기타') {
+      actions.setFormattedGender('others');
     }
-  }, [gender]);
+  }, [state.gender]);
   return (
     <View style={styles.signupContainer}>
       <View style={styles.signUpHeader}>
@@ -73,7 +71,7 @@ export default function SignUpScreen4({route}) {
             stroke={COLOR_BLACK}
             strokeWidth={1}
           />
-          {console.log(firstName, lastName, name, gender)}
+          {console.log(state.firstName, state.lastName, name, state.gender)}
         </AnimatedButton>
         <View style={styles.paginationContainer}>
           <View style={styles.pagination} />
@@ -92,54 +90,54 @@ export default function SignUpScreen4({route}) {
       <View style={styles.inputContainer}>
         <AnimatedButton
           onPress={() => {
-            setGender('남성');
+            actions.setGender('남성');
           }}
           style={[
             styles.button,
             {
               backgroundColor:
-                gender === '남성' ? COLOR_BLACK : backgroundColor,
+                state.gender === '남성' ? COLOR_BLACK : backgroundColor,
             },
           ]}>
           <B20
             customStyle={{
-              color: gender === '남성' ? backgroundColor : COLOR_BLACK,
+              color: state.gender === '남성' ? backgroundColor : COLOR_BLACK,
             }}>
             남성
           </B20>
         </AnimatedButton>
         <AnimatedButton
           onPress={() => {
-            setGender('여성');
+            actions.setGender('여성');
           }}
           style={[
             styles.button,
             {
               backgroundColor:
-                gender === '여성' ? COLOR_BLACK : backgroundColor,
+                state.gender === '여성' ? COLOR_BLACK : backgroundColor,
             },
           ]}>
           <B20
             customStyle={{
-              color: gender === '여성' ? backgroundColor : COLOR_BLACK,
+              color: state.gender === '여성' ? backgroundColor : COLOR_BLACK,
             }}>
             여성
           </B20>
         </AnimatedButton>
         <AnimatedButton
           onPress={() => {
-            setGender('기타');
+            actions.setGender('기타');
           }}
           style={[
             styles.button,
             {
               backgroundColor:
-                gender === '기타' ? COLOR_BLACK : backgroundColor,
+                state.gender === '기타' ? COLOR_BLACK : backgroundColor,
             },
           ]}>
           <B20
             customStyle={{
-              color: gender === '기타' ? backgroundColor : COLOR_BLACK,
+              color: state.gender === '기타' ? backgroundColor : COLOR_BLACK,
             }}>
             기타
           </B20>
@@ -151,9 +149,9 @@ export default function SignUpScreen4({route}) {
           onPress={() => buttonPress()}
           style={[
             styles.nextButton,
-            gender === '' ? styles.inactiveButton : {},
+            state.gender === '' ? styles.inactiveButton : {},
           ]}
-          disabled={gender === ''} // Disable the button if gender is an empty string
+          disabled={state.gender === ''} // Disable the button if gender is an empty string
         >
           <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
         </AnimatedButton>
