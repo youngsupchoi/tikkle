@@ -36,11 +36,18 @@ export const StartViewStateProvider = ({children}) => {
   const [day, setDay] = useState('');
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
+  const yearRef = useRef(null); // Ref for day input
+  const monthRef = useRef(null); // Ref for month input
+  const dayRef = useRef(null); // Ref for day input
 
   const ref = {
     inputRefs,
     firstNameRef,
     lastNameRef,
+    yearRef,
+    monthRef,
+    dayRef,
+    
   };
 
   const state = {

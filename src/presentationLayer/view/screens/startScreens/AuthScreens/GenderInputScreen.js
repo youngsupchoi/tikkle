@@ -117,13 +117,7 @@ export default function SignUpScreen4({route}) {
       <View style={styles.nextButtonContainer}>
         <AnimatedButton
           onPress={() => {
-            navigation.navigate('signup5', {
-              phoneNumber: state.phoneNumber,
-              firstName: state.firstName,
-              lastName: state.lastName,
-              name: state.firstName + state.lastName,
-              gender: actions.formattedGender,
-            });
+            navigation.navigate('signup5');
           }}
           style={[
             styles.nextButton,

@@ -34,36 +34,30 @@ import BackIcon from 'src/assets/icons/ArrowLeft2';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/SignUpHeaderComponent';
 import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export default function SignUpScreen5({route}) {
+export default function SignUpScreen5() {
   const navigation = useNavigation();
-  const {firstName, lastName, name, gender, phoneNumber} = route.params; // Get the name and gender data from navigation parameters
   const {ref, state, actions} = useStartViewModel();
   
-
-  const yearRef = useRef(null); // Ref for day input
-  const monthRef = useRef(null); // Ref for month input
-  const dayRef = useRef(null); // Ref for day input
-
   const buttonPress = () => {
     const birthday = `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
       2,
       '0',
     )}`; // Format the birthday
 
-    console.log(firstName, lastName, name, gender, birthday);
+    console.log(state.firstName, state.lastName, state.gender, birthday);
     navigation.navigate('signup6', {
-      firstName: firstName,
-      lastName: lastName,
-      name: name,
-      gender: gender,
+      firstName: state.firstName,
+      lastName: state.lastName,
+      name: state.firstName + state.lastName,
+      gender: state.gender,
       birthday: birthday,
-      phoneNumber: phoneNumber,
+      phoneNumber: state.phoneNumber,
     });
   };
 
   useEffect(() => {
     setTimeout(() => {
-      yearRef.current.focus(); // Manually focus the input after a delay
+      ref.yearRef.current.focus(); // Manually focus the input after a delay
     }, 100);
   }, []);
   return (
@@ -79,7 +73,7 @@ export default function SignUpScreen5({route}) {
       <View style={styles.inputContainer}>
         <View style={styles.birthdayYearInputContainer}>
           <TextInput
-            ref={yearRef}
+            ref={ref.yearRef}
             keyboardType="number-pad"
             maxLength={4}
             placeholder="2000"
@@ -90,14 +84,14 @@ export default function SignUpScreen5({route}) {
             onChangeText={text => {
               actions.setYear(text);
               if (text.length === 4) {
-                monthRef.current.focus(); // Focus month input when year has 4 digits
+                ref.monthRef.current.focus(); // Focus month input when year has 4 digits
               }
             }}
           />
         </View>
         <View style={styles.birthdayMonthInputContainer}>
           <TextInput
-            ref={monthRef}
+            ref={ref.monthRef}
             keyboardType="number-pad"
             maxLength={2}
             placeholder="01"
@@ -108,14 +102,14 @@ export default function SignUpScreen5({route}) {
             onChangeText={text => {
               actions.setMonth(text);
               if (text.length === 2) {
-                dayRef.current.focus(); // Focus day input when month has 2 digits
+                ref.dayRef.current.focus(); // Focus day input when month has 2 digits
               }
             }}
           />
         </View>
         <View style={styles.birthdayDayInputContainer}>
           <TextInput
-            ref={dayRef}
+            ref={ref.dayRef}
             keyboardType="number-pad"
             maxLength={2}
             placeholder="01"
