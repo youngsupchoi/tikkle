@@ -28,25 +28,10 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import Refresh from 'src/assets/icons/Refresh';
 import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
+import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 
-export default function ProductSearch(props) {
-  const {
-    search,
-    setSearch,
-    priceMin,
-    setPriceMin,
-    priceMax,
-    setPriceMax,
-    selectedRange,
-    setSelectedRange,
-    setSortAttribute,
-    setSortWay,
-    setSelectedSort,
-    sortAttribute,
-    sortWay,
-    selectedSort,
-  } = props;
-  const [showFilter, setShowFilter] = useState(false);
+export default function ProductSearch() {
+  const {state, actions} = useProductMainViewModel();
 
   const priceRanges = [
     {label: '전체가격', min: 0, max: null},
@@ -60,22 +45,22 @@ export default function ProductSearch(props) {
   return (
     <View
       style={{
-        backgroundColor: showFilter ? backgroundColor : backgroundColor,
+        backgroundColor: state.showFilter ? backgroundColor : backgroundColor,
         width: windowWidth,
         alignItems: 'center',
       }}>
       <View
         style={{
           width: windowWidth - 32,
-          // alignSelf: 'center',
-          // backgroundColor: backgroundColor,
           paddingTop: 16,
           marginBottom: 12,
         }}>
         <View style={styles.searchContainer}>
           <AnimatedButton
             style={styles.filterIconContainer}
-            onPress={() => setShowFilter(!showFilter)}>
+            onPress={() => {
+              actions.setShowFilter(!state.showFilter);
+            }}>
             <FilterSearch
               width={24}
               height={24}
@@ -85,33 +70,24 @@ export default function ProductSearch(props) {
             />
           </AnimatedButton>
           <View style={styles.searchbar}>
-            {/* <View style={styles.searchIconContainer}>
-            <SearchNormal1
-              width={24}
-              height={24}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.5}
-              scale={1.2}
-            />
-          </View> */}
             <TextInput
               style={styles.input}
               placeholder="상품 이름으로 검색하기"
               placeholderTextColor={COLOR_GRAY}
-              value={search} // Bind the value prop to the search prop
-              onChangeText={text => setSearch(text)} // Update the search value using setSearch
+              value={state.search} // Bind the value prop to the search prop
+              onChangeText={text => actions.setSearch(text)} // Update the search value using setSearch
             />
           </View>
           <AnimatedButton
             style={styles.filterIconContainer}
             onPress={() => {
-              setSelectedRange('전체가격');
-              setPriceMax(999999999);
-              setPriceMin(0);
-              setSearch('');
-              setSortAttribute('sales_volume');
-              setSortWay('DESC');
-              setSelectedSort('많은 판매');
+              actions.setSelectedRange('전체가격');
+              actions.setPriceMax(999999999);
+              actions.setPriceMin(0);
+              actions.setSearch('');
+              actions.setSortAttribute('sales_volume');
+              actions.setSortWay('DESC');
+              actions.setSelectedSort('많은 판매');
             }}>
             <Refresh
               width={20}
@@ -122,7 +98,7 @@ export default function ProductSearch(props) {
             />
           </AnimatedButton>
         </View>
-        {showFilter && (
+        {state.showFilter && (
           <View style={styles.filterContainer}>
             <B12>가격대 선택</B12>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -131,20 +107,21 @@ export default function ProductSearch(props) {
                   key={index}
                   style={[
                     styles.chip,
-                    selectedRange === range.label && styles.selectedChip,
+                    state.selectedRange === range.label && styles.selectedChip,
                   ]}
                   onPress={() => {
-                    setSelectedRange(range.label);
-                    setPriceMin(range.min);
+                    actions.setSelectedRange(range.label);
+                    actions.setPriceMin(range.min);
                     if (range.max !== 'Infinity') {
-                      setPriceMax(range.max);
+                      actions.setPriceMax(range.max);
                     } else {
-                      setPriceMax(''); // or set to a very large number if you prefer
+                      actions.setPriceMax(''); // or set to a very large number if you prefer
                     }
                   }}>
                   <B12
                     customStyle={
-                      selectedRange === range.label && styles.selectedChipText
+                      state.selectedRange === range.label &&
+                      styles.selectedChipText
                     }>
                     {range.label}
                   </B12>
@@ -154,16 +131,12 @@ export default function ProductSearch(props) {
 
             <View>
               <ProductSearchChips
-                sortAttribute={sortAttribute}
-                setSortAttribute={setSortAttribute}
-                sortWay={sortWay}
-                setSortWay={setSortWay}
-                selectedSort={selectedSort}
-                setSelectedSort={setSelectedSort}
-                // onSelect={(selectedSortAttribute, selectedSortWay) => {
-                //   setSortAttribute(selectedSortAttribute);
-                //   setSortWay(selectedSortWay);
-                // }}
+                sortAttribute={state.sortAttribute}
+                setSortAttribute={actions.setSortAttribute}
+                sortWay={state.sortWay}
+                setSortWay={actions.setSortWay}
+                selectedSort={state.selectedSort}
+                setSelectedSort={actions.setSelectedSort}
               />
             </View>
           </View>

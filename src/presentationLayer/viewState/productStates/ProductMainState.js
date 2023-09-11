@@ -17,6 +17,7 @@ export const ProductMainViewStateProvider = ({children}) => {
 
   const scrollY = new Animated.Value(0); // Animated value for scroll position
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [searchedData, setSearchedData] = useState([]);
   const [selectedRange, setSelectedRange] = useState('전체가격'); // State to track selected chip
   const [selectedSort, setSelectedSort] = useState('많은 판매'); // State to track selected chip
@@ -39,6 +40,35 @@ export const ProductMainViewStateProvider = ({children}) => {
   //페이징 관련(페이징)
   const [getNum, setGetNum] = useState(1);
 
+  const [showFilter, setShowFilter] = useState(false);
+
+  const categories = [
+    {
+      id: 1,
+      name: '전자제품',
+      image:
+        'https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
+    },
+    {
+      id: 2,
+      name: '게임기',
+      image:
+        'https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+    },
+    {
+      id: 3,
+      name: '화장품',
+      image:
+        'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29zbWV0aWNzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+    },
+    {
+      id: 4,
+      name: '홈데코',
+      image:
+        'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG9tZSUyMGRlY29yfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+    },
+  ];
+
   // ... 다른 상태들
   const ref = {};
   const state = {
@@ -54,6 +84,9 @@ export const ProductMainViewStateProvider = ({children}) => {
     sortWay,
     search,
     getNum,
+    showFilter,
+    categories,
+    loading,
   };
 
   const actions = {
@@ -69,6 +102,8 @@ export const ProductMainViewStateProvider = ({children}) => {
     setSortWay,
     setSearch,
     setGetNum,
+    setShowFilter,
+    setLoading,
   };
 
   return (

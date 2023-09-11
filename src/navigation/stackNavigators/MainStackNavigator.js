@@ -1,5 +1,5 @@
 // mainStack.js
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -24,7 +24,21 @@ import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScr
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {Easing} from 'react-native';
-import ProductSearchDetailScreen1 from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
+import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
+
+const ProductDetail = () => (
+  <ProductDetailViewStateProvider>
+    <ProductDetailScreen />
+  </ProductDetailViewStateProvider>
+);
+
+const StartTikkling = () => (
+  <StartTikklingViewStateProvider>
+    <StartTikklingScreen />
+  </StartTikklingViewStateProvider>
+);
 
 const MainStack = createStackNavigator();
 const MyTheme = {
@@ -81,10 +95,19 @@ const customCardStyleInterpolator = ({current, next, layouts}) => {
     },
   };
 };
+export const navigationRef = React.createRef();
+
+export function navigate(name, params) {
+  navigationRef.current?.navigate(name, params);
+}
+
+export function reset(routes) {
+  navigationRef.current?.reset(routes);
+}
 
 export default function MainStackNavigator() {
   return (
-    <NavigationContainer theme={MyTheme}>
+    <NavigationContainer theme={MyTheme} ref={navigationRef}>
       <MainStack.Navigator
         initialRouteName="splash"
         screenOptions={{
@@ -113,14 +136,8 @@ export default function MainStackNavigator() {
               CardStyleInterpolators.forScaleFromCenterAndroid,
           }}
         />
-        <MainStack.Screen
-          name="startTikkling"
-          component={StartTikklingScreen}
-        />
-        <MainStack.Screen
-          name="productSearchDetail1"
-          component={ProductSearchDetailScreen1}
-        />
+        <MainStack.Screen name="startTikkling" component={StartTikkling} />
+        <MainStack.Screen name="productDetail" component={ProductDetail} />
         <MainStack.Screen name="notification" component={NotificationScreen} />
         <MainStack.Screen
           name="notificationSetting"

@@ -324,10 +324,10 @@ export default function ProfileScreen() {
                           borderTopRightRadius: 12,
                           alignItems: 'center',
                         }}>
+                        {console.log(item)}
                         <Image
                           source={{
-                            uri: `${item.thumbnail_image}/s`,
-                            cache: 'reload',
+                            uri: `${item.product_image}`,
                           }}
                           style={{
                             width: 80,
@@ -341,7 +341,7 @@ export default function ProfileScreen() {
                         </M11>
                         <B15 customStyle={{}}>{item.product_name}</B15>
                         <M11 customStyle={{color: COLOR_GRAY}}>
-                          {actions.formatDate(item.created_at)}
+                          {actions.formatDate(item.tikkling_terminated_at)}
                         </M11>
                       </AnimatedButton>
                     );

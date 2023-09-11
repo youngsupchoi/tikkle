@@ -1,4 +1,7 @@
+/* import {useNavigation} from '@react-navigation/native'; */
 import {useState} from 'react';
+import {reset} from 'src/navigation/stackNavigators/MainStackNavigator';
+// import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useTopViewState} from 'src/presentationLayer/viewState/topStates/TopViewState';
@@ -9,8 +12,8 @@ import {useTopViewState} from 'src/presentationLayer/viewState/topStates/TopView
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useTopViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
-  const {state, actions} = useTopViewState();
-
+  const {topState, topActions} = useTopViewState();
+  // const {actions} = useMainViewModel();
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
@@ -20,29 +23,70 @@ export const useTopViewModel = () => {
   //TODO: 성공 처리 함수
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
+  const setStateAndError = res => {
+    // const navigation = actions.navigation;
+    if (res.DScode === 0) {
+      return res.DSdata;
+    } else if (res.DScode === 1) {
+      showSnackbar(res.DSmessage, 0);
+      return res.DScode;
+    } else if (res.DScode === 2) {
+      showModal(res.DSmessage, 0);
+      return res.DScode;
+    } else if (res.DScode === 3) {
+      try {
+        showModal(res.DSmessage, 0);
+        navigation.reset({routes: [{name: 'splash'}]});
+      } catch (err) {
+        return res.DScode;
+      }
+    }
+    return res.DSdata;
+  };
 
   const showSnackbar = (snackbarMessage, snackbarStatus) => {
     console.log('Setting snackbar message to:', snackbarMessage);
-    actions.setSnackbarMessage(snackbarMessage);
-    actions.setSnackbarStatus(snackbarStatus);
+    topActions.setSnackbarMessage(snackbarMessage);
+    topActions.setSnackbarStatus(snackbarStatus);
     console.log('Setting snackbar visibility to true');
-    actions.setIsSnackbarVisible(true);
+    topActions.setIsSnackbarVisible(true);
   };
 
   const hideSnackbar = () => {
-    actions.setIsSnackbarVisible(false);
-    actions.setSnackbarMessage('');
+    topActions.setIsSnackbarVisible(false);
+    topActions.setSnackbarMessage('');
+  };
+
+  const showModal = (modalMessage, modalStatus) => {
+    topActions.setModalMessage(modalMessage);
+    topActions.setModalStatus(modalStatus);
+    topActions.setIsModalVisible(true);
+  };
+
+  const hideModal = () => {
+    topActions.setIsModalVisible(false);
+    topActions.setModalMessage('');
+  };
+
+  const hideModalAndLogOut = () => {
+    topActions.setIsModalVisible(false);
+    topActions.setModalMessage('');
+    reset({routes: [{name: 'splash'}]});
   };
 
   return {
-    state: {
-      ...state,
+    topState: {
+      ...topState,
       // exampleData: exampleData, // 별도의 상태가 필요하면 여기에 추가하세요.
     },
-    actions: {
-      ...actions,
+    topActions: {
+      ...topActions,
       showSnackbar,
       hideSnackbar,
+      showModal,
+      hideModal,
+      setStateAndError,
+      hideModalAndLogOut,
     },
   };
 };

@@ -1,12 +1,5 @@
-import {
-  ScrollView,
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useState} from 'react';
+import {ScrollView, View, StyleSheet} from 'react-native';
+import React from 'react';
 import {
   B,
   B12,
@@ -23,49 +16,23 @@ import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
 import Image2 from 'src/assets/icons/undraw_gaming_re_cma2.svg';
 import Image3 from 'src/assets/icons/undraw_jewelry_iima.svg';
 import Image4 from 'src/assets/icons/undraw_studying_re_deca.svg';
-const categories = [
-  {
-    id: 1,
-    name: '전자제품',
-    image:
-      'https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
-  },
-  {
-    id: 2,
-    name: '게임기',
-    image:
-      'https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
-  },
-  {
-    id: 3,
-    name: '화장품',
-    image:
-      'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29zbWV0aWNzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
-  },
-  {
-    id: 4,
-    name: '홈데코',
-    image:
-      'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG9tZSUyMGRlY29yfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
-  },
-];
+import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 
-export default function CategoryCarousel(props) {
-  const {selectedCategory, setSelectedCategory, categoryId, setCategoryId} =
-    props;
+export default function CategoryCarousel() {
+  const {state, actions} = useProductMainViewModel();
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      {categories.map(category => (
+      {state.categories.map(category => (
         <AnimatedButton
           onPress={() => {
-            setSelectedCategory(category.name);
-            setCategoryId(category.id);
+            actions.setSelectedCategory(category.name);
+            actions.setCategoryId(category.id);
           }}
           key={category.id}
           style={{
             backgroundColor:
-              categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
+              state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
             paddingLeft: 20,
             paddingRight: 18,
             paddingVertical: 8,
@@ -96,7 +63,9 @@ export default function CategoryCarousel(props) {
           <B12
             customStyle={{
               color:
-                categoryId === category.id ? COLOR_PRIMARY_TEXT : COLOR_BLACK,
+                state.categoryId === category.id
+                  ? COLOR_PRIMARY_TEXT
+                  : COLOR_BLACK,
             }}>
             #{category.name}
           </B12>
