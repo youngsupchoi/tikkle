@@ -31,11 +31,13 @@ import {
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 // import SmallBarComponent from '../ProgressBar/ProgressBarSmall';
 import SmallBarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBarSmall';
+// import LinearGradient from 'react-native-linear-gradient';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_TEXT,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -61,8 +63,8 @@ export default function FriendsTikklingCarousel(data) {
         style={{
           borderColor: COLOR_SEPARATOR,
           borderWidth: 1,
-          paddingTop: 16,
-          borderRadius: 16,
+          paddingTop: 8,
+          borderRadius: 12,
           backgroundColor: COLOR_WHITE,
           elevation: 4,
           // margin: 8,
@@ -93,10 +95,12 @@ export default function FriendsTikklingCarousel(data) {
         </View>
         <View style={{padding: 0, paddingBottom: 20}}>
           <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
             colors={[
-              'rgba(20,20,20,0.9)',
-              'rgba(20,20,20,0.8)',
-              'rgba(20,20,20,0.9)',
+              'rgba(0,44,133,0.2)',
+              'rgba(0,44,133,0.4)',
+              'rgba(0,44,133,0.5)',
             ]}
             style={{
               position: 'absolute',
@@ -107,25 +111,25 @@ export default function FriendsTikklingCarousel(data) {
               zIndex: -1,
               borderBottomRightRadius: 16,
               borderBottomLeftRadius: 16,
-            }}>
-            <Image
-              resizeMode="cover"
-              blurRadius={4}
-              source={{
-                uri: item.thumbnail_image !== null ? item.thumbnail_image : '',
-              }}
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                zIndex: -2,
-                borderBottomRightRadius: 16,
-                borderBottomLeftRadius: 16,
-              }} // Some style for the image on the MyTikklingScreen
-            />
-          </LinearGradient>
+            }}
+          />
+          <Image
+            resizeMode="cover"
+            blurRadius={20}
+            source={{
+              uri: item.thumbnail_image !== null ? item.thumbnail_image : '',
+            }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              zIndex: -2,
+              borderBottomRightRadius: 16,
+              borderBottomLeftRadius: 16,
+            }} // Some style for the image on the MyTikklingScreen
+          />
 
           <View
             style={{
@@ -264,7 +268,9 @@ export default function FriendsTikklingCarousel(data) {
                   justifyContent: 'center',
                 }}
                 disabled={new Date(item.funding_limit) < new Date()}>
-                <B17 customStyle={{color: COLOR_WHITE}}>{'티클 선물하기'}</B17>
+                <B17 customStyle={{color: COLOR_PRIMARY_TEXT}}>
+                  {'티클 선물하기'}
+                </B17>
               </AnimatedButton>
             </View>
           </View>

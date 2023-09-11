@@ -61,7 +61,7 @@ export const FriendMainViewStateProvider = ({children}) => {
   };
 
   return (
-    <FriendMainViewContext.Provider value={{state, actions}}>
+    <FriendMainViewContext.Provider value={{ref, state, actions}}>
       {children}
     </FriendMainViewContext.Provider>
   );

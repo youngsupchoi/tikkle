@@ -39,6 +39,8 @@ const FriendsEvents = props => {
 
   function getUpcomingBirthday(birthdayString) {
     const today = new Date();
+    today.setHours(today.getHours() + 9); // 한국 시간대로 조정 (UTC+9)
+
     const birthday = new Date(birthdayString);
 
     // 현재 연도의 해당 날짜로 설정
@@ -86,6 +88,8 @@ const FriendsEvents = props => {
 
   function calculateDifference(dateString) {
     const today = new Date();
+    today.setHours(today.getHours() + 9); // 한국 시간대로 조정 (UTC+9)
+
     const eventDate = new Date(dateString);
 
     // Setting time to mid-night for both dates

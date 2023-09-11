@@ -4,106 +4,74 @@ import {Keyboard, Animated, Platform} from 'react-native';
 import {useFriendMainViewState} from '../../viewState/friendStates/FriendsMainState';
 
 // 2. 데이터 소스 또는 API 가져오기
-import {fetchExampleData} from '../dataLayer/dataSource';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
+import {getMyFriendData} from 'src/dataLayer/DataSource/Friend/GetMyFriendData';
+import {getBlockedFriendData} from 'src/dataLayer/DataSource/Friend/GetBlockedFriendData';
+import {getSearchFriendData} from 'src/dataLayer/DataSource/Friend/GetSearchFriendData';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
-// 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
+/**
+ * FriendsMainScreen의 뷰 스테이트와 액션을 정의하는 ViewModel Hook
+ * @returns {object} ref, state, actions
+ */
 export const useFriendMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useFriendMainViewState();
+  const {topActions} = useTopViewModel();
 
-  const printTokensFromAsyncStorage = async () => {
-    try {
-      const tokens = await AsyncStorage.getItem('tokens');
-
-      if (tokens !== null) {
-        const token = tokens;
-        const {accessToken} = JSON.parse(token);
-        const {refreshToken} = JSON.parse(token);
-        const authorization = `${refreshToken},${accessToken}`;
-        return authorization;
-      } else {
-        console.log('No tokens');
-      }
-    } catch (error) {
-      console.error('Error retrieving tokens', error);
-    }
-  };
-
+  /**
+   * FriendsMainScreen에서 친구목록 불러오는 함수
+   * @param {string} mode_friend 불러오는 친구목록이 일반이면 'unblock', 차단목록이면 'block'
+   */
   async function get_friend_data(mode_friend) {
     try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_friend_data/${mode_friend}`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      console.log('jjjj', response.data.data);
-      if (response && response.data) {
-        actions.setGetFriendData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
+      if (mode_friend === 'unblock') {
+        await getMyFriendData()
+          .then(res => {
+            return topActions.setStateAndError(res);
+          })
+          .then(res => {
+            actions.setGetFriendData(res.info);
+          });
+      } else if (mode_friend === 'block') {
+        await getBlockedFriendData()
+          .then(res => {
+            return topActions.setStateAndError(res);
+          })
+          .then(res => {
+            actions.setGetFriendData(res.info);
+          });
       }
     } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('friend Data [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('friends Data response data : ', error.response.data);
-      }
+      //에러 처리 필요 -> 정해야함
+      console.log("[Error in FriendsMainViewModel's get_friend_data]\n", error);
     }
   }
 
+  /**
+   * FriendsMainScreen에서 아이디로 친구 검색 데이터 가져오는 함수
+   * @todo state.text_search = "검색할 친구 닉네임" 설정 필요
+   */
   async function get_friend_search() {
     try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_friend_search/${state.text_search}`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data) {
-        console.log('searchedData: ', response.data.data);
-        actions.setSearchedData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
+      await getSearchFriendData(state.text_search)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          actions.setSearchedData(res.info);
+        });
     } catch (error) {
-      if (error.response && error.response.status) {
-        console.error(
-          'friend Search Data [status code] ',
-          error.response.status,
-        );
-      }
-      if (error.response && error.response.data) {
-        console.error(
-          'friends Search Data response data : ',
-          error.response.data,
-        );
-      }
+      //에러 처리 필요 -> 정해야함
+      console.log("[Error in FriendsMainViewModel's get_friend_data]\n", error);
     }
   }
 
+  /**
+   * 키보드가 보여지거나 사라질 때 애니메이션 효과를 주는 함수
+   * @param {*} async
+   * @returns
+   */
   const keyboard_friend = async => {
     // 키보드가 보여질 때
     const keyboardWillShowSub = Keyboard.addListener(
@@ -141,15 +109,12 @@ export const useFriendMainViewModel = () => {
     },
     state: {
       ...state,
-      // exampleData: exampleData,
     },
     actions: {
       ...actions,
-      printTokensFromAsyncStorage,
       get_friend_data,
       get_friend_search,
       keyboard_friend,
-      // fetchExample,
     },
   };
 };

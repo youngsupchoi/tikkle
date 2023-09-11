@@ -1,5 +1,5 @@
 // mainStack.js
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -24,8 +24,31 @@ import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScr
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {Easing} from 'react-native';
-import ProductSearchDetailScreen1 from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
+import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
+import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
+import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
+
+const ProductDetail = () => (
+  <ProductDetailViewStateProvider>
+    <ProductDetailScreen />
+  </ProductDetailViewStateProvider>
+);
+
+const StartTikkling = () => (
+  <StartTikklingViewStateProvider>
+    <StartTikklingScreen />
+  </StartTikklingViewStateProvider>
+);
+
+const Notification = () => (
+  <NotificationViewStateProvider>
+    <NotificationScreen />
+  </NotificationViewStateProvider>
+);
+
 
 const MainStack = createStackNavigator();
 const SignUpStack = createStackNavigator();
@@ -83,6 +106,15 @@ const customCardStyleInterpolator = ({current, next, layouts}) => {
     },
   };
 };
+export const navigationRef = React.createRef();
+
+export function navigate(name, params) {
+  navigationRef.current?.navigate(name, params);
+}
+
+export function reset(routes) {
+  navigationRef.current?.reset(routes);
+}
 
 function SignUpNavigator() {
   return (
@@ -110,7 +142,7 @@ function SignUpNavigator() {
 
 export default function MainStackNavigator() {
   return (
-    <NavigationContainer theme={MyTheme}>
+    <NavigationContainer theme={MyTheme} ref={navigationRef}>
       <MainStack.Navigator
         initialRouteName="SignUpNavigator"
         screenOptions={{
@@ -134,15 +166,9 @@ export default function MainStackNavigator() {
               CardStyleInterpolators.forScaleFromCenterAndroid,
           }}
         />
-        <MainStack.Screen
-          name="startTikkling"
-          component={StartTikklingScreen}
-        />
-        <MainStack.Screen
-          name="productSearchDetail1"
-          component={ProductSearchDetailScreen1}
-        />
-        <MainStack.Screen name="notification" component={NotificationScreen} />
+        <MainStack.Screen name="startTikkling" component={StartTikkling} />
+        <MainStack.Screen name="productDetail" component={ProductDetail} />
+        <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen
           name="notificationSetting"
           component={NotificationSettingScreen}
