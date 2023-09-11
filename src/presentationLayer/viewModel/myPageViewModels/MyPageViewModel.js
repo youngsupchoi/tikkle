@@ -4,17 +4,16 @@ import {useState} from 'react';
 import {useMyPageViewState} from '../../viewState/myPageStates/MyPageState';
 
 // 2. 데이터 소스 또는 API 가져오기
-import {fetchExampleData} from '../dataLayer/dataSource';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
+import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
+import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikklingData';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useMyPageViewState();
+  const {topActions} = useTopViewModel();
 
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
@@ -22,114 +21,66 @@ export const useMyPageViewModel = () => {
   //default
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
-  const printTokensFromAsyncStorage = async () => {
-    try {
-      const tokens = await AsyncStorage.getItem('tokens');
 
-      if (tokens !== null) {
-        const token = tokens;
-        const {accessToken} = JSON.parse(token);
-        const {refreshToken} = JSON.parse(token);
-        const authorization = `${refreshToken},${accessToken}`;
-        return authorization;
-      } else {
-        console.log('No tokens');
-      }
-    } catch (error) {
-      console.error('Error retrieving tokens', error);
-    }
-  };
-
+  /**
+   * MyPageScreen에서 나의 정보를 불러오는 함수
+   */
   async function get_user_info() {
     try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_user_info`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data && response.data.data) {
-        console.log(response.data.data);
-        actions.setUserData_profile(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
+      await getMyUserInfoData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          actions.setUserData_profile(res.info);
+        });
     } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('get wishlist [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('get wishlist response data : ', error.response.data);
-      }
+      //에러 처리 필요 -> 정해야함
+      console.log("[Error in MyPageViewModel's get_user_info]\n", error);
     }
   }
+
+  /**
+   * MyPageScreen에서 나의 종료된 티클링을 불러오는 함수
+   */
   async function get_user_endTikklings() {
     try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_user_endTikklings`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data && response.data.data) {
-        actions.setEndTikklingData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
+      await getMyEndTikklingData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          actions.setEndTikklingData(res.info);
+        });
     } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('get wishlist [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('get wishlist response data : ', error.response.data);
-      }
+      //에러 처리 필요 -> 정해야함
+      console.log("[Error in MyPageViewModel's get_user_info]\n", error);
     }
   }
 
+  /**
+   * MyPageScreen에서 나의 결제내역을 불러오는 함수
+   */
   async function get_user_paymentHistory() {
     try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.get(
-        `https://${BASE_URL}/dev/get_user_paymentHistory`,
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      if (response && response.data && response.data.data) {
-        actions.setPaymentHistoryData(response.data.data);
-      } else {
-        console.log('Response or response data is undefined');
-      }
+      await getMyPaymentData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          actions.setPaymentHistoryData(res.info);
+        });
     } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('get wishlist [status code] ', error.response.status);
-      }
-      if (error.response && error.response.data) {
-        console.error('get wishlist response data : ', error.response.data);
-      }
+      //에러 처리 필요 -> 정해야함
+      console.log("[Error in MyPageViewModel's get_user_info]\n", error);
     }
   }
 
+  /**
+   * MyPageScreen에서 날짜 데이터 포멧하는 함수
+   * @param {String (date)} isoDateString
+   * @returns
+   */
   function formatDate(isoDateString) {
     const date = new Date(isoDateString);
     const year = date.getFullYear();
@@ -139,6 +90,11 @@ export const useMyPageViewModel = () => {
     return `${year}-${month}-${day}`;
   }
 
+  /**
+   *  MyPageScreen에서 생일까지 남은 날짜를 계산하는 함수
+   * @param {string(date)} birthdayString
+   * @returns
+   */
   function calculateDaysUntilNextBirthday(birthdayString) {
     const currentDate = new Date();
 
@@ -170,7 +126,6 @@ export const useMyPageViewModel = () => {
     },
     actions: {
       ...actions,
-      printTokensFromAsyncStorage,
       get_user_info,
       get_user_endTikklings,
       get_user_paymentHistory,

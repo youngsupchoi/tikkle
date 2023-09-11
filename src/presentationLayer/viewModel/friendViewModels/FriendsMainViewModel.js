@@ -9,10 +9,6 @@ import {getBlockedFriendData} from 'src/dataLayer/DataSource/Friend/GetBlockedFr
 import {getSearchFriendData} from 'src/dataLayer/DataSource/Friend/GetSearchFriendData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
-
 /**
  * FriendsMainScreen의 뷰 스테이트와 액션을 정의하는 ViewModel Hook
  * @returns {object} ref, state, actions
