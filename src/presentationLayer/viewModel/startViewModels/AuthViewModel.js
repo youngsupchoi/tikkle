@@ -125,11 +125,6 @@ export const useStartViewModel = () => {
       state.phoneNumber,
       state.formattedGender,
     ).then(res => {
-      console.log(
-        '🚀 ~ file: AuthViewModel.js:132 ~ completeSignUp ~ res:',
-        res,
-      );
-
       topActions.setStateAndError(res, actions.setFriendTikklingData);
     });
     navigation.reset({

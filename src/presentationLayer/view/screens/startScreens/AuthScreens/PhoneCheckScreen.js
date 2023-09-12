@@ -98,10 +98,6 @@ export default function SignUpScreen2({phoneNumber}) {
   }, [state.inputCode.join('').length === 6]);
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: PhoneCheckScreen.js:108 ~ useEffect ~ state.phoneNumber:',
-      state.phoneNumber,
-    );
     actions.phoneAuth(state.phoneNumber);
   }, []);
 
