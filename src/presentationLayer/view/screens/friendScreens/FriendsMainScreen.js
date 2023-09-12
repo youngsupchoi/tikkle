@@ -6,6 +6,7 @@ import {
   Image,
   Animated,
   Modal,
+  StyleSheet,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {
@@ -52,19 +53,8 @@ export default function FriendsManagementScreen() {
   }, [state.mode_friend]);
 
   return (
-    <View
-      style={{
-        paddingTop: StatusBarHeight,
-        backgroundColor: backgroundColor,
-      }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingHorizontal: 24,
-          height: HEADER_HEIGHT,
-        }}>
+    <View style={styles.container}>
+      <View style={styles.header}>
         <View>
           <B17>친구 관리</B17>
         </View>
@@ -76,23 +66,9 @@ export default function FriendsManagementScreen() {
             stroke={COLOR_BLACK}
           />
         </AnimatedButton>
+
         {state.isDropdownVisible_friend && (
-          <View
-            style={{
-              position: 'absolute', // 절대 위치 설정
-              top: HEADER_HEIGHT,
-              right: 24, // 오른쪽에 10만큼 떨어진 곳에 위치
-              width: 150,
-              backgroundColor: 'white',
-              borderRadius: 8,
-              padding: 12,
-              elevation: 10, // 그림자 효과 (Android)
-              shadowColor: '#000', // 그림자 효과 (iOS)
-              shadowOffset: {width: 0, height: 2},
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              zIndex: 2,
-            }}>
+          <View style={styles.dropdown}>
             <AnimatedButton
               onPress={() => {
                 actions.setMode_friend(
@@ -109,28 +85,9 @@ export default function FriendsManagementScreen() {
           </View>
         )}
       </View>
-      <View
-        style={{
-          marginTop: 12,
-          flexDirection: 'row',
-          // marginHorizontal: 24,
-          alignSelf: 'center',
-          width: windowWidth - 32,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            backgroundColor: COLOR_WHITE,
-            borderRadius: 12,
-            borderColor: COLOR_SEPARATOR,
-            borderWidth: 1,
-            padding: 8,
-            paddingHorizontal: 12,
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+
+      <View style={styles.searchBarContainer}>
+        <View style={styles.searchBar}>
           <TextInput
             onSubmitEditing={() => {
               actions.get_friend_search();
@@ -192,17 +149,7 @@ export default function FriendsManagementScreen() {
               <AnimatedButton
                 onLongPress={() => actions.setSelectedItemId(item.id)}
                 key={item.id}
-                style={{
-                  flexDirection: 'row',
-                  paddingHorizontal: 16,
-                  paddingVertical: 12,
-                  backgroundColor: COLOR_WHITE,
-                  borderRadius: 16,
-                  marginVertical: 8,
-                  marginHorizontal: 24,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
+                style={styles.animatedViewContainer}>
                 {console.log(item)}
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Image
@@ -269,3 +216,120 @@ export default function FriendsManagementScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: StatusBarHeight,
+    backgroundColor: backgroundColor,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    height: HEADER_HEIGHT,
+  },
+  dropdown: {
+    position: 'absolute',
+    top: HEADER_HEIGHT,
+    right: 24,
+    width: 150,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 12,
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    zIndex: 2,
+  },
+  searchBarContainer: {
+    marginTop: 12,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    width: windowWidth - 32,
+    justifyContent: 'space-between',
+  },
+  searchBar: {
+    backgroundColor: COLOR_WHITE,
+    borderRadius: 12,
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    padding: 8,
+    paddingHorizontal: 12,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  searchText: {
+    color: COLOR_BLACK,
+    marginLeft: 12,
+    padding: 0,
+    fontFamily: B,
+    fontSize: 15,
+  },
+  listHeader: {
+    paddingHorizontal: 24,
+  },
+  listItem: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: COLOR_WHITE,
+    borderRadius: 16,
+    marginVertical: 8,
+    marginHorizontal: 24,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  listItemImage: {
+    width: 48,
+    height: 48,
+    borderRadius: 32,
+  },
+  listItemTextContainer: {
+    marginLeft: 12,
+    flexDirection: 'row',
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    width: '80%',
+  },
+  animatedViewContainer: {
+    marginTop: 24,
+  },
+  listItemButton: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: COLOR_WHITE,
+    borderRadius: 16,
+    marginVertical: 8,
+    marginHorizontal: 24,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  listItemContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  listItemImage: {
+    width: 48,
+    height: 48,
+    borderRadius: 32,
+  },
+  listItemTextGroup: {
+    marginLeft: 12,
+    flexDirection: 'row',
+  },
+});

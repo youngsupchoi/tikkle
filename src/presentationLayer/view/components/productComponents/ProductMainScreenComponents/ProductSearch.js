@@ -49,6 +49,7 @@ export default function ProductSearch() {
         backgroundColor: state.showFilter ? backgroundColor : backgroundColor,
         width: windowWidth,
         alignItems: 'center',
+        zIndex: 2,
       }}>
       <View
         style={{
@@ -57,6 +58,7 @@ export default function ProductSearch() {
           marginBottom: 12,
         }}>
         <View style={styles.searchContainer}>
+          {console.log(state.showFilter)}
           <AnimatedButton
             style={styles.filterIconContainer}
             onPress={() => {
