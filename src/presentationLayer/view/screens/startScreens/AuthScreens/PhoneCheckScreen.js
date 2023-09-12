@@ -97,14 +97,6 @@ export default function SignUpScreen2({phoneNumber}) {
     }
   }, [state.inputCode.join('').length === 6]);
 
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: PhoneCheckScreen.js:108 ~ useEffect ~ state.phoneNumber:',
-      state.phoneNumber,
-    );
-    actions.phoneAuth(state.phoneNumber);
-  }, []);
-
   return (
     <View style={styles.signupContainer}>
       <View style={styles.signUpHeader}></View>

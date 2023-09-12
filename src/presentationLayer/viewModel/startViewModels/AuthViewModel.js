@@ -6,7 +6,7 @@ import {verifyOTP} from 'src/components/Axios/OTPVerification';
 import {useStartViewState} from 'src/presentationLayer/viewState/startStates/AuthState';
 
 // 2. 데이터 소스 또는 API 가져오기
-import {checkPhoneNumberData} from 'src/dataLayer/DataSource/CheckPhoneNumberData';
+import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumberData';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
@@ -28,15 +28,24 @@ export const useStartViewModel = () => {
   const handleBackPress = () => navigation.goBack();
 
   const phoneInputbuttonPress = async () => {
-    const res = await post_auth_phoneCheck(state.phoneNumber);
-    if (res.userId === undefined) {
-      await actions.setMessage(res.message);
+    // const res = await post_auth_phoneCheck(state.phoneNumber);
+    await getHash().then(hash => {
+      actions.setHash(hash);
+    });
+    const res = await checkPhoneNumberData(state.phoneNumber, state.hash).then(
+      res => {
+        return topActions.setStateAndError(res);
+      },
+    );
+    if (res.DSdata.userId === undefined) {
       await actions.setUserId(0);
     } else {
       await actions.setUserId(res.userId);
-      await actions.setMessage(res.message);
     }
+    await actions.setMessage(res.DSdata.login_or_signup);
+    await actions.setEncryptedOTP(res.DSdata.encrypted_otp);
   };
+
   const decreaseTime = () => {
     actions.setTimeLeft(prevTime => prevTime - 1);
   };
@@ -48,6 +57,7 @@ export const useStartViewModel = () => {
         actions.setEncryptedOTP(res),
       );
     });
+
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);
       if (message) {
@@ -125,11 +135,6 @@ export const useStartViewModel = () => {
       state.phoneNumber,
       state.formattedGender,
     ).then(res => {
-      console.log(
-        '🚀 ~ file: AuthViewModel.js:132 ~ completeSignUp ~ res:',
-        res,
-      );
-
       topActions.setStateAndError(res, actions.setFriendTikklingData);
     });
     navigation.reset({

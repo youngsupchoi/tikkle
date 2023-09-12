@@ -3,10 +3,6 @@ import api from './api';
 
 export async function put_tikkling_end(props) {
   const {myTikklingData} = props;
-  console.log(
-    '🚀 ~ file: put_tikkling_end.js:6 ~ put_tikkling_end ~ myTikklingData:',
-    myTikklingData,
-  );
 
   try {
     const authorization = await printTokensFromAsyncStorage();

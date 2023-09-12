@@ -19,9 +19,9 @@ export const StartViewStateProvider = ({children}) => {
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
   //FIXME: 테스트용 전화번호
-  const [phoneNumber, setPhoneNumber] = useState('01077778388');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [encryptedOTP, setEncryptedOTP] = useState();
-  const [message, setMessage] = useState('sign up');
+  const [message, setMessage] = useState('');
   const [userId, setUserId] = useState();
   const [hash, setHash] = useState();
   const [done1, setDone1] = useState();
