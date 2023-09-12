@@ -34,6 +34,7 @@ import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/SignUpHeaderComponent';
 import IdInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/IdInputComponent';
+import IdSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/IdSubmitComponent';
 // import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
 // import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
 // import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
@@ -124,24 +125,7 @@ export default function SignUpScreen6({route}) {
         <B28>당신의 아이디를 알려주세요.</B28>
       </View>
       <IdInput />
-      <View style={styles.buttonContainer}>
-        <AnimatedButton
-          onPress={() => buttonPress()}
-          style={[
-            styles.button,
-            state.validationMessage !== 'Valid' ||
-            state.duplicationMessage === 'Duplicate ID'
-              ? styles.inactiveButton
-              : {},
-          ]}
-          disabled={
-            state.validationMessage !== 'Valid' ||
-            state.duplicationMessage === 'Duplicate ID'
-          }>
-          <B15 customStyle={{color: COLOR_WHITE}}>가입하기</B15>
-          {console.log(state.validationMessage, state.duplicationMessage)}
-        </AnimatedButton>
-      </View>
+      <IdSubmit />
     </View>
   );
 }

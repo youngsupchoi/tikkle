@@ -21,7 +21,7 @@ export const StartViewStateProvider = ({children}) => {
   //FIXME: 테스트용 전화번호
   const [phoneNumber, setPhoneNumber] = useState('01053783514');
   const [encryptedOTP, setEncryptedOTP] = useState();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('sign up');
   const [userId, setUserId] = useState();
   const [hash, setHash] = useState();
   const [done1, setDone1] = useState();
@@ -42,6 +42,7 @@ export const StartViewStateProvider = ({children}) => {
   const yearRef = useRef(null); // Ref for day input
   const monthRef = useRef(null); // Ref for month input
   const dayRef = useRef(null); // Ref for day input
+  const userIdRef = useRef(null);
 
   const ref = {
     inputRefs,
@@ -50,6 +51,7 @@ export const StartViewStateProvider = ({children}) => {
     yearRef,
     monthRef,
     dayRef,
+    userIdRef,
   };
 
   const state = {
