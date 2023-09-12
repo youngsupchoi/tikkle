@@ -23,12 +23,13 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
-import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
+
 import SignUpButton from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpButtonComponent';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
 
 // 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
-export default function SignUpScreen3({route}) {
+export default function SignUpScreen3() {
   const {ref, state, actions} = useStartViewModel();
 
   useEffect(() => {
@@ -41,27 +42,12 @@ export default function SignUpScreen3({route}) {
       <View style={styles.instructionContainer}>
         <B28>당신의 이름을 알려주세요.</B28>
       </View>
-      <View style={styles.inputContainer}>
-        <NameInput
-          value={state.firstName}
-          placeholder="성"
-          onChange={actions.setFirstName}
-          onSubmit={() => ref.lastNameRef.current.focus()}
-          refValue={ref.firstNameRef}
-        />
-        <NameInput
-          value={state.lastName}
-          placeholder="이름"
-          onChange={actions.setLastName}
-          onSubmit={actions.handleButtonPress}
-          refValue={ref.lastNameRef}
-        />
-      </View>
+      <NameInput />
 
-        <SignUpButton
-          disabled={!state.firstName || !state.lastName}
-          onPress={actions.handleButtonPress}
-        />
+      <SignUpButton
+        disabled={!state.firstName || !state.lastName}
+        onPress={actions.handleButtonPress}
+      />
     </View>
   );
 }
