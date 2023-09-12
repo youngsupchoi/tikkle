@@ -32,17 +32,18 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/SignUpHeaderComponent';
-import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import BirthInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthInputComponent';
 
 export default function SignUpScreen5() {
   const navigation = useNavigation();
   const {ref, state, actions} = useStartViewModel();
-  
+
   const buttonPress = () => {
-    const birthday = `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
+    const birthday = `${state.year}-${state.month.padStart(
       2,
       '0',
-    )}`; // Format the birthday
+    )}-${state.day.padStart(2, '0')}`; // Format the birthday
 
     console.log(state.firstName, state.lastName, state.gender, birthday);
     navigation.navigate('signup6', {
@@ -69,70 +70,24 @@ export default function SignUpScreen5() {
           라이폴리가 생일을 더 특별하게 만들어드릴게요:)
         </M15>
       </View>
-
-      <View style={styles.inputContainer}>
-        <View style={styles.birthdayYearInputContainer}>
-          <TextInput
-            ref={ref.yearRef}
-            keyboardType="number-pad"
-            maxLength={4}
-            placeholder="2000"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent" // Remove underline for Android
-            clearButtonMode="while-editing" // Show clear button on iOS
-            onChangeText={text => {
-              actions.setYear(text);
-              if (text.length === 4) {
-                ref.monthRef.current.focus(); // Focus month input when year has 4 digits
-              }
-            }}
-          />
-        </View>
-        <View style={styles.birthdayMonthInputContainer}>
-          <TextInput
-            ref={ref.monthRef}
-            keyboardType="number-pad"
-            maxLength={2}
-            placeholder="01"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent" // Remove underline for Android
-            clearButtonMode="while-editing" // Show clear button on iOS
-            onChangeText={text => {
-              actions.setMonth(text);
-              if (text.length === 2) {
-                ref.dayRef.current.focus(); // Focus day input when month has 2 digits
-              }
-            }}
-          />
-        </View>
-        <View style={styles.birthdayDayInputContainer}>
-          <TextInput
-            ref={ref.dayRef}
-            keyboardType="number-pad"
-            maxLength={2}
-            placeholder="01"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent" // Remove underline for Android
-            clearButtonMode="while-editing" // Show clear button on iOS
-            value={state.day}
-            onChangeText={actions.setDay}
-          />
-        </View>
-      </View>
+      <BirthInput />
 
       <View style={styles.buttonContainer}>
         <AnimatedButton
           onPress={() => buttonPress()}
           style={[
             styles.button,
-            state.year.length !== 4 || state.month.length !== 2 || state.day.length !== 2
+            state.year.length !== 4 ||
+            state.month.length !== 2 ||
+            state.day.length !== 2
               ? styles.inactiveButton
               : {},
           ]}
-          disabled={state.year.length !== 4 || state.month.length !== 2 || state.day.length !== 2} // Disable the button if gender is an empty string
+          disabled={
+            state.year.length !== 4 ||
+            state.month.length !== 2 ||
+            state.day.length !== 2
+          } // Disable the button if gender is an empty string
         >
           <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
         </AnimatedButton>
