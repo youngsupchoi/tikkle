@@ -23,10 +23,12 @@ export const useMainViewModel = () => {
   const loadData = async () => {
     actions.setLoading(true);
     getHomeScreenData().then(res => {
+      console.log(res.DSdata.my_tikkling);
       actions.setFriendEventData(res.DSdata.friend_event);
       actions.setFriendTikklingData(res.DSdata.friend_tikkling);
       actions.setIsNotice(res.DSdata.is_notification);
-      actions.setMyTikklingData(res.DSdata.my_tikkling);
+      actions.setMyTikklingData(res.DSdata.my_tikkling.info);
+      actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
       actions.setWishlistData(res.DSdata.my_wishlist);
       actions.setUserData(res.DSdata.user_info);
     });

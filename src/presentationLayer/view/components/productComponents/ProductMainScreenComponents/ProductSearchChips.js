@@ -15,6 +15,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -142,6 +143,8 @@ const styles = StyleSheet.create({
   },
   selectedItem: {
     backgroundColor: COLOR_PRIMARY, // Change to your desired selected background color
+    borderColor: COLOR_PRIMARY_OUTLINE,
+    borderWidth: 2,
   },
   selectedText: {
     color: COLOR_WHITE, // Change to your desired selected text color

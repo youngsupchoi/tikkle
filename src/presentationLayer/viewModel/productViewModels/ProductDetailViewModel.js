@@ -25,8 +25,10 @@ export const useProductDetailViewModel = () => {
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
   const loadData = async productId => {
+    console.log(productId);
     await getProductInfoData(productId)
       .then(res => {
+        console.log(res);
         return topActions.setStateAndError(res);
       })
       .then(res => {

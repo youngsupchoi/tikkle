@@ -19,6 +19,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
@@ -44,6 +45,7 @@ export default function StartTikklingScreen() {
   const {state, actions} = useStartTikklingViewModel();
   useEffect(() => {
     actions.loadData();
+    console.log(state);
   }, []);
 
   useEffect(() => {
@@ -556,6 +558,8 @@ export default function StartTikklingScreen() {
           onPress={actions.buttonPress}
           style={{
             backgroundColor: COLOR_PRIMARY,
+            borderColor: COLOR_PRIMARY_OUTLINE,
+            borderWidth: 2,
             borderRadius: 12,
             padding: 12,
             alignItems: 'center',
@@ -570,32 +574,7 @@ export default function StartTikklingScreen() {
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
       </ScrollView>
-      <Modal
-        onBackdropPress={actions.onCloseSearchModal}
-        isVisible={state.showSearchModal}
-        backdropOpacity={0.5}>
-        <View
-          style={{
-            // backgroundColor: 'red',
-            width: windowWidth - 48,
-            height: windowWidth,
-          }}>
-          <Postcode
-            style={{
-              width: windowWidth - 48,
-              height: windowWidth,
-              backgroundColor: backgroundColor,
-            }}
-            jsOptions={{animation: true}}
-            onSelected={data => {
-              actions.setAddress(data.address);
-              actions.setZonecode(data.zonecode);
-              actions.setShowSearchModal(false);
-              actions.setShowDetailModal(true);
-            }}
-          />
-        </View>
-      </Modal>
+      <PostCodeModal />
       <DetailAddressInput
         showDetailModal={state.showDetailModal}
         setShowDetailModal={actions.setShowDetailModal}

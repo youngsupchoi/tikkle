@@ -27,6 +27,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -466,6 +467,8 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
                           backgroundColor: COLOR_PRIMARY,
                           flexDirection: 'row',
                           alignItems: 'center',
+                          borderColor: COLOR_PRIMARY_OUTLINE,
+                          borderWidth: 2,
                         }}>
                         {/* {console.log(data.data)} */}
                         <View style={{marginRight: 6}}>
@@ -612,6 +615,8 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
                           backgroundColor: COLOR_PRIMARY,
                           flexDirection: 'row',
                           alignItems: 'center',
+                          borderColor: COLOR_PRIMARY_OUTLINE,
+                          borderWidth: 2,
                         }}>
                         {/* {console.log(data.data)} */}
                         <View style={{marginRight: 6}}>

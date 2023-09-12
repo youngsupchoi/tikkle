@@ -30,6 +30,7 @@ import ProductDetailScreen from 'src/presentationLayer/view/screens/productScree
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
 import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
+import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationSettingState';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -47,6 +48,12 @@ const Notification = () => (
   <NotificationViewStateProvider>
     <NotificationScreen />
   </NotificationViewStateProvider>
+);
+
+const NotificationSetting = () => (
+  <NotificationSettingViewStateProvider>
+    <NotificationSettingScreen />
+  </NotificationSettingViewStateProvider>
 );
 
 const MainStack = createStackNavigator();
@@ -170,7 +177,7 @@ export default function MainStackNavigator() {
         <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen
           name="notificationSetting"
-          component={NotificationSettingScreen}
+          component={NotificationSetting}
         />
         {/* <MainStack.Screen
           name="findFriendsByContacts"

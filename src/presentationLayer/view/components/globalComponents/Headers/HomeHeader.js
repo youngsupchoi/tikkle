@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
     height: HEADER_HEIGHT + StatusBarHeight,
-    // borderBottomColor: COLOR_SEPARATOR,
-    // borderBottomWidth: 1,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
     // elevation: 1,
     paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,

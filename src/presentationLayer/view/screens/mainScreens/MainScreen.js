@@ -94,7 +94,6 @@ export default function HomeScreen() {
     }, 5 * delay); // 다섯 번째 컴포넌트
   }, [state.loading]);
 
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{}}>

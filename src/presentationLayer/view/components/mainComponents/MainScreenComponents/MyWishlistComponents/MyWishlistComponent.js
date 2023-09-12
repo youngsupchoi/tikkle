@@ -5,6 +5,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_PRIMARY_TEXT,
   COLOR_SECONDARY,
   COLOR_WHITE,
@@ -28,10 +29,20 @@ export default function MyWishlistComponent() {
         marginVertical: 12,
         backgroundColor: COLOR_WHITE,
         borderRadius: 24,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: {
+          // iOS용 그림자 위치
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.2, // iOS용 그림자 투명도
+        shadowRadius: 3, // iOS용 그림자 반경
       }}>
       <View
         style={{
-          padding: 24,
+          paddingHorizontal: 24,
+          paddingTop: 16,
           paddingBottom: 0,
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -115,7 +126,8 @@ export default function MyWishlistComponent() {
             style={{
               alignItems: 'center',
               justifyContent: 'center',
-              marginVertical: 24,
+              marginTop: 24,
+              marginBottom: 8,
             }}>
             <B20>위시리스트가 비었어요!</B20>
             <LottieView
@@ -134,13 +146,22 @@ export default function MyWishlistComponent() {
               }}
               style={{
                 backgroundColor: COLOR_PRIMARY,
+                borderColor: COLOR_PRIMARY_OUTLINE,
+                borderWidth: 2,
                 padding: 12,
-                borderRadius: 12,
+                borderRadius: 16,
                 paddingHorizontal: 24,
                 flexDirection: 'row',
                 alignItems: 'center',
+                width: '100%',
+                justifyContent: 'center',
               }}>
-              <B15 customStyle={{color: COLOR_PRIMARY_TEXT, marginRight: 8}}>
+              <B15
+                customStyle={{
+                  color: COLOR_PRIMARY_TEXT,
+                  marginRight: 8,
+                  fontFamily: EB,
+                }}>
                 마음에 드는 상품 담으러 가기
               </B15>
               <ArrowRight
