@@ -29,30 +29,47 @@ import {
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/SignUpHeaderComponent';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
-import BirthInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthInputComponent';
-import BirthSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthSubmitComponent';
 
-export default function SignUpScreen5() {
+export default function BirthSubmit() {
   const {ref, state, actions} = useStartViewModel();
 
-  useEffect(() => {
-    setTimeout(() => {
-      ref.yearRef.current.focus(); // Manually focus the input after a delay
-    }, 100);
-  }, []);
+  const buttonPress = () => {
+    const birthday = `${state.year}-${state.month.padStart(
+      2,
+      '0',
+    )}-${state.day.padStart(2, '0')}`; // Format the birthday
+
+    console.log(state.firstName, state.lastName, state.gender, birthday);
+    actions.navigation.navigate('signup6', {
+      firstName: state.firstName,
+      lastName: state.lastName,
+      name: state.firstName + state.lastName,
+      gender: state.gender,
+      birthday: birthday,
+      phoneNumber: state.phoneNumber,
+    });
+  };
   return (
-    <View style={styles.signupContainer}>
-      <SignUpHeader />
-      <View style={styles.instructionContainer}>
-        <B28>당신의 생일을 알려주세요.</B28>
-        <M15 customStyle={{color: COLOR_GRAY}}>
-          라이폴리가 생일을 더 특별하게 만들어드릴게요:)
-        </M15>
-      </View>
-      <BirthInput />
-      <BirthSubmit />
+    <View style={styles.buttonContainer}>
+      <AnimatedButton
+        onPress={() => buttonPress()}
+        style={[
+          styles.button,
+          state.year.length !== 4 ||
+          state.month.length !== 2 ||
+          state.day.length !== 2
+            ? styles.inactiveButton
+            : {},
+        ]}
+        disabled={
+          state.year.length !== 4 ||
+          state.month.length !== 2 ||
+          state.day.length !== 2
+        } // Disable the button if gender is an empty string
+      >
+        <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
+      </AnimatedButton>
     </View>
   );
 }
