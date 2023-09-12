@@ -33,8 +33,11 @@ export default function SignUpHeader() {
     );
   };
   return (
+    //TODO: 흥규-뒤로가기 버튼 제거
     <View style={styles.signUpHeader}>
-      <AnimatedButton onPress={actions.handleBackPress} style={styles.backButton}>
+      <AnimatedButton
+        onPress={actions.handleBackPress}
+        style={styles.backButton}>
         <BackIcon width={24} height={24} stroke={COLOR_BLACK} strokeWidth={1} />
       </AnimatedButton>
       <PaginationComponent />
