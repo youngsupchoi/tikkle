@@ -35,6 +35,7 @@ import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/SignUpHeaderComponent';
 import GenderInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/GenderInputComponent';
+import GenderSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/GenderSubmitComponente';
 
 export default function SignUpScreen4({route}) {
   const navigation = useNavigation();
@@ -57,21 +58,8 @@ export default function SignUpScreen4({route}) {
         <B28>당신의 성별은 무엇인가요?</B28>
       </View>
       <GenderInput />
+      <GenderSubmit />
 
-      <View style={styles.nextButtonContainer}>
-        <AnimatedButton
-          onPress={() => {
-            navigation.navigate('signup5');
-          }}
-          style={[
-            styles.nextButton,
-            state.gender === '' ? styles.inactiveButton : {},
-          ]}
-          disabled={state.gender === ''} // Disable the button if gender is an empty string
-        >
-          <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
-        </AnimatedButton>
-      </View>
     </View>
   );
 }
