@@ -25,15 +25,14 @@ export default function SignUpHeader() {
   const PaginationComponent = () => {
     return (
       <View style={styles.paginationContainer}>
+        <View style={styles.pagination} />
+        <View style={styles.pagination} />
+        <View style={styles.pagination} />
         <View style={styles.selectedPagination} />
-        <View style={styles.pagination} />
-        <View style={styles.pagination} />
-        <View style={styles.pagination} />
       </View>
     );
   };
   return (
-    //TODO: 흥규-뒤로가기 버튼 제거
     <View style={styles.signUpHeader}>
       <AnimatedButton
         onPress={actions.handleBackPress}

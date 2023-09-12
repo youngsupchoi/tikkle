@@ -25,16 +25,18 @@ export default function SignUpHeader() {
   const PaginationComponent = () => {
     return (
       <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.selectedPagination} />
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
+        <View style={styles.pagination} />
+        <View style={styles.selectedPagination} />
+        <View style={styles.pagination} />
+        <View style={styles.pagination} />
       </View>
     );
   };
   return (
     <View style={styles.signUpHeader}>
-      <AnimatedButton onPress={actions.handleBackPress} style={styles.backButton}>
+      <AnimatedButton
+        onPress={actions.handleBackPress}
+        style={styles.backButton}>
         <BackIcon width={24} height={24} stroke={COLOR_BLACK} strokeWidth={1} />
       </AnimatedButton>
       <PaginationComponent />
@@ -42,8 +44,6 @@ export default function SignUpHeader() {
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   signupContainer: {

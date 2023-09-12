@@ -19,9 +19,9 @@ export const StartViewStateProvider = ({children}) => {
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
   //FIXME: 테스트용 전화번호
-  const [phoneNumber, setPhoneNumber] = useState('01053783514');
+  const [phoneNumber, setPhoneNumber] = useState('01077778388');
   const [encryptedOTP, setEncryptedOTP] = useState();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('sign up');
   const [userId, setUserId] = useState();
   const [hash, setHash] = useState();
   const [done1, setDone1] = useState();
@@ -34,11 +34,15 @@ export const StartViewStateProvider = ({children}) => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
+  const [userNick, setUserNick] = useState('');
+  const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
+  const [duplicationMessage, setDuplicationMessage] = useState(''); // State to hold the validation message
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const yearRef = useRef(null); // Ref for day input
   const monthRef = useRef(null); // Ref for month input
   const dayRef = useRef(null); // Ref for day input
+  const userIdRef = useRef(null);
 
   const ref = {
     inputRefs,
@@ -47,7 +51,7 @@ export const StartViewStateProvider = ({children}) => {
     yearRef,
     monthRef,
     dayRef,
-    
+    userIdRef,
   };
 
   const state = {
@@ -67,6 +71,9 @@ export const StartViewStateProvider = ({children}) => {
     year,
     month,
     day,
+    userNick,
+    validationMessage,
+    duplicationMessage,
   };
 
   const actions = {
@@ -86,6 +93,9 @@ export const StartViewStateProvider = ({children}) => {
     setYear,
     setMonth,
     setDay,
+    setUserNick,
+    setValidationMessage,
+    setDuplicationMessage,
   };
 
   return (

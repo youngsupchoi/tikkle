@@ -2,9 +2,7 @@ import {View, StyleSheet} from 'react-native';
 import React from 'react';
 
 import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {
-  SPACING_6,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_BLACK,
   COLOR_WHITE,
@@ -12,19 +10,22 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-
-export default function SignUpButton({disabled, onPress}) {
+export default function NameSubmit() {
+  const {ref, state, actions} = useStartViewModel();
   return (
     <View style={styles.buttonContainer}>
-
-    <AnimatedButton
-      onPress={onPress}
-      style={[styles.button, disabled ? styles.inactiveButton : {}]}
-      disabled={disabled}>
-      <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
-    </AnimatedButton>
-        </View>
+      <AnimatedButton
+        onPress={actions.handleButtonPress}
+        style={[
+          styles.button,
+          !state.firstName || !state.lastName ? styles.inactiveButton : {},
+        ]}
+        disabled={!state.firstName || !state.lastName}>
+        <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
+      </AnimatedButton>
+    </View>
   );
 }
 

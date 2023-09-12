@@ -3,17 +3,24 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,
+  SPACING_1,
   SPACING_2,
   SPACING_4,
   SPACING_6,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
+  B15,
   B28,
   M,
+  M15,
+  M17,
+  M34,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
+  COLOR_WHITE,
+  COLOR_PRIMARY,
   COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -21,29 +28,33 @@ import {
   windowWidth,
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-
-import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
-
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
-import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
-import NameSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameSubmitComponent';
 
-// 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
-export default function SignUpScreen3() {
+// import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
+// import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
+// import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
+
+export default function IdSubmit() {
   const {ref, state, actions} = useStartViewModel();
-
-  useEffect(() => {
-    setTimeout(() => ref.firstNameRef.current.focus(), 100);
-  }, []);
-
   return (
-    <View style={styles.signupContainer}>
-      <SignUpHeader />
-      <View style={styles.instructionContainer}>
-        <B28>당신의 이름을 알려주세요.</B28>
-      </View>
-      <NameInput />
-      <NameSubmit />
+    <View style={styles.buttonContainer}>
+      <AnimatedButton
+        onPress={actions.completeSignUp}
+        style={[
+          styles.button,
+          state.validationMessage !== 'Valid' ||
+          state.duplicationMessage === 'Duplicate ID'
+            ? styles.inactiveButton
+            : {},
+        ]}
+        disabled={
+          state.validationMessage !== 'Valid' ||
+          state.duplicationMessage === 'Duplicate ID'
+        }>
+        <B15 customStyle={{color: COLOR_WHITE}}>가입하기</B15>
+        {console.log(state.validationMessage, state.duplicationMessage)}
+      </AnimatedButton>
     </View>
   );
 }
@@ -64,6 +75,12 @@ const styles = StyleSheet.create({
     marginBottom: SPACING_4,
   },
   backButton: {
+    width: 44,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
     width: 44,
     height: 44,
     alignItems: 'center',
@@ -93,49 +110,26 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
+    justifyContent: 'space-evenly',
+  },
+  IDInputContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
   },
-  firstNameInputContainer: {
-    // borderBottomColor: COLOR_BLACK,
-    // borderBottomWidth: 1,
-    // height: 50,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  firstNameInput: {
+  IDInput: {
     color: COLOR_GRAY,
     fontSize: 20,
     fontFamily: M,
-  },
-  LastNameInputContainer: {
-    // borderBottomColor: COLOR_BLACK,
-    // borderBottomWidth: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    // height: 50,
-  },
-  LastNameInput: {
-    color: COLOR_GRAY,
-    fontSize: 20,
-    fontFamily: M,
-  },
-  nativeInput: {
-    color: COLOR_GRAY,
-    fontSize: 36, // Adjusted font size
-    fontFamily: M,
-    padding: 10, // Added padding for a more spacious feel
-    borderBottomWidth: 1, // Added a bottom border for both iOS and Android
-    borderBottomColor: COLOR_SEPARATOR,
+    marginLeft: SPACING_1,
   },
   buttonContainer: {
     marginTop: SPACING_6,
     width: '100%',
   },
   button: {
-    backgroundColor: COLOR_BLACK,
+    backgroundColor: COLOR_PRIMARY,
     width: '90%',
     height: 50,
     borderRadius: 25,
@@ -147,6 +141,22 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+  },
+  nativeInput: {
+    color: COLOR_GRAY,
+    fontSize: 36,
+    fontFamily: M,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: COLOR_SEPARATOR,
+  },
+
+  validationMessage: {
+    color: COLOR_PRIMARY,
+    fontSize: 16,
+    fontFamily: M,
+    marginTop: SPACING_1,
+    marginLeft: SPACING_2,
   },
   inactiveButton: {
     backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity

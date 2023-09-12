@@ -29,30 +29,48 @@ import {
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/SignUpHeaderComponent';
+import {useNavigation} from '@react-navigation/native';
+import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
-import BirthInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthInputComponent';
-import BirthSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthSubmitComponent';
+import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/SignUpHeaderComponent';
+// import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
+// import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
+// import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
 
-export default function SignUpScreen5() {
+export default function IdInput() {
   const {ref, state, actions} = useStartViewModel();
 
-  useEffect(() => {
-    setTimeout(() => {
-      ref.yearRef.current.focus(); // Manually focus the input after a delay
-    }, 100);
-  }, []);
+  const handleUserIdChange = text => {
+    actions.setUserNick(text);
+  };
   return (
-    <View style={styles.signupContainer}>
-      <SignUpHeader />
-      <View style={styles.instructionContainer}>
-        <B28>당신의 생일을 알려주세요.</B28>
-        <M15 customStyle={{color: COLOR_GRAY}}>
-          라이폴리가 생일을 더 특별하게 만들어드릴게요:)
-        </M15>
+    <View>
+      <View style={styles.inputContainer}>
+        <View style={styles.IDInputContainer}>
+          <M34>@</M34>
+          <TextInput
+            ref={ref.userIdRef}
+            maxLength={20}
+            keyboardType="default"
+            placeholder="lifoli1234"
+            placeholderTextColor={COLOR_GRAY}
+            style={styles.nativeInput}
+            underlineColorAndroid="transparent"
+            clearButtonMode="while-editing"
+            value={state.userNick}
+            onChangeText={handleUserIdChange} // Use the new handler here
+            onSubmitEditing={() => ref.userIdRef.current.focus()}
+          />
+        </View>
       </View>
-      <BirthInput />
-      <BirthSubmit />
+      {state.validationMessage !== 'Valid' && (
+        <M17 customStyle={styles.validationMessage}>
+          {state.validationMessage}
+        </M17>
+      )}
+      {state.duplicationMessage == 'Duplicate ID' && (
+        <M17 customStyle={styles.validationMessage}>존재하는 아이디입니다.</M17>
+      )}
     </View>
   );
 }
@@ -73,6 +91,12 @@ const styles = StyleSheet.create({
     marginBottom: SPACING_4,
   },
   backButton: {
+    width: 44,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
     width: 44,
     height: 44,
     alignItems: 'center',
@@ -102,48 +126,26 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
-  birthdayYearInputContainer: {
-    // borderBottomColor: COLOR_BLACK,
-    // borderBottomWidth: 1,
-    // height: 50,
-    // alignItems: 'flex-start',
-    // justifyContent: 'center',
-    // alignSelf: 'center',
-    // width: '40%',
+  IDInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
   },
-  birthdayMonthInputContainer: {
-    // borderBottomColor: COLOR_BLACK,
-    // borderBottomWidth: 1,
-    // height: 50,
-    // alignItems: 'flex-start',
-    // justifyContent: 'center',
-    // alignSelf: 'center',
-    // width: '20%',
-    marginHorizontal: 12,
-  },
-  birthdayDayInputContainer: {
-    // borderBottomColor: COLOR_BLACK,
-    // borderBottomWidth: 1,
-    // height: 50,
-    // alignItems: 'flex-start',
-    // justifyContent: 'center',
-    // alignSelf: 'center',
-    // width: '20%',
-  },
-  birthdayInput: {
+  IDInput: {
     color: COLOR_GRAY,
     fontSize: 20,
     fontFamily: M,
-    // width: '100%',
+    marginLeft: SPACING_1,
   },
   buttonContainer: {
     marginTop: SPACING_6,
     width: '100%',
   },
   button: {
-    backgroundColor: COLOR_BLACK,
+    backgroundColor: COLOR_PRIMARY,
     width: '90%',
     height: 50,
     borderRadius: 25,
@@ -156,16 +158,24 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
+  nativeInput: {
+    color: COLOR_GRAY,
+    fontSize: 36,
+    fontFamily: M,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: COLOR_SEPARATOR,
+  },
+
+  validationMessage: {
+    color: COLOR_PRIMARY,
+    fontSize: 16,
+    fontFamily: M,
+    marginTop: SPACING_1,
+    marginLeft: SPACING_2,
+  },
   inactiveButton: {
     backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
     shadowOpacity: 0, // Remove shadow for inactive button
-  },
-  nativeInput: {
-    color: COLOR_GRAY,
-    fontSize: 30, // Adjusted font size
-    fontFamily: M,
-    padding: 0, // Added padding for a more spacious feel
-    borderBottomWidth: 1, // Added a bottom border for both iOS and Android
-    borderBottomColor: COLOR_SEPARATOR,
   },
 });

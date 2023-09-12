@@ -3,17 +3,24 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,
+  SPACING_1,
   SPACING_2,
   SPACING_4,
   SPACING_6,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
+  B15,
   B28,
   M,
+  M15,
+  M17,
+  M34,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
+  COLOR_WHITE,
+  COLOR_PRIMARY,
   COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -21,29 +28,48 @@ import {
   windowWidth,
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-
-import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
-
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
-import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
-import NameSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameSubmitComponent';
 
-// 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
-export default function SignUpScreen3() {
+export default function BirthSubmit() {
   const {ref, state, actions} = useStartViewModel();
 
-  useEffect(() => {
-    setTimeout(() => ref.firstNameRef.current.focus(), 100);
-  }, []);
+  const buttonPress = () => {
+    const birthday = `${state.year}-${state.month.padStart(
+      2,
+      '0',
+    )}-${state.day.padStart(2, '0')}`; // Format the birthday
 
+    console.log(state.firstName, state.lastName, state.gender, birthday);
+    actions.navigation.navigate('signup6', {
+      firstName: state.firstName,
+      lastName: state.lastName,
+      name: state.firstName + state.lastName,
+      gender: state.gender,
+      birthday: birthday,
+      phoneNumber: state.phoneNumber,
+    });
+  };
   return (
-    <View style={styles.signupContainer}>
-      <SignUpHeader />
-      <View style={styles.instructionContainer}>
-        <B28>당신의 이름을 알려주세요.</B28>
-      </View>
-      <NameInput />
-      <NameSubmit />
+    <View style={styles.buttonContainer}>
+      <AnimatedButton
+        onPress={() => buttonPress()}
+        style={[
+          styles.button,
+          state.year.length !== 4 ||
+          state.month.length !== 2 ||
+          state.day.length !== 2
+            ? styles.inactiveButton
+            : {},
+        ]}
+        disabled={
+          state.year.length !== 4 ||
+          state.month.length !== 2 ||
+          state.day.length !== 2
+        } // Disable the button if gender is an empty string
+      >
+        <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
+      </AnimatedButton>
     </View>
   );
 }
@@ -94,41 +120,40 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    width: '100%',
-    alignItems: 'center',
   },
-  firstNameInputContainer: {
+  birthdayYearInputContainer: {
     // borderBottomColor: COLOR_BLACK,
     // borderBottomWidth: 1,
     // height: 50,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    marginRight: 12,
+    // alignItems: 'flex-start',
+    // justifyContent: 'center',
+    // alignSelf: 'center',
+    // width: '40%',
   },
-  firstNameInput: {
-    color: COLOR_GRAY,
-    fontSize: 20,
-    fontFamily: M,
-  },
-  LastNameInputContainer: {
+  birthdayMonthInputContainer: {
     // borderBottomColor: COLOR_BLACK,
     // borderBottomWidth: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
     // height: 50,
+    // alignItems: 'flex-start',
+    // justifyContent: 'center',
+    // alignSelf: 'center',
+    // width: '20%',
+    marginHorizontal: 12,
   },
-  LastNameInput: {
+  birthdayDayInputContainer: {
+    // borderBottomColor: COLOR_BLACK,
+    // borderBottomWidth: 1,
+    // height: 50,
+    // alignItems: 'flex-start',
+    // justifyContent: 'center',
+    // alignSelf: 'center',
+    // width: '20%',
+  },
+  birthdayInput: {
     color: COLOR_GRAY,
     fontSize: 20,
     fontFamily: M,
-  },
-  nativeInput: {
-    color: COLOR_GRAY,
-    fontSize: 36, // Adjusted font size
-    fontFamily: M,
-    padding: 10, // Added padding for a more spacious feel
-    borderBottomWidth: 1, // Added a bottom border for both iOS and Android
-    borderBottomColor: COLOR_SEPARATOR,
+    // width: '100%',
   },
   buttonContainer: {
     marginTop: SPACING_6,
@@ -151,5 +176,13 @@ const styles = StyleSheet.create({
   inactiveButton: {
     backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
     shadowOpacity: 0, // Remove shadow for inactive button
+  },
+  nativeInput: {
+    color: COLOR_GRAY,
+    fontSize: 30, // Adjusted font size
+    fontFamily: M,
+    padding: 0, // Added padding for a more spacious feel
+    borderBottomWidth: 1, // Added a bottom border for both iOS and Android
+    borderBottomColor: COLOR_SEPARATOR,
   },
 });
