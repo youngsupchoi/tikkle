@@ -23,6 +23,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   backgroundColor,
+  COLOR_PRIMARY_OUTLINE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowWidth,
@@ -277,6 +278,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: COLOR_PRIMARY,
+    borderColor: COLOR_PRIMARY_OUTLINE,
+    borderWidth: 2,
     width: '90%',
     height: 50,
     borderRadius: 25,

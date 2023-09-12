@@ -6,6 +6,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -190,6 +191,8 @@ const DetailAddressInput = props => {
               padding: 10,
               borderRadius: 8,
               backgroundColor: COLOR_PRIMARY,
+              borderColor: COLOR_PRIMARY_OUTLINE,
+              borderWidth: 2,
               elevation: 4,
               alignItems: 'center',
             }}>

@@ -6,7 +6,6 @@ import {useStartTikklingViewState} from 'src/presentationLayer/viewState/tikklin
 // 2. 데이터 소스 또는 API 가져오기
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
 import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
 import {createTikklingData} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
@@ -48,11 +47,16 @@ export const useStartTikklingViewModel = () => {
   };
 
   const createTikkling = async () => {
-    // createTikklingData();
+    createTikklingData(
+      state.endDate,
+      state.selectedItem.price / 5000,
+      state.selectedItem.product_id,
+      state.eventType,
+    );
   };
 
   const put_user_address = async () => {
-    updateMyAddressData();
+    updateMyAddressData(state.zonecode, state.address, state.detail_address);
   };
 
   //==========Utils 부분=========================================================

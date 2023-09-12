@@ -67,6 +67,7 @@ export default function SecondHero() {
         pagingEnabled
         onMomentumScrollEnd={onPageChange}
         ref={scrollViewRef}
+        style={{paddingBottom: 8}}
         showsHorizontalScrollIndicator={false}>
         <View>
           <View
@@ -85,6 +86,15 @@ export default function SecondHero() {
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              elevation: 3,
+              shadowColor: '#000',
+              shadowOffset: {
+                // iOS용 그림자 위치
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.2, // iOS용 그림자 투명도
+              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
               <M15>특별한 선물하기, 티클에서</M15>
@@ -117,6 +127,15 @@ export default function SecondHero() {
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              elevation: 3,
+              shadowColor: '#000',
+              shadowOffset: {
+                // iOS용 그림자 위치
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.2, // iOS용 그림자 투명도
+              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
               <M15>기념일을 더욱 특별하게</M15>
@@ -149,6 +168,15 @@ export default function SecondHero() {
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              elevation: 3,
+              shadowColor: '#000',
+              shadowOffset: {
+                // iOS용 그림자 위치
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.2, // iOS용 그림자 투명도
+              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
               <M15>올해 생일선물은 맥북, 좋다.</M15>
@@ -189,6 +217,15 @@ export default function SecondHero() {
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              elevation: 3,
+              shadowColor: '#000',
+              shadowOffset: {
+                // iOS용 그림자 위치
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.2, // iOS용 그림자 투명도
+              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
               <M15>그래서, 어떻게 하는데?</M15>
@@ -245,7 +282,7 @@ const styles = StyleSheet.create({
   pagination: {
     flexDirection: 'row',
     position: 'absolute',
-    bottom: 12,
+    bottom: 16,
     left: 24,
   },
   dot: {

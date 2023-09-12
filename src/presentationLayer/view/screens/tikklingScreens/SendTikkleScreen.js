@@ -4,6 +4,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
@@ -29,6 +30,8 @@ export default function PaymentScreen(route) {
         }}
         style={{
           backgroundColor: COLOR_PRIMARY,
+          borderColor: COLOR_PRIMARY_OUTLINE,
+          borderWidth: 2,
           width: windowWidth - 48,
           padding: 16,
           borderRadius: 12,

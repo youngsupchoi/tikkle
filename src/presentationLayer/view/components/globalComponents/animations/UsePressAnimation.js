@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Animated} from 'react-native';
 
-export const usePressAnimation = (initialValue = 1, toValue = 0.95) => {
+export const usePressAnimation = (initialValue = 1, toValue = 0.97) => {
   const [scaleValue] = useState(new Animated.Value(initialValue));
 
   const handlePressIn = () => {

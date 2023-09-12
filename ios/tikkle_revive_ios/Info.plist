@@ -64,6 +64,12 @@
 			<string>AppleSDGothicNeoUL.ttf</string>
 			<string>CherryBombOne-Regular.ttf</string>
 		</array>
+
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>instagram</string>
+		</array>
+
 		<!-- Contacts Permission -->
 		<key>NSContactsUsageDescription</key>
 		<string>YOUR TEXT</string>

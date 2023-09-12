@@ -1,5 +1,8 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet, Animated} from 'react-native';
+import Delete from 'src/assets/icons/Delete';
+import Detail from 'src/assets/icons/Detail';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {
   COLOR_BLACK,
   COLOR_ERROR,
@@ -7,6 +10,12 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  B15,
+  B20,
+  EB,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import FirstHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FirstHero';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
 const MyTikklingComponent = () => {
@@ -25,22 +34,9 @@ const MyTikklingComponent = () => {
   };
 
   return (
-    <View
-      style={{
-        marginVertical: 12,
-        backgroundColor: COLOR_WHITE,
-        borderRadius: 24,
-      }}>
-      <View
-        style={{
-          padding: 24,
-          paddingTop: 16,
-          paddingBottom: 0,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        <B20 customStyle={{fontFamily: EB}}>내 티클링</B20>
+    <View style={styles.container}>
+      <View style={styles.innerContainer}>
+        <B20 customStyle={styles.headerText}>내 티클링</B20>
         <AnimatedButton
           onPress={() => {
             if (state.dropdownVisible) {
@@ -49,40 +45,17 @@ const MyTikklingComponent = () => {
               actions.showDropdown();
             }
           }}
-          style={{padding: 10}}>
-          <Detail
-            width={20}
-            height={20}
-            stroke={COLOR_BLACK}
-            strokeWidth={1.5}
-            scale={1}
-          />
+          style={styles.animatedButton}>
+          <Detail style={styles.detail} />
         </AnimatedButton>
         {state.dropdownVisible && (
-          <Animated.View
-            style={[
-              dropdownStyle,
-              {
-                backgroundColor: COLOR_WHITE,
-                position: 'absolute',
-                top: 16 + 40,
-                right: 24,
-                zIndex: 2,
-                borderRadius: 12,
-                elevation: 10,
-              },
-            ]}>
+          <Animated.View style={[styles.dropdown, dropdownStyle]}>
             <AnimatedButton
               onPress={() => {
                 actions.buttonPress();
               }}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                padding: 16,
-                paddingVertical: 12,
-              }}>
-              <View style={{}}>
+              style={styles.dropdownButton}>
+              <View style={styles.iconContainer}>
                 <Delete
                   width={24}
                   height={24}
@@ -91,29 +64,95 @@ const MyTikklingComponent = () => {
                   scale={1}
                 />
               </View>
-              <B15 customStyle={{color: COLOR_ERROR, paddingLeft: 12}}>
-                종료하기
-              </B15>
+              <B15 customStyle={styles.deleteText}>종료하기</B15>
             </AnimatedButton>
           </Animated.View>
         )}
       </View>
-      {state.myTikklingData.length === 0 ? null : (
-        <FirstHero
-          navigation={navigation}
-          myTikklingData={state.myTikklingData}
-          setVisible={actions.setVisible}
-          userData={state.userData}
-          put_tikkling_end={put_tikkling_end}
-          put_tikkling_cancel={put_tikkling_cancel}
-        />
-      )}
-      {/* {console.log('myTikklingData', state.myTikklingData)} */}
+      <View style={styles.dataContainer}>
+        {state.myTikklingData.length === 0 ? null : (
+          <View>
+            <FirstHero
+              navigation={actions.navigation}
+              myTikklingData={state.myTikklingData}
+              setVisible={actions.setVisible}
+              userData={state.userData}
+              put_tikkling_end={actions.put_tikkling_end}
+              put_tikkling_cancel={actions.put_tikkling_cancel}
+            />
+          </View>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 12,
+    backgroundColor: COLOR_WHITE,
+    borderRadius: 24,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  innerContainer: {
+    paddingHorizontal: 24,
+    paddingTop: 16,
+    paddingBottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerText: {
+    fontFamily: EB,
+  },
+  animatedButton: {
+    padding: 10,
+  },
+  detail: {
+    width: 20,
+    height: 20,
+    stroke: COLOR_BLACK,
+    strokeWidth: 1.5,
+    scale: 1,
+  },
+  dropdown: {
+    backgroundColor: COLOR_WHITE,
+    position: 'absolute',
+    top: 16 + 40,
+    right: 24,
+    zIndex: 20,
+    borderRadius: 12,
+    elevation: 10,
+  },
+  dropdownButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    paddingVertical: 12,
+  },
+  iconContainer: {},
+  delete: {
+    width: 24,
+    height: 24,
+    stroke: COLOR_ERROR,
+    strokeWidth: 1.5,
+    scale: 1,
+  },
+  deleteText: {
+    color: COLOR_ERROR,
+    paddingLeft: 12,
+  },
+  dataContainer: {
+    zIndex: 0,
+    marginTop: 12,
+  },
   myTikklingContainer: {
     marginTop: SPACING_2,
     marginHorizontal: SPACING_2,
@@ -123,7 +162,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: SPACING_2,
   },
-  // ... (Other related styles)
 });
 
 export default MyTikklingComponent;
