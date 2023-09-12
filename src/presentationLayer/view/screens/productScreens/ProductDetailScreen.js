@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, StyleSheet, ScrollView, Image, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   StatusBarHeight,
@@ -41,7 +41,9 @@ const containerWidth = windowWidth - SPACING_6;
 
 export default function ProductDetailScreen(route) {
   const {state, actions} = useProductDetailViewModel();
+
   const [selected, setSelected] = useState('상세정보');
+  // console.log('selected : ', state.data);
   useEffect(() => {
     actions.loadData(state.data.id);
   }, []);
@@ -105,6 +107,23 @@ export default function ProductDetailScreen(route) {
             <M28 customStyle={{marginBottom: 16, fontFamily: EB}}>
               {state.data.name}
             </M28>
+            {console.log('state.wishlisted : ', state.wishlisted)}
+            {state.wishlisted ? (
+              <AnimatedButton
+                // 위시리스트 등록되었는지 확인하는 버튼
+                style={{
+                  width: 40,
+                  height: 40,
+                  alignItems: 'left',
+                  justifyContent: 'left',
+                  backgroundColor: 'transparent',
+                  marginLeft: 8,
+                  marginTop: 8,
+                }}>
+                {/* Add a heart shape icon or text inside the button */}
+                <Text style={{color: 'white'}}>{'❤️'}</Text>
+              </AnimatedButton>
+            ) : null}
             <M15 customStyle={{color: COLOR_GRAY, marginBottom: 40}}>
               {state.data.brand_name}
             </M15>
@@ -224,9 +243,13 @@ export default function ProductDetailScreen(route) {
           <View>
             <AnimatedButton
               onPress={() => {
-                // createMyWishlistData(state.data.id);
-                // topActions.showModal('위시리스트에 상품을 추가했어요!', 1);
-                actions.createMyWishlistData_(state.data.id);
+                if (state.wishlisted) {
+                  actions.setWishlisted(!state.wishlisted);
+                  actions.deleteMyWishlistData_(state.data.id);
+                } else {
+                  actions.setWishlisted(!state.wishlisted);
+                  actions.createMyWishlistData_(state.data.id);
+                }
               }}
               style={{
                 paddingVertical: 12,
@@ -239,7 +262,12 @@ export default function ProductDetailScreen(route) {
                 borderWidth: 0.5,
                 elevation: 1,
               }}>
-              <B15 customStyle={{color: COLOR_WHITE}}>위시리스트 추가</B15>
+              <B15
+                customStyle={{
+                  color: !state.wishlisted ? COLOR_WHITE : 'pink',
+                }}>
+                {!state.wishlisted ? '위시리스트 추가' : '위시리스트 제거'}
+              </B15>
             </AnimatedButton>
           </View>
         </View>
