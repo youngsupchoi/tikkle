@@ -33,19 +33,22 @@ export const useProductDetailViewModel = () => {
       })
       .then(res => {
         actions.setReceivedData(res.info);
+        if (res.info.wishlisted && res.info.wishlisted > 0) {
+          actions.setWishlisted(true);
+        }
       });
   };
 
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
-      console.log(res);
+      console.log('Delete : ', res);
       topActions.setStateAndError(res);
     });
   };
 
   const createMyWishlistData_ = async productId => {
     await createMyWishlistData(productId).then(res => {
-      console.log(res);
+      console.log('Add : ', res);
       return topActions.setStateAndError(res);
     });
   };

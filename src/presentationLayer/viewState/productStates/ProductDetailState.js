@@ -15,15 +15,19 @@ export const useProductDetailViewState = () => {
 export const ProductDetailViewStateProvider = ({children}) => {
   const [selected, setSelected] = useState('상세정보');
   const [receivedData, setReceivedData] = useState();
+  const [wishlisted, setWishlisted] = useState(false);
+
   const ref = {};
   const state = {
     selected,
     receivedData,
+    wishlisted,
   };
 
   const actions = {
     setSelected,
     setReceivedData,
+    setWishlisted,
   };
 
   return (
