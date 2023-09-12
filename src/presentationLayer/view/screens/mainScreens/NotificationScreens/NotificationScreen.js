@@ -32,14 +32,6 @@ import Close from 'src/assets/icons/Close';
 export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
 
-  const onRefresh = async () => {
-    actions.setRefreshing(true);
-    // Call your data fetching functions here
-    await actions.get_notification_list();
-    // Add any other data fetching functions if needed
-    actions.setRefreshing(false);
-  };
-
   useEffect(() => {
     actions.get_notification_list();
   }, []);
@@ -140,11 +132,7 @@ export default function NotificationScreen() {
           </View>
         </View>
         <View style={{position: 'absolute', top: 12, right: 16}}>
-          <AnimatedButton
-          // onPress={
-          //   //TODO 알림 삭제 로직 추가
-          // }
-          >
+          <AnimatedButton onPress={() => actions.onDeleteComplete(index)}>
             <Close
               width={16}
               height={16}
@@ -209,7 +197,10 @@ export default function NotificationScreen() {
       </View>
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={state.refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={state.refreshing}
+            onRefresh={actions.onRefresh}
+          />
         }
         data={state.notificationData}
         renderItem={renderItem}
