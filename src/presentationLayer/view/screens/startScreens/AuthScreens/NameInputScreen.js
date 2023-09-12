@@ -43,11 +43,7 @@ export default function SignUpScreen3() {
         <B28>당신의 이름을 알려주세요.</B28>
       </View>
       <NameInput />
-
-      <SignUpButton
-        disabled={!state.firstName || !state.lastName}
-        onPress={actions.handleButtonPress}
-      />
+      <SignUpButton />
     </View>
   );
 }
