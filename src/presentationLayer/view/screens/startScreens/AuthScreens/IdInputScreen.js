@@ -41,41 +41,6 @@ import IdSubmit from 'src/presentationLayer/view/components/startComponents/Auth
 
 export default function SignUpScreen6({route}) {
   const {ref, state, actions} = useStartViewModel();
-
-  const navigation = useNavigation();
-  const backPress = () => {
-    navigation.goBack();
-  };
-
-  const buttonPress = async () => {
-    // const responseData = await post_auth_registerUser(
-    //   name: state.FirstName + state.LastName,
-    //   birthday: `${state.year}-${state.month.padStart(2,'0')}-${state.day.padStart(2, '0')}`,
-    //   userId: state.userNick,
-    //   phoneNumber: state.phoneNumber,
-    //   gender: state.gender,
-    // );
-    // if (responseData.success) {
-    //   console.log(responseData.data);
-    //   try {
-    //     await post_auth_tokenGenerate(responseData.data);
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'main',
-          params: {updated: new Date().toString()},
-        },
-      ],
-    });
-    // } catch (error) {
-    //   console.error('Error saving data to AsyncStorage:', error);
-    // }
-    // }
-  };
-
-  //const userIdRef = useRef(null); // Create a ref
-
   useEffect(() => {
     const validityMessage = validateUserId(state.userNick);
     actions.setValidationMessage(validityMessage);

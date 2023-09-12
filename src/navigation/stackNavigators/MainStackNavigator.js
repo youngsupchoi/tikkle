@@ -11,7 +11,7 @@ import SignUpScreen2 from 'src/presentationLayer/view/screens/startScreens/AuthS
 import SignUpScreen3 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/NameInputScreen';
 import SignUpScreen4 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/GenderInputScreen';
 import SignUpScreen5 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/BirthDayInputScreen';
-import SignUpScreen6 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/IdInput';
+import SignUpScreen6 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/IdInputScreen';
 import StartTikklingScreen from 'src/presentationLayer/view/screens/tikklingScreens/StartTikklingScreen';
 import NotificationScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationScreen';
 import NotificationSettingScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationSettingScreen';
@@ -48,7 +48,6 @@ const Notification = () => (
     <NotificationScreen />
   </NotificationViewStateProvider>
 );
-
 
 const MainStack = createStackNavigator();
 const SignUpStack = createStackNavigator();
@@ -120,7 +119,7 @@ function SignUpNavigator() {
   return (
     <StartViewStateProvider>
       <SignUpStack.Navigator
-        initialRouteName="splash"
+        initialRouteName="signup3"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,

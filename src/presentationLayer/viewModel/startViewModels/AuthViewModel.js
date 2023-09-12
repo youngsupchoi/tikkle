@@ -10,21 +10,19 @@ import {checkPhoneNumberData} from 'src/dataLayer/DataSource/CheckPhoneNumberDat
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
+import {useTopViewModel} from '../topViewModels/TopViewModel';
+import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useStartViewState();
-
+  const {topActions} = useTopViewModel();
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onPhoneNumberChange = (number, isValid) => {
     actions.setPhoneNumber(number);
-    console.log(
-      '🚀 ~ file: AuthViewModel.js:33 ~ post_auth_phoneCheck ~ state.phoneNumber:',
-      state.phoneNumber,
-    );
     actions.setIsValidPhoneNumber(isValid);
   };
   const handleBackPress = () => navigation.goBack();
@@ -116,6 +114,35 @@ export const useStartViewModel = () => {
     navigation.navigate('signup4');
   };
 
+  const completeSignUp = async () => {
+    await loginRegisterData(
+      state.firstName + state.lastName,
+      `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
+        2,
+        '0',
+      )}`,
+      state.userNick,
+      state.phoneNumber,
+      state.formattedGender,
+    ).then(res => {
+      console.log(
+        '🚀 ~ file: AuthViewModel.js:132 ~ completeSignUp ~ res:',
+        res,
+      );
+
+      topActions.setStateAndError(res, actions.setFriendTikklingData);
+    });
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'main',
+          params: {updated: new Date().toString()},
+        },
+      ],
+    });
+  };
+
   //TODO : 기존 verifyOTP함수 삭제한 뒤 이 함수 이름 verifyOTP로 바꿀것
   const checkOTPEqual = () => {
     const fullCode = state.inputCode.join('');
@@ -141,6 +168,7 @@ export const useStartViewModel = () => {
       navigation,
       handleBackPress,
       handleButtonPress,
+      completeSignUp,
     },
   };
 };
