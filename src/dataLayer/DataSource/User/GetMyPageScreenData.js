@@ -26,31 +26,32 @@ export async function getMyPageScreenData() {
 
   //------ call get_user_info -------------------------------------------------------//
 
-  const [a, b, c] = await Promise.all([
-    apiModel('get_user_info', authorization, null, null)
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return null;
-      }),
-    apiModel('get_user_endTikklings', authorization, null, null)
-      .then(res => {
-        // console.log(res);
-        return res;
-      })
-      .catch(err => {
-        return null;
-      }),
-    apiModel('get_user_paymentHistory', authorization, null, null)
-      .then(res => {
-        // console.log(res);
-        return res;
-      })
-      .catch(err => {
-        return null;
-      }),
-  ]);
+  const [res_user_info, res_user_endTikklings, res_user_paymentHistory] =
+    await Promise.all([
+      apiModel('get_user_info', authorization, null, null)
+        .then(res => {
+          return res;
+        })
+        .catch(err => {
+          return null;
+        }),
+      apiModel('get_user_endTikklings', authorization, null, null)
+        .then(res => {
+          // console.log(res);
+          return res;
+        })
+        .catch(err => {
+          return null;
+        }),
+      apiModel('get_user_paymentHistory', authorization, null, null)
+        .then(res => {
+          // console.log(res);
+          return res;
+        })
+        .catch(err => {
+          return null;
+        }),
+    ]);
 
   // console.log('a : ', a);
   // console.log('b : ', b);
@@ -59,12 +60,12 @@ export async function getMyPageScreenData() {
   //------ control result & error -----------------------------------------//
 
   if (
-    !a ||
-    !b ||
-    !c ||
-    a.status !== 200 ||
-    b.status !== 200 ||
-    c.status !== 200
+    !res_user_info ||
+    !res_user_endTikklings ||
+    !res_user_paymentHistory ||
+    res_user_info.status !== 200 ||
+    res_user_endTikklings.status !== 200 ||
+    res_user_paymentHistory.status !== 200
   ) {
     return {
       DScode: 2,
@@ -74,16 +75,16 @@ export async function getMyPageScreenData() {
   }
 
   let info = {
-    user_info: a.data.data,
-    end_tikkling: b.data.data,
-    payment: c.data.data,
+    user_info: res_user_info.data.data,
+    end_tikkling: res_user_endTikklings.data.data,
+    payment: res_user_paymentHistory.data.data,
   };
 
   //------ update token ---------------------------------------------------//
   //console.log('response.data.returnToken : ', response.data.returnToken);
-  if (a.data.returnToken) {
+  if (res_user_info.data.returnToken) {
     const response_setToken = await resetToken(
-      a.data.returnToken,
+      res_user_info.data.returnToken,
       authorization,
     );
   }
