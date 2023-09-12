@@ -33,6 +33,7 @@ import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/SignUpHeaderComponent';
+import IdInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/IdInputComponent';
 // import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
 // import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
 // import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
@@ -72,11 +73,8 @@ export default function SignUpScreen6({route}) {
     // }
   };
 
-  const userIdRef = useRef(null); // Create a ref
+  //const userIdRef = useRef(null); // Create a ref
 
-  const handleUserIdChange = text => {
-    actions.setUserNick(text);
-  };
   useEffect(() => {
     const validityMessage = validateUserId(state.userNick);
     actions.setValidationMessage(validityMessage);
@@ -125,34 +123,7 @@ export default function SignUpScreen6({route}) {
         <M15 customStyle={{color: COLOR_GRAY}}>마지막 단계예요!</M15>
         <B28>당신의 아이디를 알려주세요.</B28>
       </View>
-
-      <View style={styles.inputContainer}>
-        <View style={styles.IDInputContainer}>
-          <M34>@</M34>
-          <TextInput
-            ref={userIdRef}
-            maxLength={20}
-            keyboardType="default"
-            placeholder="lifoli1234"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent"
-            clearButtonMode="while-editing"
-            value={state.userNick}
-            onChangeText={handleUserIdChange} // Use the new handler here
-            onSubmitEditing={() => userIdRef.current.focus()}
-          />
-        </View>
-      </View>
-      {state.validationMessage !== 'Valid' && (
-        <M17 customStyle={styles.validationMessage}>
-          {state.validationMessage}
-        </M17>
-      )}
-      {state.duplicationMessage == 'Duplicate ID' && (
-        <M17 customStyle={styles.validationMessage}>존재하는 아이디입니다.</M17>
-      )}
-
+      <IdInput />
       <View style={styles.buttonContainer}>
         <AnimatedButton
           onPress={() => buttonPress()}
