@@ -34,6 +34,7 @@ import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/SignUpHeaderComponent';
+import GenderInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/GenderInputComponent';
 
 export default function SignUpScreen4({route}) {
   const navigation = useNavigation();
@@ -52,67 +53,10 @@ export default function SignUpScreen4({route}) {
   return (
     <View style={styles.signupContainer}>
       <SignUpHeader />
-
       <View style={styles.instructionContainer}>
         <B28>당신의 성별은 무엇인가요?</B28>
       </View>
-
-      <View style={styles.inputContainer}>
-        <AnimatedButton
-          onPress={() => {
-            actions.setGender('남성');
-          }}
-          style={[
-            styles.button,
-            {
-              backgroundColor:
-                state.gender === '남성' ? COLOR_BLACK : backgroundColor,
-            },
-          ]}>
-          <B20
-            customStyle={{
-              color: state.gender === '남성' ? backgroundColor : COLOR_BLACK,
-            }}>
-            남성
-          </B20>
-        </AnimatedButton>
-        <AnimatedButton
-          onPress={() => {
-            actions.setGender('여성');
-          }}
-          style={[
-            styles.button,
-            {
-              backgroundColor:
-                state.gender === '여성' ? COLOR_BLACK : backgroundColor,
-            },
-          ]}>
-          <B20
-            customStyle={{
-              color: state.gender === '여성' ? backgroundColor : COLOR_BLACK,
-            }}>
-            여성
-          </B20>
-        </AnimatedButton>
-        <AnimatedButton
-          onPress={() => {
-            actions.setGender('기타');
-          }}
-          style={[
-            styles.button,
-            {
-              backgroundColor:
-                state.gender === '기타' ? COLOR_BLACK : backgroundColor,
-            },
-          ]}>
-          <B20
-            customStyle={{
-              color: state.gender === '기타' ? backgroundColor : COLOR_BLACK,
-            }}>
-            기타
-          </B20>
-        </AnimatedButton>
-      </View>
+      <GenderInput />
 
       <View style={styles.nextButtonContainer}>
         <AnimatedButton
