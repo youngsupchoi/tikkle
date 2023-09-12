@@ -31,13 +31,23 @@ export const StartViewStateProvider = ({children}) => {
   const [timeLeft, setTimeLeft] = useState(180);
   const [gender, setGender] = useState('');
   const [formattedGender, setFormattedGender] = useState('');
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
+  const yearRef = useRef(null); // Ref for day input
+  const monthRef = useRef(null); // Ref for month input
+  const dayRef = useRef(null); // Ref for day input
 
   const ref = {
     inputRefs,
     firstNameRef,
     lastNameRef,
+    yearRef,
+    monthRef,
+    dayRef,
+    
   };
 
   const state = {
@@ -54,6 +64,9 @@ export const StartViewStateProvider = ({children}) => {
     timeLeft,
     gender,
     formattedGender,
+    year,
+    month,
+    day,
   };
 
   const actions = {
@@ -70,6 +83,9 @@ export const StartViewStateProvider = ({children}) => {
     setTimeLeft,
     setGender,
     setFormattedGender,
+    setYear,
+    setMonth,
+    setDay,
   };
 
   return (

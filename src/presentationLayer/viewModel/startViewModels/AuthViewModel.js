@@ -113,12 +113,7 @@ export const useStartViewModel = () => {
   };
 
   const handleButtonPress = () => {
-    navigation.navigate('signup4', {
-      phoneNumber: state.phoneNumber,
-      name: state.firstName + state.lastName,
-      firstName: state.firstName,
-      lastName: state.lastName,
-    });
+    navigation.navigate('signup4');
   };
 
   //TODO : 기존 verifyOTP함수 삭제한 뒤 이 함수 이름 verifyOTP로 바꿀것

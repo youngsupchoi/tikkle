@@ -25,10 +25,10 @@ export default function SignUpHeader() {
   const PaginationComponent = () => {
     return (
       <View style={styles.paginationContainer}>
-        <View style={styles.selectedPagination} />
-        <View style={styles.pagination} />
-        <View style={styles.pagination} />
-        <View style={styles.pagination} />
+          <View style={styles.pagination} />
+          <View style={styles.pagination} />
+          <View style={styles.selectedPagination} />
+          <View style={styles.pagination} />
       </View>
     );
   };
@@ -42,6 +42,8 @@ export default function SignUpHeader() {
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   signupContainer: {

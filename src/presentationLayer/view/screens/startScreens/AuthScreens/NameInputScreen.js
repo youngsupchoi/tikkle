@@ -37,7 +37,7 @@ export default function SignUpScreen3({route}) {
 
   return (
     <View style={styles.signupContainer}>
-      <SignUpHeader onBackPress={actions.handleBackPress} />
+      <SignUpHeader />
       <View style={styles.instructionContainer}>
         <B28>당신의 이름을 알려주세요.</B28>
       </View>
@@ -57,12 +57,11 @@ export default function SignUpScreen3({route}) {
           refValue={ref.lastNameRef}
         />
       </View>
-      <View style={styles.buttonContainer}>
+
         <SignUpButton
           disabled={!state.firstName || !state.lastName}
           onPress={actions.handleButtonPress}
         />
-      </View>
     </View>
   );
 }

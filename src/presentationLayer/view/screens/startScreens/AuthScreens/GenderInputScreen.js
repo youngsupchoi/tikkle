@@ -33,21 +33,14 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/SignUpHeaderComponent';
+import GenderInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/GenderInputComponent';
 
 export default function SignUpScreen4({route}) {
   const navigation = useNavigation();
   const {ref, state, actions} = useStartViewModel();
-  const {firstName, lastName, name, phoneNumber} = route.params; // Get the name data from navigation parameters
 
-  const buttonPress = () => {
-    navigation.navigate('signup5', {
-      phoneNumber: state.phoneNumber,
-      firstName: state.firstName,
-      lastName: state.lastName,
-      name: name,
-      gender: actions.formattedGender,
-    });
-  };
+
   useEffect(() => {
     if (state.gender === '남성') {
       actions.setFormattedGender('male');
@@ -59,94 +52,17 @@ export default function SignUpScreen4({route}) {
   }, [state.gender]);
   return (
     <View style={styles.signupContainer}>
-      <View style={styles.signUpHeader}>
-        <AnimatedButton
-          onPress={() => {
-            actions.handleBackPress();
-          }}
-          style={styles.backButton}>
-          <BackIcon
-            width={24}
-            height={24}
-            stroke={COLOR_BLACK}
-            strokeWidth={1}
-          />
-          {console.log(state.firstName, state.lastName, name, state.gender)}
-        </AnimatedButton>
-        <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.selectedPagination} />
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-        </View>
-
-        <View style={{width: 44}} />
-      </View>
-
+      <SignUpHeader />
       <View style={styles.instructionContainer}>
         <B28>당신의 성별은 무엇인가요?</B28>
       </View>
-
-      <View style={styles.inputContainer}>
-        <AnimatedButton
-          onPress={() => {
-            actions.setGender('남성');
-          }}
-          style={[
-            styles.button,
-            {
-              backgroundColor:
-                state.gender === '남성' ? COLOR_BLACK : backgroundColor,
-            },
-          ]}>
-          <B20
-            customStyle={{
-              color: state.gender === '남성' ? backgroundColor : COLOR_BLACK,
-            }}>
-            남성
-          </B20>
-        </AnimatedButton>
-        <AnimatedButton
-          onPress={() => {
-            actions.setGender('여성');
-          }}
-          style={[
-            styles.button,
-            {
-              backgroundColor:
-                state.gender === '여성' ? COLOR_BLACK : backgroundColor,
-            },
-          ]}>
-          <B20
-            customStyle={{
-              color: state.gender === '여성' ? backgroundColor : COLOR_BLACK,
-            }}>
-            여성
-          </B20>
-        </AnimatedButton>
-        <AnimatedButton
-          onPress={() => {
-            actions.setGender('기타');
-          }}
-          style={[
-            styles.button,
-            {
-              backgroundColor:
-                state.gender === '기타' ? COLOR_BLACK : backgroundColor,
-            },
-          ]}>
-          <B20
-            customStyle={{
-              color: state.gender === '기타' ? backgroundColor : COLOR_BLACK,
-            }}>
-            기타
-          </B20>
-        </AnimatedButton>
-      </View>
+      <GenderInput />
 
       <View style={styles.nextButtonContainer}>
         <AnimatedButton
-          onPress={() => buttonPress()}
+          onPress={() => {
+            navigation.navigate('signup5');
+          }}
           style={[
             styles.nextButton,
             state.gender === '' ? styles.inactiveButton : {},
@@ -175,31 +91,7 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     marginBottom: SPACING_4,
   },
-  backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paginationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pagination: {
-    backgroundColor: COLOR_GRAY,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
-  selectedPagination: {
-    backgroundColor: COLOR_BLACK,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
+
   instructionContainer: {
     marginBottom: SPACING_6,
   },
