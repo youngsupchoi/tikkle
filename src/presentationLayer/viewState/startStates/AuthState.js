@@ -34,6 +34,9 @@ export const StartViewStateProvider = ({children}) => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
+  const [userNick, setUserNick] = useState('');
+  const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
+  const [duplicationMessage, setDuplicationMessage] = useState(''); // State to hold the validation message
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const yearRef = useRef(null); // Ref for day input
@@ -47,7 +50,6 @@ export const StartViewStateProvider = ({children}) => {
     yearRef,
     monthRef,
     dayRef,
-    
   };
 
   const state = {
@@ -67,6 +69,9 @@ export const StartViewStateProvider = ({children}) => {
     year,
     month,
     day,
+    userNick,
+    validationMessage,
+    duplicationMessage,
   };
 
   const actions = {
@@ -86,6 +91,9 @@ export const StartViewStateProvider = ({children}) => {
     setYear,
     setMonth,
     setDay,
+    setUserNick,
+    setValidationMessage,
+    setDuplicationMessage,
   };
 
   return (
