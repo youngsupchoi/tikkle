@@ -109,7 +109,6 @@ export const useFriendMainViewModel = () => {
   const onSearchButtonPressed = () => {
     actions.get_friend_search();
   };
-  ß;
 
   return {
     ref: {
