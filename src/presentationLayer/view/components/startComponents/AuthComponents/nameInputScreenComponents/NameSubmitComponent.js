@@ -12,7 +12,7 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export default function SignUpButton() {
+export default function NameSubmit() {
   const {ref, state, actions} = useStartViewModel();
   return (
     <View style={styles.buttonContainer}>

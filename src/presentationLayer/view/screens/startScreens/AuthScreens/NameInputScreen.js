@@ -24,9 +24,9 @@ import {
 
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
 
-import SignUpButton from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpButtonComponent';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import NameInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameInputComponent';
+import NameSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/NameSubmitComponent';
 
 // 메인 컴포넌트에서는 작은 컴포넌트들을 호출하여 구성합니다.
 export default function SignUpScreen3() {
@@ -43,7 +43,7 @@ export default function SignUpScreen3() {
         <B28>당신의 이름을 알려주세요.</B28>
       </View>
       <NameInput />
-      <SignUpButton />
+      <NameSubmit />
     </View>
   );
 }

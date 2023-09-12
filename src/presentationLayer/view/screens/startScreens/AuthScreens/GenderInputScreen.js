@@ -30,7 +30,6 @@ import {
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/SignUpHeaderComponent';
@@ -38,9 +37,7 @@ import GenderInput from 'src/presentationLayer/view/components/startComponents/A
 import GenderSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/genderInputScreenConponents/GenderSubmitComponente';
 
 export default function SignUpScreen4({route}) {
-  const navigation = useNavigation();
   const {ref, state, actions} = useStartViewModel();
-
 
   useEffect(() => {
     if (state.gender === '남성') {
@@ -59,7 +56,6 @@ export default function SignUpScreen4({route}) {
       </View>
       <GenderInput />
       <GenderSubmit />
-
     </View>
   );
 }
@@ -72,63 +68,8 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight,
   },
-  signUpHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: HEADER_HEIGHT,
-    marginBottom: SPACING_4,
-  },
 
   instructionContainer: {
     marginBottom: SPACING_6,
-  },
-  inputContainer: {width: '90%', alignSelf: 'center'},
-  buttonContainer: {
-    marginTop: SPACING_6,
-    width: '70%',
-  },
-  button: {
-    backgroundColor: backgroundColor,
-    width: '100%',
-    // height: 44,
-    paddingVertical: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: SPACING_1,
-    borderColor: COLOR_BLACK,
-    borderWidth: 1,
-    borderRadius: 25,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-
-  nextButtonContainer: {
-    marginTop: SPACING_6,
-    width: '100%',
-  },
-  nextButton: {
-    backgroundColor: COLOR_BLACK,
-    width: windowWidth - 32,
-    height: 50,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-  },
-  inactiveButton: {
-    backgroundColor: COLOR_GRAY,
-    shadowOpacity: 0,
   },
 });
