@@ -103,6 +103,14 @@ export const useFriendMainViewModel = () => {
     };
   };
 
+  /**
+   * FriendsMainScreen에서 친구 검색 버튼 눌렀을 때 실행되는 함수
+   */
+  const onSearchButtonPressed = () => {
+    actions.get_friend_search();
+  };
+  ß;
+
   return {
     ref: {
       ...ref,
@@ -115,6 +123,7 @@ export const useFriendMainViewModel = () => {
       get_friend_data,
       get_friend_search,
       keyboard_friend,
+      onSearchButtonPressed,
     },
   };
 };
