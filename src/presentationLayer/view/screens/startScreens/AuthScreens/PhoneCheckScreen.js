@@ -26,15 +26,8 @@ import {verifyOTP} from 'src/components/Axios/OTPVerification';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export default function SignUpScreen2({phoneNumber}) {
-  //const {phoneNumber, message, userId} = route.params;
+export default function SignUpScreen2() {
   const {ref, state, actions} = useStartViewModel();
-  const [inputCode, setInputCode] = useState(Array(6).fill(''));
-
-  const buttonPress = () => {
-    // verifyOTP();
-    actions.navigation.navigate('signup3', {phoneNumber: state.phoneNumber});
-  };
 
   const handleTextChange = async (text, index) => {
     const newInputCode = [...state.inputCode];
@@ -89,6 +82,10 @@ export default function SignUpScreen2({phoneNumber}) {
       }
     }
   };
+
+  useEffect(() => {
+    actions.OtpAutoFill();
+  }, []);
 
   useEffect(() => {
     const fullCode = state.inputCode.join('');

@@ -7,8 +7,6 @@ import {useStartViewState} from 'src/presentationLayer/viewState/startStates/Aut
 
 // 2. 데이터 소스 또는 API 가져오기
 import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumberData';
-import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
-import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
@@ -34,11 +32,13 @@ export const useStartViewModel = () => {
     await getHash().then(hash => {
       actions.setHash(hash);
     });
+
     const res = await checkPhoneNumberData(state.phoneNumber, state.hash).then(
       res => {
         return topActions.setStateAndError(res);
       },
     );
+
     if (res.DSdata.userId === undefined) {
       await actions.setUserId(0);
     } else {
@@ -53,14 +53,7 @@ export const useStartViewModel = () => {
     actions.setTimeLeft(prevTime => prevTime - 1);
   };
 
-  const phoneAuth = phoneNumber => {
-    getHash().then(hash => {
-      actions.setHash(hash);
-      get_auth_makeOtp(phoneNumber, hash).then(res =>
-        actions.setEncryptedOTP(res),
-      );
-    });
-
+  const OtpAutoFill = () => {
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);
       if (message) {
@@ -193,7 +186,7 @@ export const useStartViewModel = () => {
       onPhoneNumberChange,
       handleTextChange,
       checkOTPEqual,
-      phoneAuth,
+      OtpAutoFill,
       navigation,
       handleBackPress,
       handleButtonPress,
