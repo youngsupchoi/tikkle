@@ -13,6 +13,7 @@ import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
 import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
+import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();
@@ -91,14 +92,18 @@ export const useStartViewModel = () => {
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
           if (message === 'login') {
-            post_auth_tokenGenerate(userId).then(() => {
-              navigation.reset({
-                index: 0,
-                routes: [
-                  {name: 'main', params: {updated: new Date().toString()}},
-                ],
+            loginPhoneData(state.userId)
+              .then(() => {
+                topActions.setStateAndError(res);
+              })
+              .then(() => {
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    {name: 'main', params: {updated: new Date().toString()}},
+                  ],
+                });
               });
-            });
           } else if (message === 'sign up') {
             navigation.reset({
               index: 0,
