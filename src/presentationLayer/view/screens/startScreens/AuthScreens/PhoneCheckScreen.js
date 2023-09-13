@@ -109,14 +109,14 @@ export default function SignUpScreen2({phoneNumber}) {
         />
         <TimerComponent />
       </View>
-      <View style={styles.buttonContainer}>
+      {/* <View style={styles.buttonContainer}>
         <AnimatedButton
           disabled={state.inputCode.join('').length !== 6}
           onPress={() => buttonPress()}
           style={styles.button}>
           <B15 customStyle={{color: COLOR_WHITE}}>인증번호 전송</B15>
         </AnimatedButton>
-      </View>
+      </View> */}
     </View>
   );
 }
