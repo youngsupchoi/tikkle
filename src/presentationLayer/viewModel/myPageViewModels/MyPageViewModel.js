@@ -12,6 +12,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
 import {useNavigation} from '@react-navigation/native';
 import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
+import {useNavigation} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
@@ -133,6 +134,7 @@ export const useMyPageViewModel = () => {
       MyPageData,
       formatDate,
       calculateDaysUntilNextBirthday,
+      navigation,
       contractLink,
       privateDataLink,
       sendMail,

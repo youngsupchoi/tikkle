@@ -264,7 +264,8 @@ export default function ProfileScreen() {
                 paddingHorizontal: 24,
                 marginTop: 0,
                 alignItems: 'center',
-              }}>
+              }}
+              onPress={() => actions.navigation.navigate('SendTikkle')}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Receipt1
                   width={24}

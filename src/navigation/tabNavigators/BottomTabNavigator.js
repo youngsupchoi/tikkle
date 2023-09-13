@@ -17,6 +17,10 @@ import {
   COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import FriendsManagementScreen from 'src/presentationLayer/view/screens/friendScreens/FriendsMainScreen';
@@ -28,8 +32,8 @@ import {FriendMainViewStateProvider} from 'src/presentationLayer/viewState/frien
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
 import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
+import SendTikkleScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleScreen';
 import InquireScreen from 'src/presentationLayer/view/screens/myPageScreens/InquireScreen';
-
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
@@ -52,8 +56,8 @@ const MyPage = () => (
     <ProfileScreen />
   </MyPageViewStateProvider>
 );
-
 const MyPageStack = createStackNavigator();
+
 function MyPageNavigator() {
   return (
     <MyPageViewStateProvider>
@@ -64,6 +68,7 @@ function MyPageNavigator() {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}>
         <MyPageStack.Screen name="MyPage" component={MyPage} />
+        <MyPageStack.Screen name="SendTikkle" component={SendTikkleScreen} />
         <MyPageStack.Screen
           name="CustomerCenter"
           component={CustomerCenterScreen}
