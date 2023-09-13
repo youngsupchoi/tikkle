@@ -10,8 +10,9 @@ import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumb
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
-import {useTopViewModel} from '../topViewModels/TopViewModel';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
+import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();
@@ -125,27 +126,39 @@ export const useStartViewModel = () => {
   };
 
   const completeSignUp = async () => {
-    await loginRegisterData(
-      state.firstName + state.lastName,
-      `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
-        2,
-        '0',
-      )}`,
-      state.userNick,
-      state.phoneNumber,
-      state.formattedGender,
-    ).then(res => {
-      topActions.setStateAndError(res, actions.setFriendTikklingData);
-    });
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'main',
-          params: {updated: new Date().toString()},
-        },
-      ],
-    });
+    try {
+      await checkNickDuplicationData(state.userNick).then(res => {
+        topActions.setStateAndError(res);
+      });
+
+      await loginRegisterData(
+        state.firstName + state.lastName,
+        `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
+          2,
+          '0',
+        )}`,
+        state.userNick,
+        state.phoneNumber,
+        state.formattedGender,
+      ).then(res => {
+        topActions.setStateAndError(res, actions.setFriendTikklingData);
+      });
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'main',
+            params: {updated: new Date().toString()},
+          },
+        ],
+      });
+    } catch (err) {
+      if (err.DScode) {
+        return;
+      } else {
+        console.log(err);
+      }
+    }
   };
 
   //TODO : 기존 verifyOTP함수 삭제한 뒤 이 함수 이름 verifyOTP로 바꿀것
