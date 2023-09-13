@@ -91,6 +91,7 @@ export const useMainViewModel = () => {
       loadData,
       keyExtractor,
       navigation,
+      updateEndTikklingData,
     },
   };
 };
