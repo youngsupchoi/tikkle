@@ -36,9 +36,9 @@ export const useMyPageViewModel = () => {
         })
         .then(res => {
           console.log('@@@ : ', res);
-          actions.setUserData_profile(res.user_info);
-          actions.setEndTikklingData(res.end_tikkling);
-          actions.setPaymentHistoryData(res.payment);
+          actions.setUserData_profile(res.DSdata.user_info);
+          actions.setEndTikklingData(res.DSdata.end_tikkling);
+          actions.setPaymentHistoryData(res.DSdata.payment);
         });
     } catch (error) {
       //에러 처리 필요 -> 정해야함

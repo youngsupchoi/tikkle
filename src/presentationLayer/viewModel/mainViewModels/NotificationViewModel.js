@@ -26,7 +26,7 @@ export const useNotificationViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(res => {
-          actions.setNotificationData(res.info);
+          actions.setNotificationData(res.DSdata.info);
         });
     } catch (error) {
       //에러 처리 필요 -> 정해야함
