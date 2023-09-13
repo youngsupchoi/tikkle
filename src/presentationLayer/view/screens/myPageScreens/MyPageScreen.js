@@ -1,4 +1,11 @@
-import {View, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {

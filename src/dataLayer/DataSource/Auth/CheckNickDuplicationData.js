@@ -11,7 +11,6 @@ export async function checkNickDuplicationData(nick) {
   const body = {
     inputId: nick,
   };
-
   try {
     response = await apiModel('post_auth_IdDuplicationCheck', null, body, null);
     if (!response) {
@@ -52,18 +51,24 @@ export async function checkNickDuplicationData(nick) {
   if (response.data.detail_code === '10') {
     nick_valid = true;
     returnMessage = '입력하신 닉네임은 사용 가능해요.';
+    return {
+      DScode: 0,
+      DSdata: {
+        nick_valid: nick_valid,
+      },
+      DSmessage: returnMessage,
+    };
   } else if (response.data.detail_code === '11') {
     nick_valid = false;
     returnMessage = '입력하신 닉네임은 이미 사용 중이에요.';
+    return {
+      DScode: 1,
+      DSdata: {
+        nick_valid: nick_valid,
+      },
+      DSmessage: returnMessage,
+    };
   }
 
   //------ return response ------------------------------------------------//
-
-  return {
-    DScode: 0,
-    DSdata: {
-      nick_valid: nick_valid,
-    },
-    DSmessage: returnMessage,
-  };
 }
