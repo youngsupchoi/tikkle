@@ -29,6 +29,9 @@ export const MyPageViewStateProvider = ({children}) => {
   const [endTikklingsData, setEndTikklingData] = useState([]);
   const [paymentHistoryData, setPaymentHistoryData] = useState([]);
 
+  const [titleText, setTitleText] = useState(null);
+  const [contentText, setContentText] = useState(null);
+
   const state = {
     message,
     DScode,
@@ -36,6 +39,8 @@ export const MyPageViewStateProvider = ({children}) => {
     userData_profile,
     endTikklingsData,
     paymentHistoryData,
+    titleText,
+    contentText,
   };
 
   const actions = {
@@ -45,6 +50,8 @@ export const MyPageViewStateProvider = ({children}) => {
     setUserData_profile,
     setEndTikklingData,
     setPaymentHistoryData,
+    setTitleText,
+    setContentText,
   };
 
   return (
