@@ -32,9 +32,11 @@ export const useProductDetailViewModel = () => {
         return topActions.setStateAndError(res);
       })
       .then(res => {
-        actions.setReceivedData(res.info);
-        if (res.info.wishlisted && res.info.wishlisted > 0) {
+        actions.setReceivedData(res.DSdata.info);
+        if (res.DSdata.info.wishlisted !== null) {
           actions.setWishlisted(true);
+        } else {
+          actions.setWishlisted(false);
         }
       });
   };
