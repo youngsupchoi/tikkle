@@ -12,6 +12,7 @@ import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {useTopViewModel} from '../topViewModels/TopViewModel';
 import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
+import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();
@@ -125,6 +126,10 @@ export const useStartViewModel = () => {
   };
 
   const completeSignUp = async () => {
+    await checkNickDuplicationData(state.userNick).then(res => {
+      topActions.setStateAndError(res);
+    });
+
     await loginRegisterData(
       state.firstName + state.lastName,
       `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
