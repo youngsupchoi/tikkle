@@ -35,7 +35,7 @@ export const useStartTikklingViewModel = () => {
         return topActions.setStateAndError(res);
       })
       .then(res => {
-        actions.setUserData(res.info);
+        actions.setUserData(res.DSdata.info);
       });
     actions.setLoading(false);
   };
@@ -56,7 +56,7 @@ export const useStartTikklingViewModel = () => {
   };
 
   const put_user_address = async () => {
-    updateMyAddressData(state.zonecode, state.address, state.detail_address);
+    updateMyAddressData(state.zonecode, state.address, state.detailAddress);
   };
 
   //==========Utils 부분=========================================================
@@ -158,8 +158,8 @@ export const useStartTikklingViewModel = () => {
     currentDate = currentDate.add(1, 'day');
   }
 
-  const onCloseSearchModal = () => {
-    actions.setShowSearchModal(false);
+  const onClosePostCodeModal = () => {
+    actions.setShowPostCodeModal(false);
   };
 
   const onCloseDetailModal = () => {
@@ -177,7 +177,7 @@ export const useStartTikklingViewModel = () => {
       loadData,
       setSelectedItem,
       onCloseDetailModal,
-      onCloseSearchModal,
+      onClosePostCodeModal,
       calculateDaysUntilNextBirthday,
       getNextBirthday,
       formatDate,

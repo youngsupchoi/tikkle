@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancelTikklingData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
+import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -23,6 +24,7 @@ export const useMainViewModel = () => {
   const loadData = async () => {
     actions.setLoading(true);
     getHomeScreenData().then(res => {
+      // console.log(res.DSdata.my_tikkling);
       console.log(res.DSdata.my_tikkling);
       actions.setFriendEventData(res.DSdata.friend_event);
       actions.setFriendTikklingData(res.DSdata.friend_tikkling);
@@ -66,12 +68,13 @@ export const useMainViewModel = () => {
   //우측 상단 종료하기 버튼
   const buttonPress = () => {
     if (state.myTikklingData.tikkle_count === '0') {
-      // put_tikkling_cancel({myTikklingData: state.myTikklingData});
-      // actions.setDropdownVisible(false);
-      // updateCancelTikklingData(state.myTikklingData.)
+      console.log(state.myTikklingData.tikkling_id);
+      updateCancelTikklingData(state.myTikklingData.tikkling_id);
+      actions.setDropdownVisible(false);
     } else {
-      // put_tikkling_end({myTikklingData: state.myTikklingData});
-      // actions.setDropdownVisible(false);
+      console.log(state.myTikklingData.tikkling_id);
+      updateEndTikklingData(state.myTikklingData.tikkling_id);
+      actions.setDropdownVisible(false);
     }
   };
   return {
@@ -88,6 +91,7 @@ export const useMainViewModel = () => {
       loadData,
       keyExtractor,
       navigation,
+      updateEndTikklingData,
     },
   };
 };

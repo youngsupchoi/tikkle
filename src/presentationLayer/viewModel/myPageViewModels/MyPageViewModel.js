@@ -1,5 +1,6 @@
 import {useState} from 'react';
-
+import {View, StyleSheet, Linking} from 'react-native';
+import {CONTRACT_URL, PRIVATECONTRACT_URL} from '@env';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useMyPageViewState} from '../../viewState/myPageStates/MyPageState';
 
@@ -9,9 +10,12 @@ import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData
 import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikklingData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
-
+import {useNavigation} from '@react-navigation/native';
 import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
 import {useNavigation} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
+import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
+
+// 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useMyPageViewState();
@@ -51,7 +55,6 @@ export const useMyPageViewModel = () => {
    * @param {String (date)} isoDateString
    * @returns
    */
-
   function formatDate(isoDateString) {
     const date = new Date(isoDateString);
     const year = date.getFullYear();
@@ -66,10 +69,8 @@ export const useMyPageViewModel = () => {
    * @param {string(date)} birthdayString
    * @returns
    */
-
   function calculateDaysUntilNextBirthday(birthdayString) {
     const currentDate = new Date();
-
     const birthDate = new Date(birthdayString);
 
     // Set the birthDate to this year or next year
@@ -78,15 +79,47 @@ export const useMyPageViewModel = () => {
       birthDate.getMonth(),
       birthDate.getDate(),
     );
-
     if (currentDate > nextBirthday) {
       nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
-
     const timeDiff = nextBirthday - currentDate;
     const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-
     return dayDiff;
+  }
+
+  /**
+   * customerCenterScreen에서 서비스 이용 약관 링크를 연결하는 함수
+   */
+  const contractLink = () => {
+    // Define the URL you want to link to
+    const url = CONTRACT_URL;
+    Linking.openURL(url);
+  };
+
+  /**
+   * customerCenterScreen에서 개인정보 처리방침 링크를 연결하는 함수
+   */
+  const privateDataLink = () => {
+    // Define the URL you want to link to
+    const url = PRIVATECONTRACT_URL;
+    Linking.openURL(url);
+  };
+
+  /**
+   * InquireScreen에서 문의하기 버튼을 눌렀을 때, 문의 내용을 보내는 함수
+   */
+  async function sendMail() {
+    await createMyInquireData(state.titleText, state.contentText)
+      .then(res => {
+        //console.log(res);
+        return topActions.setStateAndError(res);
+      })
+      .then(res => {
+        //actions로
+        actions.setTitleText('');
+        actions.setContentText('');
+        navigation.goBack();
+      });
   }
 
   return {
@@ -102,6 +135,9 @@ export const useMyPageViewModel = () => {
       formatDate,
       calculateDaysUntilNextBirthday,
       navigation,
+      contractLink,
+      privateDataLink,
+      sendMail,
     },
   };
 };
