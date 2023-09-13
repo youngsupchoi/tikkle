@@ -37,6 +37,9 @@ import TickSquare from 'src/assets/icons/TickSquare';
 import ProfileHeader from 'src/presentationLayer/view/components/globalComponents/Headers/ProfileHeader';
 
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
+import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
+import SendTikkleScreenHeader from 'src/presentationLayer/view/components/myPageComponents/sendTikkleScreenComponents/SendTikkleScreenHeaderComponent';
+import SendTikkle from 'src/presentationLayer/view/components/myPageComponents/sendTikkleScreenComponents/SendTikkeComponent';
 
 export default function SendTikkleScreen() {
   const {ref, state, actions} = useMyPageViewModel();
@@ -58,130 +61,154 @@ export default function SendTikkleScreen() {
   if (!state.userData_profile)
     return <ActivityIndicator size="large" color="#0000ff" />;
   const navigation = useNavigation();
+  const data = [
+    {
+      id: 1,
+      name: 'User 1',
+      productName: 'apple watch',
+      brand: 'apple',
+      productID: 2013402302,
+      price: 100000,
+      quantity: 1,
 
+      productImage:
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+      backgroundColor: '#Bada55',
+      created_at: '2021-05-10T14:00:00.000Z',
+    },
+    {
+      id: 2,
+      name: 'User 2',
+      productName: 'apple watch',
+      brand: 'apple',
+      productID: 2013402302,
+      price: 100000,
+      quantity: 1,
+      productImage:
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+      backgroundColor: '#C0ffee',
+      created_at: '2021-05-10T14:00:00.000Z',
+    },
+    {
+      id: 3,
+      name: 'User 3',
+      productName: '서어언물',
+      brand: 'pear',
+      productID: 2013402302,
+      price: 100000,
+      quantity: 1,
+      productImage:
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+      backgroundColor: '#F00dab',
+      created_at: '2021-05-10T14:00:00.000Z',
+    },
+    {
+      id: 4,
+      name: 'User 4',
+      productName: '고오급 지갑',
+      brand: 'PRADA',
+      productID: 2013402302,
+      price: 100000,
+      quantity: 1,
+      productImage:
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+      backgroundColor: '#Babe42',
+      created_at: '2021-05-10T14:00:00.000Z',
+    },
+    {
+      id: 5,
+      name: 'User 5',
+      productName: '에어팟 프로 2세대',
+      brand: 'apple',
+      productID: 2013402302,
+      price: 100000,
+      quantity: 1,
+      productImage:
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+      backgroundColor: '#Fa1afe',
+      created_at: '2021-05-10T14:00:00.000Z',
+    },
+    {
+      id: 6,
+      name: 'User 6',
+      productName: '맥북 에어 16인치',
+      brand: 'apple',
+      productID: 2013402302,
+      price: 100000,
+      quantity: 1,
+      productImage:
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+      backgroundColor: '#F0a2be',
+      created_at: '2021-05-10T14:00:00.000Z',
+    },
+  ];
   return (
-    <ScrollView
-      stickyHeaderIndices={[0]}
-      style={{backgroundColor: backgroundColor}}>
-      <ProfileHeader>Profile</ProfileHeader>
-      {state.loading_profile ? null : (
-        <View>
-          <View style={{}}>
-            <AnimatedButton
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingHorizontal: 24,
-                marginTop: 16,
-                alignItems: 'center',
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <SecurityUser
-                  width={24}
-                  height={24}
-                  strokeWidth={2}
-                  stroke={COLOR_BLACK}
-                />
-                <B20 customStyle={{marginLeft: 12}}>내 정보</B20>
-              </View>
-
-              <AnimatedButton
-                style={{
-                  padding: 10,
-                  // backgroundColor: 'red',
-                }}>
-                <ArrowRight
-                  width={24}
-                  height={24}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={1.5}
-                />
-              </AnimatedButton>
-            </AnimatedButton>
-            <View
-              style={{
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
-                margin: 16,
-                elevation: 1,
-                borderColor: COLOR_SEPARATOR,
-                borderWidth: 0.5,
-                padding: 16,
-                paddingVertical: 12,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  // backgroundColor: 'red',
-                }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image
-                    resizeMode="contain"
-                    source={{
-                      uri:
-                        state.userData_profile.image ||
-                        'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-                    }}
-                    style={{width: 48, height: 48, borderRadius: 60}}
-                  />
-
-                  <View style={{alignItems: 'flex-start', marginLeft: 16}}>
-                    <B17>{state.userData_profile.name}님</B17>
-                    <M15 customStyle={{color: COLOR_GRAY}}>
-                      @{state.userData_profile.nick}
-                    </M15>
-                    <M11 customStyle={{color: COLOR_GRAY}}>
-                      생일이{' '}
-                      {actions.calculateDaysUntilNextBirthday(
-                        state.userData_profile.birthday,
-                      )}
-                      일 남았어요.
-                    </M11>
+    <View>
+      <View style={{backgroundColor: backgroundColor}}>
+        <FlatList
+          data={data}
+          keyExtractor={(item, index) => String(item.id)}
+          ListHeaderComponent={SendTikkleScreenHeader}
+          stickyHeaderIndices={[0]}
+          ListEmptyComponent={() => {
+            return (
+              <View style={{}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 24,
+                    marginTop: 0,
+                    alignItems: 'center',
+                  }}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <B20 customStyle={{marginLeft: 12}}>To. 엄승주</B20>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    backgroundColor: COLOR_WHITE,
+                    borderRadius: 16,
+                    margin: 16,
+                    elevation: 1,
+                    borderColor: COLOR_SEPARATOR,
+                    // height: 100,
+                    borderWidth: 0.5,
+                    // padding: 16,
+                    paddingBottom: 16,
+                    paddingTop: 24,
+                    // backgroundColor: 'red',
+                  }}>
+                  <View
+                    style={{
+                      width: '100%',
+                      height: 120,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <M15>아직 보낸 티클 내역이 없어요.</M15>
                   </View>
                 </View>
               </View>
-            </View>
-          </View>
-
-          <View style={{}}>
+            );
+          }}
+          ListFooterComponent={null}
+          renderItem={({item, index}) => {
+            return <SendTikkle item={item} />;
+          }}
+        />
+        <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignSelf: 'center',
+              paddingHorizontal: 24,
+              backgroundColorcolor: COLOR_BLACK,
+            }}>
             <AnimatedButton
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingHorizontal: 24,
-                marginTop: 0,
-                alignItems: 'center',
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <TickSquare
-                  width={24}
-                  height={24}
-                  strokeWidth={2}
-                  stroke={COLOR_BLACK}
-                  // scale={0.9}
-                />
-                <B20 customStyle={{marginLeft: 12}}>내 티클링 내역</B20>
-              </View>
-
-              <View
-                style={{
-                  padding: 10,
-                  // backgroundColor: 'red',
-                }}>
-                <ArrowRight
-                  width={24}
-                  height={24}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={1.5}
-                />
-              </View>
-            </AnimatedButton>
-            <View
-              style={{
                 backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                borderRadius: 5,
                 margin: 16,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
@@ -190,199 +217,26 @@ export default function SendTikkleScreen() {
                 // padding: 16,
                 paddingBottom: 16,
                 paddingTop: 24,
+                width: windowWidth - 32,
                 // backgroundColor: 'red',
-              }}>
-              {state.endTikklingsData.length > 0 ? (
-                <FlatList
-                  data={state.endTikklingsData}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal
-                  ItemSeparatorComponent={() => {
-                    return (
-                      <View
-                        style={{
-                          height: '80%',
-                          width: 1,
-                          backgroundColor: COLOR_SEPARATOR,
-                          alignSelf: 'center',
-                        }}
-                      />
-                    );
-                  }}
-                  renderItem={({item, index}) => {
-                    return (
-                      <AnimatedButton
-                        style={{
-                          width: 120,
-                          // height: 120,
-                          borderTopLeftRadius: 12,
-                          borderTopRightRadius: 12,
-                          alignItems: 'center',
-                        }}>
-                        <Image
-                          source={{
-                            uri: item.thumbnail_image,
-                          }}
-                          style={{
-                            width: 80,
-                            height: 80,
-                            borderRadius: 24,
-                            marginBottom: 16,
-                          }}
-                        />
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {item.brand_name}
-                        </M11>
-                        <B15 customStyle={{}}>{item.product_name}</B15>
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {actions.formatDate(item.created_at)}
-                        </M11>
-                      </AnimatedButton>
-                    );
-                  }}
-                />
-              ) : (
-                <View
-                  style={{
-                    width: '100%',
-                    height: 120,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <M15>아직 내 티클링 내역이 없어요.</M15>
-                </View>
-              )}
-            </View>
-          </View>
-
-          <View style={{}}>
-            <AnimatedButton
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingHorizontal: 24,
-                marginTop: 0,
-                alignItems: 'center',
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Receipt1
-                  width={24}
-                  height={24}
-                  strokeWidth={2}
-                  stroke={COLOR_BLACK}
-                  scale={0.9}
-                />
-                <B20 customStyle={{marginLeft: 12}}>티클 구매 내역</B20>
-              </View>
-
-              <View
-                style={{
-                  padding: 10,
-                  // backgroundColor: 'red',
-                }}>
-                <ArrowRight
-                  width={24}
-                  height={24}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={1.5}
-                />
-              </View>
-            </AnimatedButton>
-            <View
-              style={{
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
-                margin: 16,
-                elevation: 1,
-                borderColor: COLOR_SEPARATOR,
-                // height: 100,
-                borderWidth: 0.5,
-                // padding: 16,
-                paddingBottom: 16,
-                paddingTop: 24,
-                // backgroundColor: 'red',
-              }}>
-              {console.log('paymentHistory', state.paymentHistoryData)}
-              {state.paymentHistoryData.length > 0 ? (
-                <FlatList
-                  data={state.paymentHistoryData}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal
-                  ItemSeparatorComponent={() => {
-                    return (
-                      <View
-                        style={{
-                          height: '80%',
-                          width: 1,
-                          backgroundColor: COLOR_SEPARATOR,
-                          alignSelf: 'center',
-                        }}
-                      />
-                    );
-                  }}
-                  renderItem={({item, index}) => {
-                    return (
-                      <AnimatedButton
-                        style={{
-                          width: 120,
-                          borderTopLeftRadius: 12,
-                          borderTopRightRadius: 12,
-                          alignItems: 'center',
-                        }}>
-                        {console.log(item)}
-                        <Image
-                          source={{
-                            uri: `${item.product_image}`,
-                          }}
-                          style={{
-                            width: 80,
-                            height: 80,
-                            borderRadius: 24,
-                            marginBottom: 16,
-                          }}
-                        />
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {item.brand_name}
-                        </M11>
-                        <B15 customStyle={{}}>{item.product_name}</B15>
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {actions.formatDate(item.tikkling_terminated_at)}
-                        </M11>
-                      </AnimatedButton>
-                    );
-                  }}
-                />
-              ) : (
-                <View
-                  style={{
-                    width: '100%',
-                    height: 120,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <M15>아직 티클 구매 내역이 없어요.</M15>
-                </View>
-              )}
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'column', paddingHorizontal: 24}}>
-            <AnimatedButton>
-              <B15>고객센터</B15>
-            </AnimatedButton>
-            <AnimatedButton
+              }}
               onPress={() => {
-                AsyncStorage.clear();
-                navigation.navigate('SignUpNavigator', {
-                  updated_at: new Date().toString(),
-                });
+                console.log('hihi22');
               }}>
-              <B15>로그아웃</B15>
+              <View
+                style={{
+                  width: '100%',
+                  height: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <B15>더보기</B15>
+              </View>
             </AnimatedButton>
           </View>
         </View>
-      )}
-    </ScrollView>
+      </View>
+    </View>
   );
 }
 

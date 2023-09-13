@@ -11,12 +11,12 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
 
 import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
-
-// 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
+import {useNavigation} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useMyPageViewState();
   const {topActions} = useTopViewModel();
+  const navigation = useNavigation();
 
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
@@ -101,6 +101,7 @@ export const useMyPageViewModel = () => {
       MyPageData,
       formatDate,
       calculateDaysUntilNextBirthday,
+      navigation,
     },
   };
 };
