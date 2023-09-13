@@ -41,7 +41,7 @@ export const useStartViewModel = () => {
     if (res.DSdata.userId === undefined) {
       await actions.setUserId(0);
     } else {
-      await actions.setUserId(res.userId);
+      await actions.setUserId(res.DSdata.userId);
     }
     await actions.setMessage(res.DSdata.login_or_signup);
     await actions.setEncryptedOTP(res.DSdata.encrypted_otp);
