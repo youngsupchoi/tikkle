@@ -34,7 +34,8 @@ export const useFriendMainViewModel = () => {
             return topActions.setStateAndError(res);
           })
           .then(res => {
-            actions.setGetFriendData(res.info);
+            console.log('getFriendDataSetStateError', res);
+            actions.setGetFriendData(res.DSdata.info);
           });
       } else if (mode_friend === 'block') {
         await getBlockedFriendData()
@@ -55,6 +56,7 @@ export const useFriendMainViewModel = () => {
     try {
       await createNewFriendData(friendId).then(res => {
         if (res.DScode === 0) {
+          console.log(res);
           topActions.showSnackbar(res.DSmessage, 1);
         }
       });
@@ -72,7 +74,7 @@ export const useFriendMainViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(res => {
-          actions.setSearchedData(res.info);
+          actions.setSearchedData(res.DSdata.info);
         });
     } catch (error) {
       //에러 처리 필요 -> 정해야함
@@ -90,6 +92,9 @@ export const useFriendMainViewModel = () => {
         })
         .then(res => {
           console.log(res);
+          if (res.success) {
+            topActions.showSnackbar(res.DSmessage, 1);
+          }
         });
     } catch {}
   }
@@ -104,6 +109,9 @@ export const useFriendMainViewModel = () => {
         })
         .then(res => {
           console.log(res);
+          if (res.success) {
+            topActions.showSnackbar(res.DSmessage, 1);
+          }
         });
     } catch {}
   }
