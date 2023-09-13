@@ -367,7 +367,10 @@ export default function ProfileScreen() {
           </View>
 
           <View style={{flexDirection: 'column', paddingHorizontal: 24}}>
-            <AnimatedButton>
+            <AnimatedButton
+              onPress={() => {
+                navigation.navigate('CustomerCenter');
+              }}>
               <B15>고객센터</B15>
             </AnimatedButton>
             <AnimatedButton

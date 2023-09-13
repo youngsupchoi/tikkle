@@ -1,4 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import Home2 from 'src/assets/icons/Home2';
 import Profile from 'src/assets/icons/Profile';
 import Profile2User from 'src/assets/icons/Profile2User';
@@ -13,12 +17,13 @@ import {B} from 'src/presentationLayer/view/components/globalComponents/Typograp
 import FriendsManagementScreen from 'src/presentationLayer/view/screens/friendScreens/FriendsMainScreen';
 import HomeScreen from 'src/presentationLayer/view/screens/mainScreens/MainScreen';
 import ProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/MyPageScreen';
+import CustomerCenterScreen from 'src/presentationLayer/view/screens/myPageScreens/CustomerCenterScreen';
 import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/productScreens/ProductMainScreen';
 import {FriendMainViewStateProvider} from 'src/presentationLayer/viewState/friendStates/FriendsMainState';
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
 import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
-
+import InquireScreen from 'src/presentationLayer/view/screens/myPageScreens/InquireScreen';
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
@@ -41,6 +46,27 @@ const MyPage = () => (
     <ProfileScreen />
   </MyPageViewStateProvider>
 );
+
+const MyPageStack = createStackNavigator();
+function MyPageNavigator() {
+  return (
+    <MyPageViewStateProvider>
+      <MyPageStack.Navigator
+        initialRouteName="MyPage"
+        screenOptions={{
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}>
+        <MyPageStack.Screen name="MyPage" component={MyPage} />
+        <MyPageStack.Screen
+          name="CustomerCenter"
+          component={CustomerCenterScreen}
+        />
+        <MyPageStack.Screen name="Inquire" component={InquireScreen} />
+      </MyPageStack.Navigator>
+    </MyPageViewStateProvider>
+  );
+}
 
 export default function BottomTabNavigator() {
   return (
@@ -125,7 +151,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="profile"
-        component={MyPage}
+        component={MyPageNavigator}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '프로필',
