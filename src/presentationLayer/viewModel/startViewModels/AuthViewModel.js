@@ -45,6 +45,7 @@ export const useStartViewModel = () => {
     }
     await actions.setMessage(res.DSdata.login_or_signup);
     await actions.setEncryptedOTP(res.DSdata.encrypted_otp);
+    navigation.navigate('signup2');
   };
 
   const decreaseTime = () => {
@@ -124,9 +125,13 @@ export const useStartViewModel = () => {
   const handleButtonPress = () => {
     navigation.navigate('signup4');
   };
-
+  /**
+   * IdInputScreen-IdSubmitComponent: 회원가입 완료 버튼을 눌렀을때 id중복검사를 실행하고 모든 정볼를 서버로 전달
+   * @returns
+   */
   const completeSignUp = async () => {
     try {
+      console.log(state.userNick);
       await checkNickDuplicationData(state.userNick).then(res => {
         topActions.setStateAndError(res);
       });
@@ -153,7 +158,8 @@ export const useStartViewModel = () => {
         ],
       });
     } catch (err) {
-      if (err.DScode) {
+      const error = JSON.parse(err.message);
+      if (error.DScode) {
         return;
       } else {
         console.log(err);
