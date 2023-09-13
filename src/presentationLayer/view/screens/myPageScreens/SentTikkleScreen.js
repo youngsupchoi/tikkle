@@ -150,6 +150,49 @@ export default function SendTikkleScreen() {
           keyExtractor={(item, index) => String(item.id)}
           ListHeaderComponent={SendTikkleScreenHeader}
           stickyHeaderIndices={[0]}
+          ListFooterComponent={() => {
+            return (
+              <View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignSelf: 'center',
+                    paddingHorizontal: 24,
+                    backgroundColorcolor: COLOR_BLACK,
+                    marginBottom: 20,
+                  }}>
+                  <AnimatedButton
+                    style={{
+                      backgroundColor: COLOR_WHITE,
+                      borderRadius: 5,
+                      margin: 16,
+                      elevation: 1,
+                      borderColor: COLOR_SEPARATOR,
+                      // height: 100,
+                      borderWidth: 0.5,
+                      // padding: 16,
+                      paddingBottom: 16,
+                      paddingTop: 24,
+                      width: windowWidth - 32,
+                      // backgroundColor: 'red',
+                    }}
+                    onPress={() => {
+                      console.log('hihi22');
+                    }}>
+                    <View
+                      style={{
+                        width: '100%',
+                        height: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <B15>더보기</B15>
+                    </View>
+                  </AnimatedButton>
+                </View>
+              </View>
+            );
+          }}
           ListEmptyComponent={() => {
             return (
               <View style={{}}>
@@ -192,49 +235,10 @@ export default function SendTikkleScreen() {
               </View>
             );
           }}
-          ListFooterComponent={null}
           renderItem={({item, index}) => {
             return <SendTikkle item={item} />;
           }}
         />
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center',
-              paddingHorizontal: 24,
-              backgroundColorcolor: COLOR_BLACK,
-            }}>
-            <AnimatedButton
-              style={{
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 5,
-                margin: 16,
-                elevation: 1,
-                borderColor: COLOR_SEPARATOR,
-                // height: 100,
-                borderWidth: 0.5,
-                // padding: 16,
-                paddingBottom: 16,
-                paddingTop: 24,
-                width: windowWidth - 32,
-                // backgroundColor: 'red',
-              }}
-              onPress={() => {
-                console.log('hihi22');
-              }}>
-              <View
-                style={{
-                  width: '100%',
-                  height: 20,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <B15>더보기</B15>
-              </View>
-            </AnimatedButton>
-          </View>
-        </View>
       </View>
     </View>
   );
