@@ -153,8 +153,8 @@ const FirstHero = props => {
               resizeMode="cover"
               source={{
                 uri:
-                  myTikklingData.thumbnail_image !== null
-                    ? myTikklingData.thumbnail_image
+                  state.myTikklingData.thumbnail_image !== null
+                    ? state.myTikklingData.thumbnail_image
                     : '',
               }}
               style={styles.imageStyle} // Some style for the image on the MyTikklingScreen
@@ -166,7 +166,7 @@ const FirstHero = props => {
                 <View style={styles.productDetails}>
                   <View style={styles.productDetails}>
                     <B22 customStyle={{fontFamily: EB}}>
-                      {myTikklingData.product_name}
+                      {state.myTikklingData.product_name}
                     </B22>
                     <B12
                       customStyle={{
@@ -176,8 +176,8 @@ const FirstHero = props => {
                       }}>
                       현재까지{' '}
                       {Math.round(
-                        (myTikklingData.tikkle_count /
-                          myTikklingData.tikkle_quantity) *
+                        (state.myTikklingData.tikkle_count /
+                          state.myTikklingData.tikkle_quantity) *
                           1000,
                       ) / 10}
                       % 달성했어요!
@@ -195,8 +195,8 @@ const FirstHero = props => {
                 width: windowWidth - 96 - 80 - 12 + 20,
               }}>
               <BarComponent
-                totalPieces={myTikklingData.tikkle_quantity}
-                gatheredPieces={myTikklingData.tikkle_count}
+                totalPieces={state.myTikklingData.tikkle_quantity}
+                gatheredPieces={state.myTikklingData.tikkle_count}
               />
             </View>
           </View>
@@ -213,7 +213,7 @@ const FirstHero = props => {
             top: 12,
             right: 12,
           }}>
-          <B12>{myTikklingData.brand_name}</B12>
+          <B12>{state.myTikklingData.brand_name}</B12>
         </View>
         <View style={{position: 'absolute', bottom: 6, right: 12}}>
           <B15 customStyle={{fontFamily: UNIQUE}}>TIKKLE</B15>
@@ -221,8 +221,8 @@ const FirstHero = props => {
       </View>
 
       <View style={styles.mainContainer}>
-        {Number(myTikklingData.tikkle_count) ===
-        myTikklingData.tikkle_quantity ? (
+        {Number(state.myTikklingData.tikkle_count) ===
+        state.myTikklingData.tikkle_quantity ? (
           <View style={styles.centeredContainer}>
             <B28 customStyle={styles.congratulationsText}>축하해요!</B28>
             <B15 customStyle={styles.infoText}>
@@ -240,7 +240,8 @@ const FirstHero = props => {
             <View style={styles.leftDetailsContainer}>
               <B12 customStyle={styles.labelText}>남은 티클</B12>
               <B17 customStyle={styles.dataText}>
-                {myTikklingData.tikkle_quantity - myTikklingData.tikkle_count}{' '}
+                {state.myTikklingData.tikkle_quantity -
+                  state.myTikklingData.tikkle_count}{' '}
                 개
               </B17>
             </View>
@@ -257,7 +258,7 @@ const FirstHero = props => {
                       fontSize: 17,
                       fontFamily: B,
                     }}
-                    deadline={myTikklingData.funding_limit}
+                    deadline={state.myTikklingData.funding_limit}
                   />
                 </View>
               </View>
@@ -268,19 +269,19 @@ const FirstHero = props => {
         <View style={{marginTop: 24}}>
           <AnimatedButton
             onPress={() => {
-              myTikklingData.tikkle_quantity ===
-              Number(myTikklingData.tikkle_count)
+              state.myTikklingData.tikkle_quantity ===
+              Number(state.myTikklingData.tikkle_count)
                 ? setShowEndModal(true)
-                : new Date(myTikklingData.funding_limit) > new Date()
+                : new Date(state.myTikklingData.funding_limit) > new Date()
                 ? setShowBuyModal(true)
                 : setShowCancelModal(true);
             }}
             style={styles.buttonStyle}>
             <B17 customStyle={styles.buttonText}>
-              {Number(myTikklingData.tikkle_count) ===
-              myTikklingData.tikkle_quantity
+              {Number(state.myTikklingData.tikkle_count) ===
+              state.myTikklingData.tikkle_quantity
                 ? '상품 받기'
-                : new Date(myTikklingData.funding_limit) > new Date()
+                : new Date(state.myTikklingData.funding_limit) > new Date()
                 ? '티클 구매하기'
                 : '종료하기'}
             </B17>
@@ -289,7 +290,7 @@ const FirstHero = props => {
       </View>
 
       <BuyTikkleModal
-        data={myTikklingData}
+        data={state.myTikklingData}
         showModal={showBuyModal}
         onCloseModal={onCloseModal}
       />
@@ -317,6 +318,7 @@ const FirstHero = props => {
                   // navigation.navigate('searchAddress');
                   // setShowSearchModal(true);
                   actions.setShowPostCodeModal(true);
+                  console.log('f');
                 }}
                 style={{
                   marginTop: 16,
@@ -361,8 +363,8 @@ const FirstHero = props => {
               <B15 customStyle={{marginTop: 16}}>상세주소</B15>
               <AnimatedButton
                 onPress={() => {
-                  // navigation.navigate('searchAddress');
-                  // setShowDetailModal(true);
+                  actions.navigation.navigate('searchAddress');
+                  actions.setShowDetailModal(true);
                 }}
                 style={{
                   marginTop: 12,
@@ -414,13 +416,11 @@ const FirstHero = props => {
           <View
             style={{
               marginTop: 12,
-              // flexDirection: 'row',
-              // justifyContent: 'space-evenly',
             }}>
             <AnimatedButton
               onPress={() => {
-                put_tikkling_end(myTikklingData);
-                setShowEndModal(false);
+                actions.put_tikkling_end(state.myTikklingData);
+                actions.setShowEndModal(false);
               }}
               style={modalStyles.confirmButton}>
               <B15 customStyle={modalStyles.whiteText}>이 주소로 배송 요청</B15>
@@ -436,6 +436,7 @@ const FirstHero = props => {
           </View>
         </View>
       </Modal>
+
       <PostCodeModal />
 
       <Modal
@@ -479,7 +480,7 @@ const FirstHero = props => {
             }}>
             <AnimatedButton
               onPress={() => {
-                put_tikkling_cancel(myTikklingData);
+                put_tikkling_cancel(state.myTikklingData);
                 setShowCancelModal(false);
               }}
               style={{

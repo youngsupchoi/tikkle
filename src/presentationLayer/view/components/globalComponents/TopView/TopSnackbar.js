@@ -74,7 +74,6 @@ const getSnackbarStyles = status => {
 const TopSnackbar = () => {
   const {topState, topActions} = useTopViewModel();
   const {isSnackbarVisible, snackbarMessage, snackbarStatus} = topState;
-
   const {icon, backgroundColor, textColor} = getSnackbarStyles(snackbarStatus);
 
   const translateY = useSharedValue(0);
