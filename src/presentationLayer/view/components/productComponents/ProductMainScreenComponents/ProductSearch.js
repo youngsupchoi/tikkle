@@ -58,7 +58,7 @@ export default function ProductSearch() {
           marginBottom: 12,
         }}>
         <View style={styles.searchContainer}>
-          {console.log(state.showFilter)}
+          {/* {console.log(state.showFilter)} */}
           <AnimatedButton
             style={styles.filterIconContainer}
             onPress={() => {

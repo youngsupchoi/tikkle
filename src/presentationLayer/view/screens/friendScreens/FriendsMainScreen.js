@@ -51,7 +51,6 @@ import Refresh from 'src/assets/icons/Refresh';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
-  const [temp, setTemp] = useState([]);
 
   useEffect(() => {
     actions.keyboard_friend();
@@ -64,10 +63,6 @@ export default function FriendsManagementScreen() {
   useEffect(() => {
     actions.get_friend_data(state.mode_friend);
   }, [state.mode_friend]);
-
-  useEffect(() => {
-    setTemp(state.getFriendData);
-  }, [state.getFriendData]);
 
   return (
     <View style={styles.container}>
@@ -228,6 +223,7 @@ export default function FriendsManagementScreen() {
           </View>
         </View>
       ) : null}
+      {console.log(state.getFriendData)}
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>
         <FlatList

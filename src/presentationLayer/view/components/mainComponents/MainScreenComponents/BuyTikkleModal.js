@@ -291,7 +291,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               </M20>
             </View>
           </View>
-          {console.log('모달', data)}
+          {/* {console.log('모달', data)} */}
           <View style={styles.buttonsContainer}>
             <AnimatedButton
               onPress={() => {

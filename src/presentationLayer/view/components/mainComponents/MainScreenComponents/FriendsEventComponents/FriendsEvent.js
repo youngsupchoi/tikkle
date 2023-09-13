@@ -55,9 +55,9 @@ const FriendsEvents = props => {
   }
 
   friendsEventData.forEach(friend => {
-    console.log('friend: ', friend);
+    // console.log('friend: ', friend);
     const diff = calculateDifference(getUpcomingBirthday(friend.birthday));
-    console.log('diff: ', diff);
+    // console.log('diff: ', diff);
     switch (diff) {
       case 0:
         sortedData['오늘'].push(friend);
