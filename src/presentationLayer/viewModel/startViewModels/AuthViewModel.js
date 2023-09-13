@@ -10,7 +10,7 @@ import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumb
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
-import {useTopViewModel} from '../topViewModels/TopViewModel';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
 import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
