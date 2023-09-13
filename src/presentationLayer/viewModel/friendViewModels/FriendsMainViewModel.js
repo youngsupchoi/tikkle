@@ -43,7 +43,7 @@ export const useFriendMainViewModel = () => {
             return topActions.setStateAndError(res);
           })
           .then(res => {
-            actions.setGetFriendData(res.info);
+            actions.setGetFriendData(res.DSdata.info);
           });
       }
     } catch (error) {
@@ -68,17 +68,24 @@ export const useFriendMainViewModel = () => {
    * @todo state.text_search = "검색할 친구 닉네임" 설정 필요
    */
   async function get_friend_search() {
-    try {
-      await getSearchFriendData(state.text_search)
-        .then(res => {
-          return topActions.setStateAndError(res);
-        })
-        .then(res => {
-          actions.setSearchedData(res.DSdata.info);
-        });
-    } catch (error) {
-      //에러 처리 필요 -> 정해야함
-      console.log("[Error in FriendsMainViewModel's get_friend_data]\n", error);
+    if (state.text_search === '') {
+      topActions.showSnackbar('검색어를 입력해주세요!', 2);
+    } else {
+      try {
+        await getSearchFriendData(state.text_search)
+          .then(res => {
+            return topActions.setStateAndError(res);
+          })
+          .then(res => {
+            actions.setSearchedData(res.DSdata.info);
+          });
+      } catch (error) {
+        //에러 처리 필요 -> 정해야함
+        console.log(
+          "[Error in FriendsMainViewModel's get_friend_data]\n",
+          error,
+        );
+      }
     }
   }
 
@@ -92,7 +99,7 @@ export const useFriendMainViewModel = () => {
         })
         .then(res => {
           console.log(res);
-          if (res.success) {
+          if (res.DSdata.success) {
             topActions.showSnackbar(res.DSmessage, 1);
           }
         });
@@ -109,7 +116,7 @@ export const useFriendMainViewModel = () => {
         })
         .then(res => {
           console.log(res);
-          if (res.success) {
+          if (res.DSdata.success) {
             topActions.showSnackbar(res.DSmessage, 1);
           }
         });
