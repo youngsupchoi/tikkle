@@ -9,6 +9,9 @@ import {getMyFriendData} from 'src/dataLayer/DataSource/Friend/GetMyFriendData';
 import {getBlockedFriendData} from 'src/dataLayer/DataSource/Friend/GetBlockedFriendData';
 import {getSearchFriendData} from 'src/dataLayer/DataSource/Friend/GetSearchFriendData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {updateFriendBlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendBlockData';
+import {createNewFriendData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendData';
+import {updateFriendUnlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendUnblockData';
 
 /**
  * FriendsMainScreen의 뷰 스테이트와 액션을 정의하는 ViewModel Hook
@@ -48,6 +51,16 @@ export const useFriendMainViewModel = () => {
     }
   }
 
+  async function create_friend(friendId) {
+    try {
+      await createNewFriendData(friendId).then(res => {
+        if (res.DScode === 0) {
+          topActions.showSnackbar(res.DSmessage, 1);
+        }
+      });
+    } catch {}
+  }
+
   /**
    * FriendsMainScreen에서 아이디로 친구 검색 데이터 가져오는 함수
    * @todo state.text_search = "검색할 친구 닉네임" 설정 필요
@@ -65,6 +78,34 @@ export const useFriendMainViewModel = () => {
       //에러 처리 필요 -> 정해야함
       console.log("[Error in FriendsMainViewModel's get_friend_data]\n", error);
     }
+  }
+
+  async function block_friend(item) {
+    try {
+      // console.log(state.getFriendData);
+      // console.log(item.id);
+      await updateFriendBlockData(item.id)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          console.log(res);
+        });
+    } catch {}
+  }
+
+  async function unblock_friend(item) {
+    try {
+      // console.log(state.getFriendData);
+      // console.log(item.id);
+      await updateFriendUnlockData(item.id)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          console.log(res);
+        });
+    } catch {}
   }
 
   /**
@@ -123,6 +164,9 @@ export const useFriendMainViewModel = () => {
       get_friend_search,
       keyboard_friend,
       onSearchButtonPressed,
+      block_friend,
+      unblock_friend,
+      create_friend,
     },
   };
 };
