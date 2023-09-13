@@ -39,7 +39,7 @@ export default function FriendsTikklingComponent() {
           justifyContent: 'space-between',
           alignItems: 'center',
           paddingHorizontal: 24,
-          paddingTop: 16,
+          paddingBottom: 16,
         }}>
         <B20 customStyle={{fontFamily: EB}}>친구들의 티클링</B20>
         <AnimatedButton style={{padding: 10}}>

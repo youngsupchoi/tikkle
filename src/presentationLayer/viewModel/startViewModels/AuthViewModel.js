@@ -7,12 +7,11 @@ import {useStartViewState} from 'src/presentationLayer/viewState/startStates/Aut
 
 // 2. 데이터 소스 또는 API 가져오기
 import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumberData';
-import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
-import {post_auth_phoneCheck} from 'src/components/Axios/post_auth_phoneCheck';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
 import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
+import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();
@@ -33,15 +32,17 @@ export const useStartViewModel = () => {
     await getHash().then(hash => {
       actions.setHash(hash);
     });
+
     const res = await checkPhoneNumberData(state.phoneNumber, state.hash).then(
       res => {
         return topActions.setStateAndError(res);
       },
     );
+
     if (res.DSdata.userId === undefined) {
       await actions.setUserId(0);
     } else {
-      await actions.setUserId(res.userId);
+      await actions.setUserId(res.DSdata.userId);
     }
     await actions.setMessage(res.DSdata.login_or_signup);
     await actions.setEncryptedOTP(res.DSdata.encrypted_otp);
@@ -52,14 +53,7 @@ export const useStartViewModel = () => {
     actions.setTimeLeft(prevTime => prevTime - 1);
   };
 
-  const phoneAuth = phoneNumber => {
-    getHash().then(hash => {
-      actions.setHash(hash);
-      get_auth_makeOtp(phoneNumber, hash).then(res =>
-        actions.setEncryptedOTP(res),
-      );
-    });
-
+  const OtpAutoFill = () => {
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);
       if (message) {
@@ -91,14 +85,18 @@ export const useStartViewModel = () => {
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
           if (message === 'login') {
-            post_auth_tokenGenerate(userId).then(() => {
-              navigation.reset({
-                index: 0,
-                routes: [
-                  {name: 'main', params: {updated: new Date().toString()}},
-                ],
+            loginPhoneData(state.userId)
+              .then(() => {
+                topActions.setStateAndError(res);
+              })
+              .then(() => {
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    {name: 'main', params: {updated: new Date().toString()}},
+                  ],
+                });
               });
-            });
           } else if (message === 'sign up') {
             navigation.reset({
               index: 0,
@@ -188,7 +186,7 @@ export const useStartViewModel = () => {
       onPhoneNumberChange,
       handleTextChange,
       checkOTPEqual,
-      phoneAuth,
+      OtpAutoFill,
       navigation,
       handleBackPress,
       handleButtonPress,

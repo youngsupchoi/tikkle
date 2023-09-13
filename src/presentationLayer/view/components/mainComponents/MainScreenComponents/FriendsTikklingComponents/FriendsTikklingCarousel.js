@@ -61,28 +61,11 @@ export default function FriendsTikklingCarousel(data) {
   const navigation = useNavigation();
   const renderFriendsTikkling = ({item}) => {
     return (
-      <View
-        style={{
-          borderColor: COLOR_SEPARATOR,
-          borderWidth: 1,
-          paddingTop: 8,
-          borderRadius: 12,
-          backgroundColor: COLOR_WHITE,
-          elevation: 4,
-          // margin: 8,
-          marginLeft: 24,
-          marginHorizontal: 8,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 8,
-            paddingBottom: 8,
-          }}>
+      <View style={styles.renderItemContainer}>
+        <View style={styles.renderItemHeaderContainer}>
           <Image
             resizeMode="contain"
-            style={{width: 36, height: 36, borderRadius: 24}}
+            style={styles.renderItemProfileImage}
             source={{
               uri:
                 item.friend_image !== null
@@ -379,4 +362,22 @@ const styles = StyleSheet.create({
     // elevation: 3,
     // backgroundColor: backgroundColor,
   },
+  renderItemContainer: {
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    paddingTop: 8,
+    borderRadius: 12,
+    backgroundColor: COLOR_WHITE,
+    elevation: 4,
+    // margin: 8,
+    marginLeft: 24,
+    marginHorizontal: 8,
+  },
+  renderItemHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingBottom: 8,
+  },
+  renderItemProfileImage: {width: 36, height: 36, borderRadius: 24},
 });
