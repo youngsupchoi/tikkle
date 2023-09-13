@@ -22,6 +22,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 const DetailAddressInput = props => {
+  const {state, actions} = props;
   const {
     showDetailModal,
     setShowDetailModal,
@@ -36,12 +37,12 @@ const DetailAddressInput = props => {
 
   return (
     <Modal
-      // onBackdropPress={onCloseDetailModal}
-      isVisible={showDetailModal}
+      onBackdropPress={actions.onCloseDetailModal}
+      isVisible={state.showDetailModal}
       backdropOpacity={0.5}>
       <View
         style={{
-          // backgroundColor: 'red',
+          backgroundColor: 'red',
           width: windowWidth - 48,
           // height: windowWidth,
           alignItems: 'center',
@@ -53,8 +54,8 @@ const DetailAddressInput = props => {
         <View style={{flexDirection: 'row', width: '100%'}}>
           <AnimatedButton
             onPress={() => {
-              setShowDetailModal(false);
-              setShowSearchModal(true);
+              actions.setShowPostCodeModal(true);
+              actions.setShowDetailModal(false);
             }}
             style={{padding: 10}}>
             <ArrowLeft2
@@ -67,8 +68,8 @@ const DetailAddressInput = props => {
         </View>
         <AnimatedButton
           onPress={() => {
-            // navigation.navigate('searchAddress');
-            setShowSearchModal(true);
+            actions.setShowDetailModal(false);
+            actions.setShowPostCodeModal(true);
           }}
           style={{
             marginTop: 16,
@@ -91,7 +92,7 @@ const DetailAddressInput = props => {
               alignItems: 'center',
             }}>
             <B15 customStyle={{color: COLOR_GRAY}}>
-              {`${address}(${zonecode})`}
+              {`${state.address}(${state.zonecode})`}
             </B15>
             <View
               style={{
@@ -130,7 +131,11 @@ const DetailAddressInput = props => {
               alignItems: 'center',
             }}>
             <TextInput
-              placeholder={'상세주소'}
+              placeholder={`${
+                state.userData.detail_address !== null
+                  ? state.userData.detail_address
+                  : '상세주소'
+              }`}
               blurOnSubmit={false}
               placeholderTextColor={COLOR_GRAY}
               style={{
@@ -146,7 +151,7 @@ const DetailAddressInput = props => {
                 temp = text;
               }}
               onSubmitEditing={() => {
-                setDetailAddress(temp); // 여기서 확정
+                actions.setDetailAddress(temp); // 여기서 확정
                 // 만약 이 값을 모달 밖의 스크린으로 전달해야 한다면 이 부분에 로직을 추가하면 됩니다.
               }}
               value={temp} // 임시 상태 값을 사용
@@ -183,8 +188,8 @@ const DetailAddressInput = props => {
           }}>
           <AnimatedButton
             onPress={() => {
-              setDetailAddress(temp);
-              onCloseDetailModal(true);
+              actions.setDetailAddress(temp);
+              actions.onCloseDetailModal(true);
             }}
             style={{
               width: '50%',
@@ -200,7 +205,7 @@ const DetailAddressInput = props => {
           </AnimatedButton>
           <AnimatedButton
             onPress={() => {
-              onCloseDetailModal(true);
+              actions.onCloseDetailModal(true);
             }}
             style={{
               width: '50%',

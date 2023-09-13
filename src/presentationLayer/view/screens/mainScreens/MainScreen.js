@@ -23,6 +23,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 
 export default function HomeScreen() {
   const {ref, state, actions} = useMainViewModel();
@@ -137,6 +138,12 @@ export default function HomeScreen() {
           )}
           <View style={styles.homeFooter}></View>
         </ScrollView>
+        <PostCodeModal
+          setShowPostCodeModal={actions.setShowPostCodeModal}
+          showPostCodeModal={state.showPostCodeModal}
+          setAddress={actions.setAddress}
+          setZoneCode={actions.setZonecode}
+        />
       </View>
     </SafeAreaView>
   );
