@@ -20,53 +20,60 @@ import {BlurView} from '@react-native-community/blur';
 import TickSquare from 'src/assets/icons/TickSquare';
 import Information from 'src/assets/icons/Information';
 
+const getSnackbarStyles = status => {
+  switch (status) {
+    case 0:
+      return {
+        icon: (
+          <Information
+            width={24}
+            height={24}
+            strokeWidth={1.5}
+            stroke={'red'}
+          />
+        ),
+        backgroundColor: COLOR_ERROR,
+        textColor: 'red',
+      };
+    case 1:
+      return {
+        icon: (
+          <TickSquare
+            width={24}
+            height={24}
+            strokeWidth={1.5}
+            stroke={'green'}
+          />
+        ),
+        backgroundColor: COLOR_SUCCESS,
+        textColor: 'green',
+      };
+    case 2:
+      return {
+        icon: (
+          <TickSquare
+            width={24}
+            height={24}
+            strokeWidth={1.5}
+            stroke={COLOR_BLACK}
+          />
+        ),
+        backgroundColor: COLOR_WHITE,
+        textColor: COLOR_BLACK,
+      };
+
+    default:
+      return {
+        icon: null,
+        backgroundColor: COLOR_WHITE, // default color
+        textColor: COLOR_BLACK, // default color
+      };
+  }
+};
+
 const TopSnackbar = () => {
   const {topState, topActions} = useTopViewModel();
   const {isSnackbarVisible, snackbarMessage, snackbarStatus} = topState;
-
-  const getSnackbarStyles = status => {
-    switch (status) {
-      case 0:
-        return {
-          icon: (
-            <Information
-              width={24}
-              height={24}
-              strokeWidth={1.5}
-              stroke={'red'}
-            />
-          ),
-          backgroundColor: COLOR_ERROR,
-          textColor: 'red',
-        };
-      case 1:
-        return {
-          icon: (
-            <TickSquare
-              width={24}
-              height={24}
-              strokeWidth={1.5}
-              stroke={'green'}
-            />
-          ),
-          backgroundColor: COLOR_SUCCESS,
-          textColor: 'green',
-        };
-      case 2:
-        return {
-          icon: (
-            <TickSquare
-              width={24}
-              height={24}
-              strokeWidth={1.5}
-              stroke={COLOR_BLACK}
-            />
-          ),
-          backgroundColor: COLOR_WHITE,
-          textColor: COLOR_BLACK,
-        };
-    }
-  };
 
   const {icon, backgroundColor, textColor} = getSnackbarStyles(snackbarStatus);
 
