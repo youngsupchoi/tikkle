@@ -24,8 +24,9 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 
 export default function SendTikkle({item}) {
+  const {ref, state, actions} = useMyPageViewModel();
   return (
-    <View style={{}}>
+    <View style={{marginBottom: 15}}>
       <View
         style={{
           flexDirection: 'row',
@@ -35,7 +36,7 @@ export default function SendTikkle({item}) {
           alignItems: 'center',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <B20 customStyle={{marginLeft: 3}}>To. {item.name}</B20>
+          <B20 customStyle={{marginLeft: 3}}>To. {item.user_name}</B20>
         </View>
       </View>
       <View
@@ -59,7 +60,12 @@ export default function SendTikkle({item}) {
             marginTop: 5,
             right: 15,
           }}>
-          <M15>상세보기</M15>
+          <AnimatedButton
+            onPress={() => {
+              actions.navigation.navigate('SentTikkleDetail', {item: item});
+            }}>
+            <M15>상세보기</M15>
+          </AnimatedButton>
         </View>
         <View
           style={{
@@ -74,7 +80,7 @@ export default function SendTikkle({item}) {
             <Image
               resizeMode="cover"
               source={{
-                uri: item.productImage,
+                uri: item.product_image,
               }}
               style={{
                 width: windowWidth * 0.25,
@@ -90,20 +96,20 @@ export default function SendTikkle({item}) {
               paddingLeft: 5,
               width: windowWidth * 0.55,
             }}>
-            <M15>{item.brand}</M15>
-            <M15>{item.productName}</M15>
-            <M15>{item.price}원</M15>
-            <M15>{item.quantity}</M15>
+            <M15>{item.brand_name}</M15>
+            <M15>{item.product_name}</M15>
+            <M15>{item.product_price}원</M15>
+            <M15>{item.send_quantity}개</M15>
           </View>
         </View>
         <View
           style={{
             position: 'absolute',
-            bottom: 5,
+            bottom: -30,
             right: 8,
             width: 200,
           }}>
-          <M15>{item.created_at}</M15>
+          <M15>{item.send_at}</M15>
         </View>
       </View>
     </View>

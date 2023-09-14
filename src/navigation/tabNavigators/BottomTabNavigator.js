@@ -31,6 +31,7 @@ import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageSta
 import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
 import SendTikkleScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleScreen';
 import InquireScreen from 'src/presentationLayer/view/screens/myPageScreens/InquireScreen';
+import SentTikkleDetailScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleDetailScreen';
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
@@ -71,6 +72,10 @@ function MyPageNavigator() {
           component={CustomerCenterScreen}
         />
         <MyPageStack.Screen name="Inquire" component={InquireScreen} />
+        <MyPageStack.Screen
+          name="SentTikkleDetail"
+          component={SentTikkleDetailScreen}
+        />
       </MyPageStack.Navigator>
     </MyPageViewStateProvider>
   );
