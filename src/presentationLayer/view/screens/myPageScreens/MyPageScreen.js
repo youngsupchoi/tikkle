@@ -14,6 +14,7 @@ import {
   B20,
   M11,
   M15,
+  EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -85,7 +86,7 @@ export default function ProfileScreen() {
                 <B20 customStyle={{marginLeft: 12}}>내 정보</B20>
               </View>
 
-              <AnimatedButton
+              {/* <AnimatedButton
                 style={{
                   padding: 10,
                   // backgroundColor: 'red',
@@ -96,7 +97,7 @@ export default function ProfileScreen() {
                   stroke={COLOR_BLACK}
                   strokeWidth={1.5}
                 />
-              </AnimatedButton>
+              </AnimatedButton> */}
             </AnimatedButton>
             <View
               style={{
@@ -263,7 +264,8 @@ export default function ProfileScreen() {
                 paddingHorizontal: 24,
                 marginTop: 0,
                 alignItems: 'center',
-              }}>
+              }}
+              onPress={() => actions.navigation.navigate('SendTikkle')}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Receipt1
                   width={24}
@@ -329,7 +331,6 @@ export default function ProfileScreen() {
                           borderTopRightRadius: 12,
                           alignItems: 'center',
                         }}>
-                        {console.log(item)}
                         <Image
                           source={{
                             uri: `${item.product_image}`,
@@ -367,17 +368,23 @@ export default function ProfileScreen() {
           </View>
 
           <View style={{flexDirection: 'column', paddingHorizontal: 24}}>
-            <AnimatedButton>
-              <B15>고객센터</B15>
+            <AnimatedButton
+              onPress={() => {
+                navigation.navigate('CustomerCenter');
+              }}
+              style={styles.buttonStyle}>
+              <B15 customStyle={styles.buttonText}>고객센터</B15>
             </AnimatedButton>
+
             <AnimatedButton
               onPress={() => {
                 AsyncStorage.clear();
                 navigation.navigate('SignUpNavigator', {
                   updated_at: new Date().toString(),
                 });
-              }}>
-              <B15>로그아웃</B15>
+              }}
+              style={styles.buttonStyle}>
+              <B15 customStyle={styles.buttonText}>로그아웃</B15>
             </AnimatedButton>
           </View>
         </View>
@@ -393,5 +400,22 @@ const styles = StyleSheet.create({
     height: windowHeight,
     backgroundColor: backgroundColor,
     paddingTop: StatusBarHeight,
+  },
+  buttonStyle: {
+    padding: 5,
+    borderRadius: 14,
+    backgroundColor: '#E7E7E7',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: windowWidth - 32,
+    height: 40,
+    borderColor: 'transparent',
+    borderWidth: 2,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: COLOR_BLACK,
   },
 });

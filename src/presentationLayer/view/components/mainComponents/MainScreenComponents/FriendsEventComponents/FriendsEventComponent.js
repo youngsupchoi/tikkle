@@ -23,8 +23,10 @@ export default function FriendsEventComponent() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <B20 customStyle={{fontFamily: EB}}>다가오는 기념일</B20>
-        <AnimatedButton style={styles.animatedButton}>
+        <B20 customStyle={{fontFamily: EB, marginVertical: 10}}>
+          다가오는 기념일
+        </B20>
+        {/* <AnimatedButton style={styles.animatedButton}>
           <ArrowRight
             width={24}
             height={24}
@@ -32,7 +34,7 @@ export default function FriendsEventComponent() {
             strokeWidth={1.5}
             scale={1}
           />
-        </AnimatedButton>
+        </AnimatedButton> */}
       </View>
       {state.friendEventData.length > 0 && (
         <FriendsEvents friendsEventData={state.friendEventData} />

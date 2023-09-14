@@ -108,7 +108,16 @@ const FriendsEvents = props => {
         if (value.length > 0) {
           return (
             <View key={index}>
-              <B12>{key}</B12>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginHorizontal: 27,
+                  marginBottom: 0,
+                }}>
+                <B12>{key}</B12>
+                <View style={styles.line} />
+              </View>
+
               {value.map((friend, fIndex) => (
                 <AnimatedButton
                   key={fIndex}
@@ -117,7 +126,7 @@ const FriendsEvents = props => {
                     // backgroundColor: 'red',
                     paddingHorizontal: 12,
                     marginLeft: 8,
-                    marginVertical: 8,
+                    marginBottom: 8,
                     paddingVertical: 8,
                     borderLeftColor: COLOR_SEPARATOR,
                     borderLeftWidth: 2,
@@ -248,6 +257,13 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     alignItems: 'center',
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    marginTop: 8,
+    marginHorizontal: 10,
+    backgroundColor: '#e1dddd',
   },
 });
 

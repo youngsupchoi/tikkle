@@ -40,7 +40,6 @@ export const useMainViewModel = () => {
     } finally {
       actions.setLoading(false);
     }
-  };
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onRefresh = async () => {

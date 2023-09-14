@@ -25,6 +25,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import LottieView from 'lottie-react-native';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function HomeScreen() {
   const {ref, state, actions} = useMainViewModel();
@@ -156,6 +157,7 @@ export default function HomeScreen() {
             </View>
           )}
           <View style={styles.homeFooter}></View>
+          <Footer />
         </ScrollView>
         <PostCodeModal
           setShowPostCodeModal={actions.setShowPostCodeModal}

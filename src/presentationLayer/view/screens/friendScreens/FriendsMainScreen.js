@@ -44,10 +44,12 @@ import {
 import Detail from 'src/assets/icons/Detail';
 import {useFriendMainViewModel} from 'src/presentationLayer/viewModel/friendViewModels/FriendsMainViewModel';
 import {useNavigation} from '@react-navigation/native';
-import Delete from 'src/assets/icons/Delete';
 import LottieView from 'lottie-react-native';
 import Close from 'src/assets/icons/Close';
-import Refresh from 'src/assets/icons/Refresh';
+import UnBlock from 'src/assets/icons/UnBlock';
+import BlockFriend from 'src/assets/icons/BlockFriend';
+
+import {RefreshControl} from 'react-native-gesture-handler';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
@@ -91,9 +93,7 @@ export default function FriendsManagementScreen() {
                 );
               }}>
               <M11 customStyle={{fontSize: 12}}>
-                {state.mode_friend === 'unblock'
-                  ? '삭제한 이용자'
-                  : '친구 목록'}
+                {state.mode_friend === 'unblock' ? '차단 목록' : '친구 목록'}
               </M11>
             </AnimatedButton>
           </View>
@@ -106,7 +106,7 @@ export default function FriendsManagementScreen() {
             onSubmitEditing={() => {
               actions.get_friend_search();
             }}
-            placeholder="아이디로 이용자 검색"
+            placeholder="닉네임으로 친구 추가"
             placeholderTextColor={COLOR_GRAY}
             onChangeText={value => actions.setText_search(value)}
             value={state.text_search}
@@ -173,6 +173,7 @@ export default function FriendsManagementScreen() {
           <M15 customStyle={{color: COLOR_GRAY, marginTop: 8}}>
             @{state.searchedData[0].nick}
           </M15>
+
           <View style={{marginTop: 24}}>
             {console.log(state.searchedData[0])}
             {state.searchedData[0].relation_state_id === null ? (
@@ -227,6 +228,12 @@ export default function FriendsManagementScreen() {
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={state.refreshing}
+              onRefresh={actions.onRefresh}
+            />
+          }
           data={state.getFriendData}
           keyExtractor={(item, index) => String(item.id)}
           ListEmptyComponent={
@@ -255,7 +262,7 @@ export default function FriendsManagementScreen() {
                         justifyContent: 'center',
                         height: windowWidth,
                       }}>
-                      <M15>삭제한 친구가 없네요.</M15>
+                      <M15>차단된 친구가 없네요.</M15>
                       <B22>좋아요!</B22>
                     </View>
                   );
@@ -278,7 +285,7 @@ export default function FriendsManagementScreen() {
                     }}>
                     {state.mode_friend === 'unblock'
                       ? '친구 목록'
-                      : '삭제한 이용자'}
+                      : '차단된 이용자'}
                   </B15>
                 </View>
               );
@@ -318,13 +325,13 @@ export default function FriendsManagementScreen() {
                     <B15 customStyle={{color: COLOR_GRAY}}> @{item.nick}</B15>
                   </View>
                 </View>
-                <View style={{position: 'absolute', right: 0, top: 0}}>
+                <View style={{position: 'absolute', right: 20, top: 25}}>
                   {state.mode_friend === 'unblock' ? (
                     <AnimatedButton
                       onPress={() => {
                         actions.block_friend(item);
                       }}>
-                      <Delete
+                      <BlockFriend
                         width={24}
                         height={24}
                         stroke={COLOR_ERROR}
@@ -336,7 +343,7 @@ export default function FriendsManagementScreen() {
                       onPress={() => {
                         actions.unblock_friend(item);
                       }}>
-                      <Refresh
+                      <UnBlock
                         width={24}
                         height={24}
                         stroke={COLOR_SUCCESS}
@@ -369,9 +376,9 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     position: 'absolute',
-    top: 20,
-    right: 24,
-    // width: 150,
+    top: 8,
+    right: 65,
+    width: 150,
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 12,
@@ -383,7 +390,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   searchBarContainer: {
-    marginTop: 12,
+    marginTop: 8,
     flexDirection: 'row',
     alignSelf: 'center',
     width: windowWidth - 32,

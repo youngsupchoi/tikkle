@@ -1,4 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import {StyleSheet} from 'react-native';
 import Home2 from 'src/assets/icons/Home2';
 import Home2Filled from 'src/assets/icons/Home2Filled';
@@ -13,16 +17,21 @@ import {
   COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import FriendsManagementScreen from 'src/presentationLayer/view/screens/friendScreens/FriendsMainScreen';
 import HomeScreen from 'src/presentationLayer/view/screens/mainScreens/MainScreen';
 import ProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/MyPageScreen';
+import CustomerCenterScreen from 'src/presentationLayer/view/screens/myPageScreens/CustomerCenterScreen';
 import ProductSearchLandingScreen from 'src/presentationLayer/view/screens/productScreens/ProductMainScreen';
 import {FriendMainViewStateProvider} from 'src/presentationLayer/viewState/friendStates/FriendsMainState';
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {MyPageViewStateProvider} from 'src/presentationLayer/viewState/myPageStates/MyPageState';
 import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
+import SendTikkleScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleScreen';
+import InquireScreen from 'src/presentationLayer/view/screens/myPageScreens/InquireScreen';
+import SentTikkleDetailScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleDetailScreen';
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
@@ -45,6 +54,32 @@ const MyPage = () => (
     <ProfileScreen />
   </MyPageViewStateProvider>
 );
+const MyPageStack = createStackNavigator();
+
+function MyPageNavigator() {
+  return (
+    <MyPageViewStateProvider>
+      <MyPageStack.Navigator
+        initialRouteName="MyPage"
+        screenOptions={{
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}>
+        <MyPageStack.Screen name="MyPage" component={MyPage} />
+        <MyPageStack.Screen name="SendTikkle" component={SendTikkleScreen} />
+        <MyPageStack.Screen
+          name="CustomerCenter"
+          component={CustomerCenterScreen}
+        />
+        <MyPageStack.Screen name="Inquire" component={InquireScreen} />
+        <MyPageStack.Screen
+          name="SentTikkleDetail"
+          component={SentTikkleDetailScreen}
+        />
+      </MyPageStack.Navigator>
+    </MyPageViewStateProvider>
+  );
+}
 
 export default function BottomTabNavigator() {
   return (
@@ -141,7 +176,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="profile"
-        component={MyPage}
+        component={MyPageNavigator}
         options={{
           tabBarShowLabel: false,
           tabBarLabel: '프로필',

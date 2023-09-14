@@ -58,6 +58,9 @@ export const useFriendMainViewModel = () => {
         if (res.DScode === 0) {
           console.log(res);
           topActions.showSnackbar(res.DSmessage, 1);
+          onRefresh();
+          actions.setSearchedData([]);
+          actions.setText_search('');
         }
       });
     } catch {}
@@ -101,6 +104,7 @@ export const useFriendMainViewModel = () => {
           console.log(res);
           if (res.DSdata.success) {
             topActions.showSnackbar(res.DSmessage, 1);
+            onRefresh();
           }
         });
     } catch {}
@@ -118,6 +122,7 @@ export const useFriendMainViewModel = () => {
           console.log(res);
           if (res.DSdata.success) {
             topActions.showSnackbar(res.DSmessage, 1);
+            onRefresh();
           }
         });
     } catch {}
@@ -166,6 +171,15 @@ export const useFriendMainViewModel = () => {
     actions.get_friend_search();
   };
 
+  /**
+   * FriendsMainScreen에서 새로고침 하는 함수
+   */
+  const onRefresh = async => {
+    actions.setRefreshing(true);
+    get_friend_data(state.mode_friend);
+    actions.setRefreshing(false);
+  };
+
   return {
     ref: {
       ...ref,
@@ -182,6 +196,7 @@ export const useFriendMainViewModel = () => {
       block_friend,
       unblock_friend,
       create_friend,
+      onRefresh,
     },
   };
 };
