@@ -23,8 +23,8 @@ export const useMainViewModel = () => {
 
   const loadData = async () => {
     try {
-      actions.setLoading(true);
-      getHomeScreenData().then(res => {
+      await actions.setLoading(true);
+      await getHomeScreenData().then(res => {
         // console.log(res.DSdata.my_tikkling);
         console.log(res.DSdata.my_tikkling);
         actions.setFriendEventData(res.DSdata.friend_event);
@@ -38,15 +38,15 @@ export const useMainViewModel = () => {
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
-      actions.setLoading(false);
+      await actions.setLoading(false);
     }
   };
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onRefresh = async () => {
-    actions.setRefreshing(true);
-    loadData();
-    actions.setRefreshing(false);
+    await actions.setRefreshing(true);
+    await loadData();
+    await actions.setRefreshing(false);
   };
 
   const showDropdown = () => {
