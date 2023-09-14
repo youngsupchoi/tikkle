@@ -23,14 +23,14 @@ export const useMainViewModel = () => {
 
   const loadData = async () => {
     try {
+
+
       await actions.setLoading(true);
       await getHomeScreenData().then(res => {
-        // console.log(res.DSdata.my_tikkling);
-        console.log(res.DSdata.my_tikkling);
         actions.setFriendEventData(res.DSdata.friend_event);
         actions.setFriendTikklingData(res.DSdata.friend_tikkling);
         actions.setIsNotice(res.DSdata.is_notification);
-        actions.setMyTikklingData(res.DSdata.my_tikkling.info);
+        actions.setMyTikklingData(res.DSdata.my_tikkling.info[0]);
         actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
         actions.setWishlistData(res.DSdata.my_wishlist);
         actions.setUserData(res.DSdata.user_info);

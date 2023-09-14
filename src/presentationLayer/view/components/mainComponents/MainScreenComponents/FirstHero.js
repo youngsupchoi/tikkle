@@ -104,7 +104,7 @@ const FirstHero = props => {
     ButtonText = '상품 받기';
   } else if (TikkleQuantity > 0) {
     // 받은 티클 수가 전체 티클 수보다 적은 경우
-    if (FundingLimit < CurrentDate) {
+    if (FundingLimit > CurrentDate) {
       // 현재 시간이 종료 시간을 지나지 않은 경우
       ButtonIcon = (
         <Present
@@ -118,6 +118,7 @@ const FirstHero = props => {
       ButtonText = '티클 구매하기';
     } else {
       // 현재 시간이 종료 시간을 지난 경우
+      //console.log('%%%%%%%%%%%%\n\n', FundingLimit, CurrentDate);
       ButtonIcon = (
         <Delete
           width={24}
@@ -127,11 +128,11 @@ const FirstHero = props => {
           strokeWidth={2}
         />
       );
-      ButtonText = '종료하기';
+      ButtonText = '종료3하기';
     }
   } else {
     // 받은 티클이 없는 경우
-    if (FundingLimit < CurrentDate) {
+    if (FundingLimit > CurrentDate) {
       // 현재 시간이 종료 시간을 지나지 않은 경우
       ButtonIcon = (
         <Present
@@ -166,7 +167,7 @@ const FirstHero = props => {
 
     if (tikkleQuantity === tikkleCount) {
       setShowEndModal(true);
-    } else if (fundingLimit < currentDate) {
+    } else if (fundingLimit > currentDate) {
       setShowBuyModal(true);
     } else {
       setShowCancelModal(true);

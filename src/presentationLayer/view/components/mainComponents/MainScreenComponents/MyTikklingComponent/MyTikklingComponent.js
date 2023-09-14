@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
   },
   animatedButton: {
     padding: 10,
+    marginHorizontal: -10,
   },
   detail: {
     width: 20,
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR_WHITE,
     position: 'absolute',
     top: 16,
-    right: 24,
+    right: 60,
     zIndex: 20,
     borderRadius: 12,
     elevation: 3,
@@ -145,8 +146,8 @@ const styles = StyleSheet.create({
   dropdownButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    paddingVertical: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
   },
   iconContainer: {},
   delete: {
