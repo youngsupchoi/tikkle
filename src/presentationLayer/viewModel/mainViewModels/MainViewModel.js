@@ -89,7 +89,7 @@ export const useMainViewModel = () => {
     };
 
     return {
-      ref,
+      ref: {...ref},
       state: {
         ...state,
       },
