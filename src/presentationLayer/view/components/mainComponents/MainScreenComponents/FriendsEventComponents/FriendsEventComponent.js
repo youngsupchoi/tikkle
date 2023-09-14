@@ -23,7 +23,9 @@ export default function FriendsEventComponent() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <B20 customStyle={{fontFamily: EB}}>다가오는 기념일</B20>
+        <B20 customStyle={{fontFamily: EB, marginVertical: 10}}>
+          다가오는 기념일
+        </B20>
         {/* <AnimatedButton style={styles.animatedButton}>
           <ArrowRight
             width={24}
