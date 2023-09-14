@@ -146,7 +146,6 @@ export default function SentTikkleDetailScreen({route}) {
                       paddingLeft: 5,
                       width: windowWidth * 0.55,
                       height: windowWidth * 0.25,
-                      backgroundColor: 'red',
                     }}>
                     <M15>{item.brand_name}</M15>
                     <M15>{item.product_name}</M15>
@@ -189,7 +188,6 @@ export default function SentTikkleDetailScreen({route}) {
                       paddingLeft: 5,
                       width: windowWidth * 0.55,
                       height: windowWidth * 0.25,
-                      backgroundColor: 'red',
                     }}>
                     <M15>{item.brand_name}</M15>
                     <M15>{item.product_name}</M15>
