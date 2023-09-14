@@ -18,6 +18,7 @@ import {
   B22,
   B28,
   M,
+  M11,
   M15,
   M20,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
@@ -26,6 +27,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -185,7 +187,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   };
 
   const buttonPress = () => {
-    console.log('데이터', data);
     post_tikkling_sendtikkle(data).then(res => {
       console.log(res);
       if (res.success === true) {
@@ -205,37 +206,34 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   return (
     <View style={styles.tikkleModalContainer}>
       <Modal
+        onSwipeComplete={onCloseModal}
+        swipeDirection={'down'}
         onBackdropPress={onCloseModal}
         isVisible={showModal}
-        backdropOpacity={0.5}>
+        backdropOpacity={0.5}
+        style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.
+        animationIn="slideInUp" // 이 부분이 추가되었습니다.
+        animationOut="slideOutDown" // 이 부분이 추가되었습니다.
+      >
         <View style={styles.modalContent}>
-          <AnimatedButton
-            onPress={() => {
-              onCloseModal();
-            }}
-            style={styles.closeButton}>
-            <CloseCircle
-              width={24}
-              height={24}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.2}
-            />
-          </AnimatedButton>
-          <B22 customStyle={styles.title}>보낼 티클 수</B22>
+          <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
           <View
             style={{
-              padding: 8,
+              padding: 12,
               borderColor: COLOR_SEPARATOR,
               borderWidth: 1,
               borderRadius: 8,
               marginTop: 24,
             }}>
+            <M11 customStyle={{color: COLOR_GRAY}}>
+              마음을 담은 메시지를 보내보세요.
+            </M11>
             <TextInput
               multiline
               style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
               onChangeText={value => setMessage(value)}
-              placeholder="마음을 담은 메시지를 보내보세요!"
-              placeholderTextColor={COLOR_GRAY}
+              placeholder="생일 축하해!"
+              placeholderTextColor={COLOR_BLACK}
             />
           </View>
 
@@ -293,6 +291,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               </M20>
             </View>
           </View>
+          {/* {console.log('모달', data)} */}
           <View style={styles.buttonsContainer}>
             <AnimatedButton
               onPress={() => {
@@ -353,7 +352,7 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'white',
     padding: 16,
-    borderRadius: 10,
+    borderRadius: 16,
   },
   itemTitle: {
     marginLeft: 4,
@@ -400,5 +399,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor: COLOR_PRIMARY_OUTLINE,
+    borderWidth: 2,
   },
 });

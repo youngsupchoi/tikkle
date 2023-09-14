@@ -23,6 +23,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   backgroundColor,
+  COLOR_PRIMARY_OUTLINE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowWidth,
@@ -31,99 +32,50 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'src/assets/icons/ArrowLeft2';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/SignUpHeaderComponent';
+import IdInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/IdInputComponent';
+import IdSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/IdSubmitComponent';
 // import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
 // import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
 // import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
 
 export default function SignUpScreen6({route}) {
-  // const {firstName, lastName, name, gender, birthday, phoneNumber} =
-  //   route.params;
-  const userInfo = {
-    firstName: 'h',
-    lastName: 'h',
-    name: 'd',
-    gender: 'male',
-    birthday: '2000-03-09',
-    phoneNumber: '01041111111',
-  };
-
-  const {firstName, lastName, name, gender, birthday, phoneNumber} = userInfo;
-
-  const [userId, setUserId] = useState('');
-
-  const navigation = useNavigation();
-  const backPress = () => {
-    navigation.goBack();
-  };
-
-  const buttonPress = async () => {
-    // const responseData = await post_auth_registerUser(
-    //   name,
-    //   birthday,
-    //   userId,
-    //   phoneNumber,
-    //   gender,
-    // );
-    // if (responseData.success) {
-    //   console.log(responseData.data);
-    //   try {
-    //     await post_auth_tokenGenerate(responseData.data);
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'main',
-          params: {updated: new Date().toString()},
-        },
-      ],
-    });
-    // } catch (error) {
-    //   console.error('Error saving data to AsyncStorage:', error);
-    // }
-    // }
-  };
-
-  const userIdRef = useRef(null); // Create a ref
-  const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
-  const [duplicationMessage, setDuplicationMessage] = useState(''); // State to hold the validation message
-
-  const handleUserIdChange = text => {
-    setUserId(text);
-  };
+  const {ref, state, actions} = useStartViewModel();
   useEffect(() => {
-    const validityMessage = validateUserId(userId);
-    setValidationMessage(validityMessage);
-  }, [userId]);
+    const validityMessage = validateUserId(state.userNick);
+    actions.setValidationMessage(validityMessage);
+  }, [state.userNick]);
 
   // useEffect(() => {
   //   if (validationMessage === 'Valid') {
   //     const duplicityMessage = post_auth_IdDuplicationCheck(
-  //       userId,
+  //       state.userNick,
   //       setDuplicationMessage,
   //     );
   //     setDuplicationMessage(duplicityMessage);
   //   } else {
   //     setDuplicationMessage(''); // Clear the duplication message if the format is not valid
   //   }
-  // }, [userId]);
+  // }, [state.userNick]);
 
-  function validateUserId(userId) {
+  function validateUserId(inputNick) {
     const MIN_LENGTH = 5;
     const MAX_LENGTH = 12;
 
-    if (!userId) {
+    if (!inputNick) {
       return '아이디를 입력해주세요';
     }
 
-    if (!/^[a-zA-Z0-9_.-]+$/.test(userId)) {
+    if (!/^[a-zA-Z0-9_.-]+$/.test(inputNick)) {
       return "아이디는 영문, 숫자, '_', '-', '.'만 포함할 수 있어요.";
     }
 
-    if (userId.length < MIN_LENGTH) {
+    if (inputNick.length < MIN_LENGTH) {
       return `아이디는 ${MIN_LENGTH}자를 넘겨야 해요.`;
     }
 
-    if (userId.length > MAX_LENGTH) {
+    if (inputNick.length > MAX_LENGTH) {
       return `아이디는 ${MAX_LENGTH}자를 넘길 수 없어요.`;
     }
 
@@ -132,76 +84,14 @@ export default function SignUpScreen6({route}) {
 
   return (
     <View style={styles.signupContainer}>
-      <View style={styles.signUpHeader}>
-        <AnimatedButton
-          onPress={() => {
-            backPress();
-          }}
-          style={styles.backButton}>
-          <BackIcon
-            width={24}
-            height={24}
-            stroke={COLOR_BLACK}
-            strokeWidth={1}
-          />
-        </AnimatedButton>
-        <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-          <View style={styles.selectedPagination} />
-        </View>
-        <View style={{width: 44}} />
-      </View>
+      <SignUpHeader />
 
       <View style={styles.instructionContainer}>
         <M15 customStyle={{color: COLOR_GRAY}}>마지막 단계예요!</M15>
         <B28>당신의 아이디를 알려주세요.</B28>
       </View>
-
-      <View style={styles.inputContainer}>
-        <View style={styles.IDInputContainer}>
-          <M34>@</M34>
-          <TextInput
-            ref={userIdRef}
-            maxLength={20}
-            keyboardType="default"
-            placeholder="lifoli1234"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent"
-            clearButtonMode="while-editing"
-            value={userId}
-            onChangeText={handleUserIdChange} // Use the new handler here
-            onSubmitEditing={() => userIdRef.current.focus()}
-          />
-        </View>
-      </View>
-      {validationMessage !== 'Valid' && (
-        <M17 customStyle={styles.validationMessage}>{validationMessage}</M17>
-      )}
-      {duplicationMessage == 'Duplicate ID' && (
-        <M17 customStyle={styles.validationMessage}>존재하는 아이디입니다.</M17>
-      )}
-
-      <View style={styles.buttonContainer}>
-        <AnimatedButton
-          onPress={() => buttonPress()}
-          style={[
-            styles.button,
-            validationMessage !== 'Valid' ||
-            duplicationMessage === 'Duplicate ID'
-              ? styles.inactiveButton
-              : {},
-          ]}
-          disabled={
-            validationMessage !== 'Valid' ||
-            duplicationMessage === 'Duplicate ID'
-          }>
-          <B15 customStyle={{color: COLOR_WHITE}}>가입하기</B15>
-          {console.log(validationMessage, duplicationMessage)}
-        </AnimatedButton>
-      </View>
+      <IdInput />
+      <IdSubmit />
     </View>
   );
 }
@@ -277,6 +167,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: COLOR_PRIMARY,
+    borderColor: COLOR_PRIMARY_OUTLINE,
+    borderWidth: 2,
     width: '90%',
     height: 50,
     borderRadius: 25,

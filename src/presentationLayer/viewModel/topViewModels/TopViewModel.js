@@ -26,22 +26,19 @@ export const useTopViewModel = () => {
   const setStateAndError = res => {
     // const navigation = actions.navigation;
     if (res.DScode === 0) {
-      return res.DSdata;
+      return res;
     } else if (res.DScode === 1) {
       showSnackbar(res.DSmessage, 0);
-      return res.DScode;
+      throw new Error(JSON.stringify(res));
     } else if (res.DScode === 2) {
       showModal(res.DSmessage, 0);
-      return res.DScode;
+      throw new Error(JSON.stringify(res));
     } else if (res.DScode === 3) {
-      try {
-        showModal(res.DSmessage, 0);
-        navigation.reset({routes: [{name: 'splash'}]});
-      } catch (err) {
-        return res.DScode;
-      }
+      showModal(res.DSmessage, 0);
+      navigation.reset({routes: [{name: 'splash'}]});
+      throw new Error(JSON.stringify(res));
     }
-    return res.DSdata;
+    return res;
   };
 
   const showSnackbar = (snackbarMessage, snackbarStatus) => {

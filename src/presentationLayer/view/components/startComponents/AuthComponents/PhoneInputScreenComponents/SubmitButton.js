@@ -15,32 +15,8 @@ export const SubmitButton = () => {
 
   useEffect(() => {
     if (state.message == 'sign up') {
-      console.log(
-        '🚀 ~ file: SubmitButton.js:20 ~ useEffect ~ state.userId:',
-        state.userId,
-      );
-      console.log(
-        '🚀 ~ file: SubmitButton.js:20 ~ useEffect ~ state.message:',
-        state.message,
-      );
-      console.log(
-        '🚀 ~ file: SubmitButton.js:24 ~ useEffect ~ state.phoneNumber:',
-        state.phoneNumber,
-      );
       actions.navigation.navigate('signup2');
     } else if (state.message == 'login' && state.userId) {
-      console.log(
-        '🚀 ~ file: SubmitButton.js:20 ~ useEffect ~ state.userId:',
-        state.userId,
-      );
-      console.log(
-        '🚀 ~ file: SubmitButton.js:20 ~ useEffect ~ state.message:',
-        state.message,
-      );
-      console.log(
-        '🚀 ~ file: SubmitButton.js:24 ~ useEffect ~ state.phoneNumber:',
-        state.phoneNumber,
-      );
       actions.navigation.navigate('signup2');
     }
   }, [state.message, state.userId]);

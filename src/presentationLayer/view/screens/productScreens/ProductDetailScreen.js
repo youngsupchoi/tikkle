@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, StyleSheet, ScrollView, Image, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   StatusBarHeight,
@@ -20,6 +20,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SECOND_SEPARATOR,
   COLOR_SEPARATOR,
   COLOR_WHITE,
@@ -36,11 +37,16 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 // import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useProductDetailViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductDetailViewModel';
+
+import Wishlisted from 'src/assets/icons/wishlisted.svg';
+
 const containerWidth = windowWidth - SPACING_6;
 
 export default function ProductDetailScreen(route) {
   const {state, actions} = useProductDetailViewModel();
+
   const [selected, setSelected] = useState('상세정보');
+  // console.log('selected : ', state.data);
   useEffect(() => {
     actions.loadData(state.data.id);
   }, []);
@@ -101,9 +107,14 @@ export default function ProductDetailScreen(route) {
             borderRadius: 16,
           }}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <M28 customStyle={{marginBottom: 16, fontFamily: EB}}>
-              {state.data.name}
-            </M28>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <M28 customStyle={{marginBottom: 16, fontFamily: EB}}>
+                {state.data.name}
+              </M28>
+              {state.wishlisted && (
+                <Wishlisted width={50} marginBottom={17} marginHorizontal={5} />
+              )}
+            </View>
             <M15 customStyle={{color: COLOR_GRAY, marginBottom: 40}}>
               {state.data.brand_name}
             </M15>
@@ -223,20 +234,31 @@ export default function ProductDetailScreen(route) {
           <View>
             <AnimatedButton
               onPress={() => {
-                // createMyWishlistData(state.data.id);
-                // topActions.showModal('위시리스트에 상품을 추가했어요!', 1);
-                actions.createMyWishlistData_(state.data.id);
+                if (state.wishlisted) {
+                  actions.setWishlisted(!state.wishlisted);
+                  actions.deleteMyWishlistData_(state.data.id);
+                } else {
+                  actions.setWishlisted(!state.wishlisted);
+                  actions.createMyWishlistData_(state.data.id);
+                }
               }}
               style={{
                 paddingVertical: 12,
                 paddingHorizontal: 24,
                 backgroundColor: COLOR_PRIMARY,
+                borderColor: COLOR_PRIMARY_OUTLINE,
+                borderWidth: 2,
                 borderRadius: 8,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 0.5,
                 elevation: 1,
               }}>
-              <B15 customStyle={{color: COLOR_WHITE}}>위시리스트 추가</B15>
+              <B15
+                customStyle={{
+                  color: !state.wishlisted ? COLOR_WHITE : 'pink',
+                }}>
+                {!state.wishlisted ? '위시리스트 추가' : '위시리스트 제거'}
+              </B15>
             </AnimatedButton>
           </View>
         </View>

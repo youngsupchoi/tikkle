@@ -26,15 +26,8 @@ import {verifyOTP} from 'src/components/Axios/OTPVerification';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-export default function SignUpScreen2({phoneNumber}) {
-  //const {phoneNumber, message, userId} = route.params;
+export default function SignUpScreen2() {
   const {ref, state, actions} = useStartViewModel();
-  const [inputCode, setInputCode] = useState(Array(6).fill(''));
-
-  const buttonPress = () => {
-    // verifyOTP();
-    actions.navigation.navigate('signup3', {phoneNumber: state.phoneNumber});
-  };
 
   const handleTextChange = async (text, index) => {
     const newInputCode = [...state.inputCode];
@@ -91,19 +84,15 @@ export default function SignUpScreen2({phoneNumber}) {
   };
 
   useEffect(() => {
+    actions.OtpAutoFill();
+  }, []);
+
+  useEffect(() => {
     const fullCode = state.inputCode.join('');
     if (fullCode.length === 6) {
       verifyOTP(state.encryptedOTP, fullCode, state.message);
     }
   }, [state.inputCode.join('').length === 6]);
-
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: PhoneCheckScreen.js:108 ~ useEffect ~ state.phoneNumber:',
-      state.phoneNumber,
-    );
-    actions.phoneAuth(state.phoneNumber);
-  }, []);
 
   return (
     <View style={styles.signupContainer}>
@@ -117,14 +106,14 @@ export default function SignUpScreen2({phoneNumber}) {
         />
         <TimerComponent />
       </View>
-      <View style={styles.buttonContainer}>
+      {/* <View style={styles.buttonContainer}>
         <AnimatedButton
           disabled={state.inputCode.join('').length !== 6}
           onPress={() => buttonPress()}
           style={styles.button}>
           <B15 customStyle={{color: COLOR_WHITE}}>인증번호 전송</B15>
         </AnimatedButton>
-      </View>
+      </View> */}
     </View>
   );
 }

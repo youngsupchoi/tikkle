@@ -9,6 +9,9 @@ import {getMyFriendData} from 'src/dataLayer/DataSource/Friend/GetMyFriendData';
 import {getBlockedFriendData} from 'src/dataLayer/DataSource/Friend/GetBlockedFriendData';
 import {getSearchFriendData} from 'src/dataLayer/DataSource/Friend/GetSearchFriendData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {updateFriendBlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendBlockData';
+import {createNewFriendData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendData';
+import {updateFriendUnlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendUnblockData';
 
 /**
  * FriendsMainScreen의 뷰 스테이트와 액션을 정의하는 ViewModel Hook
@@ -31,7 +34,8 @@ export const useFriendMainViewModel = () => {
             return topActions.setStateAndError(res);
           })
           .then(res => {
-            actions.setGetFriendData(res.info);
+            console.log('getFriendDataSetStateError', res);
+            actions.setGetFriendData(res.DSdata.info);
           });
       } else if (mode_friend === 'block') {
         await getBlockedFriendData()
@@ -39,7 +43,7 @@ export const useFriendMainViewModel = () => {
             return topActions.setStateAndError(res);
           })
           .then(res => {
-            actions.setGetFriendData(res.info);
+            actions.setGetFriendData(res.DSdata.info);
           });
       }
     } catch (error) {
@@ -48,23 +52,80 @@ export const useFriendMainViewModel = () => {
     }
   }
 
+  async function create_friend(friendId) {
+    try {
+      await createNewFriendData(friendId).then(res => {
+        if (res.DScode === 0) {
+          console.log(res);
+          topActions.showSnackbar(res.DSmessage, 1);
+          onRefresh();
+          actions.setSearchedData([]);
+          actions.setText_search('');
+        }
+      });
+    } catch {}
+  }
+
   /**
    * FriendsMainScreen에서 아이디로 친구 검색 데이터 가져오는 함수
    * @todo state.text_search = "검색할 친구 닉네임" 설정 필요
    */
   async function get_friend_search() {
+    if (state.text_search === '') {
+      topActions.showSnackbar('검색어를 입력해주세요!', 2);
+    } else {
+      try {
+        await getSearchFriendData(state.text_search)
+          .then(res => {
+            return topActions.setStateAndError(res);
+          })
+          .then(res => {
+            actions.setSearchedData(res.DSdata.info);
+          });
+      } catch (error) {
+        //에러 처리 필요 -> 정해야함
+        console.log(
+          "[Error in FriendsMainViewModel's get_friend_data]\n",
+          error,
+        );
+      }
+    }
+  }
+
+  async function block_friend(item) {
     try {
-      await getSearchFriendData(state.text_search)
+      // console.log(state.getFriendData);
+      // console.log(item.id);
+      await updateFriendBlockData(item.id)
         .then(res => {
           return topActions.setStateAndError(res);
         })
         .then(res => {
-          actions.setSearchedData(res.info);
+          console.log(res);
+          if (res.DSdata.success) {
+            topActions.showSnackbar(res.DSmessage, 1);
+            onRefresh();
+          }
         });
-    } catch (error) {
-      //에러 처리 필요 -> 정해야함
-      console.log("[Error in FriendsMainViewModel's get_friend_data]\n", error);
-    }
+    } catch {}
+  }
+
+  async function unblock_friend(item) {
+    try {
+      // console.log(state.getFriendData);
+      // console.log(item.id);
+      await updateFriendUnlockData(item.id)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          console.log(res);
+          if (res.DSdata.success) {
+            topActions.showSnackbar(res.DSmessage, 1);
+            onRefresh();
+          }
+        });
+    } catch {}
   }
 
   /**
@@ -103,6 +164,22 @@ export const useFriendMainViewModel = () => {
     };
   };
 
+  /**
+   * FriendsMainScreen에서 친구 검색 버튼 눌렀을 때 실행되는 함수
+   */
+  const onSearchButtonPressed = () => {
+    actions.get_friend_search();
+  };
+
+  /**
+   * FriendsMainScreen에서 새로고침 하는 함수
+   */
+  const onRefresh = async => {
+    actions.setRefreshing(true);
+    get_friend_data(state.mode_friend);
+    actions.setRefreshing(false);
+  };
+
   return {
     ref: {
       ...ref,
@@ -115,6 +192,11 @@ export const useFriendMainViewModel = () => {
       get_friend_data,
       get_friend_search,
       keyboard_friend,
+      onSearchButtonPressed,
+      block_friend,
+      unblock_friend,
+      create_friend,
+      onRefresh,
     },
   };
 };

@@ -25,7 +25,14 @@ export async function getHomeScreenData() {
 
   //------ call get_user_info -------------------------------------------------------//
 
-  const [a, b, c, d, e, f] = await Promise.all([
+  const [
+    res_user_info,
+    res_tikkling_friendinfo,
+    res_user_isNotice,
+    res_friend_event,
+    res_user_myWishlist,
+    res_MyTikklingDS,
+  ] = await Promise.all([
     apiModel('get_user_info', authorization, null, null)
       .then(res => {
         return res;
@@ -85,17 +92,17 @@ export async function getHomeScreenData() {
   //------ control result & error -----------------------------------------//
 
   if (
-    !a ||
-    !b ||
-    !c ||
-    !d ||
-    !e ||
-    !f ||
-    a.status !== 200 ||
-    b.status !== 200 ||
-    c.status !== 200 ||
-    d.status !== 200 ||
-    e.status !== 200
+    !res_user_info ||
+    !res_tikkling_friendinfo ||
+    !res_user_isNotice ||
+    !res_friend_event ||
+    !res_user_myWishlist ||
+    !res_MyTikklingDS ||
+    res_user_info.status !== 200 ||
+    res_tikkling_friendinfo.status !== 200 ||
+    res_user_isNotice.status !== 200 ||
+    res_friend_event.status !== 200 ||
+    res_user_myWishlist.status !== 200
   ) {
     return {
       DScode: 2,
@@ -105,19 +112,19 @@ export async function getHomeScreenData() {
   }
 
   let info = {
-    user_info: a.data.data,
-    friend_tikkling: b.data.data,
-    is_notification: c.data.data,
-    friend_event: d.data.data,
-    my_wishlist: e.data.data,
-    my_tikkling: f,
+    user_info: res_user_info.data.data,
+    friend_tikkling: res_tikkling_friendinfo.data.data,
+    is_notification: res_user_isNotice.data.data.is_notification,
+    friend_event: res_friend_event.data.data,
+    my_wishlist: res_user_myWishlist.data.data,
+    my_tikkling: res_MyTikklingDS,
   };
 
   //------ update token ---------------------------------------------------//
   //console.log('response.data.returnToken : ', response.data.returnToken);
-  if (a.data.returnToken) {
+  if (res_user_info.data.returnToken) {
     const response_setToken = await resetToken(
-      a.data.returnToken,
+      res_user_info.data.returnToken,
       authorization,
     );
   }

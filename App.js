@@ -13,22 +13,22 @@ export default function App() {
   // TopViewModel의 새로운 구조에 따라 변경됩니다.
 
   return (
-    <TopViewProvider>
-      <View style={{zIndex: 10}}>
-        <TopModal />
-      </View>
-      <TopSnackbar />
-      <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <TopViewProvider>
+        <View style={{zIndex: 10, backgroundColor: 'red'}}>
+          <TopModal />
+          <TopSnackbar />
+        </View>
         <MainStackNavigator />
-      </GestureHandlerRootView>
-      {Platform.OS === 'android' ? (
-        <StatusBar
-          translucent
-          barStyle={'dark-content'}
-          backgroundColor="transparent"
-        />
-      ) : null}
-      {/* <TEST_SAMPLESCREEN /> */}
-    </TopViewProvider>
+        {Platform.OS === 'android' ? (
+          <StatusBar
+            translucent
+            barStyle={'dark-content'}
+            backgroundColor="transparent"
+          />
+        ) : null}
+        {/* <TEST_SAMPLESCREEN /> */}
+      </TopViewProvider>
+    </GestureHandlerRootView>
   );
 }

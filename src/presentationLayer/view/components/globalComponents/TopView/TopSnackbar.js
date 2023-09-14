@@ -2,8 +2,10 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {
+  COLOR_BLACK,
   COLOR_ERROR,
   COLOR_SUCCESS,
+  COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import Animated, {
   useSharedValue,
@@ -18,23 +20,75 @@ import {BlurView} from '@react-native-community/blur';
 import TickSquare from 'src/assets/icons/TickSquare';
 import Information from 'src/assets/icons/Information';
 
+const getSnackbarStyles = status => {
+  switch (status) {
+    case 0:
+      return {
+        icon: (
+          <Information
+            width={24}
+            height={24}
+            strokeWidth={1.5}
+            stroke={'red'}
+          />
+        ),
+        backgroundColor: COLOR_ERROR,
+        textColor: 'red',
+      };
+    case 1:
+      return {
+        icon: (
+          <TickSquare
+            width={24}
+            height={24}
+            strokeWidth={1.5}
+            stroke={'green'}
+          />
+        ),
+        backgroundColor: COLOR_SUCCESS,
+        textColor: 'green',
+      };
+    case 2:
+      return {
+        icon: (
+          <TickSquare
+            width={24}
+            height={24}
+            strokeWidth={1.5}
+            stroke={COLOR_BLACK}
+          />
+        ),
+        backgroundColor: COLOR_WHITE,
+        textColor: COLOR_BLACK,
+      };
+
+    default:
+      return {
+        icon: null,
+        backgroundColor: COLOR_WHITE, // default color
+        textColor: COLOR_BLACK, // default color
+      };
+  }
+};
+
 const TopSnackbar = () => {
   const {topState, topActions} = useTopViewModel();
   const {isSnackbarVisible, snackbarMessage, snackbarStatus} = topState;
+  const {icon, backgroundColor, textColor} = getSnackbarStyles(snackbarStatus);
 
   const translateY = useSharedValue(0);
   const opacity = useSharedValue(0);
 
   useEffect(() => {
     if (isSnackbarVisible) {
-      translateY.value = withSpring(0);
+      translateY.value = withSpring(0, {mass: 0.1});
       opacity.value = withTiming(1, {
-        duration: 100,
+        duration: 50,
         easing: Easing.out(Easing.exp),
       });
 
       const timeout = setTimeout(() => {
-        translateY.value = withSpring(-100);
+        translateY.value = withSpring(-50);
         opacity.value = withTiming(
           0,
           {duration: 100, easing: Easing.in(Easing.exp)},
@@ -42,7 +96,7 @@ const TopSnackbar = () => {
             runOnJS(topActions.hideSnackbar)();
           },
         );
-      }, 2000);
+      }, 1000);
 
       return () => clearTimeout(timeout);
     }
@@ -57,35 +111,37 @@ const TopSnackbar = () => {
   });
 
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        animatedStyle,
-        {
-          backgroundColor: snackbarStatus === 0 ? COLOR_ERROR : COLOR_SUCCESS,
-          opacity: 0.5,
-        },
-      ]}>
-      <BlurView
-        style={{
-          width: '100%',
-          height: '100%',
-          borderRadius: 12,
-          paddingVertical: 16,
-          paddingHorizontal: 20,
-          flexDirection: 'row',
-        }} // borderRadius를 설정하여 둥글게 만듭니다.
-        blurType="light" // "dark", "light", "extraDark", 등 다양한 블러 타입이 있습니다.
-        blurAmount={10} // 블러 정도를 설정합니다. (0 ~ 25)
-      >
-        {snackbarStatus === 0 ? (
-          <Information width={24} height={24} stroke={'red'} />
-        ) : (
-          <TickSquare width={24} height={24} stroke={'green'} />
-        )}
-        <B15 customStyle={{marginLeft: 12}}>{snackbarMessage}</B15>
-      </BlurView>
-    </Animated.View>
+    <View>
+      {isSnackbarVisible ? (
+        <Animated.View
+          style={[
+            styles.container,
+            animatedStyle,
+            {
+              backgroundColor: backgroundColor,
+              opacity: 0.5,
+            },
+          ]}>
+          <BlurView
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: 12,
+              paddingVertical: 16,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+            }} // borderRadius를 설정하여 둥글게 만듭니다.
+            blurType="light" // "dark", "light", "extraDark", 등 다양한 블러 타입이 있습니다.
+            blurAmount={10} // 블러 정도를 설정합니다. (0 ~ 25)
+          >
+            {icon}
+            <B15 customStyle={{marginLeft: 12, color: textColor}}>
+              {snackbarMessage}
+            </B15>
+          </BlurView>
+        </Animated.View>
+      ) : null}
+    </View>
   );
 };
 

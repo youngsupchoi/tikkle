@@ -26,7 +26,26 @@ export const useNotificationViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(res => {
-          actions.setNotificationData(res.info);
+          actions.setNotificationData(res.DSdata.info);
+        });
+    } catch (error) {
+      //에러 처리 필요 -> 정해야함
+      console.log("[Error in MyPageViewModel's get_user_info]\n", error);
+    }
+  }
+
+  /**
+   * NotificationScreen에서 나의 알림을 삭제하는 함수
+   */
+  async function noti_delete(index) {
+    try {
+      console.log(state.notificationData[index].id);
+      await deleteNoticeData(state.notificationData[index].id)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          console.log('Deleted');
         });
     } catch (error) {
       //에러 처리 필요 -> 정해야함
@@ -158,6 +177,27 @@ export const useNotificationViewModel = () => {
     navigation.goBack();
   };
 
+  /**
+   * NotificationScreen에서 새로고침을 위한 함수
+   */
+  const onRefresh = async () => {
+    actions.setRefreshing(true);
+    // Call your data fetching functions here
+    await get_notification_list();
+    // Add any other data fetching functions if needed
+    actions.setRefreshing(false);
+  };
+
+  const onDeleteComplete = index => {
+    noti_delete(index)
+      .then(() => {
+        onRefresh();
+      })
+      .catch(error => {
+        console.log("[Error in MyPageViewModel's onDeleteComplete]\n", error);
+      });
+  };
+
   return {
     ref: {...ref},
     state: {
@@ -172,6 +212,9 @@ export const useNotificationViewModel = () => {
       formatDate,
       timeSince,
       backPress,
+      noti_delete,
+      onRefresh,
+      onDeleteComplete,
     },
   };
 };

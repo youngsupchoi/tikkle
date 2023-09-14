@@ -29,6 +29,10 @@ export const FriendMainViewStateProvider = ({children}) => {
   const [mode_friend, setMode_friend] = useState('unblock');
   const [isDropdownVisible_friend, setDropdownVisible_friend] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
+  const [text, setText] = useState('');
+  const [selected, setSelected] = useState(null);
+  const [receivedData, setReceivedData] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const opacityValue = useRef(new Animated.Value(1)).current;
 
@@ -45,7 +49,10 @@ export const FriendMainViewStateProvider = ({children}) => {
     mode_friend,
     isDropdownVisible_friend,
     selectedItemId,
-    // ... 다른 상태들
+    text,
+    selected,
+    receivedData,
+    refreshing,
   };
 
   const actions = {
@@ -57,7 +64,10 @@ export const FriendMainViewStateProvider = ({children}) => {
     setMode_friend,
     setDropdownVisible_friend,
     setSelectedItemId,
-    // ... 다른 상태 설정 함수들
+    setText,
+    setSelected,
+    setReceivedData,
+    setRefreshing,
   };
 
   return (

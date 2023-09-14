@@ -52,8 +52,7 @@ const TopModal = () => {
       style={styles.modal}
       useNativeDriver={false}
       onBackdropPress={() => console.log('hi')}
-      transparent={true}
-      pointerEvents="none">
+      transparent={true}>
       <View
         style={[
           {
@@ -138,7 +137,10 @@ const TopModal = () => {
           </View>
 
           <TouchableOpacity
-            onPress={() => console.log('hi')}
+            onPress={
+              // console.log(topState, topActions.hideModal)
+              topActions.hideModal
+            }
             style={{
               position: 'absolute',
               bottom: 0,

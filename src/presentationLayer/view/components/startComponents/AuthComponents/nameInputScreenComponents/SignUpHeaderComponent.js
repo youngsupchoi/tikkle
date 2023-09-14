@@ -34,7 +34,9 @@ export default function SignUpHeader() {
   };
   return (
     <View style={styles.signUpHeader}>
-      <AnimatedButton onPress={actions.onBackPress} style={styles.backButton}>
+      <AnimatedButton
+        /* onPress={actions.handleBackPress} */
+        style={{...styles.backButton, opacity: 0, pointerEvents: 'none'}}>
         <BackIcon width={24} height={24} stroke={COLOR_BLACK} strokeWidth={1} />
       </AnimatedButton>
       <PaginationComponent />

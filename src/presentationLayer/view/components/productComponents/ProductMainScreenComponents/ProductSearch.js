@@ -11,6 +11,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
@@ -48,6 +49,7 @@ export default function ProductSearch() {
         backgroundColor: state.showFilter ? backgroundColor : backgroundColor,
         width: windowWidth,
         alignItems: 'center',
+        zIndex: 2,
       }}>
       <View
         style={{
@@ -56,6 +58,7 @@ export default function ProductSearch() {
           marginBottom: 12,
         }}>
         <View style={styles.searchContainer}>
+          {/* {console.log(state.showFilter)} */}
           <AnimatedButton
             style={styles.filterIconContainer}
             onPress={() => {
@@ -242,6 +245,8 @@ const styles = StyleSheet.create({
   },
   selectedChip: {
     backgroundColor: COLOR_PRIMARY, // Change to desired background color for selected chip
+    borderColor: COLOR_PRIMARY_OUTLINE,
+    borderWidth: 2,
   },
   selectedChipText: {
     color: COLOR_WHITE, // Change to desired text color for selected chip

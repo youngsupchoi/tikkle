@@ -23,6 +23,15 @@ export default function FriendsTikklingComponent() {
         borderRadius: 24,
         paddingTop: 16,
         paddingBottom: 24,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: {
+          // iOS용 그림자 위치
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.2, // iOS용 그림자 투명도
+        shadowRadius: 3, // iOS용 그림자 반경
       }}>
       <View
         style={{
@@ -33,7 +42,7 @@ export default function FriendsTikklingComponent() {
           paddingBottom: 16,
         }}>
         <B20 customStyle={{fontFamily: EB}}>친구들의 티클링</B20>
-        <AnimatedButton style={{padding: 10}}>
+        {/* <AnimatedButton style={{padding: 10}}>
           <ArrowRight
             width={24}
             height={24}
@@ -41,7 +50,7 @@ export default function FriendsTikklingComponent() {
             strokeWidth={1.5}
             scale={1}
           />
-        </AnimatedButton>
+        </AnimatedButton> */}
       </View>
       <View>
         <FriendsTikklingCarousel data={state.friendTikklingData} />

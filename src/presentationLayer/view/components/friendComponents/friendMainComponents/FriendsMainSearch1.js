@@ -15,12 +15,11 @@ import {B, B15, B17, M, M11, M15} from '../Global/Typography/Typography';
 import SearchNormal1 from '../../assets/icons/SearchNormal1';
 import AnimatedButton from '../Global/Buttons/AnimatedButton';
 
-export default function FriendsManagementSearch1(props) {
-  const {text, setText, selected, get_friend_search} = props;
+import {useFriendMainViewModel} from 'src/presentationLayer/viewModel/friendViewModels/FriendsMainViewModel';
 
-  const onSearchButtonPressed = () => {
-    get_friend_search();
-  };
+export default function FriendsManagementSearch1() {
+  const {ref, state, actions} = useFriendMainViewModel();
+
   return (
     <View style={styles.searchContainer}>
       <View
@@ -48,11 +47,11 @@ export default function FriendsManagementSearch1(props) {
             // alignItems: 'flex-start',
           }}>
           <TextInput
-            onSubmitEditing={onSearchButtonPressed}
+            onSubmitEditing={actions.onSearchButtonPressed}
             placeholder="아이디로 이용자 검색"
             placeholderTextColor={COLOR_GRAY}
-            onChangeText={value => setText(value)}
-            value={text}
+            onChangeText={value => actions.setText(value)}
+            value={state.text}
             style={{
               color: COLOR_BLACK,
               marginLeft: 12,
@@ -62,7 +61,7 @@ export default function FriendsManagementSearch1(props) {
             }}
           />
           <AnimatedButton
-            onPress={onSearchButtonPressed()}
+            onPress={actions.onSearchButtonPressed()}
             style={{
               alignSelf: 'center',
               padding: 4,
@@ -83,7 +82,7 @@ export default function FriendsManagementSearch1(props) {
       </View>
       {/* <View style={styles.searchBar}>
         <TextInput
-          onSubmitEditing={onSearchButtonPressed}
+          onSubmitEditing={actions.onSearchButtonPressed}
           placeholder="아이디로 이용자 검색"
           placeholderTextColor={COLOR_GRAY}
           onChangeText={value => setText(value)}
@@ -92,7 +91,7 @@ export default function FriendsManagementSearch1(props) {
         />
       </View>
       <AnimatedButton
-        onPress={onSearchButtonPressed}
+        onPress={actions.onSearchButtonPressed}
         style={styles.refreshButton}>
         <SearchNormal1
           width={20}

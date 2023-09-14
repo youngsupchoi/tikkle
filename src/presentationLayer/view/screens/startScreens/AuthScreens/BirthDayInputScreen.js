@@ -29,151 +29,30 @@ import {
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {useNavigation} from '@react-navigation/native';
-import BackIcon from 'src/assets/icons/ArrowLeft2';
+import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/SignUpHeaderComponent';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import BirthInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthInputComponent';
+import BirthSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthSubmitComponent';
 
-export default function SignUpScreen5({route}) {
-  const navigation = useNavigation();
-  const {firstName, lastName, name, gender, phoneNumber} = route.params; // Get the name and gender data from navigation parameters
-
-  const [year, setYear] = useState('');
-  const [month, setMonth] = useState('');
-  const [day, setDay] = useState('');
-
-  const yearRef = useRef(null); // Ref for day input
-  const monthRef = useRef(null); // Ref for month input
-  const dayRef = useRef(null); // Ref for day input
-
-  const backPress = () => {
-    navigation.goBack();
-  };
-  const buttonPress = () => {
-    const birthday = `${year}-${month.padStart(2, '0')}-${day.padStart(
-      2,
-      '0',
-    )}`; // Format the birthday
-
-    console.log(firstName, lastName, name, gender, birthday);
-    navigation.navigate('signup6', {
-      firstName: firstName,
-      lastName: lastName,
-      name: name,
-      gender: gender,
-      birthday: birthday,
-      phoneNumber: phoneNumber,
-    });
-  };
+export default function SignUpScreen5() {
+  const {ref, state, actions} = useStartViewModel();
 
   useEffect(() => {
     setTimeout(() => {
-      yearRef.current.focus(); // Manually focus the input after a delay
+      ref.yearRef.current.focus(); // Manually focus the input after a delay
     }, 100);
   }, []);
   return (
     <View style={styles.signupContainer}>
-      <View style={styles.signUpHeader}>
-        <AnimatedButton
-          onPress={() => {
-            backPress();
-          }}
-          style={styles.backButton}>
-          <BackIcon
-            width={24}
-            height={24}
-            stroke={COLOR_BLACK}
-            strokeWidth={1}
-          />
-        </AnimatedButton>
-        <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-          <View style={styles.selectedPagination} />
-          <View style={styles.pagination} />
-        </View>
-        <View style={{width: 44}} />
-        {/* <AnimatedButton
-          onPress={() => {
-            buttonPress();
-          }}
-          style={styles.backButton}>
-          <B20 customStyle={{color: COLOR_GRAY}}>다음</B20>
-        </AnimatedButton> */}
-      </View>
-
+      <SignUpHeader />
       <View style={styles.instructionContainer}>
         <B28>당신의 생일을 알려주세요.</B28>
         <M15 customStyle={{color: COLOR_GRAY}}>
           라이폴리가 생일을 더 특별하게 만들어드릴게요:)
         </M15>
       </View>
-
-      <View style={styles.inputContainer}>
-        <View style={styles.birthdayYearInputContainer}>
-          <TextInput
-            ref={yearRef}
-            keyboardType="number-pad"
-            maxLength={4}
-            placeholder="2000"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent" // Remove underline for Android
-            clearButtonMode="while-editing" // Show clear button on iOS
-            onChangeText={text => {
-              setYear(text);
-              if (text.length === 4) {
-                monthRef.current.focus(); // Focus month input when year has 4 digits
-              }
-            }}
-          />
-        </View>
-        <View style={styles.birthdayMonthInputContainer}>
-          <TextInput
-            ref={monthRef}
-            keyboardType="number-pad"
-            maxLength={2}
-            placeholder="01"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent" // Remove underline for Android
-            clearButtonMode="while-editing" // Show clear button on iOS
-            onChangeText={text => {
-              setMonth(text);
-              if (text.length === 2) {
-                dayRef.current.focus(); // Focus day input when month has 2 digits
-              }
-            }}
-          />
-        </View>
-        <View style={styles.birthdayDayInputContainer}>
-          <TextInput
-            ref={dayRef}
-            keyboardType="number-pad"
-            maxLength={2}
-            placeholder="01"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.nativeInput}
-            underlineColorAndroid="transparent" // Remove underline for Android
-            clearButtonMode="while-editing" // Show clear button on iOS
-            value={day}
-            onChangeText={setDay}
-          />
-        </View>
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <AnimatedButton
-          onPress={() => buttonPress()}
-          style={[
-            styles.button,
-            year.length !== 4 || month.length !== 2 || day.length !== 2
-              ? styles.inactiveButton
-              : {},
-          ]}
-          disabled={year.length !== 4 || month.length !== 2 || day.length !== 2} // Disable the button if gender is an empty string
-        >
-          <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
-        </AnimatedButton>
-      </View>
+      <BirthInput />
+      <BirthSubmit />
     </View>
   );
 }

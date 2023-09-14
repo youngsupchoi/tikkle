@@ -4,6 +4,7 @@ import {StatusBarHeight} from 'src/presentationLayer/view/components/globalCompo
 import {
   B12,
   B17,
+  M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -26,22 +27,15 @@ import Timer from 'src/assets/icons/Timer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
 import {useNotificationViewModel} from 'src/presentationLayer/viewModel/mainViewModels/NotificationViewModel';
+import Close from 'src/assets/icons/Close';
 
 export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
 
-  const onRefresh = async () => {
-    actions.setRefreshing(true);
-    // Call your data fetching functions here
-    await actions.get_notification_list();
-    // Add any other data fetching functions if needed
-    actions.setRefreshing(false);
-  };
-
   useEffect(() => {
     actions.get_notification_list();
   }, []);
-
+  //ㅎㅎㅎㅎㅎㅎ
   const navigation = useNavigation();
 
   const renderItem = ({item, index}) => {
@@ -56,9 +50,12 @@ export default function NotificationScreen() {
           marginHorizontal: 12,
           backgroundColor: item.is_read ? COLOR_WHITE : COLOR_SECONDARY,
           alignItems: 'center',
+          justifyContent: 'space-between',
         }}>
-        <View style={{}}>
-          {item.meta_data &&
+        <View>
+          <View style={{}}>
+            {console.log(item.meta_data !== null ? item : null)}
+            {/* {item.meta_data &&
           JSON.parse(item.meta_data).source_user_profile !== null ? (
             <Image
               source={{
@@ -117,29 +114,41 @@ export default function NotificationScreen() {
                 scale={1}
               />
             </View>
-          ) : null}
-        </View>
-        <View
-          style={{
-            marginLeft: 12,
-            width: windowWidth - 48 - 16 - 16 - 12 - 24,
-            alignSelf: 'flex-start',
-          }}>
+          ) : null} */}
+          </View>
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginBottom: 8,
+              marginLeft: 12,
+              width: windowWidth - 48 - 16 - 16 - 12 - 24 - 48,
+              alignSelf: 'flex-start',
             }}>
-            <B17>{item.notification_type_name}</B17>
-            <B12 customStyle={{color: COLOR_GRAY}}>
-              {actions.timeSince(item.created_at)}
-            </B12>
+            <View
+              style={{
+                marginBottom: 8,
+              }}>
+              <B17>{item.notification_type_name}</B17>
+            </View>
+            <B12 customStyle={{color: COLOR_GRAY}}>{item.message}</B12>
           </View>
-          <B12 customStyle={{color: COLOR_GRAY}}>
-            {item.notification_type_id},{item.message}
+        </View>
+        <View style={{position: 'absolute', top: 12, right: 16}}>
+          <AnimatedButton onPress={() => actions.onDeleteComplete(index)}>
+            <Close
+              width={16}
+              height={16}
+              stroke={COLOR_BLACK}
+              strokeWidth={2}
+              scale={0.6}
+            />
+          </AnimatedButton>
+        </View>
+        <View style={{position: 'absolute', bottom: 12, right: 16}}>
+          <B12
+            customStyle={{
+              color: COLOR_GRAY,
+            }}>
+            {actions.timeSince(item.created_at)}
           </B12>
-          {/* <M15>{item.user_id}</M15> */}
         </View>
       </View>
     );
@@ -188,7 +197,10 @@ export default function NotificationScreen() {
       </View>
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={state.refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={state.refreshing}
+            onRefresh={actions.onRefresh}
+          />
         }
         data={state.notificationData}
         renderItem={renderItem}

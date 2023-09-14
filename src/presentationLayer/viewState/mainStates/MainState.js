@@ -27,6 +27,9 @@ export const MainViewStateProvider = ({children}) => {
   const [refreshing, setRefreshing] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(null);
+  const [showPostCodeModal, setShowPostCodeModal] = useState(false);
+  const [address, setAddress] = useState(null);
+  const [zonecode, setZonecode] = useState(null);
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
   // ... 다른 상태들
@@ -48,6 +51,9 @@ export const MainViewStateProvider = ({children}) => {
     refreshing,
     dropdownVisible,
     snackbarMessage,
+    showPostCodeModal,
+    address,
+    zonecode,
   };
 
   const actions = {
@@ -64,6 +70,9 @@ export const MainViewStateProvider = ({children}) => {
     setRefreshing,
     setDropdownVisible,
     setSnackbarMessage,
+    setShowPostCodeModal,
+    setAddress,
+    setZonecode,
   };
 
   return (

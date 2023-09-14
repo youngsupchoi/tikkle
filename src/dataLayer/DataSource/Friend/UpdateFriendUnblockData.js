@@ -78,6 +78,6 @@ export async function updateFriendUnlockData(friend_id) {
   return {
     DScode: 0,
     DSdata: {success: true},
-    DSmessage: '친구의 차단여부 변경에 성공했어요.',
+    DSmessage: '친구 차단 해제에 성공했어요.',
   };
 }

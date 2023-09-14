@@ -11,7 +11,7 @@ import SignUpScreen2 from 'src/presentationLayer/view/screens/startScreens/AuthS
 import SignUpScreen3 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/NameInputScreen';
 import SignUpScreen4 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/GenderInputScreen';
 import SignUpScreen5 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/BirthDayInputScreen';
-import SignUpScreen6 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/IdInput';
+import SignUpScreen6 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/IdInputScreen';
 import StartTikklingScreen from 'src/presentationLayer/view/screens/tikklingScreens/StartTikklingScreen';
 import NotificationScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationScreen';
 import NotificationSettingScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationSettingScreen';
@@ -30,6 +30,7 @@ import ProductDetailScreen from 'src/presentationLayer/view/screens/productScree
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
 import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
+import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationSettingState';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -49,6 +50,11 @@ const Notification = () => (
   </NotificationViewStateProvider>
 );
 
+const NotificationSetting = () => (
+  <NotificationSettingViewStateProvider>
+    <NotificationSettingScreen />
+  </NotificationSettingViewStateProvider>
+);
 
 const MainStack = createStackNavigator();
 const SignUpStack = createStackNavigator();
@@ -171,7 +177,7 @@ export default function MainStackNavigator() {
         <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen
           name="notificationSetting"
-          component={NotificationSettingScreen}
+          component={NotificationSetting}
         />
         {/* <MainStack.Screen
           name="findFriendsByContacts"

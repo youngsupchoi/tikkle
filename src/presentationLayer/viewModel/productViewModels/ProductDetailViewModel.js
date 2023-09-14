@@ -25,25 +25,32 @@ export const useProductDetailViewModel = () => {
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
   const loadData = async productId => {
+    console.log(productId);
     await getProductInfoData(productId)
       .then(res => {
+        console.log(res);
         return topActions.setStateAndError(res);
       })
       .then(res => {
-        actions.setReceivedData(res.info);
+        actions.setReceivedData(res.DSdata.info);
+        if (res.DSdata.info.wishlisted !== null) {
+          actions.setWishlisted(true);
+        } else {
+          actions.setWishlisted(false);
+        }
       });
   };
 
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
-      console.log(res);
+      console.log('Delete : ', res);
       topActions.setStateAndError(res);
     });
   };
 
   const createMyWishlistData_ = async productId => {
     await createMyWishlistData(productId).then(res => {
-      console.log(res);
+      console.log('Add : ', res);
       return topActions.setStateAndError(res);
     });
   };

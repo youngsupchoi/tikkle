@@ -19,6 +19,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
@@ -39,6 +40,7 @@ import SearchNormal1 from 'src/assets/icons/SearchNormal1';
 import Location from 'src/assets/icons/Location';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
+import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 
 export default function StartTikklingScreen() {
   const {state, actions} = useStartTikklingViewModel();
@@ -48,9 +50,9 @@ export default function StartTikklingScreen() {
 
   useEffect(() => {
     actions.setIsButtonEnabled(
-      state.zonecode !== null &&
-        state.address !== null &&
-        state.detailAddress !== null &&
+      (state.userData.zonecode !== null || state.zonecode !== null) &&
+        (state.userData.address !== null || state.address !== null) &&
+        (state.userData.detail_address !== null || state.detailAddress) &&
         state.eventType !== null,
     );
   }, [state.zonecode, state.address, state.detailAddress, state.event]);
@@ -408,7 +410,8 @@ export default function StartTikklingScreen() {
           }}
           mode="date"
           minimumDate={new Date()} // 오늘의 날짜를 최소 날짜로 설정
-          title={'날짜를 선택하세요.'}
+          maximumDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)}
+          title={'티클링은 최대 7일 간 진행할 수 있어요!'}
           confirmText="확인"
           cancelText="취소"
         />
@@ -461,7 +464,7 @@ export default function StartTikklingScreen() {
             }}>
             <AnimatedButton
               onPress={() => {
-                actions.setShowSearchModal(true);
+                actions.setShowPostCodeModal(true);
               }}
               style={{
                 marginTop: 16,
@@ -543,8 +546,8 @@ export default function StartTikklingScreen() {
                   />
                 </View>
                 <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                  {state.detailAddress !== null
-                    ? `${state.detailAddress}`
+                  {state.userData.detail_address !== null
+                    ? `${state.userData.detail_address}`
                     : '상세주소 입력'}
                 </B15>
               </View>
@@ -570,41 +573,26 @@ export default function StartTikklingScreen() {
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
       </ScrollView>
-      <Modal
-        onBackdropPress={actions.onCloseSearchModal}
-        isVisible={state.showSearchModal}
-        backdropOpacity={0.5}>
-        <View
-          style={{
-            // backgroundColor: 'red',
-            width: windowWidth - 48,
-            height: windowWidth,
-          }}>
-          <Postcode
-            style={{
-              width: windowWidth - 48,
-              height: windowWidth,
-              backgroundColor: backgroundColor,
-            }}
-            jsOptions={{animation: true}}
-            onSelected={data => {
-              actions.setAddress(data.address);
-              actions.setZonecode(data.zonecode);
-              actions.setShowSearchModal(false);
-              actions.setShowDetailModal(true);
-            }}
-          />
-        </View>
-      </Modal>
+
+      <PostCodeModal
+        state={state}
+        actions={actions}
+        // setShowPostCodeModal={actions.setShowPostCodeModal}
+        // showPostCodeModal={state.showSearchModal}
+        // setAddress={actions.setAddress}
+        // setZoneCode={actions.setZonecode}
+      />
       <DetailAddressInput
-        showDetailModal={state.showDetailModal}
-        setShowDetailModal={actions.setShowDetailModal}
-        setShowSearchModal={actions.setShowSearchModal}
-        zonecode={state.zonecode}
-        address={state.address}
-        setDetailAddress={actions.setDetailAddress}
-        detailAddress={state.detailAddress}
-        onCloseDetailModal={actions.onCloseDetailModal}
+        // showDetailModal={state.showDetailModal}
+        // setShowDetailModal={actions.setShowDetailModal}
+        // setShowSearchModal={actions.setShowSearchModal}
+        // zonecode={state.zonecode}
+        // address={state.address}
+        // setDetailAddress={actions.setDetailAddress}
+        // detailAddress={state.detailAddress}
+        // onCloseDetailModal={actions.onCloseDetailModal}
+        state={state}
+        actions={actions}
       />
     </View>
   );

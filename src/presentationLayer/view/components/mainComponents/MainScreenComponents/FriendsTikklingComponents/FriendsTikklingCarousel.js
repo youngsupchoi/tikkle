@@ -37,6 +37,7 @@ import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_OUTLINE,
   COLOR_PRIMARY_TEXT,
   COLOR_SEPARATOR,
   COLOR_WHITE,
@@ -52,35 +53,19 @@ import TimerComponent from 'src/presentationLayer/view/components/mainComponents
 import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/BuyTikkleModal';
 
 export default function FriendsTikklingCarousel(data) {
-  const [showBuyModal, setShowBuyModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(null);
   const onCloseModal = () => {
-    setShowBuyModal(false);
+    setShowBuyModal(null);
   };
+
   const navigation = useNavigation();
   const renderFriendsTikkling = ({item}) => {
     return (
-      <View
-        style={{
-          borderColor: COLOR_SEPARATOR,
-          borderWidth: 1,
-          paddingTop: 8,
-          borderRadius: 12,
-          backgroundColor: COLOR_WHITE,
-          elevation: 4,
-          // margin: 8,
-          marginLeft: 24,
-          marginHorizontal: 8,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 8,
-            paddingBottom: 8,
-          }}>
+      <View style={styles.renderItemContainer}>
+        <View style={styles.renderItemHeaderContainer}>
           <Image
             resizeMode="contain"
-            style={{width: 36, height: 36, borderRadius: 24}}
+            style={styles.renderItemProfileImage}
             source={{
               uri:
                 item.friend_image !== null
@@ -256,13 +241,15 @@ export default function FriendsTikklingCarousel(data) {
               <AnimatedButton
                 onPress={() => {
                   new Date(item.funding_limit) > new Date()
-                    ? setShowBuyModal(true)
+                    ? setShowBuyModal(item.tikkling_id)
                     : null;
                 }}
                 style={{
                   padding: 12,
                   borderRadius: 12,
                   backgroundColor: COLOR_PRIMARY,
+                  borderColor: COLOR_PRIMARY_OUTLINE,
+                  borderWidth: 2,
                   alignItems: 'center',
                   flexDirection: 'row',
                   justifyContent: 'center',
@@ -275,10 +262,9 @@ export default function FriendsTikklingCarousel(data) {
             </View>
           </View>
         </View>
-        {console.log('바이티클모달에 들어가는 아이템', item)}
         <BuyTikkleModal
           data={item}
-          showModal={showBuyModal}
+          showModal={showBuyModal === item.tikkling_id}
           onCloseModal={onCloseModal}
         />
       </View>
@@ -286,7 +272,6 @@ export default function FriendsTikklingCarousel(data) {
   };
   return (
     <View>
-      {/* {console.log(data.data)} */}
       <FlatList
         showsHorizontalScrollIndicator={false}
         data={data.data}
@@ -377,4 +362,22 @@ const styles = StyleSheet.create({
     // elevation: 3,
     // backgroundColor: backgroundColor,
   },
+  renderItemContainer: {
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    paddingTop: 8,
+    borderRadius: 12,
+    backgroundColor: COLOR_WHITE,
+    elevation: 4,
+    // margin: 8,
+    marginLeft: 24,
+    marginHorizontal: 8,
+  },
+  renderItemHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingBottom: 8,
+  },
+  renderItemProfileImage: {width: 36, height: 36, borderRadius: 24},
 });

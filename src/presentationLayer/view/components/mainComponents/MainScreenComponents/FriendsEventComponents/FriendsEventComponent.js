@@ -23,8 +23,10 @@ export default function FriendsEventComponent() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <B20 customStyle={{fontFamily: EB}}>다가오는 기념일</B20>
-        <AnimatedButton style={styles.animatedButton}>
+        <B20 customStyle={{fontFamily: EB, marginVertical: 10}}>
+          다가오는 기념일
+        </B20>
+        {/* <AnimatedButton style={styles.animatedButton}>
           <ArrowRight
             width={24}
             height={24}
@@ -32,7 +34,7 @@ export default function FriendsEventComponent() {
             strokeWidth={1.5}
             scale={1}
           />
-        </AnimatedButton>
+        </AnimatedButton> */}
       </View>
       {state.friendEventData.length > 0 && (
         <FriendsEvents friendsEventData={state.friendEventData} />
@@ -46,10 +48,19 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     backgroundColor: COLOR_WHITE,
     borderRadius: 24,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      // iOS용 그림자 위치
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2, // iOS용 그림자 투명도
+    shadowRadius: 3, // iOS용 그림자 반경
   },
   header: {
-    padding: 24,
-    paddingBottom: 0,
+    paddingHorizontal: 24,
+    paddingTop: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

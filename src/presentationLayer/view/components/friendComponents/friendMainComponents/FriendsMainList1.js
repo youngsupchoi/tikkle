@@ -15,15 +15,17 @@ import SearchNormal1 from '../../assets/icons/SearchNormal1';
 import Present from '../../assets/icons/Present';
 import AnimatedButton from '../Global/Buttons/AnimatedButton';
 import Detail from '../../assets/icons/Detail';
+import {useFriendMainViewModel} from 'src/presentationLayer/viewModel/friendViewModels/FriendsMainViewModel';
 
-export default function FriendsManagementSearch1(props) {
-  const {receivedData, post_user_friend, put_friend_block, selected} = props;
-  console.log('iiiiii', receivedData);
-  const friendsData = receivedData ? receivedData : null;
+export default function FriendsManagementSearch1() {
+  const {ref, state, actions} = useFriendMainViewModel();
+
+  const friendsData = state.receivedData ? state.receivedData : null;
 
   const recentlyAddedFriends = friendsData.filter(
     friend => friend.recentlyAdded,
   );
+
   const oldFriends = friendsData.filter(friend => !friend.recentlyAdded);
 
   const FriendListItem = ({image, nick, name, id}) => {
@@ -36,10 +38,12 @@ export default function FriendsManagementSearch1(props) {
           onPress={() => {
             // Handle block action
             console.log(id);
-            put_friend_block(id);
+            actions.put_friend_block(id);
             setMenuVisible(false);
           }}>
-          <Text>{selected === '친구 리스트' ? '친구 삭제' : '되돌리기'}</Text>
+          <Text>
+            {state.selected === '친구 리스트' ? '친구 삭제' : '되돌리기'}
+          </Text>
         </AnimatedButton>
       </View>
     );
@@ -100,7 +104,7 @@ export default function FriendsManagementSearch1(props) {
 
   return (
     <View style={styles.container}>
-      {selected === '친구 리스트' ? (
+      {state.selected === '친구 리스트' ? (
         recentlyAddedFriends.length > 0 ? (
           <View>
             <M15>최근 추가된 친구</M15>
@@ -118,7 +122,7 @@ export default function FriendsManagementSearch1(props) {
         ) : null
       ) : null}
 
-      {selected === '친구 리스트' ? (
+      {state.selected === '친구 리스트' ? (
         oldFriends.length > 0 ? (
           <View>
             <M15>친구</M15>
@@ -138,7 +142,7 @@ export default function FriendsManagementSearch1(props) {
         )
       ) : null}
 
-      {selected === '삭제한 친구' ? (
+      {state.selected === '삭제한 친구' ? (
         oldFriends.length > 0 ? (
           <View>
             <M15>삭제한 친구</M15>

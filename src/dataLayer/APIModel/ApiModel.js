@@ -39,7 +39,6 @@ export async function apiModel(lambda_name, authorization, body, query) {
 
     try {
       const response = await api.post(url, body, {headers: headers});
-
       return {status: response.status, data: response.data};
     } catch (error) {
       return {status: error.response.status, data: error.response.data};
