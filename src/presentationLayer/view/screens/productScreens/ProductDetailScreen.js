@@ -37,6 +37,9 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 // import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useProductDetailViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductDetailViewModel';
+
+import Wishlisted from 'src/assets/icons/wishlisted.svg';
+
 const containerWidth = windowWidth - SPACING_6;
 
 export default function ProductDetailScreen(route) {
@@ -104,26 +107,14 @@ export default function ProductDetailScreen(route) {
             borderRadius: 16,
           }}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <M28 customStyle={{marginBottom: 16, fontFamily: EB}}>
-              {state.data.name}
-            </M28>
-            {console.log('state.wishlisted : ', state.wishlisted)}
-            {state.wishlisted ? (
-              <AnimatedButton
-                // 위시리스트 등록되었는지 확인하는 버튼
-                style={{
-                  width: 40,
-                  height: 40,
-                  alignItems: 'left',
-                  justifyContent: 'left',
-                  backgroundColor: 'transparent',
-                  marginLeft: 8,
-                  marginTop: 8,
-                }}>
-                {/* Add a heart shape icon or text inside the button */}
-                <Text style={{color: 'white'}}>{'❤️'}</Text>
-              </AnimatedButton>
-            ) : null}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <M28 customStyle={{marginBottom: 16, fontFamily: EB}}>
+                {state.data.name}
+              </M28>
+              {state.wishlisted && (
+                <Wishlisted width={50} marginBottom={17} marginHorizontal={5} />
+              )}
+            </View>
             <M15 customStyle={{color: COLOR_GRAY, marginBottom: 40}}>
               {state.data.brand_name}
             </M15>
