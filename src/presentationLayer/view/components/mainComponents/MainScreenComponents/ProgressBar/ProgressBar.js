@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bar: {
-    height: 8,
+    height: 6,
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     backgroundColor: COLOR_BLACK,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   totalBar: {
     backgroundColor: COLOR_SEPARATOR,
-    height: 8,
+    height: 6,
     width: '100%',
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,

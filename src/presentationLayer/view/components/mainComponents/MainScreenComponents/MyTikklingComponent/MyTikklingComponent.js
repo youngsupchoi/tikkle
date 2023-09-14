@@ -52,7 +52,9 @@ const MyTikklingComponent = () => {
           <Animated.View style={[styles.dropdown, dropdownStyle]}>
             <AnimatedButton
               onPress={() => {
-                actions.buttonPress();
+                // actions.buttonPress();
+                actions.toggleCancelModal();
+                actions.hideDropdown();
               }}
               style={styles.dropdownButton}>
               <View style={styles.iconContainer}>
@@ -90,8 +92,9 @@ const MyTikklingComponent = () => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 12,
+    marginHorizontal: 16,
     backgroundColor: COLOR_WHITE,
-    borderRadius: 24,
+    borderRadius: 16,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -129,7 +132,15 @@ const styles = StyleSheet.create({
     right: 24,
     zIndex: 20,
     borderRadius: 12,
-    elevation: 10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      // iOS용 그림자 위치
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2, // iOS용 그림자 투명도
+    shadowRadius: 3, // iOS용 그림자 반경
   },
   dropdownButton: {
     flexDirection: 'row',
