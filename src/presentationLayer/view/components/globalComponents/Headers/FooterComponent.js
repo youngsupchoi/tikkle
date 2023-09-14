@@ -76,9 +76,9 @@ export default function Footer() {
           <View></View>
         </View>
         <B12 customStyle={{color: COLOR_GRAY}}>
-          상호명: (주)라이폴리
+          상호명: 라이폴리
           {'\n'}
-          대표: 김현수
+          대표: 이흥규
           {'\n'}
           사업자등록번호: 000-00-00000 |{'\n'}
           통신판매업신고번호: 제2021-서울강남-00000호
