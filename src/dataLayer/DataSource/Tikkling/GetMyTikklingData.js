@@ -123,7 +123,10 @@ export async function getMyTikklingData() {
     };
   }
 
-  const info = response2.data.data[0];
+  const info = response2.data.data;
+  if (info === null) {
+    info = [];
+  }
 
   //------ update token ---------------------------------------------------//
 
