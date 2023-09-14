@@ -42,7 +42,7 @@ export default function FriendsTikklingComponent() {
           paddingBottom: 16,
         }}>
         <B20 customStyle={{fontFamily: EB}}>친구들의 티클링</B20>
-        <AnimatedButton style={{padding: 10}}>
+        {/* <AnimatedButton style={{padding: 10}}>
           <ArrowRight
             width={24}
             height={24}
@@ -50,7 +50,7 @@ export default function FriendsTikklingComponent() {
             strokeWidth={1.5}
             scale={1}
           />
-        </AnimatedButton>
+        </AnimatedButton> */}
       </View>
       <View>
         <FriendsTikklingCarousel data={state.friendTikklingData} />

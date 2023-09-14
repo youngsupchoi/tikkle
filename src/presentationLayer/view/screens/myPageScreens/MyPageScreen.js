@@ -86,7 +86,7 @@ export default function ProfileScreen() {
                 <B20 customStyle={{marginLeft: 12}}>내 정보</B20>
               </View>
 
-              <AnimatedButton
+              {/* <AnimatedButton
                 style={{
                   padding: 10,
                   // backgroundColor: 'red',
@@ -97,7 +97,7 @@ export default function ProfileScreen() {
                   stroke={COLOR_BLACK}
                   strokeWidth={1.5}
                 />
-              </AnimatedButton>
+              </AnimatedButton> */}
             </AnimatedButton>
             <View
               style={{
