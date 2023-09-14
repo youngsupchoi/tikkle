@@ -32,6 +32,7 @@ export const FriendMainViewStateProvider = ({children}) => {
   const [text, setText] = useState('');
   const [selected, setSelected] = useState(null);
   const [receivedData, setReceivedData] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const opacityValue = useRef(new Animated.Value(1)).current;
 
@@ -51,6 +52,7 @@ export const FriendMainViewStateProvider = ({children}) => {
     text,
     selected,
     receivedData,
+    refreshing,
   };
 
   const actions = {
@@ -65,6 +67,7 @@ export const FriendMainViewStateProvider = ({children}) => {
     setText,
     setSelected,
     setReceivedData,
+    setRefreshing,
   };
 
   return (
