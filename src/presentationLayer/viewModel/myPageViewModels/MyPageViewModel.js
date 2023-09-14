@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {View, StyleSheet, Linking} from 'react-native';
-import {CONTRACT_URL, PRIVATECONTRACT_URL} from '@env';
+import {CONTRACT_URL, PRIVATECONTRACT_URL, REFUNDPOLICY_URL} from '@env';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useMyPageViewState} from '../../viewState/myPageStates/MyPageState';
 
@@ -94,6 +94,11 @@ export const useMyPageViewModel = () => {
     const url = CONTRACT_URL;
     Linking.openURL(url);
   };
+  const refundPolicyLink = () => {
+    // Define the URL you want to link to
+    const url = REFUNDPOLICY_URL;
+    Linking.openURL(url);
+  };
 
   /**
    * customerCenterScreen에서 개인정보 처리방침 링크를 연결하는 함수
@@ -137,6 +142,7 @@ export const useMyPageViewModel = () => {
       contractLink,
       privateDataLink,
       sendMail,
+      refundPolicyLink,
     },
   };
 };

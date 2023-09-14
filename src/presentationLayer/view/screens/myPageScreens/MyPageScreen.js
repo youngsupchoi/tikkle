@@ -331,7 +331,6 @@ export default function ProfileScreen() {
                           borderTopRightRadius: 12,
                           alignItems: 'center',
                         }}>
-                        {console.log(item)}
                         <Image
                           source={{
                             uri: `${item.product_image}`,
