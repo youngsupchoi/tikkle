@@ -24,8 +24,6 @@ export const useMainViewModel = () => {
   const loadData = async () => {
     actions.setLoading(true);
     getHomeScreenData().then(res => {
-      // console.log(res.DSdata.my_tikkling);
-      console.log(res.DSdata.my_tikkling);
       actions.setFriendEventData(res.DSdata.friend_event);
       actions.setFriendTikklingData(res.DSdata.friend_tikkling);
       actions.setIsNotice(res.DSdata.is_notification);
@@ -35,6 +33,7 @@ export const useMainViewModel = () => {
       actions.setUserData(res.DSdata.user_info);
     });
     actions.setLoading(false);
+    console.log('@@', state.myTikklingData);
   };
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
