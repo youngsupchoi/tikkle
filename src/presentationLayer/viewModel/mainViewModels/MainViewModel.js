@@ -40,71 +40,73 @@ export const useMainViewModel = () => {
     } finally {
       actions.setLoading(false);
     }
+  };
 
-    // 5. 필요한 로직 작성하기 (예: 데이터 검색)
-    const onRefresh = async () => {
-      actions.setRefreshing(true);
-      loadData();
-      actions.setRefreshing(false);
-    };
+  // 5. 필요한 로직 작성하기 (예: 데이터 검색)
+  const onRefresh = async () => {
+    actions.setRefreshing(true);
+    loadData();
+    actions.setRefreshing(false);
+  };
 
-    const showDropdown = () => {
-      actions.setDropdownVisible(true);
-      Animated.timing(ref.dropdownAnimation, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    };
+  const showDropdown = () => {
+    actions.setDropdownVisible(true);
+    Animated.timing(ref.dropdownAnimation, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
 
-    const hideDropdown = () => {
-      Animated.timing(ref.dropdownAnimation, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start(() => actions.setDropdownVisible(false));
-    };
+  const hideDropdown = () => {
+    Animated.timing(ref.dropdownAnimation, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => actions.setDropdownVisible(false));
+  };
 
-    const keyExtractor = (item, index) => {
-      return index.toString();
-    };
+  const keyExtractor = (item, index) => {
+    return index.toString();
+  };
 
-    //우측 상단 종료하기 버튼
-    const buttonPress = () => {
-      if (state.myTikklingData.tikkle_count === '0') {
-        console.log(state.myTikklingData.tikkling_id);
-        updateCancelTikklingData(state.myTikklingData.tikkling_id);
-        actions.setDropdownVisible(false);
-      } else {
-        console.log(state.myTikklingData.tikkling_id);
-        updateEndTikklingData(state.myTikklingData.tikkling_id);
-        actions.setDropdownVisible(false);
-      }
-    };
+  //우측 상단 종료하기 버튼
+  const buttonPress = () => {
+    if (state.myTikklingData.tikkle_count === '0') {
+      console.log(state.myTikklingData.tikkling_id);
+      updateCancelTikklingData(state.myTikklingData.tikkling_id);
+      actions.setDropdownVisible(false);
+    } else {
+      console.log(state.myTikklingData.tikkling_id);
+      updateEndTikklingData(state.myTikklingData.tikkling_id);
+      actions.setDropdownVisible(false);
+    }
+  };
 
-    const toggleCancelModal = () => {
-      actions.setShowCancelModal(!state.showCancelModal);
-      console.log('hihihi');
-      console.log(state.showCancelModal);
-    };
+  const toggleCancelModal = () => {
+    actions.setShowCancelModal(!state.showCancelModal);
+    console.log('hihihi');
+    console.log(state.showCancelModal);
+  };
 
-    return {
-      ref: {...ref},
-      state: {
-        ...state,
-      },
-      actions: {
-        ...actions,
-        onRefresh,
-        showDropdown,
-        hideDropdown,
-        buttonPress,
-        loadData,
-        keyExtractor,
-        navigation,
-        updateEndTikklingData,
-        toggleCancelModal,
-      },
-    };
+  return {
+    ref: {
+      ...ref,
+    },
+    state: {
+      ...state,
+    },
+    actions: {
+      ...actions,
+      onRefresh,
+      showDropdown,
+      hideDropdown,
+      buttonPress,
+      loadData,
+      keyExtractor,
+      navigation,
+      updateEndTikklingData,
+      toggleCancelModal,
+    },
   };
 };
