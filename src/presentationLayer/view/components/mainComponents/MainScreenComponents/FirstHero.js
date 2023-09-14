@@ -5,11 +5,14 @@ import {
   B12,
   B15,
   B17,
+  B20,
   B22,
   B28,
   EB,
+  H,
   M,
   M11,
+  M17,
   UNIQUE,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -43,6 +46,9 @@ import CalendarFilled from 'src/assets/icons/CalendarFilled';
 import Present from 'src/assets/icons/Present';
 import Delete from 'src/assets/icons/Delete';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
+import LinearGradient from 'react-native-linear-gradient';
+import CancelModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CancelModal';
+import FlagFilled from 'src/assets/icons/FlagFilled';
 
 //-------------------------------------------------------------------------
 
@@ -208,7 +214,6 @@ const FirstHero = props => {
           backgroundColor: '#ffffff',
           contentUrl: '',
         });
-        // console.log('instagramInstalled: ', res, stickerUri);
       } else {
         // If instagram is not installed in user's device then just share using the usual device specific bottomsheet (https://react-native-share.github.io/react-native-share/docs/share-open)
         await Share.open({url: stickerUri});
@@ -235,82 +240,204 @@ const FirstHero = props => {
   return (
     <View style={styles.outerContainer}>
       <ViewShot ref={backgroundImageRef}>
-        <View>
-          <ViewShot ref={smallImageRef}>
-            <View style={styles.innerContainer}>
-              <View style={styles.innerRowDirection}>
-                <View>
-                  <Image
-                    resizeMode="cover"
-                    source={{
-                      uri:
-                        state.myTikklingData.thumbnail_image !== null
-                          ? state.myTikklingData.thumbnail_image
-                          : '',
-                    }}
-                    style={styles.imageStyle} // Some style for the image on the MyTikklingScreen
-                  />
-                </View>
-                <View style={styles.innerViewStyle}>
-                  <View style={styles.productNameContainer}>
-                    <View>
+        <View style={{backgroundColor: COLOR_WHITE}}>
+          {/* <View style={styles.innerContainer}>
+            <View style={styles.innerRowDirection}>
+              <View>
+                <Image
+                  resizeMode="cover"
+                  source={{
+                    uri:
+                      state.myTikklingData.thumbnail_image !== null
+                        ? state.myTikklingData.thumbnail_image
+                        : '',
+                  }}
+                  style={styles.imageStyle} // Some style for the image on the MyTikklingScreen
+                />
+              </View>
+              <View style={styles.innerViewStyle}>
+                <View style={styles.productNameContainer}>
+                  <View>
+                    <View style={styles.productDetails}>
                       <View style={styles.productDetails}>
-                        <View style={styles.productDetails}>
-                          <B22 customStyle={{fontFamily: EB}}>
-                            {state.myTikklingData.product_name}
-                          </B22>
-                          <B12
-                            customStyle={{
-                              color: COLOR_GRAY,
-                              marginVertical: 4,
-                              fontFamily: M,
-                            }}>
-                            현재까지{' '}
-                            {Math.round(
-                              (state.myTikklingData.tikkle_count /
-                                state.myTikklingData.tikkle_quantity) *
-                                1000,
-                            ) / 10}
-                            % 달성했어요!
-                          </B12>
-                        </View>
+                        <B22 customStyle={{fontFamily: EB}}>
+                          {state.myTikklingData.product_name}
+                        </B22>
+                        <B12
+                          customStyle={{
+                            color: COLOR_GRAY,
+                            marginVertical: 4,
+                            fontFamily: M,
+                          }}>
+                          현재까지{' '}
+                          {Math.round(
+                            (state.myTikklingData.tikkle_count /
+                              state.myTikklingData.tikkle_quantity) *
+                              1000,
+                          ) / 10}
+                          % 달성했어요!
+                        </B12>
                       </View>
                     </View>
                   </View>
+                </View>
 
-                  <View
-                    style={{
-                      // alignSelf: 'center',
-                      marginLeft: 12,
-                      marginTop: 4,
-                      width: windowWidth - 96 - 80 - 12 + 20,
-                    }}>
-                    <BarComponent
-                      totalPieces={state.myTikklingData.tikkle_quantity}
-                      gatheredPieces={state.myTikklingData.tikkle_count}
-                    />
-                  </View>
+                <View
+                  style={{
+                    // alignSelf: 'center',
+                    marginLeft: 12,
+                    marginTop: 4,
+                    width: windowWidth - 96 - 80 - 12 + 12,
+                  }}>
+                  <BarComponent
+                    totalPieces={state.myTikklingData.tikkle_quantity}
+                    gatheredPieces={state.myTikklingData.tikkle_count}
+                  />
                 </View>
               </View>
+            </View>
+            <View
+              style={{
+                backgroundColor: COLOR_WHITE,
+                borderRadius: 40,
+                borderColor: COLOR_BLACK,
+                borderWidth: 1,
+                padding: 4,
+                paddingHorizontal: 10,
+                position: 'absolute',
+                top: 12,
+                right: 12,
+              }}>
+              <B12>{state.myTikklingData.brand_name}</B12>
+            </View>
+            <View style={{position: 'absolute', bottom: 6, right: 12}}>
+              <B15 customStyle={{fontFamily: UNIQUE}}>TIKKLE</B15>
+            </View>
+          </View> */}
+
+          {/* //----------------------------------------------------------------------// */}
+
+          <View>
+            <View
+              style={{
+                width: windowWidth - 64,
+                height: ((windowWidth - 64) / 3) * 2,
+                borderRadius: 16,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
+                alignSelf: 'center',
+                marginBottom: 8,
+              }}>
               <View
                 style={{
-                  backgroundColor: COLOR_WHITE,
-                  borderRadius: 40,
-                  borderColor: COLOR_BLACK,
-                  borderWidth: 1,
-                  padding: 4,
-                  paddingHorizontal: 10,
                   position: 'absolute',
-                  top: 12,
-                  right: 12,
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                  zIndex: -1,
                 }}>
-                <B12>{state.myTikklingData.brand_name}</B12>
+                <Image
+                  resizeMode="cover"
+                  source={{
+                    uri: state.myTikklingData.thumbnail_image,
+                  }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: 16,
+                  }}
+                />
               </View>
-              <View style={{position: 'absolute', bottom: 6, right: 12}}>
-                <B15 customStyle={{fontFamily: UNIQUE}}>TIKKLE</B15>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 0.75}}
+                colors={[
+                  'rgba(255,255,255,0)',
+                  'rgba(255,255,255,.3)',
+                  'rgba(255,255,255,1)',
+                ]}
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  top: 0,
+                  zIndex: 0,
+                  borderBottomRightRadius: 16,
+                  borderBottomLeftRadius: 16,
+                }}
+              />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end',
+                  position: 'absolute',
+                  bottom: 12,
+                  left: 16,
+                  right: 16,
+                }}>
+                <B22 customStyle={{fontFamily: H}}>
+                  {state.myTikklingData.product_name}
+                </B22>
+                <B15 customStyle={{}}>{state.myTikklingData.brand_name}</B15>
               </View>
             </View>
-          </ViewShot>
+            <View
+              style={{
+                alignSelf: 'center',
+                width: windowWidth * 0.8,
+                marginTop: 16,
+                marginBottom: 24,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  marginBottom: 8,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <FlagFilled
+                    width={24}
+                    height={24}
+                    fill={COLOR_PRIMARY}
+                    scale={1.3}
+                  />
+                  <B17
+                    customStyle={{
+                      fontFamily: EB,
+                      color: COLOR_GRAY,
+                      marginLeft: 8,
+                    }}>
+                    달성률
+                  </B17>
+                </View>
+                <View
+                  style={{
+                    alignItems: 'flex-end',
+                    marginBottom: 12,
+                  }}>
+                  <B17>
+                    {Math.round(
+                      (state.myTikklingData.tikkle_count /
+                        state.myTikklingData.tikkle_quantity) *
+                        1000,
+                    ) / 10}
+                    %
+                  </B17>
+                </View>
+              </View>
+              <BarComponent
+                totalPieces={state.myTikklingData.tikkle_quantity}
+                gatheredPieces={state.myTikklingData.tikkle_count}
+              />
+            </View>
+            {console.log(state.myTikklingData)}
+          </View>
+
+          {/* //----------------------------------------------------------------------// */}
 
           <View style={styles.mainContainer}>
             {Number(state.myTikklingData.tikkle_count) ===
@@ -329,7 +456,16 @@ const FirstHero = props => {
               </View>
             ) : (
               <View style={styles.detailsContainer}>
-                <View style={{alignItems: 'center'}}>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    padding: 12,
+                    paddingVertical: 16,
+                    width: 0.4 * windowWidth,
+                    borderRadius: 12,
+                  }}>
                   <View
                     style={{
                       alignItems: 'center',
@@ -352,6 +488,12 @@ const FirstHero = props => {
                   <View
                     style={{
                       alignItems: 'center',
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      padding: 12,
+                      paddingVertical: 16,
+                      width: 0.4 * windowWidth,
+                      borderRadius: 12,
                     }}>
                     <View
                       style={{
@@ -380,48 +522,56 @@ const FirstHero = props => {
               </View>
             )}
           </View>
-        </View>
-      </ViewShot>
 
-      <View
-        style={{
-          marginTop: 24,
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-        <AnimatedButton onPress={handleButtonPress} style={styles.buttonStyle}>
           <View
             style={{
-              marginRight: 4,
-              padding: 8,
-              borderRadius: 100,
+              marginTop: 12,
+              flexDirection: 'row',
+              justifyContent: 'center',
             }}>
-            {ButtonIcon}
+            <AnimatedButton
+              onPress={handleButtonPress}
+              style={styles.buttonStyle}>
+              <View
+                style={{
+                  marginRight: 4,
+                  padding: 8,
+                  borderRadius: 100,
+                }}>
+                {ButtonIcon}
+              </View>
+              <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
+            </AnimatedButton>
+            <AnimatedButton
+              onPress={onShareButtonPressed}
+              style={{
+                marginLeft: windowWidth * 0.1,
+                width: 50,
+                height: 50,
+                // backgroundColor: COLOR_SECONDARY,
+                // borderWidth: 1.5,
+                // borderColor: COLOR_PRIMARY_OUTLINE,
+                padding: 6,
+                borderRadius: 100,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={require('src/assets/icons/instagramLogo.png')}
+                style={{width: 32, height: 32}}
+              />
+            </AnimatedButton>
           </View>
-          <B17 customStyle={styles.buttonText}>{ButtonText}</B17>
-        </AnimatedButton>
-        <AnimatedButton
-          onPress={onShareButtonPressed}
-          style={{
-            marginLeft: 20,
-            backgroundColor: COLOR_SECONDARY,
-            borderWidth: 1.5,
-            borderColor: COLOR_SECONDARY,
-            padding: 6,
-            borderRadius: 100,
-          }}>
-          <Image
-            source={require('src/assets/icons/instagramLogo.png')}
-            style={{width: 36, height: 36}}
-          />
-        </AnimatedButton>
-      </View>
+        </View>
+      </ViewShot>
 
       <BuyTikkleModal
         data={state.myTikklingData}
         showModal={showBuyModal}
         onCloseModal={onCloseModal}
       />
+
+      <CancelModal />
 
       <Modal
         isVisible={showEndModal}
@@ -642,28 +792,32 @@ const FirstHero = props => {
 
 const styles = StyleSheet.create({
   outerContainer: {
+    backgroundColor: COLOR_WHITE,
     marginHorizontal: SPACING_2,
     borderRadius: 16,
     marginBottom: 24,
     marginTop: 4,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
   },
   innerContainer: {
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
     backgroundColor: COLOR_WHITE,
-    padding: 12,
+    padding: 16,
     borderRadius: 12,
-    marginBottom: 32,
+    marginBottom: 12,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
   },
   innerRowDirection: {
     flexDirection: 'row',
@@ -693,6 +847,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     width: '100%',
     justifyContent: 'center',
+    backgroundBottomColor: COLOR_WHITE,
   },
   centeredContainer: {
     alignItems: 'center',

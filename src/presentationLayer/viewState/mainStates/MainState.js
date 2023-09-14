@@ -30,6 +30,7 @@ export const MainViewStateProvider = ({children}) => {
   const [showPostCodeModal, setShowPostCodeModal] = useState(false);
   const [address, setAddress] = useState(null);
   const [zonecode, setZonecode] = useState(null);
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
   // ... 다른 상태들
@@ -54,6 +55,7 @@ export const MainViewStateProvider = ({children}) => {
     showPostCodeModal,
     address,
     zonecode,
+    showCancelModal,
   };
 
   const actions = {
@@ -73,6 +75,7 @@ export const MainViewStateProvider = ({children}) => {
     setShowPostCodeModal,
     setAddress,
     setZonecode,
+    setShowCancelModal,
   };
 
   return (

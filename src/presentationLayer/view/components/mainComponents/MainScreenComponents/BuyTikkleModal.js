@@ -28,6 +28,7 @@ import {
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
+  COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -217,24 +218,26 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
       >
         <View style={styles.modalContent}>
           <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
-          <View
-            style={{
-              padding: 12,
-              borderColor: COLOR_SEPARATOR,
-              borderWidth: 1,
-              borderRadius: 8,
-              marginTop: 24,
-            }}>
+          <View style={{marginTop: 24}}>
             <M11 customStyle={{color: COLOR_GRAY}}>
               마음을 담은 메시지를 보내보세요.
             </M11>
-            <TextInput
-              multiline
-              style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
-              onChangeText={value => setMessage(value)}
-              placeholder="생일 축하해!"
-              placeholderTextColor={COLOR_BLACK}
-            />
+            <View
+              style={{
+                padding: 12,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
+                borderRadius: 8,
+                marginTop: 8,
+              }}>
+              <TextInput
+                multiline
+                style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
+                onChangeText={value => setMessage(value)}
+                placeholder="내가 보탠다!"
+                placeholderTextColor={COLOR_SECOND_BLACK}
+              />
+            </View>
           </View>
 
           <DropDownPicker
