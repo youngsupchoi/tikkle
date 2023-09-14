@@ -12,6 +12,7 @@ import SearchedProductItems from 'src/presentationLayer/view/components/productC
 import SelectedStateHeader from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/SelectedStateHeader';
 import {RefreshControl} from 'react-native-gesture-handler';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function ProductSearchLandingScreen() {
   const {state, actions} = useProductMainViewModel();
@@ -58,6 +59,7 @@ export default function ProductSearchLandingScreen() {
           <SearchedProductItems />
         </View>
         <View style={{height: 400}} />
+        <Footer />
       </ScrollView>
     </View>
   );

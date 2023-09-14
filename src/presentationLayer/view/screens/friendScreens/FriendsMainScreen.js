@@ -50,6 +50,7 @@ import UnBlock from 'src/assets/icons/UnBlock';
 import BlockFriend from 'src/assets/icons/BlockFriend';
 
 import {RefreshControl} from 'react-native-gesture-handler';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();

@@ -38,6 +38,7 @@ import TickSquare from 'src/assets/icons/TickSquare';
 import ProfileHeader from 'src/presentationLayer/view/components/globalComponents/Headers/ProfileHeader';
 
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function ProfileScreen() {
   const {ref, state, actions} = useMyPageViewModel();
@@ -389,6 +390,7 @@ export default function ProfileScreen() {
           </View>
         </View>
       )}
+      <Footer />
     </ScrollView>
   );
 }
