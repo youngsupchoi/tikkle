@@ -20,7 +20,7 @@ export default function ProductSearchLandingScreen() {
     actions.setSelectedCategory('전자제품');
   }, []);
   useEffect(() => {
-    actions.loadData();
+    actions.onRefresh();
   }, [
     state.categoryId,
     state.priceMin,

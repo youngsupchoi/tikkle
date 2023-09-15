@@ -15,8 +15,8 @@ export const useProductMainViewModel = () => {
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const loadData = async () => {
-    actions.setRefreshing(true);
-    getProductListData(
+    await actions.setLoading(true);
+    await getProductListData(
       state.categoryId,
       state.priceMin,
       state.priceMax,
@@ -25,12 +25,12 @@ export const useProductMainViewModel = () => {
       state.search,
       state.getNum,
     ).then(res => actions.setSearchedData(res.DSdata.info));
-    actions.setRefreshing(false);
+    await actions.setLoading(false);
   };
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
     actions.setRefreshing(true);
-    loadData();
+    await loadData();
     actions.setRefreshing(false);
   };
 
