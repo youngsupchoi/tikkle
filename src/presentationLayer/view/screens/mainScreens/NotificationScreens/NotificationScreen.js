@@ -28,6 +28,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 
 import {useNotificationViewModel} from 'src/presentationLayer/viewModel/mainViewModels/NotificationViewModel';
 import Close from 'src/assets/icons/Close';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
@@ -196,17 +197,22 @@ export default function NotificationScreen() {
           </AnimatedButton>
         </View>
       </View>
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={state.refreshing}
-            onRefresh={actions.onRefresh}
-          />
-        }
-        data={state.notificationData}
-        renderItem={renderItem}
-        ListFooterComponent={<View style={{height: 800}} />}
-      />
+
+      {state.loading ? (
+        <GlobalLoader />
+      ) : (
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={state.refreshing}
+              onRefresh={actions.onRefresh}
+            />
+          }
+          data={state.notificationData}
+          renderItem={renderItem}
+          ListFooterComponent={<View style={{height: 800}} />}
+        />
+      )}
     </View>
   );
 }
