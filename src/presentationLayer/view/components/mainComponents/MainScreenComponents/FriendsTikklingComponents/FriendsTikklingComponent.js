@@ -22,6 +22,7 @@ export default function FriendsTikklingComponent() {
         backgroundColor: COLOR_WHITE,
         borderRadius: 24,
         paddingTop: 16,
+        marginHorizontal: 16,
         paddingBottom: 24,
         elevation: 3,
         shadowColor: '#000',

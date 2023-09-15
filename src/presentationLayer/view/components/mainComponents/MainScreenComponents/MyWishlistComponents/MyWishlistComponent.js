@@ -30,6 +30,7 @@ export default function MyWishlistComponent() {
         backgroundColor: COLOR_WHITE,
         borderRadius: 24,
         elevation: 3,
+        marginHorizontal: 16,
         shadowColor: '#000',
         shadowOffset: {
           // iOS용 그림자 위치
