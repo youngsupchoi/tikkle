@@ -1,4 +1,11 @@
-import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import {
   B,
@@ -24,6 +31,7 @@ import {
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {CONTRACT_URL, PRIVATECONTRACT_URL} from '@env';
 
 export default function Footer() {
   return (
@@ -88,10 +96,33 @@ export default function Footer() {
           {'\n'}
         </B12>
       </View>
-      <B12 customStyle={{color: COLOR_GRAY}}>
-        {'\n'}
-        고객센터 | 이용약관 | 개인정보처리방침 | 제휴문의 | 입점문의
-      </B12>
+
+      <View
+        style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <View>
+          <AnimatedButton
+            onPress={() => {
+              Linking.openURL(CONTRACT_URL);
+            }}>
+            <B12 customStyle={{color: COLOR_GRAY}}>이용약관</B12>
+          </AnimatedButton>
+        </View>
+
+        <View>
+          <B12 customStyle={{color: COLOR_GRAY}}> | </B12>
+        </View>
+
+        <View>
+          <AnimatedButton
+            onPress={() => {
+              Linking.openURL(PRIVATECONTRACT_URL);
+            }}>
+            <B12 customStyle={{color: COLOR_GRAY}}>개인정보처리방침</B12>
+          </AnimatedButton>
+        </View>
+
+        <B12 customStyle={{color: COLOR_GRAY}}> | 제휴문의 | 입점문의</B12>
+      </View>
     </View>
   );
 }
