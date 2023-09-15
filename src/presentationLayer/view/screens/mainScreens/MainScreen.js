@@ -26,6 +26,7 @@ import Animated, {
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import LottieView from 'lottie-react-native';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function HomeScreen() {
   const {ref, state, actions} = useMainViewModel();
@@ -116,19 +117,7 @@ export default function HomeScreen() {
             tikkling_ticket={state.userData.tikkling_ticket}
           />
           {state.loading ? (
-            <View
-              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-              <LottieView
-                pointerEvents="none"
-                source={require('src/assets/animations/loading.json')} // replace with your Lottie file path
-                autoPlay
-                style={{
-                  width: 120,
-                  height: 120,
-                }}
-              />
-              {/* <HomeLoader width={windowWidth} height={windowHeight}></HomeLoader> */}
-            </View>
+            <GlobalLoader />
           ) : (
             <View>
               {state.isTikkling ? null : (
