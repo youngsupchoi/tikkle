@@ -82,7 +82,7 @@ request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
 const FirstHero = props => {
   const {state, actions} = useMainViewModel();
 
-  const CurrentDate = new Date();
+  const CurrentDate = getKoreanDate();
   const FundingLimit = new Date(state.myTikklingData.funding_limit);
   const TikkleCount = Number(state.myTikklingData.tikkle_count);
   const TikkleQuantity = state.myTikklingData.tikkle_quantity;
@@ -102,7 +102,7 @@ const FirstHero = props => {
       />
     );
     ButtonText = '상품 받기';
-  } else if (TikkleQuantity > 0) {
+  } else if (TikkleQuantity > TikkleCount && TikkleCount !== 0) {
     // 받은 티클 수가 전체 티클 수보다 적은 경우
     if (FundingLimit > CurrentDate) {
       // 현재 시간이 종료 시간을 지나지 않은 경우
@@ -115,7 +115,7 @@ const FirstHero = props => {
           strokeWidth={1.5}
         />
       );
-      ButtonText = '티클 구매하기';
+      ButtonText = '시간 안 지남 티클 구매하기';
     } else {
       // 현재 시간이 종료 시간을 지난 경우
       //console.log('%%%%%%%%%%%%\n\n', FundingLimit, CurrentDate);
@@ -128,7 +128,7 @@ const FirstHero = props => {
           strokeWidth={2}
         />
       );
-      ButtonText = '종료3하기';
+      ButtonText = '시간 지남 종료하기';
     }
   } else {
     // 받은 티클이 없는 경우
@@ -143,9 +143,10 @@ const FirstHero = props => {
           strokeWidth={1.5}
         />
       );
-      ButtonText = '티클 구매하기';
+      ButtonText = '안 지남 티클 구매하기';
     } else {
       // 현재 시간이 종료 시간을 지난 경우
+      console.log('FC', FundingLimit, CurrentDate);
       ButtonIcon = (
         <Delete
           width={24}
@@ -155,7 +156,7 @@ const FirstHero = props => {
           strokeWidth={2}
         />
       );
-      ButtonText = '종료하기';
+      ButtonText = '지남 종료하기';
     }
   }
 
@@ -242,6 +243,7 @@ const FirstHero = props => {
     <View style={styles.outerContainer}>
       <ViewShot ref={backgroundImageRef}>
         <View style={{backgroundColor: COLOR_WHITE}}>
+          {console.log(CurrentDate, FundingLimit)}
           {/* <View style={styles.innerContainer}>
             <View style={styles.innerRowDirection}>
               <View>
@@ -722,7 +724,7 @@ const FirstHero = props => {
       <Modal
         isVisible={showCancelModal}
         backdropOpacity={0.5}
-        // onBackdropPress={setShowEndModal(!showEndModal)}
+        onBackdropPress={() => setShowEndModal(false)}
         // onBackButtonPress={setShowEndModal(false)}
       >
         <View
@@ -758,7 +760,8 @@ const FirstHero = props => {
             }}>
             <AnimatedButton
               onPress={() => {
-                actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
+                // actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
+                actions.buttonPress();
                 setShowCancelModal(false);
               }}
               style={{

@@ -46,6 +46,7 @@ export default function FriendsEventComponent() {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 12,
+    marginHorizontal: 16,
     backgroundColor: COLOR_WHITE,
     borderRadius: 24,
     elevation: 3,

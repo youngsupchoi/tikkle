@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Image, StyleSheet, Animated} from 'react-native';
+import Modal from 'react-native-modal';
 import Delete from 'src/assets/icons/Delete';
 import Detail from 'src/assets/icons/Detail';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
@@ -47,28 +48,38 @@ const MyTikklingComponent = () => {
           }}
           style={styles.animatedButton}>
           <Detail style={styles.detail} />
+          {console.log('tikklingData', state.myTikklingData)}
         </AnimatedButton>
         {state.dropdownVisible && (
-          <Animated.View style={[styles.dropdown, dropdownStyle]}>
-            <AnimatedButton
-              onPress={() => {
-                // actions.buttonPress();
-                actions.toggleCancelModal();
-                actions.hideDropdown();
-              }}
-              style={styles.dropdownButton}>
-              <View style={styles.iconContainer}>
-                <Delete
-                  width={24}
-                  height={24}
-                  stroke={COLOR_ERROR}
-                  strokeWidth={1.5}
-                  scale={1}
-                />
-              </View>
-              <B15 customStyle={styles.deleteText}>종료하기</B15>
-            </AnimatedButton>
-          </Animated.View>
+          <Modal
+            isVisible={state.dropdownVisible}
+            swipeDirection={['up']}
+            useNativeDriver={false}
+            backdropColor="transparent"
+            style={{position: 'absolute', top: 60, right: 20}}
+            onBackdropPress={() => actions.hideDropdown()}
+            transparent={true}>
+            <View style={styles.dropdown}>
+              <AnimatedButton
+                onPress={() => {
+                  // actions.buttonPress();
+                  actions.toggleCancelModal();
+                  actions.hideDropdown();
+                }}
+                style={styles.dropdownButton}>
+                <View style={styles.iconContainer}>
+                  <Delete
+                    width={24}
+                    height={24}
+                    stroke={COLOR_ERROR}
+                    strokeWidth={1.5}
+                    scale={1}
+                  />
+                </View>
+                <B15 customStyle={styles.deleteText}>종료하기</B15>
+              </AnimatedButton>
+            </View>
+          </Modal>
         )}
       </View>
       <View style={styles.dataContainer}>

@@ -99,11 +99,10 @@ export default function HomeHeader(props) {
 const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
-    height: HEADER_HEIGHT,
+    height: HEADER_HEIGHT + StatusBarHeight,
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 1,
-    // elevation: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBarHeight : 0,
+    paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     paddingHorizontal: SPACING_2,

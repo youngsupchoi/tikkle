@@ -400,16 +400,18 @@ export default function StartTikklingScreen() {
           modal
           open={state.open}
           date={state.date}
-          onConfirm={date => {
+          onConfirm={selectedDate => {
+            const endDate = new Date(selectedDate.getTime());
+            endDate.setHours(32, 59, 59, 999);
             actions.setOpen(false);
-            actions.setDate(date);
-            actions.setEndDate(date);
+            actions.setDate(endDate);
+            actions.setEndDate(endDate);
           }}
           onCancel={() => {
-            setOpen(false);
+            actions.setOpen(false);
           }}
           mode="date"
-          minimumDate={new Date()} // 오늘의 날짜를 최소 날짜로 설정
+          minimumDate={new Date(Date.now())} // 오늘의 날짜를 최소 날짜로 설정
           maximumDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)}
           title={'티클링은 최대 7일 간 진행할 수 있어요!'}
           confirmText="확인"
