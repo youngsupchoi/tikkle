@@ -55,8 +55,6 @@ export async function createSendTikkleData(
     };
   }
 
-  console.log('@@@ ', response);
-
   //------ control result & error of post_tikkling_sendtikkle-----------------------------------------//
   if (response.status === 403 || response.status === 404) {
     if (response.data.detail_code === '01') {
@@ -114,7 +112,6 @@ export async function createSendTikkleData(
       body3,
       null,
     );
-    console.log('# : send notification : ', response3);
   } catch (error) {
     console.log('send notification failed');
   }

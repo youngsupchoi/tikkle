@@ -144,7 +144,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
   const buttonPress = async () => {
     await post_tikkling_sendtikkle(data).then(res => {
-      console.log(res);
+      // console.log(res);
       if (res.success === true) {
         setServerMessage(res.message);
         onCloseButtonPress();
