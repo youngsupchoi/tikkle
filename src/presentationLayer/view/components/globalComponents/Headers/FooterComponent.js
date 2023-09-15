@@ -37,7 +37,7 @@ export default function Footer() {
   return (
     <View
       style={{
-        height: 300,
+        height: 250,
         alignItems: 'center',
         justifyContent: 'center',
         // backgroundColor: 'green',
@@ -51,7 +51,7 @@ export default function Footer() {
       <View
         style={{
           width: '100%',
-          height: 50,
+          height: 30,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-start',
