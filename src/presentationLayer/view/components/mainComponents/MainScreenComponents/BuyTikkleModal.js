@@ -42,11 +42,14 @@ import axios from 'axios';
 import {USER_AGENT, BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {createSendTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateSendTikkleData';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
   //토큰 가져오기
+  const {topActions} = useTopViewModel();
 
   const printTokensFromAsyncStorage = async () => {
     try {
@@ -73,51 +76,27 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   async function post_tikkling_sendtikkle(item) {
-    console.log(
-      'post_tikkling_sendtikkle_input_item',
-      item.tikkling_id,
-      selectedValue,
-      message,
-    );
     try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.post(
-        `https://${BASE_URL}/dev/post_tikkling_sendtikkle`,
-        {
-          tikkling_id: item.tikkling_id,
-          tikkle_quantity: selectedValue,
-          message: message,
-        },
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      // Ensure data exists before logging it
-      console.log('post_tikkling_sendtikkle_response', response.data);
-      if (response && response.data) {
-        setErrorMessage('');
-        setReceivedMessage(response.data.data);
-        return response.data;
-      } else {
-        console.log('Response or response data is undefined');
-      }
+      return (ret = await createSendTikkleData(
+        item.tikkling_id,
+        selectedValue,
+        message,
+      )
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          // console.log('$$$', res);
+          setErrorMessage('');
+          setReceivedMessage(res.DSdata);
+          return res.DSdata;
+        }));
     } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('[status code] ', error.response.data);
-        setErrorMessage(error.response.data.message);
-        return error.response.data;
-      }
-      if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.message);
-        console.error('response data : ', error.response.data);
-        return error.response.data;
-      }
+      //에러 처리 필요 -> 정해야함
+      console.log(
+        '[Error in BuyTikklingModal post_tikkling_sendtikkle]\n',
+        error,
+      );
     }
   }
 
@@ -187,8 +166,8 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
     );
   };
 
-  const buttonPress = () => {
-    post_tikkling_sendtikkle(data).then(res => {
+  const buttonPress = async () => {
+    await post_tikkling_sendtikkle(data).then(res => {
       console.log(res);
       if (res.success === true) {
         setServerMessage(res.message);
