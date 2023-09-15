@@ -21,6 +21,7 @@ export const NotificationViewStateProvider = ({children}) => {
   const [refreshing, setRefreshing] = useState(false);
   const [notificationData, setNotificationData] = useState();
   const [notificationsData, setNotificationsData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const ref = {};
 
@@ -30,6 +31,7 @@ export const NotificationViewStateProvider = ({children}) => {
     refreshing,
     notificationData,
     notificationsData,
+    loading,
   };
 
   const actions = {
@@ -38,6 +40,7 @@ export const NotificationViewStateProvider = ({children}) => {
     setRefreshing,
     setNotificationData,
     setNotificationsData,
+    setLoading,
   };
 
   return (

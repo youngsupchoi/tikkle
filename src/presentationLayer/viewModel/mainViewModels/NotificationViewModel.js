@@ -19,20 +19,33 @@ export const useNotificationViewModel = () => {
   /**
    * NotificationScreen에서 나의 알림을 불러오는 함수
    */
-  async function get_notification_list() {
-    try {
-      await getNoticeListData()
-        .then(res => {
-          return topActions.setStateAndError(res);
-        })
-        .then(res => {
-          actions.setNotificationData(res.DSdata.info);
-        });
-    } catch (error) {
-      //에러 처리 필요 -> 정해야함
-      console.log("[Error in MyPageViewModel's get_user_info]\n", error);
-    }
-  }
+
+  const loadData = async () => {
+    await actions.setLoading(true);
+    await getNoticeListData()
+      .then(res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(res => {
+        actions.setNotificationData(res.DSdata.info);
+      });
+    await actions.setLoading(false);
+  };
+
+  // async function get_notification_list() {
+  //   try {
+  //     await getNoticeListData()
+  //       .then(res => {
+  //         return topActions.setStateAndError(res);
+  //       })
+  //       .then(res => {
+  //         actions.setNotificationData(res.DSdata.info);
+  //       });
+  //   } catch (error) {
+  //     //에러 처리 필요 -> 정해야함
+  //     console.log("[Error in MyPageViewModel's get_user_info]\n", error);
+  //   }
+  // }
 
   /**
    * NotificationScreen에서 나의 알림을 삭제하는 함수
@@ -183,7 +196,7 @@ export const useNotificationViewModel = () => {
   const onRefresh = async () => {
     actions.setRefreshing(true);
     // Call your data fetching functions here
-    await get_notification_list();
+    await loadData();
     // Add any other data fetching functions if needed
     actions.setRefreshing(false);
   };
@@ -205,7 +218,7 @@ export const useNotificationViewModel = () => {
     },
     actions: {
       ...actions,
-      get_notification_list,
+      loadData,
       countUnreadNotifications,
       unreadNotificationAmount,
       groupedNotifications,
