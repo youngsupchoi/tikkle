@@ -104,8 +104,12 @@ export default function Footer() {
             onPress={() => {
               Linking.openURL(CONTRACT_URL);
             }}>
-            <B12 customStyle={{color: COLOR_GRAY}}>이용약관 |</B12>
+            <B12 customStyle={{color: COLOR_GRAY}}>이용약관</B12>
           </AnimatedButton>
+        </View>
+
+        <View>
+          <B12 customStyle={{color: COLOR_GRAY}}> | </B12>
         </View>
 
         <View>
@@ -113,11 +117,11 @@ export default function Footer() {
             onPress={() => {
               Linking.openURL(PRIVATECONTRACT_URL);
             }}>
-            <B12 customStyle={{color: COLOR_GRAY}}> 개인정보처리방침 |</B12>
+            <B12 customStyle={{color: COLOR_GRAY}}>개인정보처리방침</B12>
           </AnimatedButton>
         </View>
 
-        <B12 customStyle={{color: COLOR_GRAY}}> 제휴문의 | 입점문의</B12>
+        <B12 customStyle={{color: COLOR_GRAY}}> | 제휴문의 | 입점문의</B12>
       </View>
     </View>
   );
