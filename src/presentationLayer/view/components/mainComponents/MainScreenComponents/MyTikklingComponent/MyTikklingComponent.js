@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     backgroundColor: COLOR_WHITE,
-    position: 'absolute',
-    top: 16,
-    right: 60,
-    zIndex: 20,
+    position: 'relative',
+    top: 48,
+    left: 170,
+    // zIndex: 20,
     borderRadius: 12,
     elevation: 3,
     shadowColor: '#000',
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2, // iOS용 그림자 투명도
     shadowRadius: 3, // iOS용 그림자 반경
+    width: 120,
   },
   dropdownButton: {
     flexDirection: 'row',
