@@ -54,16 +54,15 @@ export default function NotificationScreen() {
         }}>
         <View
           style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-          <View style={{}}>
-            {console.log(item.meta_data !== null ? item : null)}
-            {item.meta_data &&
-            JSON.parse(item.meta_data).source_user_profile !== null ? (
+          <View>
+            {console.log('IMAGE URL : ', item.meta_data !== null ? item : null)}
+            {item.meta_data && item.meta_data.source_user_profile !== null ? (
               <Image
                 source={{
                   uri:
-                    JSON.parse(item.meta_data).source_user_profile !== null
-                      ? JSON.parse(item.meta_data).source_user_profile
-                      : '',
+                    item.meta_data.source_user_profile !== null
+                      ? item.meta_data.source_user_profile
+                      : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
                 }}
                 style={{width: 48, height: 48, borderRadius: 24}}
               />
