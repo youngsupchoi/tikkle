@@ -38,39 +38,15 @@ import CloseCircle from 'src/assets/icons/CloseCircle';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {useNavigation} from '@react-navigation/native';
 import {createSendTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateSendTikkleData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
   //토큰 가져오기
   const {topActions} = useTopViewModel();
-
-  const printTokensFromAsyncStorage = async () => {
-    try {
-      const tokens = await AsyncStorage.getItem('tokens');
-
-      if (tokens !== null) {
-        const token = tokens;
-        // console.log(token);
-        const {accessToken} = JSON.parse(token);
-        const {refreshToken} = JSON.parse(token);
-        const authorization = `${refreshToken},${accessToken}`;
-        return authorization;
-      } else {
-        console.log('No tokens');
-      }
-    } catch (error) {
-      console.error('Error retrieving tokens', error);
-    }
-  };
-
-  //-------------------------------------------------------------------------
 
   const [receivedMessage, setReceivedMessage] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
