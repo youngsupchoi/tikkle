@@ -23,8 +23,6 @@ export const useMainViewModel = () => {
 
   const loadData = async () => {
     try {
-
-
       await actions.setLoading(true);
       await getHomeScreenData().then(res => {
         actions.setFriendEventData(res.DSdata.friend_event);
