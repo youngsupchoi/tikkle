@@ -51,6 +51,7 @@ import BlockFriend from 'src/assets/icons/BlockFriend';
 
 import {RefreshControl} from 'react-native-gesture-handler';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
@@ -228,135 +229,139 @@ export default function FriendsManagementScreen() {
       {console.log(state.getFriendData)}
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={state.refreshing}
-              onRefresh={actions.onRefresh}
-            />
-          }
-          data={state.getFriendData}
-          keyExtractor={(item, index) => String(item.id)}
-          ListEmptyComponent={
-            state.mode_friend === 'unblock'
-              ? () => {
-                  return (
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: windowWidth,
+        {state.refreshing ? (
+          <GlobalLoader />
+        ) : (
+          <FlatList
+            refreshControl={
+              <RefreshControl
+                refreshing={state.refreshing}
+                onRefresh={actions.onRefresh}
+              />
+            }
+            data={state.getFriendData}
+            keyExtractor={(item, index) => String(item.id)}
+            ListEmptyComponent={
+              state.mode_friend === 'unblock'
+                ? () => {
+                    return (
+                      <View
+                        style={{
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          height: windowWidth,
+                        }}>
+                        <M15>아직 사용 중인 친구가 없네요</M15>
+                        <B22>친구를 초대해 보세요!</B22>
+                        <AnimatedButton>
+                          <B15>공유하기</B15>
+                        </AnimatedButton>
+                      </View>
+                    );
+                  }
+                : () => {
+                    return (
+                      <View
+                        style={{
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          height: windowWidth,
+                        }}>
+                        <M15>차단된 친구가 없네요.</M15>
+                        <B22>좋아요!</B22>
+                      </View>
+                    );
+                  }
+            }
+            ListHeaderComponent={
+              // state.getFriendData.length > 0
+              //   ?
+              () => {
+                return (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <B15
+                      customStyle={{
+                        paddingHorizontal: 24,
                       }}>
-                      <M15>아직 사용 중인 친구가 없네요</M15>
-                      <B22>친구를 초대해 보세요!</B22>
-                      <AnimatedButton>
-                        <B15>공유하기</B15>
-                      </AnimatedButton>
-                    </View>
-                  );
-                }
-              : () => {
-                  return (
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: windowWidth,
-                      }}>
-                      <M15>차단된 친구가 없네요.</M15>
-                      <B22>좋아요!</B22>
-                    </View>
-                  );
-                }
-          }
-          ListHeaderComponent={
-            // state.getFriendData.length > 0
-            //   ?
-            () => {
+                      {state.mode_friend === 'unblock'
+                        ? '친구 목록'
+                        : '차단된 이용자'}
+                    </B15>
+                  </View>
+                );
+              }
+              // : null
+            }
+            ListFooterComponent={
+              state.getFriendData.length > 0
+                ? () => {
+                    return <View style={{height: windowHeight}} />;
+                  }
+                : null
+            }
+            renderItem={({item, index}) => {
               return (
                 <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <B15
-                    customStyle={{
-                      paddingHorizontal: 24,
+                  // onLongPress={() => actions.setSelectedItemId(item.id)}
+                  key={item.id}
+                  style={styles.flatListItemContainer}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                     }}>
-                    {state.mode_friend === 'unblock'
-                      ? '친구 목록'
-                      : '차단된 이용자'}
-                  </B15>
-                </View>
-              );
-            }
-            // : null
-          }
-          ListFooterComponent={
-            state.getFriendData.length > 0
-              ? () => {
-                  return <View style={{height: windowHeight}} />;
-                }
-              : null
-          }
-          renderItem={({item, index}) => {
-            return (
-              <View
-                // onLongPress={() => actions.setSelectedItemId(item.id)}
-                key={item.id}
-                style={styles.flatListItemContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Image
-                    source={{
-                      uri:
-                        item.image !== null
-                          ? item.image
-                          : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-                    }}
-                    style={styles.listItemImage}
-                  />
-                  <View style={styles.listItemTextContainer}>
-                    <B15>{item.name}</B15>
-                    <B15 customStyle={{color: COLOR_GRAY}}> @{item.nick}</B15>
+                    <Image
+                      source={{
+                        uri:
+                          item.image !== null
+                            ? item.image
+                            : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+                      }}
+                      style={styles.listItemImage}
+                    />
+                    <View style={styles.listItemTextContainer}>
+                      <B15>{item.name}</B15>
+                      <B15 customStyle={{color: COLOR_GRAY}}> @{item.nick}</B15>
+                    </View>
+                  </View>
+                  <View style={{position: 'absolute', right: 20, top: 25}}>
+                    {state.mode_friend === 'unblock' ? (
+                      <AnimatedButton
+                        onPress={() => {
+                          actions.block_friend(item);
+                        }}>
+                        <BlockFriend
+                          width={24}
+                          height={24}
+                          stroke={COLOR_ERROR}
+                          strokeWidth={2}
+                        />
+                      </AnimatedButton>
+                    ) : (
+                      <AnimatedButton
+                        onPress={() => {
+                          actions.unblock_friend(item);
+                        }}>
+                        <UnBlock
+                          width={24}
+                          height={24}
+                          stroke={COLOR_SUCCESS}
+                          strokeWidth={2}
+                        />
+                      </AnimatedButton>
+                    )}
                   </View>
                 </View>
-                <View style={{position: 'absolute', right: 20, top: 25}}>
-                  {state.mode_friend === 'unblock' ? (
-                    <AnimatedButton
-                      onPress={() => {
-                        actions.block_friend(item);
-                      }}>
-                      <BlockFriend
-                        width={24}
-                        height={24}
-                        stroke={COLOR_ERROR}
-                        strokeWidth={2}
-                      />
-                    </AnimatedButton>
-                  ) : (
-                    <AnimatedButton
-                      onPress={() => {
-                        actions.unblock_friend(item);
-                      }}>
-                      <UnBlock
-                        width={24}
-                        height={24}
-                        stroke={COLOR_SUCCESS}
-                        strokeWidth={2}
-                      />
-                    </AnimatedButton>
-                  )}
-                </View>
-              </View>
-            );
-          }}
-        />
+              );
+            }}
+          />
+        )}
       </Animated.View>
     </View>
   );
