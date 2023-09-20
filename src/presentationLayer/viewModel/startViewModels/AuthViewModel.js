@@ -30,11 +30,12 @@ export const useStartViewModel = () => {
 
   const phoneInputbuttonPress = async () => {
     // const res = await post_auth_phoneCheck(state.phoneNumber);
+    actions.setPhoneInputButtonPressed(true);
     Platform.OS==='android'?
      await getHash().then(hash => {
       actions.setHash(hash);
     })
-    :actions.setHash("000000");
+    :null;
     const res = await checkPhoneNumberData(state.phoneNumber, state.hash).then(
       res => {
         return topActions.setStateAndError(res);
