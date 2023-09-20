@@ -12,6 +12,7 @@ import {
   COLOR_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
+  COLOR_PRIMARY,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
@@ -30,6 +31,8 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+
+import NotificationFilled from 'src/assets/icons/NotificationFilled';
 
 export default function ProfileHeader() {
   const navigation = useNavigation();
@@ -50,17 +53,17 @@ export default function ProfileHeader() {
       <View>
         <B20>프로필</B20>
       </View>
+
       <AnimatedButton
         onPress={() => {
           navigation.navigate('notification');
         }}
         style={{padding: 10}}>
-        <Notification
+        <NotificationFilled
           width={24}
           height={24}
-          stroke={COLOR_BLACK}
-          strokeWidth={2.4}
-          scale={0.85}
+          fill={COLOR_PRIMARY}
+          scale={1}
         />
       </AnimatedButton>
     </View>

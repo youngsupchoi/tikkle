@@ -40,6 +40,8 @@ export const MyPageViewStateProvider = ({children}) => {
   const [profileUrl, setProfileUrl] = useState('');
   const [bankDropDownVisible, setBankDropDownVisible] = useState(false);
 
+  const [inquireLoading, setInquireLoading] = useState(false);
+
   const state = {
     message,
     DScode,
@@ -57,6 +59,7 @@ export const MyPageViewStateProvider = ({children}) => {
     showDetailModal,
     profileUrl,
     bankDropDownVisible,
+    inquireLoading,
   };
 
   const actions = {
@@ -76,6 +79,7 @@ export const MyPageViewStateProvider = ({children}) => {
     setShowDetailModal,
     setProfileUrl,
     setBankDropDownVisible,
+    setInquireLoading,
   };
 
   return (
