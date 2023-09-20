@@ -1,4 +1,4 @@
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, ScrollView} from 'react-native';
 import React, {useEffect} from 'react';
 import {
   B,
@@ -24,6 +24,7 @@ import {
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import {useNavigation} from '@react-navigation/native';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
@@ -36,7 +37,7 @@ export default function InquireScreen() {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <ScrollView stickyHeaderIndices={[0]} style={styles.container}>
       <View style={styles.header}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <AnimatedButton
@@ -100,7 +101,7 @@ export default function InquireScreen() {
         </View>
       </View>
 
-      <View style={{marginTop: 24}}>
+      <View style={{marginVertical: 20}}>
         <AnimatedButton
           onPress={() => {
             console.log('Title : ', state.titleText);
@@ -111,7 +112,8 @@ export default function InquireScreen() {
           <B17 customStyle={styles.buttonText}>문의 메일 전송하기</B17>
         </AnimatedButton>
       </View>
-    </View>
+      <Footer />
+    </ScrollView>
   );
 }
 

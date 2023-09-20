@@ -1,4 +1,4 @@
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import React, {useEffect} from 'react';
 import {
   B,
@@ -14,6 +14,7 @@ import {
   HEADER_HEIGHT,
   StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {windowHeight} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -25,6 +26,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
@@ -37,7 +39,7 @@ export default function CustomerCenterScreen() {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <ScrollView stickyHeaderIndices={[0]} style={styles.container}>
       <View style={styles.header}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <AnimatedButton
@@ -66,36 +68,39 @@ export default function CustomerCenterScreen() {
         </View>
       </View>
 
-      <View style={{marginTop: 24}}>
-        <AnimatedButton
-          onPress={() => {
-            actions.contractLink();
-          }}
-          style={styles.buttonStyle}>
-          <B17 customStyle={styles.buttonText}>서비스 이용 약관</B17>
-        </AnimatedButton>
-      </View>
+      <View style={{height: 400}}>
+        <View style={{marginTop: 24}}>
+          <AnimatedButton
+            onPress={() => {
+              actions.contractLink();
+            }}
+            style={styles.buttonStyle}>
+            <B17 customStyle={styles.buttonText}>서비스 이용 약관</B17>
+          </AnimatedButton>
+        </View>
 
-      <View style={{marginTop: 24}}>
-        <AnimatedButton
-          onPress={() => {
-            actions.privateDataLink();
-          }}
-          style={styles.buttonStyle}>
-          <B17 customStyle={styles.buttonText}>개인정보 처리 방침</B17>
-        </AnimatedButton>
-      </View>
+        <View style={{marginTop: 24}}>
+          <AnimatedButton
+            onPress={() => {
+              actions.privateDataLink();
+            }}
+            style={styles.buttonStyle}>
+            <B17 customStyle={styles.buttonText}>개인정보 처리 방침</B17>
+          </AnimatedButton>
+        </View>
 
-      <View style={{marginTop: 24}}>
-        <AnimatedButton
-          onPress={() => {
-            navigation.navigate('Inquire');
-          }}
-          style={styles.buttonStyle}>
-          <B17 customStyle={styles.buttonText}>문의</B17>
-        </AnimatedButton>
+        <View style={{marginTop: 24}}>
+          <AnimatedButton
+            onPress={() => {
+              navigation.navigate('Inquire');
+            }}
+            style={styles.buttonStyle}>
+            <B17 customStyle={styles.buttonText}>문의</B17>
+          </AnimatedButton>
+        </View>
       </View>
-    </View>
+      <Footer />
+    </ScrollView>
   );
 }
 
