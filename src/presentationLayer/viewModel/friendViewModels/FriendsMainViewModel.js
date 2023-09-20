@@ -83,6 +83,9 @@ export const useFriendMainViewModel = () => {
           })
           .then(res => {
             actions.setSearchedData(res.DSdata.info);
+            if (res.DSdata.info.length === 0) {
+              actions.setSearchFalse(true);
+            }
           });
       } catch (error) {
         //에러 처리 필요 -> 정해야함

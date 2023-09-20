@@ -150,7 +150,10 @@ export default function FriendsManagementScreen() {
             shadowRadius: 3, // iOS용 그림자 반경
           }}>
           <AnimatedButton
-            onPress={() => actions.setSearchedData([])}
+            onPress={() => {
+              actions.setSearchedData([]);
+              actions.setText_search('');
+            }}
             style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
             <Close
               width={24}
@@ -260,8 +263,53 @@ export default function FriendsManagementScreen() {
             ) : null}
           </View>
         </View>
-      ) : null}
-      {console.log(state.getFriendData)}
+      ) : (
+        <View>
+          {state.searchFalse === true ? (
+            <View
+              style={{
+                height: windowWidth / 6,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: COLOR_WHITE,
+                margin: 24,
+                borderRadius: 16,
+                elevation: 3,
+                shadowColor: '#000',
+                shadowOffset: {
+                  // iOS용 그림자 위치
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.2, // iOS용 그림자 투명도
+                shadowRadius: 3, // iOS용 그림자 반경
+              }}>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setSearchedData([]);
+                  actions.setText_search('');
+                  actions.setSearchFalse(false);
+                }}
+                style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
+                <Close
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.8}
+                />
+              </AnimatedButton>
+              <View>
+                <B15 customStyle={{color: COLOR_BLACK}}>
+                  존재하지 않는 닉네임이에요
+                </B15>
+              </View>
+            </View>
+          ) : null}
+        </View>
+      )}
+      {/* {console.log(state.getFriendData)} */}
+
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>
         {state.refreshing ? (
