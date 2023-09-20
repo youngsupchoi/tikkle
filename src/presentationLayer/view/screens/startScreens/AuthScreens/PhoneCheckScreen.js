@@ -1,5 +1,5 @@
 //SignUpScreen2.js
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   StatusBarHeight,
@@ -84,6 +84,7 @@ export default function SignUpScreen2() {
   };
 
   useEffect(() => {
+    Platform.OS === 'android' && 
     actions.OtpAutoFill();
   }, []);
 
