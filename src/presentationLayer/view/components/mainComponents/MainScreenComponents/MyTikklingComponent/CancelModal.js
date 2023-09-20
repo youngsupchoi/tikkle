@@ -112,7 +112,7 @@ export default function CancelModal() {
             style={{flexDirection: 'row', bottom: 0, width: windowWidth - 48}}>
             <TouchableOpacity
               onPress={() => {
-                actions.toggleCancelModal();
+                actions.buttonPress();
                 console.log(state.showCancelModal);
               }}
               style={{
