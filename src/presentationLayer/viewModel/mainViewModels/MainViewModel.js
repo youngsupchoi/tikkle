@@ -9,6 +9,7 @@ import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
 import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingData';
+import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingBuyData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -45,6 +46,12 @@ export const useMainViewModel = () => {
     await actions.setRefreshing(true);
     await loadData();
     await actions.setRefreshing(false);
+  };
+
+  const endTikklingGoods = () => {
+    updateEndTikklingBuyData(state.myTikklingData.tikkling_id).then(res =>
+      topActions.setStateAndError(res),
+    );
   };
 
   const showDropdown = () => {
@@ -105,6 +112,7 @@ export const useMainViewModel = () => {
       navigation,
       updateEndTikklingData,
       toggleCancelModal,
+      endTikklingGoods,
     },
   };
 };

@@ -546,11 +546,15 @@ const FirstHero = props => {
                       strokeWidth={1.5}
                     />
                   </View>
+                  {console.log('state', state.address)}
                   <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                    {state.userData.zonecode !== null &&
-                    state.userData.address !== null
-                      ? `${state.userData.address}(${state.userData.zonecode})`
-                      : '도로명주소 검색'}
+                    {
+                      state.address && state.zonecode // state.address와 state.zonecode가 존재하는 경우
+                        ? `${state.address}(${state.zonecode})`
+                        : state.userData.address && state.userData.zonecode // state.userData.address와 state.userData.zonecode가 존재하는 경우
+                        ? `${state.userData.address}(${state.userData.zonecode})`
+                        : '도로명주소 검색' // 둘 다 존재하지 않는 경우
+                    }
                   </B15>
                 </View>
               </AnimatedButton>
@@ -594,9 +598,13 @@ const FirstHero = props => {
                     />
                   </View>
                   <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                    {state.userData.detail_address !== null
-                      ? `${state.userData.detail_address}`
-                      : '상세주소 입력'}
+                    {
+                      state.detailAddress // state.detailAddress가 존재하는 경우
+                        ? `${state.detailAddress}`
+                        : state.userData.detail_address // state.userData.detail_address가 존재하는 경우
+                        ? `${state.userData.detail_address}`
+                        : '상세주소 입력' // 둘 다 존재하지 않는 경우
+                    }
                   </B15>
                 </View>
               </AnimatedButton>
@@ -609,10 +617,7 @@ const FirstHero = props => {
             }}>
             <AnimatedButton
               onPress={() => {
-                const res = actions.updateEndTikklingData(
-                  state.myTikklingData.tikkling_id,
-                );
-                console.log(res);
+                actions.endTikklingGoods();
                 actions.setShowEndModal(false);
               }}
               style={modalStyles.confirmButton}>
