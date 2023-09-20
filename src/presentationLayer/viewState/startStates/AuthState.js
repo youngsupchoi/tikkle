@@ -18,12 +18,11 @@ export const StartViewStateProvider = ({children}) => {
   // 3. 필요한 상태 추가하기
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [inputCode, setInputCode] = useState(Array(6).fill(''));
-  //FIXME: 테스트용 전화번호
   const [phoneNumber, setPhoneNumber] = useState('');
   const [encryptedOTP, setEncryptedOTP] = useState();
   const [message, setMessage] = useState('');
   const [userId, setUserId] = useState();
-  const [hash, setHash] = useState();
+  const [hash, setHash] = useState('000000');
   const [done1, setDone1] = useState();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -37,6 +36,7 @@ export const StartViewStateProvider = ({children}) => {
   const [userNick, setUserNick] = useState('');
   const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
   const [duplicationMessage, setDuplicationMessage] = useState(''); // State to hold the validation message
+  const [phoneInputButtonPressed, setPhoneInputButtonPressed] = useState(false);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const yearRef = useRef(null); // Ref for day input
@@ -74,6 +74,7 @@ export const StartViewStateProvider = ({children}) => {
     userNick,
     validationMessage,
     duplicationMessage,
+    phoneInputButtonPressed
   };
 
   const actions = {
@@ -96,6 +97,7 @@ export const StartViewStateProvider = ({children}) => {
     setUserNick,
     setValidationMessage,
     setDuplicationMessage,
+    setPhoneInputButtonPressed
   };
 
   return (
