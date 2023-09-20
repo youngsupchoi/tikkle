@@ -27,6 +27,7 @@ export const useFriendMainViewModel = () => {
    * @param {string} mode_friend 불러오는 친구목록이 일반이면 'unblock', 차단목록이면 'block'
    */
   async function get_friend_data(mode_friend) {
+    await actions.setRefreshing(true);
     try {
       if (mode_friend === 'unblock') {
         await getMyFriendData()
@@ -50,6 +51,7 @@ export const useFriendMainViewModel = () => {
       //에러 처리 필요 -> 정해야함
       console.log("[Error in FriendsMainViewModel's get_friend_data]\n", error);
     }
+    await actions.setRefreshing(false);
   }
 
   async function create_friend(friendId) {
@@ -81,6 +83,9 @@ export const useFriendMainViewModel = () => {
           })
           .then(res => {
             actions.setSearchedData(res.DSdata.info);
+            if (res.DSdata.info.length === 0) {
+              actions.setSearchFalse(true);
+            }
           });
       } catch (error) {
         //에러 처리 필요 -> 정해야함
@@ -174,10 +179,8 @@ export const useFriendMainViewModel = () => {
   /**
    * FriendsMainScreen에서 새로고침 하는 함수
    */
-  const onRefresh = async => {
-    actions.setRefreshing(true);
-    get_friend_data(state.mode_friend);
-    actions.setRefreshing(false);
+  const onRefresh = async () => {
+    await get_friend_data(state.mode_friend);
   };
 
   return {

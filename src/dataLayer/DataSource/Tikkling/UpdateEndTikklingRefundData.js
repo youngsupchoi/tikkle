@@ -2,11 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function createSendTikkleData(
-  tikkling_id,
-  tikkle_quantity,
-  message,
-) {
+export async function updateEndTikklingRefundData(tikkling_id) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -28,17 +24,15 @@ export async function createSendTikkleData(
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
-  //------ call post_tikkling_sendtikkle -------------------------------------------------------//
+  //------ call put_tikkling_end -------------------------------------------------------//
   let response;
   const body = {
     tikkling_id: tikkling_id,
-    tikkle_quantity: tikkle_quantity,
-    message: message,
   };
 
   try {
     response = await apiModel(
-      'post_tikkling_sendtikkle',
+      'put_tikkling_end/refund',
       authorization,
       body,
       null,
@@ -55,41 +49,46 @@ export async function createSendTikkleData(
     };
   }
 
-  //------ control result & error of post_tikkling_sendtikkle-----------------------------------------//
-  if (response.status === 403 || response.status === 404) {
-    if (response.data.detail_code === '01') {
+  // console.log('RES : ', response);
+
+  //------ control result & error of put_tikkling_end-----------------------------------------//
+  if (response.status === 400) {
+    if (response.data.detail_code === '00') {
       return {
         DScode: 2,
         DSdata: null,
-        DSmessage: '이미 티클링이 종료되었거나 없는 티클링 이에요.',
-      };
-    } else if (response.data.detail_code === '02') {
-      return {
-        DScode: 2,
-        DSdata: null,
-        DSmessage: '줄 수 있는 티클링의 한도를 초과해요',
+        DSmessage: '이미 종료된 티클링 이에요.',
       };
     } else if (response.data.detail_code === '03') {
       return {
-        DScode: 2,
+        DScode: 1,
         DSdata: null,
-        DSmessage: '누군가 티클을 보내서 티클을 줄 수 있는 개수가 줄었어요.',
+        DSmessage: '환급 계좌 정보가 입력되지 않았어요.',
       };
     }
-
-    throw new Error();
-  } else if (response.status !== 200) {
     return {
       DScode: 2,
       DSdata: null,
       DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
-  }
-
-  //티켓 받은 메시지 추가
-  let suc_message = '티클을 성공적으로 보냈어요.';
-  if (response.data.detail_code === '03') {
-    suc_message = '티클을 보내고 티클링 티켓을 받았어요.';
+  } else if (response.status === 403) {
+    return {
+      DScode: 1,
+      DSdata: null,
+      DSmessage: '아직 진행중인 티클링 이에요',
+    };
+  } else if (response.status === 404) {
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '존재하지 않는 티클링 이에요.',
+    };
+  } else if (response.status !== 200 && response.data.detail_code !== '01') {
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
   }
 
   //------ update token ---------------------------------------------------//
@@ -103,10 +102,10 @@ export async function createSendTikkleData(
 
   //------ call post_notification_send -------------------------------------------------------//
 
-  const body3 = {receive_user_id: tikkling_id, notification_type_id: 5};
+  const body3 = {receive_user_id: null, notification_type_id: 7};
 
   try {
-    const response3 = await apiModel(
+    const response3 = apiModel(
       'post_notification_send',
       authorization,
       body3,
@@ -117,9 +116,10 @@ export async function createSendTikkleData(
   }
 
   //------ return response ------------------------------------------------//
+
   return {
     DScode: 0,
     DSdata: {success: true},
-    DSmessage: suc_message,
+    DSmessage: '성공적으로 티클링 종료, 환급 신청이 완료 되었습니다.',
   };
 }
