@@ -83,7 +83,7 @@ request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
 const FirstHero = props => {
   const {state, actions} = useMainViewModel();
 
-  const CurrentDate = new Date();
+  const CurrentDate = getKoreanDate();
   const FundingLimit = new Date(state.myTikklingData.funding_limit);
   const TikkleCount = Number(state.myTikklingData.tikkle_count);
   const TikkleQuantity = state.myTikklingData.tikkle_quantity;
@@ -165,6 +165,7 @@ const FirstHero = props => {
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
     const fundingLimit = new Date(state.myTikklingData.funding_limit);
     const currentDate = getKoreanDate();
+    console.log(fundingLimit, currentDate);
 
     if (tikkleQuantity === tikkleCount) {
       actions.setShowEndModal(true);
@@ -283,6 +284,7 @@ const FirstHero = props => {
                       }}
                     />
                   </View>
+                  {console.log(FundingLimit, CurrentDate)}
                   <LinearGradient
                     start={{x: 0, y: 0}}
                     end={{x: 0, y: 0.75}}
@@ -671,7 +673,6 @@ const FirstHero = props => {
             <AnimatedButton
               onPress={() => {
                 // actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
-                actions.buttonPress();
                 actions.setShowCancelModal(false);
               }}
               style={{
