@@ -134,6 +134,8 @@ export const useMyPageViewModel = () => {
    * InquireScreen에서 문의하기 버튼을 눌렀을 때, 문의 내용을 보내는 함수
    */
   async function sendMail() {
+    await actions.setInquireLoading(true);
+
     await createMyInquireData(state.titleText, state.contentText)
       .then(res => {
         //console.log(res);
@@ -143,8 +145,12 @@ export const useMyPageViewModel = () => {
         //actions로
         actions.setTitleText('');
         actions.setContentText('');
-        navigation.goBack();
+        // navigation.goBack();
+        // console.log('res : ', res);
+        topActions.showSnackbar(res.DSmessage, 1);
       });
+
+    await actions.setInquireLoading(false);
   }
 
   const onCloseDetailModal = () => {

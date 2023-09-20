@@ -30,6 +30,7 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function InquireScreen() {
   const {ref, state, actions} = useMyPageViewModel();
@@ -65,54 +66,59 @@ export default function InquireScreen() {
           </View>
         </View>
       </View>
-
-      <View style={styles.small_header}>
+      {state.inquireLoading ? (
+        <GlobalLoader />
+      ) : (
         <View>
-          <B12>제목</B12>
-        </View>
-      </View>
+          <View style={styles.small_header}>
+            <View>
+              <B12>제목</B12>
+            </View>
+          </View>
 
-      <View style={styles.titleBox}>
-        <View style={styles.searchBar}>
-          <TextInput
-            placeholder="문의 제목을 입력해주세요."
-            placeholderTextColor={COLOR_GRAY}
-            onChangeText={value => actions.setTitleText(value)}
-            value={state.titleText}
-          />
-        </View>
-      </View>
+          <View style={styles.titleBox}>
+            <View style={styles.searchBar}>
+              <TextInput
+                placeholder="문의 제목을 입력해주세요."
+                placeholderTextColor={COLOR_GRAY}
+                onChangeText={value => actions.setTitleText(value)}
+                value={state.titleText}
+              />
+            </View>
+          </View>
 
-      <View style={styles.small_header}>
-        <View>
-          <B12>문의 내용</B12>
-        </View>
-      </View>
+          <View style={styles.small_header}>
+            <View>
+              <B12>문의 내용</B12>
+            </View>
+          </View>
 
-      <View style={styles.contentBox}>
-        <View style={styles.searchBar}>
-          <TextInput
-            multiline={true}
-            placeholder="문의 내용을 입력해주세요."
-            placeholderTextColor={COLOR_GRAY}
-            onChangeText={value => actions.setContentText(value)}
-            value={state.contentText}
-          />
-        </View>
-      </View>
+          <View style={styles.contentBox}>
+            <View style={styles.searchBar}>
+              <TextInput
+                multiline={true}
+                placeholder="문의 내용을 입력해주세요."
+                placeholderTextColor={COLOR_GRAY}
+                onChangeText={value => actions.setContentText(value)}
+                value={state.contentText}
+              />
+            </View>
+          </View>
 
-      <View style={{marginVertical: 20}}>
-        <AnimatedButton
-          onPress={() => {
-            console.log('Title : ', state.titleText);
-            console.log('Content : ', state.contentText);
-            actions.sendMail();
-          }}
-          style={styles.buttonStyle}>
-          <B17 customStyle={styles.buttonText}>문의 메일 전송하기</B17>
-        </AnimatedButton>
-      </View>
-      <Footer />
+          <View style={{marginVertical: 20}}>
+            <AnimatedButton
+              onPress={() => {
+                console.log('Title : ', state.titleText);
+                console.log('Content : ', state.contentText);
+                actions.sendMail();
+              }}
+              style={styles.buttonStyle}>
+              <B17 customStyle={styles.buttonText}>문의 메일 전송하기</B17>
+            </AnimatedButton>
+          </View>
+          <Footer />
+        </View>
+      )}
     </ScrollView>
   );
 }

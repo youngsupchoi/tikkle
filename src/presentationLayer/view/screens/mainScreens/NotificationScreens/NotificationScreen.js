@@ -34,7 +34,7 @@ export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
 
   useEffect(() => {
-    actions.get_notification_list();
+    actions.loadData();
   }, []);
   //ㅎㅎㅎㅎㅎㅎ
   const navigation = useNavigation();
