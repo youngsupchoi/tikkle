@@ -100,7 +100,7 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View>
       <View style={{}}>
         <ScrollView
           stickyHeaderIndices={[0]}
@@ -155,7 +155,7 @@ export default function HomeScreen() {
           setZoneCode={actions.setZonecode}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

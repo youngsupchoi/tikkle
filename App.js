@@ -24,13 +24,11 @@ export default function App() {
             <TopSnackbar />
           </View>
           <MainStackNavigator />
-          {Platform.OS === 'android' ? (
-            <StatusBar
-              translucent
-              barStyle={'dark-content'}
-              backgroundColor="transparent"
-            />
-          ) : null}
+          <StatusBar
+            translucent
+            barStyle={'dark-content'}
+            backgroundColor="transparent"
+          />
           {/* <TEST_SAMPLESCREEN /> */}
         </TopViewProvider>
       </PaperProvider>
