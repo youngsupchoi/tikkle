@@ -13,6 +13,7 @@ import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
 import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
 import {useNavigation} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
+import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
@@ -38,7 +39,6 @@ export const useMyPageViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(res => {
-          console.log('@@@ : ', res);
           actions.setUserData_profile(res.DSdata.user_info);
           actions.setEndTikklingData(res.DSdata.end_tikkling);
           actions.setPaymentHistoryData(res.DSdata.payment);
@@ -48,6 +48,27 @@ export const useMyPageViewModel = () => {
       console.log("[Error in MyPageViewModel's get_user_info]\n", error);
     }
   }
+
+  const loadData = async () => {
+    try {
+      await actions.setLoading_profile(true);
+      await getMyPageScreenData().then(res => {
+        actions.setUserData_profile(res.DSdata.user_info);
+        actions.setEndTikklingData(res.DSdata.end_tikkling);
+        actions.setPaymentHistoryData(res.DSdata.payment);
+      });
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      await actions.setLoading_profile(false);
+    }
+  };
+
+  const onRefresh = async () => {
+    await actions.setRefreshing(true);
+    await loadData();
+    await actions.setRefreshing(false);
+  };
 
   /**
    * MyPageScreen에서 날짜 데이터 포멧하는 함수
@@ -126,6 +147,16 @@ export const useMyPageViewModel = () => {
       });
   }
 
+  const onCloseDetailModal = () => {
+    actions.setShowDetailModal(false);
+  };
+
+  async function getProfileUrl() {
+    await getProfileUpdataUrlData().then(res => {
+      actions.setProfileUrl(res.DSdata.url);
+    });
+  }
+
   return {
     ref: {
       ...ref,
@@ -143,6 +174,10 @@ export const useMyPageViewModel = () => {
       privateDataLink,
       sendMail,
       refundPolicyLink,
+      onRefresh,
+      loadData,
+      onCloseDetailModal,
+      getProfileUrl,
     },
   };
 };

@@ -56,7 +56,6 @@ export default function NotificationScreen() {
         <View
           style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
           <View>
-            {console.log('IMAGE URL : ', item.meta_data !== null ? item : null)}
             {item.meta_data && item.meta_data.source_user_profile !== null ? (
               <Image
                 source={{

@@ -99,7 +99,7 @@ export default function MyWishlistComponent() {
                     </B12>
                   </View>
                 </View>
-                {state.isTikkling ? null : (
+                {state.myTikklingData !== undefined ? null : (
                   <AnimatedButton
                     onPress={() => {
                       actions.navigation.navigate('startTikkling', wishlist);

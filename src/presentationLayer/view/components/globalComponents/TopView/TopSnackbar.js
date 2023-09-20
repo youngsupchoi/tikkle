@@ -122,23 +122,10 @@ const TopSnackbar = () => {
               opacity: 0.5,
             },
           ]}>
-          <BlurView
-            style={{
-              width: '100%',
-              height: '100%',
-              borderRadius: 12,
-              paddingVertical: 16,
-              paddingHorizontal: 20,
-              flexDirection: 'row',
-            }} // borderRadius를 설정하여 둥글게 만듭니다.
-            blurType="light" // "dark", "light", "extraDark", 등 다양한 블러 타입이 있습니다.
-            blurAmount={10} // 블러 정도를 설정합니다. (0 ~ 25)
-          >
-            {icon}
-            <B15 customStyle={{marginLeft: 12, color: textColor}}>
-              {snackbarMessage}
-            </B15>
-          </BlurView>
+          {icon}
+          <B15 customStyle={{marginLeft: 12, color: textColor}}>
+            {snackbarMessage}
+          </B15>
         </Animated.View>
       ) : null}
     </View>
@@ -156,6 +143,8 @@ const styles = StyleSheet.create({
     zIndex: 5,
     marginHorizontal: 24,
     borderRadius: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {

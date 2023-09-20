@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "ios_apk": "react-native run-ios --variant=release",
+    "android_apk": "react-native run-android --variant=release"
   },
   "dependencies": {
     "@actbase/react-daum-postcode": "^1.0.4",
@@ -40,10 +42,13 @@
     "react-native-dotenv": "^3.4.9",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-gesture-handler": "^2.12.1",
+    "react-native-image-crop-picker": "^0.40.0",
+    "react-native-image-picker": "^7.0.0",
     "react-native-linear-gradient": "^2.8.0",
     "react-native-modal": "^13.0.1",
     "react-native-otp-verify": "^1.1.6",
     "react-native-pager-view": "^6.2.0",
+    "react-native-paper": "^5.10.4",
     "react-native-permissions": "^3.9.0",
     "react-native-picker-select": "^8.0.4",
     "react-native-reanimated": "^3.4.2",

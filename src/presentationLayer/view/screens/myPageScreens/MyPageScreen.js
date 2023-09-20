@@ -39,21 +39,23 @@ import ProfileHeader from 'src/presentationLayer/view/components/globalComponent
 
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import {RefreshControl} from 'react-native-gesture-handler';
 
 export default function ProfileScreen() {
   const {ref, state, actions} = useMyPageViewModel();
 
   useEffect(() => {
-    actions.MyPageData();
+    actions.loadData();
   }, []);
 
-  useEffect(() => {
-    actions.setLoading_profile(false);
-  }, [
-    state.userData_profile,
-    state.endTikklingsData,
-    state.paymentHistoryData,
-  ]);
+  // useEffect(() => {
+  //   actions.setLoading_profile(false);
+  // }, [
+  //   state.userData_profile,
+  //   state.endTikklingsData,
+  //   state.paymentHistoryData,
+  // ]);
 
   //==============================================================================================
 
@@ -64,9 +66,17 @@ export default function ProfileScreen() {
   return (
     <ScrollView
       stickyHeaderIndices={[0]}
-      style={{backgroundColor: backgroundColor}}>
+      style={{backgroundColor: backgroundColor}}
+      refreshControl={
+        <RefreshControl
+          refreshing={state.refreshing}
+          onRefresh={actions.onRefresh}
+        />
+      }>
       <ProfileHeader>Profile</ProfileHeader>
-      {state.loading_profile ? null : (
+      {state.loading_profile ? (
+        <GlobalLoader />
+      ) : (
         <View>
           <View style={{}}>
             <AnimatedButton
@@ -87,10 +97,12 @@ export default function ProfileScreen() {
                 <B20 customStyle={{marginLeft: 12}}>내 정보</B20>
               </View>
 
-              {/* <AnimatedButton
+              <AnimatedButton
+                onPress={() => {
+                  actions.navigation.navigate('editProfile');
+                }}
                 style={{
                   padding: 10,
-                  // backgroundColor: 'red',
                 }}>
                 <ArrowRight
                   width={24}
@@ -98,7 +110,7 @@ export default function ProfileScreen() {
                   stroke={COLOR_BLACK}
                   strokeWidth={1.5}
                 />
-              </AnimatedButton> */}
+              </AnimatedButton>
             </AnimatedButton>
             <View
               style={{
@@ -305,7 +317,6 @@ export default function ProfileScreen() {
                 paddingTop: 24,
                 // backgroundColor: 'red',
               }}>
-              {console.log('paymentHistory', state.paymentHistoryData)}
               {state.paymentHistoryData.length > 0 ? (
                 <FlatList
                   data={state.paymentHistoryData}

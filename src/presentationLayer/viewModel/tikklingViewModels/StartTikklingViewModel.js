@@ -93,19 +93,20 @@ export const useStartTikklingViewModel = () => {
 
   function formatDate(isoDateString) {
     const date = new Date(isoDateString);
-    const currentDate = new getKoreanDate();
+    console.log('백엔드 데이트', date);
+    const currentDate = new Date();
     if (
-      date.getMonth() < currentDate.getMonth() ||
-      (date.getMonth() === currentDate.getMonth() &&
-        date.getDate() < currentDate.getDate())
+      date.getUTCMonth() < currentDate.getUTCMonth() ||
+      (date.getUTCMonth() === currentDate.getUTCMonth() &&
+        date.getUTCDate() < currentDate.getUTCDate())
     ) {
       // 지나갔다면, 연도를 1년 증가
-      date.setFullYear(currentDate.getFullYear() + 1);
+      date.setUTCFullYear(currentDate.getUTCFullYear() + 1);
     }
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
     console.log('백엔드 day', day);
 
     return {
