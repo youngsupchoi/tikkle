@@ -150,7 +150,11 @@ export default function FriendsManagementScreen() {
             shadowRadius: 3, // iOS용 그림자 반경
           }}>
           <AnimatedButton
-            onPress={() => actions.setSearchedData([])}
+            onPress={() => {
+              actions.setSearchedData([]);
+              actions.setText_search('');
+              actions.setSearchFalse(false);
+            }}
             style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
             <Close
               width={24}
@@ -200,16 +204,54 @@ export default function FriendsManagementScreen() {
             ) : null}
 
             {state.searchedData[0].relation_state_id === 1 ? (
-              <M11 customStyle={{marginTop: 12}}>친구</M11>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
+                }}
+                style={{
+                  padding: 12,
+                  paddingHorizontal: 24,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLOR_SEPARATOR,
+                  borderRadius: 12,
+                  borderColor: COLOR_PRIMARY_OUTLINE,
+                  borderWidth: 2,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+              </AnimatedButton>
             ) : null}
 
             {state.searchedData[0].relation_state_id === 2 ? (
-              <M11 customStyle={{marginTop: 12}}>새로운 친구</M11>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
+                }}
+                style={{
+                  padding: 12,
+                  paddingHorizontal: 24,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLOR_SEPARATOR,
+                  borderRadius: 12,
+                  borderColor: COLOR_PRIMARY_OUTLINE,
+                  borderWidth: 2,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+              </AnimatedButton>
             ) : null}
 
             {state.searchedData[0].relation_state_id === 3 ? (
               <AnimatedButton
-                // onPress={onAddFriendButtonPress}
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
+                }}
                 style={{
                   padding: 12,
                   paddingHorizontal: 24,
@@ -220,13 +262,58 @@ export default function FriendsManagementScreen() {
                   borderColor: COLOR_ERROR,
                   borderWidth: 2,
                 }}>
-                <B15 customStyle={{color: COLOR_WHITE}}>삭제한 이용자</B15>
+                <B15 customStyle={{color: COLOR_WHITE}}>차단된 이용자</B15>
               </AnimatedButton>
             ) : null}
           </View>
         </View>
-      ) : null}
-      {console.log(state.getFriendData)}
+      ) : (
+        <View>
+          {state.searchFalse === true ? (
+            <View
+              style={{
+                height: windowWidth / 6,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: COLOR_WHITE,
+                margin: 24,
+                borderRadius: 16,
+                elevation: 3,
+                shadowColor: '#000',
+                shadowOffset: {
+                  // iOS용 그림자 위치
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.2, // iOS용 그림자 투명도
+                shadowRadius: 3, // iOS용 그림자 반경
+              }}>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setSearchedData([]);
+                  actions.setText_search('');
+                  actions.setSearchFalse(false);
+                }}
+                style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
+                <Close
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.8}
+                />
+              </AnimatedButton>
+              <View>
+                <B15 customStyle={{color: COLOR_BLACK}}>
+                  존재하지 않는 닉네임이에요
+                </B15>
+              </View>
+            </View>
+          ) : null}
+        </View>
+      )}
+      {/* {console.log(state.getFriendData)} */}
+
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>
         {state.refreshing ? (

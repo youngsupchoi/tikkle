@@ -83,6 +83,9 @@ export const useFriendMainViewModel = () => {
           })
           .then(res => {
             actions.setSearchedData(res.DSdata.info);
+            if (res.DSdata.info.length === 0) {
+              actions.setSearchFalse(true);
+            }
           });
       } catch (error) {
         //에러 처리 필요 -> 정해야함
@@ -177,9 +180,7 @@ export const useFriendMainViewModel = () => {
    * FriendsMainScreen에서 새로고침 하는 함수
    */
   const onRefresh = async () => {
-    await actions.setRefreshing(true);
     await get_friend_data(state.mode_friend);
-    await actions.setRefreshing(false);
   };
 
   return {
