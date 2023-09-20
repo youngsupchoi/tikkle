@@ -200,16 +200,51 @@ export default function FriendsManagementScreen() {
             ) : null}
 
             {state.searchedData[0].relation_state_id === 1 ? (
-              <M11 customStyle={{marginTop: 12}}>친구</M11>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                }}
+                style={{
+                  padding: 12,
+                  paddingHorizontal: 24,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLOR_SEPARATOR,
+                  borderRadius: 12,
+                  borderColor: COLOR_PRIMARY_OUTLINE,
+                  borderWidth: 2,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+              </AnimatedButton>
             ) : null}
 
             {state.searchedData[0].relation_state_id === 2 ? (
-              <M11 customStyle={{marginTop: 12}}>새로운 친구</M11>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                }}
+                style={{
+                  padding: 12,
+                  paddingHorizontal: 24,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLOR_SEPARATOR,
+                  borderRadius: 12,
+                  borderColor: COLOR_PRIMARY_OUTLINE,
+                  borderWidth: 2,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+              </AnimatedButton>
             ) : null}
 
             {state.searchedData[0].relation_state_id === 3 ? (
               <AnimatedButton
-                // onPress={onAddFriendButtonPress}
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                }}
                 style={{
                   padding: 12,
                   paddingHorizontal: 24,
@@ -220,7 +255,7 @@ export default function FriendsManagementScreen() {
                   borderColor: COLOR_ERROR,
                   borderWidth: 2,
                 }}>
-                <B15 customStyle={{color: COLOR_WHITE}}>삭제한 이용자</B15>
+                <B15 customStyle={{color: COLOR_WHITE}}>차단된 이용자</B15>
               </AnimatedButton>
             ) : null}
           </View>
