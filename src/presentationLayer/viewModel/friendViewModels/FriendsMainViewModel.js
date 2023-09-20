@@ -180,9 +180,7 @@ export const useFriendMainViewModel = () => {
    * FriendsMainScreen에서 새로고침 하는 함수
    */
   const onRefresh = async () => {
-    await actions.setRefreshing(true);
     await get_friend_data(state.mode_friend);
-    await actions.setRefreshing(false);
   };
 
   return {
