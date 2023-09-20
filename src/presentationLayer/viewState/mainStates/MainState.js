@@ -31,6 +31,7 @@ export const MainViewStateProvider = ({children}) => {
   const [showEndTikklingModal, setShowEndTikklingModal] = useState(false);
   const [address, setAddress] = useState(null);
   const [zonecode, setZonecode] = useState(null);
+  const [detailAddress, setDetailAddress] = useState(null);
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
 
@@ -74,6 +75,7 @@ export const MainViewStateProvider = ({children}) => {
     showBuyModal,
     hasInstagramInstalled,
     showDetailModal,
+    detailAddress,
   };
 
   const actions = {
@@ -101,6 +103,7 @@ export const MainViewStateProvider = ({children}) => {
     setShowBuyModal,
     setHasInstagramInstalled,
     setShowDetailModal,
+    setDetailAddress,
   };
 
   return (
