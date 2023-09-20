@@ -23,17 +23,17 @@ import {
 
 const DetailAddressInput = props => {
   const {state, actions} = props;
-  const {
-    showDetailModal,
-    setShowDetailModal,
-    setShowSearchModal,
-    zonecode,
-    address,
-    setDetailAddress,
-    onCloseDetailModal,
-  } = props;
   //   const [temp, setTemp] = useState('');
   let temp;
+  const getPlaceholder = () => {
+    if (state.userData?.detail_address) {
+      return state.userData.detail_address;
+    }
+    if (state.userData_profile?.detail_address) {
+      return state.userData_profile.detail_address;
+    }
+    return '상세주소';
+  };
 
   return (
     <Modal
@@ -92,7 +92,15 @@ const DetailAddressInput = props => {
               alignItems: 'center',
             }}>
             <B15 customStyle={{color: COLOR_GRAY}}>
-              {`${state.address}(${state.zonecode})`}
+              {`${
+                state.userData !== undefined
+                  ? state.userData.address
+                  : state.userData_profile.address
+              }(${
+                state.userData !== undefined
+                  ? state.userData.zonecode
+                  : state.userData_profile.zonecode
+              })`}
             </B15>
             <View
               style={{
@@ -131,11 +139,7 @@ const DetailAddressInput = props => {
               alignItems: 'center',
             }}>
             <TextInput
-              placeholder={`${
-                state.userData.detail_address !== null
-                  ? state.userData.detail_address
-                  : '상세주소'
-              }`}
+              placeholder={getPlaceholder()}
               blurOnSubmit={false}
               placeholderTextColor={COLOR_GRAY}
               style={{
@@ -189,7 +193,7 @@ const DetailAddressInput = props => {
           <AnimatedButton
             onPress={() => {
               actions.setDetailAddress(temp);
-              actions.onCloseDetailModal(true);
+              actions.setShowDetailModal(false);
             }}
             style={{
               width: '50%',
@@ -205,7 +209,7 @@ const DetailAddressInput = props => {
           </AnimatedButton>
           <AnimatedButton
             onPress={() => {
-              actions.onCloseDetailModal(true);
+              actions.setShowDetailModal(false);
             }}
             style={{
               width: '50%',

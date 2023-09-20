@@ -55,9 +55,7 @@ const FriendsEvents = props => {
   }
 
   friendsEventData.forEach(friend => {
-    // console.log('friend: ', friend);
     const diff = calculateDifference(getUpcomingBirthday(friend.birthday));
-    // console.log('diff: ', diff);
     switch (diff) {
       case 0:
         sortedData['오늘'].push(friend);
@@ -111,7 +109,7 @@ const FriendsEvents = props => {
               <View
                 style={{
                   flexDirection: 'row',
-                  marginHorizontal: 27,
+                  marginHorizontal: 24,
                   marginBottom: 0,
                 }}>
                 <B12>{key}</B12>
@@ -128,8 +126,6 @@ const FriendsEvents = props => {
                     marginLeft: 8,
                     marginBottom: 8,
                     paddingVertical: 8,
-                    borderLeftColor: COLOR_SEPARATOR,
-                    borderLeftWidth: 2,
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
@@ -144,63 +140,13 @@ const FriendsEvents = props => {
                         borderWidth: 0.5,
                       }}
                       source={{
-                        uri:
-                          friend.image !== null
-                            ? friend.image
-                            : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+                        uri: friend.image,
                       }}
                     />
                     <View style={{flexDirection: 'row', marginLeft: 16}}>
                       <B15>{friend.name}</B15>
                       <M15>님의 생일</M15>
                     </View>
-                  </View>
-                  <View>
-                    {friend.is_tikkling ? (
-                      <AnimatedButton
-                        style={{
-                          padding: 10,
-                          alignItems: 'center',
-                          width: 70,
-                        }}>
-                        <M11
-                          customStyle={{
-                            marginBottom: 4,
-                            color: COLOR_PRIMARY,
-                          }}>
-                          선물하기
-                        </M11>
-                        <Present
-                          width={24}
-                          height={24}
-                          scale={1.35}
-                          stroke={COLOR_PRIMARY}
-                          strokeWidth={1}
-                        />
-                      </AnimatedButton>
-                    ) : (
-                      <AnimatedButton
-                        style={{
-                          padding: 10,
-                          alignItems: 'center',
-                          width: 70,
-                        }}>
-                        <M11
-                          customStyle={{
-                            marginBottom: 4,
-                            color: COLOR_PRIMARY,
-                          }}>
-                          뭐 받을래!
-                        </M11>
-                        <MessageQuestion
-                          width={24}
-                          height={24}
-                          scale={1}
-                          stroke={COLOR_PRIMARY}
-                          strokeWidth={1.5}
-                        />
-                      </AnimatedButton>
-                    )}
                   </View>
                 </AnimatedButton>
               ))}

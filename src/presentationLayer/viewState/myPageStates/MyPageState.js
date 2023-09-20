@@ -31,6 +31,14 @@ export const MyPageViewStateProvider = ({children}) => {
 
   const [titleText, setTitleText] = useState(null);
   const [contentText, setContentText] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [showPostCodeModal, setShowPostCodeModal] = useState(false);
+  const [address, setAddress] = useState('');
+  const [zonecode, setZonecode] = useState('');
+  const [detailAddress, setDetailAddress] = useState('');
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [profileUrl, setProfileUrl] = useState('');
+  const [bankDropDownVisible, setBankDropDownVisible] = useState(false);
 
   const state = {
     message,
@@ -41,6 +49,14 @@ export const MyPageViewStateProvider = ({children}) => {
     paymentHistoryData,
     titleText,
     contentText,
+    refreshing,
+    showPostCodeModal,
+    address,
+    zonecode,
+    detailAddress,
+    showDetailModal,
+    profileUrl,
+    bankDropDownVisible,
   };
 
   const actions = {
@@ -52,6 +68,14 @@ export const MyPageViewStateProvider = ({children}) => {
     setPaymentHistoryData,
     setTitleText,
     setContentText,
+    setRefreshing,
+    setShowPostCodeModal,
+    setAddress,
+    setZonecode,
+    setDetailAddress,
+    setShowDetailModal,
+    setProfileUrl,
+    setBankDropDownVisible,
   };
 
   return (

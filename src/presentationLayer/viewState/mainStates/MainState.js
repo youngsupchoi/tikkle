@@ -28,15 +28,26 @@ export const MainViewStateProvider = ({children}) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(null);
   const [showPostCodeModal, setShowPostCodeModal] = useState(false);
+  const [showEndTikklingModal, setShowEndTikklingModal] = useState(false);
   const [address, setAddress] = useState(null);
   const [zonecode, setZonecode] = useState(null);
-  const [showCancelModal, setShowCancelModal] = useState(false);
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
+
+  const [capturedImage, setCapturedImage] = useState(null);
+  const [showEndModal, setShowEndModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [hasInstagramInstalled, setHasInstagramInstalled] = useState(false); // State to track if Instagram is installed on user's device or not
+  const smallImageRef = useRef(null);
+  const backgroundImageRef = useRef(null);
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
     snackbarAnimation,
+    smallImageRef,
+    backgroundImageRef,
   };
   const state = {
     userData,
@@ -55,7 +66,14 @@ export const MainViewStateProvider = ({children}) => {
     showPostCodeModal,
     address,
     zonecode,
+    capturedImage,
     showCancelModal,
+    showEndTikklingModal,
+    showEndModal,
+    showCancelModal,
+    showBuyModal,
+    hasInstagramInstalled,
+    showDetailModal,
   };
 
   const actions = {
@@ -75,7 +93,14 @@ export const MainViewStateProvider = ({children}) => {
     setShowPostCodeModal,
     setAddress,
     setZonecode,
+    setCapturedImage,
     setShowCancelModal,
+    setShowEndTikklingModal,
+    setShowEndModal,
+    setShowCancelModal,
+    setShowBuyModal,
+    setHasInstagramInstalled,
+    setShowDetailModal,
   };
 
   return (

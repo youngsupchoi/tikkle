@@ -401,8 +401,15 @@ export default function StartTikklingScreen() {
           open={state.open}
           date={state.date}
           onConfirm={selectedDate => {
-            const endDate = new Date(selectedDate.getTime());
-            endDate.setHours(32, 59, 59, 999);
+            const utcYear = selectedDate.getUTCFullYear();
+            const utcMonth = selectedDate.getUTCMonth();
+            const utcDate = selectedDate.getUTCDate();
+
+            const endDate = new Date(
+              Date.UTC(utcYear, utcMonth, utcDate, 23, 59, 59, 999),
+            );
+            console.log(endDate);
+
             actions.setOpen(false);
             actions.setDate(endDate);
             actions.setEndDate(endDate);
@@ -576,26 +583,8 @@ export default function StartTikklingScreen() {
         </AnimatedButton>
       </ScrollView>
 
-      <PostCodeModal
-        state={state}
-        actions={actions}
-        // setShowPostCodeModal={actions.setShowPostCodeModal}
-        // showPostCodeModal={state.showSearchModal}
-        // setAddress={actions.setAddress}
-        // setZoneCode={actions.setZonecode}
-      />
-      <DetailAddressInput
-        // showDetailModal={state.showDetailModal}
-        // setShowDetailModal={actions.setShowDetailModal}
-        // setShowSearchModal={actions.setShowSearchModal}
-        // zonecode={state.zonecode}
-        // address={state.address}
-        // setDetailAddress={actions.setDetailAddress}
-        // detailAddress={state.detailAddress}
-        // onCloseDetailModal={actions.onCloseDetailModal}
-        state={state}
-        actions={actions}
-      />
+      <PostCodeModal state={state} actions={actions} />
+      <DetailAddressInput state={state} actions={actions} />
     </View>
   );
 }

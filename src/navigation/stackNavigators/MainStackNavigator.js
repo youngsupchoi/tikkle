@@ -31,6 +31,7 @@ import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/pr
 import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
 import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationSettingState';
+import EditProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/EditProfileScreen';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -179,44 +180,6 @@ export default function MainStackNavigator() {
           name="notificationSetting"
           component={NotificationSetting}
         />
-        {/* <MainStack.Screen
-          name="findFriendsByContacts"
-          component={FindFriendsByContactsScreen}
-        /> */}
-        {/* <MainStack.Screen
-          name="myTikkling"
-          component={MyTikklingScreen}
-          options={() => ({
-            transitionSpec: {
-              open: {animation: 'timing', config: {duration: 200}},
-              close: {animation: 'timing', config: {duration: 200}},
-            },
-            cardStyleInterpolator: ({current: {progress}}) => {
-              return {
-                cardStyle: {
-                  opacity: progress,
-                },
-              };
-            },
-          })}
-        /> */}
-        {/* <MainStack.Screen
-          name="friendsTikkling"
-          component={FriendsTikklingScreen}
-          options={() => ({
-            transitionSpec: {
-              open: {animation: 'timing', config: {duration: 200}},
-              close: {animation: 'timing', config: {duration: 200}},
-            },
-            cardStyleInterpolator: ({current: {progress}}) => {
-              return {
-                cardStyle: {
-                  opacity: progress,
-                },
-              };
-            },
-          })}
-        /> */}
         <MainStack.Screen
           name="searchAddress"
           component={SearchAddressScreen}
@@ -243,7 +206,7 @@ export default function MainStackNavigator() {
           name="paymentSuccess"
           component={PaymentSuccessScreen}
         />
-        {/* <MainStack.Screen name="main" component={MyBottomTab} /> */}
+        {/* <MainStack.Screen name="editProfile" component={EditProfileScreen} /> */}
       </MainStack.Navigator>
     </NavigationContainer>
   );

@@ -32,6 +32,7 @@ import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/prod
 import SendTikkleScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleScreen';
 import InquireScreen from 'src/presentationLayer/view/screens/myPageScreens/InquireScreen';
 import SentTikkleDetailScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleDetailScreen';
+import EditProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/EditProfileScreen';
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
@@ -50,9 +51,9 @@ const FriendsManagement = () => (
   </FriendMainViewStateProvider>
 );
 const MyPage = () => (
-  <MyPageViewStateProvider>
-    <ProfileScreen />
-  </MyPageViewStateProvider>
+  // <MyPageViewStateProvider>
+  <ProfileScreen />
+  // </MyPageViewStateProvider>
 );
 const MyPageStack = createStackNavigator();
 
@@ -76,6 +77,7 @@ function MyPageNavigator() {
           name="SentTikkleDetail"
           component={SentTikkleDetailScreen}
         />
+        <MyPageStack.Screen name="editProfile" component={EditProfileScreen} />
       </MyPageStack.Navigator>
     </MyPageViewStateProvider>
   );
@@ -90,15 +92,17 @@ export default function BottomTabNavigator() {
           backgroundColor: backgroundColor, // Semi-transparent background
           width: windowWidth,
           alignSelf: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
           borderColor: COLOR_SEPARATOR,
           borderWidth: 2,
-          height: 50,
-          width: '80%',
+          height: 56,
+          width: '90%',
           position: 'absolute',
-          left: '10%',
-          right: '10%',
+          left: '5%',
+          right: '5%',
           borderRadius: 100,
-          bottom: 16,
+          bottom: 24,
           elevation: 3,
           shadowColor: '#000',
           shadowOffset: {
