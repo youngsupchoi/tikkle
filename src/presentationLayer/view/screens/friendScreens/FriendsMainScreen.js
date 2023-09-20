@@ -153,6 +153,7 @@ export default function FriendsManagementScreen() {
             onPress={() => {
               actions.setSearchedData([]);
               actions.setText_search('');
+              actions.setSearchFalse(false);
             }}
             style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
             <Close
@@ -207,6 +208,7 @@ export default function FriendsManagementScreen() {
                 onPress={() => {
                   actions.setText_search('');
                   actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
                 }}
                 style={{
                   padding: 12,
@@ -227,6 +229,7 @@ export default function FriendsManagementScreen() {
                 onPress={() => {
                   actions.setText_search('');
                   actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
                 }}
                 style={{
                   padding: 12,
@@ -247,6 +250,7 @@ export default function FriendsManagementScreen() {
                 onPress={() => {
                   actions.setText_search('');
                   actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
                 }}
                 style={{
                   padding: 12,
