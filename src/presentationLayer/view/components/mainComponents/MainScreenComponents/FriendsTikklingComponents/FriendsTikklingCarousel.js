@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {
+  B,
   B12,
   B15,
   B17,
@@ -20,18 +21,9 @@ import {
   M20,
   UNIQUE,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-// import {windowWidth} from '../Global/Containers/MainContainer';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {
-  SPACING_1,
-  SPACING_2,
-  SPACING_3,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-// import BarComponent from '../ProgressBar/ProgressBar';
+import {SPACING_1} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
-// import SmallBarComponent from '../ProgressBar/ProgressBarSmall';
-import SmallBarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBarSmall';
-// import LinearGradient from 'react-native-linear-gradient';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   COLOR_BLACK,
@@ -39,18 +31,18 @@ import {
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
   COLOR_PRIMARY_TEXT,
+  COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useNavigation} from '@react-navigation/core';
-// import HomeCard from '../HomeScreen/HomeCard';
-// import FriendsTikklingCard from './FriendsTikklingCard';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-// import TimerComponent from '../HomeScreen/HomeTimer';
 import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
-// import BuyTikkleModal from '../../MyTikkling/BuyTikkleModal';
 import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/BuyTikkleModal';
+import FlagFilled from 'src/assets/icons/FlagFilled';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
+import CalendarFilled from 'src/assets/icons/CalendarFilled';
 
 export default function FriendsTikklingCarousel(data) {
   const [showBuyModal, setShowBuyModal] = useState(null);
@@ -67,177 +59,176 @@ export default function FriendsTikklingCarousel(data) {
             resizeMode="contain"
             style={styles.renderItemProfileImage}
             source={{
-              uri:
-                item.friend_image !== null
-                  ? item.friend_image
-                  : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+              uri: item.friend_image,
             }}
           />
           <View style={{flexDirection: 'row'}}>
             <B15 customStyle={{marginLeft: 8}}>{item.user_name}</B15>
-            <B15 customStyle={{color: COLOR_GRAY}}>•@{item.nick}</B15>
+            <M15 customStyle={{color: COLOR_GRAY}}>•@{item.nick}</M15>
           </View>
         </View>
         <View style={{padding: 0, paddingBottom: 20}}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={[
-              'rgba(0,44,133,0.2)',
-              'rgba(0,44,133,0.4)',
-              'rgba(0,44,133,0.5)',
-            ]}
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              top: 0,
-              zIndex: -1,
-              borderBottomRightRadius: 16,
-              borderBottomLeftRadius: 16,
-            }}
-          />
-          <Image
-            resizeMode="cover"
-            blurRadius={20}
-            source={{
-              uri: item.thumbnail_image !== null ? item.thumbnail_image : '',
-            }}
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
-              zIndex: -2,
-              borderBottomRightRadius: 16,
-              borderBottomLeftRadius: 16,
-            }} // Some style for the image on the MyTikklingScreen
-          />
-
           <View
             style={{
-              backgroundColor: COLOR_WHITE,
-              padding: 16,
-              borderRadius: 12,
+              borderRadius: 16,
               margin: 12,
-              marginTop: 32,
-              marginBottom: 24,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
             }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-              }}>
-              <View>
+            <View style={{}}>
+              <View
+                style={{
+                  width: 240,
+                  height: 180,
+                  borderColor: COLOR_SEPARATOR,
+                  borderRadius: 16,
+                  borderWidth: 1,
+                }}>
                 <Image
                   resizeMode="cover"
                   source={{
-                    uri:
-                      item.thumbnail_image !== null ? item.thumbnail_image : '',
+                    uri: item.thumbnail_image,
                   }}
                   style={{
-                    width: 80,
-                    height: 80,
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    borderColor: COLOR_SEPARATOR,
-                  }} // Some style for the image on the MyTikklingScreen
+                    borderRadius: 16,
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    zIndex: -2,
+                  }}
+                />
+
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 0, y: 0.75}}
+                  colors={[
+                    'rgba(255,255,255,0)',
+                    'rgba(255,255,255,0.3)',
+                    'rgba(255,255,255,1)',
+                  ]}
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    top: 0,
+                    zIndex: -1,
+                    borderRadius: 16,
+                  }}
+                />
+
+                <View
+                  style={{
+                    position: 'absolute',
+                    bottom: 8,
+                    left: 16,
+                    right: 16,
+                    flexDirection: 'row',
+                    alignItems: 'flex-end',
+                    justifyContent: 'space-between',
+                  }}>
+                  <B17 customStyle={{fontFamily: EB}}>{item.product_name}</B17>
+                  <B12>{item.brand_name}</B12>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginVertical: 12,
+                  marginTop: 20,
+                  paddingHorizontal: 12,
+                }}>
+                <View style={{flexDirection: 'row'}}>
+                  <FlagFilled fill={COLOR_PRIMARY} />
+                  <B15>달성률</B15>
+                </View>
+                <B12 customStyle={{color: COLOR_GRAY, marginVertical: 4}}>
+                  {Math.round(
+                    (item.tikkle_count / item.tikkle_quantity) * 1000,
+                  ) / 10}
+                  %
+                </B12>
+              </View>
+              <View style={{paddingHorizontal: 12}}>
+                <BarComponent
+                  totalPieces={item.tikkle_quantity}
+                  gatheredPieces={item.tikkle_count}
                 />
               </View>
-              <View style={{}}>
-                <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
-                  <View style={{}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        marginLeft: 12,
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                      }}>
-                      <View style={{}}>
-                        <B15 customStyle={{fontFamily: EB}}>
-                          {item.product_name}
-                        </B15>
-                        <B12
-                          customStyle={{color: COLOR_GRAY, marginVertical: 4}}>
-                          현재까지{' '}
-                          {Math.round(
-                            (item.tikkle_count / item.tikkle_quantity) * 1000,
-                          ) / 10}
-                          % 달성했어요!
-                        </B12>
-                      </View>
-                    </View>
-                  </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginTop: 12,
+                  justifyContent: 'space-around',
+                }}>
+                <View
+                  style={{
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    backgroundColor: COLOR_WHITE,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderRadius: 16,
+                    paddingRight: 12,
+                  }}>
                   <View
                     style={{
-                      backgroundColor: COLOR_WHITE,
-                      borderRadius: 40,
-                      borderColor: COLOR_BLACK,
+                      backgroundColor: COLOR_SECONDARY,
+                      borderColor: COLOR_SEPARATOR,
                       borderWidth: 1,
-                      padding: 3,
-                      paddingHorizontal: 6,
+                      padding: 8,
+                      borderRadius: 30,
                     }}>
-                    <M11>{item.brand_name}</M11>
+                    <BubbleFilled fill={COLOR_PRIMARY} width={16} height={16} />
+                  </View>
+                  <View style={{marginLeft: 4}}>
+                    <B12>{item.tikkle_quantity - item.tikkle_count}개</B12>
                   </View>
                 </View>
-
-                <View style={{width: '90%', alignSelf: 'center', marginTop: 4}}>
-                  <BarComponent
-                    totalPieces={item.tikkle_quantity}
-                    gatheredPieces={item.tikkle_count}
-                  />
+                <View
+                  style={{
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    backgroundColor: COLOR_WHITE,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderRadius: 16,
+                    paddingRight: 12,
+                  }}>
+                  <View
+                    style={{
+                      backgroundColor: COLOR_SECONDARY,
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      padding: 8,
+                      borderRadius: 30,
+                    }}>
+                    <CalendarFilled
+                      fill={COLOR_PRIMARY}
+                      width={16}
+                      height={16}
+                    />
+                  </View>
+                  <View style={{marginLeft: 4}}>
+                    <TimerComponent
+                      timerStyle={{
+                        fontSize: 12,
+                        fontFamily: B,
+                        color: COLOR_BLACK,
+                      }}
+                      deadline={item.funding_limit}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
-            <View style={{position: 'absolute', bottom: 4, right: 12}}>
-              <B15 customStyle={{fontFamily: UNIQUE}}>TIKKLE</B15>
             </View>
           </View>
 
           <View style={{paddingHorizontal: 24}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <B17 customStyle={{fontFamily: EB, color: COLOR_WHITE}}>
-                남은 티클
-              </B17>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <M15 customStyle={{color: COLOR_WHITE}}>
-                  {item.tikkle_quantity - item.tikkle_count}
-                </M15>
-                <M15 customStyle={{color: COLOR_WHITE}}> 개</M15>
-              </View>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginTop: 24,
-              }}>
-              <B17 customStyle={{fontFamily: EB, color: COLOR_WHITE}}>
-                남은 시간
-              </B17>
-              <View style={{}}>
-                <TimerComponent
-                  timerStyle={{fontSize: 15, fontFamily: M, color: COLOR_WHITE}}
-                  deadline={item.funding_limit}
-                />
-              </View>
-            </View>
-
-            <View style={{marginTop: 32}}>
+            <View style={{marginTop: 4}}>
               <AnimatedButton
                 onPress={() => {
                   new Date(item.funding_limit) > new Date()
@@ -245,7 +236,7 @@ export default function FriendsTikklingCarousel(data) {
                     : null;
                 }}
                 style={{
-                  padding: 12,
+                  padding: 8,
                   borderRadius: 12,
                   backgroundColor: COLOR_PRIMARY,
                   borderColor: COLOR_PRIMARY_OUTLINE,
@@ -255,9 +246,9 @@ export default function FriendsTikklingCarousel(data) {
                   justifyContent: 'center',
                 }}
                 disabled={new Date(item.funding_limit) < new Date()}>
-                <B17 customStyle={{color: COLOR_PRIMARY_TEXT}}>
+                <B15 customStyle={{color: COLOR_PRIMARY_TEXT}}>
                   {'티클 선물하기'}
-                </B17>
+                </B15>
               </AnimatedButton>
             </View>
           </View>
@@ -352,32 +343,24 @@ const styles = StyleSheet.create({
   bodyContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    // marginLeft: 12,
-    // marginTop: 8,
     marginBottom: 0,
-    // borderRadius: 12,
-    // padding: SPACING_1 / 2,
-    // shadowColor: '#323247',
-    // shadowRadius: 0,
-    // elevation: 3,
-    // backgroundColor: backgroundColor,
   },
   renderItemContainer: {
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     paddingTop: 8,
-    borderRadius: 12,
+    borderRadius: 20,
     backgroundColor: COLOR_WHITE,
     elevation: 4,
-    // margin: 8,
     marginLeft: 24,
     marginHorizontal: 8,
+    marginBottom: 8,
   },
   renderItemHeaderContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingBottom: 8,
+    paddingHorizontal: 16,
+    paddingTop: 4,
   },
-  renderItemProfileImage: {width: 36, height: 36, borderRadius: 24},
+  renderItemProfileImage: {width: 30, height: 30, borderRadius: 15},
 });

@@ -12,8 +12,8 @@ export const COLOR_GRAY = '#888888';
 
 export const COLOR_PRIMARY_TEXT = '#F0FFFF';
 export const COLOR_SECONDARY = '#ECFCFC';
-export const COLOR_PRIMARY = 'rgb(14, 124, 213)';
-export const COLOR_PRIMARY_OUTLINE = '#36A4FD';
+export const COLOR_PRIMARY = '#36A4FD';
+export const COLOR_PRIMARY_OUTLINE = '#4AB8FF';
 
 export const textColor = COLOR_BLACK;
 export const backgroundColor = COLOR_BACKGROUND_WHITE;

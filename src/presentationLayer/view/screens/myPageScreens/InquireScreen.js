@@ -67,7 +67,7 @@ export default function InquireScreen() {
 
       <View style={styles.small_header}>
         <View>
-          <B12>Title</B12>
+          <B12>제목</B12>
         </View>
       </View>
 
@@ -84,7 +84,7 @@ export default function InquireScreen() {
 
       <View style={styles.small_header}>
         <View>
-          <B12>Content</B12>
+          <B12>문의 내용</B12>
         </View>
       </View>
 

@@ -400,16 +400,25 @@ export default function StartTikklingScreen() {
           modal
           open={state.open}
           date={state.date}
-          onConfirm={date => {
+          onConfirm={selectedDate => {
+            const utcYear = selectedDate.getUTCFullYear();
+            const utcMonth = selectedDate.getUTCMonth();
+            const utcDate = selectedDate.getUTCDate();
+
+            const endDate = new Date(
+              Date.UTC(utcYear, utcMonth, utcDate, 23, 59, 59, 999),
+            );
+            console.log(endDate);
+
             actions.setOpen(false);
-            actions.setDate(date);
-            actions.setEndDate(date);
+            actions.setDate(endDate);
+            actions.setEndDate(endDate);
           }}
           onCancel={() => {
-            setOpen(false);
+            actions.setOpen(false);
           }}
           mode="date"
-          minimumDate={new Date()} // 오늘의 날짜를 최소 날짜로 설정
+          minimumDate={new Date(Date.now())} // 오늘의 날짜를 최소 날짜로 설정
           maximumDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)}
           title={'티클링은 최대 7일 간 진행할 수 있어요!'}
           confirmText="확인"
@@ -574,26 +583,8 @@ export default function StartTikklingScreen() {
         </AnimatedButton>
       </ScrollView>
 
-      <PostCodeModal
-        state={state}
-        actions={actions}
-        // setShowPostCodeModal={actions.setShowPostCodeModal}
-        // showPostCodeModal={state.showSearchModal}
-        // setAddress={actions.setAddress}
-        // setZoneCode={actions.setZonecode}
-      />
-      <DetailAddressInput
-        // showDetailModal={state.showDetailModal}
-        // setShowDetailModal={actions.setShowDetailModal}
-        // setShowSearchModal={actions.setShowSearchModal}
-        // zonecode={state.zonecode}
-        // address={state.address}
-        // setDetailAddress={actions.setDetailAddress}
-        // detailAddress={state.detailAddress}
-        // onCloseDetailModal={actions.onCloseDetailModal}
-        state={state}
-        actions={actions}
-      />
+      <PostCodeModal state={state} actions={actions} />
+      <DetailAddressInput state={state} actions={actions} />
     </View>
   );
 }

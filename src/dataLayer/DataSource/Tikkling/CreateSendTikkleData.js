@@ -55,8 +55,6 @@ export async function createSendTikkleData(
     };
   }
 
-  //console.log(response);
-
   //------ control result & error of post_tikkling_sendtikkle-----------------------------------------//
   if (response.status === 403 || response.status === 404) {
     if (response.data.detail_code === '01') {
@@ -108,7 +106,7 @@ export async function createSendTikkleData(
   const body3 = {receive_user_id: tikkling_id, notification_type_id: 5};
 
   try {
-    const response3 = apiModel(
+    const response3 = await apiModel(
       'post_notification_send',
       authorization,
       body3,
@@ -119,7 +117,6 @@ export async function createSendTikkleData(
   }
 
   //------ return response ------------------------------------------------//
-
   return {
     DScode: 0,
     DSdata: {success: true},

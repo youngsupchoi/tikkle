@@ -39,11 +39,13 @@ import ArrowRight from 'src/assets/icons/ArrowRight';
 import {useProductDetailViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductDetailViewModel';
 
 import Wishlisted from 'src/assets/icons/wishlisted.svg';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 const containerWidth = windowWidth - SPACING_6;
 
 export default function ProductDetailScreen(route) {
   const {state, actions} = useProductDetailViewModel();
+  const {topActions} = useTopViewModel();
 
   const [selected, setSelected] = useState('상세정보');
   // console.log('selected : ', state.data);
@@ -240,22 +242,24 @@ export default function ProductDetailScreen(route) {
                 } else {
                   actions.setWishlisted(!state.wishlisted);
                   actions.createMyWishlistData_(state.data.id);
+                  topActions.showSnackbar('위시리스트에 상품을 추가했어요!', 1);
                 }
               }}
               style={{
                 paddingVertical: 12,
                 paddingHorizontal: 24,
-                backgroundColor: COLOR_PRIMARY,
+                backgroundColor: !state.wishlisted
+                  ? COLOR_PRIMARY
+                  : COLOR_WHITE,
                 borderColor: COLOR_PRIMARY_OUTLINE,
                 borderWidth: 2,
                 borderRadius: 8,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 0.5,
-                elevation: 1,
               }}>
               <B15
                 customStyle={{
-                  color: !state.wishlisted ? COLOR_WHITE : 'pink',
+                  color: !state.wishlisted ? COLOR_WHITE : COLOR_PRIMARY,
                 }}>
                 {!state.wishlisted ? '위시리스트 추가' : '위시리스트 제거'}
               </B15>

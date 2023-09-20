@@ -6,6 +6,9 @@ import TopSnackbar from 'src/presentationLayer/view/components/globalComponents/
 import {TopViewProvider} from 'src/presentationLayer/viewState/topStates/TopViewState';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import TopModal from 'src/presentationLayer/view/components/globalComponents/TopView/TopModal';
+import Test from './DS_Test';
+
+import {PaperProvider} from 'react-native-paper';
 
 export default function App() {
   SystemNavigationBar.setBarMode('dark');
@@ -14,21 +17,23 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
-      <TopViewProvider>
-        <View style={{zIndex: 10, backgroundColor: 'red'}}>
-          <TopModal />
-          <TopSnackbar />
-        </View>
-        <MainStackNavigator />
-        {Platform.OS === 'android' ? (
-          <StatusBar
-            translucent
-            barStyle={'dark-content'}
-            backgroundColor="transparent"
-          />
-        ) : null}
-        {/* <TEST_SAMPLESCREEN /> */}
-      </TopViewProvider>
+      <PaperProvider>
+        <TopViewProvider>
+          <View style={{zIndex: 10, backgroundColor: 'red'}}>
+            <TopModal />
+            <TopSnackbar />
+          </View>
+          <MainStackNavigator />
+          {Platform.OS === 'android' ? (
+            <StatusBar
+              translucent
+              barStyle={'dark-content'}
+              backgroundColor="transparent"
+            />
+          ) : null}
+          {/* <TEST_SAMPLESCREEN /> */}
+        </TopViewProvider>
+      </PaperProvider>
     </GestureHandlerRootView>
   );
 }

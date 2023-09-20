@@ -74,7 +74,7 @@ export async function getMyTikklingDS(authorization) {
     return null;
   }
 
-  const info = response2.data.data[0];
+  const info = response2.data.data;
 
   //------ return response ------------------------------------------------//
 

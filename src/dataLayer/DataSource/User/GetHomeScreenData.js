@@ -111,13 +111,20 @@ export async function getHomeScreenData() {
     };
   }
 
+  const list = [];
+  let my_tikkling = {info: list, is_tikkling: false};
+
+  if (res_MyTikklingDS.info !== null) {
+    my_tikkling = res_MyTikklingDS;
+  }
+
   let info = {
     user_info: res_user_info.data.data,
     friend_tikkling: res_tikkling_friendinfo.data.data,
     is_notification: res_user_isNotice.data.data.is_notification,
     friend_event: res_friend_event.data.data,
     my_wishlist: res_user_myWishlist.data.data,
-    my_tikkling: res_MyTikklingDS,
+    my_tikkling: my_tikkling,
   };
 
   //------ update token ---------------------------------------------------//
@@ -130,7 +137,7 @@ export async function getHomeScreenData() {
   }
 
   //------ return response ------------------------------------------------//
-
+  //console.log('info : ', info);
   return {
     DScode: 0,
     DSdata: info,

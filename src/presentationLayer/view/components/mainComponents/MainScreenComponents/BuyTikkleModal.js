@@ -28,6 +28,7 @@ import {
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
+  COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -37,86 +38,41 @@ import CloseCircle from 'src/assets/icons/CloseCircle';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import axios from 'axios';
-import {USER_AGENT, BASE_URL} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {useNavigation} from '@react-navigation/native';
-axios.defaults.headers.common['User-Agent'] = USER_AGENT;
+import {createSendTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateSendTikkleData';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
   //토큰 가져오기
-
-  const printTokensFromAsyncStorage = async () => {
-    try {
-      const tokens = await AsyncStorage.getItem('tokens');
-
-      if (tokens !== null) {
-        const token = tokens;
-        // console.log(token);
-        const {accessToken} = JSON.parse(token);
-        const {refreshToken} = JSON.parse(token);
-        const authorization = `${refreshToken},${accessToken}`;
-        return authorization;
-      } else {
-        console.log('No tokens');
-      }
-    } catch (error) {
-      console.error('Error retrieving tokens', error);
-    }
-  };
-
-  //-------------------------------------------------------------------------
+  const {topActions} = useTopViewModel();
 
   const [receivedMessage, setReceivedMessage] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   async function post_tikkling_sendtikkle(item) {
-    console.log(
-      'post_tikkling_sendtikkle_input_item',
-      item.tikkling_id,
-      selectedValue,
-      message,
-    );
     try {
-      const authorization = await printTokensFromAsyncStorage();
-      if (!authorization) {
-        console.log('No access token found');
-        return;
-      }
-      const response = await axios.post(
-        `https://${BASE_URL}/dev/post_tikkling_sendtikkle`,
-        {
-          tikkling_id: item.tikkling_id,
-          tikkle_quantity: selectedValue,
-          message: message,
-        },
-        {
-          headers: {
-            authorization: authorization,
-          },
-        },
-      );
-      // Ensure data exists before logging it
-      console.log('post_tikkling_sendtikkle_response', response.data);
-      if (response && response.data) {
-        setErrorMessage('');
-        setReceivedMessage(response.data.data);
-        return response.data;
-      } else {
-        console.log('Response or response data is undefined');
-      }
+      return (ret = await createSendTikkleData(
+        item.tikkling_id,
+        selectedValue,
+        message,
+      )
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          // console.log('$$$', res);
+          setErrorMessage('');
+          setReceivedMessage(res.DSdata);
+          return res.DSdata;
+        }));
     } catch (error) {
-      if (error.response && error.response.status) {
-        console.error('[status code] ', error.response.data);
-        setErrorMessage(error.response.data.message);
-        return error.response.data;
-      }
-      if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.message);
-        console.error('response data : ', error.response.data);
-        return error.response.data;
-      }
+      //에러 처리 필요 -> 정해야함
+      console.log(
+        '[Error in BuyTikklingModal post_tikkling_sendtikkle]\n',
+        error,
+      );
     }
   }
 
@@ -186,9 +142,9 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
     );
   };
 
-  const buttonPress = () => {
-    post_tikkling_sendtikkle(data).then(res => {
-      console.log(res);
+  const buttonPress = async () => {
+    await post_tikkling_sendtikkle(data).then(res => {
+      // console.log(res);
       if (res.success === true) {
         setServerMessage(res.message);
         onCloseButtonPress();
@@ -217,24 +173,26 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
       >
         <View style={styles.modalContent}>
           <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
-          <View
-            style={{
-              padding: 12,
-              borderColor: COLOR_SEPARATOR,
-              borderWidth: 1,
-              borderRadius: 8,
-              marginTop: 24,
-            }}>
+          <View style={{marginTop: 24}}>
             <M11 customStyle={{color: COLOR_GRAY}}>
               마음을 담은 메시지를 보내보세요.
             </M11>
-            <TextInput
-              multiline
-              style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
-              onChangeText={value => setMessage(value)}
-              placeholder="생일 축하해!"
-              placeholderTextColor={COLOR_BLACK}
-            />
+            <View
+              style={{
+                padding: 12,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
+                borderRadius: 8,
+                marginTop: 8,
+              }}>
+              <TextInput
+                multiline
+                style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
+                onChangeText={value => setMessage(value)}
+                placeholder="내가 보탠다!"
+                placeholderTextColor={COLOR_SECOND_BLACK}
+              />
+            </View>
           </View>
 
           <DropDownPicker

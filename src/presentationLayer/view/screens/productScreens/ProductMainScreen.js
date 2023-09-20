@@ -12,6 +12,8 @@ import SearchedProductItems from 'src/presentationLayer/view/components/productC
 import SelectedStateHeader from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/SelectedStateHeader';
 import {RefreshControl} from 'react-native-gesture-handler';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function ProductSearchLandingScreen() {
   const {state, actions} = useProductMainViewModel();
@@ -19,7 +21,7 @@ export default function ProductSearchLandingScreen() {
     actions.setSelectedCategory('전자제품');
   }, []);
   useEffect(() => {
-    actions.loadData();
+    actions.onRefresh();
   }, [
     state.categoryId,
     state.priceMin,
@@ -54,10 +56,15 @@ export default function ProductSearchLandingScreen() {
           </View>
         </View>
 
-        <View style={styles.itemContainer}>
-          <SearchedProductItems />
-        </View>
+        {state.loading ? (
+          <GlobalLoader />
+        ) : (
+          <View style={styles.itemContainer}>
+            <SearchedProductItems />
+          </View>
+        )}
         <View style={{height: 400}} />
+        <Footer />
       </ScrollView>
     </View>
   );

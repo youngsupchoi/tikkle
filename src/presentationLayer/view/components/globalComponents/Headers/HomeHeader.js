@@ -11,6 +11,8 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import {
   COLOR_BLACK,
   COLOR_ERROR,
+  COLOR_PRIMARY,
+  COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -32,6 +34,8 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import Ticket from 'src/assets/icons/Ticket';
+import TicketFilled from 'src/assets/icons/TicketFilled';
+import NotificationFilled from 'src/assets/icons/NotificationFilled';
 
 export default function HomeHeader(props) {
   const {isNotice, tikkling_ticket} = props;
@@ -45,39 +49,37 @@ export default function HomeHeader(props) {
         <AnimatedButton
           style={{
             padding: 12,
-            paddingVertical: 8,
+            paddingVertical: 6,
             borderColor: COLOR_SEPARATOR,
-            borderWidth: 3,
+            borderWidth: 1,
             borderRadius: 40,
             flexDirection: 'row',
             marginHorizontal: 16,
             alignItems: 'center',
+            backgroundColor: COLOR_SECONDARY,
           }}>
-          <Ticket
-            width={24}
-            height={24}
-            stroke={COLOR_BLACK}
-            strokeWidth={1.8}
-            scale={1}
-          />
-          <B15 customStyle={{marginLeft: 8}}>{tikkling_ticket}</B15>
+          <TicketFilled width={24} height={24} fill={COLOR_PRIMARY} scale={1} />
+          <B15 customStyle={{marginLeft: 12, color: COLOR_PRIMARY}}>
+            {tikkling_ticket}
+          </B15>
         </AnimatedButton>
         <AnimatedButton
           onPress={() => {
             navigation.navigate('notification');
           }}
           style={{padding: 10}}>
-          <Notification
+          <NotificationFilled
             width={24}
             height={24}
-            stroke={COLOR_BLACK}
-            strokeWidth={2.4}
-            scale={0.85}
+            fill={COLOR_PRIMARY}
+            scale={1}
           />
           {isNotice ? (
             <View
               style={{
                 backgroundColor: COLOR_ERROR,
+                borderColor: COLOR_WHITE,
+                borderWidth: 2,
                 position: 'absolute',
                 width: 6,
                 height: 6,
@@ -100,7 +102,6 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT + StatusBarHeight,
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 1,
-    // elevation: 1,
     paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
     flexDirection: 'row',

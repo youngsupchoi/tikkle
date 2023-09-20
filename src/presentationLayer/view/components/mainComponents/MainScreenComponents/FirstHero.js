@@ -5,11 +5,14 @@ import {
   B12,
   B15,
   B17,
+  B20,
   B22,
   B28,
   EB,
+  H,
   M,
   M11,
+  M17,
   UNIQUE,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -43,6 +46,10 @@ import CalendarFilled from 'src/assets/icons/CalendarFilled';
 import Present from 'src/assets/icons/Present';
 import Delete from 'src/assets/icons/Delete';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
+import LinearGradient from 'react-native-linear-gradient';
+import CancelModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CancelModal';
+import FlagFilled from 'src/assets/icons/FlagFilled';
+import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 
 //-------------------------------------------------------------------------
 
@@ -76,7 +83,7 @@ request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
 const FirstHero = props => {
   const {state, actions} = useMainViewModel();
 
-  const CurrentDate = new Date();
+  const CurrentDate = getKoreanDate();
   const FundingLimit = new Date(state.myTikklingData.funding_limit);
   const TikkleCount = Number(state.myTikklingData.tikkle_count);
   const TikkleQuantity = state.myTikklingData.tikkle_quantity;
@@ -90,15 +97,15 @@ const FirstHero = props => {
       <Present
         width={24}
         height={24}
-        stroke={COLOR_PRIMARY}
+        stroke={COLOR_WHITE}
         scale={1.3}
         strokeWidth={2}
       />
     );
     ButtonText = '상품 받기';
-  } else if (TikkleQuantity > 0) {
+  } else if (TikkleQuantity > TikkleCount && TikkleCount !== 0) {
     // 받은 티클 수가 전체 티클 수보다 적은 경우
-    if (FundingLimit < CurrentDate) {
+    if (FundingLimit > CurrentDate) {
       // 현재 시간이 종료 시간을 지나지 않은 경우
       ButtonIcon = (
         <Present
@@ -109,9 +116,10 @@ const FirstHero = props => {
           strokeWidth={1.5}
         />
       );
-      ButtonText = '티클 구매하기';
+      ButtonText = '시간 안 지남 티클 구매하기';
     } else {
       // 현재 시간이 종료 시간을 지난 경우
+      //console.log('%%%%%%%%%%%%\n\n', FundingLimit, CurrentDate);
       ButtonIcon = (
         <Delete
           width={24}
@@ -121,11 +129,11 @@ const FirstHero = props => {
           strokeWidth={2}
         />
       );
-      ButtonText = '종료하기';
+      ButtonText = '시간 지남 종료하기';
     }
   } else {
     // 받은 티클이 없는 경우
-    if (FundingLimit < CurrentDate) {
+    if (FundingLimit > CurrentDate) {
       // 현재 시간이 종료 시간을 지나지 않은 경우
       ButtonIcon = (
         <Present
@@ -136,7 +144,7 @@ const FirstHero = props => {
           strokeWidth={1.5}
         />
       );
-      ButtonText = '티클 구매하기';
+      ButtonText = '안 지남 티클 구매하기';
     } else {
       // 현재 시간이 종료 시간을 지난 경우
       ButtonIcon = (
@@ -148,7 +156,7 @@ const FirstHero = props => {
           strokeWidth={2}
         />
       );
-      ButtonText = '종료하기';
+      ButtonText = '지남 종료하기';
     }
   }
 
@@ -157,46 +165,39 @@ const FirstHero = props => {
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
     const fundingLimit = new Date(state.myTikklingData.funding_limit);
     const currentDate = getKoreanDate();
+    console.log(fundingLimit, currentDate);
 
     if (tikkleQuantity === tikkleCount) {
-      setShowEndModal(true);
-    } else if (fundingLimit < currentDate) {
-      setShowBuyModal(true);
+      actions.setShowEndModal(true);
+    } else if (fundingLimit > currentDate) {
+      actions.setShowBuyModal(true);
     } else {
-      setShowCancelModal(true);
+      actions.setShowCancelModal(true);
     }
   };
 
   const onCloseModal = () => {
-    setShowBuyModal(false);
+    actions.setShowBuyModal(false);
   };
-
-  const [capturedImage, setCapturedImage] = useState(null);
-  const [showEndModal, setShowEndModal] = useState(false);
-  const [showBuyModal, setShowBuyModal] = useState(false);
-  const [showCancelModal, setShowCancelModal] = useState(false);
-  const [hasInstagramInstalled, setHasInstagramInstalled] = useState(false); // State to track if Instagram is installed on user's device or not
-  const smallImageRef = useRef(null);
-  const backgroundImageRef = useRef(null);
 
   // let stickerUri;
   const onShareButtonPressed = async () => {
     try {
-      const stickerUri = await captureRef(smallImageRef, {
+      const stickerUri = await captureRef(state.smallImageRef, {
         format: 'png',
         quality: 1,
         result: 'base64', // capture image as base64
       });
 
-      const backgroundUri = await captureRef(backgroundImageRef, {
+      const backgroundUri = await captureRef(state.backgroundImageRef, {
         format: 'png',
         quality: 1,
         result: 'base64', // capture image as base64
       });
 
-      setCapturedImage(`data:image/png;base64,${stickerUri}`); // Update state
+      actions.setCapturedImage(`data:image/png;base64,${stickerUri}`); // Update state
 
-      if (hasInstagramInstalled) {
+      if (state.hasInstagramInstalled) {
         const res = await Share.shareSingle({
           appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
           stickerImage: `data:image/png;base64,${stickerUri}`,
@@ -208,7 +209,6 @@ const FirstHero = props => {
           backgroundColor: '#ffffff',
           contentUrl: '',
         });
-        // console.log('instagramInstalled: ', res, stickerUri);
       } else {
         // If instagram is not installed in user's device then just share using the usual device specific bottomsheet (https://react-native-share.github.io/react-native-share/docs/share-open)
         await Share.open({url: stickerUri});
@@ -222,96 +222,20 @@ const FirstHero = props => {
     if (Platform.OS === 'ios') {
       // If platform is IOS then check if instagram is installed on the user's device using the `Linking.canOpenURL` API
       Linking.canOpenURL('instagram://').then(val =>
-        setHasInstagramInstalled(val),
+        actions.setHasInstagramInstalled(val),
       );
     } else {
       // Else check on android device if instagram is installed in user's device using the `Share.isPackageInstalled` API
       Share.isPackageInstalled('com.instagram.android').then(({isInstalled}) =>
-        setHasInstagramInstalled(isInstalled),
+        actions.setHasInstagramInstalled(isInstalled),
       );
     }
   }, []);
 
   return (
     <View style={styles.outerContainer}>
-      <ViewShot ref={backgroundImageRef}>
-        <View>
-          <ViewShot ref={smallImageRef}>
-            <View style={styles.innerContainer}>
-              <View style={styles.innerRowDirection}>
-                <View>
-                  <Image
-                    resizeMode="cover"
-                    source={{
-                      uri:
-                        state.myTikklingData.thumbnail_image !== null
-                          ? state.myTikklingData.thumbnail_image
-                          : '',
-                    }}
-                    style={styles.imageStyle} // Some style for the image on the MyTikklingScreen
-                  />
-                </View>
-                <View style={styles.innerViewStyle}>
-                  <View style={styles.productNameContainer}>
-                    <View>
-                      <View style={styles.productDetails}>
-                        <View style={styles.productDetails}>
-                          <B22 customStyle={{fontFamily: EB}}>
-                            {state.myTikklingData.product_name}
-                          </B22>
-                          <B12
-                            customStyle={{
-                              color: COLOR_GRAY,
-                              marginVertical: 4,
-                              fontFamily: M,
-                            }}>
-                            현재까지{' '}
-                            {Math.round(
-                              (state.myTikklingData.tikkle_count /
-                                state.myTikklingData.tikkle_quantity) *
-                                1000,
-                            ) / 10}
-                            % 달성했어요!
-                          </B12>
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-
-                  <View
-                    style={{
-                      // alignSelf: 'center',
-                      marginLeft: 12,
-                      marginTop: 4,
-                      width: windowWidth - 96 - 80 - 12 + 20,
-                    }}>
-                    <BarComponent
-                      totalPieces={state.myTikklingData.tikkle_quantity}
-                      gatheredPieces={state.myTikklingData.tikkle_count}
-                    />
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  backgroundColor: COLOR_WHITE,
-                  borderRadius: 40,
-                  borderColor: COLOR_BLACK,
-                  borderWidth: 1,
-                  padding: 4,
-                  paddingHorizontal: 10,
-                  position: 'absolute',
-                  top: 12,
-                  right: 12,
-                }}>
-                <B12>{state.myTikklingData.brand_name}</B12>
-              </View>
-              <View style={{position: 'absolute', bottom: 6, right: 12}}>
-                <B15 customStyle={{fontFamily: UNIQUE}}>TIKKLE</B15>
-              </View>
-            </View>
-          </ViewShot>
-
+      <ViewShot ref={state.backgroundImageRef}>
+        <View style={{backgroundColor: COLOR_WHITE}}>
           <View style={styles.mainContainer}>
             {Number(state.myTikklingData.tikkle_count) ===
             state.myTikklingData.tikkle_quantity ? (
@@ -321,37 +245,145 @@ const FirstHero = props => {
                   이제 티클을 상품으로 바꿀 수 있어요.
                 </B15>
                 <LottieView
-                  source={require('src/assets/animations/PLPjYPq7Vm.json')} // replace with your Lottie file path
+                  source={require('src/assets/animations/PLPjYPq7Vm.json')}
                   autoPlay
                   loop
                   style={styles.lottieStyle}
                 />
               </View>
             ) : (
-              <View style={styles.detailsContainer}>
-                <View style={{alignItems: 'center'}}>
+              <View>
+                <View
+                  style={{
+                    width: windowWidth - 64,
+                    height: ((windowWidth - 64) / 3) * 2,
+                    borderRadius: 16,
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    alignSelf: 'center',
+                    marginBottom: 8,
+                  }}>
                   <View
                     style={{
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: 16,
-                      backgroundColor: COLOR_SECONDARY,
-                      borderRadius: 100,
-                      marginBottom: 12,
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      zIndex: -1,
                     }}>
-                    <BubbleFilled fill={COLOR_PRIMARY} />
+                    <Image
+                      resizeMode="cover"
+                      source={{
+                        uri: state.myTikklingData.thumbnail_image,
+                      }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 16,
+                      }}
+                    />
                   </View>
-                  <B12 customStyle={styles.labelText}>남은 티클</B12>
-                  <B17 customStyle={styles.dataText}>
-                    {state.myTikklingData.tikkle_quantity -
-                      state.myTikklingData.tikkle_count}{' '}
-                    개
-                  </B17>
+                  {console.log(FundingLimit, CurrentDate)}
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 0.75}}
+                    colors={[
+                      'rgba(255,255,255,0)',
+                      'rgba(255,255,255,.3)',
+                      'rgba(255,255,255,1)',
+                    ]}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      top: 0,
+                      zIndex: 0,
+                      borderBottomRightRadius: 16,
+                      borderBottomLeftRadius: 16,
+                    }}
+                  />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-end',
+                      position: 'absolute',
+                      bottom: 12,
+                      left: 16,
+                      right: 16,
+                    }}>
+                    <B22 customStyle={{fontFamily: H}}>
+                      {state.myTikklingData.product_name}
+                    </B22>
+                    <B15 customStyle={{}}>
+                      {state.myTikklingData.brand_name}
+                    </B15>
+                  </View>
                 </View>
-                <View>
+
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    width: windowWidth * 0.8,
+                    marginTop: 16,
+                    marginBottom: 24,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      marginBottom: 8,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <FlagFilled
+                        width={24}
+                        height={24}
+                        fill={COLOR_PRIMARY}
+                        scale={1.3}
+                      />
+                      <B17
+                        customStyle={{
+                          fontFamily: EB,
+                          color: COLOR_GRAY,
+                          marginLeft: 8,
+                        }}>
+                        달성률
+                      </B17>
+                    </View>
+                    <View
+                      style={{
+                        alignItems: 'flex-end',
+                        marginBottom: 12,
+                      }}>
+                      <B17>
+                        {Math.round(
+                          (state.myTikklingData.tikkle_count /
+                            state.myTikklingData.tikkle_quantity) *
+                            1000,
+                        ) / 10}
+                        %
+                      </B17>
+                    </View>
+                  </View>
+                  <BarComponent
+                    totalPieces={state.myTikklingData.tikkle_quantity}
+                    gatheredPieces={state.myTikklingData.tikkle_count}
+                  />
+                </View>
+
+                <View style={styles.detailsContainer}>
                   <View
                     style={{
                       alignItems: 'center',
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      padding: 12,
+                      paddingVertical: 16,
+                      width: 0.4 * windowWidth,
+                      borderRadius: 12,
                     }}>
                     <View
                       style={{
@@ -362,72 +394,107 @@ const FirstHero = props => {
                         borderRadius: 100,
                         marginBottom: 12,
                       }}>
-                      <CalendarFilled fill={COLOR_PRIMARY} />
+                      <BubbleFilled fill={COLOR_PRIMARY} />
                     </View>
-                    <B12 customStyle={styles.labelText}>남은 시간</B12>
-                    <View>
-                      <TimerComponent
-                        timerStyle={{
-                          color: COLOR_BLACK,
-                          fontSize: 17,
-                          fontFamily: B,
-                        }}
-                        deadline={state.myTikklingData.funding_limit}
-                      />
+                    <B12 customStyle={styles.labelText}>남은 티클</B12>
+                    <B17 customStyle={styles.dataText}>
+                      {state.myTikklingData.tikkle_quantity -
+                        state.myTikklingData.tikkle_count}{' '}
+                      개
+                    </B17>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        alignItems: 'center',
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        padding: 12,
+                        paddingVertical: 16,
+                        width: 0.4 * windowWidth,
+                        borderRadius: 12,
+                      }}>
+                      <View
+                        style={{
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: 16,
+                          backgroundColor: COLOR_SECONDARY,
+                          borderRadius: 100,
+                          marginBottom: 12,
+                        }}>
+                        <CalendarFilled fill={COLOR_PRIMARY} />
+                      </View>
+                      <B12 customStyle={styles.labelText}>남은 시간</B12>
+                      <View>
+                        <TimerComponent
+                          timerStyle={{
+                            color: COLOR_BLACK,
+                            fontSize: 17,
+                            fontFamily: B,
+                          }}
+                          deadline={state.myTikklingData.funding_limit}
+                        />
+                      </View>
                     </View>
                   </View>
                 </View>
               </View>
             )}
           </View>
+
+          <View
+            style={{
+              marginTop: 12,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <AnimatedButton
+              onPress={handleButtonPress}
+              style={styles.buttonStyle}>
+              <View
+                style={{
+                  marginRight: 4,
+                  padding: 8,
+                  borderRadius: 100,
+                }}>
+                {ButtonIcon}
+              </View>
+              <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
+            </AnimatedButton>
+            <AnimatedButton
+              onPress={onShareButtonPressed}
+              style={{
+                marginLeft: windowWidth * 0.1,
+                width: 50,
+                height: 50,
+                padding: 6,
+                borderRadius: 100,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={require('src/assets/icons/instagramLogo.png')}
+                style={{width: 32, height: 32}}
+              />
+            </AnimatedButton>
+          </View>
         </View>
       </ViewShot>
 
-      <View
-        style={{
-          marginTop: 24,
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-        <AnimatedButton onPress={handleButtonPress} style={styles.buttonStyle}>
-          <View
-            style={{
-              marginRight: 4,
-              padding: 8,
-              borderRadius: 100,
-            }}>
-            {ButtonIcon}
-          </View>
-          <B17 customStyle={styles.buttonText}>{ButtonText}</B17>
-        </AnimatedButton>
-        <AnimatedButton
-          onPress={onShareButtonPressed}
-          style={{
-            marginLeft: 20,
-            backgroundColor: COLOR_SECONDARY,
-            borderWidth: 1.5,
-            borderColor: COLOR_SECONDARY,
-            padding: 6,
-            borderRadius: 100,
-          }}>
-          <Image
-            source={require('src/assets/icons/instagramLogo.png')}
-            style={{width: 36, height: 36}}
-          />
-        </AnimatedButton>
-      </View>
-
       <BuyTikkleModal
         data={state.myTikklingData}
-        showModal={showBuyModal}
+        showModal={state.showBuyModal}
         onCloseModal={onCloseModal}
       />
 
+      <CancelModal />
+
       <Modal
-        isVisible={showEndModal}
-        onSwipeComplete={() => setShowEndModal(false)}
+        isVisible={state.showEndModal}
+        onSwipeComplete={() => actions.setShowEndModal(false)}
         swipeDirection={'down'}
-        onBackdropPress={() => setShowEndModal(false)}
+        onBackdropPress={() => actions.setShowEndModal(false)}
         backdropOpacity={0.5}
         style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.
         animationIn="slideInUp" // 이 부분이 추가되었습니다.
@@ -443,10 +510,8 @@ const FirstHero = props => {
               <B15 customStyle={{marginTop: 16}}>도로명주소</B15>
               <AnimatedButton
                 onPress={() => {
-                  // navigation.navigate('searchAddress');
-                  // setShowSearchModal(true);
+                  // actions.setShowEndModal(false);
                   actions.setShowPostCodeModal(true);
-                  console.log('f');
                 }}
                 style={{
                   marginTop: 16,
@@ -492,7 +557,7 @@ const FirstHero = props => {
               <B15 customStyle={{marginTop: 16}}>상세주소</B15>
               <AnimatedButton
                 onPress={() => {
-                  actions.navigation.navigate('searchAddress');
+                  // actions.navigation.navigate('searchAddress');
                   actions.setShowDetailModal(true);
                 }}
                 style={{
@@ -528,7 +593,6 @@ const FirstHero = props => {
                       strokeWidth={1.5}
                     />
                   </View>
-                  {/* {console.log(state.userData)} */}
                   <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
                     {state.userData.detail_address !== null
                       ? `${state.userData.detail_address}`
@@ -536,9 +600,6 @@ const FirstHero = props => {
                   </B15>
                 </View>
               </AnimatedButton>
-            </View>
-            <View>
-              <AnimatedButton></AnimatedButton>
             </View>
           </View>
 
@@ -548,14 +609,17 @@ const FirstHero = props => {
             }}>
             <AnimatedButton
               onPress={() => {
-                actions.updateEndTikklingData(state.myTikklingData);
+                const res = actions.updateEndTikklingData(
+                  state.myTikklingData.tikkling_id,
+                );
+                console.log(res);
                 actions.setShowEndModal(false);
               }}
               style={modalStyles.confirmButton}>
               <B15 customStyle={modalStyles.whiteText}>이 주소로 배송 요청</B15>
             </AnimatedButton>
             <AnimatedButton
-              onPress={() => setShowEndModal(false)}
+              onPress={() => actions.setShowEndModal(false)}
               style={modalStyles.laterButton}>
               <B15 customStyle={modalStyles.primaryText}>나중에 배송 요청</B15>
             </AnimatedButton>
@@ -566,13 +630,14 @@ const FirstHero = props => {
         </View>
       </Modal>
 
-      {/* <PostCodeModal setShowPostCodeModal showPostCodeModal  /> */}
+      <PostCodeModal actions={actions} state={state} />
+      <DetailAddressInput state={state} actions={actions} />
 
       <Modal
-        isVisible={showCancelModal}
+        isVisible={state.showCancelModal}
         backdropOpacity={0.5}
-        // onBackdropPress={setShowEndModal(!showEndModal)}
-        // onBackButtonPress={setShowEndModal(false)}
+        onBackdropPress={() => actions.setShowEndModal(false)}
+        // onBackButtonPress={actions.setShowEndModal(false)}
       >
         <View
           style={{
@@ -607,8 +672,8 @@ const FirstHero = props => {
             }}>
             <AnimatedButton
               onPress={() => {
-                actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
-                setShowCancelModal(false);
+                // actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
+                actions.setShowCancelModal(false);
               }}
               style={{
                 padding: 12,
@@ -622,7 +687,7 @@ const FirstHero = props => {
               <B15 customStyle={{color: COLOR_WHITE}}>종료하기</B15>
             </AnimatedButton>
             <AnimatedButton
-              onPress={() => setShowCancelModal(false)}
+              onPress={() => actions.setShowCancelModal(false)}
               style={{
                 padding: 12,
                 borderRadius: 12,
@@ -642,28 +707,32 @@ const FirstHero = props => {
 
 const styles = StyleSheet.create({
   outerContainer: {
+    backgroundColor: COLOR_WHITE,
     marginHorizontal: SPACING_2,
     borderRadius: 16,
     marginBottom: 24,
     marginTop: 4,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
   },
   innerContainer: {
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
     backgroundColor: COLOR_WHITE,
-    padding: 12,
+    padding: 16,
     borderRadius: 12,
-    marginBottom: 32,
+    marginBottom: 12,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
   },
   innerRowDirection: {
     flexDirection: 'row',
@@ -693,6 +762,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     width: '100%',
     justifyContent: 'center',
+    backgroundBottomColor: COLOR_WHITE,
   },
   centeredContainer: {
     alignItems: 'center',

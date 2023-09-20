@@ -24,6 +24,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
+import LottieView from 'lottie-react-native';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function HomeScreen() {
   const {ref, state, actions} = useMainViewModel();
@@ -67,6 +70,7 @@ export default function HomeScreen() {
   const delay = 200; // 각 컴포넌트 사이의 시간 차이 (밀리초)
 
   useEffect(() => {
+    actions.setLoading(true);
     actions.loadData();
     setTimeout(() => {
       translateYSecondHero.value = withTiming(0, {
@@ -93,7 +97,7 @@ export default function HomeScreen() {
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
       });
     }, 5 * delay); // 다섯 번째 컴포넌트
-  }, [state.loading]);
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -113,30 +117,36 @@ export default function HomeScreen() {
             tikkling_ticket={state.userData.tikkling_ticket}
           />
           {state.loading ? (
-            <HomeLoader width={windowWidth} height={windowHeight}></HomeLoader>
-          ) : null}
-          <Animated.View style={[animatedStyleSecondHero]}>
-            <SecondHero />
-          </Animated.View>
-          {state.isTikkling ? (
-            <Animated.View style={[animatedStyleMyTikkling]}>
-              <MyTikklingComponent />
-            </Animated.View>
-          ) : null}
-          {state.friendTikklingData.length === 0 ? null : (
-            <Animated.View style={[animatedStyleFriendsTikkling]}>
-              <FriendsTikklingComponent />
-            </Animated.View>
-          )}
-          <Animated.View style={[animatedStyleMyWishlist]}>
-            <MyWishlistComponent />
-          </Animated.View>
-          {state.friendEventData.length === 0 ? null : (
-            <Animated.View style={[animatedStyleFriendsEvent]}>
-              <FriendsEventComponent />
-            </Animated.View>
+            <GlobalLoader />
+          ) : (
+            <View>
+              {state.isTikkling ? null : (
+                <Animated.View style={[animatedStyleSecondHero]}>
+                  <SecondHero />
+                </Animated.View>
+              )}
+              {state.isTikkling ? (
+                <Animated.View style={[animatedStyleMyTikkling]}>
+                  <MyTikklingComponent />
+                </Animated.View>
+              ) : null}
+              {state.friendTikklingData.length === 0 ? null : (
+                <Animated.View style={[animatedStyleFriendsTikkling]}>
+                  <FriendsTikklingComponent />
+                </Animated.View>
+              )}
+              <Animated.View style={[animatedStyleMyWishlist]}>
+                <MyWishlistComponent />
+              </Animated.View>
+              {state.friendEventData.length === 0 ? null : (
+                <Animated.View style={[animatedStyleFriendsEvent]}>
+                  <FriendsEventComponent />
+                </Animated.View>
+              )}
+            </View>
           )}
           <View style={styles.homeFooter}></View>
+          <Footer />
         </ScrollView>
         <PostCodeModal
           setShowPostCodeModal={actions.setShowPostCodeModal}

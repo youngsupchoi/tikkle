@@ -28,6 +28,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 
 import {useNotificationViewModel} from 'src/presentationLayer/viewModel/mainViewModels/NotificationViewModel';
 import Close from 'src/assets/icons/Close';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
@@ -52,70 +53,71 @@ export default function NotificationScreen() {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <View>
-          <View style={{}}>
-            {console.log(item.meta_data !== null ? item : null)}
-            {/* {item.meta_data &&
-          JSON.parse(item.meta_data).source_user_profile !== null ? (
-            <Image
-              source={{
-                uri:
-                  JSON.parse(item.meta_data).source_user_profile !== null
-                    ? JSON.parse(item.meta_data).source_user_profile
-                    : '',
-              }}
-              style={{width: 48, height: 48, borderRadius: 24}}
-            />
-          ) : item.notification_type_id === 4 ? (
-            <View
-              style={{
-                width: 48,
-                height: 48,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Cake
-                width={24}
-                height={24}
-                stroke={COLOR_BLACK}
-                strokeWidth={1}
-                scale={1}
+        <View
+          style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+          <View>
+            {item.notification_type_id === 1 ||
+            item.notification_type_id === 2 ||
+            item.notification_type_id === 3 ||
+            item.notification_type_id === 5 ||
+            item.notification_type_id === 8 ? (
+              <Image
+                source={{
+                  uri: item.meta_data,
+                }}
+                style={{width: 48, height: 48, borderRadius: 24}}
               />
-            </View>
-          ) : item.notification_type_id === 6 ? (
-            <View
-              style={{
-                width: 48,
-                height: 48,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Verify
-                width={24}
-                height={24}
-                stroke={COLOR_PRIMARY}
-                strokeWidth={1}
-                scale={1}
-              />
-            </View>
-          ) : item.notification_type_id === 7 ? (
-            <View
-              style={{
-                width: 48,
-                height: 48,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Timer
-                width={24}
-                height={24}
-                stroke={COLOR_BLACK}
-                strokeWidth={1}
-                scale={1}
-              />
-            </View>
-          ) : null} */}
+            ) : item.notification_type_id === 4 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Cake
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
+            ) : item.notification_type_id === 6 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Verify
+                  width={24}
+                  height={24}
+                  stroke={COLOR_PRIMARY}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
+            ) : item.notification_type_id === 7 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Timer
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
+            ) : null}
           </View>
+
           <View
             style={{
               marginLeft: 12,
@@ -131,7 +133,7 @@ export default function NotificationScreen() {
             <B12 customStyle={{color: COLOR_GRAY}}>{item.message}</B12>
           </View>
         </View>
-        <View style={{position: 'absolute', top: 12, right: 16}}>
+        <View style={{position: 'absolute', top: 15, right: 15}}>
           <AnimatedButton onPress={() => actions.onDeleteComplete(index)}>
             <Close
               width={16}
@@ -195,17 +197,22 @@ export default function NotificationScreen() {
           </AnimatedButton>
         </View>
       </View>
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={state.refreshing}
-            onRefresh={actions.onRefresh}
-          />
-        }
-        data={state.notificationData}
-        renderItem={renderItem}
-        ListFooterComponent={<View style={{height: 200}} />}
-      />
+
+      {state.loading ? (
+        <GlobalLoader />
+      ) : (
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={state.refreshing}
+              onRefresh={actions.onRefresh}
+            />
+          }
+          data={state.notificationData}
+          renderItem={renderItem}
+          ListFooterComponent={<View style={{height: 800}} />}
+        />
+      )}
     </View>
   );
 }

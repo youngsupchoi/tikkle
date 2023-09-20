@@ -50,6 +50,8 @@ import UnBlock from 'src/assets/icons/UnBlock';
 import BlockFriend from 'src/assets/icons/BlockFriend';
 
 import {RefreshControl} from 'react-native-gesture-handler';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
@@ -148,7 +150,11 @@ export default function FriendsManagementScreen() {
             shadowRadius: 3, // iOS용 그림자 반경
           }}>
           <AnimatedButton
-            onPress={() => actions.setSearchedData([])}
+            onPress={() => {
+              actions.setSearchedData([]);
+              actions.setText_search('');
+              actions.setSearchFalse(false);
+            }}
             style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
             <Close
               width={24}
@@ -198,16 +204,54 @@ export default function FriendsManagementScreen() {
             ) : null}
 
             {state.searchedData[0].relation_state_id === 1 ? (
-              <M11 customStyle={{marginTop: 12}}>친구</M11>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
+                }}
+                style={{
+                  padding: 12,
+                  paddingHorizontal: 24,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLOR_SEPARATOR,
+                  borderRadius: 12,
+                  borderColor: COLOR_PRIMARY_OUTLINE,
+                  borderWidth: 2,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+              </AnimatedButton>
             ) : null}
 
             {state.searchedData[0].relation_state_id === 2 ? (
-              <M11 customStyle={{marginTop: 12}}>새로운 친구</M11>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
+                }}
+                style={{
+                  padding: 12,
+                  paddingHorizontal: 24,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLOR_SEPARATOR,
+                  borderRadius: 12,
+                  borderColor: COLOR_PRIMARY_OUTLINE,
+                  borderWidth: 2,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+              </AnimatedButton>
             ) : null}
 
             {state.searchedData[0].relation_state_id === 3 ? (
               <AnimatedButton
-                // onPress={onAddFriendButtonPress}
+                onPress={() => {
+                  actions.setText_search('');
+                  actions.setSearchedData([]);
+                  actions.setSearchFalse(false);
+                }}
                 style={{
                   padding: 12,
                   paddingHorizontal: 24,
@@ -218,144 +262,193 @@ export default function FriendsManagementScreen() {
                   borderColor: COLOR_ERROR,
                   borderWidth: 2,
                 }}>
-                <B15 customStyle={{color: COLOR_WHITE}}>삭제한 이용자</B15>
+                <B15 customStyle={{color: COLOR_WHITE}}>차단된 이용자</B15>
               </AnimatedButton>
             ) : null}
           </View>
         </View>
-      ) : null}
-      {console.log(state.getFriendData)}
+      ) : (
+        <View>
+          {state.searchFalse === true ? (
+            <View
+              style={{
+                height: windowWidth / 6,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: COLOR_WHITE,
+                margin: 24,
+                borderRadius: 16,
+                elevation: 3,
+                shadowColor: '#000',
+                shadowOffset: {
+                  // iOS용 그림자 위치
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.2, // iOS용 그림자 투명도
+                shadowRadius: 3, // iOS용 그림자 반경
+              }}>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setSearchedData([]);
+                  actions.setText_search('');
+                  actions.setSearchFalse(false);
+                }}
+                style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
+                <Close
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.8}
+                />
+              </AnimatedButton>
+              <View>
+                <B15 customStyle={{color: COLOR_BLACK}}>
+                  존재하지 않는 닉네임이에요
+                </B15>
+              </View>
+            </View>
+          ) : null}
+        </View>
+      )}
+      {/* {console.log(state.getFriendData)} */}
+
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={state.refreshing}
-              onRefresh={actions.onRefresh}
-            />
-          }
-          data={state.getFriendData}
-          keyExtractor={(item, index) => String(item.id)}
-          ListEmptyComponent={
-            state.mode_friend === 'unblock'
-              ? () => {
-                  return (
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: windowWidth,
+        {state.refreshing ? (
+          <GlobalLoader />
+        ) : (
+          <FlatList
+            refreshControl={
+              <RefreshControl
+                refreshing={state.refreshing}
+                onRefresh={actions.onRefresh}
+              />
+            }
+            data={state.getFriendData}
+            keyExtractor={(item, index) => String(item.id)}
+            ListEmptyComponent={
+              state.mode_friend === 'unblock'
+                ? () => {
+                    return (
+                      <View
+                        style={{
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          height: windowWidth,
+                        }}>
+                        <M15>아직 사용 중인 친구가 없네요</M15>
+                        <B22>친구를 초대해 보세요!</B22>
+                        <AnimatedButton>
+                          <B15>공유하기</B15>
+                        </AnimatedButton>
+                      </View>
+                    );
+                  }
+                : () => {
+                    return (
+                      <View
+                        style={{
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          height: windowWidth,
+                        }}>
+                        <M15>차단된 친구가 없네요.</M15>
+                        <B22>좋아요!</B22>
+                      </View>
+                    );
+                  }
+            }
+            ListHeaderComponent={
+              // state.getFriendData.length > 0
+              //   ?
+              () => {
+                return (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <B15
+                      customStyle={{
+                        paddingHorizontal: 24,
                       }}>
-                      <M15>아직 사용 중인 친구가 없네요</M15>
-                      <B22>친구를 초대해 보세요!</B22>
-                      <AnimatedButton>
-                        <B15>공유하기</B15>
-                      </AnimatedButton>
-                    </View>
-                  );
-                }
-              : () => {
-                  return (
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: windowWidth,
-                      }}>
-                      <M15>차단된 친구가 없네요.</M15>
-                      <B22>좋아요!</B22>
-                    </View>
-                  );
-                }
-          }
-          ListHeaderComponent={
-            // state.getFriendData.length > 0
-            //   ?
-            () => {
+                      {state.mode_friend === 'unblock'
+                        ? '친구 목록'
+                        : '차단된 이용자'}
+                    </B15>
+                  </View>
+                );
+              }
+              // : null
+            }
+            ListFooterComponent={
+              state.getFriendData.length > 0
+                ? () => {
+                    return <View style={{height: windowHeight}} />;
+                  }
+                : null
+            }
+            renderItem={({item, index}) => {
               return (
                 <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <B15
-                    customStyle={{
-                      paddingHorizontal: 24,
+                  // onLongPress={() => actions.setSelectedItemId(item.id)}
+                  key={item.id}
+                  style={styles.flatListItemContainer}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                     }}>
-                    {state.mode_friend === 'unblock'
-                      ? '친구 목록'
-                      : '차단된 이용자'}
-                  </B15>
-                </View>
-              );
-            }
-            // : null
-          }
-          ListFooterComponent={
-            state.getFriendData.length > 0
-              ? () => {
-                  return <View style={{height: windowHeight}} />;
-                }
-              : null
-          }
-          renderItem={({item, index}) => {
-            return (
-              <View
-                // onLongPress={() => actions.setSelectedItemId(item.id)}
-                key={item.id}
-                style={styles.flatListItemContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Image
-                    source={{
-                      uri:
-                        item.image !== null
-                          ? item.image
-                          : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-                    }}
-                    style={styles.listItemImage}
-                  />
-                  <View style={styles.listItemTextContainer}>
-                    <B15>{item.name}</B15>
-                    <B15 customStyle={{color: COLOR_GRAY}}> @{item.nick}</B15>
+                    <Image
+                      source={{
+                        uri:
+                          item.image !== null
+                            ? item.image
+                            : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+                      }}
+                      style={styles.listItemImage}
+                    />
+                    <View style={styles.listItemTextContainer}>
+                      <B15>{item.name}</B15>
+                      <B15 customStyle={{color: COLOR_GRAY}}> @{item.nick}</B15>
+                    </View>
+                  </View>
+                  <View style={{position: 'absolute', right: 20, top: 25}}>
+                    {state.mode_friend === 'unblock' ? (
+                      <AnimatedButton
+                        onPress={() => {
+                          actions.block_friend(item);
+                        }}>
+                        <BlockFriend
+                          width={24}
+                          height={24}
+                          stroke={COLOR_ERROR}
+                          strokeWidth={2}
+                        />
+                      </AnimatedButton>
+                    ) : (
+                      <AnimatedButton
+                        onPress={() => {
+                          actions.unblock_friend(item);
+                        }}>
+                        <UnBlock
+                          width={24}
+                          height={24}
+                          stroke={COLOR_SUCCESS}
+                          strokeWidth={2}
+                        />
+                      </AnimatedButton>
+                    )}
                   </View>
                 </View>
-                <View style={{position: 'absolute', right: 20, top: 25}}>
-                  {state.mode_friend === 'unblock' ? (
-                    <AnimatedButton
-                      onPress={() => {
-                        actions.block_friend(item);
-                      }}>
-                      <BlockFriend
-                        width={24}
-                        height={24}
-                        stroke={COLOR_ERROR}
-                        strokeWidth={2}
-                      />
-                    </AnimatedButton>
-                  ) : (
-                    <AnimatedButton
-                      onPress={() => {
-                        actions.unblock_friend(item);
-                      }}>
-                      <UnBlock
-                        width={24}
-                        height={24}
-                        stroke={COLOR_SUCCESS}
-                        strokeWidth={2}
-                      />
-                    </AnimatedButton>
-                  )}
-                </View>
-              </View>
-            );
-          }}
-        />
+              );
+            }}
+          />
+        )}
       </Animated.View>
     </View>
   );

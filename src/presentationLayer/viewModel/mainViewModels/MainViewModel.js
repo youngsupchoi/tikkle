@@ -22,26 +22,29 @@ export const useMainViewModel = () => {
   const navigation = useNavigation();
 
   const loadData = async () => {
-    actions.setLoading(true);
-    getHomeScreenData().then(res => {
-      // console.log(res.DSdata.my_tikkling);
-      console.log(res.DSdata.my_tikkling);
-      actions.setFriendEventData(res.DSdata.friend_event);
-      actions.setFriendTikklingData(res.DSdata.friend_tikkling);
-      actions.setIsNotice(res.DSdata.is_notification);
-      actions.setMyTikklingData(res.DSdata.my_tikkling.info);
-      actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
-      actions.setWishlistData(res.DSdata.my_wishlist);
-      actions.setUserData(res.DSdata.user_info);
-    });
-    actions.setLoading(false);
+    try {
+      await actions.setLoading(true);
+      await getHomeScreenData().then(res => {
+        actions.setFriendEventData(res.DSdata.friend_event);
+        actions.setFriendTikklingData(res.DSdata.friend_tikkling);
+        actions.setIsNotice(res.DSdata.is_notification);
+        actions.setMyTikklingData(res.DSdata.my_tikkling.info[0]);
+        actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
+        actions.setWishlistData(res.DSdata.my_wishlist);
+        actions.setUserData(res.DSdata.user_info);
+      });
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      await actions.setLoading(false);
+    }
   };
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onRefresh = async () => {
-    actions.setRefreshing(true);
-    loadData();
-    actions.setRefreshing(false);
+    await actions.setRefreshing(true);
+    await loadData();
+    await actions.setRefreshing(false);
   };
 
   const showDropdown = () => {
@@ -77,8 +80,17 @@ export const useMainViewModel = () => {
       actions.setDropdownVisible(false);
     }
   };
+
+  const toggleCancelModal = () => {
+    actions.setShowCancelModal(!state.showCancelModal);
+    console.log('hihihi');
+    console.log(state.showCancelModal);
+  };
+
   return {
-    ref,
+    ref: {
+      ...ref,
+    },
     state: {
       ...state,
     },
@@ -92,6 +104,7 @@ export const useMainViewModel = () => {
       keyExtractor,
       navigation,
       updateEndTikklingData,
+      toggleCancelModal,
     },
   };
 };

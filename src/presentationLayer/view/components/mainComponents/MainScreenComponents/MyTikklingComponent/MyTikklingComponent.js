@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Image, StyleSheet, Animated} from 'react-native';
+import Modal from 'react-native-modal';
 import Delete from 'src/assets/icons/Delete';
 import Detail from 'src/assets/icons/Detail';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
@@ -47,26 +48,38 @@ const MyTikklingComponent = () => {
           }}
           style={styles.animatedButton}>
           <Detail style={styles.detail} />
+          {console.log('tikklingData', state.myTikklingData)}
         </AnimatedButton>
         {state.dropdownVisible && (
-          <Animated.View style={[styles.dropdown, dropdownStyle]}>
-            <AnimatedButton
-              onPress={() => {
-                actions.buttonPress();
-              }}
-              style={styles.dropdownButton}>
-              <View style={styles.iconContainer}>
-                <Delete
-                  width={24}
-                  height={24}
-                  stroke={COLOR_ERROR}
-                  strokeWidth={1.5}
-                  scale={1}
-                />
-              </View>
-              <B15 customStyle={styles.deleteText}>종료하기</B15>
-            </AnimatedButton>
-          </Animated.View>
+          <Modal
+            isVisible={state.dropdownVisible}
+            swipeDirection={['up']}
+            useNativeDriver={false}
+            backdropColor="transparent"
+            style={{position: 'absolute', top: 60, right: 20}}
+            onBackdropPress={() => actions.hideDropdown()}
+            transparent={true}>
+            <View style={styles.dropdown}>
+              <AnimatedButton
+                onPress={() => {
+                  // actions.buttonPress();
+                  actions.toggleCancelModal();
+                  actions.hideDropdown();
+                }}
+                style={styles.dropdownButton}>
+                <View style={styles.iconContainer}>
+                  <Delete
+                    width={24}
+                    height={24}
+                    stroke={COLOR_ERROR}
+                    strokeWidth={1.5}
+                    scale={1}
+                  />
+                </View>
+                <B15 customStyle={styles.deleteText}>종료하기</B15>
+              </AnimatedButton>
+            </View>
+          </Modal>
         )}
       </View>
       <View style={styles.dataContainer}>
@@ -90,8 +103,9 @@ const MyTikklingComponent = () => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 12,
+    marginHorizontal: 16,
     backgroundColor: COLOR_WHITE,
-    borderRadius: 24,
+    borderRadius: 16,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -114,6 +128,7 @@ const styles = StyleSheet.create({
   },
   animatedButton: {
     padding: 10,
+    marginHorizontal: -10,
   },
   detail: {
     width: 20,
@@ -124,18 +139,27 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     backgroundColor: COLOR_WHITE,
-    position: 'absolute',
-    top: 16,
-    right: 24,
-    zIndex: 20,
+    position: 'relative',
+    top: 48,
+    left: 170,
+    // zIndex: 20,
     borderRadius: 12,
-    elevation: 10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      // iOS용 그림자 위치
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2, // iOS용 그림자 투명도
+    shadowRadius: 3, // iOS용 그림자 반경
+    width: 120,
   },
   dropdownButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    paddingVertical: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
   },
   iconContainer: {},
   delete: {
