@@ -24,7 +24,10 @@ export const useProductMainViewModel = () => {
       state.sortWay,
       state.search,
       state.getNum,
-    ).then(res => actions.setSearchedData(res.DSdata.info));
+    ).then(res => {
+      // console.log('end search!!');
+      actions.setSearchedData(res.DSdata.info);
+    });
     await actions.setLoading(false);
   };
 
