@@ -11,4 +11,4 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {StatusBar, Platform} from 'react-native';
 
 export const StatusBarHeight =
-  Platform.OS === 'ios' ? getStatusBarHeight(true) : StatusBar.currentHeight;
+  Platform.OS === 'ios' ? -30 : StatusBar.currentHeight;
