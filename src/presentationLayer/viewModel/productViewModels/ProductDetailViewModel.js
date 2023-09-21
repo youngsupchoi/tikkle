@@ -21,30 +21,34 @@ export const useProductDetailViewModel = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const data = route.params;
+  actions.setData(data);
 
+  actions.setParse(route.params);
+  // console.log('$$$parse : ', state.parse);
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
-  const loadData = async productId => {
-    console.log(productId);
-    await getProductInfoData(productId)
-      .then(res => {
-        console.log(res);
-        return topActions.setStateAndError(res);
-      })
-      .then(res => {
-        actions.setReceivedData(res.DSdata.info);
-        if (res.DSdata.info.wishlisted !== null) {
-          actions.setWishlisted(true);
-        } else {
-          actions.setWishlisted(false);
-        }
-      });
-  };
+  // const loadData = async productId => {
+  //   // await actions.setLoading(true);
+  //   await getProductInfoData(productId)
+  //     .then(res => {
+  //       // console.log(res);
+  //       return topActions.setStateAndError(res);
+  //     })
+  //     .then(res => {
+  //       if (res.DSdata.info.wishlisted !== null) {
+  //         actions.setWishlisted(true);
+  //       } else {
+  //         actions.setWishlisted(false);
+  //       }
+  //       actions.setReceivedData(res.DSdata.info);
+  //     });
+  //   // await actions.setLoading(false);
+  // };
 
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
       console.log('Delete : ', res);
-      topActions.setStateAndError(res);
+      return topActions.setStateAndError(res);
     });
   };
 
@@ -63,7 +67,7 @@ export const useProductDetailViewModel = () => {
     },
     actions: {
       ...actions,
-      loadData,
+
       deleteMyWishlistData_,
       createMyWishlistData_,
       navigation,
