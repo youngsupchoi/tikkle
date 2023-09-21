@@ -147,11 +147,9 @@ export default function ProfileScreen() {
                       @{state.userData_profile.nick}
                     </M15>
                     <M11 customStyle={{color: COLOR_GRAY}}>
-                      생일이{' '}
                       {actions.calculateDaysUntilNextBirthday(
                         state.userData_profile.birthday,
                       )}
-                      일 남았어요.
                     </M11>
                   </View>
                 </View>
