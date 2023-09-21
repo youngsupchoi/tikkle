@@ -84,7 +84,7 @@ export default function ProfileScreen() {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 paddingHorizontal: 24,
-                marginTop: 16,
+                marginTop: 5,
                 alignItems: 'center',
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>

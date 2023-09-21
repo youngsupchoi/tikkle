@@ -54,8 +54,7 @@ export default function ProductDetailScreen(route) {
   }, []);
 
   return (
-    <View
-      style={{paddingTop: StatusBarHeight, backgroundColor: backgroundColor}}>
+    <View style={{paddingTop: 0, backgroundColor: backgroundColor}}>
       <ScrollView>
         <View
           style={{

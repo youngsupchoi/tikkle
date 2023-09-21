@@ -456,7 +456,7 @@ export default function FriendsManagementScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: StatusBarHeight,
+    paddingTop: 0,
     backgroundColor: backgroundColor,
     flex: 1,
   },

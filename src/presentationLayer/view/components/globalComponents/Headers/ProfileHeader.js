@@ -73,11 +73,11 @@ export default function ProfileHeader() {
 const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
-    height: HEADER_HEIGHT + StatusBarHeight,
+    height: HEADER_HEIGHT,
     // borderBottomColor: COLOR_SEPARATOR,
     // borderBottomWidth: 1,
     // elevation: 1,
-    paddingTop: StatusBarHeight,
+    paddingTop: 0,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     paddingHorizontal: SPACING_2,
