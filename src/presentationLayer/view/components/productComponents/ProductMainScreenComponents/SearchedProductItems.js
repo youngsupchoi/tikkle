@@ -16,26 +16,35 @@ import {
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
+  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B12,
   B17,
+  B,
+  B15,
+  B22,
+  EB,
+  M11,
+  M15,
+  M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
+import LottieView from 'lottie-react-native';
 
 export default function SearchedProductItems({productData, category}) {
   const {state, actions} = useProductMainViewModel();
 
-  useEffect(() => {
-    if (state.searchedData.length === 0) {
-      actions.setLoading(true);
-      setTimeout(() => {
-        actions.setLoading(false);
-      }, 2000);
-    }
-  }, [state.searchedData]);
+  // useEffect(() => {
+  //   if (state.searchedData.length === 0) {
+  //     actions.setLoading(true);
+  //     setTimeout(() => {
+  //       actions.setLoading(false);
+  //     }, 2000);
+  //   }
+  // }, [state.searchedData]);
 
   const data = state.searchedData.length > 0 ? state.searchedData : [];
   const scaleValues = data.map(() => new Animated.Value(1));
@@ -43,30 +52,55 @@ export default function SearchedProductItems({productData, category}) {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      {state.searchedData.map((item, index) => (
-        <AnimatedButton
-          onPress={() => {
-            navigation.navigate('productDetail', item);
-          }}
-          style={[
-            styles.itemContainer,
-            {transform: [{scale: scaleValues[index]}]},
-          ]}
-          key={item.id}>
-          <Image
-            source={{uri: item.thumbnail_image}}
-            style={styles.imageContainer}
+    <View>
+      {state.searchedData.length > 0 ? (
+        <View style={styles.container}>
+          {state.searchedData.map((item, index) => (
+            <AnimatedButton
+              onPress={() => {
+                navigation.navigate('productDetail', item);
+              }}
+              style={[
+                styles.itemContainer,
+                {transform: [{scale: scaleValues[index]}]},
+              ]}
+              key={item.id}>
+              <Image
+                source={{uri: item.thumbnail_image}}
+                style={styles.imageContainer}
+              />
+              <View style={styles.textContainer}>
+                <B17 customStyle={styles.title}>{item.name}</B17>
+                <B12 customStyle={styles.brand}>{item.brand_name}</B12>
+                <B12 customStyle={styles.price}>
+                  ￦{item.price.toLocaleString()}
+                </B12>
+              </View>
+            </AnimatedButton>
+          ))}
+        </View>
+      ) : (
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: windowWidth,
+          }}>
+          <LottieView
+            source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+            autoPlay
+            loop
+            style={{
+              width: 250,
+              height: 250,
+              alignSelf: 'center',
+              backgroundColor: backgroundColor,
+            }}
           />
-          <View style={styles.textContainer}>
-            <B17 customStyle={styles.title}>{item.name}</B17>
-            <B12 customStyle={styles.brand}>{item.brand_name}</B12>
-            <B12 customStyle={styles.price}>
-              ￦{item.price.toLocaleString()}
-            </B12>
-          </View>
-        </AnimatedButton>
-      ))}
+          <B22>조건에 맞는 상품이 없어요</B22>
+          <M15>다른 조건으로 상품을 찾아보세요</M15>
+        </View>
+      )}
     </View>
   );
 }
