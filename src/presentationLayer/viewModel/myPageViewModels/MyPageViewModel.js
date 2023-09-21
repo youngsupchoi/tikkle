@@ -14,6 +14,7 @@ import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreen
 import {useNavigation} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
+import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
@@ -90,21 +91,41 @@ export const useMyPageViewModel = () => {
    * @returns
    */
   function calculateDaysUntilNextBirthday(birthdayString) {
-    const currentDate = new Date();
-    const birthDate = new Date(birthdayString);
+    const todayTemp = getKoreanDate();
+    const todayStr = todayTemp.toISOString();
+    const todayYear = parseInt(todayStr.slice(0, 4));
+    const todayMonth = parseInt(todayStr.slice(5, 7));
+    const todayDay = parseInt(todayStr.slice(8, 10));
+    const birthMonth = parseInt(birthdayString.slice(5, 7));
+    const birthDay = parseInt(birthdayString.slice(8, 10));
 
-    // Set the birthDate to this year or next year
-    const nextBirthday = new Date(
-      currentDate.getFullYear(),
-      birthDate.getMonth(),
-      birthDate.getDate(),
+    // Calculate the next birthday for this yeard
+    let currentYearBirthday = new Date(
+      `${todayYear}-${birthMonth}-${birthDay}`,
     );
-    if (currentDate > nextBirthday) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+
+    const today = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
+
+    console.log('currentYearBirthday : ', currentYearBirthday);
+    console.log('today : ', today);
+
+    // Calculate the time difference in milliseconds
+    const timeDifference =
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24);
+    console.log('timeDiff : ', timeDifference);
+
+    if (timeDifference == 0) {
+      return `오늘은 생일이애요!`;
+    } else if (timeDifference < 0) {
+      currentYearBirthday = new Date(
+        `${todayYear + 1}-${birthMonth}-${birthDay}`,
+      );
     }
-    const timeDiff = nextBirthday - currentDate;
-    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-    return dayDiff;
+
+    const timeUntilNextBirthday = Math.floor(
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24),
+    );
+    return `생일이 ${timeUntilNextBirthday}일 남았어요.`;
   }
 
   /**
