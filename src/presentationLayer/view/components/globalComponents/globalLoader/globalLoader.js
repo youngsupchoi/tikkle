@@ -17,7 +17,7 @@ export default function GlobalLoader() {
         width: windowWidth,
         height: windowHeight,
         paddingTop: HEADER_HEIGHT + StatusBarHeight,
-        paddingBottom: 120,
+        paddingBottom: windowHeight / 2 - 60,
         alignItems: 'center',
         justifyContent: 'center',
       }}>
