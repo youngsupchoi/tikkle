@@ -5,6 +5,7 @@ import {
   COLOR_BLACK,
   COLOR_ERROR,
   COLOR_SUCCESS,
+  backgroundColor,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import Animated, {
@@ -45,7 +46,8 @@ const getSnackbarStyles = status => {
             stroke={'green'}
           />
         ),
-        backgroundColor: COLOR_SUCCESS,
+        // backgroundColor: COLOR_SUCCESS,
+        backgroundColor: backgroundColor,
         textColor: 'green',
       };
     case 2:

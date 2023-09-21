@@ -17,17 +17,29 @@ export const ProductDetailViewStateProvider = ({children}) => {
   const [receivedData, setReceivedData] = useState();
   const [wishlisted, setWishlisted] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
+  const [data, setData] = useState({});
+
+  const [parse, setParse] = useState({});
+
   const ref = {};
   const state = {
     selected,
     receivedData,
     wishlisted,
+    loading,
+    data,
+    parse,
   };
 
   const actions = {
     setSelected,
     setReceivedData,
     setWishlisted,
+    setLoading,
+    setData,
+    setParse,
   };
 
   return (

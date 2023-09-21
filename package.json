@@ -33,6 +33,7 @@
     "react": "18.2.0",
     "react-content-loader": "^6.2.1",
     "react-native": "0.72.4",
+    "react-native-auto-height-image": "^3.2.4",
     "react-native-bcrypt": "^2.4.0",
     "react-native-calendars": "^1.1301.0",
     "react-native-config": "^1.5.1",
