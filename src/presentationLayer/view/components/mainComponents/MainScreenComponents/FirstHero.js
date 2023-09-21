@@ -48,6 +48,7 @@ import Delete from 'src/assets/icons/Delete';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import LinearGradient from 'react-native-linear-gradient';
 import CancelModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CancelModal';
+import StopModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/StopModal';
 import FlagFilled from 'src/assets/icons/FlagFilled';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 
@@ -165,7 +166,6 @@ const FirstHero = props => {
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
     const fundingLimit = new Date(state.myTikklingData.funding_limit);
     const currentDate = getKoreanDate();
-    console.log(fundingLimit, currentDate);
 
     if (tikkleQuantity === tikkleCount) {
       actions.setShowEndModal(true);
@@ -284,7 +284,6 @@ const FirstHero = props => {
                       }}
                     />
                   </View>
-                  {console.log(FundingLimit, CurrentDate)}
                   <LinearGradient
                     start={{x: 0, y: 0}}
                     end={{x: 0, y: 0.75}}
@@ -489,6 +488,7 @@ const FirstHero = props => {
       />
 
       <CancelModal />
+      <StopModal />
 
       <Modal
         isVisible={state.showEndModal}
@@ -502,7 +502,7 @@ const FirstHero = props => {
       >
         <View style={modalStyles.modalContent}>
           <View style={modalStyles.contentSection}>
-            <B22 customStyle={modalStyles.titleText}>배송지를 확인할게요!</B22>
+            <B22 customStyle={modalStyles.titleText}>배송지를 수정할까요?</B22>
           </View>
 
           <View style={modalStyles.contentSection}>
@@ -546,7 +546,6 @@ const FirstHero = props => {
                       strokeWidth={1.5}
                     />
                   </View>
-                  {console.log('state', state.address)}
                   <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
                     {
                       state.address && state.zonecode // state.address와 state.zonecode가 존재하는 경우

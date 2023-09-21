@@ -10,6 +10,8 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
 import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingData';
 import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingBuyData';
+import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
+import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -49,6 +51,13 @@ export const useMainViewModel = () => {
   };
 
   const endTikklingGoods = () => {
+    updateMyAddressData(
+      state.zonecode !== null ? state.zonecode : state.userData.zonecode,
+      state.address !== null ? state.address : state.userData.address,
+      state.detailAddress !== null
+        ? state.detailAddress
+        : state.userData.detail_address,
+    );
     updateEndTikklingBuyData(state.myTikklingData.tikkling_id).then(res =>
       topActions.setStateAndError(res),
     );
@@ -78,7 +87,6 @@ export const useMainViewModel = () => {
   //우측 상단 종료하기 버튼
   const buttonPress = () => {
     if (state.myTikklingData.tikkle_count === '0') {
-      console.log(state.myTikklingData.tikkling_id);
       updateCancelTikklingData(state.myTikklingData.tikkling_id);
       actions.setDropdownVisible(false);
     } else {
@@ -90,8 +98,26 @@ export const useMainViewModel = () => {
 
   const toggleCancelModal = () => {
     actions.setShowCancelModal(!state.showCancelModal);
-    console.log('hihihi');
-    console.log(state.showCancelModal);
+  };
+
+  const cancelTikkling = () => {
+    updateCancelTikklingData(state.myTikklingData.tikkling_id)
+      .then(res => {
+        topActions.setStateAndError(res);
+      })
+      .then(res => {
+        loadData();
+      });
+  };
+
+  const stopTikkling = () => {
+    updateStopTikklingData(state.myTikklingData.tikkling_id).then(res =>
+      topActions.setStateAndError(res),
+    );
+  };
+
+  const toggleStopModal = () => {
+    actions.setShowStopModal(!state.showStopModal);
   };
 
   return {
@@ -113,6 +139,9 @@ export const useMainViewModel = () => {
       updateEndTikklingData,
       toggleCancelModal,
       endTikklingGoods,
+      toggleStopModal,
+      cancelTikkling,
+      stopTikkling,
     },
   };
 };

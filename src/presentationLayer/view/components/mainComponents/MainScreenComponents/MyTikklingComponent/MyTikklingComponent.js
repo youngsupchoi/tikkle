@@ -40,20 +40,22 @@ const MyTikklingComponent = () => {
         <B20 customStyle={styles.headerText}>내 티클링</B20>
         <AnimatedButton
           onPress={() => {
-            if (state.dropdownVisible) {
-              actions.hideDropdown();
-            } else {
-              actions.showDropdown();
-            }
+            console.log(state.myTikklingData);
+            actions.setDropdownVisible(!state.dropdownVisible);
           }}
           style={styles.animatedButton}>
           <Detail style={styles.detail} />
-          {console.log('tikklingData', state.myTikklingData)}
+          {/* {console.log('tikklingData', state.myTikklingData)} */}
         </AnimatedButton>
+        {}
         {state.dropdownVisible && (
           <Modal
             isVisible={state.dropdownVisible}
             swipeDirection={['up']}
+            animationIn={'fadeIn'}
+            animationInTiming={300}
+            animationOut={'fadeOut'}
+            animationOutTiming={300}
             useNativeDriver={false}
             backdropColor="transparent"
             style={{position: 'absolute', top: 60, right: 20}}
@@ -62,9 +64,13 @@ const MyTikklingComponent = () => {
             <View style={styles.dropdown}>
               <AnimatedButton
                 onPress={() => {
-                  // actions.buttonPress();
-                  actions.toggleCancelModal();
-                  actions.hideDropdown();
+                  if (state.myTikklingData.tikkle_count === '0') {
+                    actions.setDropdownVisible(false);
+                    actions.toggleCancelModal();
+                  } else {
+                    actions.setDropdownVisible(false);
+                    actions.toggleStopModal();
+                  }
                 }}
                 style={styles.dropdownButton}>
                 <View style={styles.iconContainer}>
@@ -76,7 +82,11 @@ const MyTikklingComponent = () => {
                     scale={1}
                   />
                 </View>
-                <B15 customStyle={styles.deleteText}>종료하기</B15>
+                <B15 customStyle={styles.deleteText}>
+                  {state.myTikklingData.tikkle_count === '0'
+                    ? '취소하기'
+                    : '종료하기'}
+                </B15>
               </AnimatedButton>
             </View>
           </Modal>
