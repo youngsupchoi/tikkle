@@ -25,6 +25,7 @@ import TimerComponent from 'src/presentationLayer/view/components/startComponent
 import {verifyOTP} from 'src/components/Axios/OTPVerification';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import {checkOtpData} from 'src/dataLayer/DataSource/Auth/CheckOtpData';
 
 export default function SignUpScreen2() {
   const {ref, state, actions} = useStartViewModel();
@@ -84,14 +85,13 @@ export default function SignUpScreen2() {
   };
 
   useEffect(() => {
-    Platform.OS === 'android' && 
-    actions.OtpAutoFill();
+    Platform.OS === 'android' && actions.OtpAutoFill();
   }, []);
 
   useEffect(() => {
     const fullCode = state.inputCode.join('');
     if (fullCode.length === 6) {
-      verifyOTP(state.encryptedOTP, fullCode, state.message);
+      checkOtpData(state.encryptedOTP, fullCode, state.message);
     }
   }, [state.inputCode.join('').length === 6]);
 

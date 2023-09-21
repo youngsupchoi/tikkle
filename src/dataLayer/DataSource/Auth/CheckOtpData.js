@@ -1,7 +1,5 @@
-import bcrypt from 'react-native-bcrypt';
-
 export async function checkOtpData(encryptOTP, inputOTP) {
-  const isMatch = bcrypt.compareSync(inputOTP, encryptOTP);
+  const isMatch = inputOTP == encryptOTP;
   let ret = null;
   let returnMessage;
 
