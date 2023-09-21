@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Platform, StatusBar, View} from 'react-native';
+import {Button, Platform, StatusBar, View, SafeAreaView} from 'react-native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import MainStackNavigator from 'src/navigation/stackNavigators/MainStackNavigator';
 import TopSnackbar from 'src/presentationLayer/view/components/globalComponents/TopView/TopSnackbar';
@@ -9,6 +9,7 @@ import TopModal from 'src/presentationLayer/view/components/globalComponents/Top
 import Test from './DS_Test';
 
 import {PaperProvider} from 'react-native-paper';
+import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 export default function App() {
   SystemNavigationBar.setBarMode('dark');
@@ -17,13 +18,21 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
+      {/* <Test /> */}
       <PaperProvider>
         <TopViewProvider>
           <View style={{zIndex: 10, backgroundColor: 'red'}}>
             <TopModal />
             <TopSnackbar />
           </View>
-          <MainStackNavigator />
+          <SafeAreaView
+            style={{
+              width: '100%',
+              height: '100%',
+              backgroundColor: backgroundColor,
+            }}>
+            <MainStackNavigator />
+          </SafeAreaView>
           <StatusBar
             translucent
             barStyle={'dark-content'}
