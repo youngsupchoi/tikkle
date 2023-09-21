@@ -72,7 +72,7 @@ export default function ProductSearchLandingScreen() {
 
 const styles = StyleSheet.create({
   totalContainer: {
-    paddingTop: StatusBarHeight,
+    paddingTop: 0,
   },
   container: {
     backgroundColor: backgroundColor,

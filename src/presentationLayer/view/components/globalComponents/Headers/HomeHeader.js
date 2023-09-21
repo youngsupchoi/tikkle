@@ -99,10 +99,10 @@ export default function HomeHeader(props) {
 const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
-    height: HEADER_HEIGHT + StatusBarHeight,
+    height: HEADER_HEIGHT,
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 1,
-    paddingTop: StatusBarHeight,
+    paddingTop: 0,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     paddingHorizontal: SPACING_2,

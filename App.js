@@ -29,7 +29,8 @@ export default function App() {
             style={{
               width: '100%',
               height: '100%',
-              backgroundColor: backgroundColor,
+              backgroundColor: 'blue',
+              //backgroundColor: backgroundColor,
             }}>
             <MainStackNavigator />
           </SafeAreaView>

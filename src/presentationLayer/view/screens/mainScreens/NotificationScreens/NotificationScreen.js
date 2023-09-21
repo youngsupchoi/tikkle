@@ -37,7 +37,7 @@ export default function NotificationScreen() {
   useEffect(() => {
     actions.loadData();
   }, []);
-  //ㅎㅎㅎㅎㅎㅎ
+
   const navigation = useNavigation();
 
   const renderItem = ({item, index}) => {
@@ -158,8 +158,7 @@ export default function NotificationScreen() {
   };
 
   return (
-    <View
-      style={{backgroundColor: backgroundColor, paddingTop: StatusBarHeight}}>
+    <View style={{backgroundColor: backgroundColor, paddingTop: 0}}>
       <View
         style={{
           padding: 24,
