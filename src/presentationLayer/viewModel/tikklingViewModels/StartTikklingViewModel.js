@@ -147,9 +147,15 @@ export const useStartTikklingViewModel = () => {
     createTikkling();
     navigation.reset({
       index: 0,
-      routes: [{name: 'main', params: {updated: new Date().toString()}}],
+      routes: [
+        {
+          name: 'main',
+          params: {updated: new Date().toString()},
+        },
+      ],
     });
   };
+
   let currentDate = state.startDate
     ? dayjs(state.startDate).add(1, 'day')
     : null;

@@ -39,6 +39,7 @@ export const MainViewStateProvider = ({children}) => {
   const [showEndModal, setShowEndModal] = useState(false);
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showStopModal, setShowStopModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [hasInstagramInstalled, setHasInstagramInstalled] = useState(false); // State to track if Instagram is installed on user's device or not
   const smallImageRef = useRef(null);
@@ -75,6 +76,7 @@ export const MainViewStateProvider = ({children}) => {
     showBuyModal,
     hasInstagramInstalled,
     showDetailModal,
+    showStopModal,
     detailAddress,
   };
 
@@ -103,6 +105,7 @@ export const MainViewStateProvider = ({children}) => {
     setShowBuyModal,
     setHasInstagramInstalled,
     setShowDetailModal,
+    setShowStopModal,
     setDetailAddress,
   };
 
