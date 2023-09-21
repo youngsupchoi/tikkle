@@ -7,9 +7,18 @@ import {TopViewProvider} from 'src/presentationLayer/viewState/topStates/TopView
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import TopModal from 'src/presentationLayer/view/components/globalComponents/TopView/TopModal';
 import Test from './DS_Test';
+import {
+  HEADER_HEIGHT,
+  StatusBarHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  windowHeight,
+  windowWidth,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 import {PaperProvider} from 'react-native-paper';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 export default function App() {
   SystemNavigationBar.setBarMode('dark');
@@ -25,15 +34,28 @@ export default function App() {
             <TopModal />
             <TopSnackbar />
           </View>
-          <SafeAreaView
-            style={{
-              width: '100%',
-              height: '100%',
-              backgroundColor: 'blue',
-              //backgroundColor: backgroundColor,
-            }}>
-            <MainStackNavigator />
-          </SafeAreaView>
+          {Platform.OS === 'ios' ? (
+            <SafeAreaView
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'blue',
+                //backgroundColor: backgroundColor,
+              }}>
+              <MainStackNavigator />
+            </SafeAreaView>
+          ) : (
+            <SafeAreaView
+              style={{
+                marginTop: StatusBarHeight,
+                width: windowWidth,
+                height: windowHeight,
+                // backgroundColor: 'blue',
+                backgroundColor: backgroundColor,
+              }}>
+              <MainStackNavigator />
+            </SafeAreaView>
+          )}
           <StatusBar
             translucent
             barStyle={'dark-content'}

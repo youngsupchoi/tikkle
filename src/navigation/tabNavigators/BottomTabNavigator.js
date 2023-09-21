@@ -12,6 +12,7 @@ import Profile2UserFilled from 'src/assets/icons/Profile2UserFilled';
 import ProfileFilled from 'src/assets/icons/ProfileFilled';
 import SearchFavorite1 from 'src/assets/icons/SearchFavorite1';
 import SearchFavorite1Filled from 'src/assets/icons/SearchFavorite1Filled';
+import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
@@ -102,7 +103,7 @@ export default function BottomTabNavigator() {
           left: '5%',
           right: '5%',
           borderRadius: 100,
-          bottom: 24,
+          bottom: 40 + StatusBarHeight,
           elevation: 3,
           shadowColor: '#000',
           shadowOffset: {
