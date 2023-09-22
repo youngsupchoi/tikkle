@@ -90,7 +90,7 @@ export default function BottomTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: backgroundColor, // Semi-transparent background
+          backgroundColor: backgroundColor,
           width: windowWidth,
           alignSelf: 'center',
           alignItems: 'center',
@@ -103,7 +103,7 @@ export default function BottomTabNavigator() {
           left: '5%',
           right: '5%',
           borderRadius: 100,
-          bottom: 40 + StatusBarHeight,
+          bottom: StatusBarHeight,
           elevation: 3,
           shadowColor: '#000',
           shadowOffset: {
@@ -130,7 +130,7 @@ export default function BottomTabNavigator() {
             focused ? (
               <View
                 style={{
-                  backgroundColor: backgroundColor,
+                  backgroundColor: 'backgroundColor',
                   margin: 20,
                 }}>
                 <Home2Filled fill={color} width={size} height={size} />

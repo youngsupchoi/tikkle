@@ -45,16 +45,18 @@ export default function App() {
               <MainStackNavigator />
             </SafeAreaView>
           ) : (
-            <SafeAreaView
+            <View
               style={{
                 marginTop: StatusBarHeight,
+                // marginBottom: StatusBarHeight,
+                // marginVertical: StatusBarHeight,
                 width: windowWidth,
-                height: windowHeight,
+                height: windowHeight - 2 * StatusBarHeight,
                 // backgroundColor: 'blue',
                 backgroundColor: backgroundColor,
               }}>
               <MainStackNavigator />
-            </SafeAreaView>
+            </View>
           )}
           <StatusBar
             translucent
