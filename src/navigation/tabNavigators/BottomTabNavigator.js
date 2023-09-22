@@ -130,16 +130,20 @@ export default function BottomTabNavigator() {
             focused ? (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: 'backgroundColor',
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <Home2Filled fill={color} width={size} height={size} />
               </View>
             ) : (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: backgroundColor,
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <Home2
                   stroke={color}
@@ -160,8 +164,10 @@ export default function BottomTabNavigator() {
             focused ? (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: backgroundColor,
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <SearchFavorite1Filled
                   fill={color}
@@ -172,8 +178,10 @@ export default function BottomTabNavigator() {
             ) : (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: backgroundColor,
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <SearchFavorite1
                   stroke={color}
@@ -197,16 +205,20 @@ export default function BottomTabNavigator() {
             focused ? (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: backgroundColor,
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <Profile2UserFilled fill={color} width={size} height={size} />
               </View>
             ) : (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: backgroundColor,
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <Profile2User
                   stroke={color}
@@ -229,16 +241,20 @@ export default function BottomTabNavigator() {
             focused ? (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: backgroundColor,
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <ProfileFilled fill={color} width={size} height={size} />
               </View>
             ) : (
               <View
                 style={{
+                  position: 'absolute',
+                  top: 16,
                   backgroundColor: backgroundColor,
-                  margin: 20,
+                  margin: 0,
                 }}>
                 <Profile
                   stroke={color}

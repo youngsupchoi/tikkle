@@ -51,6 +51,7 @@ export default function ProductDetailScreen(route) {
   const [selected, setSelected] = useState('상세정보');
   // console.log('selected : ', state.data);
   useEffect(() => {
+    actions.setParse(state.data.parse);
     if (state.data.wishlisted) {
       actions.setWishlisted(true);
     }
