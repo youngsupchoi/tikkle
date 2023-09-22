@@ -26,10 +26,11 @@ import {verifyOTP} from 'src/components/Axios/OTPVerification';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import {checkOtpData} from 'src/dataLayer/DataSource/Auth/CheckOtpData';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function SignUpScreen2() {
   const {ref, state, actions} = useStartViewModel();
-
+  const {topActions} = useTopViewModel();
   const handleTextChange = async (text, index) => {
     const newInputCode = [...state.inputCode];
     newInputCode[index] = text;
@@ -44,12 +45,14 @@ export default function SignUpScreen2() {
       console.log('All 6 slots are filled!');
 
       try {
-        const isOTPValid = await verifyOTP(
+        const isOTPValid = await checkOtpData(
           state.encryptedOTP,
           fullCode,
-          state.message,
-        );
-        if (isOTPValid === true || fullCode === '135600') {
+        ).then(res => {
+          return topActions.setStateAndError(res);
+        });
+
+        if (isOTPValid.DSdata.verified === true || fullCode === '135600') {
           console.log('OTP is valid.');
           console.log(state.message);
           if (state.message === 'login') {
@@ -79,7 +82,12 @@ export default function SignUpScreen2() {
           console.log('OTP is not valid.');
         }
       } catch (err) {
-        console.error('Error verifying OTP:', err);
+        const error = JSON.parse(err.message);
+        if (error.DScode) {
+          return;
+        } else {
+          console.log(err);
+        }
       }
     }
   };
