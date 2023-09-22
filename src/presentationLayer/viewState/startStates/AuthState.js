@@ -22,7 +22,6 @@ export const StartViewStateProvider = ({children}) => {
   const [encryptedOTP, setEncryptedOTP] = useState();
   const [message, setMessage] = useState('');
   const [userId, setUserId] = useState();
-  const [hash, setHash] = useState('000000');
   const [done1, setDone1] = useState();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -61,7 +60,6 @@ export const StartViewStateProvider = ({children}) => {
     encryptedOTP,
     message,
     userId,
-    hash,
     done1,
     firstName,
     lastName,
@@ -74,7 +72,7 @@ export const StartViewStateProvider = ({children}) => {
     userNick,
     validationMessage,
     duplicationMessage,
-    phoneInputButtonPressed
+    phoneInputButtonPressed,
   };
 
   const actions = {
@@ -84,7 +82,6 @@ export const StartViewStateProvider = ({children}) => {
     setEncryptedOTP,
     setMessage,
     setUserId,
-    setHash,
     setDone1,
     setFirstName,
     setLastName,
@@ -97,7 +94,7 @@ export const StartViewStateProvider = ({children}) => {
     setUserNick,
     setValidationMessage,
     setDuplicationMessage,
-    setPhoneInputButtonPressed
+    setPhoneInputButtonPressed,
   };
 
   return (

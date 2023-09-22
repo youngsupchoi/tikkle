@@ -1,5 +1,4 @@
 //OTPVerification.js
-import bcrypt from 'react-native-bcrypt';
 import axios from 'axios';
 import api from './api';
 import AsyncStorage from '@react-native-async-storage/async-storage';

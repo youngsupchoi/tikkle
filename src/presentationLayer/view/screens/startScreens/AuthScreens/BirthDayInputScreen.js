@@ -23,6 +23,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   backgroundColor,
+  COLOR_ERROR,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowWidth,
@@ -53,6 +54,11 @@ export default function SignUpScreen5() {
       </View>
       <BirthInput />
       <BirthSubmit />
+      <View style={{marginTop: 10}}>
+        <M15 customStyle={{color: COLOR_ERROR}}>
+          입력 후 변경이 불가능하니 신중하게 입력해주세요.
+        </M15>
+      </View>
     </View>
   );
 }

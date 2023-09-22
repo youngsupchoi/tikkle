@@ -12,7 +12,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
 import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();
@@ -31,17 +31,12 @@ export const useStartViewModel = () => {
   const phoneInputbuttonPress = async () => {
     // const res = await post_auth_phoneCheck(state.phoneNumber);
     actions.setPhoneInputButtonPressed(true);
-    Platform.OS==='android'?
-     await getHash().then(hash => {
-      actions.setHash(hash);
-    })
-    :null;
-    const res = await checkPhoneNumberData(state.phoneNumber, state.hash).then(
+    const hash = Platform.OS === 'android' ? await getHash() : '000000';
+    const res = await checkPhoneNumberData(state.phoneNumber, hash).then(
       res => {
         return topActions.setStateAndError(res);
       },
     );
-
 
     if (res.DSdata.userId === undefined) {
       await actions.setUserId(0);
