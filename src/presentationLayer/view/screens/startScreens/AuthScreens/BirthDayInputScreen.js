@@ -34,7 +34,6 @@ import SignUpHeader from 'src/presentationLayer/view/components/startComponents/
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import BirthInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthInputComponent';
 import BirthSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthSubmitComponent';
-import {red} from 'react-native-reanimated';
 
 export default function SignUpScreen5() {
   const {ref, state, actions} = useStartViewModel();
