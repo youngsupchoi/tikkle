@@ -30,16 +30,26 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function BirthSubmit() {
   const {ref, state, actions} = useStartViewModel();
-
+  const {topActions} = useTopViewModel();
   const buttonPress = () => {
-    const birthday = `${state.year}-${state.month.padStart(
+    let birthday = `${state.year}-${state.month.padStart(
       2,
       '0',
     )}-${state.day.padStart(2, '0')}`; // Format the birthday
-
+    //공백 제거
+    birthday = birthday.replace(/\s+/g, '');
+    //생일 유효성 검사
+    const birthdayValidation = new RegExp(
+      /^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])$|^(?:19(?:[13579][26]|[2468][048]|0[48])|20(?:0[48]|[2468][048]|[13579][26]))-02-29$|^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[13-9]|1[0-2])-(?:29|30)$|^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[13578]|1[02])-31$/,
+    );
+    if (!birthdayValidation.test(birthday)) {
+      topActions.showSnackbar('올바른 생일 형식을 입력해주세요!', 0);
+      return;
+    }
     console.log(state.firstName, state.lastName, state.gender, birthday);
     actions.navigation.navigate('signup6', {
       firstName: state.firstName,
