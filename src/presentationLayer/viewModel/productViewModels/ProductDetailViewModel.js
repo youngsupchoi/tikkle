@@ -21,9 +21,7 @@ export const useProductDetailViewModel = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const data = route.params;
-  actions.setData(data);
 
-  actions.setParse(route.params);
   // console.log('$$$parse : ', state.parse);
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
