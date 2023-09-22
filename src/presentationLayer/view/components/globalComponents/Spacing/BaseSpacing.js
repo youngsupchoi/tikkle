@@ -10,5 +10,7 @@ export const HEADER_HEIGHT = 56;
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {StatusBar, Platform} from 'react-native';
 
+// export const StatusBarHeight =
+//   Platform.OS === 'ios' ? -30 : StatusBar.currentHeight;
 export const StatusBarHeight =
-  Platform.OS === 'ios' ? -30 : StatusBar.currentHeight;
+  Platform.OS === 'ios' ? getStatusBarHeight(true) : StatusBar.currentHeight;

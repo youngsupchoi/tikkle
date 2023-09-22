@@ -7,6 +7,7 @@ import {
   SPACING_3,
   SPACING_4,
   SPACING_6,
+  HEADER_HEIGHT,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B,
