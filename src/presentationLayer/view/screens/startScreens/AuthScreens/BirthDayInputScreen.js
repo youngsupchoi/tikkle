@@ -23,6 +23,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   backgroundColor,
+  COLOR_ERROR,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowWidth,
@@ -33,6 +34,7 @@ import SignUpHeader from 'src/presentationLayer/view/components/startComponents/
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import BirthInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthInputComponent';
 import BirthSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/birthDayInputScreenConponents/BirthSubmitComponent';
+import {red} from 'react-native-reanimated';
 
 export default function SignUpScreen5() {
   const {ref, state, actions} = useStartViewModel();
@@ -53,6 +55,11 @@ export default function SignUpScreen5() {
       </View>
       <BirthInput />
       <BirthSubmit />
+      <View style={{marginTop: 10}}>
+        <M15 customStyle={{color: COLOR_ERROR}}>
+          입력 후 변경이 불가능하니 신중하게 입력해주세요.
+        </M15>
+      </View>
     </View>
   );
 }
