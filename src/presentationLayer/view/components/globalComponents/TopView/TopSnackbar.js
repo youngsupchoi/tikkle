@@ -33,7 +33,7 @@ const getSnackbarStyles = status => {
             stroke={'red'}
           />
         ),
-        backgroundColor: COLOR_ERROR,
+        backgroundColor: backgroundColor,
         textColor: 'red',
       };
     case 1:
@@ -98,7 +98,7 @@ const TopSnackbar = () => {
             runOnJS(topActions.hideSnackbar)();
           },
         );
-      }, 1000);
+      }, 1500);
 
       return () => clearTimeout(timeout);
     }

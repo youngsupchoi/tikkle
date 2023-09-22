@@ -24,6 +24,73 @@ export async function updateMyNickData(nick) {
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
+  //------ check Duplication --------------------------------------------------------//
+  let response_duplication;
+  const body_duplication = {
+    inputId: nick,
+  };
+
+  try {
+    response_duplication = await apiModel(
+      'post_auth_IdDuplicationCheck',
+      authorization,
+      body_duplication,
+      null,
+    );
+
+    if (!response_duplication) {
+      //  error
+      throw new Error();
+    }
+  } catch (error) {
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
+  }
+
+  //------ control result & error of post_auth_IdDuplicationCheck -----------------------------------------//
+
+  if (response_duplication.status === 400) {
+    // input data error
+    return {
+      DScode: 1,
+      DSdata: null,
+      DSmessage:
+        '입력하신 닉네임의 형식이 올바르지 않아요. 형식에 맞추어 다시 시도해주세요.',
+    };
+  } else if (response_duplication.status !== 200) {
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
+  }
+
+  //------ return response ------------------------------------------------//
+
+  let nick_valid;
+  let returnMessage;
+
+  if (response_duplication.data.detail_code === '11') {
+    nick_valid = false;
+    returnMessage = '입력하신 닉네임은 이미 사용 중이에요.';
+    return {
+      DScode: 1,
+      DSdata: {
+        nick_valid: nick_valid,
+      },
+      DSmessage: returnMessage,
+    };
+  } else if (response_duplication.data.detail_code !== '10') {
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
+  }
+
   //------ call put_user_nick -------------------------------------------------------//
   let response;
   const body = {

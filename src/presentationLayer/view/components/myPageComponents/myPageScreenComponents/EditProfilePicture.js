@@ -51,12 +51,13 @@ export default function EditProfilePicture() {
       name: 'upload.jpg', // 원하는 파일 이름으로 변경
     });
 
+    console.log('$$$$ : ', state.profileUrl);
     try {
       let response = await fetch(state.profileUrl, {
         method: 'PUT',
         body: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'image/jpeg',
         },
       });
 
@@ -67,8 +68,7 @@ export default function EditProfilePicture() {
         return;
       }
 
-      let responseJson = await response.json();
-      console.log(responseJson);
+      console.log(response);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -85,7 +85,6 @@ export default function EditProfilePicture() {
       if (selectedImage) {
         setImage(selectedImage.path);
         actions.getProfileUrl();
-        console.log(selectedImage.path);
         uploadImageToServer(selectedImage.path);
       }
     } catch (error) {
