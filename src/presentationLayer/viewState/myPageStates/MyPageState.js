@@ -42,6 +42,9 @@ export const MyPageViewStateProvider = ({children}) => {
   const [inquireLoading, setInquireLoading] = useState(false);
   const [newNick, setNewNick] = useState('');
 
+  const [image, setImage] = useState(null);
+  const [loading_profileEdit, setLoading_profileEdit] = useState(false);
+
   const state = {
     message,
     DScode,
@@ -61,6 +64,8 @@ export const MyPageViewStateProvider = ({children}) => {
     bankDropDownVisible,
     inquireLoading,
     newNick,
+    image,
+    loading_profileEdit,
   };
 
   const actions = {
@@ -82,6 +87,8 @@ export const MyPageViewStateProvider = ({children}) => {
     setBankDropDownVisible,
     setInquireLoading,
     setNewNick,
+    setImage,
+    setLoading_profileEdit,
   };
 
   return (

@@ -18,11 +18,17 @@ export default function EditProfileScreen() {
       <ScrollView
         style={{backgroundColor: backgroundColor, paddingBottom: 240}}>
         <EditProfileHeader />
-        <EditProfilePicture />
-        <EditNickname />
-        <EditRefundAccount />
-        <EditAddress />
-        <View style={{height: 240}} />
+        {state.loading_profileEdit ? (
+          <GlobalLoader />
+        ) : (
+          <View>
+            <EditProfilePicture />
+            <EditNickname />
+            <EditRefundAccount />
+            <EditAddress />
+            <View style={{height: 240}} />
+          </View>
+        )}
       </ScrollView>
 
       <PostCodeModal state={state} actions={actions} />

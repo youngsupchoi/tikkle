@@ -16,6 +16,7 @@ import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquire
 import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
+import ImagePicker from 'react-native-image-crop-picker';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
@@ -179,12 +180,6 @@ export const useMyPageViewModel = () => {
     actions.setShowDetailModal(false);
   };
 
-  async function getProfileUrl() {
-    await getProfileUpdataUrlData().then(res => {
-      actions.setProfileUrl(res.DSdata.url);
-    });
-  }
-
   async function changeNick() {
     await updateMyNickData(state.newNick)
       .then(res => {
@@ -195,6 +190,117 @@ export const useMyPageViewModel = () => {
         topActions.showSnackbar(res.DSmessage, 1);
       });
   }
+
+  /**
+   *  프로필 사진 갤러리에서 가져와 크롭 하는 함수
+   */
+  const selectAndCropImage = async () => {
+    try {
+      const selectedImage = await ImagePicker.openPicker({
+        width: 300,
+        height: 300,
+        cropping: true,
+      });
+
+      // if (selectedImage) {
+      //   actions.setImage(selectedImage.path);
+      //   // await getProfileUrl();
+      //   // uploadImageToServer(selectedImage.path);
+      // }
+
+      return selectedImage.path;
+    } catch (error) {
+      if (error.message !== 'User cancelled image picker') {
+        console.warn('ImagePicker Error:', error);
+      }
+    }
+  };
+
+  /**
+   *  프로필 사진을 업로드할 url을 가져오는 함수
+   * @returns
+   */
+  async function getProfileUrl() {
+    const res = await getProfileUpdataUrlData().then(res => {
+      return topActions.setStateAndError(res);
+    });
+    return res.DSdata.url;
+  }
+
+  /**
+   *  프로필 사진을 서버에 업로드하는 함수
+   * @param {*} imagePath
+   * @param {*} url
+   * @returns
+   */
+  const uploadImageToServer = async (imagePath, url) => {
+    let formData = new FormData();
+    const imageBlob = await fetch(imagePath).then(response => response.blob());
+    // 이미지 파일을 FormData에 추가
+    formData.append('file', {
+      uri: imagePath,
+      type: 'image/jpeg', // 이미지 형식에 따라 변경
+      name: 'upload.JPG', // 원하는 파일 이름으로 변경
+    });
+
+    // console.log('$$$$ : ', state.profileUrl);
+    try {
+      let response = await fetch(url, {
+        method: 'PUT',
+        body: imageBlob,
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+      });
+
+      if (response.status !== 200) {
+        console.error('Error uploading image. HTTP Status:', response.status);
+        const errorText = await response.text();
+        console.error('Server response:', errorText);
+        return;
+      }
+
+      // console.log(response);
+
+      return 1;
+    } catch (error) {
+      return -1;
+    }
+  };
+
+  /**
+   *  프로필 사진 변경 버튼 누르면 시작되는 함수 갤러리에서 이미지를 가져와 크롭하고 서버에 업로드한다.
+   */
+  const NewImage = async () => {
+    await selectAndCropImage()
+      .then(async result => {
+        await actions.setLoading_profileEdit(true);
+        const image = result;
+        const url = await getProfileUrl();
+        return {image, url};
+      })
+      .then(async res => {
+        return uploadImageToServer(res.image, res.url);
+      })
+      .then(async res => {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await MyPageData();
+        await actions.setLoading_profileEdit(false);
+        // console.log('&&&: ', res);
+        if (res === 1) {
+          topActions.showSnackbar('이미지 업데이트에 성공했어요', 1);
+        } else {
+          topActions.showSnackbar('이미지 업데이트에 실패했어요', 0);
+        }
+      })
+      .catch(async err => {
+        await actions.setLoading_profileEdit(false);
+        await topActions.showSnackbar(
+          '서버오류로 이미지 업데이트에 실패했어요',
+          0,
+        );
+      });
+  };
 
   return {
     ref: {
@@ -218,6 +324,8 @@ export const useMyPageViewModel = () => {
       onCloseDetailModal,
       getProfileUrl,
       changeNick,
+      selectAndCropImage,
+      NewImage,
     },
   };
 };
