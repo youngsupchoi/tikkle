@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import {Animated} from 'react-native';
+import {captureRef} from 'react-native-view-shot';
+import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useMainViewState} from 'src/presentationLayer/viewState/mainStates/MainState';
 
@@ -120,6 +122,43 @@ export const useMainViewModel = () => {
     actions.setShowStopModal(!state.showStopModal);
   };
 
+  const onInstagramShareButtonPressed = async () => {
+    try {
+      const stickerUri = await captureRef(state.smallImageRef, {
+        format: 'png',
+        quality: 1,
+        result: 'base64', // capture image as base64
+      });
+
+      const backgroundUri = await captureRef(state.backgroundImageRef, {
+        format: 'png',
+        quality: 1,
+        result: 'base64', // capture image as base64
+      });
+
+      actions.setCapturedImage(`data:image/png;base64,${stickerUri}`); // Update state
+
+      if (state.hasInstagramInstalled) {
+        const res = await Share.shareSingle({
+          appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
+          stickerImage: `data:image/png;base64,${stickerUri}`,
+          backgroundImage: `data:image/png;base64,${backgroundUri}`,
+          method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
+          social: Share.Social.INSTAGRAM_STORIES,
+          backgroundBottomColor: '#ffffff', // You can use any hexcode here and below
+          backgroundTopColor: '#ffffff',
+          backgroundColor: '#ffffff',
+          contentUrl: '',
+        });
+      } else {
+        // If instagram is not installed in user's device then just share using the usual device specific bottomsheet (https://react-native-share.github.io/react-native-share/docs/share-open)
+        await Share.open({url: stickerUri});
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  };
+
   return {
     ref: {
       ...ref,
@@ -142,6 +181,7 @@ export const useMainViewModel = () => {
       toggleStopModal,
       cancelTikkling,
       stopTikkling,
+      onInstagramShareButtonPressed,
     },
   };
 };

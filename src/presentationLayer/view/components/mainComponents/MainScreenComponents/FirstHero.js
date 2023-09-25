@@ -51,6 +51,7 @@ import CancelModal from 'src/presentationLayer/view/components/mainComponents/Ma
 import StopModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/StopModal';
 import FlagFilled from 'src/assets/icons/FlagFilled';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
+import ButtonComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent';
 
 //-------------------------------------------------------------------------
 
@@ -160,21 +161,6 @@ const FirstHero = props => {
       ButtonText = '지남 종료하기';
     }
   }
-
-  const handleButtonPress = () => {
-    const tikkleQuantity = state.myTikklingData.tikkle_quantity;
-    const tikkleCount = Number(state.myTikklingData.tikkle_count);
-    const fundingLimit = new Date(state.myTikklingData.funding_limit);
-    const currentDate = getKoreanDate();
-
-    if (tikkleQuantity === tikkleCount) {
-      actions.setShowEndModal(true);
-    } else if (fundingLimit > currentDate) {
-      actions.setShowBuyModal(true);
-    } else {
-      actions.setShowCancelModal(true);
-    }
-  };
 
   const onCloseModal = () => {
     actions.setShowBuyModal(false);
@@ -442,42 +428,7 @@ const FirstHero = props => {
             )}
           </View>
 
-          <View
-            style={{
-              marginTop: 12,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <AnimatedButton
-              onPress={handleButtonPress}
-              style={styles.buttonStyle}>
-              <View
-                style={{
-                  marginRight: 4,
-                  padding: 8,
-                  borderRadius: 100,
-                }}>
-                {ButtonIcon}
-              </View>
-              <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
-            </AnimatedButton>
-            <AnimatedButton
-              onPress={onShareButtonPressed}
-              style={{
-                marginLeft: windowWidth * 0.1,
-                width: 50,
-                height: 50,
-                padding: 6,
-                borderRadius: 100,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Image
-                source={require('src/assets/icons/instagramLogo.png')}
-                style={{width: 32, height: 32}}
-              />
-            </AnimatedButton>
-          </View>
+          <ButtonComponent ButtonIcon={ButtonIcon} ButtonText={ButtonText} />
         </View>
       </ViewShot>
 
