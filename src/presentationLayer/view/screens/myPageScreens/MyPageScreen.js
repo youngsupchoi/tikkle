@@ -144,7 +144,7 @@ export default function ProfileScreen() {
                   <View style={{alignItems: 'flex-start', marginLeft: 16}}>
                     <B17>{state.userData_profile.name}님</B17>
                     <M15 customStyle={{color: COLOR_GRAY}}>
-                      @{state.userData_profile.nick}
+                      {state.userData_profile.nick}
                     </M15>
                     <M11 customStyle={{color: COLOR_GRAY}}>
                       {actions.calculateDaysUntilNextBirthday(

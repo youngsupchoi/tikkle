@@ -9,6 +9,7 @@ import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewMode
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import EditNickname from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/EditNickname';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function EditProfileScreen() {
   const {state, actions} = useMyPageViewModel();
@@ -17,12 +18,19 @@ export default function EditProfileScreen() {
       <ScrollView
         style={{backgroundColor: backgroundColor, paddingBottom: 240}}>
         <EditProfileHeader />
-        <EditProfilePicture />
-        <EditNickname />
-        <EditRefundAccount />
-        <EditAddress />
-        <View style={{height: 240}} />
+        {state.loading_profileEdit ? (
+          <GlobalLoader />
+        ) : (
+          <View>
+            <EditProfilePicture />
+            <EditNickname />
+            <EditRefundAccount />
+            <EditAddress />
+            <View style={{height: 240}} />
+          </View>
+        )}
       </ScrollView>
+
       <PostCodeModal state={state} actions={actions} />
       <DetailAddressInput state={state} actions={actions} />
     </View>

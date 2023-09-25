@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function getProfileUpdataUrlData() {
+export async function getProfileUpdataUrlData(imagePath) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -57,6 +57,39 @@ export async function getProfileUpdataUrlData() {
     };
   }
   const info = response.data.data;
+
+  //------ upload Profile Image -------------------------------------------//
+
+  // let formData = new FormData();
+
+  // // 이미지 파일을 FormData에 추가
+  // formData.append('file', {
+  //   uri: imagePath,
+  //   type: 'image/jpeg', // 이미지 형식에 따라 변경
+  //   name: 'upload.jpg', // 원하는 파일 이름으로 변경
+  // });
+
+  // // console.log('$$$$ : ', state.profileUrl);
+  // try {
+  //   let response = await fetch(state.profileUrl, {
+  //     method: 'PUT',
+  //     body: formData,
+  //     headers: {
+  //       'Content-Type': 'image/jpeg',
+  //     },
+  //   });
+
+  //   if (response.status !== 200) {
+  //     console.error('Error uploading image. HTTP Status:', response.status);
+  //     const errorText = await response.text();
+  //     console.error('Server response:', errorText);
+  //     return;
+  //   }
+
+  //   console.log(response);
+  // } catch (error) {
+  //   console.error('Error uploading image:', error);
+  // }
 
   //------ update token ---------------------------------------------------//
 

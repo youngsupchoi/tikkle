@@ -26,9 +26,9 @@ export const MyPageViewStateProvider = ({children}) => {
     name: '',
     nick: '',
   });
+
   const [endTikklingsData, setEndTikklingData] = useState([]);
   const [paymentHistoryData, setPaymentHistoryData] = useState([]);
-
   const [titleText, setTitleText] = useState(null);
   const [contentText, setContentText] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -39,8 +39,11 @@ export const MyPageViewStateProvider = ({children}) => {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
   const [bankDropDownVisible, setBankDropDownVisible] = useState(false);
-
   const [inquireLoading, setInquireLoading] = useState(false);
+  const [newNick, setNewNick] = useState('');
+
+  const [image, setImage] = useState(null);
+  const [loading_profileEdit, setLoading_profileEdit] = useState(false);
 
   const state = {
     message,
@@ -60,6 +63,9 @@ export const MyPageViewStateProvider = ({children}) => {
     profileUrl,
     bankDropDownVisible,
     inquireLoading,
+    newNick,
+    image,
+    loading_profileEdit,
   };
 
   const actions = {
@@ -80,6 +86,9 @@ export const MyPageViewStateProvider = ({children}) => {
     setProfileUrl,
     setBankDropDownVisible,
     setInquireLoading,
+    setNewNick,
+    setImage,
+    setLoading_profileEdit,
   };
 
   return (

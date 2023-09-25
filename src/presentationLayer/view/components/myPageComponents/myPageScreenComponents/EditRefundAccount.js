@@ -28,6 +28,7 @@ export default function EditRefundAccount() {
       </Menu>
     );
   }
+
   return (
     <View style={{padding: 24}}>
       <B15>환불 계좌</B15>
@@ -46,7 +47,7 @@ export default function EditRefundAccount() {
             actions.setBankDropDownVisible(true);
           }}
           style={{
-            paddingHorizontal: 16,
+            paddingHorizontal: 10,
           }}>
           <B15>
             {state.userData_profile.bank_name !== null
@@ -54,13 +55,14 @@ export default function EditRefundAccount() {
               : '은행명'}
           </B15>
         </AnimatedButton>
-        <Button
+
+        {/* <Button
           title="은행"
           style={{color: 'red'}}
           onPress={() => actions.setBankDropDownVisible(true)}
-        />
-        <DropDownMenu />
-        {console.log(state.bankDropDownVisible)}
+        /> */}
+        {/* <DropDownMenu />
+        {console.log(state.bankDropDownVisible)} */}
         <TextInput
           placeholder={
             state.userData_profile.account !== null
@@ -71,8 +73,8 @@ export default function EditRefundAccount() {
             fontFamily: B,
             fontSize: 17,
             // width: '80%',
-            padding: 12,
-            paddingHorizontal: 16,
+            paddingVertical: 12,
+            paddingHorizontal: 0,
             // backgroundColor: 'red',
           }}
         />
