@@ -43,6 +43,7 @@ export const useMyPageViewModel = () => {
         })
         .then(res => {
           actions.setUserData_profile(res.DSdata.user_info);
+          actions.setNewAccount(res.DSdata.user_info.account);
           actions.setEndTikklingData(res.DSdata.end_tikkling);
           actions.setPaymentHistoryData(res.DSdata.payment);
         });
@@ -57,6 +58,7 @@ export const useMyPageViewModel = () => {
       await actions.setLoading_profile(true);
       await getMyPageScreenData().then(res => {
         actions.setUserData_profile(res.DSdata.user_info);
+        actions.setNewBankName(res.DSdata.user_info.bank_name);
         actions.setEndTikklingData(res.DSdata.end_tikkling);
         actions.setPaymentHistoryData(res.DSdata.payment);
       });
@@ -302,6 +304,31 @@ export const useMyPageViewModel = () => {
       });
   };
 
+  /**
+   * 환불 계좌 드롭다운 메뉴를 보여주는 함수
+   */
+  async function changeBankDropDownVisible() {
+    if (state.bankDropDownVisible == false) {
+      await actions.setBankDropDownVisible(true);
+    } else {
+      await actions.setBankDropDownVisible(false);
+    }
+  }
+
+  /**
+   * 드롭다운에서 은행명 선택했을 때 선택사항 지정하는 함수
+   * @param {*} bankName
+   */
+  async function selectBankName(bankName) {
+    await actions.setNewBankName(bankName);
+    await changeBankDropDownVisible();
+  }
+
+  async function storeAccountData() {
+    console.log('storeAccountData');
+    console.log(state.newBankName);
+  }
+
   return {
     ref: {
       ...ref,
@@ -326,6 +353,9 @@ export const useMyPageViewModel = () => {
       changeNick,
       selectAndCropImage,
       NewImage,
+      changeBankDropDownVisible,
+      selectBankName,
+      storeAccountData,
     },
   };
 };

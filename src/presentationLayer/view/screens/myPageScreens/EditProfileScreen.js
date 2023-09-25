@@ -10,6 +10,8 @@ import DetailAddressInput from 'src/presentationLayer/view/components/tikklingCo
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import EditNickname from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/EditNickname';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AccountDropDown from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/AccountDropDown';
 
 export default function EditProfileScreen() {
   const {state, actions} = useMyPageViewModel();
@@ -25,6 +27,11 @@ export default function EditProfileScreen() {
             <EditProfilePicture />
             <EditNickname />
             <EditRefundAccount />
+            {state.bankDropDownVisible ? (
+              <View>
+                <AccountDropDown />
+              </View>
+            ) : null}
             <EditAddress />
             <View style={{height: 240}} />
           </View>

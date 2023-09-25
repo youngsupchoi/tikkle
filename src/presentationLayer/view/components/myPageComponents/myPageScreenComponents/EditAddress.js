@@ -1,11 +1,19 @@
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
+  COLOR_PRIMARY,
+  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  StatusBarHeight,
+  HEADER_HEIGHT,
+  SPACING_2,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+
 import {
   B,
   B15,
@@ -21,7 +29,14 @@ export default function EditAddress() {
   const {state, actions} = useMyPageViewModel();
   return (
     <View style={{paddingHorizontal: 24}}>
-      <B15>주소지 변경</B15>
+      <View style={styles.headerContainer}>
+        <B15>주소지 변경</B15>
+        <AnimatedButton
+          style={{paddingRight: 50}}
+          onPress={() => console.log('pressed!!')}>
+          <B17 customStyle={{color: COLOR_PRIMARY}}>저장</B17>
+        </AnimatedButton>
+      </View>
       <View
         style={{
           marginTop: 12,
@@ -121,3 +136,21 @@ export default function EditAddress() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    width: windowWidth,
+    paddingTop: StatusBarHeight,
+    // borderBottomColor: COLOR_SEPARATOR,
+    // borderBottomWidth: 1,
+    // elevation: 1,
+    backgroundColor: backgroundColor,
+    flexDirection: 'row',
+    paddingHorizontal: SPACING_2,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+  },
+});
