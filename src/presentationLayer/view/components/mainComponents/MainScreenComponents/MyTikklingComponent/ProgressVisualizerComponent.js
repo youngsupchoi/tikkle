@@ -8,11 +8,9 @@ import {
   COLOR_GRAY,
   COLOR_PRIMARY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import FlagFilled from 'src/assets/icons/FlagFilled';
 
 export default function ProgressVisualization({ButtonIcon, ButtonText}) {

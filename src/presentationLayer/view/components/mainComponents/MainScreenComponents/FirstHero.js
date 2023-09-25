@@ -50,6 +50,8 @@ import DetailAddressInput from 'src/presentationLayer/view/components/tikklingCo
 import ButtonComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent';
 import TimeAndPieceCounter from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TimeAndPieceCounterComponent';
 import ProgressVisualization from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ProgressVisualizerComponent';
+import TikklingCompleteCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingCompleteCardComponent';
+import TikklingProgressCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingProgressCardComponent';
 
 //-------------------------------------------------------------------------
 
@@ -164,44 +166,6 @@ const FirstHero = props => {
     actions.setShowBuyModal(false);
   };
 
-  // let stickerUri;
-  const onShareButtonPressed = async () => {
-    try {
-      const stickerUri = await captureRef(state.smallImageRef, {
-        format: 'png',
-        quality: 1,
-        result: 'base64', // capture image as base64
-      });
-
-      const backgroundUri = await captureRef(state.backgroundImageRef, {
-        format: 'png',
-        quality: 1,
-        result: 'base64', // capture image as base64
-      });
-
-      actions.setCapturedImage(`data:image/png;base64,${stickerUri}`); // Update state
-
-      if (state.hasInstagramInstalled) {
-        const res = await Share.shareSingle({
-          appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
-          stickerImage: `data:image/png;base64,${stickerUri}`,
-          backgroundImage: `data:image/png;base64,${backgroundUri}`,
-          method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
-          social: Share.Social.INSTAGRAM_STORIES,
-          backgroundBottomColor: '#ffffff', // You can use any hexcode here and below
-          backgroundTopColor: '#ffffff',
-          backgroundColor: '#ffffff',
-          contentUrl: '',
-        });
-      } else {
-        // If instagram is not installed in user's device then just share using the usual device specific bottomsheet (https://react-native-share.github.io/react-native-share/docs/share-open)
-        await Share.open({url: stickerUri});
-      }
-    } catch (error) {
-      console.error('Error sharing:', error);
-    }
-  };
-
   useEffect(() => {
     if (Platform.OS === 'ios') {
       // If platform is IOS then check if instagram is installed on the user's device using the `Linking.canOpenURL` API
@@ -223,88 +187,10 @@ const FirstHero = props => {
           <View style={styles.mainContainer}>
             {Number(state.myTikklingData.tikkle_count) ===
             state.myTikklingData.tikkle_quantity ? (
-              <View style={styles.centeredContainer}>
-                <B28 customStyle={styles.congratulationsText}>축하해요!</B28>
-                <B15 customStyle={styles.infoText}>
-                  이제 티클을 상품으로 바꿀 수 있어요.
-                </B15>
-                <LottieView
-                  source={require('src/assets/animations/PLPjYPq7Vm.json')}
-                  autoPlay
-                  loop
-                  style={styles.lottieStyle}
-                />
-              </View>
+              <TikklingCompleteCard />
             ) : (
               <View>
-                <View
-                  style={{
-                    width: windowWidth - 64,
-                    height: ((windowWidth - 64) / 3) * 2,
-                    borderRadius: 16,
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 1,
-                    alignSelf: 'center',
-                    marginBottom: 8,
-                  }}>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      right: 0,
-                      left: 0,
-                      bottom: 0,
-                      zIndex: -1,
-                    }}>
-                    <Image
-                      resizeMode="cover"
-                      source={{
-                        uri: state.myTikklingData.thumbnail_image,
-                      }}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: 16,
-                      }}
-                    />
-                  </View>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 0.75}}
-                    colors={[
-                      'rgba(255,255,255,0)',
-                      'rgba(255,255,255,.3)',
-                      'rgba(255,255,255,1)',
-                    ]}
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      top: 0,
-                      zIndex: 0,
-                      borderBottomRightRadius: 16,
-                      borderBottomLeftRadius: 16,
-                    }}
-                  />
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-end',
-                      position: 'absolute',
-                      bottom: 12,
-                      left: 16,
-                      right: 16,
-                    }}>
-                    <B22 customStyle={{fontFamily: H}}>
-                      {state.myTikklingData.product_name}
-                    </B22>
-                    <B15 customStyle={{}}>
-                      {state.myTikklingData.brand_name}
-                    </B15>
-                  </View>
-                </View>
+                <TikklingProgressCard />
                 <ProgressVisualization />
                 <TimeAndPieceCounter />
               </View>
