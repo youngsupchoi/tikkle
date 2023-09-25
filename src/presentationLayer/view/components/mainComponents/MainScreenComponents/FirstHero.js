@@ -26,8 +26,6 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import TimerComponent from './HomeTimer';
-// import BarComponent from 'src/presentationLayer/view/components/Home/ProgressBar/ProgressBar';
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import Modal from 'react-native-modal';
@@ -41,8 +39,6 @@ import LottieView from 'lottie-react-native';
 import Location from 'src/assets/icons/Location';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
-import BubbleFilled from 'src/assets/icons/BubbleFilled';
-import CalendarFilled from 'src/assets/icons/CalendarFilled';
 import Present from 'src/assets/icons/Present';
 import Delete from 'src/assets/icons/Delete';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
@@ -52,6 +48,8 @@ import StopModal from 'src/presentationLayer/view/components/mainComponents/Main
 import FlagFilled from 'src/assets/icons/FlagFilled';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 import ButtonComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent';
+import TimeAndPieceCounter from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TimeAndPieceCounterComponent';
+import ProgressVisualization from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ProgressVisualizerComponent';
 
 //-------------------------------------------------------------------------
 
@@ -307,127 +305,11 @@ const FirstHero = props => {
                     </B15>
                   </View>
                 </View>
-
-                <View
-                  style={{
-                    alignSelf: 'center',
-                    width: windowWidth * 0.8,
-                    marginTop: 16,
-                    marginBottom: 24,
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-start',
-                      marginBottom: 8,
-                    }}>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <FlagFilled
-                        width={24}
-                        height={24}
-                        fill={COLOR_PRIMARY}
-                        scale={1.3}
-                      />
-                      <B17
-                        customStyle={{
-                          fontFamily: EB,
-                          color: COLOR_GRAY,
-                          marginLeft: 8,
-                        }}>
-                        달성률
-                      </B17>
-                    </View>
-                    <View
-                      style={{
-                        alignItems: 'flex-end',
-                        marginBottom: 12,
-                      }}>
-                      <B17>
-                        {Math.round(
-                          (state.myTikklingData.tikkle_count /
-                            state.myTikklingData.tikkle_quantity) *
-                            1000,
-                        ) / 10}
-                        %
-                      </B17>
-                    </View>
-                  </View>
-                  <BarComponent
-                    totalPieces={state.myTikklingData.tikkle_quantity}
-                    gatheredPieces={state.myTikklingData.tikkle_count}
-                  />
-                </View>
-
-                <View style={styles.detailsContainer}>
-                  <View
-                    style={{
-                      alignItems: 'center',
-                      borderColor: COLOR_SEPARATOR,
-                      borderWidth: 1,
-                      padding: 12,
-                      paddingVertical: 16,
-                      width: 0.4 * windowWidth,
-                      borderRadius: 12,
-                    }}>
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: 16,
-                        backgroundColor: COLOR_SECONDARY,
-                        borderRadius: 100,
-                        marginBottom: 12,
-                      }}>
-                      <BubbleFilled fill={COLOR_PRIMARY} />
-                    </View>
-                    <B12 customStyle={styles.labelText}>남은 티클</B12>
-                    <B17 customStyle={styles.dataText}>
-                      {state.myTikklingData.tikkle_quantity -
-                        state.myTikklingData.tikkle_count}{' '}
-                      개
-                    </B17>
-                  </View>
-                  <View>
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        borderColor: COLOR_SEPARATOR,
-                        borderWidth: 1,
-                        padding: 12,
-                        paddingVertical: 16,
-                        width: 0.4 * windowWidth,
-                        borderRadius: 12,
-                      }}>
-                      <View
-                        style={{
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          padding: 16,
-                          backgroundColor: COLOR_SECONDARY,
-                          borderRadius: 100,
-                          marginBottom: 12,
-                        }}>
-                        <CalendarFilled fill={COLOR_PRIMARY} />
-                      </View>
-                      <B12 customStyle={styles.labelText}>남은 시간</B12>
-                      <View>
-                        <TimerComponent
-                          timerStyle={{
-                            color: COLOR_BLACK,
-                            fontSize: 17,
-                            fontFamily: B,
-                          }}
-                          deadline={state.myTikklingData.funding_limit}
-                        />
-                      </View>
-                    </View>
-                  </View>
-                </View>
+                <ProgressVisualization />
+                <TimeAndPieceCounter />
               </View>
             )}
           </View>
-
           <ButtonComponent ButtonIcon={ButtonIcon} ButtonText={ButtonText} />
         </View>
       </ViewShot>
