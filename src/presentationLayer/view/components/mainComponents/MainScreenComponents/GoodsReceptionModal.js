@@ -52,198 +52,142 @@ import TimeAndPieceCounter from 'src/presentationLayer/view/components/mainCompo
 import ProgressVisualization from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ProgressVisualizerComponent';
 import TikklingCompleteCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingCompleteCardComponent';
 import TikklingProgressCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingProgressCardComponent';
-import GoodsReceptionModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/GoodsReceptionModal';
 
-//-------------------------------------------------------------------------
-
-// Check permission
-check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
-  switch (result) {
-    case RESULTS.UNAVAILABLE:
-      console.log(
-        'This feature is not available (on this device / in this context)',
-      );
-      break;
-    case RESULTS.DENIED:
-      console.log(
-        'The permission has not been requested / is denied but requestable',
-      );
-      break;
-    case RESULTS.GRANTED:
-      console.log('The permission is granted');
-      break;
-    case RESULTS.BLOCKED:
-      console.log('The permission is denied and not requestable anymore');
-      break;
-  }
-});
-
-// Request permission
-request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
-  // handle the result
-});
-
-const FirstHero = props => {
+export default function GoodsReceptionModal({data, showModal, onCloseModal}) {
+  //-------------------------------------------------------------------------
+  //토큰 가져오기
   const {state, actions} = useMainViewModel();
+  const [receivedMessage, setReceivedMessage] = useState('');
 
-  const CurrentDate = getKoreanDate();
-  const FundingLimit = new Date(state.myTikklingData.funding_limit);
-  const TikkleCount = Number(state.myTikklingData.tikkle_count);
-  const TikkleQuantity = state.myTikklingData.tikkle_quantity;
+  //--------------------------------------------------------------
 
-  let ButtonIcon = null;
-  let ButtonText = '';
+  const [selectedValue, setSelectedValue] = useState('1');
+  // console.log('buyTikkleModalData', data);
 
-  if (TikkleQuantity === TikkleCount) {
-    // 받은 티클 수가 전체 티클 수와 동일한 경우
-    ButtonIcon = (
-      <Present
-        width={24}
-        height={24}
-        stroke={COLOR_WHITE}
-        scale={1.3}
-        strokeWidth={2}
-      />
-    );
-    ButtonText = '상품 받기';
-  } else if (TikkleQuantity > TikkleCount && TikkleCount !== 0) {
-    // 받은 티클 수가 전체 티클 수보다 적은 경우
-    if (FundingLimit > CurrentDate) {
-      // 현재 시간이 종료 시간을 지나지 않은 경우
-      ButtonIcon = (
-        <Present
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1.3}
-          strokeWidth={1.5}
-        />
-      );
-      ButtonText = '시간 안 지남 티클 구매하기';
-    } else {
-      // 현재 시간이 종료 시간을 지난 경우
-      //console.log('%%%%%%%%%%%%\n\n', FundingLimit, CurrentDate);
-      ButtonIcon = (
-        <Delete
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1}
-          strokeWidth={2}
-        />
-      );
-      ButtonText = '시간 지남 종료하기';
-    }
-  } else {
-    // 받은 티클이 없는 경우
-    if (FundingLimit > CurrentDate) {
-      // 현재 시간이 종료 시간을 지나지 않은 경우
-      ButtonIcon = (
-        <Present
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1.3}
-          strokeWidth={1.5}
-        />
-      );
-      ButtonText = '안 지남 티클 구매하기';
-    } else {
-      // 현재 시간이 종료 시간을 지난 경우
-      ButtonIcon = (
-        <Delete
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1}
-          strokeWidth={2}
-        />
-      );
-      ButtonText = '지남 종료하기';
-    }
-  }
+  // console.log(totalPieces, gatheredPieces);
 
-  const onCloseModal = () => {
-    actions.setShowBuyModal(false);
-  };
-
-  useEffect(() => {
-    if (Platform.OS === 'ios') {
-      // If platform is IOS then check if instagram is installed on the user's device using the `Linking.canOpenURL` API
-      Linking.canOpenURL('instagram://').then(val =>
-        actions.setHasInstagramInstalled(val),
-      );
-    } else {
-      // Else check on android device if instagram is installed in user's device using the `Share.isPackageInstalled` API
-      Share.isPackageInstalled('com.instagram.android').then(({isInstalled}) =>
-        actions.setHasInstagramInstalled(isInstalled),
-      );
-    }
-  }, []);
+  const [errorMessage, setErrorMessage] = useState('');
 
   return (
-    <View style={styles.outerContainer}>
-      <ViewShot ref={state.backgroundImageRef}>
-        <View style={{backgroundColor: COLOR_WHITE}}>
-          <View style={styles.mainContainer}>
-            {Number(state.myTikklingData.tikkle_count) ===
-            state.myTikklingData.tikkle_quantity ? (
-              <TikklingCompleteCard />
-            ) : (
-              <View>
-                <TikklingProgressCard />
-                <ProgressVisualization />
-                <TimeAndPieceCounter />
-              </View>
-            )}
-          </View>
-          <ButtonComponent ButtonIcon={ButtonIcon} ButtonText={ButtonText} />
-        </View>
-      </ViewShot>
-
-      <BuyTikkleModal
-        data={state.myTikklingData}
-        showModal={state.showBuyModal}
-        onCloseModal={onCloseModal}
-      />
-
-      <CancelModal />
-      <StopModal />
-      <GoodsReceptionModal />
-      <PostCodeModal actions={actions} state={state} />
-      <DetailAddressInput state={state} actions={actions} />
-
+    <View>
       <Modal
-        isVisible={state.showCancelModal}
-        backdropOpacity={0.5}
+        isVisible={state.showEndModal}
+        onSwipeComplete={() => actions.setShowEndModal(false)}
+        swipeDirection={'down'}
         onBackdropPress={() => actions.setShowEndModal(false)}
-        // onBackButtonPress={actions.setShowEndModal(false)}
+        backdropOpacity={0.5}
+        style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.
+        animationIn="slideInUp" // 이 부분이 추가되었습니다.
+        animationOut="slideOutDown" // 이 부분이 추가되었습니다.
       >
-        <View
-          style={{
-            backgroundColor: 'white',
-            padding: 16,
-            paddingVertical: 24,
-            borderRadius: 10,
-          }}>
-          <View
-            style={{paddingHorizontal: 8, paddingBottom: 8, paddingTop: 24}}>
-            <B22 customStyle={{fontFamily: EB, alignSelf: 'center'}}>
-              티클링을 종료할까요?
-            </B22>
+        <View style={modalStyles.modalContent}>
+          <View style={modalStyles.contentSection}>
+            <B22 customStyle={modalStyles.titleText}>배송지를 수정할까요?</B22>
           </View>
 
-          <View style={{paddingHorizontal: 8, paddingBottom: 12}}>
-            <LottieView
-              source={require('src/assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
-              autoPlay
-              loop
-              style={{
-                width: 200,
-                height: 200,
-                alignSelf: 'center',
-              }}
-            />
+          <View style={modalStyles.contentSection}>
+            <View style={{}}>
+              <B15 customStyle={{marginTop: 16}}>도로명주소</B15>
+              <AnimatedButton
+                onPress={() => {
+                  // actions.setShowEndModal(false);
+                  actions.setShowPostCodeModal(true);
+                }}
+                style={{
+                  marginTop: 16,
+                  flexDirection: 'row',
+                  alignSelf: 'center',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                }}>
+                <View
+                  style={{
+                    backgroundColor: COLOR_WHITE,
+                    borderRadius: 12,
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    padding: 8,
+                    paddingHorizontal: 12,
+                    width: '100%',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      alignSelf: 'center',
+                      padding: 4,
+                      alignItems: 'center',
+                    }}>
+                    <Location
+                      width={24}
+                      height={24}
+                      stroke={COLOR_BLACK}
+                      scale={1}
+                      strokeWidth={1.5}
+                    />
+                  </View>
+                  <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
+                    {
+                      state.address && state.zonecode // state.address와 state.zonecode가 존재하는 경우
+                        ? `${state.address}(${state.zonecode})`
+                        : state.userData.address && state.userData.zonecode // state.userData.address와 state.userData.zonecode가 존재하는 경우
+                        ? `${state.userData.address}(${state.userData.zonecode})`
+                        : '도로명주소 검색' // 둘 다 존재하지 않는 경우
+                    }
+                  </B15>
+                </View>
+              </AnimatedButton>
+              <B15 customStyle={{marginTop: 16}}>상세주소</B15>
+              <AnimatedButton
+                onPress={() => {
+                  // actions.navigation.navigate('searchAddress');
+                  actions.setShowDetailModal(true);
+                }}
+                style={{
+                  marginTop: 12,
+                  flexDirection: 'row',
+                  alignSelf: 'center',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                }}>
+                <View
+                  style={{
+                    backgroundColor: COLOR_WHITE,
+                    borderRadius: 12,
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    padding: 8,
+                    paddingHorizontal: 12,
+                    width: '100%',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      alignSelf: 'center',
+                      padding: 4,
+                      alignItems: 'center',
+                    }}>
+                    <Location
+                      width={24}
+                      height={24}
+                      stroke={COLOR_BLACK}
+                      scale={1}
+                      strokeWidth={1.5}
+                    />
+                  </View>
+                  <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
+                    {
+                      state.detailAddress // state.detailAddress가 존재하는 경우
+                        ? `${state.detailAddress}`
+                        : state.userData.detail_address // state.userData.detail_address가 존재하는 경우
+                        ? `${state.userData.detail_address}`
+                        : '상세주소 입력' // 둘 다 존재하지 않는 경우
+                    }
+                  </B15>
+                </View>
+              </AnimatedButton>
+            </View>
           </View>
 
           <View
@@ -252,38 +196,26 @@ const FirstHero = props => {
             }}>
             <AnimatedButton
               onPress={() => {
-                // actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
-                actions.setShowCancelModal(false);
+                actions.endTikklingGoods();
+                actions.setShowEndModal(false);
               }}
-              style={{
-                padding: 12,
-                borderRadius: 12,
-                backgroundColor: COLOR_PRIMARY,
-                borderColor: COLOR_PRIMARY_OUTLINE,
-                borderWidth: 2,
-                alignItems: 'center',
-                marginBottom: 12,
-              }}>
-              <B15 customStyle={{color: COLOR_WHITE}}>종료하기</B15>
+              style={modalStyles.confirmButton}>
+              <B15 customStyle={modalStyles.whiteText}>이 주소로 배송 요청</B15>
             </AnimatedButton>
             <AnimatedButton
-              onPress={() => actions.setShowCancelModal(false)}
-              style={{
-                padding: 12,
-                borderRadius: 12,
-                alignItems: 'center',
-              }}>
-              <B15 customStyle={{color: COLOR_PRIMARY}}>나중에 종료하기</B15>
-              {/* <B12 customStyle={{color: COLOR_GRAY}}>
-                종료일을 기준으로 7일 이후부터 환급받을 수 있어요.
-              </B12> */}
+              onPress={() => actions.setShowEndModal(false)}
+              style={modalStyles.laterButton}>
+              <B15 customStyle={modalStyles.primaryText}>나중에 배송 요청</B15>
             </AnimatedButton>
+            <M11 customStyle={{color: COLOR_GRAY}}>
+              티클링 종료일 기준 7일 이후부터 환급받을 수 있어요.
+            </M11>
           </View>
         </View>
       </Modal>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   outerContainer: {
@@ -459,5 +391,3 @@ const modalStyles = StyleSheet.create({
     color: COLOR_WHITE,
   },
 });
-
-export default FirstHero;
