@@ -130,6 +130,7 @@ export const useStartViewModel = () => {
     try {
       console.log(state.userNick);
       await checkNickDuplicationData(state.userNick).then(res => {
+        actions.setIdInputButtonPressed(true);
         topActions.setStateAndError(res);
       });
 
@@ -157,6 +158,7 @@ export const useStartViewModel = () => {
     } catch (err) {
       const error = JSON.parse(err.message);
       if (error.DScode) {
+        actions.setIdInputButtonPressed(false);
         return;
       } else {
         console.log(err);

@@ -22,6 +22,8 @@ import {B12} from 'src/presentationLayer/view/components/globalComponents/Typogr
 
 export default function App() {
   SystemNavigationBar.setBarMode('dark');
+  //하단바 제거 코드
+  //SystemNavigationBar.fullScreen();
 
   // TopViewModel의 새로운 구조에 따라 변경됩니다.
 

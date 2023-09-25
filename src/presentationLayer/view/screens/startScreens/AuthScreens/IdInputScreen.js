@@ -36,9 +36,6 @@ import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/SignUpHeaderComponent';
 import IdInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/IdInputComponent';
 import IdSubmit from 'src/presentationLayer/view/components/startComponents/AuthComponents/IdInputScreenComopnents/IdSubmitComponent';
-// import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
-// import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
-// import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
 
 export default function SignUpScreen6({route}) {
   const {ref, state, actions} = useStartViewModel();
