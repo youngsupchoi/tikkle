@@ -26,32 +26,44 @@ export async function getMyPageScreenData() {
 
   //------ call get_user_info -------------------------------------------------------//
 
-  const [res_user_info, res_user_endTikklings, res_user_paymentHistory] =
-    await Promise.all([
-      apiModel('get_user_info', authorization, null, null)
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          return null;
-        }),
-      apiModel('get_user_endTikklings', authorization, null, null)
-        .then(res => {
-          // console.log(res);
-          return res;
-        })
-        .catch(err => {
-          return null;
-        }),
-      apiModel('get_user_paymentHistory', authorization, null, null)
-        .then(res => {
-          // console.log(res);
-          return res;
-        })
-        .catch(err => {
-          return null;
-        }),
-    ]);
+  const [
+    res_user_info,
+    res_user_endTikklings,
+    res_user_paymentHistory,
+    res_get_bank_data,
+  ] = await Promise.all([
+    apiModel('get_user_info', authorization, null, null)
+      .then(async res => {
+        return res;
+      })
+      .catch(err => {
+        return null;
+      }),
+    apiModel('get_user_endTikklings', authorization, null, null)
+      .then(async res => {
+        // console.log(res);
+        return res;
+      })
+      .catch(err => {
+        return null;
+      }),
+    apiModel('get_user_paymentHistory', authorization, null, null)
+      .then(async res => {
+        // console.log(res);
+        return res;
+      })
+      .catch(err => {
+        return null;
+      }),
+    apiModel('get_bank_data', authorization, null, null)
+      .then(async res => {
+        return res;
+      })
+      .catch(err => {
+        return null;
+      }),
+    ,
+  ]);
 
   // console.log('a : ', a);
   // console.log('b : ', b);
@@ -63,14 +75,16 @@ export async function getMyPageScreenData() {
     !res_user_info ||
     !res_user_endTikklings ||
     !res_user_paymentHistory ||
+    !res_get_bank_data ||
     res_user_info.status !== 200 ||
     res_user_endTikklings.status !== 200 ||
-    res_user_paymentHistory.status !== 200
+    res_user_paymentHistory.status !== 200 ||
+    res_get_bank_data.status !== 200
   ) {
     return {
       DScode: 2,
       DSdata: null,
-      DSmessage: '홈화면을 불러오는데 실패했어요. 다시 시도해주세요.',
+      DSmessage: '마이페이지를 불러오는데 실패했어요. 다시 시도해주세요.',
     };
   }
 
@@ -78,6 +92,7 @@ export async function getMyPageScreenData() {
     user_info: res_user_info.data.data,
     end_tikkling: res_user_endTikklings.data.data,
     payment: res_user_paymentHistory.data.data,
+    bank: res_get_bank_data.data.data,
   };
 
   //------ update token ---------------------------------------------------//
