@@ -67,15 +67,15 @@ export default function BirthSubmit() {
         style={[
           styles.button,
           state.year.length !== 4 ||
-          state.month.length !== 2 ||
-          state.day.length !== 2
+          state.month.length == 0 ||
+          state.day.length == 0
             ? styles.inactiveButton
             : {},
         ]}
         disabled={
           state.year.length !== 4 ||
-          state.month.length !== 2 ||
-          state.day.length !== 2
+          state.month.length == 0 ||
+          state.day.length == 0
         } // Disable the button if gender is an empty string
       >
         <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
