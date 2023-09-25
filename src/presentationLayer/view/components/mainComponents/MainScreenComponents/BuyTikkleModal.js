@@ -42,6 +42,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNavigation} from '@react-navigation/native';
 import {createSendTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateSendTikkleData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
@@ -50,7 +51,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
   const [receivedMessage, setReceivedMessage] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  const {state, actions} = useMainViewModel();
   async function post_tikkling_sendtikkle(item) {
     try {
       return (ret = await createSendTikkleData(
@@ -143,6 +144,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   };
 
   const buttonPress = async () => {
+    actions.setPaymentButtonPressed(true);
     await post_tikkling_sendtikkle(data).then(res => {
       // console.log(res);
       if (res.success === true) {
@@ -151,6 +153,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         navigation.navigate('payment', data);
       } else if (res.success === false) {
         setServerMessage(res.message);
+        setPaymentButtonPressed(false);
         onCloseButtonPress();
       }
     });
@@ -255,8 +258,14 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               onPress={() => {
                 buttonPress();
               }}
-              style={styles.presentButton}>
-              <B17 customStyle={{color: COLOR_WHITE}}>결제하기</B17>
+              style={[
+                styles.presentButton,
+                state.paymentButtonPressed ? styles.inactiveButton : {},
+              ]}
+              disabled={state.paymentButtonPressed}>
+              <B17 customStyle={{color: COLOR_WHITE}}>
+                {state.paymentButtonPressed ? `처리중입니다` : `결제하기`}
+              </B17>
             </AnimatedButton>
           </View>
         </View>
@@ -359,5 +368,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: COLOR_PRIMARY_OUTLINE,
     borderWidth: 2,
+  },
+  inactiveButton: {
+    backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
+    shadowOpacity: 0, // Remove shadow for inactive button
+    borderColor: COLOR_GRAY,
   },
 });
