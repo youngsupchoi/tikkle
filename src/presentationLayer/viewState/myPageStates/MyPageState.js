@@ -27,6 +27,8 @@ export const MyPageViewStateProvider = ({children}) => {
     nick: '',
   });
 
+  const [bank, setBank] = useState([]);
+
   const [endTikklingsData, setEndTikklingData] = useState([]);
   const [paymentHistoryData, setPaymentHistoryData] = useState([]);
   const [titleText, setTitleText] = useState(null);
@@ -48,6 +50,8 @@ export const MyPageViewStateProvider = ({children}) => {
 
   const [newBankName, setNewBankName] = useState(null);
   const [newAccount, setNewAccount] = useState(null);
+
+  const [selectedBankCode, setSelectedBankCode] = useState(null);
 
   const state = {
     message,
@@ -72,6 +76,8 @@ export const MyPageViewStateProvider = ({children}) => {
     loading_profileEdit,
     newBankName,
     newAccount,
+    bank,
+    selectedBankCode,
   };
 
   const actions = {
@@ -97,6 +103,8 @@ export const MyPageViewStateProvider = ({children}) => {
     setLoading_profileEdit,
     setNewBankName,
     setNewAccount,
+    setBank,
+    setSelectedBankCode,
   };
 
   return (

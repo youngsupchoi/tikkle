@@ -16,6 +16,8 @@ import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquire
 import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
+import {getBankData} from 'src/dataLayer/DataSource/User/GetBankData';
+import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import ImagePicker from 'react-native-image-crop-picker';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
@@ -41,8 +43,9 @@ export const useMyPageViewModel = () => {
         .then(res => {
           return topActions.setStateAndError(res);
         })
-        .then(res => {
+        .then(async res => {
           actions.setUserData_profile(res.DSdata.user_info);
+          actions.setBank(res.DSdata.bank);
           actions.setNewAccount(res.DSdata.user_info.account);
           actions.setEndTikklingData(res.DSdata.end_tikkling);
           actions.setPaymentHistoryData(res.DSdata.payment);
@@ -56,9 +59,11 @@ export const useMyPageViewModel = () => {
   const loadData = async () => {
     try {
       await actions.setLoading_profile(true);
-      await getMyPageScreenData().then(res => {
+      await getMyPageScreenData().then(async res => {
+        console.log('res : ', res.DSdata.user_info);
         actions.setUserData_profile(res.DSdata.user_info);
-        actions.setNewBankName(res.DSdata.user_info.bank_name);
+        actions.setBank(res.DSdata.bank);
+        // actions.setNewBankName(res.DSdata.user_info.bank_name);
         actions.setEndTikklingData(res.DSdata.end_tikkling);
         actions.setPaymentHistoryData(res.DSdata.payment);
       });
@@ -321,12 +326,37 @@ export const useMyPageViewModel = () => {
    */
   async function selectBankName(bankName) {
     await actions.setNewBankName(bankName);
+    await actions.setSelectedBankCode(bankName.bank_code);
     await changeBankDropDownVisible();
   }
 
   async function storeAccountData() {
-    console.log('storeAccountData');
-    console.log(state.newBankName);
+    try {
+      console.log(state.newAccount);
+      console.log(state.selectedBankCode);
+      await actions.setLoading_profileEdit(true);
+
+      await updateMyAccountData(state.newAccount, state.selectedBankCode)
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          await MyPageData();
+          await actions.setLoading_profileEdit(false);
+          // console.log('&&&: ', res);
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('계좌 정보 업데이트에 성공했어요', 1);
+          } else {
+            topActions.showSnackbar('계좌 정보 업데이트에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await actions.setLoading_profileEdit(false);
+      await topActions.showSnackbar(
+        '서버오류로 계좌 정보 업데이트에 실패했어요',
+        0,
+      );
+    }
   }
 
   return {

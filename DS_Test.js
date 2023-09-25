@@ -56,6 +56,8 @@ import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingRefundData';
 import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
 
+import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
+
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
 
@@ -63,7 +65,7 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await updateStopTikklingData(70);
+    const axiosResponse = await getMyPageScreenData();
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);
