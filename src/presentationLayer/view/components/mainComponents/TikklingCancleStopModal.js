@@ -52,171 +52,99 @@ import TimeAndPieceCounter from 'src/presentationLayer/view/components/mainCompo
 import ProgressVisualization from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ProgressVisualizerComponent';
 import TikklingCompleteCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingCompleteCardComponent';
 import TikklingProgressCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingProgressCardComponent';
-import GoodsReceptionModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/GoodsReceptionModal';
-import TikklingCancleStopModal from 'src/presentationLayer/view/components/mainComponents/TikklingCancleStopModal';
 
-//-------------------------------------------------------------------------
-
-// Check permission
-check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
-  switch (result) {
-    case RESULTS.UNAVAILABLE:
-      console.log(
-        'This feature is not available (on this device / in this context)',
-      );
-      break;
-    case RESULTS.DENIED:
-      console.log(
-        'The permission has not been requested / is denied but requestable',
-      );
-      break;
-    case RESULTS.GRANTED:
-      console.log('The permission is granted');
-      break;
-    case RESULTS.BLOCKED:
-      console.log('The permission is denied and not requestable anymore');
-      break;
-  }
-});
-
-// Request permission
-request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
-  // handle the result
-});
-
-const FirstHero = props => {
+export default function TikklingCancleStopModal({
+  data,
+  showModal,
+  onCloseModal,
+}) {
+  //-------------------------------------------------------------------------
+  //토큰 가져오기
   const {state, actions} = useMainViewModel();
+  const [receivedMessage, setReceivedMessage] = useState('');
 
-  const CurrentDate = getKoreanDate();
-  const FundingLimit = new Date(state.myTikklingData.funding_limit);
-  const TikkleCount = Number(state.myTikklingData.tikkle_count);
-  const TikkleQuantity = state.myTikklingData.tikkle_quantity;
+  //--------------------------------------------------------------
 
-  let ButtonIcon = null;
-  let ButtonText = '';
+  const [selectedValue, setSelectedValue] = useState('1');
+  // console.log('buyTikkleModalData', data);
 
-  if (TikkleQuantity === TikkleCount) {
-    // 받은 티클 수가 전체 티클 수와 동일한 경우
-    ButtonIcon = (
-      <Present
-        width={24}
-        height={24}
-        stroke={COLOR_WHITE}
-        scale={1.3}
-        strokeWidth={2}
-      />
-    );
-    ButtonText = '상품 받기';
-  } else if (TikkleQuantity > TikkleCount && TikkleCount !== 0) {
-    // 받은 티클 수가 전체 티클 수보다 적은 경우
-    if (FundingLimit > CurrentDate) {
-      // 현재 시간이 종료 시간을 지나지 않은 경우
-      ButtonIcon = (
-        <Present
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1.3}
-          strokeWidth={1.5}
-        />
-      );
-      ButtonText = '시간 안 지남 티클 구매하기';
-    } else {
-      // 현재 시간이 종료 시간을 지난 경우
-      //console.log('%%%%%%%%%%%%\n\n', FundingLimit, CurrentDate);
-      ButtonIcon = (
-        <Delete
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1}
-          strokeWidth={2}
-        />
-      );
-      ButtonText = '시간 지남 종료하기';
-    }
-  } else {
-    // 받은 티클이 없는 경우
-    if (FundingLimit > CurrentDate) {
-      // 현재 시간이 종료 시간을 지나지 않은 경우
-      ButtonIcon = (
-        <Present
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1.3}
-          strokeWidth={1.5}
-        />
-      );
-      ButtonText = '안 지남 티클 구매하기';
-    } else {
-      // 현재 시간이 종료 시간을 지난 경우
-      ButtonIcon = (
-        <Delete
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1}
-          strokeWidth={2}
-        />
-      );
-      ButtonText = '지남 종료하기';
-    }
-  }
+  // console.log(totalPieces, gatheredPieces);
 
-  const onCloseModal = () => {
-    actions.setShowBuyModal(false);
-  };
-
-  useEffect(() => {
-    if (Platform.OS === 'ios') {
-      // If platform is IOS then check if instagram is installed on the user's device using the `Linking.canOpenURL` API
-      Linking.canOpenURL('instagram://').then(val =>
-        actions.setHasInstagramInstalled(val),
-      );
-    } else {
-      // Else check on android device if instagram is installed in user's device using the `Share.isPackageInstalled` API
-      Share.isPackageInstalled('com.instagram.android').then(({isInstalled}) =>
-        actions.setHasInstagramInstalled(isInstalled),
-      );
-    }
-  }, []);
+  const [errorMessage, setErrorMessage] = useState('');
 
   return (
-    <View style={styles.outerContainer}>
-      <ViewShot ref={state.backgroundImageRef}>
-        <View style={{backgroundColor: COLOR_WHITE}}>
-          <View style={styles.mainContainer}>
-            {Number(state.myTikklingData.tikkle_count) ===
-            state.myTikklingData.tikkle_quantity ? (
-              <TikklingCompleteCard />
-            ) : (
-              <View>
-                <TikklingProgressCard />
-                <ProgressVisualization />
-                <TimeAndPieceCounter />
-              </View>
-            )}
+    <View>
+      <Modal
+        isVisible={state.showCancelModal}
+        backdropOpacity={0.5}
+        onBackdropPress={() => actions.setShowEndModal(false)}
+        // onBackButtonPress={actions.setShowEndModal(false)}
+      >
+        <View
+          style={{
+            backgroundColor: 'white',
+            padding: 16,
+            paddingVertical: 24,
+            borderRadius: 10,
+          }}>
+          <View
+            style={{paddingHorizontal: 8, paddingBottom: 8, paddingTop: 24}}>
+            <B22 customStyle={{fontFamily: EB, alignSelf: 'center'}}>
+              티클링을 종료할까요?
+            </B22>
           </View>
-          <ButtonComponent ButtonIcon={ButtonIcon} ButtonText={ButtonText} />
+
+          <View style={{paddingHorizontal: 8, paddingBottom: 12}}>
+            <LottieView
+              source={require('src/assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
+              autoPlay
+              loop
+              style={{
+                width: 200,
+                height: 200,
+                alignSelf: 'center',
+              }}
+            />
+          </View>
+
+          <View
+            style={{
+              marginTop: 12,
+            }}>
+            <AnimatedButton
+              onPress={() => {
+                // actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
+                actions.setShowCancelModal(false);
+              }}
+              style={{
+                padding: 12,
+                borderRadius: 12,
+                backgroundColor: COLOR_PRIMARY,
+                borderColor: COLOR_PRIMARY_OUTLINE,
+                borderWidth: 2,
+                alignItems: 'center',
+                marginBottom: 12,
+              }}>
+              <B15 customStyle={{color: COLOR_WHITE}}>종료하기</B15>
+            </AnimatedButton>
+            <AnimatedButton
+              onPress={() => actions.setShowCancelModal(false)}
+              style={{
+                padding: 12,
+                borderRadius: 12,
+                alignItems: 'center',
+              }}>
+              <B15 customStyle={{color: COLOR_PRIMARY}}>나중에 종료하기</B15>
+              {/* <B12 customStyle={{color: COLOR_GRAY}}>
+                종료일을 기준으로 7일 이후부터 환급받을 수 있어요.
+              </B12> */}
+            </AnimatedButton>
+          </View>
         </View>
-      </ViewShot>
-
-      <BuyTikkleModal
-        data={state.myTikklingData}
-        showModal={state.showBuyModal}
-        onCloseModal={onCloseModal}
-      />
-
-      <CancelModal />
-      <StopModal />
-      <GoodsReceptionModal />
-      <PostCodeModal actions={actions} state={state} />
-      <DetailAddressInput state={state} actions={actions} />
-      <TikklingCancleStopModal />
+      </Modal>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   outerContainer: {
@@ -392,5 +320,3 @@ const modalStyles = StyleSheet.create({
     color: COLOR_WHITE,
   },
 });
-
-export default FirstHero;
