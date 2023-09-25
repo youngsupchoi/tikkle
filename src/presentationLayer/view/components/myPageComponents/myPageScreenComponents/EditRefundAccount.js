@@ -1,37 +1,37 @@
-import {View, Text, TextInput} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
-import {COLOR_SEPARATOR} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  COLOR_SEPARATOR,
+  COLOR_PRIMARY,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B,
+  B12,
   B15,
   B17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  StatusBarHeight,
+  HEADER_HEIGHT,
+  SPACING_2,
+  backgroundColor,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
-import {Button, Menu} from 'react-native-paper';
-
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 export default function EditRefundAccount() {
   const {ref, state, actions} = useMyPageViewModel();
-  function DropDownMenu() {
-    return (
-      <Menu
-        visible={state.bankDropDownVisible}
-        onDismiss={() => actions.setBankDropDownVisible(false)}
-        anchor={
-          <Button
-            title="Open Dropdown"
-            onPress={() => actions.setBankDropDownVisible(true)}
-          />
-        }>
-        <Menu.Item onPress={() => console.log('Option 1')} title="Option 1" />
-        <Menu.Item onPress={() => console.log('Option 2')} title="Option 2" />
-      </Menu>
-    );
-  }
 
   return (
-    <View style={{padding: 24}}>
-      <B15>환불 계좌</B15>
+    <View style={{padding: 24, paddingBottom: 10}}>
+      <View style={styles.headerContainer}>
+        <B15>환불 계좌</B15>
+        <AnimatedButton
+          style={{paddingRight: 50}}
+          onPress={() => actions.storeAccountData()}>
+          <B17 customStyle={{color: COLOR_PRIMARY}}>저장</B17>
+        </AnimatedButton>
+      </View>
       <View
         style={{
           borderRadius: 4,
@@ -44,31 +44,32 @@ export default function EditRefundAccount() {
         }}>
         <AnimatedButton
           onPress={() => {
-            actions.setBankDropDownVisible(true);
+            actions.changeBankDropDownVisible();
           }}
           style={{
             paddingHorizontal: 10,
           }}>
           <B15>
-            {state.userData_profile.bank_name !== null
-              ? state.userData_profile.bank_name
+            {state.newBankName !== undefined &&
+            state.newBankName.bank_name !== undefined &&
+            state.newBankName.bank_name !== '' &&
+            state.newBankName.bank_name !== null
+              ? state.newBankName.bank_name
               : '은행명'}
           </B15>
         </AnimatedButton>
+        {/* {console.log(state.bankDropDownVisible)} */}
 
-        {/* <Button
-          title="은행"
-          style={{color: 'red'}}
-          onPress={() => actions.setBankDropDownVisible(true)}
-        /> */}
-        {/* <DropDownMenu />
-        {console.log(state.bankDropDownVisible)} */}
         <TextInput
           placeholder={
-            state.userData_profile.account !== null
+            state.userData_profile.account !== null &&
+            state.userData_profile.account !== null &&
+            state.userData_profile.account !== undefined
               ? `${state.userData_profile.account}`
               : '계좌번호'
           }
+          onChangeText={value => actions.setNewAccount(value)}
+          value={state.newAccount}
           style={{
             fontFamily: B,
             fontSize: 17,
@@ -82,3 +83,21 @@ export default function EditRefundAccount() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    width: windowWidth,
+
+    // borderBottomColor: COLOR_SEPARATOR,
+    // borderBottomWidth: 1,
+    // elevation: 1,
+    backgroundColor: backgroundColor,
+    flexDirection: 'row',
+    paddingHorizontal: SPACING_2,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+  },
+});
