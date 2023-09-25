@@ -47,6 +47,7 @@ export const useMyPageViewModel = () => {
           actions.setUserData_profile(res.DSdata.user_info);
           actions.setBank(res.DSdata.bank);
           actions.setNewAccount(res.DSdata.user_info.account);
+          actions.setNewBankName(res.DSdata.user_info.bank_name);
           actions.setEndTikklingData(res.DSdata.end_tikkling);
           actions.setPaymentHistoryData(res.DSdata.payment);
         });
@@ -63,7 +64,7 @@ export const useMyPageViewModel = () => {
         console.log('res : ', res.DSdata.user_info);
         actions.setUserData_profile(res.DSdata.user_info);
         actions.setBank(res.DSdata.bank);
-        // actions.setNewBankName(res.DSdata.user_info.bank_name);
+        actions.setNewBankName(res.DSdata.user_info.bank_name);
         actions.setEndTikklingData(res.DSdata.end_tikkling);
         actions.setPaymentHistoryData(res.DSdata.payment);
       });
