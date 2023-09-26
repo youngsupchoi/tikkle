@@ -80,6 +80,10 @@ export const useMainViewModel = () => {
     );
   };
 
+  const refundTikkling = () => {
+    console.log(state.account, state.bankName);
+  };
+
   const showDropdown = () => {
     actions.setDropdownVisible(true);
     Animated.timing(ref.dropdownAnimation, {
@@ -198,6 +202,7 @@ export const useMainViewModel = () => {
       stopTikkling,
       onInstagramShareButtonPressed,
       loadTikklingData,
+      refundTikkling,
     },
   };
 };

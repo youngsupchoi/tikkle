@@ -39,6 +39,18 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
   const handleRefundButtonPress = () => {
     console.log('환급 모달을 만들어주세요');
     console.log('end/refund api를 붙여주세요');
+    const tikkleQuantity = state.myTikklingData.tikkle_quantity;
+    const tikkleCount = Number(state.myTikklingData.tikkle_count);
+    const fundingLimit = new Date(state.myTikklingData.funding_limit);
+    const currentDate = getKoreanDate();
+
+    if (tikkleQuantity === tikkleCount) {
+      actions.setShowRefundModal(true);
+    } else if (fundingLimit > currentDate) {
+      actions.setShowRefundModal(true);
+    } else {
+      actions.setShowCancelModal(true);
+    }
   };
   return (
     <View
@@ -69,6 +81,7 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
             ...styles.buttonStyle,
             backgroundColor: COLOR_GRAY,
             borderColor: COLOR_GRAY,
+            marginLeft: 15,
           }}>
           <View
             style={{
@@ -76,6 +89,7 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
               padding: 8,
               borderRadius: 100,
             }}>
+            {/* TODO: 돈 아이콘으로 반영 */}
             {ButtonIcon}
           </View>
           {state.myTikklingData.tikkle_count == 0 ? (

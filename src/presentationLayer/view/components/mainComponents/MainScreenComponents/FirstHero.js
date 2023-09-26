@@ -34,6 +34,7 @@ import TikklingCompleteCard from 'src/presentationLayer/view/components/mainComp
 import TikklingProgressCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingProgressCardComponent';
 import GoodsReceptionModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/GoodsReceptionModal';
 import TikklingCancleStopModal from 'src/presentationLayer/view/components/mainComponents/TikklingCancleStopModal';
+import RefundModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/RefundModal';
 
 //-------------------------------------------------------------------------
 
@@ -110,92 +111,11 @@ const FirstHero = props => {
         />
       );
       ButtonActions = () => {
-        console.log("buymytikkle")
+        console.log('buymytikkle');
       };
       ButtonText = '남은 티클 구매하기';
     }
   }
-
-  // else if (state.myTikklingData.state_id == 2) {
-  //   console.log('생기면 안 되는 경우');
-  // } else if (state.myTikklingData.state_id == 3) {
-  //   //기간이 끝나기 전 티클링 중단 모두 모이지 않은 상태
-  //   if (TikkleQuantity === TikkleCount) {
-  //     ButtonIcon = (
-  //       <Present
-  //         width={24}
-  //         height={24}
-  //         stroke={COLOR_WHITE}
-  //         scale={1.3}
-  //         strokeWidth={2}
-  //       />
-  //     );
-  //     ButtonText = '상품 받기';
-  //   } else {
-  //     ButtonIcon = (
-  //       <Delete
-  //         width={24}
-  //         height={24}
-  //         stroke={COLOR_WHITE}
-  //         scale={1.3}
-  //         strokeWidth={2}
-  //       />
-  //     );
-  //     ButtonText = '남은 티클 구매하기';
-  //   }
-  // } else if (state.myTikklingData.state_id == 4) {
-  //   //조각이 모두 모임
-  //   if (TikkleQuantity === TikkleCount) {
-  //     ButtonIcon = (
-  //       <Present
-  //         width={24}
-  //         height={24}
-  //         stroke={COLOR_WHITE}
-  //         scale={1.3}
-  //         strokeWidth={2}
-  //       />
-  //     );
-  //     ButtonText = '상품 받기';
-  //   } else {
-  //     ButtonIcon = (
-  //       <Delete
-  //         width={24}
-  //         height={24}
-  //         stroke={COLOR_WHITE}
-  //         scale={1.3}
-  //         strokeWidth={2}
-  //       />
-  //     );
-  //     ButtonText = '남은 티클 구매하기';
-  //   }
-  // } else if (state.myTikklingData.state_id == 5) {
-  //   //티클이 모두 모이지 않고 기간이 종료
-  //   if (TikkleQuantity === TikkleCount) {
-  //     ButtonIcon = (
-  //       <Present
-  //         width={24}
-  //         height={24}
-  //         stroke={COLOR_WHITE}
-  //         scale={1.3}
-  //         strokeWidth={2}
-  //       />
-  //     );
-  //     ButtonText = '상품 받기';
-  //   } else {
-  //     ButtonIcon = (
-  //       <Delete
-  //         width={24}
-  //         height={24}
-  //         stroke={COLOR_WHITE}
-  //         scale={1.3}
-  //         strokeWidth={2}
-  //       />
-  //     );
-  //     ButtonText = '남은 티클 구매하기';
-  //   }
-  // }
-  //여기까지
-  /////////////////////////////////////////////////
 
   // if (TikkleQuantity === TikkleCount) {
   //   // 받은 티클 수가 전체 티클 수와 동일한 경우
@@ -320,6 +240,7 @@ const FirstHero = props => {
       <CancelModal />
       <StopModal />
       <GoodsReceptionModal />
+      <RefundModal />
       <PostCodeModal actions={actions} state={state} />
       <DetailAddressInput state={state} actions={actions} />
       <TikklingCancleStopModal mode={TikkleCount == 0 ? 'cancle' : 'stop'} />

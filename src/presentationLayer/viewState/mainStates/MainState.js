@@ -33,6 +33,9 @@ export const MainViewStateProvider = ({children}) => {
   const [zonecode, setZonecode] = useState(null);
   const [detailAddress, setDetailAddress] = useState(null);
   const [paymentButtonPressed, setPaymentButtonPressed] = useState(false); // 결제 버튼 눌렀는지 여부
+  const [showRefundModal, setShowRefundModal] = useState(false);
+  const [bankName, setBankName] = useState(''); // 은행 이름
+  const [account, setAccount] = useState(''); // 계좌 번호
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
 
@@ -80,6 +83,9 @@ export const MainViewStateProvider = ({children}) => {
     showStopModal,
     detailAddress,
     paymentButtonPressed,
+    showRefundModal,
+    bankName,
+    account,
   };
 
   const actions = {
@@ -110,6 +116,9 @@ export const MainViewStateProvider = ({children}) => {
     setShowStopModal,
     setDetailAddress,
     setPaymentButtonPressed,
+    setShowRefundModal,
+    setBankName,
+    setAccount,
   };
 
   return (
