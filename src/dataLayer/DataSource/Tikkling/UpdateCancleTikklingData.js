@@ -31,7 +31,7 @@ export async function updateCancleTikklingData(tikkling_id) {
   };
 
   try {
-    response = await apiModel('put_tikkling_end', authorization, body, null);
+    response = await apiModel('put_tikkling_cancel', authorization, body, null);
     if (!response) {
       //  error
       throw new Error();
@@ -43,8 +43,6 @@ export async function updateCancleTikklingData(tikkling_id) {
       DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
-
-  //console.log(response);
 
   //------ control result & error of put_tikkling_end-----------------------------------------//
   if (response.status === 400) {

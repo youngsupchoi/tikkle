@@ -220,25 +220,27 @@ export const useMainViewModel = () => {
     }
   };
 
-  const cancel_action = () => {
+  const cancel_action = async () => {
     try {
-      updateCancleTikklingData(state.myTikklingData.tikkling_id).then(res => {
-        return topActions.setStateAndError(res);
-      });
+      updateCancleTikklingData(state.myTikklingData.tikkling_id)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(() => {
+          topActions.showSnackbar('티클링이 취소되었습니다.', 1);
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'main',
+                params: {updated: new Date().toString()},
+              },
+            ],
+          });
+        });
       actions.setShowCancelModal(false);
     } catch (error) {
       console.log(error);
-    } finally {
-      topActions.showSnackbar('티클링이 취소되었습니다.', 1);
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'main',
-            params: {updated: new Date().toString()},
-          },
-        ],
-      });
     }
   };
 
