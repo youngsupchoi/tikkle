@@ -18,6 +18,8 @@ import {getKoreanDate} from 'src/presentationLayer/view/components/globalCompone
 import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
 import {getBankData} from 'src/dataLayer/DataSource/User/GetBankData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
+import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
+
 import ImagePicker from 'react-native-image-crop-picker';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
@@ -50,6 +52,8 @@ export const useMyPageViewModel = () => {
           actions.setNewBankName(res.DSdata.user_info.bank_name);
           actions.setEndTikklingData(res.DSdata.end_tikkling);
           actions.setPaymentHistoryData(res.DSdata.payment);
+          actions.setZonecode(res.DSdata.user_info.zonecode);
+          actions.setAddress(res.DSdata.user_info.address);
         });
     } catch (error) {
       //에러 처리 필요 -> 정해야함
@@ -67,6 +71,8 @@ export const useMyPageViewModel = () => {
         actions.setNewBankName(res.DSdata.user_info.bank_name);
         actions.setEndTikklingData(res.DSdata.end_tikkling);
         actions.setPaymentHistoryData(res.DSdata.payment);
+        actions.setZonecode(res.DSdata.user_info.zonecode);
+        actions.setAddress(res.DSdata.user_info.address);
       });
     } catch (error) {
       console.error('Error loading data:', error);
@@ -189,14 +195,30 @@ export const useMyPageViewModel = () => {
   };
 
   async function changeNick() {
-    await updateMyNickData(state.newNick)
-      .then(res => {
-        //console.log(res);
-        return topActions.setStateAndError(res);
-      })
-      .then(res => {
-        topActions.showSnackbar(res.DSmessage, 1);
-      });
+    try {
+      await actions.setLoading_profileEdit(true);
+
+      await updateMyNickData(state.newNick)
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          await MyPageData();
+          await actions.setLoading_profileEdit(false);
+          // console.log('&&&: ', res);
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar(res.DSmessage, 1);
+          } else {
+            topActions.showSnackbar('닉네임 업데이트에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await actions.setLoading_profileEdit(false);
+      await topActions.showSnackbar(
+        '서버오류로 닉네임 업데이트에 실패했어요',
+        0,
+      );
+    }
   }
 
   /**
@@ -268,8 +290,6 @@ export const useMyPageViewModel = () => {
         return;
       }
 
-      // console.log(response);
-
       return 1;
     } catch (error) {
       return -1;
@@ -291,7 +311,7 @@ export const useMyPageViewModel = () => {
         return uploadImageToServer(res.image, res.url);
       })
       .then(async res => {
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 2500));
         await MyPageData();
         await actions.setLoading_profileEdit(false);
         // console.log('&&&: ', res);
@@ -326,15 +346,18 @@ export const useMyPageViewModel = () => {
    * @param {*} bankName
    */
   async function selectBankName(bankName) {
-    await actions.setNewBankName(bankName);
+    await actions.setNewBankName(bankName.bank_name);
     await actions.setSelectedBankCode(bankName.bank_code);
     await changeBankDropDownVisible();
   }
 
+  /**
+   * 계좌 정보를 서버에 업데이트하는 함수
+   */
   async function storeAccountData() {
     try {
-      console.log(state.newAccount);
-      console.log(state.selectedBankCode);
+      // console.log(state.newAccount);
+      // console.log(state.selectedBankCode);
       await actions.setLoading_profileEdit(true);
 
       await updateMyAccountData(state.newAccount, state.selectedBankCode)
@@ -358,6 +381,61 @@ export const useMyPageViewModel = () => {
         0,
       );
     }
+  }
+
+  async function storeAddress() {
+    let address = state.address;
+    let zonecode = state.zonecode;
+    let detailAddress = state.detailAddress;
+
+    if (address === null) {
+      address = state.userData_profile.address;
+    }
+    if (zonecode === null) {
+      zonecode = state.userData_profile.zonecode;
+    }
+    if (detailAddress === null || detailAddress === '') {
+      detailAddress = state.userData_profile.detail_address;
+    }
+
+    try {
+      await actions.setLoading_profileEdit(true);
+
+      await updateMyAddressData(zonecode, address, detailAddress)
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          await MyPageData();
+          await actions.setLoading_profileEdit(false);
+
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('주소 정보 업데이트에 성공했어요', 1);
+          } else {
+            topActions.showSnackbar('주소 정보 업데이트에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await actions.setLoading_profileEdit(false);
+      await topActions.showSnackbar(
+        '서버오류로 주소 정보 업데이트에 실패했어요',
+        0,
+      );
+    }
+  }
+
+  async function editRefresh() {
+    await actions.setLoading_profileEdit(true);
+    await actions.setAddress('');
+    await actions.setZonecode('');
+    await actions.setDetailAddress('');
+    await actions.setNewNick('');
+    await actions.setNewBankName(null);
+    await actions.setNewAccount(null);
+    await actions.setSelectedBankCode(null);
+    await actions.setBankDropDownVisible(false);
+    await loadData();
+    await actions.setLoading_profileEdit(false);
   }
 
   return {
@@ -387,6 +465,8 @@ export const useMyPageViewModel = () => {
       changeBankDropDownVisible,
       selectBankName,
       storeAccountData,
+      storeAddress,
+      editRefresh,
     },
   };
 };
