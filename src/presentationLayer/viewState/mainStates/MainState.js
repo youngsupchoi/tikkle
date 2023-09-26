@@ -32,6 +32,7 @@ export const MainViewStateProvider = ({children}) => {
   const [address, setAddress] = useState(null);
   const [zonecode, setZonecode] = useState(null);
   const [detailAddress, setDetailAddress] = useState(null);
+  const [paymentButtonPressed, setPaymentButtonPressed] = useState(false); // 결제 버튼 눌렀는지 여부
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
 
@@ -78,6 +79,7 @@ export const MainViewStateProvider = ({children}) => {
     showDetailModal,
     showStopModal,
     detailAddress,
+    paymentButtonPressed,
   };
 
   const actions = {
@@ -107,6 +109,7 @@ export const MainViewStateProvider = ({children}) => {
     setShowDetailModal,
     setShowStopModal,
     setDetailAddress,
+    setPaymentButtonPressed,
   };
 
   return (

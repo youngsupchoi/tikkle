@@ -103,7 +103,6 @@ export default function HomeScreen({route}) {
   //     actions.loadData();
   //   }
   // }, [route.params?.updated]);
-
   return (
     <View>
       <View style={{}}>
