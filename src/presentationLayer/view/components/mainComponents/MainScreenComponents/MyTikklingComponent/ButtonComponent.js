@@ -1,56 +1,25 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {View, Image, StyleSheet, Platform} from 'react-native';
 import {
-  B,
-  B12,
   B15,
-  B17,
-  B20,
-  B22,
-  B28,
   EB,
-  H,
-  M,
-  M11,
-  M17,
-  UNIQUE,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
-  COLOR_SECONDARY,
   COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import Modal from 'react-native-modal';
-import Share, {Social} from 'react-native-share';
-import {Linking} from 'react-native';
-import ViewShot, {captureRef} from 'react-native-view-shot';
-import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/BuyTikkleModal';
-import LottieView from 'lottie-react-native';
-import Location from 'src/assets/icons/Location';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
-import BubbleFilled from 'src/assets/icons/BubbleFilled';
-import CalendarFilled from 'src/assets/icons/CalendarFilled';
-import Present from 'src/assets/icons/Present';
-import Delete from 'src/assets/icons/Delete';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
-import LinearGradient from 'react-native-linear-gradient';
-import CancelModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CancelModal';
-import StopModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/StopModal';
-import FlagFilled from 'src/assets/icons/FlagFilled';
-import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 
-export default function ButtonComponent({ButtonIcon, ButtonText}) {
+export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
   const {state, actions} = useMainViewModel();
   const handleButtonPress = () => {
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
@@ -65,6 +34,11 @@ export default function ButtonComponent({ButtonIcon, ButtonText}) {
     } else {
       actions.setShowCancelModal(true);
     }
+  };
+
+  const handleRefundButtonPress = () => {
+    console.log('환급 모달을 만들어주세요');
+    console.log('end/refund api를 붙여주세요');
   };
   return (
     <View
@@ -84,22 +58,50 @@ export default function ButtonComponent({ButtonIcon, ButtonText}) {
         </View>
         <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
       </AnimatedButton>
-      <AnimatedButton
-        onPress={actions.onInstagramShareButtonPressed}
-        style={{
-          marginLeft: windowWidth * 0.1,
-          width: 50,
-          height: 50,
-          padding: 6,
-          borderRadius: 100,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Image
-          source={require('src/assets/icons/instagramLogo.png')}
-          style={{width: 32, height: 32}}
-        />
-      </AnimatedButton>
+      {IsStopped ? (
+        <AnimatedButton
+          onPress={
+            state.myTikklingData.tikkleCount == 0
+              ? actions.cancelTikkling()
+              : handleRefundButtonPress
+          }
+          style={{
+            ...styles.buttonStyle,
+            backgroundColor: COLOR_GRAY,
+            borderColor: COLOR_GRAY,
+          }}>
+          <View
+            style={{
+              marginRight: 4,
+              padding: 8,
+              borderRadius: 100,
+            }}>
+            {ButtonIcon}
+          </View>
+          {state.myTikklingData.tikkle_count == 0 ? (
+            <B15 customStyle={styles.buttonText}>취소하기</B15>
+          ) : (
+            <B15 customStyle={styles.buttonText}>환급받기</B15>
+          )}
+        </AnimatedButton>
+      ) : (
+        <AnimatedButton
+          onPress={actions.onInstagramShareButtonPressed}
+          style={{
+            marginLeft: windowWidth * 0.1,
+            width: 50,
+            height: 50,
+            padding: 6,
+            borderRadius: 100,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Image
+            source={require('src/assets/icons/instagramLogo.png')}
+            style={{width: 32, height: 32}}
+          />
+        </AnimatedButton>
+      )}
     </View>
   );
 }

@@ -1,10 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, Image, StyleSheet, Platform} from 'react-native';
 import {
-  B,
-  B12,
   B15,
-  B17,
   EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -12,91 +9,66 @@ import {
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
-  COLOR_SECONDARY,
   COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
-// import BarComponent from 'src/presentationLayer/view/components/Home/ProgressBar/ProgressBar';
-import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import BubbleFilled from 'src/assets/icons/BubbleFilled';
-import CalendarFilled from 'src/assets/icons/CalendarFilled';
+import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 
-export default function TimeAndPieceCounter() {
+export default function StopedButtonComponent({ButtonIcon, ButtonText}) {
   const {state, actions} = useMainViewModel();
+  const handleButtonPress = () => {
+    const tikkleQuantity = state.myTikklingData.tikkle_quantity;
+    const tikkleCount = Number(state.myTikklingData.tikkle_count);
+    const fundingLimit = new Date(state.myTikklingData.funding_limit);
+    const currentDate = getKoreanDate();
+
+    if (tikkleQuantity === tikkleCount) {
+      actions.setShowEndModal(true);
+    } else if (fundingLimit > currentDate) {
+      actions.setShowBuyModal(true);
+    } else {
+      actions.setShowCancelModal(true);
+    }
+  };
   return (
-    <View style={styles.detailsContainer}>
-      <View
-        style={{
-          alignItems: 'center',
-          borderColor: COLOR_SEPARATOR,
-          borderWidth: 1,
-          padding: 12,
-          paddingVertical: 16,
-          width: 0.4 * windowWidth,
-          borderRadius: 12,
-        }}>
+    <View
+      style={{
+        marginTop: 12,
+        flexDirection: 'row',
+        justifyContent: 'center',
+      }}>
+      <AnimatedButton onPress={handleButtonPress} style={styles.buttonStyle}>
         <View
           style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 16,
-            backgroundColor: COLOR_SECONDARY,
+            marginRight: 4,
+            padding: 8,
             borderRadius: 100,
-            marginBottom: 12,
           }}>
-          <BubbleFilled fill={COLOR_PRIMARY} />
+          {ButtonIcon}
         </View>
-        <B12 customStyle={styles.labelText}>남은 티클</B12>
-        <B17 customStyle={styles.dataText}>
-          {state.myTikklingData.tikkle_quantity -
-            state.myTikklingData.tikkle_count}{' '}
-          개
-        </B17>
-      </View>
-      <View>
-        <View
-          style={{
-            alignItems: 'center',
-            borderColor: COLOR_SEPARATOR,
-            borderWidth: 1,
-            padding: 12,
-            paddingVertical: 16,
-            width: 0.4 * windowWidth,
-            borderRadius: 12,
-          }}>
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 16,
-              backgroundColor: COLOR_SECONDARY,
-              borderRadius: 100,
-              marginBottom: 12,
-            }}>
-            <CalendarFilled fill={COLOR_PRIMARY} />
-          </View>
-          <B12 customStyle={styles.labelText}>남은 시간</B12>
-          <View>
-            {state.myTikklingData.state_id == 1 ? (
-              <TimerComponent
-                timerStyle={{
-                  color: COLOR_BLACK,
-                  fontSize: 17,
-                  fontFamily: B,
-                }}
-                deadline={state.myTikklingData.funding_limit}
-              />
-            ) : (
-              <B15>종료</B15>
-            )}
-          </View>
-        </View>
-      </View>
+        <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
+      </AnimatedButton>
+      <AnimatedButton
+        onPress={actions.onInstagramShareButtonPressed}
+        style={{
+          marginLeft: windowWidth * 0.1,
+          width: 50,
+          height: 50,
+          padding: 6,
+          borderRadius: 100,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Image
+          source={require('src/assets/icons/instagramLogo.png')}
+          style={{width: 32, height: 32}}
+        />
+      </AnimatedButton>
     </View>
   );
 }

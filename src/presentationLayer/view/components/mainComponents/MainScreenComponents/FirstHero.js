@@ -74,75 +74,199 @@ const FirstHero = props => {
 
   let ButtonIcon = null;
   let ButtonText = '';
-
-  if (TikkleQuantity === TikkleCount) {
-    // 받은 티클 수가 전체 티클 수와 동일한 경우
+  let ButtonAction = null;
+  //TOOD: 각 경우마다 버튼 actions을 설정해줘야함
+  if (state.myTikklingData.state_id == 1) {
     ButtonIcon = (
       <Present
         width={24}
         height={24}
         stroke={COLOR_WHITE}
         scale={1.3}
-        strokeWidth={2}
+        strokeWidth={1.5}
       />
     );
-    ButtonText = '상품 받기';
-  } else if (TikkleQuantity > TikkleCount && TikkleCount !== 0) {
-    // 받은 티클 수가 전체 티클 수보다 적은 경우
-    if (FundingLimit > CurrentDate) {
-      // 현재 시간이 종료 시간을 지나지 않은 경우
-      ButtonIcon = (
-        <Present
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1.3}
-          strokeWidth={1.5}
-        />
-      );
-      ButtonText = '시간 안 지남 티클 구매하기';
-    } else {
-      // 현재 시간이 종료 시간을 지난 경우
-      //console.log('%%%%%%%%%%%%\n\n', FundingLimit, CurrentDate);
-      ButtonIcon = (
-        <Delete
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1}
-          strokeWidth={2}
-        />
-      );
-      ButtonText = '시간 지남 종료하기';
-    }
+    ButtonText = '티클 구매하기';
   } else {
-    // 받은 티클이 없는 경우
-    if (FundingLimit > CurrentDate) {
-      // 현재 시간이 종료 시간을 지나지 않은 경우
+    if (TikkleQuantity === TikkleCount) {
       ButtonIcon = (
         <Present
           width={24}
           height={24}
           stroke={COLOR_WHITE}
           scale={1.3}
-          strokeWidth={1.5}
-        />
-      );
-      ButtonText = '안 지남 티클 구매하기';
-    } else {
-      // 현재 시간이 종료 시간을 지난 경우
-      ButtonIcon = (
-        <Delete
-          width={24}
-          height={24}
-          stroke={COLOR_WHITE}
-          scale={1}
           strokeWidth={2}
         />
       );
-      ButtonText = '지남 종료하기';
+      ButtonText = '상품 받기';
+    } else {
+      ButtonIcon = (
+        <Present
+          width={24}
+          height={24}
+          stroke={COLOR_WHITE}
+          scale={1.3}
+          strokeWidth={2}
+        />
+      );
+      ButtonActions = () => {
+        console.log("buymytikkle")
+      };
+      ButtonText = '남은 티클 구매하기';
     }
   }
+
+  // else if (state.myTikklingData.state_id == 2) {
+  //   console.log('생기면 안 되는 경우');
+  // } else if (state.myTikklingData.state_id == 3) {
+  //   //기간이 끝나기 전 티클링 중단 모두 모이지 않은 상태
+  //   if (TikkleQuantity === TikkleCount) {
+  //     ButtonIcon = (
+  //       <Present
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '상품 받기';
+  //   } else {
+  //     ButtonIcon = (
+  //       <Delete
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '남은 티클 구매하기';
+  //   }
+  // } else if (state.myTikklingData.state_id == 4) {
+  //   //조각이 모두 모임
+  //   if (TikkleQuantity === TikkleCount) {
+  //     ButtonIcon = (
+  //       <Present
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '상품 받기';
+  //   } else {
+  //     ButtonIcon = (
+  //       <Delete
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '남은 티클 구매하기';
+  //   }
+  // } else if (state.myTikklingData.state_id == 5) {
+  //   //티클이 모두 모이지 않고 기간이 종료
+  //   if (TikkleQuantity === TikkleCount) {
+  //     ButtonIcon = (
+  //       <Present
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '상품 받기';
+  //   } else {
+  //     ButtonIcon = (
+  //       <Delete
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '남은 티클 구매하기';
+  //   }
+  // }
+  //여기까지
+  /////////////////////////////////////////////////
+
+  // if (TikkleQuantity === TikkleCount) {
+  //   // 받은 티클 수가 전체 티클 수와 동일한 경우
+  //   ButtonIcon = (
+  //     <Present
+  //       width={24}
+  //       height={24}
+  //       stroke={COLOR_WHITE}
+  //       scale={1.3}
+  //       strokeWidth={2}
+  //     />
+  //   );
+  //   ButtonText = '상품 받기';
+  // } else if (TikkleQuantity > TikkleCount && TikkleCount !== 0) {
+  //   // 받은 티클 수가 전체 티클 수보다 적은 경우
+  //   if (FundingLimit > CurrentDate) {
+  //     // 현재 시간이 종료 시간을 지나지 않은 경우
+  //     ButtonIcon = (
+  //       <Present
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={1.5}
+  //       />
+  //     );
+  //     ButtonText = '시간 안 지남 티클 구매하기';
+  //   } else {
+  //     // 현재 시간이 종료 시간을 지난 경우
+  //     //console.log('%%%%%%%%%%%%\n\n', FundingLimit, CurrentDate);
+  //     ButtonIcon = (
+  //       <Delete
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '시간 지남 종료하기';
+  //   }
+  // } else {
+  //   // 받은 티클이 없는 경우
+  //   if (FundingLimit > CurrentDate) {
+  //     // 현재 시간이 종료 시간을 지나지 않은 경우
+  //     ButtonIcon = (
+  //       <Present
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1.3}
+  //         strokeWidth={1.5}
+  //       />
+  //     );
+  //     ButtonText = '안 지남 티클 구매하기';
+  //   } else {
+  //     // 현재 시간이 종료 시간을 지난 경우
+  //     ButtonIcon = (
+  //       <Delete
+  //         width={24}
+  //         height={24}
+  //         stroke={COLOR_WHITE}
+  //         scale={1}
+  //         strokeWidth={2}
+  //       />
+  //     );
+  //     ButtonText = '지남 종료하기';
+  //   }
+  // }
+
+  ///////////////////////////
 
   const onCloseModal = () => {
     actions.setShowBuyModal(false);
@@ -178,7 +302,12 @@ const FirstHero = props => {
               </View>
             )}
           </View>
-          <ButtonComponent ButtonIcon={ButtonIcon} ButtonText={ButtonText} />
+          <ButtonComponent
+            ButtonIcon={ButtonIcon}
+            ButtonText={ButtonText}
+            ButtonAction={ButtonAction}
+            IsStopped={state.myTikklingData.state_id != 1}
+          />
         </View>
       </ViewShot>
 

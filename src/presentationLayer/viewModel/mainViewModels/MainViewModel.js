@@ -14,6 +14,7 @@ import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEnd
 import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingBuyData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
+import {getMyTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetMyTikklingData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -30,6 +31,7 @@ export const useMainViewModel = () => {
     try {
       await actions.setLoading(true);
       await getHomeScreenData().then(res => {
+        console.log(res.DSdata);
         actions.setFriendEventData(res.DSdata.friend_event);
         actions.setFriendTikklingData(res.DSdata.friend_tikkling);
         actions.setIsNotice(res.DSdata.is_notification);
@@ -37,6 +39,20 @@ export const useMainViewModel = () => {
         actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
         actions.setWishlistData(res.DSdata.my_wishlist);
         actions.setUserData(res.DSdata.user_info);
+      });
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      await actions.setLoading(false);
+    }
+  };
+  const loadTikklingData = async () => {
+    try {
+      await actions.setLoading(true);
+      await getMyTikklingData().then(res => {
+        console.log(res.DSdata);
+        actions.setMyTikklingData(res.DSdata.info[0]);
+        actions.setIsTikkling(res.DSdata.is_tikkling);
       });
     } catch (error) {
       console.error('Error loading data:', error);
@@ -182,6 +198,7 @@ export const useMainViewModel = () => {
       cancelTikkling,
       stopTikkling,
       onInstagramShareButtonPressed,
+      loadTikklingData,
     },
   };
 };
