@@ -31,7 +31,6 @@ export const useMainViewModel = () => {
     try {
       await actions.setLoading(true);
       await getHomeScreenData().then(res => {
-        console.log(res.DSdata);
         actions.setFriendEventData(res.DSdata.friend_event);
         actions.setFriendTikklingData(res.DSdata.friend_tikkling);
         actions.setIsNotice(res.DSdata.is_notification);

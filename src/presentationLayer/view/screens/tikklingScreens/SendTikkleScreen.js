@@ -14,9 +14,9 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 export default function PaymentScreen(route) {
   const data = route.route.params;
   const navigation = useNavigation();
-  const {state, actions} = useMainViewModel();
+
   useState(() => {
-    actions.setPaymentSuccess(false);
+    //actions.setPaymentSuccess(false);
   }, []);
   return (
     <View
