@@ -155,6 +155,15 @@ export default function GoodsReceptionModal() {
               onPress={() => {
                 actions.endTikklingGoods();
                 actions.setShowEndModal(false);
+                actions.navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: 'main',
+                      params: {updated: new Date().toString()},
+                    },
+                  ],
+                });
               }}
               style={modalStyles.confirmButton}>
               <B15 customStyle={modalStyles.whiteText}>이 주소로 배송 요청</B15>

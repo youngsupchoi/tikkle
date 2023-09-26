@@ -36,22 +36,6 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
     }
   };
 
-  const handleRefundButtonPress = () => {
-    console.log('환급 모달을 만들어주세요');
-    console.log('end/refund api를 붙여주세요');
-    const tikkleQuantity = state.myTikklingData.tikkle_quantity;
-    const tikkleCount = Number(state.myTikklingData.tikkle_count);
-    const fundingLimit = new Date(state.myTikklingData.funding_limit);
-    const currentDate = getKoreanDate();
-
-    if (tikkleQuantity === tikkleCount) {
-      actions.setShowRefundModal(true);
-    } else if (fundingLimit > currentDate) {
-      actions.setShowRefundModal(true);
-    } else {
-      actions.setShowCancelModal(true);
-    }
-  };
   return (
     <View
       style={{
@@ -72,11 +56,9 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
       </AnimatedButton>
       {IsStopped ? (
         <AnimatedButton
-          onPress={
-            state.myTikklingData.tikkleCount == 0
-              ? actions.cancelTikkling()
-              : handleRefundButtonPress
-          }
+          onPress={() => {
+            actions.setShowRefundModal(true);
+          }}
           style={{
             ...styles.buttonStyle,
             backgroundColor: COLOR_GRAY,
@@ -92,11 +74,7 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
             {/* TODO: 돈 아이콘으로 반영 */}
             {ButtonIcon}
           </View>
-          {state.myTikklingData.tikkle_count == 0 ? (
-            <B15 customStyle={styles.buttonText}>취소하기</B15>
-          ) : (
-            <B15 customStyle={styles.buttonText}>환급받기</B15>
-          )}
+          <B15 customStyle={styles.buttonText}>환급받기</B15>
         </AnimatedButton>
       ) : (
         <AnimatedButton
