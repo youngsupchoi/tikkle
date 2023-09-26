@@ -13,6 +13,7 @@ import {useState} from 'react';
 export const useProductDetailViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useProductDetailViewState();
+
   const {topActions} = useTopViewModel();
 
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
@@ -20,32 +21,17 @@ export const useProductDetailViewModel = () => {
 
   const navigation = useNavigation();
   const route = useRoute();
-  const data = route.params;
 
-  // console.log('$$$parse : ', state.parse);
-  // 5. 필요한 로직 작성하기 (예: 데이터 검색)
-
-  // const loadData = async productId => {
-  //   // await actions.setLoading(true);
-  //   await getProductInfoData(productId)
-  //     .then(res => {
-  //       // console.log(res);
-  //       return topActions.setStateAndError(res);
-  //     })
-  //     .then(res => {
-  //       if (res.DSdata.info.wishlisted !== null) {
-  //         actions.setWishlisted(true);
-  //       } else {
-  //         actions.setWishlisted(false);
-  //       }
-  //       actions.setReceivedData(res.DSdata.info);
-  //     });
-  //   // await actions.setLoading(false);
-  // };
+  const data = route.params[0];
+  const index = route.params[1];
+  const list = route.params[2];
+  // console.log('*************', list);
 
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
       console.log('Delete : ', res);
+      list[index].wishlisted = false;
+      // console.log('$$$$$$$ : ', list[index]);
       return topActions.setStateAndError(res);
     });
   };
@@ -53,6 +39,8 @@ export const useProductDetailViewModel = () => {
   const createMyWishlistData_ = async productId => {
     await createMyWishlistData(productId).then(res => {
       console.log('Add : ', res);
+      list[index].wishlisted = true;
+      // console.log('$$$$$$$ : ', list[index]);
       return topActions.setStateAndError(res);
     });
   };

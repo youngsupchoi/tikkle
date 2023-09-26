@@ -46,11 +46,13 @@ const containerWidth = windowWidth - SPACING_6;
 
 export default function ProductDetailScreen(route) {
   const {state, actions} = useProductDetailViewModel();
+
   const {topActions} = useTopViewModel();
 
   const [selected, setSelected] = useState('상세정보');
   // console.log('selected : ', state.data);
   useEffect(() => {
+    // console.log('&&&&&&& : ', state.data.pares);
     actions.setParse(state.data.parse);
     if (state.data.wishlisted) {
       actions.setWishlisted(true);
