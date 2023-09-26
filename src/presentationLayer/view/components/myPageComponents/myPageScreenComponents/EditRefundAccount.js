@@ -52,11 +52,8 @@ export default function EditRefundAccount() {
           <B15>
             {state.newBankName !== undefined &&
             state.newBankName !== '' &&
-            state.newBankName !== null &&
-            state.newBankName.bank_name !== undefined &&
-            state.newBankName.bank_name !== '' &&
-            state.newBankName.bank_name !== null
-              ? state.newBankName.bank_name
+            state.newBankName !== null
+              ? state.newBankName
               : '은행명'}
           </B15>
         </AnimatedButton>
