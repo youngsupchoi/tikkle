@@ -63,7 +63,7 @@ export default function CustomerCenterScreen() {
 
           <View style={styles.small_header}>
             <View>
-              <B17>문의 작성</B17>
+              <B17>고객 센터</B17>
             </View>
           </View>
         </View>
