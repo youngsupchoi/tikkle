@@ -40,6 +40,7 @@ import ProfileHeader from 'src/presentationLayer/view/components/globalComponent
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import LogoutModal from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/LogoutModal';
 import {RefreshControl} from 'react-native-gesture-handler';
 
 export default function ProfileScreen() {
@@ -388,10 +389,7 @@ export default function ProfileScreen() {
 
             <AnimatedButton
               onPress={() => {
-                AsyncStorage.clear();
-                navigation.navigate('SignUpNavigator', {
-                  updated_at: new Date().toString(),
-                });
+                actions.setLogoutModal(true);
               }}
               style={styles.buttonStyle}>
               <B15 customStyle={styles.buttonText}>로그아웃</B15>
@@ -400,6 +398,7 @@ export default function ProfileScreen() {
         </View>
       )}
       <Footer />
+      <LogoutModal />
     </ScrollView>
   );
 }

@@ -53,6 +53,9 @@ export const MyPageViewStateProvider = ({children}) => {
 
   const [selectedBankCode, setSelectedBankCode] = useState(null);
 
+  const [userDeleteModal, setUserDeleteModal] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
+
   const state = {
     message,
     DScode,
@@ -78,6 +81,8 @@ export const MyPageViewStateProvider = ({children}) => {
     newAccount,
     bank,
     selectedBankCode,
+    userDeleteModal,
+    logoutModal,
   };
 
   const actions = {
@@ -105,6 +110,8 @@ export const MyPageViewStateProvider = ({children}) => {
     setNewAccount,
     setBank,
     setSelectedBankCode,
+    setUserDeleteModal,
+    setLogoutModal,
   };
 
   return (

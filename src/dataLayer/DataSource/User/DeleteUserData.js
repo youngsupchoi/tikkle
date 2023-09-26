@@ -3,7 +3,7 @@ import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export async function deleteMyWishlistData(productId) {
+export async function deleteMyWishlistData() {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
