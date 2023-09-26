@@ -20,7 +20,7 @@ import {getBankData} from 'src/dataLayer/DataSource/User/GetBankData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteUserData';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)

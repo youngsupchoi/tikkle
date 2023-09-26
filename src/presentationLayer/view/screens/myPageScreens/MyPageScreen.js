@@ -29,7 +29,6 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import SecurityUser from 'src/assets/icons/SecurityUser';
