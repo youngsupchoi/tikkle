@@ -24,6 +24,10 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import Verify from 'src/assets/icons/Verify';
 import Cake from 'src/assets/icons/Cake';
 import Timer from 'src/assets/icons/Timer';
+import Noti_Friend from 'src/assets/icons/Noti_Friend';
+import Noti_StartTikkling from 'src/assets/icons/Noti_StartTikkling';
+import Noti_Refund from 'src/assets/icons/Noti_Refund';
+import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
 
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
@@ -57,17 +61,54 @@ export default function NotificationScreen() {
         <View
           style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
           <View>
-            {item.notification_type_id === 1 ||
-            item.notification_type_id === 2 ||
-            item.notification_type_id === 3 ||
-            item.notification_type_id === 5 ||
-            item.notification_type_id === 8 ? (
-              <Image
-                source={{
-                  uri: item.meta_data,
-                }}
-                style={{width: 48, height: 48, borderRadius: 24}}
-              />
+            {item.notification_type_id === 1 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Noti_Friend
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
+            ) : item.notification_type_id === 2 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Cake
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
+            ) : item.notification_type_id === 3 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Noti_StartTikkling
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
             ) : item.notification_type_id === 4 ? (
               <View
                 style={{
@@ -77,6 +118,22 @@ export default function NotificationScreen() {
                   justifyContent: 'center',
                 }}>
                 <Cake
+                  width={30}
+                  height={30}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
+            ) : item.notification_type_id === 5 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Noti_GetTikkle
                   width={24}
                   height={24}
                   stroke={COLOR_BLACK}
@@ -93,8 +150,8 @@ export default function NotificationScreen() {
                   justifyContent: 'center',
                 }}>
                 <Verify
-                  width={24}
-                  height={24}
+                  width={30}
+                  height={30}
                   stroke={COLOR_PRIMARY}
                   strokeWidth={1}
                   scale={1}
@@ -111,6 +168,22 @@ export default function NotificationScreen() {
                 <Timer
                   width={24}
                   height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
+            ) : item.notification_type_id === 8 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Noti_Refund
+                  width={40}
+                  height={40}
                   stroke={COLOR_BLACK}
                   strokeWidth={1}
                   scale={1}
