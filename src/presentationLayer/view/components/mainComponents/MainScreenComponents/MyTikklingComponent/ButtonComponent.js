@@ -18,7 +18,7 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
-
+import Refund from 'src/assets/icons/Refund';
 export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
   const {state, actions} = useMainViewModel();
   const handleButtonPress = () => {
@@ -72,7 +72,13 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
               borderRadius: 100,
             }}>
             {/* TODO: 돈 아이콘으로 반영 */}
-            {ButtonIcon}
+            <Refund
+              width={24}
+              height={24}
+              stroke={COLOR_BLACK}
+              strokeWidth={1}
+              scale={1}
+            />
           </View>
           <B15 customStyle={styles.buttonText}>환급받기</B15>
         </AnimatedButton>
