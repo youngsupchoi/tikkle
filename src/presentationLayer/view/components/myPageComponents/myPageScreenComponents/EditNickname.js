@@ -27,7 +27,7 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 export default function EditNickname() {
   const {ref, state, actions} = useMyPageViewModel();
   return (
-    <View style={{padding: 24, paddingBottom: 0}}>
+    <View style={{padding: 24, paddingBottom: 10}}>
       <View style={styles.headerContainer}>
         <B15>닉네임 변경</B15>
         <AnimatedButton
@@ -41,7 +41,7 @@ export default function EditNickname() {
           borderRadius: 4,
           borderColor: COLOR_SEPARATOR,
           borderWidth: 1,
-          marginTop: 12,
+          marginTop: 5,
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
-    paddingHorizontal: SPACING_2,
+    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
     position: 'sticky',

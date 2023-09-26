@@ -12,6 +12,7 @@ import EditNickname from 'src/presentationLayer/view/components/myPageComponents
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AccountDropDown from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/AccountDropDown';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function EditProfileScreen() {
   const {state, actions} = useMyPageViewModel();
@@ -36,6 +37,7 @@ export default function EditProfileScreen() {
             <View style={{height: 240}} />
           </View>
         )}
+        <Footer />
       </ScrollView>
 
       <PostCodeModal state={state} actions={actions} />
