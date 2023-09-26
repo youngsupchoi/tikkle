@@ -164,15 +164,16 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
       await createBuyMyTikkleData(state.myTikklingData.tikkling_id)
         .then(res => {
           topActions.setStateAndError(res);
+          return res;
         })
         .then(res => {
           // console.log(res);
-          if (res.success === true) {
-            setServerMessage(res.message);
+          if (res.DSdata.success === true) {
+            setServerMessage(res.DSmessage);
             onCloseButtonPress();
             navigation.navigate('payment', data);
-          } else if (res.success === false) {
-            setServerMessage(res.message);
+          } else if (res.DSdata.success === false) {
+            setServerMessage(res.DSmessage);
             setPaymentButtonPressed(false);
             onCloseButtonPress();
           }

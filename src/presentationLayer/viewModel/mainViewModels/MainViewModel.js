@@ -31,7 +31,6 @@ export const useMainViewModel = () => {
     try {
       await actions.setLoading(true);
       await getHomeScreenData().then(res => {
-        console.log(res.DSdata);
         actions.setFriendEventData(res.DSdata.friend_event);
         actions.setFriendTikklingData(res.DSdata.friend_tikkling);
         actions.setIsNotice(res.DSdata.is_notification);
@@ -79,6 +78,10 @@ export const useMainViewModel = () => {
     updateEndTikklingBuyData(state.myTikklingData.tikkling_id).then(res =>
       topActions.setStateAndError(res),
     );
+  };
+
+  const refundTikkling = () => {
+    console.log(state.account, state.bankName);
   };
 
   const showDropdown = () => {
@@ -199,6 +202,7 @@ export const useMainViewModel = () => {
       stopTikkling,
       onInstagramShareButtonPressed,
       loadTikklingData,
+      refundTikkling,
     },
   };
 };
