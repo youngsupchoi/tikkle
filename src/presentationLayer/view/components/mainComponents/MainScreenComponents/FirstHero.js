@@ -33,8 +33,9 @@ import ProgressVisualization from 'src/presentationLayer/view/components/mainCom
 import TikklingCompleteCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingCompleteCardComponent';
 import TikklingProgressCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingProgressCardComponent';
 import GoodsReceptionModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/GoodsReceptionModal';
-import TikklingCancleStopModal from 'src/presentationLayer/view/components/mainComponents/TikklingCancleStopModal';
+import TikklingCancleModal from 'src/presentationLayer/view/components/mainComponents/TikklingCancleModal';
 import RefundModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/RefundModal';
+import Delivery from 'src/assets/icons/Delivery';
 
 //-------------------------------------------------------------------------
 
@@ -91,11 +92,11 @@ const FirstHero = props => {
   } else {
     if (TikkleQuantity === TikkleCount) {
       ButtonIcon = (
-        <Present
+        <Delivery
           width={24}
           height={24}
           stroke={COLOR_WHITE}
-          scale={1.3}
+          scale={1.0}
           strokeWidth={2}
         />
       );
@@ -243,7 +244,7 @@ const FirstHero = props => {
       <RefundModal />
       <PostCodeModal actions={actions} state={state} />
       <DetailAddressInput state={state} actions={actions} />
-      <TikklingCancleStopModal mode={TikkleCount == 0 ? 'cancle' : 'stop'} />
+      <TikklingCancleModal mode={TikkleCount == 0 ? 'cancle' : 'stop'} />
     </View>
   );
 };

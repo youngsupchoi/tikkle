@@ -15,6 +15,8 @@ import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
 import {getMyTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetMyTikklingData';
+import {updateCancleTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancleTikklingData';
+import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingRefundData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -78,10 +80,35 @@ export const useMainViewModel = () => {
     updateEndTikklingBuyData(state.myTikklingData.tikkling_id).then(res =>
       topActions.setStateAndError(res),
     );
+
+    topActions.showSnackbar('배송요청이 완료되었습니다.', 1);
   };
 
   const refundTikkling = () => {
     console.log(state.account, state.bankName);
+    updateEndTikklingRefundData()
+      .then(res => {
+        topActions.setStateAndError(res);
+      })
+      .then(topActions.showSnackbar('환급 신청이 완료되었습니다.', 1));
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'main',
+          params: {updated: new Date().toString()},
+        },
+      ],
+    });
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'main',
+          params: {updated: new Date().toString()},
+        },
+      ],
+    });
   };
 
   const showDropdown = () => {
@@ -131,10 +158,25 @@ export const useMainViewModel = () => {
       });
   };
 
-  const stopTikkling = () => {
-    updateStopTikklingData(state.myTikklingData.tikkling_id).then(res =>
-      topActions.setStateAndError(res),
-    );
+  const stopTikkling = async () => {
+    try {
+      updateStopTikklingData(state.myTikklingData.tikkling_id).then(res =>
+        topActions.setStateAndError(res),
+      );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      topActions.showSnackbar('티클링을 종료하였습니다.', 1);
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'main',
+            params: {updated: new Date().toString()},
+          },
+        ],
+      });
+    }
   };
 
   const toggleStopModal = () => {
@@ -178,6 +220,30 @@ export const useMainViewModel = () => {
     }
   };
 
+  const cancel_action = async () => {
+    try {
+      updateCancleTikklingData(state.myTikklingData.tikkling_id)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(() => {
+          topActions.showSnackbar('티클링이 취소되었습니다.', 1);
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'main',
+                params: {updated: new Date().toString()},
+              },
+            ],
+          });
+        });
+      actions.setShowCancelModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     ref: {
       ...ref,
@@ -203,6 +269,7 @@ export const useMainViewModel = () => {
       onInstagramShareButtonPressed,
       loadTikklingData,
       refundTikkling,
+      cancel_action,
     },
   };
 };
