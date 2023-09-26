@@ -15,6 +15,7 @@ import {
   StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {windowHeight} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import DeleteUserModal from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/DeleteUserModal';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -62,7 +63,7 @@ export default function CustomerCenterScreen() {
 
           <View style={styles.small_header}>
             <View>
-              <B17>문의 작성</B17>
+              <B17>고객 센터</B17>
             </View>
           </View>
         </View>
@@ -98,7 +99,18 @@ export default function CustomerCenterScreen() {
             <B17 customStyle={styles.buttonText}>문의</B17>
           </AnimatedButton>
         </View>
+
+        <View style={{marginTop: 24}}>
+          <AnimatedButton
+            onPress={() => {
+              actions.setUserDeleteModal(true);
+            }}
+            style={styles.buttonStyle}>
+            <B17 customStyle={styles.buttonText}>회원 탈퇴</B17>
+          </AnimatedButton>
+        </View>
       </View>
+      <DeleteUserModal />
       <Footer />
     </ScrollView>
   );

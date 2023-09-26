@@ -19,7 +19,8 @@ import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
 import {getBankData} from 'src/dataLayer/DataSource/User/GetBankData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
-
+import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteUserData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
@@ -408,7 +409,6 @@ export const useMyPageViewModel = () => {
         .then(async res => {
           await MyPageData();
           await actions.setLoading_profileEdit(false);
-
           if (res.DSdata.success === true) {
             topActions.showSnackbar('주소 정보 업데이트에 성공했어요', 1);
           } else {
@@ -424,6 +424,9 @@ export const useMyPageViewModel = () => {
     }
   }
 
+  /**
+   * 프로필 수정 화면에서 새로고침시 state 초기화하는 함수
+   */
   async function editRefresh() {
     await actions.setLoading_profileEdit(true);
     await actions.setAddress('');
@@ -436,6 +439,40 @@ export const useMyPageViewModel = () => {
     await actions.setBankDropDownVisible(false);
     await loadData();
     await actions.setLoading_profileEdit(false);
+  }
+
+  /**
+   * 회원 탈퇴 함수
+   */
+  async function deleteUser_logeout() {
+    try {
+      await deleteMyWishlistData()
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          navigation.navigate('SignUpNavigator', {
+            updated_at: new Date().toString(),
+          });
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('회원 탈퇴에 성공했어요', 1);
+          } else {
+            topActions.showSnackbar('회원 탈퇴에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await topActions.showSnackbar('서버오류로 회원 탈퇴에 실패했어요', 0);
+    }
+  }
+
+  /**
+   * 로그아웃 함수
+   */
+  async function logout() {
+    AsyncStorage.clear();
+    navigation.navigate('SignUpNavigator', {
+      updated_at: new Date().toString(),
+    });
   }
 
   return {
@@ -467,6 +504,8 @@ export const useMyPageViewModel = () => {
       storeAccountData,
       storeAddress,
       editRefresh,
+      deleteUser_logeout,
+      logout,
     },
   };
 };
