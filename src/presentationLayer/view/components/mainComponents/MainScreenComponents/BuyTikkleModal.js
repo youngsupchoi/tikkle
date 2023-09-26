@@ -42,6 +42,8 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNavigation} from '@react-navigation/native';
 import {createSendTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateSendTikkleData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
+import {createBuyMyTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateBuyMyTikkleData';
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
@@ -50,7 +52,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
   const [receivedMessage, setReceivedMessage] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  const {state, actions} = useMainViewModel();
   async function post_tikkling_sendtikkle(item) {
     try {
       return (ret = await createSendTikkleData(
@@ -143,17 +145,40 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   };
 
   const buttonPress = async () => {
-    await post_tikkling_sendtikkle(data).then(res => {
-      // console.log(res);
-      if (res.success === true) {
-        setServerMessage(res.message);
-        onCloseButtonPress();
-        navigation.navigate('payment', data);
-      } else if (res.success === false) {
-        setServerMessage(res.message);
-        onCloseButtonPress();
-      }
-    });
+    if (state.myTikklingData.state_id == 1) {
+      actions.setPaymentButtonPressed(true);
+      await post_tikkling_sendtikkle(data).then(res => {
+        // console.log(res);
+        if (res.success === true) {
+          setServerMessage(res.message);
+          onCloseButtonPress();
+          navigation.navigate('payment', data);
+        } else if (res.success === false) {
+          setServerMessage(res.message);
+          setPaymentButtonPressed(false);
+          onCloseButtonPress();
+        }
+      });
+    } else {
+      actions.setPaymentButtonPressed(true);
+      await createBuyMyTikkleData(state.myTikklingData.tikkling_id)
+        .then(res => {
+          topActions.setStateAndError(res);
+          return res;
+        })
+        .then(res => {
+          // console.log(res);
+          if (res.DSdata.success === true) {
+            setServerMessage(res.DSmessage);
+            onCloseButtonPress();
+            navigation.navigate('payment', data);
+          } else if (res.DSdata.success === false) {
+            setServerMessage(res.DSmessage);
+            setPaymentButtonPressed(false);
+            onCloseButtonPress();
+          }
+        });
+    }
   };
 
   useEffect(() => {
@@ -172,53 +197,58 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         animationOut="slideOutDown" // 이 부분이 추가되었습니다.
       >
         <View style={styles.modalContent}>
-          <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
-          <View style={{marginTop: 24}}>
-            <M11 customStyle={{color: COLOR_GRAY}}>
-              마음을 담은 메시지를 보내보세요.
-            </M11>
-            <View
-              style={{
-                padding: 12,
-                borderColor: COLOR_SEPARATOR,
-                borderWidth: 1,
-                borderRadius: 8,
-                marginTop: 8,
-              }}>
-              <TextInput
-                multiline
-                style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
-                onChangeText={value => setMessage(value)}
-                placeholder="내가 보탠다!"
-                placeholderTextColor={COLOR_SECOND_BLACK}
+          {state.myTikklingData.state_id == 1 ? (
+            <View>
+              <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
+              <View style={{marginTop: 24}}>
+                <M11 customStyle={{color: COLOR_GRAY}}>
+                  마음을 담은 메시지를 보내보세요.
+                </M11>
+                <View
+                  style={{
+                    padding: 12,
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    borderRadius: 8,
+                    marginTop: 8,
+                  }}>
+                  <TextInput
+                    multiline
+                    style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
+                    onChangeText={value => setMessage(value)}
+                    placeholder="내가 보탠다!"
+                    placeholderTextColor={COLOR_SECOND_BLACK}
+                  />
+                </View>
+              </View>
+
+              <DropDownPicker
+                open={open}
+                setOpen={setOpen}
+                setValue={setSelectedValue}
+                textStyle={{fontFamily: M, fontSize: 15}}
+                placeholder={selectedValue || '몇 개의 티클을 보낼까요?'}
+                items={items}
+                defaultValue={selectedValue}
+                containerStyle={{height: 40, marginTop: 24, marginBottom: 12}}
+                style={{
+                  backgroundColor: COLOR_WHITE,
+                  borderColor: COLOR_SEPARATOR,
+                }}
+                itemStyle={{
+                  justifyContent: 'flex-start',
+                  borderColor: COLOR_SEPARATOR,
+                }}
+                dropDownContainerStyle={{
+                  borderColor: COLOR_SEPARATOR,
+                  elevation: 1,
+                }}
+                onChangeItem={item => setSelectedValue(item.value)}
               />
             </View>
-          </View>
-
-          <DropDownPicker
-            open={open}
-            setOpen={setOpen}
-            setValue={setSelectedValue}
-            textStyle={{fontFamily: M, fontSize: 15}}
-            placeholder={selectedValue || '몇 개의 티클을 보낼까요?'}
-            items={items}
-            defaultValue={selectedValue}
-            containerStyle={{height: 40, marginTop: 24, marginBottom: 12}}
-            style={{
-              backgroundColor: COLOR_WHITE,
-              borderColor: COLOR_SEPARATOR,
-            }}
-            itemStyle={{
-              justifyContent: 'flex-start',
-              borderColor: COLOR_SEPARATOR,
-            }}
-            dropDownContainerStyle={{
-              borderColor: COLOR_SEPARATOR,
-              elevation: 1,
-            }}
-            onChangeItem={item => setSelectedValue(item.value)}
-          />
-
+          ) : (
+            <B22 customStyle={styles.title}>남은 티클 구매하고 선물받기</B22>
+          )}
           <View style={styles.amountContainer}>
             <View style={styles.amountItem}>
               <View style={styles.itemContainer}>
@@ -231,7 +261,13 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 />
                 <B17 customStyle={styles.itemTitle}>티클 수</B17>
               </View>
-              <M20 customStyle={styles.itemDetail}>{selectedValue}개</M20>
+              <M20 customStyle={styles.itemDetail}>
+                {state.myTikklingData.state_id == 1
+                  ? selectedValue
+                  : state.myTikklingData.tikkle_quantity -
+                    state.myTikklingData.tikkle_count}
+                개
+              </M20>
             </View>
             <View style={styles.amountItem}>
               <View style={styles.itemContainer}>
@@ -245,7 +281,14 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 <B17 customStyle={styles.itemTitle}>결제할 금액</B17>
               </View>
               <M20 customStyle={styles.itemDetail}>
-                {(selectedValue * 5000).toLocaleString()}원
+                {state.myTikklingData.state_id == 1
+                  ? (selectedValue * 5000).toLocaleString()
+                  : (
+                      (state.myTikklingData.tikkle_quantity -
+                        state.myTikklingData.tikkle_count) *
+                      5000
+                    ).toLocaleString()}
+                원
               </M20>
             </View>
           </View>
@@ -255,8 +298,14 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               onPress={() => {
                 buttonPress();
               }}
-              style={styles.presentButton}>
-              <B17 customStyle={{color: COLOR_WHITE}}>결제하기</B17>
+              style={[
+                styles.presentButton,
+                state.paymentButtonPressed ? styles.inactiveButton : {},
+              ]}
+              disabled={state.paymentButtonPressed}>
+              <B17 customStyle={{color: COLOR_WHITE}}>
+                {state.paymentButtonPressed ? `처리중입니다` : `결제하기`}
+              </B17>
             </AnimatedButton>
           </View>
         </View>
@@ -359,5 +408,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: COLOR_PRIMARY_OUTLINE,
     borderWidth: 2,
+  },
+  inactiveButton: {
+    backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
+    shadowOpacity: 0, // Remove shadow for inactive button
+    borderColor: COLOR_GRAY,
   },
 });

@@ -26,9 +26,11 @@ export const MyPageViewStateProvider = ({children}) => {
     name: '',
     nick: '',
   });
+
+  const [bank, setBank] = useState([]);
+
   const [endTikklingsData, setEndTikklingData] = useState([]);
   const [paymentHistoryData, setPaymentHistoryData] = useState([]);
-
   const [titleText, setTitleText] = useState(null);
   const [contentText, setContentText] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -38,7 +40,21 @@ export const MyPageViewStateProvider = ({children}) => {
   const [detailAddress, setDetailAddress] = useState('');
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
+
   const [bankDropDownVisible, setBankDropDownVisible] = useState(false);
+  const [inquireLoading, setInquireLoading] = useState(false);
+  const [newNick, setNewNick] = useState('');
+
+  const [image, setImage] = useState(null);
+  const [loading_profileEdit, setLoading_profileEdit] = useState(false);
+
+  const [newBankName, setNewBankName] = useState(null);
+  const [newAccount, setNewAccount] = useState(null);
+
+  const [selectedBankCode, setSelectedBankCode] = useState(null);
+
+  const [userDeleteModal, setUserDeleteModal] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
 
   const state = {
     message,
@@ -57,6 +73,16 @@ export const MyPageViewStateProvider = ({children}) => {
     showDetailModal,
     profileUrl,
     bankDropDownVisible,
+    inquireLoading,
+    newNick,
+    image,
+    loading_profileEdit,
+    newBankName,
+    newAccount,
+    bank,
+    selectedBankCode,
+    userDeleteModal,
+    logoutModal,
   };
 
   const actions = {
@@ -76,6 +102,16 @@ export const MyPageViewStateProvider = ({children}) => {
     setShowDetailModal,
     setProfileUrl,
     setBankDropDownVisible,
+    setInquireLoading,
+    setNewNick,
+    setImage,
+    setLoading_profileEdit,
+    setNewBankName,
+    setNewAccount,
+    setBank,
+    setSelectedBankCode,
+    setUserDeleteModal,
+    setLogoutModal,
   };
 
   return (

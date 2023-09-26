@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -14,6 +14,10 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 export default function PaymentScreen(route) {
   const data = route.route.params;
   const navigation = useNavigation();
+
+  useState(() => {
+    //actions.setPaymentSuccess(false);
+  }, []);
   return (
     <View
       style={{

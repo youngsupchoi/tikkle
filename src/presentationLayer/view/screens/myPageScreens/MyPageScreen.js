@@ -29,7 +29,6 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import SecurityUser from 'src/assets/icons/SecurityUser';
@@ -40,6 +39,7 @@ import ProfileHeader from 'src/presentationLayer/view/components/globalComponent
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import LogoutModal from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/LogoutModal';
 import {RefreshControl} from 'react-native-gesture-handler';
 
 export default function ProfileScreen() {
@@ -84,7 +84,7 @@ export default function ProfileScreen() {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 paddingHorizontal: 24,
-                marginTop: 16,
+                marginTop: 5,
                 alignItems: 'center',
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -144,14 +144,12 @@ export default function ProfileScreen() {
                   <View style={{alignItems: 'flex-start', marginLeft: 16}}>
                     <B17>{state.userData_profile.name}님</B17>
                     <M15 customStyle={{color: COLOR_GRAY}}>
-                      @{state.userData_profile.nick}
+                      {state.userData_profile.nick}
                     </M15>
                     <M11 customStyle={{color: COLOR_GRAY}}>
-                      생일이{' '}
                       {actions.calculateDaysUntilNextBirthday(
                         state.userData_profile.birthday,
                       )}
-                      일 남았어요.
                     </M11>
                   </View>
                 </View>
@@ -390,10 +388,7 @@ export default function ProfileScreen() {
 
             <AnimatedButton
               onPress={() => {
-                AsyncStorage.clear();
-                navigation.navigate('SignUpNavigator', {
-                  updated_at: new Date().toString(),
-                });
+                actions.setLogoutModal(true);
               }}
               style={styles.buttonStyle}>
               <B15 customStyle={styles.buttonText}>로그아웃</B15>
@@ -402,6 +397,7 @@ export default function ProfileScreen() {
         </View>
       )}
       <Footer />
+      <LogoutModal />
     </ScrollView>
   );
 }

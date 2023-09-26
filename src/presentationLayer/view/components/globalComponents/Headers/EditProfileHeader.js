@@ -5,6 +5,8 @@ import {
   COLOR_BLACK,
   COLOR_PRIMARY,
   COLOR_SUCCESS,
+  COLOR_WHITE,
+  COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
@@ -21,9 +23,12 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
+import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 
 export default function EditProfileHeader() {
+  const {state, actions} = useMyPageViewModel();
   const navigation = useNavigation();
+
   return (
     <View style={styles.headerContainer}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -41,8 +46,18 @@ export default function EditProfileHeader() {
         </AnimatedButton>
         <B20 customStyle={{marginLeft: 4}}>프로필 수정</B20>
       </View>
-      <AnimatedButton style={{padding: 10}}>
-        <B20 customStyle={{color: COLOR_PRIMARY}}>저장</B20>
+      <AnimatedButton
+        style={styles.filterIconContainer}
+        onPress={() => {
+          actions.editRefresh();
+        }}>
+        <Refresh
+          width={20}
+          height={20}
+          stroke={COLOR_BLACK}
+          strokeWidth={1.2}
+          scale={1.1}
+        />
       </AnimatedButton>
     </View>
   );
@@ -64,5 +79,17 @@ const styles = StyleSheet.create({
     position: 'sticky',
     top: 0,
     zIndex: 100,
+  },
+  filterIconContainer: {
+    backgroundColor: 'transparent',
+    borderColor: backgroundColor,
+    borderWidth: 0.5,
+    borderRadius: 40,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 8,
+    marginRight: 8,
   },
 });

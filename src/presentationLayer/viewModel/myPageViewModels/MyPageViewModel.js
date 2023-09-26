@@ -14,6 +14,14 @@ import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreen
 import {useNavigation} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
+import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
+import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
+import {getBankData} from 'src/dataLayer/DataSource/User/GetBankData';
+import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
+import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
+import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteUserData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ImagePicker from 'react-native-image-crop-picker';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
@@ -38,10 +46,15 @@ export const useMyPageViewModel = () => {
         .then(res => {
           return topActions.setStateAndError(res);
         })
-        .then(res => {
+        .then(async res => {
           actions.setUserData_profile(res.DSdata.user_info);
+          actions.setBank(res.DSdata.bank);
+          actions.setNewAccount(res.DSdata.user_info.account);
+          actions.setNewBankName(res.DSdata.user_info.bank_name);
           actions.setEndTikklingData(res.DSdata.end_tikkling);
           actions.setPaymentHistoryData(res.DSdata.payment);
+          actions.setZonecode(res.DSdata.user_info.zonecode);
+          actions.setAddress(res.DSdata.user_info.address);
         });
     } catch (error) {
       //에러 처리 필요 -> 정해야함
@@ -52,10 +65,15 @@ export const useMyPageViewModel = () => {
   const loadData = async () => {
     try {
       await actions.setLoading_profile(true);
-      await getMyPageScreenData().then(res => {
+      await getMyPageScreenData().then(async res => {
+        console.log('res : ', res.DSdata.user_info);
         actions.setUserData_profile(res.DSdata.user_info);
+        actions.setBank(res.DSdata.bank);
+        actions.setNewBankName(res.DSdata.user_info.bank_name);
         actions.setEndTikklingData(res.DSdata.end_tikkling);
         actions.setPaymentHistoryData(res.DSdata.payment);
+        actions.setZonecode(res.DSdata.user_info.zonecode);
+        actions.setAddress(res.DSdata.user_info.address);
       });
     } catch (error) {
       console.error('Error loading data:', error);
@@ -90,21 +108,41 @@ export const useMyPageViewModel = () => {
    * @returns
    */
   function calculateDaysUntilNextBirthday(birthdayString) {
-    const currentDate = new Date();
-    const birthDate = new Date(birthdayString);
+    const todayTemp = getKoreanDate();
+    const todayStr = todayTemp.toISOString();
+    const todayYear = parseInt(todayStr.slice(0, 4));
+    const todayMonth = parseInt(todayStr.slice(5, 7));
+    const todayDay = parseInt(todayStr.slice(8, 10));
+    const birthMonth = parseInt(birthdayString.slice(5, 7));
+    const birthDay = parseInt(birthdayString.slice(8, 10));
 
-    // Set the birthDate to this year or next year
-    const nextBirthday = new Date(
-      currentDate.getFullYear(),
-      birthDate.getMonth(),
-      birthDate.getDate(),
+    // Calculate the next birthday for this yeard
+    let currentYearBirthday = new Date(
+      `${todayYear}-${birthMonth}-${birthDay}`,
     );
-    if (currentDate > nextBirthday) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+
+    const today = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
+
+    console.log('currentYearBirthday : ', currentYearBirthday);
+    console.log('today : ', today);
+
+    // Calculate the time difference in milliseconds
+    const timeDifference =
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24);
+    console.log('timeDiff : ', timeDifference);
+
+    if (timeDifference == 0) {
+      return `오늘은 생일이애요!`;
+    } else if (timeDifference < 0) {
+      currentYearBirthday = new Date(
+        `${todayYear + 1}-${birthMonth}-${birthDay}`,
+      );
     }
-    const timeDiff = nextBirthday - currentDate;
-    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-    return dayDiff;
+
+    const timeUntilNextBirthday = Math.floor(
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24),
+    );
+    return `생일이 ${timeUntilNextBirthday}일 남았어요.`;
   }
 
   /**
@@ -134,6 +172,8 @@ export const useMyPageViewModel = () => {
    * InquireScreen에서 문의하기 버튼을 눌렀을 때, 문의 내용을 보내는 함수
    */
   async function sendMail() {
+    await actions.setInquireLoading(true);
+
     await createMyInquireData(state.titleText, state.contentText)
       .then(res => {
         //console.log(res);
@@ -143,17 +183,295 @@ export const useMyPageViewModel = () => {
         //actions로
         actions.setTitleText('');
         actions.setContentText('');
-        navigation.goBack();
+        // navigation.goBack();
+        // console.log('res : ', res);
+        topActions.showSnackbar(res.DSmessage, 1);
       });
+
+    await actions.setInquireLoading(false);
   }
 
   const onCloseDetailModal = () => {
     actions.setShowDetailModal(false);
   };
 
+  async function changeNick() {
+    try {
+      await actions.setLoading_profileEdit(true);
+
+      await updateMyNickData(state.newNick)
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          await MyPageData();
+          await actions.setLoading_profileEdit(false);
+          // console.log('&&&: ', res);
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar(res.DSmessage, 1);
+          } else {
+            topActions.showSnackbar('닉네임 업데이트에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await actions.setLoading_profileEdit(false);
+      await topActions.showSnackbar(
+        '서버오류로 닉네임 업데이트에 실패했어요',
+        0,
+      );
+    }
+  }
+
+  /**
+   *  프로필 사진 갤러리에서 가져와 크롭 하는 함수
+   */
+  const selectAndCropImage = async () => {
+    try {
+      const selectedImage = await ImagePicker.openPicker({
+        width: 300,
+        height: 300,
+        cropping: true,
+      });
+
+      // if (selectedImage) {
+      //   actions.setImage(selectedImage.path);
+      //   // await getProfileUrl();
+      //   // uploadImageToServer(selectedImage.path);
+      // }
+
+      return selectedImage.path;
+    } catch (error) {
+      if (error.message !== 'User cancelled image picker') {
+        console.warn('ImagePicker Error:', error);
+      }
+    }
+  };
+
+  /**
+   *  프로필 사진을 업로드할 url을 가져오는 함수
+   * @returns
+   */
   async function getProfileUrl() {
-    await getProfileUpdataUrlData().then(res => {
-      actions.setProfileUrl(res.DSdata.url);
+    const res = await getProfileUpdataUrlData().then(res => {
+      return topActions.setStateAndError(res);
+    });
+    return res.DSdata.url;
+  }
+
+  /**
+   *  프로필 사진을 서버에 업로드하는 함수
+   * @param {*} imagePath
+   * @param {*} url
+   * @returns
+   */
+  const uploadImageToServer = async (imagePath, url) => {
+    let formData = new FormData();
+    const imageBlob = await fetch(imagePath).then(response => response.blob());
+    // 이미지 파일을 FormData에 추가
+    formData.append('file', {
+      uri: imagePath,
+      type: 'image/jpeg', // 이미지 형식에 따라 변경
+      name: 'upload.JPG', // 원하는 파일 이름으로 변경
+    });
+
+    // console.log('$$$$ : ', state.profileUrl);
+    try {
+      let response = await fetch(url, {
+        method: 'PUT',
+        body: imageBlob,
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+      });
+
+      if (response.status !== 200) {
+        console.error('Error uploading image. HTTP Status:', response.status);
+        const errorText = await response.text();
+        console.error('Server response:', errorText);
+        return;
+      }
+
+      return 1;
+    } catch (error) {
+      return -1;
+    }
+  };
+
+  /**
+   *  프로필 사진 변경 버튼 누르면 시작되는 함수 갤러리에서 이미지를 가져와 크롭하고 서버에 업로드한다.
+   */
+  const NewImage = async () => {
+    await selectAndCropImage()
+      .then(async result => {
+        await actions.setLoading_profileEdit(true);
+        const image = result;
+        const url = await getProfileUrl();
+        return {image, url};
+      })
+      .then(async res => {
+        return uploadImageToServer(res.image, res.url);
+      })
+      .then(async res => {
+        await new Promise(resolve => setTimeout(resolve, 2500));
+        await MyPageData();
+        await actions.setLoading_profileEdit(false);
+        // console.log('&&&: ', res);
+        if (res === 1) {
+          topActions.showSnackbar('이미지 업데이트에 성공했어요', 1);
+        } else {
+          topActions.showSnackbar('이미지 업데이트에 실패했어요', 0);
+        }
+      })
+      .catch(async err => {
+        await actions.setLoading_profileEdit(false);
+        await topActions.showSnackbar(
+          '서버오류로 이미지 업데이트에 실패했어요',
+          0,
+        );
+      });
+  };
+
+  /**
+   * 환불 계좌 드롭다운 메뉴를 보여주는 함수
+   */
+  async function changeBankDropDownVisible() {
+    if (state.bankDropDownVisible == false) {
+      await actions.setBankDropDownVisible(true);
+    } else {
+      await actions.setBankDropDownVisible(false);
+    }
+  }
+
+  /**
+   * 드롭다운에서 은행명 선택했을 때 선택사항 지정하는 함수
+   * @param {*} bankName
+   */
+  async function selectBankName(bankName) {
+    await actions.setNewBankName(bankName.bank_name);
+    await actions.setSelectedBankCode(bankName.bank_code);
+    await changeBankDropDownVisible();
+  }
+
+  /**
+   * 계좌 정보를 서버에 업데이트하는 함수
+   */
+  async function storeAccountData() {
+    try {
+      // console.log(state.newAccount);
+      // console.log(state.selectedBankCode);
+      await actions.setLoading_profileEdit(true);
+
+      await updateMyAccountData(state.newAccount, state.selectedBankCode)
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          await MyPageData();
+          await actions.setLoading_profileEdit(false);
+          // console.log('&&&: ', res);
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('계좌 정보 업데이트에 성공했어요', 1);
+          } else {
+            topActions.showSnackbar('계좌 정보 업데이트에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await actions.setLoading_profileEdit(false);
+      await topActions.showSnackbar(
+        '서버오류로 계좌 정보 업데이트에 실패했어요',
+        0,
+      );
+    }
+  }
+
+  async function storeAddress() {
+    let address = state.address;
+    let zonecode = state.zonecode;
+    let detailAddress = state.detailAddress;
+
+    if (address === null) {
+      address = state.userData_profile.address;
+    }
+    if (zonecode === null) {
+      zonecode = state.userData_profile.zonecode;
+    }
+    if (detailAddress === null || detailAddress === '') {
+      detailAddress = state.userData_profile.detail_address;
+    }
+
+    try {
+      await actions.setLoading_profileEdit(true);
+
+      await updateMyAddressData(zonecode, address, detailAddress)
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          await MyPageData();
+          await actions.setLoading_profileEdit(false);
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('주소 정보 업데이트에 성공했어요', 1);
+          } else {
+            topActions.showSnackbar('주소 정보 업데이트에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await actions.setLoading_profileEdit(false);
+      await topActions.showSnackbar(
+        '서버오류로 주소 정보 업데이트에 실패했어요',
+        0,
+      );
+    }
+  }
+
+  /**
+   * 프로필 수정 화면에서 새로고침시 state 초기화하는 함수
+   */
+  async function editRefresh() {
+    await actions.setLoading_profileEdit(true);
+    await actions.setAddress('');
+    await actions.setZonecode('');
+    await actions.setDetailAddress('');
+    await actions.setNewNick('');
+    await actions.setNewBankName(null);
+    await actions.setNewAccount(null);
+    await actions.setSelectedBankCode(null);
+    await actions.setBankDropDownVisible(false);
+    await loadData();
+    await actions.setLoading_profileEdit(false);
+  }
+
+  /**
+   * 회원 탈퇴 함수
+   */
+  async function deleteUser_logeout() {
+    try {
+      await deleteMyWishlistData()
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          navigation.navigate('SignUpNavigator', {
+            updated_at: new Date().toString(),
+          });
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('회원 탈퇴에 성공했어요', 1);
+          } else {
+            topActions.showSnackbar('회원 탈퇴에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await topActions.showSnackbar('서버오류로 회원 탈퇴에 실패했어요', 0);
+    }
+  }
+
+  /**
+   * 로그아웃 함수
+   */
+  async function logout() {
+    AsyncStorage.clear();
+    navigation.navigate('SignUpNavigator', {
+      updated_at: new Date().toString(),
     });
   }
 
@@ -178,6 +496,16 @@ export const useMyPageViewModel = () => {
       loadData,
       onCloseDetailModal,
       getProfileUrl,
+      changeNick,
+      selectAndCropImage,
+      NewImage,
+      changeBankDropDownVisible,
+      selectBankName,
+      storeAccountData,
+      storeAddress,
+      editRefresh,
+      deleteUser_logeout,
+      logout,
     },
   };
 };

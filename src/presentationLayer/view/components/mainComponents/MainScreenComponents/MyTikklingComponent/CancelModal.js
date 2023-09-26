@@ -34,7 +34,6 @@ export default function CancelModal() {
         actions.toggleCancelModal();
       }}
       transparent={true}>
-      {console.log(state.showCancelModal)}
       <View
         style={[
           {
@@ -77,7 +76,7 @@ export default function CancelModal() {
               customStyle={{
                 color: COLOR_ERROR,
               }}>
-              정말 티클링을 종료할까요?
+              정말 티클링을 취소할까요?
             </B22>
             <View style={{position: 'absolute', right: 0, top: -5}}>
               <LottieView
@@ -101,9 +100,9 @@ export default function CancelModal() {
               justifyContent: 'space-between',
             }}>
             <View style={{paddingVertical: 24}}>
-              <M11>사용한 티클링 티켓은 다시 받을 수 없어요.</M11>
+              <M11>아직 받은 티클이 없네요.</M11>
               <M11 customStyle={{marginTop: 8}}>
-                지금까지 받은 티클은 티클링 종료 7일 이후 환불이 가능해요.
+                티클링 티켓을 다시 받을 수 있어요!
               </M11>
             </View>
           </View>
@@ -112,8 +111,8 @@ export default function CancelModal() {
             style={{flexDirection: 'row', bottom: 0, width: windowWidth - 48}}>
             <TouchableOpacity
               onPress={() => {
-                actions.buttonPress();
-                console.log(state.showCancelModal);
+                actions.cancelTikkling();
+                actions.toggleCancelModal();
               }}
               style={{
                 width: '50%',
@@ -123,7 +122,7 @@ export default function CancelModal() {
                 backgroundColor: COLOR_ERROR,
                 borderBottomLeftRadius: 12,
               }}>
-              <B15 customStyle={{color: COLOR_WHITE}}>종료하기</B15>
+              <B15 customStyle={{color: COLOR_WHITE}}>취소하기</B15>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {

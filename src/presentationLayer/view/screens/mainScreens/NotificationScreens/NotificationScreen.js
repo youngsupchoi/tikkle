@@ -4,6 +4,7 @@ import {StatusBarHeight} from 'src/presentationLayer/view/components/globalCompo
 import {
   B12,
   B17,
+  B20,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -34,9 +35,9 @@ export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
 
   useEffect(() => {
-    actions.get_notification_list();
+    actions.loadData();
   }, []);
-  //ㅎㅎㅎㅎㅎㅎ
+
   const navigation = useNavigation();
 
   const renderItem = ({item, index}) => {
@@ -157,8 +158,7 @@ export default function NotificationScreen() {
   };
 
   return (
-    <View
-      style={{backgroundColor: backgroundColor, paddingTop: StatusBarHeight}}>
+    <View style={{backgroundColor: backgroundColor, paddingTop: 0}}>
       <View
         style={{
           padding: 24,
@@ -181,7 +181,7 @@ export default function NotificationScreen() {
             />
           </AnimatedButton>
 
-          <B17 customStyle={{marginLeft: 12}}>알림</B17>
+          <B20 customStyle={{marginLeft: 12}}>알림</B20>
         </View>
         <View>
           <AnimatedButton

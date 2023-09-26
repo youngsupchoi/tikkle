@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import {Animated} from 'react-native';
+import {captureRef} from 'react-native-view-shot';
+import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useMainViewState} from 'src/presentationLayer/viewState/mainStates/MainState';
 
@@ -9,6 +11,10 @@ import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
 import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingData';
+import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingBuyData';
+import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
+import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
+import {getMyTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetMyTikklingData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -39,12 +45,43 @@ export const useMainViewModel = () => {
       await actions.setLoading(false);
     }
   };
+  const loadTikklingData = async () => {
+    try {
+      await actions.setLoading(true);
+      await getMyTikklingData().then(res => {
+        console.log(res.DSdata);
+        actions.setMyTikklingData(res.DSdata.info[0]);
+        actions.setIsTikkling(res.DSdata.is_tikkling);
+      });
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      await actions.setLoading(false);
+    }
+  };
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onRefresh = async () => {
     await actions.setRefreshing(true);
     await loadData();
     await actions.setRefreshing(false);
+  };
+
+  const endTikklingGoods = () => {
+    updateMyAddressData(
+      state.zonecode !== null ? state.zonecode : state.userData.zonecode,
+      state.address !== null ? state.address : state.userData.address,
+      state.detailAddress !== null
+        ? state.detailAddress
+        : state.userData.detail_address,
+    );
+    updateEndTikklingBuyData(state.myTikklingData.tikkling_id).then(res =>
+      topActions.setStateAndError(res),
+    );
+  };
+
+  const refundTikkling = () => {
+    console.log(state.account, state.bankName);
   };
 
   const showDropdown = () => {
@@ -71,7 +108,6 @@ export const useMainViewModel = () => {
   //우측 상단 종료하기 버튼
   const buttonPress = () => {
     if (state.myTikklingData.tikkle_count === '0') {
-      console.log(state.myTikklingData.tikkling_id);
       updateCancelTikklingData(state.myTikklingData.tikkling_id);
       actions.setDropdownVisible(false);
     } else {
@@ -83,8 +119,63 @@ export const useMainViewModel = () => {
 
   const toggleCancelModal = () => {
     actions.setShowCancelModal(!state.showCancelModal);
-    console.log('hihihi');
-    console.log(state.showCancelModal);
+  };
+
+  const cancelTikkling = () => {
+    updateCancelTikklingData(state.myTikklingData.tikkling_id)
+      .then(res => {
+        topActions.setStateAndError(res);
+      })
+      .then(res => {
+        loadData();
+      });
+  };
+
+  const stopTikkling = () => {
+    updateStopTikklingData(state.myTikklingData.tikkling_id).then(res =>
+      topActions.setStateAndError(res),
+    );
+  };
+
+  const toggleStopModal = () => {
+    actions.setShowStopModal(!state.showStopModal);
+  };
+
+  const onInstagramShareButtonPressed = async () => {
+    try {
+      const stickerUri = await captureRef(state.smallImageRef, {
+        format: 'png',
+        quality: 1,
+        result: 'base64', // capture image as base64
+      });
+
+      const backgroundUri = await captureRef(state.backgroundImageRef, {
+        format: 'png',
+        quality: 1,
+        result: 'base64', // capture image as base64
+      });
+
+      actions.setCapturedImage(`data:image/png;base64,${stickerUri}`); // Update state
+
+      if (state.hasInstagramInstalled) {
+        const res = await Share.shareSingle({
+          appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
+          stickerImage: `data:image/png;base64,${stickerUri}`,
+          backgroundImage: `data:image/png;base64,${backgroundUri}`,
+          method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
+          social: Share.Social.INSTAGRAM_STORIES,
+          backgroundBottomColor: '#ffffff', // You can use any hexcode here and below
+          backgroundTopColor: '#ffffff',
+          backgroundColor: '#ffffff',
+          contentUrl: '',
+        });
+      } else {
+        // If instagram is not installed in user's device then just share using the usual device specific bottomsheet (https://react-native-share.github.io/react-native-share/docs/share-open)
+        await Share.open({url: stickerUri});
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
   };
 
   return {
@@ -105,6 +196,13 @@ export const useMainViewModel = () => {
       navigation,
       updateEndTikklingData,
       toggleCancelModal,
+      endTikklingGoods,
+      toggleStopModal,
+      cancelTikkling,
+      stopTikkling,
+      onInstagramShareButtonPressed,
+      loadTikklingData,
+      refundTikkling,
     },
   };
 };

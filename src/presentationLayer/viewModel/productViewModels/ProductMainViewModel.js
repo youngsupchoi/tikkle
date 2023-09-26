@@ -24,7 +24,9 @@ export const useProductMainViewModel = () => {
       state.sortWay,
       state.search,
       state.getNum,
-    ).then(res => actions.setSearchedData(res.DSdata.info));
+    ).then(async res => {
+      actions.setSearchedData(res.DSdata.info);
+    });
     await actions.setLoading(false);
   };
 

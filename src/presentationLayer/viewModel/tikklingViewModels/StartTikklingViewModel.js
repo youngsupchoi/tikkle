@@ -47,15 +47,6 @@ export const useStartTikklingViewModel = () => {
     actions.setRefreshing(false);
   };
 
-  const createTikkling = async () => {
-    createTikklingData(
-      state.endDate,
-      state.selectedItem.price / 5000,
-      state.selectedItem.product_id,
-      state.eventType,
-    );
-  };
-
   const put_user_address = async () => {
     updateMyAddressData(state.zonecode, state.address, state.detailAddress);
   };
@@ -144,12 +135,25 @@ export const useStartTikklingViewModel = () => {
   //-------------------------------------------------------------------
   const buttonPress = () => {
     put_user_address();
-    createTikkling();
+    createTikklingData(
+      state.endDate,
+      state.selectedItem.price / 5000,
+      state.selectedItem.product_id,
+      state.eventType,
+    ).then(res => {
+      return topActions.setStateAndError(res);
+    });
     navigation.reset({
       index: 0,
-      routes: [{name: 'main', params: {updated: new Date().toString()}}],
+      routes: [
+        {
+          name: 'main',
+          params: {updated: new Date().toString()},
+        },
+      ],
     });
   };
+
   let currentDate = state.startDate
     ? dayjs(state.startDate).add(1, 'day')
     : null;

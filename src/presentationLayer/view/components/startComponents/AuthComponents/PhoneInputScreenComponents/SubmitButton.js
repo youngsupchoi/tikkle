@@ -27,9 +27,9 @@ export const SubmitButton = () => {
         onPress={actions.phoneInputbuttonPress}
         style={[
           styles.button,
-          !state.isValidPhoneNumber && styles.disabledButton,
+          (!state.isValidPhoneNumber|| state.phoneInputButtonPressed) && styles.disabledButton,
         ]}
-        disabled={!state.isValidPhoneNumber}>
+        disabled={(!state.isValidPhoneNumber|| state.phoneInputButtonPressed)}>
         <B15 customStyle={{color: COLOR_WHITE}}>인증번호 전송</B15>
       </AnimatedButton>
     </View>

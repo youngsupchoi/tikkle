@@ -5,6 +5,7 @@ import {
   COLOR_BLACK,
   COLOR_ERROR,
   COLOR_SUCCESS,
+  backgroundColor,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import Animated, {
@@ -32,7 +33,7 @@ const getSnackbarStyles = status => {
             stroke={'red'}
           />
         ),
-        backgroundColor: COLOR_ERROR,
+        backgroundColor: backgroundColor,
         textColor: 'red',
       };
     case 1:
@@ -45,7 +46,8 @@ const getSnackbarStyles = status => {
             stroke={'green'}
           />
         ),
-        backgroundColor: COLOR_SUCCESS,
+        // backgroundColor: COLOR_SUCCESS,
+        backgroundColor: backgroundColor,
         textColor: 'green',
       };
     case 2:
@@ -96,7 +98,7 @@ const TopSnackbar = () => {
             runOnJS(topActions.hideSnackbar)();
           },
         );
-      }, 1000);
+      }, 1500);
 
       return () => clearTimeout(timeout);
     }

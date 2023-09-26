@@ -28,7 +28,7 @@ import LottieView from 'lottie-react-native';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
-export default function HomeScreen() {
+export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
   const translateYSecondHero = useSharedValue(20);
   const translateYMyTikkling = useSharedValue(20);
@@ -98,9 +98,13 @@ export default function HomeScreen() {
       });
     }, 5 * delay); // 다섯 번째 컴포넌트
   }, []);
-
+  // useEffect(() => {
+  //   if (route.params?.updated) {
+  //     actions.loadData();
+  //   }
+  // }, [route.params?.updated]);
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View>
       <View style={{}}>
         <ScrollView
           stickyHeaderIndices={[0]}
@@ -155,7 +159,7 @@ export default function HomeScreen() {
           setZoneCode={actions.setZonecode}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -47,7 +47,6 @@ export default function IdInput() {
     <View>
       <View style={styles.inputContainer}>
         <View style={styles.IDInputContainer}>
-          <M34>@</M34>
           <TextInput
             ref={ref.userIdRef}
             maxLength={20}

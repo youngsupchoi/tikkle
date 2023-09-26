@@ -45,6 +45,8 @@ export async function checkNickDuplicationData(nick) {
     };
   }
 
+  //------ return response ------------------------------------------------//
+
   let nick_valid;
   let returnMessage;
 
@@ -69,6 +71,4 @@ export async function checkNickDuplicationData(nick) {
       DSmessage: returnMessage,
     };
   }
-
-  //------ return response ------------------------------------------------//
 }

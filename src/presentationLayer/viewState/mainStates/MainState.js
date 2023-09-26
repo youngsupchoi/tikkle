@@ -31,6 +31,11 @@ export const MainViewStateProvider = ({children}) => {
   const [showEndTikklingModal, setShowEndTikklingModal] = useState(false);
   const [address, setAddress] = useState(null);
   const [zonecode, setZonecode] = useState(null);
+  const [detailAddress, setDetailAddress] = useState(null);
+  const [paymentButtonPressed, setPaymentButtonPressed] = useState(false); // 결제 버튼 눌렀는지 여부
+  const [showRefundModal, setShowRefundModal] = useState(false);
+  const [bankName, setBankName] = useState(''); // 은행 이름
+  const [account, setAccount] = useState(''); // 계좌 번호
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
 
@@ -38,6 +43,7 @@ export const MainViewStateProvider = ({children}) => {
   const [showEndModal, setShowEndModal] = useState(false);
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showStopModal, setShowStopModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [hasInstagramInstalled, setHasInstagramInstalled] = useState(false); // State to track if Instagram is installed on user's device or not
   const smallImageRef = useRef(null);
@@ -74,6 +80,12 @@ export const MainViewStateProvider = ({children}) => {
     showBuyModal,
     hasInstagramInstalled,
     showDetailModal,
+    showStopModal,
+    detailAddress,
+    paymentButtonPressed,
+    showRefundModal,
+    bankName,
+    account,
   };
 
   const actions = {
@@ -101,6 +113,12 @@ export const MainViewStateProvider = ({children}) => {
     setShowBuyModal,
     setHasInstagramInstalled,
     setShowDetailModal,
+    setShowStopModal,
+    setDetailAddress,
+    setPaymentButtonPressed,
+    setShowRefundModal,
+    setBankName,
+    setAccount,
   };
 
   return (

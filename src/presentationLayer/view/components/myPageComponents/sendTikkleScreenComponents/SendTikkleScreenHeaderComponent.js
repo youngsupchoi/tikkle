@@ -59,7 +59,7 @@ export default function SendTikkleScreenHeader() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: StatusBarHeight,
+    paddingTop: 0,
     backgroundColor: backgroundColor,
     flex: 1,
     marginBottom: 20,

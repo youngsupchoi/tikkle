@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updateMyAccountData(account, bank_name) {
+export async function updateMyAccountData(account, bank_code) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -28,7 +28,7 @@ export async function updateMyAccountData(account, bank_name) {
   let response;
   const body = {
     account: account,
-    bank_name: bank_name,
+    bank_code: bank_code,
   };
 
   try {

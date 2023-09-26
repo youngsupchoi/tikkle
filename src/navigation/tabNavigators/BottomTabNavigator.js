@@ -3,7 +3,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Home2 from 'src/assets/icons/Home2';
 import Home2Filled from 'src/assets/icons/Home2Filled';
 import Profile from 'src/assets/icons/Profile';
@@ -12,6 +12,7 @@ import Profile2UserFilled from 'src/assets/icons/Profile2UserFilled';
 import ProfileFilled from 'src/assets/icons/ProfileFilled';
 import SearchFavorite1 from 'src/assets/icons/SearchFavorite1';
 import SearchFavorite1Filled from 'src/assets/icons/SearchFavorite1Filled';
+import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
@@ -89,7 +90,7 @@ export default function BottomTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: backgroundColor, // Semi-transparent background
+          backgroundColor: backgroundColor,
           width: windowWidth,
           alignSelf: 'center',
           alignItems: 'center',
@@ -102,7 +103,7 @@ export default function BottomTabNavigator() {
           left: '5%',
           right: '5%',
           borderRadius: 100,
-          bottom: 24,
+          bottom: StatusBarHeight,
           elevation: 3,
           shadowColor: '#000',
           shadowOffset: {
@@ -127,14 +128,30 @@ export default function BottomTabNavigator() {
           tabBarLabel: '홈',
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
-              <Home2Filled fill={color} width={size} height={size} />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: 'backgroundColor',
+                  margin: 0,
+                }}>
+                <Home2Filled fill={color} width={size} height={size} />
+              </View>
             ) : (
-              <Home2
-                stroke={color}
-                width={size}
-                height={size}
-                strokeWidth={2}
-              />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: backgroundColor,
+                  margin: 0,
+                }}>
+                <Home2
+                  stroke={color}
+                  width={size}
+                  height={size}
+                  strokeWidth={2}
+                />
+              </View>
             ),
         }}
       />
@@ -145,15 +162,35 @@ export default function BottomTabNavigator() {
           tabBarLabel: '둘러보기',
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
-              <SearchFavorite1Filled fill={color} width={size} height={size} />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: backgroundColor,
+                  margin: 0,
+                }}>
+                <SearchFavorite1Filled
+                  fill={color}
+                  width={size}
+                  height={size}
+                />
+              </View>
             ) : (
-              <SearchFavorite1
-                stroke={color}
-                width={size}
-                height={size}
-                scale={0.85}
-                strokeWidth={2}
-              />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: backgroundColor,
+                  margin: 0,
+                }}>
+                <SearchFavorite1
+                  stroke={color}
+                  width={size}
+                  height={size}
+                  scale={0.85}
+                  strokeWidth={2}
+                />
+              </View>
             ),
         }}
       />
@@ -166,15 +203,31 @@ export default function BottomTabNavigator() {
           tabBarLabel: '친구 관리',
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
-              <Profile2UserFilled fill={color} width={size} height={size} />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: backgroundColor,
+                  margin: 0,
+                }}>
+                <Profile2UserFilled fill={color} width={size} height={size} />
+              </View>
             ) : (
-              <Profile2User
-                stroke={color}
-                width={size}
-                height={size}
-                scale={0.85}
-                strokeWidth={2}
-              />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: backgroundColor,
+                  margin: 0,
+                }}>
+                <Profile2User
+                  stroke={color}
+                  width={size}
+                  height={size}
+                  scale={0.85}
+                  strokeWidth={2}
+                />
+              </View>
             ),
         }}
       />
@@ -186,14 +239,30 @@ export default function BottomTabNavigator() {
           tabBarLabel: '프로필',
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
-              <ProfileFilled fill={color} width={size} height={size} />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: backgroundColor,
+                  margin: 0,
+                }}>
+                <ProfileFilled fill={color} width={size} height={size} />
+              </View>
             ) : (
-              <Profile
-                stroke={color}
-                width={size}
-                height={size}
-                strokeWidth={2}
-              />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  backgroundColor: backgroundColor,
+                  margin: 0,
+                }}>
+                <Profile
+                  stroke={color}
+                  width={size}
+                  height={size}
+                  strokeWidth={2}
+                />
+              </View>
             ),
         }}
       />

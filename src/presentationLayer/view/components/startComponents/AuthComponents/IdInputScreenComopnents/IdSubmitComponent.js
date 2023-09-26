@@ -31,10 +31,6 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-// import {post_auth_registerUser} from '../../components/Axios/post_auth_registerUser';
-// import {post_auth_tokenGenerate} from '../../components/Axios/post_auth_tokenGenerate';
-// import {post_auth_IdDuplicationCheck} from '../../components/Axios/post_auth_IdDuplicationCheck';
-
 export default function IdSubmit() {
   const {ref, state, actions} = useStartViewModel();
   return (
@@ -43,14 +39,12 @@ export default function IdSubmit() {
         onPress={actions.completeSignUp}
         style={[
           styles.button,
-          state.validationMessage !== 'Valid' ||
-          state.duplicationMessage === 'Duplicate ID'
+          state.validationMessage !== 'Valid' || state.idInputButtonPressed
             ? styles.inactiveButton
             : {},
         ]}
         disabled={
-          state.validationMessage !== 'Valid' ||
-          state.duplicationMessage === 'Duplicate ID'
+          state.validationMessage !== 'Valid' || state.idInputButtonPressed
         }>
         <B15 customStyle={{color: COLOR_WHITE}}>가입하기</B15>
         {console.log(state.validationMessage, state.duplicationMessage)}

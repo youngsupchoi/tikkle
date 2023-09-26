@@ -27,7 +27,6 @@ import {
   M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import Refresh from 'src/assets/icons/Refresh';
 import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 
@@ -84,15 +83,9 @@ export default function ProductSearch() {
           <AnimatedButton
             style={styles.filterIconContainer}
             onPress={() => {
-              actions.setSelectedRange('전체가격');
-              actions.setPriceMax(999999999);
-              actions.setPriceMin(0);
-              actions.setSearch('');
-              actions.setSortAttribute('sales_volume');
-              actions.setSortWay('DESC');
-              actions.setSelectedSort('많은 판매');
+              actions.onRefresh();
             }}>
-            <Refresh
+            <SearchNormal1
               width={20}
               height={20}
               stroke={COLOR_BLACK}

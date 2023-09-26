@@ -49,7 +49,7 @@ export async function updateEndTikklingBuyData(tikkling_id) {
     };
   }
 
-  // console.log('goods : ', response);
+  console.log('goods : ', response);
 
   //------ control result & error of put_tikkling_end-----------------------------------------//
   if (response.status === 400) {

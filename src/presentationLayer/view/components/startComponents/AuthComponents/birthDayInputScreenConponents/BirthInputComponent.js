@@ -20,7 +20,7 @@ export default function BirthInput() {
           maxLength={4}
           placeholder="2000"
           placeholderTextColor={COLOR_GRAY}
-          style={styles.nativeInput}
+          style={{...styles.nativeInput, width: 80}}
           underlineColorAndroid="transparent" // Remove underline for Android
           clearButtonMode="while-editing" // Show clear button on iOS
           onChangeText={text => {

@@ -9,6 +9,10 @@ import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewMode
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import EditNickname from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/EditNickname';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AccountDropDown from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/AccountDropDown';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function EditProfileScreen() {
   const {state, actions} = useMyPageViewModel();
@@ -17,12 +21,25 @@ export default function EditProfileScreen() {
       <ScrollView
         style={{backgroundColor: backgroundColor, paddingBottom: 240}}>
         <EditProfileHeader />
-        <EditProfilePicture />
-        <EditNickname />
-        <EditRefundAccount />
-        <EditAddress />
-        <View style={{height: 240}} />
+        {state.loading_profileEdit ? (
+          <GlobalLoader />
+        ) : (
+          <View>
+            <EditProfilePicture />
+            <EditNickname />
+            <EditRefundAccount />
+            {state.bankDropDownVisible ? (
+              <View>
+                <AccountDropDown />
+              </View>
+            ) : null}
+            <EditAddress />
+            <View style={{height: 240}} />
+          </View>
+        )}
+        <Footer />
       </ScrollView>
+
       <PostCodeModal state={state} actions={actions} />
       <DetailAddressInput state={state} actions={actions} />
     </View>
