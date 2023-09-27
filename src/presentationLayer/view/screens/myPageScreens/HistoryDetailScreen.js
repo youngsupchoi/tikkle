@@ -58,6 +58,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
 import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import Noti_Refund from 'src/assets/icons/Noti_Refund';
 
 const containerWidth = windowWidth - SPACING_6;
 
@@ -90,7 +91,9 @@ export default function HistoryDetailScreen(route) {
         console.log('#### : ', tikkle_data);
         let sum = 0;
         tikkle_data.map(item => {
-          sum += item.quantity;
+          if (item.state_id != 2) {
+            sum += item.quantity;
+          }
         });
         setTikkle_sum(sum);
         console.log(tikkle_sum);
@@ -333,22 +336,46 @@ export default function HistoryDetailScreen(route) {
 
                 {state.route_data.state_id === 3 ||
                 state.route_data.state_id === 4 ? (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'left',
-                    }}>
-                    <B15 customStyle={{marginBottom: 4}}>환급 / 배송 상태</B15>
-
-                    <M15
-                      customStyle={{
-                        color: COLOR_GRAY,
-                        marginBottom: 10,
-                        marginLeft: 8,
-                      }}>
-                      미구현
-                    </M15>
+                  <View>
+                    {state.route_data.resolution_type === 'refund' ? (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'left',
+                        }}>
+                        <B15 customStyle={{marginBottom: 4}}>
+                          환급 / 배송 상태
+                        </B15>
+                        <M15
+                          customStyle={{
+                            color: COLOR_GRAY,
+                            marginBottom: 10,
+                            marginLeft: 8,
+                          }}>
+                          환급 신청
+                        </M15>
+                      </View>
+                    ) : state.route_data.resolution_type === 'goods' ? (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'left',
+                        }}>
+                        <B15 customStyle={{marginBottom: 4}}>
+                          환급 / 배송 상태
+                        </B15>
+                        <M15
+                          customStyle={{
+                            color: COLOR_GRAY,
+                            marginBottom: 10,
+                            marginLeft: 8,
+                          }}>
+                          배송 신청
+                        </M15>
+                      </View>
+                    ) : null}
                   </View>
                 ) : null}
               </View>
@@ -371,20 +398,39 @@ export default function HistoryDetailScreen(route) {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
-                  <Image
-                    source={{
-                      uri:
-                        item.image !== null
-                          ? item.image
-                          : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-                    }}
-                    style={styles.listItemImage}
-                  />
+                  {item.state_id === 2 ? (
+                    <Noti_Refund
+                      width={60}
+                      height={60}
+                      stroke={COLOR_BLACK}
+                      strokeWidth={1}
+                      scale={1}
+                    />
+                  ) : (
+                    <Image
+                      source={{
+                        uri:
+                          item.image !== null
+                            ? item.image
+                            : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+                      }}
+                      style={styles.listItemImage}
+                    />
+                  )}
 
                   <View style={styles.listItemTextContainer}>
-                    <View style={{marginBottom: 5}}>
-                      <B15>{item.NAME}님의 선물</B15>
-                    </View>
+                    {item.state_id === 2 ? (
+                      <View style={{marginBottom: 5}}>
+                        <B15 customStyle={{color: COLOR_ERROR}}>
+                          환불된 {item.NAME}님의 선물
+                        </B15>
+                      </View>
+                    ) : (
+                      <View style={{marginBottom: 5}}>
+                        <B15>{item.NAME}님의 선물</B15>
+                      </View>
+                    )}
+
                     <M15 customStyle={{color: COLOR_BLACK}}>
                       [{state.route_data.product_name}]의 조각 {item.quantity}개
                     </M15>

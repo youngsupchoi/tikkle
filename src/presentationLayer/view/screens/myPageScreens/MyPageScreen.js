@@ -158,7 +158,7 @@ export default function ProfileScreen() {
           </View>
 
           <View style={{}}>
-            <AnimatedButton
+            <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -189,7 +189,7 @@ export default function ProfileScreen() {
                   strokeWidth={1.5}
                 />
               </View>
-            </AnimatedButton>
+            </View>
             <View
               style={{
                 backgroundColor: COLOR_WHITE,

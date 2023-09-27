@@ -67,7 +67,7 @@ export default function SendTikkleScreen() {
       <View style={{backgroundColor: backgroundColor}}>
         <FlatList
           data={state.paymentHistoryData}
-          keyExtractor={(item, index) => String(item.id)}
+          keyExtractor={(item, index) => String(item.send_at)}
           ListHeaderComponent={SendTikkleScreenHeader}
           stickyHeaderIndices={[0]}
           ListFooterComponent={() => {
