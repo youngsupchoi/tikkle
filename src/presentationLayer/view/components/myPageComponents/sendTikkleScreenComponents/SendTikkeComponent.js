@@ -5,6 +5,9 @@ import {
   B20,
   EB,
   M15,
+  B12,
+  B15,
+  B17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   HEADER_HEIGHT,
@@ -36,7 +39,7 @@ export default function SendTikkle({item}) {
           alignItems: 'center',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <B20 customStyle={{marginLeft: 3}}>To. {item.user_name}</B20>
+          <B17 customStyle={{marginLeft: 3}}>To. {item.user_name}</B17>
         </View>
       </View>
       <View
@@ -91,25 +94,57 @@ export default function SendTikkle({item}) {
               }}
             />
           </View>
+
+          {/*상품 정보*/}
           <View
             style={{
-              paddingLeft: 5,
-              width: windowWidth * 0.55,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              margin: 15,
             }}>
-            <M15>{item.brand_name}</M15>
-            <M15>{item.product_name}</M15>
-            <M15>{item.product_price}원</M15>
-            <M15>{item.send_quantity}개</M15>
+            <View
+              style={{
+                width: '40%',
+              }}>
+              <View style={{marginBottom: 5}}>
+                <B15>상품명 :</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>브랜드 :</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>구매한 티클 개수 :</B15>
+              </View>
+            </View>
+            <View
+              style={{
+                width: '75%',
+              }}>
+              <View style={{marginBottom: 5}}>
+                <B15>{item.product_name}</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>{item.brand_name}</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>{item.send_quantity} 개</B15>
+              </View>
+            </View>
           </View>
         </View>
         <View
           style={{
             position: 'absolute',
-            bottom: -30,
-            right: 8,
-            width: 200,
+            bottom: -20,
+            right: 0,
+            width: 160,
           }}>
-          <M15>{item.send_at}</M15>
+          <M15>
+            {item.send_at.split('T')[0]}
+            {'   '}
+            {item.send_at.split('T')[1].split('.')[0]}
+          </M15>
         </View>
       </View>
     </View>

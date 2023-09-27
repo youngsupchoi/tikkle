@@ -40,6 +40,7 @@ import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewMode
 import SignUpHeader from 'src/presentationLayer/view/components/startComponents/AuthComponents/nameInputScreenComponents/SignUpHeaderComponent';
 import SendTikkleScreenHeader from 'src/presentationLayer/view/components/myPageComponents/sendTikkleScreenComponents/SendTikkleScreenHeaderComponent';
 import SendTikkle from 'src/presentationLayer/view/components/myPageComponents/sendTikkleScreenComponents/SendTikkeComponent';
+import Footer from '../../components/globalComponents/Headers/FooterComponent';
 
 export default function SendTikkleScreen() {
   const {ref, state, actions} = useMyPageViewModel();
@@ -72,62 +73,51 @@ export default function SendTikkleScreen() {
           stickyHeaderIndices={[0]}
           ListFooterComponent={() => {
             return (
-              <View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignSelf: 'center',
-                    paddingHorizontal: 24,
-                    backgroundColorcolor: COLOR_BLACK,
-                    marginBottom: 20,
-                  }}>
-                  <AnimatedButton
-                    style={{
-                      backgroundColor: COLOR_WHITE,
-                      borderRadius: 5,
-                      margin: 16,
-                      elevation: 1,
-                      borderColor: COLOR_SEPARATOR,
-                      // height: 100,
-                      borderWidth: 0.5,
-                      // padding: 16,
-                      paddingBottom: 16,
-                      paddingTop: 24,
-                      width: windowWidth - 32,
-                      // backgroundColor: 'red',
-                    }}
-                    onPress={() => {
-                      console.log('hihi22');
-                    }}>
-                    <View
-                      style={{
-                        width: '100%',
-                        height: 20,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
-                      <B15>더보기</B15>
-                    </View>
-                  </AnimatedButton>
-                </View>
-              </View>
+              <Footer />
+              // <View>
+              //   <View
+              //     style={{
+              //       flexDirection: 'row',
+              //       alignSelf: 'center',
+              //       paddingHorizontal: 24,
+              //       backgroundColorcolor: COLOR_BLACK,
+              //       marginBottom: 20,
+              //     }}>
+              //     <AnimatedButton
+              //       style={{
+              //         backgroundColor: COLOR_WHITE,
+              //         borderRadius: 5,
+              //         margin: 16,
+              //         elevation: 1,
+              //         borderColor: COLOR_SEPARATOR,
+              //         // height: 100,
+              //         borderWidth: 0.5,
+              //         // padding: 16,
+              //         paddingBottom: 16,
+              //         paddingTop: 24,
+              //         width: windowWidth - 32,
+              //         // backgroundColor: 'red',
+              //       }}
+              //       onPress={() => {
+              //         console.log('hihi22');
+              //       }}>
+              //       <View
+              //         style={{
+              //           width: '100%',
+              //           height: 20,
+              //           alignItems: 'center',
+              //           justifyContent: 'center',
+              //         }}>
+              //         <B15>더보기</B15>
+              //       </View>
+              //     </AnimatedButton>
+              //   </View>
+              // </View>
             );
           }}
           ListEmptyComponent={() => {
             return (
               <View style={{}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 24,
-                    marginTop: 0,
-                    alignItems: 'center',
-                  }}>
-                  {/* <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <B20 customStyle={{marginLeft: 12}}>To. 엄승주</B20>
-                  </View> */}
-                </View>
                 <View
                   style={{
                     backgroundColor: COLOR_WHITE,
