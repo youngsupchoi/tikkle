@@ -224,6 +224,14 @@ export default function ProfileScreen() {
                   renderItem={({item, index}) => {
                     return (
                       <AnimatedButton
+                        onPress={() => {
+                          navigation.navigate('HistoryDetail', item);
+                          // actions.navigation.navigate('HistoryDetail', ret);
+                        }}
+                        // onPress={() => {
+                        //   console.log('press : ', item);
+                        //   navigation.navigate('HistoryDetail', ret);
+                        // }}
                         style={{
                           width: 120,
                           // height: 120,
