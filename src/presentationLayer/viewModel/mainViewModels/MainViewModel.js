@@ -228,16 +228,16 @@ export const useMainViewModel = () => {
         })
         .then(() => {
           topActions.showSnackbar('티클링이 취소되었습니다.', 1);
-          navigation.reset({
-            index: 0,
-            routes: [
-              {
-                name: 'main',
-                params: {updated: new Date().toString()},
-              },
-            ],
-          });
         });
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'main',
+            params: {updated: new Date().toString()},
+          },
+        ],
+      });
       actions.setShowCancelModal(false);
     } catch (error) {
       console.log(error);
