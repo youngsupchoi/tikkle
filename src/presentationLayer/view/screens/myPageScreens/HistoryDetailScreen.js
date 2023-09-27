@@ -106,40 +106,38 @@ export default function HistoryDetailScreen(route) {
 
   return (
     <View style={{paddingTop: 0, backgroundColor: backgroundColor}}>
+      <View style={styles.header}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <AnimatedButton
+            onPress={() => actions.navigation.goBack()}
+            style={{
+              width: 20,
+              height: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+              elevation: 1,
+            }}>
+            <ArrowLeft
+              stroke={COLOR_BLACK}
+              width={20}
+              height={20}
+              strokeWidth={1.5}
+              scale={0.85}
+            />
+          </AnimatedButton>
+
+          <View style={styles.small_header}>
+            <View>
+              <B17>티클링 상세 정보</B17>
+            </View>
+          </View>
+        </View>
+      </View>
       <FlatList
         data={list_data}
         keyExtractor={(item, index) => String(item.created_at)}
         ListHeaderComponent={
           <View style={{marginHorizontal: 15}}>
-            <View style={styles.header}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <AnimatedButton
-                  onPress={() => actions.navigation.goBack()}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    elevation: 1,
-                  }}>
-                  <ArrowLeft
-                    stroke={COLOR_BLACK}
-                    width={20}
-                    height={20}
-                    strokeWidth={1.5}
-                    scale={0.85}
-                  />
-                </AnimatedButton>
-
-                <View style={styles.small_header}>
-                  <View>
-                    <B17>티클링 상세 정보</B17>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            {/* body.1 */}
             <View
               style={{
                 padding: 24,
@@ -452,7 +450,7 @@ export default function HistoryDetailScreen(route) {
 
                 {item.message ? (
                   <View style={{margin: 10}}>
-                    <B15 customStyle={{color: COLOR_BLACK}}>{'<메세지>'}</B15>
+                    <B15 customStyle={{color: COLOR_BLACK}}>{'[메세지]'}</B15>
                     <M11 customStyle={{color: COLOR_BLACK}}>{item.message}</M11>
                   </View>
                 ) : null}

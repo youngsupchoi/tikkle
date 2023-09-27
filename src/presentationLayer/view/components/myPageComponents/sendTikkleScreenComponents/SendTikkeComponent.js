@@ -5,6 +5,9 @@ import {
   B20,
   EB,
   M15,
+  B12,
+  B15,
+  B17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   HEADER_HEIGHT,
@@ -32,13 +35,22 @@ export default function SendTikkle({item}) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingHorizontal: 24,
-          marginTop: 0,
+          marginTop: 5,
           alignItems: 'center',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <B20 customStyle={{marginLeft: 3}}>To. {item.user_name}</B20>
+          <B17 customStyle={{marginLeft: 3}}>To. {item.user_name}</B17>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <AnimatedButton
+            onPress={() => {
+              actions.navigation.navigate('SentTikkleDetail', {item: item});
+            }}>
+            <M15 customStyle={{color: COLOR_PRIMARY}}>상세보기</M15>
+          </AnimatedButton>
         </View>
       </View>
+
       <View
         style={{
           backgroundColor: COLOR_WHITE,
@@ -50,27 +62,14 @@ export default function SendTikkle({item}) {
           // height: 100,
           borderWidth: 0.5,
           // padding: 16,
-          paddingBottom: 16,
-          paddingTop: 15,
+          // paddingBottom: 16,
+          // paddingTop: 15,
           // backgroundColor: 'red',
         }}>
         <View
           style={{
-            position: 'absolute',
-            marginTop: 5,
-            right: 15,
-          }}>
-          <AnimatedButton
-            onPress={() => {
-              actions.navigation.navigate('SentTikkleDetail', {item: item});
-            }}>
-            <M15>상세보기</M15>
-          </AnimatedButton>
-        </View>
-        <View
-          style={{
             width: '100%',
-            height: 120,
+            height: 125,
             alignItems: 'top',
             justifyContent: 'space-between',
             flexDirection: 'row',
@@ -88,28 +87,61 @@ export default function SendTikkle({item}) {
                 borderRadius: 8,
                 borderWidth: 1,
                 borderColor: COLOR_SEPARATOR,
+                marginLeft: 7,
               }}
             />
           </View>
+
+          {/*상품 정보*/}
           <View
             style={{
-              paddingLeft: 5,
-              width: windowWidth * 0.55,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              margin: 15,
             }}>
-            <M15>{item.brand_name}</M15>
-            <M15>{item.product_name}</M15>
-            <M15>{item.product_price}원</M15>
-            <M15>{item.send_quantity}개</M15>
+            <View
+              style={{
+                width: '40%',
+              }}>
+              <View style={{marginBottom: 5}}>
+                <B15>상품명 :</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>브랜드 :</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>구매한 티클 개수 :</B15>
+              </View>
+            </View>
+            <View
+              style={{
+                width: '75%',
+              }}>
+              <View style={{marginBottom: 5}}>
+                <B15>{item.product_name}</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>{item.brand_name}</B15>
+              </View>
+              <View style={{marginBottom: 5}}>
+                <B15>{item.send_quantity} 개</B15>
+              </View>
+            </View>
           </View>
         </View>
         <View
           style={{
             position: 'absolute',
-            bottom: -30,
-            right: 8,
-            width: 200,
+            bottom: -20,
+            right: 0,
+            width: 160,
           }}>
-          <M15>{item.send_at}</M15>
+          <M15>
+            {item.send_at.split('T')[0]}
+            {'   '}
+            {item.send_at.split('T')[1].split('.')[0]}
+          </M15>
         </View>
       </View>
     </View>
