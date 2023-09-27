@@ -80,6 +80,9 @@ export default function ProfileScreen() {
         <View>
           <View style={{}}>
             <AnimatedButton
+              onPress={() => {
+                actions.navigation.navigate('editProfile');
+              }}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -98,9 +101,6 @@ export default function ProfileScreen() {
               </View>
 
               <AnimatedButton
-                onPress={() => {
-                  actions.navigation.navigate('editProfile');
-                }}
                 style={{
                   padding: 10,
                 }}>
@@ -117,6 +117,7 @@ export default function ProfileScreen() {
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
                 margin: 16,
+                marginTop: 5,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 0.5,
@@ -195,6 +196,7 @@ export default function ProfileScreen() {
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
                 margin: 16,
+                marginTop: 5,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
                 // height: 100,
@@ -314,6 +316,7 @@ export default function ProfileScreen() {
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
                 margin: 16,
+                marginTop: 5,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
                 // height: 100,

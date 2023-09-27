@@ -450,7 +450,7 @@ export default function HistoryDetailScreen(route) {
 
                 {item.message ? (
                   <View style={{margin: 10}}>
-                    <B15 customStyle={{color: COLOR_BLACK}}>{'<메세지>'}</B15>
+                    <B15 customStyle={{color: COLOR_BLACK}}>{'[메세지]'}</B15>
                     <M11 customStyle={{color: COLOR_BLACK}}>{item.message}</M11>
                   </View>
                 ) : null}
