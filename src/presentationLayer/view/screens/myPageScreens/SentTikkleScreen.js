@@ -61,87 +61,7 @@ export default function SendTikkleScreen() {
   if (!state.userData_profile)
     return <ActivityIndicator size="large" color="#0000ff" />;
   const navigation = useNavigation();
-  const data = [
-    {
-      id: 1,
-      name: 'User 1',
-      productName: 'apple watch',
-      brand: 'apple',
-      productID: 2013402302,
-      price: 100000,
-      quantity: 1,
 
-      productImage:
-        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
-      backgroundColor: '#Bada55',
-      created_at: '2021-05-10T14:00:00.000Z',
-    },
-    {
-      id: 2,
-      name: 'User 2',
-      productName: 'apple watch',
-      brand: 'apple',
-      productID: 2013402302,
-      price: 100000,
-      quantity: 1,
-      productImage:
-        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
-      backgroundColor: '#C0ffee',
-      created_at: '2021-05-10T14:00:00.000Z',
-    },
-    {
-      id: 3,
-      name: 'User 3',
-      productName: '서어언물',
-      brand: 'pear',
-      productID: 2013402302,
-      price: 100000,
-      quantity: 1,
-      productImage:
-        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
-      backgroundColor: '#F00dab',
-      created_at: '2021-05-10T14:00:00.000Z',
-    },
-    {
-      id: 4,
-      name: 'User 4',
-      productName: '고오급 지갑',
-      brand: 'PRADA',
-      productID: 2013402302,
-      price: 100000,
-      quantity: 1,
-      productImage:
-        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
-      backgroundColor: '#Babe42',
-      created_at: '2021-05-10T14:00:00.000Z',
-    },
-    {
-      id: 5,
-      name: 'User 5',
-      productName: '에어팟 프로 2세대',
-      brand: 'apple',
-      productID: 2013402302,
-      price: 100000,
-      quantity: 1,
-      productImage:
-        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
-      backgroundColor: '#Fa1afe',
-      created_at: '2021-05-10T14:00:00.000Z',
-    },
-    {
-      id: 6,
-      name: 'User 6',
-      productName: '맥북 에어 16인치',
-      brand: 'apple',
-      productID: 2013402302,
-      price: 100000,
-      quantity: 1,
-      productImage:
-        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
-      backgroundColor: '#F0a2be',
-      created_at: '2021-05-10T14:00:00.000Z',
-    },
-  ];
   return (
     <View>
       <View style={{backgroundColor: backgroundColor}}>
@@ -204,9 +124,9 @@ export default function SendTikkleScreen() {
                     marginTop: 0,
                     alignItems: 'center',
                   }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  {/* <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <B20 customStyle={{marginLeft: 12}}>To. 엄승주</B20>
-                  </View>
+                  </View> */}
                 </View>
                 <View
                   style={{
