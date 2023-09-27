@@ -2,7 +2,11 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updateEndTikklingRefundData(tikkling_id) {
+export async function updateEndTikklingRefundData(
+  tikkling_id,
+  bank_code,
+  account,
+) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -28,6 +32,8 @@ export async function updateEndTikklingRefundData(tikkling_id) {
   let response;
   const body = {
     tikkling_id: tikkling_id,
+    bank_code: bank_code,
+    account: account,
   };
 
   try {
@@ -64,6 +70,12 @@ export async function updateEndTikklingRefundData(tikkling_id) {
         DScode: 1,
         DSdata: null,
         DSmessage: '환급 계좌 정보가 입력되지 않았어요.',
+      };
+    } else if (response.data.detail_code === '06') {
+      return {
+        DScode: 1,
+        DSdata: null,
+        DSmessage: '계좌 형식이 올바르지 않습니다.',
       };
     }
     return {
