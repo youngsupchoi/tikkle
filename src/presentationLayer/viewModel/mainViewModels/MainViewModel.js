@@ -76,17 +76,26 @@ export const useMainViewModel = () => {
       state.detailAddress !== null
         ? state.detailAddress
         : state.userData.detail_address,
-    );
-    updateEndTikklingBuyData(state.myTikklingData.tikkling_id).then(res =>
-      topActions.setStateAndError(res),
-    );
-
-    topActions.showSnackbar('배송요청이 완료되었습니다.', 1);
+    ).then(res => topActions.setStateAndError(res));
+    updateEndTikklingBuyData(
+      state.myTikklingData.tikkling_id,
+      state.zonecode !== null ? state.zonecode : state.userData.zonecode,
+      state.address !== null ? state.address : state.userData.address,
+      state.detailAddress !== null
+        ? state.detailAddress
+        : state.userData.detail_address,
+    )
+      .then(res => topActions.setStateAndError(res))
+      .then(() => {
+        topActions.showSnackbar('배송요청이 완료되었습니다.', 1);
+        loadData();
+      });
   };
 
   const refundTikkling = () => {
     console.log(state.account, state.bankName);
-    updateEndTikklingRefundData()
+
+    updateEndTikklingRefundData(state.newAccount)
       .then(res => {
         topActions.setStateAndError(res);
       })
@@ -172,7 +181,7 @@ export const useMainViewModel = () => {
         routes: [
           {
             name: 'main',
-            params: {updated: new Date().toString()},
+            params: {shouldRefresh: true},
           },
         ],
       });
@@ -228,16 +237,11 @@ export const useMainViewModel = () => {
         })
         .then(() => {
           topActions.showSnackbar('티클링이 취소되었습니다.', 1);
-          navigation.reset({
-            index: 0,
-            routes: [
-              {
-                name: 'main',
-                params: {updated: new Date().toString()},
-              },
-            ],
-          });
+        })
+        .then(() => {
+          loadData();
         });
+
       actions.setShowCancelModal(false);
     } catch (error) {
       console.log(error);
