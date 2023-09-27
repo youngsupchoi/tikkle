@@ -35,13 +35,22 @@ export default function SendTikkle({item}) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingHorizontal: 24,
-          marginTop: 0,
+          marginTop: 5,
           alignItems: 'center',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <B17 customStyle={{marginLeft: 3}}>To. {item.user_name}</B17>
         </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <AnimatedButton
+            onPress={() => {
+              actions.navigation.navigate('SentTikkleDetail', {item: item});
+            }}>
+            <M15 customStyle={{color: COLOR_PRIMARY}}>상세보기</M15>
+          </AnimatedButton>
+        </View>
       </View>
+
       <View
         style={{
           backgroundColor: COLOR_WHITE,
@@ -53,27 +62,14 @@ export default function SendTikkle({item}) {
           // height: 100,
           borderWidth: 0.5,
           // padding: 16,
-          paddingBottom: 16,
-          paddingTop: 15,
+          // paddingBottom: 16,
+          // paddingTop: 15,
           // backgroundColor: 'red',
         }}>
         <View
           style={{
-            position: 'absolute',
-            marginTop: 5,
-            right: 15,
-          }}>
-          <AnimatedButton
-            onPress={() => {
-              actions.navigation.navigate('SentTikkleDetail', {item: item});
-            }}>
-            <M15>상세보기</M15>
-          </AnimatedButton>
-        </View>
-        <View
-          style={{
             width: '100%',
-            height: 120,
+            height: 125,
             alignItems: 'top',
             justifyContent: 'space-between',
             flexDirection: 'row',
@@ -91,6 +87,7 @@ export default function SendTikkle({item}) {
                 borderRadius: 8,
                 borderWidth: 1,
                 borderColor: COLOR_SEPARATOR,
+                marginLeft: 7,
               }}
             />
           </View>
