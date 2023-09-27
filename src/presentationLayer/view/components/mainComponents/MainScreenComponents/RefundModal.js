@@ -20,13 +20,17 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import Location from 'src/assets/icons/Location';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {TextInput} from 'react-native-gesture-handler';
+import Account from 'src/assets/icons/Account';
+import Bank from 'src/assets/icons/Bank';
 export default function RefundModal() {
   //-------------------------------------------------------------------------
   //토큰 가져오기
   const {state, actions} = useMainViewModel();
   useEffect(() => {
-    actions.setBankName(state.userData.bank_name);
+    actions.setBankCode(state.userData.bank_code);
     actions.setAccount(state.userData.account);
+    console.log(state.account);
+    console.log(state.bankCode);
     console.log('계좌를 유저 정보로 업데이트');
   }, []);
   //--------------------------------------------------------------
@@ -81,7 +85,7 @@ export default function RefundModal() {
                       padding: 4,
                       alignItems: 'center',
                     }}>
-                    <Location
+                    <Bank
                       width={24}
                       height={24}
                       stroke={COLOR_BLACK}
@@ -105,10 +109,10 @@ export default function RefundModal() {
                     placeholderTextColor={COLOR_GRAY}
                     blurOnSubmit={false}
                     onChangeText={text => {
-                      temp = text;
+                      actions.setBankCode(text);
                     }}
                     onSubmitEditing={() => {
-                      actions.setBankName(temp); // 여기서 확정
+                      actions.setBankCode(temp); // 여기서 확정
                       // 만약 이 값을 모달 밖의 스크린으로 전달해야 한다면 이 부분에 로직을 추가하면 됩니다.
                     }}
                     value={temp} // 임시 상태 값을 사용
@@ -146,7 +150,7 @@ export default function RefundModal() {
                       padding: 4,
                       alignItems: 'center',
                     }}>
-                    <Location
+                    <Account
                       width={24}
                       height={24}
                       stroke={COLOR_BLACK}
@@ -165,17 +169,17 @@ export default function RefundModal() {
                       padding: 0,
                       width: '80%',
                     }}
-                    placeholder="hihi"
+                    placeholder={
+                      state.account !== null &&
+                      state.account !== null &&
+                      state.account !== undefined
+                        ? `${state.account}`
+                        : '계좌번호'
+                    }
                     placeholderTextColor={COLOR_GRAY}
                     blurOnSubmit={false}
-                    onChangeText={text => {
-                      temp = text;
-                    }}
-                    onSubmitEditing={() => {
-                      actions.setAccount(temp); // 여기서 확정
-                      // 만약 이 값을 모달 밖의 스크린으로 전달해야 한다면 이 부분에 로직을 추가하면 됩니다.
-                    }}
-                    value={temp} // 임시 상태 값을 사용
+                    onChangeText={value => actions.setAccount(value)}
+                    value={state.account} // 임시 상태 값을 사용
                   />
                 </View>
               </AnimatedButton>

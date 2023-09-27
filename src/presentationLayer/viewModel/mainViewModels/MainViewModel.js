@@ -94,7 +94,8 @@ export const useMainViewModel = () => {
 
   const refundTikkling = () => {
     console.log(state.account, state.bankName);
-    updateEndTikklingRefundData()
+
+    updateEndTikklingRefundData(state.newAccount)
       .then(res => {
         topActions.setStateAndError(res);
       })
