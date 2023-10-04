@@ -66,6 +66,8 @@ function MyPageNavigator() {
         initialRouteName="MyPage"
         screenOptions={{
           headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}>
         <MyPageStack.Screen name="MyPage" component={MyPage} />
