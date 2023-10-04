@@ -582,7 +582,7 @@ export default function StartTikklingScreen() {
         >
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
-        <Footer style={{marginBottom: 120}} />
+        <Footer />
       </ScrollView>
 
       <PostCodeModal state={state} actions={actions} />

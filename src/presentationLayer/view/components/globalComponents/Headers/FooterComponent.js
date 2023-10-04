@@ -45,7 +45,7 @@ export default function Footer({style}) {
           borderTopWidth: 0.5,
           borderTopColor: COLOR_GRAY,
           margin: windowWidth * 0.03,
-          marginBottom: 80,
+          marginBottom: 100,
           width: windowWidth * 0.94,
         },
         style, // 외부에서 전달된 스타일
