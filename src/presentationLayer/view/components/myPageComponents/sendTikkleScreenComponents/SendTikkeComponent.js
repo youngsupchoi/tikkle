@@ -46,7 +46,9 @@ export default function SendTikkle({item}) {
             onPress={() => {
               actions.navigation.navigate('SentTikkleDetail', {item: item});
             }}>
-            <M15 customStyle={{color: COLOR_PRIMARY}}>상세보기</M15>
+            <View>
+              <M15 customStyle={{color: COLOR_PRIMARY}}>상세보기</M15>
+            </View>
           </AnimatedButton>
         </View>
       </View>
