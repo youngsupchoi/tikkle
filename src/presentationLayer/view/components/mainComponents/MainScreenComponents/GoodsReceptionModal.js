@@ -160,6 +160,7 @@ export default function GoodsReceptionModal() {
             }}>
             <AnimatedButton
               onPress={async () => {
+                console.log(state.myTikklingData.tikkling_id);
                 actions.endTikklingGoods();
                 actions.setShowEndModal(false);
                 actions.navigation.reset({

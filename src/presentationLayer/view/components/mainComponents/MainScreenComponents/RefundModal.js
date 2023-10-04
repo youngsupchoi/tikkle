@@ -22,19 +22,22 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 import {TextInput} from 'react-native-gesture-handler';
 import Account from 'src/assets/icons/Account';
 import Bank from 'src/assets/icons/Bank';
+import AccountDropDown_home from './AccountDropDown_home';
+
 export default function RefundModal() {
   //-------------------------------------------------------------------------
-  //토큰 가져오기
+  //토큰 가져오기res.DSdata.user_info.bank_name
   const {state, actions} = useMainViewModel();
   useEffect(() => {
     actions.setBankCode(state.userData.bank_code);
+    actions.setBankName(state.userData.bank_name);
     actions.setAccount(state.userData.account);
-    console.log(state.account);
-    console.log(state.bankCode);
-    console.log('계좌를 유저 정보로 업데이트');
+    // console.log('계좌번호 : ', state.account);
+    // console.log('은행 코드 : ', state.bankCode);
+    // console.log('은행 이름 : ', state.bankName);
   }, []);
   //--------------------------------------------------------------
-  let temp;
+
   return (
     <View>
       <Modal
@@ -52,147 +55,68 @@ export default function RefundModal() {
             <B22 customStyle={modalStyles.titleText}>계좌가 맞으신가요?</B22>
           </View>
 
-          <View style={modalStyles.contentSection}>
-            <View style={{}}>
-              <B15 customStyle={{marginTop: 16}}>은행명</B15>
-              <AnimatedButton
-                onPress={() => {
-                  // actions.setShowEndModal(fa lse);
-                  //actions.setShowPostCodeModal(true);
-                }}
-                style={{
-                  marginTop: 16,
-                  flexDirection: 'row',
-                  alignSelf: 'center',
-                  width: '100%',
-                  justifyContent: 'space-between',
-                }}>
-                <View
-                  style={{
-                    backgroundColor: COLOR_WHITE,
-                    borderRadius: 12,
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 1,
-                    padding: 8,
-                    paddingHorizontal: 12,
-                    width: '100%',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      alignSelf: 'center',
-                      padding: 4,
-                      alignItems: 'center',
-                    }}>
-                    <Bank
-                      width={24}
-                      height={24}
-                      stroke={COLOR_BLACK}
-                      scale={1}
-                      strokeWidth={1.5}
-                    />
-                  </View>
-
-                  <TextInput
-                    style={{
-                      marginLeft: 15,
-                      fontSize: 15,
-                      fontFamily: B,
-                      color: COLOR_GRAY,
-                      height: 22,
-                      lineHeight: 22,
-                      padding: 0,
-                      width: '80%',
-                    }}
-                    placeholder="hihi"
-                    placeholderTextColor={COLOR_GRAY}
-                    blurOnSubmit={false}
-                    onChangeText={text => {
-                      actions.setBankCode(text);
-                    }}
-                    onSubmitEditing={() => {
-                      actions.setBankCode(temp); // 여기서 확정
-                      // 만약 이 값을 모달 밖의 스크린으로 전달해야 한다면 이 부분에 로직을 추가하면 됩니다.
-                    }}
-                    value={temp} // 임시 상태 값을 사용
-                  />
-                </View>
-              </AnimatedButton>
-              <B15 customStyle={{marginTop: 16}}>계좌번호</B15>
-              <AnimatedButton
-                onPress={() => {
-                  // actions.navigation.navigate('searchAddress');
-                  //actions.setShowDetailModal(true);
-                }}
-                style={{
-                  marginTop: 12,
-                  flexDirection: 'row',
-                  alignSelf: 'center',
-                  width: '100%',
-                  justifyContent: 'space-between',
-                }}>
-                <View
-                  style={{
-                    backgroundColor: COLOR_WHITE,
-                    borderRadius: 12,
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 1,
-                    padding: 8,
-                    paddingHorizontal: 12,
-                    width: '100%',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      alignSelf: 'center',
-                      padding: 4,
-                      alignItems: 'center',
-                    }}>
-                    <Account
-                      width={24}
-                      height={24}
-                      stroke={COLOR_BLACK}
-                      scale={1}
-                      strokeWidth={1.5}
-                    />
-                  </View>
-                  <TextInput
-                    style={{
-                      marginLeft: 15,
-                      fontSize: 15,
-                      fontFamily: B,
-                      color: COLOR_GRAY,
-                      height: 22,
-                      lineHeight: 22,
-                      padding: 0,
-                      width: '80%',
-                    }}
-                    placeholder={
-                      state.account !== null &&
-                      state.account !== null &&
-                      state.account !== undefined
-                        ? `${state.account}`
-                        : '계좌번호'
-                    }
-                    placeholderTextColor={COLOR_GRAY}
-                    blurOnSubmit={false}
-                    onChangeText={value => actions.setAccount(value)}
-                    value={state.account} // 임시 상태 값을 사용
-                  />
-                </View>
-              </AnimatedButton>
-            </View>
+          <View
+            style={{
+              borderRadius: 4,
+              borderColor: COLOR_SEPARATOR,
+              borderWidth: 1,
+              marginTop: 5,
+              flexDirection: 'row',
+              //   justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <AnimatedButton
+              onPress={() => {
+                actions.changeBankDropDownVisible_home();
+              }}
+              style={{
+                paddingHorizontal: 10,
+              }}>
+              <B15>
+                {state.bankName !== undefined &&
+                state.bankName !== '' &&
+                state.bankName !== null
+                  ? state.bankName
+                  : '은행명'}
+                {'   '}|{' '}
+              </B15>
+            </AnimatedButton>
+            <TextInput
+              placeholder={
+                state.userData.account !== null &&
+                state.userData.account !== null &&
+                state.userData.account !== undefined
+                  ? `${state.userData.account}`
+                  : '계좌번호'
+              }
+              onChangeText={value => actions.setAccount(value)}
+              value={state.account}
+              style={{
+                fontFamily: B,
+                fontSize: 17,
+                // width: '80%',
+                paddingVertical: 12,
+                paddingHorizontal: 0,
+                // backgroundColor: 'red',
+              }}
+            />
           </View>
+
+          {state.bankDropDownVisible_home ? (
+            <View>
+              <AccountDropDown_home />
+            </View>
+          ) : null}
 
           <View
             style={{
               marginTop: 12,
             }}>
             <AnimatedButton
-              onPress={() => {
+              onPress={async () => {
+                // console.log(state.myTikklingData.tikkling_id);
                 actions.refundTikkling();
+                actions.changeBank();
                 actions.setShowEndModal(false);
               }}
               style={modalStyles.confirmButton}>

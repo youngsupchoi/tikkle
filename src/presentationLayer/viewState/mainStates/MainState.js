@@ -40,6 +40,11 @@ export const MainViewStateProvider = ({children}) => {
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
 
+  const [bankDropDownVisible_home, setBankDropDownVisible_home] =
+    useState(false);
+
+  const [bank, setBank] = useState([]);
+
   const [capturedImage, setCapturedImage] = useState(null);
   const [showEndModal, setShowEndModal] = useState(false);
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -88,6 +93,8 @@ export const MainViewStateProvider = ({children}) => {
     bankName,
     account,
     bankCode,
+    bankDropDownVisible_home,
+    bank,
   };
 
   const actions = {
@@ -122,6 +129,8 @@ export const MainViewStateProvider = ({children}) => {
     setBankName,
     setAccount,
     setBankCode,
+    setBankDropDownVisible_home,
+    setBank,
   };
 
   return (

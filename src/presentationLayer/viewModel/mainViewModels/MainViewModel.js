@@ -17,6 +17,8 @@ import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateSt
 import {getMyTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetMyTikklingData';
 import {updateCancleTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancleTikklingData';
 import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingRefundData';
+import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
+import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -70,7 +72,7 @@ export const useMainViewModel = () => {
     await actions.setRefreshing(false);
   };
 
-  const endTikklingGoods = () => {
+  const endTikklingGoods = async () => {
     updateMyAddressData(
       state.zonecode !== null ? state.zonecode : state.userData.zonecode,
       state.address !== null ? state.address : state.userData.address,
@@ -78,6 +80,7 @@ export const useMainViewModel = () => {
         ? state.detailAddress
         : state.userData.detail_address,
     ).then(res => topActions.setStateAndError(res));
+
     updateEndTikklingBuyData(
       state.myTikklingData.tikkling_id,
       state.zonecode !== null ? state.zonecode : state.userData.zonecode,
@@ -93,23 +96,22 @@ export const useMainViewModel = () => {
       });
   };
 
-  const refundTikkling = () => {
-    console.log(state.account, state.bankName);
+  const refundTikkling = async () => {
+    // console.log(state.account, state.bankCode);
 
-    updateEndTikklingRefundData(state.newAccount)
-      .then(res => {
-        topActions.setStateAndError(res);
+    await updateEndTikklingRefundData(
+      state.myTikklingData.tikkling_id,
+      state.bankCode,
+      state.account,
+    )
+      .then(async res => {
+        // console.log('###', res);
+        return topActions.setStateAndError(res);
       })
-      .then(topActions.showSnackbar('환급 신청이 완료되었습니다.', 1));
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'main',
-          params: {updated: new Date().toString()},
-        },
-      ],
-    });
+      .then(async res => {
+        topActions.showSnackbar('환급 신청이 완료되었습니다.', 1);
+      });
+
     navigation.reset({
       index: 0,
       routes: [
@@ -249,6 +251,47 @@ export const useMainViewModel = () => {
     }
   };
 
+  /**
+   * 환불 계좌 드롭다운 메뉴를 보여주는 함수
+   */
+  async function changeBankDropDownVisible_home() {
+    if (state.bankDropDownVisible_home == false) {
+      await actions.setBankDropDownVisible_home(true);
+    } else {
+      await actions.setBankDropDownVisible_home(false);
+    }
+  }
+
+  /**
+   * 은행 리스트를 가져오는 함수
+   */
+  async function bankList() {
+    try {
+      await getBankListData()
+        .then(async res => {
+          //console.log(res);
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          actions.setBank(res.DSdata);
+        });
+    } catch (error) {
+      topActions.showSnackbar('은행 목록 로드에 실패했습니다.', 0);
+    }
+  }
+
+  async function setNewbankButton(item) {
+    actions.setBankCode(item.bank_code);
+    actions.setBankName(item.bank_name);
+    actions.setBankDropDownVisible_home(false);
+  }
+
+  async function changeBank() {
+    await updateMyAccountData(state.account, state.bankCode).then(res => {
+      topActions.setStateAndError(res);
+    });
+  }
+
   return {
     ref: {
       ...ref,
@@ -275,6 +318,10 @@ export const useMainViewModel = () => {
       loadTikklingData,
       refundTikkling,
       cancel_action,
+      changeBankDropDownVisible_home,
+      bankList,
+      setNewbankButton,
+      changeBank,
     },
   };
 };
