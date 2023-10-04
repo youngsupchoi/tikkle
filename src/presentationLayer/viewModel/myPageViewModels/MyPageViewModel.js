@@ -200,6 +200,10 @@ export const useMyPageViewModel = () => {
 
   async function changeNick() {
     try {
+      if (state.newNick.length < 5) {
+        topActions.showSnackbar('닉네임은 5자 이상이어야 해요', 0);
+        return;
+      }
       await actions.setLoading_profileEdit(true);
 
       await updateMyNickData(state.newNick)
@@ -209,19 +213,25 @@ export const useMyPageViewModel = () => {
         .then(async res => {
           await MyPageData();
           await actions.setLoading_profileEdit(false);
-          // console.log('&&&: ', res);
           if (res.DSdata.success === true) {
             topActions.showSnackbar(res.DSmessage, 1);
           } else {
             topActions.showSnackbar('닉네임 업데이트에 실패했어요', 0);
           }
         });
-    } catch {
+      actions.setNewNick('');
+    } catch (err) {
       await actions.setLoading_profileEdit(false);
-      await topActions.showSnackbar(
-        '서버오류로 닉네임 업데이트에 실패했어요',
-        0,
-      );
+      const error = JSON.parse(err.message);
+      if (error.DScode) {
+        return;
+      } else {
+        await topActions.showSnackbar(
+          '서버오류로 닉네임 업데이트에 실패했어요',
+          0,
+        );
+        return;
+      }
     }
   }
 
