@@ -45,9 +45,9 @@ import Footer from '../../components/globalComponents/Headers/FooterComponent';
 export default function SendTikkleScreen() {
   const {ref, state, actions} = useMyPageViewModel();
 
-  useEffect(() => {
-    actions.MyPageData();
-  }, []);
+  // useEffect(() => {
+  //   actions.MyPageData();
+  // }, []);
 
   useEffect(() => {
     actions.setLoading_profile(false);
