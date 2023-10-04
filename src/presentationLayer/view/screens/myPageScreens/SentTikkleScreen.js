@@ -7,7 +7,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  HEADER_HEIGHT,
+  StatusBarHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B15,
   B17,
@@ -65,90 +68,97 @@ export default function SendTikkleScreen() {
 
   return (
     <View>
-      <View style={{backgroundColor: backgroundColor}}>
-        <FlatList
-          data={state.paymentHistoryData}
-          keyExtractor={(item, index) => String(item.send_at)}
-          ListHeaderComponent={SendTikkleScreenHeader}
-          stickyHeaderIndices={[0]}
-          ListFooterComponent={() => {
-            return (
-              <Footer />
-              // <View>
-              //   <View
-              //     style={{
-              //       flexDirection: 'row',
-              //       alignSelf: 'center',
-              //       paddingHorizontal: 24,
-              //       backgroundColorcolor: COLOR_BLACK,
-              //       marginBottom: 20,
-              //     }}>
-              //     <AnimatedButton
-              //       style={{
-              //         backgroundColor: COLOR_WHITE,
-              //         borderRadius: 5,
-              //         margin: 16,
-              //         elevation: 1,
-              //         borderColor: COLOR_SEPARATOR,
-              //         // height: 100,
-              //         borderWidth: 0.5,
-              //         // padding: 16,
-              //         paddingBottom: 16,
-              //         paddingTop: 24,
-              //         width: windowWidth - 32,
-              //         // backgroundColor: 'red',
-              //       }}
-              //       onPress={() => {
-              //         console.log('hihi22');
-              //       }}>
-              //       <View
-              //         style={{
-              //           width: '100%',
-              //           height: 20,
-              //           alignItems: 'center',
-              //           justifyContent: 'center',
-              //         }}>
-              //         <B15>더보기</B15>
-              //       </View>
-              //     </AnimatedButton>
-              //   </View>
-              // </View>
-            );
-          }}
-          ListEmptyComponent={() => {
-            return (
-              <View style={{}}>
-                <View
-                  style={{
-                    backgroundColor: COLOR_WHITE,
-                    borderRadius: 16,
-                    margin: 16,
-                    elevation: 1,
-                    borderColor: COLOR_SEPARATOR,
-                    // height: 100,
-                    borderWidth: 0.5,
-                    // padding: 16,
-                    paddingBottom: 16,
-                    paddingTop: 24,
-                    // backgroundColor: 'red',
-                  }}>
+      <View
+        style={{
+          backgroundColor: backgroundColor,
+        }}>
+        <SendTikkleScreenHeader />
+        <View style={{marginTop: HEADER_HEIGHT}}>
+          <FlatList
+            data={state.paymentHistoryData}
+            keyExtractor={(item, index) => String(item.send_at)}
+            // ListHeaderComponent={SendTikkleScreenHeader}
+            // stickyHeaderIndices={[0]}
+            ListFooterComponent={() => {
+              return (
+                <Footer />
+                // <View>
+                //   <View
+                //     style={{
+                //       flexDirection: 'row',
+                //       alignSelf: 'center',
+                //       paddingHorizontal: 24,
+                //       backgroundColorcolor: COLOR_BLACK,
+                //       marginBottom: 20,
+                //     }}>
+                //     <AnimatedButton
+                //       style={{
+                //         backgroundColor: COLOR_WHITE,
+                //         borderRadius: 5,
+                //         margin: 16,
+                //         elevation: 1,
+                //         borderColor: COLOR_SEPARATOR,
+                //         // height: 100,
+                //         borderWidth: 0.5,
+                //         // padding: 16,
+                //         paddingBottom: 16,
+                //         paddingTop: 24,
+                //         width: windowWidth - 32,
+                //         // backgroundColor: 'red',
+                //       }}
+                //       onPress={() => {
+                //         console.log('hihi22');
+                //       }}>
+                //       <View
+                //         style={{
+                //           width: '100%',
+                //           height: 20,
+                //           alignItems: 'center',
+                //           justifyContent: 'center',
+                //         }}>
+                //         <B15>더보기</B15>
+                //       </View>
+                //     </AnimatedButton>
+                //   </View>
+                // </View>
+              );
+            }}
+            ListEmptyComponent={() => {
+              return (
+                <View style={{}}>
                   <View
                     style={{
-                      width: '100%',
-                      height: 120,
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      backgroundColor: COLOR_WHITE,
+                      borderRadius: 16,
+                      margin: 16,
+                      marginTop: 0,
+                      elevation: 1,
+                      borderColor: COLOR_SEPARATOR,
+                      // height: 100,
+                      borderWidth: 0.5,
+                      // padding: 16,
+                      paddingBottom: 16,
+                      paddingTop: 24,
+                      // backgroundColor: 'red',
                     }}>
-                    <M15>아직 보낸 티클 내역이 없어요.</M15>
+                    <View
+                      style={{
+                        width: '100%',
+                        height: 120,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <M15>아직 보낸 티클 내역이 없어요.</M15>
+                    </View>
                   </View>
                 </View>
-              </View>
-            );
-          }}
-          renderItem={({item, index}) => {
-            return <SendTikkle item={item} />;
-          }}
-        />
+              );
+            }}
+            renderItem={({item, index}) => {
+              return <SendTikkle item={item} />;
+            }}
+          />
+        </View>
       </View>
     </View>
   );
