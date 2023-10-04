@@ -187,7 +187,7 @@ export default function ProfileScreen() {
                 <ArrowRight
                   width={24}
                   height={24}
-                  stroke={COLOR_BLACK}
+                  stroke={COLOR_WHITE}
                   strokeWidth={1.5}
                 />
               </View>

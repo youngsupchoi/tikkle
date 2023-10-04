@@ -88,7 +88,7 @@ export default function HistoryDetailScreen(route) {
         setList_data(res.DSdata.info);
       })
       .then(async res => {
-        console.log('#### : ', tikkle_data);
+        //console.log('#### : ', tikkle_data);
         let sum = 0;
         tikkle_data.map(item => {
           if (item.state_id != 2) {
@@ -96,7 +96,7 @@ export default function HistoryDetailScreen(route) {
           }
         });
         setTikkle_sum(sum);
-        console.log(tikkle_sum);
+        //console.log(tikkle_sum);
       });
   }
 

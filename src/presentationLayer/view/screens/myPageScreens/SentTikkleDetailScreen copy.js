@@ -23,7 +23,6 @@ import {
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-  COLOR_PRIMARY,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
@@ -48,7 +47,6 @@ import SendTikkle from 'src/presentationLayer/view/components/myPageComponents/s
 export default function SentTikkleDetailScreen({route}) {
   const item = route.params.item;
   const {ref, state, actions} = useMyPageViewModel();
-
   return (
     <View>
       <SendTikkleScreenHeader />
@@ -89,35 +87,21 @@ export default function SentTikkleDetailScreen({route}) {
           }}
           renderItem={({item, index}) => {
             return (
-              <View style={{marginBottom: 15}}>
+              <View style={{}}>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     paddingHorizontal: 24,
-                    marginTop: 15,
+                    marginTop: 0,
                     alignItems: 'center',
                   }}>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <B17 customStyle={{marginLeft: 3}}>
+                    <B20 customStyle={{marginLeft: 3}}>
                       To. {item.user_name}
-                    </B17>
-                  </View>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      right: 0,
-                      width: 160,
-                    }}>
-                    <M15>
-                      {item.send_at.split('T')[0]}
-                      {'   '}
-                      {item.send_at.split('T')[1].split('.')[0]}
-                    </M15>
+                    </B20>
                   </View>
                 </View>
-
                 <View
                   style={{
                     backgroundColor: COLOR_WHITE,
@@ -129,14 +113,21 @@ export default function SentTikkleDetailScreen({route}) {
                     // height: 100,
                     borderWidth: 0.5,
                     // padding: 16,
-                    // paddingBottom: 16,
-                    // paddingTop: 15,
+                    paddingBottom: 16,
+                    paddingTop: 15,
+                    alignItems: 'center',
                     // backgroundColor: 'red',
                   }}>
                   <View
                     style={{
+                      position: 'absolute',
+                      marginTop: 5,
+                      right: 15,
+                    }}></View>
+                  <View
+                    style={{
                       width: '100%',
-                      height: 125,
+                      height: windowWidth * 0.35,
                       alignItems: 'top',
                       justifyContent: 'space-between',
                       flexDirection: 'row',
@@ -154,54 +145,74 @@ export default function SentTikkleDetailScreen({route}) {
                           borderRadius: 8,
                           borderWidth: 1,
                           borderColor: COLOR_SEPARATOR,
-                          marginLeft: 7,
                         }}
                       />
                     </View>
-
-                    {/*상품 정보*/}
                     <View
                       style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        margin: 15,
+                        paddingLeft: 5,
+                        width: windowWidth * 0.55,
+                        height: windowWidth * 0.25,
                       }}>
-                      <View
-                        style={{
-                          width: '40%',
-                        }}>
-                        <View style={{marginBottom: 5}}>
-                          <B15>상품명 :</B15>
-                        </View>
-                        <View style={{marginBottom: 5}}>
-                          <B15>브랜드 :</B15>
-                        </View>
-                        <View style={{marginBottom: 5}}>
-                          <B15>구매한 티클 개수 :</B15>
-                        </View>
-                      </View>
-                      <View
-                        style={{
-                          width: '75%',
-                        }}>
-                        <View style={{marginBottom: 5}}>
-                          <B15>{item.product_name}</B15>
-                        </View>
-                        <View style={{marginBottom: 5}}>
-                          <B15>{item.brand_name}</B15>
-                        </View>
-                        <View style={{marginBottom: 5}}>
-                          <B15>{item.send_quantity} 개</B15>
-                        </View>
-                      </View>
+                      <M15>{item.brand_name}</M15>
+                      <M15>{item.product_name}</M15>
+                      <M15>{item.product_price}원</M15>
+                      <M15>{item.send_quantity}개</M15>
                     </View>
                   </View>
-                </View>
+                  <View
+                    style={{
+                      width: '90%',
+                      height: 1,
+                      backgroundColor: COLOR_BLACK,
+                    }}></View>
+                  <View
+                    style={{
+                      width: '100%',
+                      height: 150,
+                      alignItems: 'top',
+                      justifyContent: 'space-between',
+                      flexDirection: 'row',
+                      padding: windowWidth * 0.035,
+                    }}>
+                    <View>
+                      <Image
+                        resizeMode="cover"
+                        source={{
+                          uri: item.product_image,
+                        }}
+                        style={{
+                          width: windowWidth * 0.25,
+                          height: windowWidth * 0.25,
+                          borderRadius: 8,
+                          borderWidth: 1,
+                          borderColor: COLOR_SEPARATOR,
+                        }}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        paddingLeft: 5,
+                        width: windowWidth * 0.55,
+                        height: windowWidth * 0.25,
+                      }}>
+                      <M15>{item.brand_name}</M15>
+                      <M15>{item.product_name}</M15>
+                      <M15>{item.product_price}원</M15>
+                      <M15>{item.send_quantity}개</M15>
+                    </View>
+                  </View>
 
-                <AnimatedButton onPress={console.log('ITEM : ', item)}>
-                  <B15>버튼 </B15>
-                </AnimatedButton>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      bottom: -30,
+                      right: 8,
+                      width: 200,
+                    }}>
+                    <M15>{item.send_at}</M15>
+                  </View>
+                </View>
               </View>
             );
           }}
