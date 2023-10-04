@@ -78,6 +78,7 @@ export const useMainViewModel = () => {
         ? state.detailAddress
         : state.userData.detail_address,
     ).then(res => topActions.setStateAndError(res));
+
     updateEndTikklingBuyData(
       state.myTikklingData.tikkling_id,
       state.zonecode !== null ? state.zonecode : state.userData.zonecode,
@@ -89,6 +90,7 @@ export const useMainViewModel = () => {
       .then(res => topActions.setStateAndError(res))
       .then(() => {
         topActions.showSnackbar('배송요청이 완료되었습니다.', 1);
+        console.log(state.zonecode, state.address, state.detailAddress);
         loadData();
       });
   };
