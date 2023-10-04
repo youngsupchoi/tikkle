@@ -41,6 +41,7 @@ import Location from 'src/assets/icons/Location';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function StartTikklingScreen() {
   const {state, actions} = useStartTikklingViewModel();
@@ -581,6 +582,7 @@ export default function StartTikklingScreen() {
         >
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
+        <Footer style={{marginBottom: 120}} />
       </ScrollView>
 
       <PostCodeModal state={state} actions={actions} />
