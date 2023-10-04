@@ -72,8 +72,8 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
 const styles = StyleSheet.create({
   backHeaderContainer: {
     width: '100%',
-    paddingTop: StatusBarHeight,
-    height: StatusBarHeight + HEADER_HEIGHT,
+    // paddingTop: StatusBarHeight,
+    height: HEADER_HEIGHT,
     paddingHorizontal: SPACING_2,
     alignItems: 'center',
     justifyContent: 'space-between',

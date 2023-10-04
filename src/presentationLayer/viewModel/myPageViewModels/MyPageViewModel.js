@@ -453,8 +453,14 @@ export const useMyPageViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(async res => {
-          navigation.navigate('SignUpNavigator', {
-            updated_at: new Date().toString(),
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'SignUpNavigator',
+                params: {updated: new Date().toString()},
+              },
+            ],
           });
           if (res.DSdata.success === true) {
             topActions.showSnackbar('회원 탈퇴에 성공했어요', 1);
@@ -472,8 +478,14 @@ export const useMyPageViewModel = () => {
    */
   async function logout() {
     AsyncStorage.clear();
-    navigation.navigate('SignUpNavigator', {
-      updated_at: new Date().toString(),
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'SignUpNavigator',
+          params: {updated: new Date().toString()},
+        },
+      ],
     });
   }
 
