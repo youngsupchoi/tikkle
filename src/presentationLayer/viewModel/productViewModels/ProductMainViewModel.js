@@ -31,9 +31,9 @@ export const useProductMainViewModel = () => {
   };
 
   const onRefresh = async () => {
-    actions.setRefreshing(true);
+    //actions.setRefreshing(true);
     await loadData();
-    actions.setRefreshing(false);
+    //actions.setRefreshing(false);
   };
 
   return {

@@ -85,9 +85,9 @@ export const useMyPageViewModel = () => {
   };
 
   const onRefresh = async () => {
-    await actions.setRefreshing(true);
+    //await actions.setRefreshing(true);
     await loadData();
-    await actions.setRefreshing(false);
+    //await actions.setRefreshing(false);
   };
 
   /**
