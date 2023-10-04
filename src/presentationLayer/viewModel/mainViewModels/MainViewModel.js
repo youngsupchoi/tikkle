@@ -64,9 +64,9 @@ export const useMainViewModel = () => {
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onRefresh = async () => {
-    await actions.setRefreshing(true);
+    //await actions.setRefreshing(true);
     await loadData();
-    await actions.setRefreshing(false);
+    //await actions.setRefreshing(false);
   };
 
   const endTikklingGoods = () => {

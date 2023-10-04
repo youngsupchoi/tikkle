@@ -388,7 +388,7 @@ export default function FriendsManagementScreen() {
               return (
                 <View style={{height: 600}}>
                   <View style={{height: 100}} />
-                  <Footer style={{}} />
+                  <Footer />
                 </View>
               );
             }}
