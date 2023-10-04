@@ -101,6 +101,9 @@ export default function ProfileScreen() {
               </View>
 
               <AnimatedButton
+                onPress={() => {
+                  actions.navigation.navigate('editProfile');
+                }}
                 style={{
                   padding: 10,
                 }}>
