@@ -1,4 +1,11 @@
-import {View, StyleSheet, ScrollView, Image, Button} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Button,
+  TextInput,
+} from 'react-native';
 // import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
 import Postcode from '@actbase/react-daum-postcode';
 import Modal from 'react-native-modal';
@@ -12,6 +19,7 @@ import {
   B15,
   B20,
   EB,
+  B,
   M11,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
@@ -41,6 +49,7 @@ import Location from 'src/assets/icons/Location';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function StartTikklingScreen() {
   const {state, actions} = useStartTikklingViewModel();
@@ -515,11 +524,7 @@ export default function StartTikklingScreen() {
                 </B15>
               </View>
             </AnimatedButton>
-            <AnimatedButton
-              onPress={() => {
-                // navigation.navigate('searchAddress');
-                actions.setShowDetailModal(true);
-              }}
+            <View
               style={{
                 marginTop: 12,
                 flexDirection: 'row',
@@ -554,13 +559,24 @@ export default function StartTikklingScreen() {
                     strokeWidth={1.5}
                   />
                 </View>
-                <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                  {state.userData.detail_address !== null
-                    ? `${state.userData.detail_address}`
-                    : '상세주소 입력'}
-                </B15>
+                <TextInput
+                  placeholder={
+                    state.userData.detail_address !== null
+                      ? `${state.userData.detail_address}`
+                      : '상세주소 입력'
+                  }
+                  style={{
+                    fontFamily: B,
+                    fontSize: 15,
+                    marginLeft: 12,
+                    width: '85%',
+                    color: COLOR_GRAY,
+                  }}
+                  onChangeText={value => actions.setDetailAddress(value)}
+                  value={state.detailAddress}
+                />
               </View>
-            </AnimatedButton>
+            </View>
           </View>
         </View>
 
@@ -573,14 +589,15 @@ export default function StartTikklingScreen() {
             alignItems: 'center',
             justifyContent: 'center',
             width: windowWidth - 32,
-            marginTop: 24,
-            marginBottom: SPACING_6 + 8,
+            marginTop: 0,
+            marginBottom: 15,
             alignSelf: 'center',
           }}
           disabled={!state.isButtonEnabled} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
         >
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
+        <Footer />
       </ScrollView>
 
       <PostCodeModal state={state} actions={actions} />

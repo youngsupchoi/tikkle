@@ -47,6 +47,7 @@ export const useMainViewModel = () => {
       await actions.setLoading(false);
     }
   };
+
   const loadTikklingData = async () => {
     try {
       await actions.setLoading(true);
