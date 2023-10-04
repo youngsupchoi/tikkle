@@ -40,6 +40,7 @@ export const MyPageViewStateProvider = ({children}) => {
   const [detailAddress, setDetailAddress] = useState('');
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
+  const [timeUnitlNextBirthday, setTimeUnitlNextBirthday] = useState(0);
 
   const [bankDropDownVisible, setBankDropDownVisible] = useState(false);
   const [inquireLoading, setInquireLoading] = useState(false);
@@ -83,6 +84,7 @@ export const MyPageViewStateProvider = ({children}) => {
     selectedBankCode,
     userDeleteModal,
     logoutModal,
+    timeUnitlNextBirthday,
   };
 
   const actions = {
@@ -112,6 +114,7 @@ export const MyPageViewStateProvider = ({children}) => {
     setSelectedBankCode,
     setUserDeleteModal,
     setLogoutModal,
+    setTimeUnitlNextBirthday,
   };
 
   return (

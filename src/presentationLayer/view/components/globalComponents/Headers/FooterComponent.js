@@ -33,21 +33,23 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {CONTRACT_URL, PRIVATECONTRACT_URL} from '@env';
 
-export default function Footer() {
+export default function Footer({style}) {
   return (
     <View
-      style={{
-        height: 250,
-        alignItems: 'center',
-        justifyContent: 'center',
-        // backgroundColor: 'green',
-        flexDirection: 'column',
-        borderTopWidth: 0.5,
-        borderTopColor: COLOR_GRAY,
-        margin: windowWidth * 0.03,
-        marginBottom: 80,
-        width: windowWidth * 0.94,
-      }}>
+      style={[
+        {
+          height: 250,
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          borderTopWidth: 0.5,
+          borderTopColor: COLOR_GRAY,
+          margin: windowWidth * 0.03,
+          marginBottom: 100,
+          width: windowWidth * 0.94,
+        },
+        style, // 외부에서 전달된 스타일
+      ]}>
       <View
         style={{
           width: '100%',

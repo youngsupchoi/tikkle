@@ -384,18 +384,14 @@ export default function FriendsManagementScreen() {
               }
               // : null
             }
-            ListFooterComponent={
-              state.getFriendData.length > 0
-                ? () => {
-                    return (
-                      <View style={{height: windowHeight}}>
-                        <View style={{height: 100}} />
-                        <Footer />
-                      </View>
-                    );
-                  }
-                : null
-            }
+            ListFooterComponent={() => {
+              return (
+                <View style={{height: 600}}>
+                  <View style={{height: 100}} />
+                  <Footer />
+                </View>
+              );
+            }}
             renderItem={({item, index}) => {
               return (
                 <View

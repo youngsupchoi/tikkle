@@ -63,7 +63,44 @@ export const useMyPageViewModel = () => {
       console.log("[Error in MyPageViewModel's get_user_info]\n", error);
     }
   }
+  const calculateDaysUntilNextBirthday = birthdayString => {
+    const todayTemp = getKoreanDate();
+    const todayStr = todayTemp.toISOString();
+    const todayYear = parseInt(todayStr.slice(0, 4));
+    const todayMonth = parseInt(todayStr.slice(5, 7));
+    const todayDay = parseInt(todayStr.slice(8, 10));
+    const birthMonth = parseInt(birthdayString.slice(5, 7));
+    const birthDay = parseInt(birthdayString.slice(8, 10));
 
+    // Calculate the next birthday for this yeard
+    let currentYearBirthday = new Date(
+      `${todayYear}-${birthMonth}-${birthDay}`,
+    );
+
+    const today = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
+    console.log('currentYearBirthday : ', currentYearBirthday);
+    console.log('today : ', today);
+
+    // Calculate the time difference in milliseconds
+    const timeDifference =
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24);
+    console.log('timeDiff : ', timeDifference);
+
+    if (timeDifference == 0) {
+      return `오늘은 생일이애요!`;
+    } else if (timeDifference < 0) {
+      currentYearBirthday = new Date(
+        `${todayYear + 1}-${birthMonth}-${birthDay}`,
+      );
+    }
+
+    const timeUntilNextBirthday = Math.floor(
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24),
+    );
+    actions.setTimeUnitlNextBirthday(timeUntilNextBirthday);
+
+    return;
+  };
   const loadData = async () => {
     try {
       await actions.setLoading_profile(true);
@@ -76,6 +113,7 @@ export const useMyPageViewModel = () => {
         actions.setPaymentHistoryData(res.DSdata.payment);
         actions.setZonecode(res.DSdata.user_info.zonecode);
         actions.setAddress(res.DSdata.user_info.address);
+        calculateDaysUntilNextBirthday(res.DSdata.user_info.birthday);
       });
     } catch (error) {
       console.error('Error loading data:', error);
@@ -85,9 +123,9 @@ export const useMyPageViewModel = () => {
   };
 
   const onRefresh = async () => {
-    await actions.setRefreshing(true);
+    //await actions.setRefreshing(true);
     await loadData();
-    await actions.setRefreshing(false);
+    //await actions.setRefreshing(false);
   };
 
   /**
@@ -109,43 +147,6 @@ export const useMyPageViewModel = () => {
    * @param {string(date)} birthdayString
    * @returns
    */
-  function calculateDaysUntilNextBirthday(birthdayString) {
-    const todayTemp = getKoreanDate();
-    const todayStr = todayTemp.toISOString();
-    const todayYear = parseInt(todayStr.slice(0, 4));
-    const todayMonth = parseInt(todayStr.slice(5, 7));
-    const todayDay = parseInt(todayStr.slice(8, 10));
-    const birthMonth = parseInt(birthdayString.slice(5, 7));
-    const birthDay = parseInt(birthdayString.slice(8, 10));
-
-    // Calculate the next birthday for this yeard
-    let currentYearBirthday = new Date(
-      `${todayYear}-${birthMonth}-${birthDay}`,
-    );
-
-    const today = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
-
-    console.log('currentYearBirthday : ', currentYearBirthday);
-    console.log('today : ', today);
-
-    // Calculate the time difference in milliseconds
-    const timeDifference =
-      (currentYearBirthday - today) / (1000 * 60 * 60 * 24);
-    console.log('timeDiff : ', timeDifference);
-
-    if (timeDifference == 0) {
-      return `오늘은 생일이애요!`;
-    } else if (timeDifference < 0) {
-      currentYearBirthday = new Date(
-        `${todayYear + 1}-${birthMonth}-${birthDay}`,
-      );
-    }
-
-    const timeUntilNextBirthday = Math.floor(
-      (currentYearBirthday - today) / (1000 * 60 * 60 * 24),
-    );
-    return `생일이 ${timeUntilNextBirthday}일 남았어요.`;
-  }
 
   /**
    * customerCenterScreen에서 서비스 이용 약관 링크를 연결하는 함수
