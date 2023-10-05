@@ -30,7 +30,7 @@ export default function PaymentScreen(route) {
       <B20 customStyle={{}}>여기서 결제합니다.</B20>
       <AnimatedButton
         onPress={() => {
-          navigation.navigate('paymentSuccess', data);
+          navigation.navigate('hectoPayment', data);
         }}
         style={{
           backgroundColor: COLOR_PRIMARY,
