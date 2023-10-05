@@ -21,7 +21,7 @@ export function HectoPaymentScreen({navigation}) {
 
   /* [필수입력] 결제에 필요한 데이터를 입력합니다. */
   const data = {
-    pg: 'settle_acc.C231010638',
+    pg: 'html5_inicis',
     pay_method: 'trans',
     merchant_uid: `mid_${new Date().getTime()}`,
     name: '아임포트 결제데이터 분석',
