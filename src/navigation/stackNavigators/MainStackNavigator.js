@@ -32,6 +32,7 @@ import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/ti
 import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
 import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationSettingState';
 import EditProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/EditProfileScreen';
+import HectoPaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/HectoPaymentScreen';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -202,6 +203,7 @@ export default function MainStackNavigator() {
           component={WishlistManagementScreen}
         />
         <MainStack.Screen name="payment" component={PaymentScreen} />
+        <MainStack.Screen name="hectoPayment" component={HectoPaymentScreen} />
         <MainStack.Screen
           name="paymentSuccess"
           component={PaymentSuccessScreen}
