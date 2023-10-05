@@ -16,12 +16,12 @@ import GlobalLoader from 'src/presentationLayer/view/components/globalComponents
 export function HectoPaymentScreen({navigation}) {
   /* [필수입력] 결제 종료 후, 라우터를 변경하고 결과를 전달합니다. */
   function callback(response) {
-    navigation.replace('PaymentResult', response);
+    navigation.replace('payment', response);
   }
 
   /* [필수입력] 결제에 필요한 데이터를 입력합니다. */
   const data = {
-    pg: 'html5_inicis',
+    pg: 'settle_acc.C231010638',
     pay_method: 'trans',
     merchant_uid: `mid_${new Date().getTime()}`,
     name: '아임포트 결제데이터 분석',
@@ -44,7 +44,6 @@ export function HectoPaymentScreen({navigation}) {
   return (
     <IMP.Payment
       userCode={'imp11626661'} // 가맹점 식별코드
-      tierCode={'AAA'} // 티어 코드: agency 기능 사용자에 한함
       loading={<GlobalLoader />} // 로딩 컴포넌트
       data={data} // 결제 데이터
       callback={callback} // 결제 종료 후 콜백
