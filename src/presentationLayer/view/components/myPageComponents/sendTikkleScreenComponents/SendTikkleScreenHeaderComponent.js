@@ -59,10 +59,7 @@ export default function SendTikkleScreenHeader() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 0,
-    backgroundColor: backgroundColor,
     flex: 1,
-    marginBottom: 20,
   },
   header: {
     flexDirection: 'row',
@@ -70,6 +67,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     height: HEADER_HEIGHT,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
   },
   small_header: {
     flexDirection: 'row',

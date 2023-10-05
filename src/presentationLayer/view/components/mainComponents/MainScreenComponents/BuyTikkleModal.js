@@ -145,7 +145,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   };
 
   const buttonPress = async () => {
-    if (state.myTikklingData.state_id == 1) {
+    if (data.state_id == 1) {
       actions.setPaymentButtonPressed(true);
       await post_tikkling_sendtikkle(data).then(res => {
         // console.log(res);
@@ -161,7 +161,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
       });
     } else {
       actions.setPaymentButtonPressed(true);
-      await createBuyMyTikkleData(state.myTikklingData.tikkling_id)
+      await createBuyMyTikkleData(data.tikkling_id)
         .then(res => {
           topActions.setStateAndError(res);
           return res;
@@ -197,7 +197,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         animationOut="slideOutDown" // 이 부분이 추가되었습니다.
       >
         <View style={styles.modalContent}>
-          {state.myTikklingData.state_id == 1 ? (
+          {data.state_id == 1 ? (
             <View>
               <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
               <View style={{marginTop: 24}}>
@@ -262,10 +262,9 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 <B17 customStyle={styles.itemTitle}>티클 수</B17>
               </View>
               <M20 customStyle={styles.itemDetail}>
-                {state.myTikklingData.state_id == 1
+                {data.state_id == 1
                   ? selectedValue
-                  : state.myTikklingData.tikkle_quantity -
-                    state.myTikklingData.tikkle_count}
+                  : data.tikkle_quantity - data.tikkle_count}
                 개
               </M20>
             </View>
@@ -281,11 +280,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 <B17 customStyle={styles.itemTitle}>결제할 금액</B17>
               </View>
               <M20 customStyle={styles.itemDetail}>
-                {state.myTikklingData.state_id == 1
+                {data.state_id == 1
                   ? (selectedValue * 5000).toLocaleString()
                   : (
-                      (state.myTikklingData.tikkle_quantity -
-                        state.myTikklingData.tikkle_count) *
+                      (data.tikkle_quantity - data.tikkle_count) *
                       5000
                     ).toLocaleString()}
                 원

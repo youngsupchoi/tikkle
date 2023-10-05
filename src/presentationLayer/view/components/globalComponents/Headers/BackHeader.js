@@ -10,6 +10,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
 import {
+  COLOR_BACKGROUND_WHITE,
   COLOR_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
@@ -18,6 +19,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {
   B15,
+  B17,
   UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
@@ -40,6 +42,9 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
           strokeWidth={1}
         />
       </AnimatedButton>
+      <View style={{width: 200}}>
+        <B17>티클링 시작</B17>
+      </View>
       <View style={styles.text}>
         <UNIQUE22 customStyle={{marginLeft: SPACING_1 / 2}}>
           {children}
@@ -49,9 +54,9 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
         style={{
           padding: 12,
           paddingVertical: 8,
-          borderColor: COLOR_SEPARATOR,
-          backgroundColor: COLOR_WHITE,
-          borderWidth: 3,
+          borderColor: 'backgroundColor',
+          backgroundColor: 'backgroundColor',
+          borderWidth: 0,
           borderRadius: 40,
           flexDirection: 'row',
           marginLeft: 16,
@@ -72,8 +77,8 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
 const styles = StyleSheet.create({
   backHeaderContainer: {
     width: '100%',
-    paddingTop: StatusBarHeight,
-    height: StatusBarHeight + HEADER_HEIGHT,
+    // paddingTop: StatusBarHeight,
+    height: HEADER_HEIGHT,
     paddingHorizontal: SPACING_2,
     alignItems: 'center',
     justifyContent: 'space-between',

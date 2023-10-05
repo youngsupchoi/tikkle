@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import {
   B15,
   B22,
   EB,
   M11,
+  B,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -95,11 +96,7 @@ export default function GoodsReceptionModal() {
                 </View>
               </AnimatedButton>
               <B15 customStyle={{marginTop: 16}}>상세주소</B15>
-              <AnimatedButton
-                onPress={() => {
-                  // actions.navigation.navigate('searchAddress');
-                  actions.setShowDetailModal(true);
-                }}
+              <View
                 style={{
                   marginTop: 12,
                   flexDirection: 'row',
@@ -133,17 +130,27 @@ export default function GoodsReceptionModal() {
                       strokeWidth={1.5}
                     />
                   </View>
-                  <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                    {
+
+                  <TextInput
+                    placeholder={
                       state.detailAddress // state.detailAddress가 존재하는 경우
                         ? `${state.detailAddress}`
                         : state.userData.detail_address // state.userData.detail_address가 존재하는 경우
                         ? `${state.userData.detail_address}`
                         : '상세주소 입력' // 둘 다 존재하지 않는 경우
                     }
-                  </B15>
+                    style={{
+                      fontFamily: B,
+                      fontSize: 15,
+                      marginLeft: 12,
+                      width: '85%',
+                      color: COLOR_GRAY,
+                    }}
+                    onChangeText={value => actions.setDetailAddress(value)}
+                    value={state.detailAddress}
+                  />
                 </View>
-              </AnimatedButton>
+              </View>
             </View>
           </View>
 
@@ -152,9 +159,16 @@ export default function GoodsReceptionModal() {
               marginTop: 12,
             }}>
             <AnimatedButton
-              onPress={() => {
+              onPress={async () => {
+                console.log(state.myTikklingData.tikkling_id);
                 actions.endTikklingGoods();
                 actions.setShowEndModal(false);
+                actions.navigation.reset({
+                  index: 0,
+                  routes: [
+                    {name: 'main', params: {updated: new Date().toString()}},
+                  ],
+                });
               }}
               style={modalStyles.confirmButton}>
               <B15 customStyle={modalStyles.whiteText}>이 주소로 배송 요청</B15>

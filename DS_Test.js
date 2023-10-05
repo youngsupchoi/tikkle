@@ -57,6 +57,7 @@ import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/Upd
 import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
 
 import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
+import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
@@ -65,7 +66,7 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await getMyPageScreenData();
+    const axiosResponse = await getBankListData();
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);

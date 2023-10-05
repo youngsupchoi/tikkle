@@ -11,7 +11,7 @@ import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikkli
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
 import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
-import {useNavigation} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
+import {useNavigation, useRoute} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
@@ -30,6 +30,8 @@ export const useMyPageViewModel = () => {
   const {topActions} = useTopViewModel();
   const navigation = useNavigation();
 
+  const temp_R = useRoute();
+  const route_data = temp_R.params;
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
@@ -61,7 +63,44 @@ export const useMyPageViewModel = () => {
       console.log("[Error in MyPageViewModel's get_user_info]\n", error);
     }
   }
+  const calculateDaysUntilNextBirthday = birthdayString => {
+    const todayTemp = getKoreanDate();
+    const todayStr = todayTemp.toISOString();
+    const todayYear = parseInt(todayStr.slice(0, 4));
+    const todayMonth = parseInt(todayStr.slice(5, 7));
+    const todayDay = parseInt(todayStr.slice(8, 10));
+    const birthMonth = parseInt(birthdayString.slice(5, 7));
+    const birthDay = parseInt(birthdayString.slice(8, 10));
 
+    // Calculate the next birthday for this yeard
+    let currentYearBirthday = new Date(
+      `${todayYear}-${birthMonth}-${birthDay}`,
+    );
+
+    const today = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
+    console.log('currentYearBirthday : ', currentYearBirthday);
+    console.log('today : ', today);
+
+    // Calculate the time difference in milliseconds
+    const timeDifference =
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24);
+    console.log('timeDiff : ', timeDifference);
+
+    if (timeDifference == 0) {
+      return `오늘은 생일이애요!`;
+    } else if (timeDifference < 0) {
+      currentYearBirthday = new Date(
+        `${todayYear + 1}-${birthMonth}-${birthDay}`,
+      );
+    }
+
+    const timeUntilNextBirthday = Math.floor(
+      (currentYearBirthday - today) / (1000 * 60 * 60 * 24),
+    );
+    actions.setTimeUnitlNextBirthday(timeUntilNextBirthday);
+
+    return;
+  };
   const loadData = async () => {
     try {
       await actions.setLoading_profile(true);
@@ -74,6 +113,7 @@ export const useMyPageViewModel = () => {
         actions.setPaymentHistoryData(res.DSdata.payment);
         actions.setZonecode(res.DSdata.user_info.zonecode);
         actions.setAddress(res.DSdata.user_info.address);
+        calculateDaysUntilNextBirthday(res.DSdata.user_info.birthday);
       });
     } catch (error) {
       console.error('Error loading data:', error);
@@ -83,9 +123,9 @@ export const useMyPageViewModel = () => {
   };
 
   const onRefresh = async () => {
-    await actions.setRefreshing(true);
+    //await actions.setRefreshing(true);
     await loadData();
-    await actions.setRefreshing(false);
+    //await actions.setRefreshing(false);
   };
 
   /**
@@ -107,43 +147,6 @@ export const useMyPageViewModel = () => {
    * @param {string(date)} birthdayString
    * @returns
    */
-  function calculateDaysUntilNextBirthday(birthdayString) {
-    const todayTemp = getKoreanDate();
-    const todayStr = todayTemp.toISOString();
-    const todayYear = parseInt(todayStr.slice(0, 4));
-    const todayMonth = parseInt(todayStr.slice(5, 7));
-    const todayDay = parseInt(todayStr.slice(8, 10));
-    const birthMonth = parseInt(birthdayString.slice(5, 7));
-    const birthDay = parseInt(birthdayString.slice(8, 10));
-
-    // Calculate the next birthday for this yeard
-    let currentYearBirthday = new Date(
-      `${todayYear}-${birthMonth}-${birthDay}`,
-    );
-
-    const today = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
-
-    console.log('currentYearBirthday : ', currentYearBirthday);
-    console.log('today : ', today);
-
-    // Calculate the time difference in milliseconds
-    const timeDifference =
-      (currentYearBirthday - today) / (1000 * 60 * 60 * 24);
-    console.log('timeDiff : ', timeDifference);
-
-    if (timeDifference == 0) {
-      return `오늘은 생일이애요!`;
-    } else if (timeDifference < 0) {
-      currentYearBirthday = new Date(
-        `${todayYear + 1}-${birthMonth}-${birthDay}`,
-      );
-    }
-
-    const timeUntilNextBirthday = Math.floor(
-      (currentYearBirthday - today) / (1000 * 60 * 60 * 24),
-    );
-    return `생일이 ${timeUntilNextBirthday}일 남았어요.`;
-  }
 
   /**
    * customerCenterScreen에서 서비스 이용 약관 링크를 연결하는 함수
@@ -197,6 +200,10 @@ export const useMyPageViewModel = () => {
 
   async function changeNick() {
     try {
+      if (state.newNick.length < 5) {
+        topActions.showSnackbar('닉네임은 5자 이상이어야 해요', 0);
+        return;
+      }
       await actions.setLoading_profileEdit(true);
 
       await updateMyNickData(state.newNick)
@@ -206,19 +213,25 @@ export const useMyPageViewModel = () => {
         .then(async res => {
           await MyPageData();
           await actions.setLoading_profileEdit(false);
-          // console.log('&&&: ', res);
           if (res.DSdata.success === true) {
             topActions.showSnackbar(res.DSmessage, 1);
           } else {
             topActions.showSnackbar('닉네임 업데이트에 실패했어요', 0);
           }
         });
-    } catch {
+      actions.setNewNick('');
+    } catch (err) {
       await actions.setLoading_profileEdit(false);
-      await topActions.showSnackbar(
-        '서버오류로 닉네임 업데이트에 실패했어요',
-        0,
-      );
+      const error = JSON.parse(err.message);
+      if (error.DScode) {
+        return;
+      } else {
+        await topActions.showSnackbar(
+          '서버오류로 닉네임 업데이트에 실패했어요',
+          0,
+        );
+        return;
+      }
     }
   }
 
@@ -451,8 +464,14 @@ export const useMyPageViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(async res => {
-          navigation.navigate('SignUpNavigator', {
-            updated_at: new Date().toString(),
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'SignUpNavigator',
+                params: {updated: new Date().toString()},
+              },
+            ],
           });
           if (res.DSdata.success === true) {
             topActions.showSnackbar('회원 탈퇴에 성공했어요', 1);
@@ -470,8 +489,14 @@ export const useMyPageViewModel = () => {
    */
   async function logout() {
     AsyncStorage.clear();
-    navigation.navigate('SignUpNavigator', {
-      updated_at: new Date().toString(),
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'SignUpNavigator',
+          params: {updated: new Date().toString()},
+        },
+      ],
     });
   }
 
@@ -481,6 +506,7 @@ export const useMyPageViewModel = () => {
     },
     state: {
       ...state,
+      route_data,
     },
     actions: {
       ...actions,

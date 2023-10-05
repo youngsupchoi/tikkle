@@ -140,18 +140,21 @@ export const useStartTikklingViewModel = () => {
       state.selectedItem.price / 5000,
       state.selectedItem.product_id,
       state.eventType,
-    ).then(res => {
-      return topActions.setStateAndError(res);
-    });
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'main',
-          params: {updated: new Date().toString()},
-        },
-      ],
-    });
+    )
+      .then(res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(() => {
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'main',
+              params: {updated: new Date().toString()},
+            },
+          ],
+        });
+      });
   };
 
   let currentDate = state.startDate

@@ -80,6 +80,9 @@ export default function ProfileScreen() {
         <View>
           <View style={{}}>
             <AnimatedButton
+              onPress={() => {
+                actions.navigation.navigate('editProfile');
+              }}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -117,6 +120,7 @@ export default function ProfileScreen() {
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
                 margin: 16,
+                marginTop: 5,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 0.5,
@@ -147,9 +151,7 @@ export default function ProfileScreen() {
                       {state.userData_profile.nick}
                     </M15>
                     <M11 customStyle={{color: COLOR_GRAY}}>
-                      {actions.calculateDaysUntilNextBirthday(
-                        state.userData_profile.birthday,
-                      )}
+                      생일이 {state.timeUnitlNextBirthday}일 남았어요.
                     </M11>
                   </View>
                 </View>
@@ -158,7 +160,7 @@ export default function ProfileScreen() {
           </View>
 
           <View style={{}}>
-            <AnimatedButton
+            <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -189,12 +191,13 @@ export default function ProfileScreen() {
                   strokeWidth={1.5}
                 />
               </View>
-            </AnimatedButton>
+            </View>
             <View
               style={{
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
                 margin: 16,
+                marginTop: 5,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
                 // height: 100,
@@ -224,6 +227,14 @@ export default function ProfileScreen() {
                   renderItem={({item, index}) => {
                     return (
                       <AnimatedButton
+                        onPress={() => {
+                          navigation.navigate('HistoryDetail', item);
+                          // actions.navigation.navigate('HistoryDetail', ret);
+                        }}
+                        // onPress={() => {
+                        //   console.log('press : ', item);
+                        //   navigation.navigate('HistoryDetail', ret);
+                        // }}
                         style={{
                           width: 120,
                           // height: 120,
@@ -306,6 +317,7 @@ export default function ProfileScreen() {
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
                 margin: 16,
+                marginTop: 5,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
                 // height: 100,

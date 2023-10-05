@@ -15,7 +15,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import LottieView from 'lottie-react-native';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
-export default function TikklingCancleStopModal({mode}) {
+export default function TikklingCancleModal({mode}) {
   //-------------------------------------------------------------------------
   //토큰 가져오기
   const {state, actions} = useMainViewModel();
@@ -24,6 +24,7 @@ export default function TikklingCancleStopModal({mode}) {
   let button_message = '';
   let message = '';
   let cancel_message = '';
+
   if (mode == 'cancle') {
     message = '티클링을 취소할까요?';
     button_message = '취소하기';
@@ -73,10 +74,7 @@ export default function TikklingCancleStopModal({mode}) {
               marginTop: 12,
             }}>
             <AnimatedButton
-              onPress={() => {
-                // actions.updateEndTikklingData(state.myTikklingData.tikkling_id);
-                actions.setShowCancelModal(false);
-              }}
+              onPress={actions.cancel_action}
               style={{
                 padding: 12,
                 borderRadius: 12,

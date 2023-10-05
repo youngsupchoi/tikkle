@@ -33,21 +33,23 @@ import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {CONTRACT_URL, PRIVATECONTRACT_URL} from '@env';
 
-export default function Footer() {
+export default function Footer({style}) {
   return (
     <View
-      style={{
-        height: 250,
-        alignItems: 'center',
-        justifyContent: 'center',
-        // backgroundColor: 'green',
-        flexDirection: 'column',
-        borderTopWidth: 0.5,
-        borderTopColor: COLOR_GRAY,
-        margin: windowWidth * 0.03,
-        marginBottom: 80,
-        width: windowWidth * 0.94,
-      }}>
+      style={[
+        {
+          height: 250,
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          borderTopWidth: 0.5,
+          borderTopColor: COLOR_GRAY,
+          margin: windowWidth * 0.03,
+          marginBottom: 100,
+          width: windowWidth * 0.94,
+        },
+        style, // 외부에서 전달된 스타일
+      ]}>
       <View
         style={{
           width: '100%',
@@ -84,11 +86,12 @@ export default function Footer() {
           <View></View>
         </View>
         <B12 customStyle={{color: COLOR_GRAY}}>
-          상호명: 라이폴리
+          상호명: (주)라이폴리
           {'\n'}
           대표: 이흥규
           {'\n'}
-          사업자등록번호: 891-41-01048 |{'\n'}
+          {/* 사업자등록번호: 891-41-01048 |{'\n'} */}
+          법인등록번호 : 110111-8753942 |{'\n'}
           {/* 통신판매업신고번호: 제2021-서울강남-00000호 */}
           {'\n'}개인정보관리책임자: 이흥규
           {'\n'}

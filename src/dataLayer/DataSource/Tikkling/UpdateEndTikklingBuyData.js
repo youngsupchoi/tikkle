@@ -2,7 +2,12 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updateEndTikklingBuyData(tikkling_id) {
+export async function updateEndTikklingBuyData(
+  tikkling_id,
+  zonecode,
+  address,
+  detail_address,
+) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -28,6 +33,9 @@ export async function updateEndTikklingBuyData(tikkling_id) {
   let response;
   const body = {
     tikkling_id: tikkling_id,
+    zonecode: zonecode,
+    address: address,
+    detail_address: detail_address,
   };
 
   try {
@@ -70,6 +78,12 @@ export async function updateEndTikklingBuyData(tikkling_id) {
         DScode: 1,
         DSdata: null,
         DSmessage: '배송지 주소가 입력되지 않았어요.',
+      };
+    } else if (response.data.detail_code === '05') {
+      return {
+        DScode: 1,
+        DSdata: null,
+        DSmessage: '주소의 형식이 올바르지 않습니다.',
       };
     }
     return {

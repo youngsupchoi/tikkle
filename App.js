@@ -21,9 +21,10 @@ import {backgroundColor} from 'src/presentationLayer/view/components/globalCompo
 import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 export default function App() {
-  SystemNavigationBar.setBarMode('dark');
+  // SystemNavigationBar.setBarMode('dark');
+  SystemNavigationBar.navigationHide();
   //하단바 제거 코드
-  //SystemNavigationBar.fullScreen();
+  // SystemNavigationBar.fullScreen();
 
   // TopViewModel의 새로운 구조에 따라 변경됩니다.
 
@@ -63,7 +64,7 @@ export default function App() {
           <StatusBar
             translucent
             barStyle={'dark-content'}
-            backgroundColor="transparent"
+            backgroundColor={backgroundColor}
           />
           {/* <TEST_SAMPLESCREEN /> */}
         </TopViewProvider>

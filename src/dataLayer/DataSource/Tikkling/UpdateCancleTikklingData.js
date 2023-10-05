@@ -2,11 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updateEndTikklingRefundData(
-  tikkling_id,
-  bank_code,
-  account,
-) {
+export async function updateCancleTikklingData(tikkling_id) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -32,18 +28,10 @@ export async function updateEndTikklingRefundData(
   let response;
   const body = {
     tikkling_id: tikkling_id,
-    bank_code: bank_code,
-    account: account,
   };
 
   try {
-    response = await apiModel(
-      'put_tikkling_end/refund',
-      authorization,
-      body,
-      null,
-    );
-    // console.log('response : ', response);
+    response = await apiModel('put_tikkling_cancel', authorization, body, null);
     if (!response) {
       //  error
       throw new Error();
@@ -56,39 +44,19 @@ export async function updateEndTikklingRefundData(
     };
   }
 
-  // console.log('RES : ', response);
-
   //------ control result & error of put_tikkling_end-----------------------------------------//
   if (response.status === 400) {
-    if (response.data.detail_code === '00') {
-      return {
-        DScode: 2,
-        DSdata: null,
-        DSmessage: '이미 종료된 티클링 이에요.',
-      };
-    } else if (response.data.detail_code === '03') {
-      return {
-        DScode: 1,
-        DSdata: null,
-        DSmessage: '환급 계좌 정보가 입력되지 않았어요.',
-      };
-    } else if (response.data.detail_code === '06') {
-      return {
-        DScode: 1,
-        DSdata: null,
-        DSmessage: '계좌 형식이 올바르지 않습니다.',
-      };
-    }
     return {
       DScode: 2,
       DSdata: null,
-      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DSmessage: '이미 종료된 티클링 이에요.',
     };
-  } else if (response.status === 403) {
+  } else if (response.status === 401) {
     return {
       DScode: 1,
       DSdata: null,
-      DSmessage: '아직 진행중인 티클링 이에요',
+      DSmessage:
+        '티클이 도착한 상태에서는 취소가 불가능합니다. 화면을 새로고침해주세요',
     };
   } else if (response.status === 404) {
     return {
@@ -96,7 +64,7 @@ export async function updateEndTikklingRefundData(
       DSdata: null,
       DSmessage: '존재하지 않는 티클링 이에요.',
     };
-  } else if (response.status !== 200 && response.data.detail_code !== '01') {
+  } else if (response.status !== 200) {
     return {
       DScode: 2,
       DSdata: null,
@@ -113,26 +81,11 @@ export async function updateEndTikklingRefundData(
     );
   }
 
-  //------ call post_notification_send -------------------------------------------------------//
-
-  const body3 = {receive_user_id: null, notification_type_id: 7};
-
-  try {
-    const response3 = apiModel(
-      'post_notification_send',
-      authorization,
-      body3,
-      null,
-    );
-  } catch (error) {
-    console.log('send notification failed');
-  }
-
   //------ return response ------------------------------------------------//
 
   return {
     DScode: 0,
     DSdata: {success: true},
-    DSmessage: '성공적으로 티클링 종료, 환급 신청이 완료 되었습니다.',
+    DSmessage: '성공적으로 티클링이 취소 되었습니다.',
   };
 }

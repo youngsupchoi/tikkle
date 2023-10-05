@@ -34,6 +34,7 @@ import SendTikkleScreen from 'src/presentationLayer/view/screens/myPageScreens/S
 import InquireScreen from 'src/presentationLayer/view/screens/myPageScreens/InquireScreen';
 import SentTikkleDetailScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleDetailScreen';
 import EditProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/EditProfileScreen';
+import HistoryDetailScreen from 'src/presentationLayer/view/screens/myPageScreens/HistoryDetailScreen';
 
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
@@ -65,6 +66,8 @@ function MyPageNavigator() {
         initialRouteName="MyPage"
         screenOptions={{
           headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}>
         <MyPageStack.Screen name="MyPage" component={MyPage} />
@@ -72,6 +75,10 @@ function MyPageNavigator() {
         <MyPageStack.Screen
           name="CustomerCenter"
           component={CustomerCenterScreen}
+        />
+        <MyPageStack.Screen
+          name="HistoryDetail"
+          component={HistoryDetailScreen}
         />
         <MyPageStack.Screen name="Inquire" component={InquireScreen} />
         <MyPageStack.Screen
