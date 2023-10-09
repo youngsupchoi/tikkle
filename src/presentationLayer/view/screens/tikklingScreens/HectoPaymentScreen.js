@@ -25,7 +25,7 @@ export function HectoPaymentScreen({navigation}) {
     pg: 'settle_acc.M23A0518',
     pay_method: 'trans',
     merchant_uid: `mid_${new Date().getTime()}`,
-    name: '아임포트 결제데이터 분석',
+    name: '아임포트 결제데이터 분석kkk',
     buyer_email: 'example@naver.com',
     buyer_name: '홍길동',
     buyer_tel: '01012345678',

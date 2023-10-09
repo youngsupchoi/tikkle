@@ -68,7 +68,11 @@ export default function StartTikklingScreen() {
 
   useEffect(() => {
     state.userData.birthday !== undefined
-      ? actions.setEndDate(actions.getNextBirthday(state.userData.birthday))
+      ? actions.setEndDate(
+          actions.getNextBirthday(
+            actions.setToEndOfDay(state.userData.birthday),
+          ),
+        )
       : null;
     actions.setAddress(state.userData.address);
     actions.setZonecode(state.userData.zonecode);
@@ -287,8 +291,14 @@ export default function StartTikklingScreen() {
               <AnimatedButton
                 onPress={() => {
                   actions.setEventType(item.type);
+                  if (item.type === 'none') {
+                    actions.setOpen(true);
+                  } else if (item.type === 'birthday') {
+                    actions.setEndDate(
+                      actions.setToEndOfDay(state.userData.birthday),
+                    );
+                  }
                   actions.setEvent(item);
-                  item.type === 'none' ? actions.setOpen(true) : null;
                 }}
                 key={item.label}
                 style={{
@@ -323,6 +333,7 @@ export default function StartTikklingScreen() {
                   }}>
                   {item.label}
                 </B20>
+                {console.log(state.endDate)}
                 {item.type === 'birthday' ? (
                   <View
                     style={{
@@ -385,7 +396,11 @@ export default function StartTikklingScreen() {
                             ? COLOR_PRIMARY
                             : COLOR_BLACK,
                       }}>
-                      {actions.formatDate(state.userData.birthday).label}
+                      {
+                        actions.formatDate(
+                          actions.setToEndOfDay(state.userData.birthday),
+                        ).label
+                      }
                     </M15>
                   </View>
                 ) : (
@@ -410,14 +425,23 @@ export default function StartTikklingScreen() {
           open={state.open}
           date={state.date}
           onConfirm={selectedDate => {
-            const utcYear = selectedDate.getUTCFullYear();
-            const utcMonth = selectedDate.getUTCMonth();
-            const utcDate = selectedDate.getUTCDate();
+            // 로컬 시간대의 연, 월, 일을 가져옵니다.
+            const localYear = selectedDate.getFullYear();
+            const localMonth = selectedDate.getMonth();
+            const localDate = selectedDate.getDate();
 
+            // 로컬 시간대의 23:59:59.999를 설정합니다.
             const endDate = new Date(
-              Date.UTC(utcYear, utcMonth, utcDate, 23, 59, 59, 999),
+              localYear,
+              localMonth,
+              localDate,
+              23,
+              59,
+              59,
+              999,
             );
-            console.log(endDate);
+
+            endDate.setHours(endDate.getHours() + 9);
 
             actions.setOpen(false);
             actions.setDate(endDate);
