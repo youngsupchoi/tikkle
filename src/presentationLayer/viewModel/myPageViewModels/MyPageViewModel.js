@@ -20,6 +20,8 @@ import {getBankData} from 'src/dataLayer/DataSource/User/GetBankData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteUserData';
+import {getImportPaymentData} from 'src/dataLayer/DataSource/Payment/GetImportPaymentData';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
@@ -500,6 +502,53 @@ export const useMyPageViewModel = () => {
     });
   }
 
+  /**
+   *  결제내역 상세 페이지에서 결제내역을 가져오는 함수
+   * @param {str} merchant_uid
+   */
+  async function getHistoryPaymentData(merchant_uid) {
+    try {
+      await getImportPaymentData(merchant_uid)
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          // console.log('&&&: ', res);
+          actions.setPaymentData(res.DSdata.data);
+        });
+    } catch {
+      await topActions.showSnackbar(
+        '서버오류로 결제 내역을 불러오는데 실패했어요',
+        0,
+      );
+    }
+  }
+
+  /**
+   * 결제 상세 내역 페이지 에서 환불 신청을 하는 함수
+   * @param {int} tikkling_id
+   * @param {str} merchant_uid
+   */
+  async function refundPayment(tikkling_id, merchant_uid) {
+    try {
+      await updataRefundMyPaymentData(tikkling_id, merchant_uid, '단순 변심')
+        .then(async res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          // console.log('&&&: ', res);
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('환불 신청에 성공했어요', 1);
+            navigation.goBack();
+          } else {
+            topActions.showSnackbar('환불 신청에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await topActions.showSnackbar('서버오류로 환불 신청에 실패했어요', 0);
+    }
+  }
+
   return {
     ref: {
       ...ref,
@@ -532,6 +581,8 @@ export const useMyPageViewModel = () => {
       editRefresh,
       deleteUser_logeout,
       logout,
+      getHistoryPaymentData,
+      refundPayment,
     },
   };
 };

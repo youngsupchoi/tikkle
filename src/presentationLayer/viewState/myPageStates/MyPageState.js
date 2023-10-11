@@ -57,6 +57,8 @@ export const MyPageViewStateProvider = ({children}) => {
   const [userDeleteModal, setUserDeleteModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
 
+  const [paymentData, setPaymentData] = useState(null);
+
   const state = {
     message,
     DScode,
@@ -85,6 +87,7 @@ export const MyPageViewStateProvider = ({children}) => {
     userDeleteModal,
     logoutModal,
     timeUnitlNextBirthday,
+    paymentData,
   };
 
   const actions = {
@@ -115,6 +118,7 @@ export const MyPageViewStateProvider = ({children}) => {
     setUserDeleteModal,
     setLogoutModal,
     setTimeUnitlNextBirthday,
+    setPaymentData,
   };
 
   return (

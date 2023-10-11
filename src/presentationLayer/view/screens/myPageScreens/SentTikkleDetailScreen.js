@@ -56,6 +56,10 @@ export default function SentTikkleDetailScreen({route}) {
 
   console.log('item : ', item);
 
+  // useEffect(async() => {
+  //   await actions.getHistoryPaymentData(item.merchant_uid);
+  // }, []);
+
   return (
     <View>
       <SendTikkleScreenHeader />
@@ -365,8 +369,7 @@ export default function SentTikkleDetailScreen({route}) {
             </AnimatedButton>
             <AnimatedButton
               onPress={() => {
-                //TODO: 환불 연결
-                console.log('refund!!!');
+                actions.refundPayment(item.tikkling_id, item.merchant_uid);
               }}
               style={styles.buttonStyle}>
               <B15 customStyle={styles.buttonText}>환불 신청</B15>
