@@ -2,7 +2,11 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updataRefundMyPaymentData(merchant_uid, reason) {
+export async function updataRefundMyPaymentData(
+  tikkling_id,
+  merchant_uid,
+  reason,
+) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -76,6 +80,21 @@ export async function updataRefundMyPaymentData(merchant_uid, reason) {
       response.data.returnToken,
       authorization,
     );
+  }
+
+  //------ call post_notification_send -------------------------------------------------------//
+
+  const body3 = {receive_user_id: tikkling_id, notification_type_id: 8};
+
+  try {
+    const response3 = await apiModel(
+      'post_notification_send',
+      authorization,
+      body3,
+      null,
+    );
+  } catch (error) {
+    console.log('send notification failed');
   }
 
   //------ return response ------------------------------------------------//

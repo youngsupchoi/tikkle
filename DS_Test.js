@@ -70,6 +70,7 @@ export default function TestScreen() {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
     const axiosResponse = await updataRefundMyPaymentData(
+      16,
       'test_lncj36r7',
       '테스트',
     );
