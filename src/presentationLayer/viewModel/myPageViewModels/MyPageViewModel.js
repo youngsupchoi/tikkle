@@ -21,6 +21,7 @@ import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccount
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteUserData';
 import {getImportPaymentData} from 'src/dataLayer/DataSource/Payment/GetImportPaymentData';
+import {updataRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdataRefundMyPaymentData';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -536,9 +537,10 @@ export const useMyPageViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(async res => {
-          // console.log('&&&: ', res);
+          console.log('&&&: ', res);
           if (res.DSdata.success === true) {
             topActions.showSnackbar('환불 신청에 성공했어요', 1);
+            actions.setPaymentData(null);
             navigation.goBack();
           } else {
             topActions.showSnackbar('환불 신청에 실패했어요', 0);
