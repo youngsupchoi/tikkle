@@ -52,7 +52,7 @@ export async function updataRefundMyPaymentData(
     };
   }
 
-  //console.log(response);
+  // console.log(response);
 
   //------ control result & error of put_payment_refund-----------------------------------------//
   if (response.status !== 200) {
@@ -101,7 +101,7 @@ export async function updataRefundMyPaymentData(
 
   return {
     DScode: 0,
-    DSdata: null,
+    DSdata: {success: true},
     DSmessage: '결제 환불에 성공했어요.',
   };
 }

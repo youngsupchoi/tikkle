@@ -80,48 +80,7 @@ export default function SendTikkleScreen() {
             // ListHeaderComponent={SendTikkleScreenHeader}
             // stickyHeaderIndices={[0]}
             ListFooterComponent={() => {
-              return (
-                <Footer />
-                // <View>
-                //   <View
-                //     style={{
-                //       flexDirection: 'row',
-                //       alignSelf: 'center',
-                //       paddingHorizontal: 24,
-                //       backgroundColorcolor: COLOR_BLACK,
-                //       marginBottom: 20,
-                //     }}>
-                //     <AnimatedButton
-                //       style={{
-                //         backgroundColor: COLOR_WHITE,
-                //         borderRadius: 5,
-                //         margin: 16,
-                //         elevation: 1,
-                //         borderColor: COLOR_SEPARATOR,
-                //         // height: 100,
-                //         borderWidth: 0.5,
-                //         // padding: 16,
-                //         paddingBottom: 16,
-                //         paddingTop: 24,
-                //         width: windowWidth - 32,
-                //         // backgroundColor: 'red',
-                //       }}
-                //       onPress={() => {
-                //         console.log('hihi22');
-                //       }}>
-                //       <View
-                //         style={{
-                //           width: '100%',
-                //           height: 20,
-                //           alignItems: 'center',
-                //           justifyContent: 'center',
-                //         }}>
-                //         <B15>더보기</B15>
-                //       </View>
-                //     </AnimatedButton>
-                //   </View>
-                // </View>
-              );
+              return <Footer />;
             }}
             ListEmptyComponent={() => {
               return (
