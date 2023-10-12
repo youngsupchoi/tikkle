@@ -172,6 +172,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
             m_redirect_url: 'null',
             app_scheme: payment_param.app_scheme,
             amount: payment_param.amount,
+            notice_url: payment_param.notice_url,
           };
           // navigation.navigate('payment', data); //중간 스크린 없이
 
