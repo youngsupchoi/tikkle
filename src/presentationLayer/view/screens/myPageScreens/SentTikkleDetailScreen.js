@@ -20,6 +20,7 @@ import {
   M15,
   M20,
   EB,
+  R,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -49,6 +50,7 @@ import SendTikkleScreenHeader from 'src/presentationLayer/view/components/myPage
 import SendTikkle from 'src/presentationLayer/view/components/myPageComponents/sendTikkleScreenComponents/SendTikkeComponent';
 import Footer from '../../components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import RefundModal from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/RefundModal';
 
 export default function SentTikkleDetailScreen({route}) {
   const item = route.params.item;
@@ -56,10 +58,12 @@ export default function SentTikkleDetailScreen({route}) {
   const {ref, state, actions} = useMyPageViewModel();
   // actions.getHistoryPaymentData(item.merchant_uid);
   // console.log('state.paymentData : ', state.paymentData);
-  console.log('item : ', item);
+  // console.log('item : ', item);
 
   useEffect(() => {
     actions.getHistoryPaymentData(item.merchant_uid);
+    actions.setRefund_tikkling_id(item.tikkling_id);
+    actions.setRefund_merchant_uid(item.merchant_uid);
     // console.log('state.paymentData : ', state.paymentData);
   }, []);
 
@@ -364,7 +368,7 @@ export default function SentTikkleDetailScreen({route}) {
               {item.tikkle_state_id === 1 ? (
                 <AnimatedButton
                   onPress={() => {
-                    actions.refundPayment(item.tikkling_id, item.merchant_uid);
+                    actions.setRefundModal(true);
                   }}
                   style={styles.buttonStyle}>
                   <B15 customStyle={styles.buttonText}>환불 신청</B15>
@@ -374,6 +378,7 @@ export default function SentTikkleDetailScreen({route}) {
           </View>
 
           <Footer />
+          <RefundModal />
         </ScrollView>
       )}
     </View>
