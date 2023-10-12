@@ -57,7 +57,12 @@ export const MyPageViewStateProvider = ({children}) => {
   const [userDeleteModal, setUserDeleteModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
 
+  const [refundModal, setRefundModal] = useState(false);
+
   const [paymentData, setPaymentData] = useState(null);
+  //item.tikkling_id, item.merchant_uid
+  const [refund_tikkling_id, setRefund_tikkling_id] = useState(null);
+  const [refund_merchant_uid, setRefund_merchant_uid] = useState(null);
 
   const state = {
     message,
@@ -88,6 +93,9 @@ export const MyPageViewStateProvider = ({children}) => {
     logoutModal,
     timeUnitlNextBirthday,
     paymentData,
+    refundModal,
+    refund_tikkling_id,
+    refund_merchant_uid,
   };
 
   const actions = {
@@ -119,6 +127,9 @@ export const MyPageViewStateProvider = ({children}) => {
     setLogoutModal,
     setTimeUnitlNextBirthday,
     setPaymentData,
+    setRefundModal,
+    setRefund_tikkling_id,
+    setRefund_merchant_uid,
   };
 
   return (
