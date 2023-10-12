@@ -45,7 +45,7 @@ export async function updatePresentTikkleInitData(
       null,
     );
 
-    console.log('##response : ', response);
+    // console.log('##response : ', response);
 
     if (!response) {
       throw new Error();
@@ -111,7 +111,7 @@ export async function updatePresentTikkleInitData(
 
   return {
     DScode: 0,
-    DSdata: {payment_param: payment_param},
+    DSdata: {success: true, payment_param: payment_param},
     DSmessage: '결제 시작 데이터 저장에 성공했어요.',
   };
 }

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {PG} from '@env';
 import {
   View,
   Text,
@@ -40,7 +41,7 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 
 import {useNavigation} from '@react-navigation/native';
-import {createSendTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateSendTikkleData';
+import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdatePresentTikkleInitData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {createBuyMyTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateBuyMyTikkleData';
@@ -53,9 +54,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   const [receivedMessage, setReceivedMessage] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const {state, actions} = useMainViewModel();
+
   async function post_tikkling_sendtikkle(item) {
     try {
-      return (ret = await createSendTikkleData(
+      return (ret = await updatePresentTikkleInitData(
         item.tikkling_id,
         selectedValue,
         message,
@@ -148,11 +150,34 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
     if (data.state_id == 1) {
       actions.setPaymentButtonPressed(true);
       await post_tikkling_sendtikkle(data).then(res => {
-        // console.log(res);
+        // console.log('$$$$ ', res);
         if (res.success === true) {
+          const payment_param = res.payment_param;
           setServerMessage(res.message);
           onCloseButtonPress();
-          navigation.navigate('payment', data);
+          //데이터 세팅
+          const data_in = {
+            pg: PG,
+            pay_method: payment_param.pay_method,
+            merchant_uid: payment_param.merchant_uid,
+            name:
+              data.user_name +
+              '님에게 선물하는 티클 ' +
+              data.tikkle_quantity +
+              '개',
+            buyer_email: null,
+            buyer_name: payment_param.buyer_name,
+            buyer_tel: payment_param.buyer_tel,
+            buyer_addr: null,
+            m_redirect_url: 'null',
+            app_scheme: payment_param.app_scheme,
+            amount: payment_param.amount,
+          };
+          // navigation.navigate('payment', data); //중간 스크린 없이
+
+          //바로 보내기
+          // console.log('data_in', data_in);
+          navigation.navigate('hectoPayment', data_in);
         } else if (res.success === false) {
           setServerMessage(res.message);
           setPaymentButtonPressed(false);
