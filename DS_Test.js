@@ -62,6 +62,7 @@ import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {getImportPaymentData} from 'src/dataLayer/DataSource/Payment/GetImportPaymentData';
 import {updateRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdateRefundMyPaymentData';
 import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdatePresentTikkleInitData';
+import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdateBuyMyTikkleInitData';
 
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
@@ -70,11 +71,7 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await updatePresentTikkleInitData(
-      178,
-      1,
-      '테스트 메시지',
-    );
+    const axiosResponse = await updateBuyMyTikkleInitData(177, 1);
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);
