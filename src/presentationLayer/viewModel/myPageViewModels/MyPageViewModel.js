@@ -21,7 +21,7 @@ import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccount
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteUserData';
 import {getImportPaymentData} from 'src/dataLayer/DataSource/Payment/GetImportPaymentData';
-import {updataRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdataRefundMyPaymentData';
+import {updateRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdateRefundMyPaymentData';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -532,7 +532,7 @@ export const useMyPageViewModel = () => {
    */
   async function refundPayment(tikkling_id, merchant_uid) {
     try {
-      await updataRefundMyPaymentData(tikkling_id, merchant_uid, '단순 변심')
+      await updateRefundMyPaymentData(tikkling_id, merchant_uid, '단순 변심')
         .then(async res => {
           return topActions.setStateAndError(res);
         })

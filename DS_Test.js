@@ -60,7 +60,8 @@ import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreen
 import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 
 import {getImportPaymentData} from 'src/dataLayer/DataSource/Payment/GetImportPaymentData';
-import {updataRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdataRefundMyPaymentData';
+import {updateRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdateRefundMyPaymentData';
+import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdatePresentTikkleInitData';
 
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
@@ -69,10 +70,10 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await updataRefundMyPaymentData(
-      16,
-      'test_lncj36r7',
-      '테스트',
+    const axiosResponse = await updatePresentTikkleInitData(
+      178,
+      1,
+      '테스트 메시지',
     );
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
