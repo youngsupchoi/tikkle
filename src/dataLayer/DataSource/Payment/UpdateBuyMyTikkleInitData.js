@@ -71,6 +71,12 @@ export async function updateBuyMyTikkleInitData(tikkling_id, tikkle_quantity) {
         DSdata: null,
         DSmessage: '티클링이 종료되지 않았거나 이미 마무리 된 티클링이에요.',
       };
+    } else if (response.data.detail_code === '03') {
+      return {
+        DScode: 1,
+        DSdata: null,
+        DSmessage: '남은 티클의 개수가 변경되었어요. 다시 시도해주세요.',
+      };
     } else if (response.data.detail_code === '00') {
       return {
         DScode: 2,
