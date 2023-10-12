@@ -2,11 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updatePresentTikkleInitData(
-  tikkling_id,
-  tikkle_quantity,
-  message,
-) {
+export async function updateBuyMyTikkleInitData(tikkling_id, tikkle_quantity) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -28,18 +24,18 @@ export async function updatePresentTikkleInitData(
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
-  //------ call post_payment_init/sendtikkle -------------------------------------------------------//
+  //------ call post_payment_init/buymytikkle -------------------------------------------------------//
   let response;
 
   const body = {
     tikkling_id: tikkling_id,
     tikkle_quantity: tikkle_quantity,
-    message: message,
+    message: null,
   };
 
   try {
     response = await apiModel(
-      'post_payment_init/sendtikkle',
+      'post_payment_init/buymytikkle',
       authorization,
       body,
       null,
@@ -60,23 +56,29 @@ export async function updatePresentTikkleInitData(
 
   // console.log(response);
 
-  //------ control result & error of post_payment_init/sendtikkle-----------------------------------------//
+  //------ control result & error of post_payment_init/buymytikkle-----------------------------------------//
 
   if (response.status === 403) {
     if (response.data.detail_code === '01') {
       return {
         DScode: 1,
         DSdata: null,
-        DSmessage: '진행중인 티클링이 아니라서 결제에 취소되었어요',
+        DSmessage: '이미 모든 티클을 보내셨어요.',
       };
     } else if (response.data.detail_code === '02') {
       return {
         DScode: 1,
         DSdata: null,
-        DSmessage:
-          '티클링의 남은 티클이 보내시려는 티클보다 적어서 결제가 취소되었어요.',
+        DSmessage: '티클링이 종료되지 않았거나 이미 마무리 된 티클링이에요.',
+      };
+    } else if (response.data.detail_code === '00') {
+      return {
+        DScode: 2,
+        DSdata: null,
+        DSmessage: '본인의 티클링이 아니에요 오류를 확인해 주세요.',
       };
     }
+
     return {
       DScode: 2,
       DSdata: null,
