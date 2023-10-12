@@ -88,8 +88,12 @@ export default function SentTikkleDetailScreen({route}) {
               </B20>
 
               <View style={styles.detailDataStyle}>
-                <B15>주문번호</B15>
-                <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15>
+                <B15>결제 일시</B15>
+                <M15 customStyle={{color: COLOR_GRAY}}>
+                  {item.send_at.split('T')[0]}
+                  {'   '}
+                  {item.send_at.split('T')[1].split('.')[0]}{' '}
+                </M15>
               </View>
 
               <View style={styles.detailDataStyle}>
@@ -117,15 +121,6 @@ export default function SentTikkleDetailScreen({route}) {
                 <M15 customStyle={{color: COLOR_GRAY}}>
                   {state.paymentData.amount}
                   {' 원'}
-                </M15>
-              </View>
-
-              <View style={styles.detailDataStyle}>
-                <B15>결제 일시</B15>
-                <M15 customStyle={{color: COLOR_GRAY}}>
-                  {item.send_at.split('T')[0]}
-                  {'   '}
-                  {item.send_at.split('T')[1].split('.')[0]}{' '}
                 </M15>
               </View>
 
@@ -365,13 +360,16 @@ export default function SentTikkleDetailScreen({route}) {
                 style={styles.buttonStyle}>
                 <B15 customStyle={styles.buttonText}>취소 환불 안내</B15>
               </AnimatedButton>
-              <AnimatedButton
-                onPress={() => {
-                  actions.refundPayment(item.tikkling_id, item.merchant_uid);
-                }}
-                style={styles.buttonStyle}>
-                <B15 customStyle={styles.buttonText}>환불 신청</B15>
-              </AnimatedButton>
+
+              {item.tikkle_state_id === 1 ? (
+                <AnimatedButton
+                  onPress={() => {
+                    actions.refundPayment(item.tikkling_id, item.merchant_uid);
+                  }}
+                  style={styles.buttonStyle}>
+                  <B15 customStyle={styles.buttonText}>환불 신청</B15>
+                </AnimatedButton>
+              ) : null}
             </View>
           </View>
 
