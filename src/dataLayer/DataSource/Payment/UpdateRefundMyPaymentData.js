@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updataRefundMyPaymentData(
+export async function updateRefundMyPaymentData(
   tikkling_id,
   merchant_uid,
   reason,
