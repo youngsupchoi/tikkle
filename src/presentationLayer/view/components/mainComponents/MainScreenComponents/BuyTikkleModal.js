@@ -163,7 +163,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
             name:
               data.user_name +
               '님에게 선물하는 티클 ' +
-              data.tikkle_quantity +
+              payment_param.amount / 5000 +
               '개',
             buyer_email: null,
             buyer_name: payment_param.buyer_name,
