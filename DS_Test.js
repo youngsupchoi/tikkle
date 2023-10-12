@@ -71,7 +71,10 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await updateBuyMyTikkleInitData(177, 1);
+    const axiosResponse = await updateRefundMyPaymentData(
+      'updateRefundMyPaymentData',
+      '테스트',
+    );
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);
