@@ -31,11 +31,12 @@ const FriendsEvents = props => {
     내일: [],
   };
 
-  for (let i = 2; i < 7; i++) {
+  for (let i = 2; i <= 7; i++) {
     const date = new Date();
     date.setDate(date.getDate() + i);
     sortedData[formatDate(date)] = [];
   }
+  // console.log('DATA#### : ', sortedData);
 
   function getUpcomingBirthday(birthdayString) {
     const today = new Date();

@@ -103,9 +103,13 @@ export default function SentTikkleDetailScreen({route}) {
 
               <View style={styles.detailDataStyle}>
                 <B15>티클 상태</B15>
-                <M15 customStyle={{color: COLOR_GRAY}}>
-                  {item.tikkle_state_name}
-                </M15>
+                {item.tikkle_state_name == 4 ? (
+                  <M15 customStyle={{color: COLOR_GRAY}}>{'사용'}</M15>
+                ) : (
+                  <M15 customStyle={{color: COLOR_GRAY}}>
+                    {item.tikkle_state_name}
+                  </M15>
+                )}
               </View>
 
               <View style={styles.detailDataStyle}>
