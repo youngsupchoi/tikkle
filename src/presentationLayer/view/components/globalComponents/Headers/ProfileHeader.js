@@ -50,7 +50,7 @@ export default function ProfileHeader() {
           strokeWidth={2}
         />
       </AnimatedButton> */}
-      <View>
+      <View style={{marginLeft: 15}}>
         <B20>프로필</B20>
       </View>
 

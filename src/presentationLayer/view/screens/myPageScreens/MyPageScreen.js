@@ -370,9 +370,15 @@ export default function ProfileScreen() {
                             item: item,
                           });
                         }}>
-                        <M17 customStyle={{color: COLOR_BLACK}}>
-                          {item.tikkle_state_name} 티클
-                        </M17>
+                        {item.tikkle_state_name == 4 ? (
+                          <B15 customStyle={{color: COLOR_BLACK}}>
+                            사용 티클
+                          </B15>
+                        ) : (
+                          <B15 customStyle={{color: COLOR_BLACK}}>
+                            {item.tikkle_state_name} 티클
+                          </B15>
+                        )}
                         <Image
                           source={{
                             uri: `${item.product_image}`,
@@ -381,6 +387,7 @@ export default function ProfileScreen() {
                             width: 80,
                             height: 80,
                             borderRadius: 24,
+                            marginTop: 6,
                             marginVertical: 10,
                           }}
                         />

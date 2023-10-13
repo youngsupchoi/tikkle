@@ -320,12 +320,12 @@ export default function HistoryDetailScreen(route) {
                     justifyContent: 'space-between',
                     alignItems: 'left',
                   }}>
-                  <B15 customStyle={{marginBottom: 4}}>총 받은 티클 수</B15>
+                  <B15 customStyle={{marginBottom: 0}}>총 받은 티클 수</B15>
 
                   <M15
                     customStyle={{
                       color: COLOR_GRAY,
-                      marginBottom: 10,
+                      marginBottom: 0,
                       marginLeft: 8,
                     }}>
                     {tikkle_sum} 개
@@ -382,7 +382,7 @@ export default function HistoryDetailScreen(route) {
         }
         ListFooterComponent={
           <View>
-            <View style={{height: 100}}></View>
+            <View style={{height: 20}}></View>
             <Footer />
           </View>
         }
