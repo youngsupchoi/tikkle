@@ -15,6 +15,7 @@ import {
   M11,
   M15,
   EB,
+  M17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -159,6 +160,7 @@ export default function ProfileScreen() {
             </View>
           </View>
 
+          {/**내 티클링 내역 */}
           <View style={{}}>
             <View
               style={{
@@ -278,8 +280,9 @@ export default function ProfileScreen() {
             </View>
           </View>
 
+          {/**구매 내역 */}
           <View style={{}}>
-            <AnimatedButton
+            <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -287,7 +290,8 @@ export default function ProfileScreen() {
                 marginTop: 0,
                 alignItems: 'center',
               }}
-              onPress={() => actions.navigation.navigate('SendTikkle')}>
+              // onPress={() => actions.navigation.navigate('SendTikkle')}
+            >
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Receipt1
                   width={24}
@@ -307,11 +311,11 @@ export default function ProfileScreen() {
                 <ArrowRight
                   width={24}
                   height={24}
-                  stroke={COLOR_BLACK}
+                  stroke={backgroundColor}
                   strokeWidth={1.5}
                 />
               </View>
-            </AnimatedButton>
+            </View>
             <View
               style={{
                 backgroundColor: COLOR_WHITE,
@@ -324,9 +328,13 @@ export default function ProfileScreen() {
                 borderWidth: 0.5,
                 // padding: 16,
                 paddingBottom: 16,
-                paddingTop: 24,
+                paddingTop: 10,
                 // backgroundColor: 'red',
               }}>
+              {/* {console.log(
+                'state.paymentHistoryData : ',
+                state.paymentHistoryData,
+              )} */}
               {state.paymentHistoryData.length > 0 ? (
                 <FlatList
                   data={state.paymentHistoryData}
@@ -352,7 +360,15 @@ export default function ProfileScreen() {
                           borderTopLeftRadius: 12,
                           borderTopRightRadius: 12,
                           alignItems: 'center',
+                        }}
+                        onPress={() => {
+                          actions.navigation.navigate('SentTikkleDetail', {
+                            item: item,
+                          });
                         }}>
+                        <M17 customStyle={{color: COLOR_BLACK}}>
+                          {item.tikkle_state_name} 티클
+                        </M17>
                         <Image
                           source={{
                             uri: `${item.product_image}`,
@@ -361,15 +377,18 @@ export default function ProfileScreen() {
                             width: 80,
                             height: 80,
                             borderRadius: 24,
-                            marginBottom: 16,
+                            marginVertical: 10,
                           }}
                         />
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {item.brand_name}
-                        </M11>
-                        <B15 customStyle={{}}>{item.product_name}</B15>
+                        <B15 customStyle={{}}>
+                          {item.user_name}
+                          {'님에게'}
+                        </B15>
                         <M11 customStyle={{color: COLOR_GRAY}}>
                           {actions.formatDate(item.tikkling_terminated_at)}
+                          {'   '}
+                          {item.send_quantity}
+                          {'개'}
                         </M11>
                       </AnimatedButton>
                     );
