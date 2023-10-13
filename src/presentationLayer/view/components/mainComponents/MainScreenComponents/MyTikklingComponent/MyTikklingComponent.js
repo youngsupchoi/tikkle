@@ -38,15 +38,16 @@ const MyTikklingComponent = () => {
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <B20 customStyle={styles.headerText}>내 티클링</B20>
-        <AnimatedButton
-          onPress={() => {
-            console.log(state.myTikklingData);
-            actions.setDropdownVisible(!state.dropdownVisible);
-          }}
-          style={styles.animatedButton}>
-          <Detail style={styles.detail} />
-          {/* {console.log('tikklingData', state.myTikklingData)} */}
-        </AnimatedButton>
+        {state.myTikklingData.state_id == 1 ? (
+          <AnimatedButton
+            onPress={() => {
+              actions.setDropdownVisible(!state.dropdownVisible);
+            }}
+            style={styles.animatedButton}>
+            <Detail style={styles.detail} />
+            {/* {console.log('tikklingData', state.myTikklingData)} */}
+          </AnimatedButton>
+        ) : null}
         {}
         {state.dropdownVisible && (
           <Modal
