@@ -29,10 +29,8 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
 
     if (tikkleQuantity === tikkleCount) {
       actions.setShowEndModal(true);
-    } else if (fundingLimit > currentDate) {
+    } else if (tikkleQuantity > tikkleCount) {
       actions.setShowBuyModal(true);
-    } else {
-      actions.setShowCancelModal(true);
     }
   };
 
@@ -57,7 +55,11 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
       {IsStopped ? (
         <AnimatedButton
           onPress={() => {
-            actions.setShowRefundModal(true);
+            {
+              Number(state.myTikklingData.tikkle_count) == 0
+                ? actions.setShowCancelModal(true)
+                : actions.setShowRefundModal(true);
+            }
           }}
           style={{
             ...styles.buttonStyle,
@@ -80,7 +82,11 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
               scale={1}
             />
           </View>
-          <B15 customStyle={styles.buttonText}>환급받기</B15>
+          <B15 customStyle={styles.buttonText}>
+            {Number(state.myTikklingData.tikkle_count) == 0
+              ? '취소하기'
+              : '환급받기'}
+          </B15>
         </AnimatedButton>
       ) : (
         <AnimatedButton

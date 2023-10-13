@@ -111,9 +111,6 @@ const FirstHero = props => {
           strokeWidth={2}
         />
       );
-      ButtonActions = () => {
-        console.log('buymytikkle');
-      };
       ButtonText = '남은 티클 구매하기';
     }
   }
