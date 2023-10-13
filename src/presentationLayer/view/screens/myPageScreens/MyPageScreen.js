@@ -370,7 +370,7 @@ export default function ProfileScreen() {
                             item: item,
                           });
                         }}>
-                        {item.tikkle_state_name == 4 ? (
+                        {item.tikkle_state_name == '환급' ? (
                           <B15 customStyle={{color: COLOR_BLACK}}>
                             사용 티클
                           </B15>
