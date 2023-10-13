@@ -161,6 +161,7 @@ export default function ProfileScreen() {
           </View>
 
           {/**내 티클링 내역 */}
+          {/* {console.log('state.endTikklingsData : ', state.endTikklingsData)} */}
           <View style={{}}>
             <View
               style={{
@@ -194,6 +195,7 @@ export default function ProfileScreen() {
                 />
               </View>
             </View>
+
             <View
               style={{
                 backgroundColor: COLOR_WHITE,
@@ -204,9 +206,8 @@ export default function ProfileScreen() {
                 borderColor: COLOR_SEPARATOR,
                 // height: 100,
                 borderWidth: 0.5,
-                // padding: 16,
-                paddingBottom: 16,
-                paddingTop: 24,
+                padding: 16,
+                paddingTop: 10,
                 // backgroundColor: 'red',
               }}>
               {state.endTikklingsData.length > 0 ? (
@@ -218,7 +219,7 @@ export default function ProfileScreen() {
                     return (
                       <View
                         style={{
-                          height: '80%',
+                          height: '95%',
                           width: 1,
                           backgroundColor: COLOR_SEPARATOR,
                           alignSelf: 'center',
@@ -233,17 +234,18 @@ export default function ProfileScreen() {
                           navigation.navigate('HistoryDetail', item);
                           // actions.navigation.navigate('HistoryDetail', ret);
                         }}
-                        // onPress={() => {
-                        //   console.log('press : ', item);
-                        //   navigation.navigate('HistoryDetail', ret);
-                        // }}
                         style={{
-                          width: 120,
+                          width: 170,
                           // height: 120,
                           borderTopLeftRadius: 12,
                           borderTopRightRadius: 12,
                           alignItems: 'center',
                         }}>
+                        <B15 customStyle={{color: COLOR_BLACK}}>
+                          {item.tikkling_type}
+                          {' 티클링'}
+                        </B15>
+
                         <Image
                           source={{
                             uri: item.thumbnail_image,
@@ -252,15 +254,17 @@ export default function ProfileScreen() {
                             width: 80,
                             height: 80,
                             borderRadius: 24,
-                            marginBottom: 16,
+                            marginVertical: 10,
                           }}
                         />
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {item.brand_name}
-                        </M11>
-                        <B15 customStyle={{}}>{item.product_name}</B15>
+
+                        <B15 customStyle={{}}>{item.state_name}</B15>
+
                         <M11 customStyle={{color: COLOR_GRAY}}>
                           {actions.formatDate(item.created_at)}
+                          {'   '}
+                          {item.tikkle_quantity}
+                          {'개 수집'}
                         </M11>
                       </AnimatedButton>
                     );
