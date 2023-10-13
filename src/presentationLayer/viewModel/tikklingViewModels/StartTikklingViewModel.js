@@ -10,6 +10,7 @@ import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData
 import {createTikklingData} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
+import {create} from 'react-test-renderer';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartTikklingViewModel = () => {
@@ -142,6 +143,7 @@ export const useStartTikklingViewModel = () => {
 
   //-------------------------------------------------------------------
   const buttonPress = () => {
+    actions.setCreateTikklingButtonPressed(true);
     put_user_address();
     createTikklingData(
       state.endDate,

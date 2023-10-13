@@ -203,19 +203,16 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
           //바로 보내기
           // console.log('data_in', data_in);
+          actions.setPaymentButtonPressed(false);
           navigation.navigate('hectoPayment', data_in);
         } else if (res.success === false) {
           setServerMessage(res.message);
-          setPaymentButtonPressed(false);
+          actions.setPaymentButtonPressed(false);
           onCloseButtonPress();
         }
       });
     } else {
       await post_tikkling_buymytikkle(data).then(res => {
-        console.log(
-          '🚀 ~ file: BuyTikkleModal.js:215 ~ awaitpost_tikkling_buymytikkle ~ res:',
-          res,
-        );
         if (res.success === true) {
           const payment_param = res.payment_param;
           setServerMessage(res.message);
@@ -226,10 +223,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
             pay_method: payment_param.pay_method,
             merchant_uid: payment_param.merchant_uid,
             name:
-              data.user_name +
-              '님에게 선물하는 티클 ' +
-              payment_param.amount / 5000 +
-              '개',
+              '나의 남은 티클 구매하기' + payment_param.amount / 5000 + '개',
             buyer_email: null,
             buyer_name: payment_param.buyer_name,
             buyer_tel: payment_param.buyer_tel,
@@ -243,10 +237,11 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
           //바로 보내기
           // console.log('data_in', data_in);
+          actions.setPaymentButtonPressed(false);
           navigation.navigate('hectoPayment', data_in);
         } else if (res.DSdata.success === false) {
           setServerMessage(res.DSmessage);
-          setPaymentButtonPressed(false);
+          actions.setPaymentButtonPressed(false);
           onCloseButtonPress();
         }
       });
