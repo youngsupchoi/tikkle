@@ -34,6 +34,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useNotificationViewModel} from 'src/presentationLayer/viewModel/mainViewModels/NotificationViewModel';
 import Close from 'src/assets/icons/Close';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
@@ -256,7 +257,8 @@ export default function NotificationScreen() {
 
           <B20 customStyle={{marginLeft: 12}}>알림</B20>
         </View>
-        <View>
+        {/* 알림 설정 창 이동 버튼*/}
+        {/* <View>
           <AnimatedButton
             onPress={() => {
               navigation.navigate('notificationSetting');
@@ -268,7 +270,7 @@ export default function NotificationScreen() {
               strokeWidth={1.5}
             />
           </AnimatedButton>
-        </View>
+        </View> */}
       </View>
 
       {state.loading ? (
@@ -283,7 +285,7 @@ export default function NotificationScreen() {
           }
           data={state.notificationData}
           renderItem={renderItem}
-          ListFooterComponent={<View style={{height: 800}} />}
+          ListFooterComponent={<Footer />}
         />
       )}
     </View>
