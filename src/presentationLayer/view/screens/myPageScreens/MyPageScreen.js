@@ -389,7 +389,7 @@ export default function ProfileScreen() {
                           {'님에게'}
                         </B15>
                         <M11 customStyle={{color: COLOR_GRAY}}>
-                          {actions.formatDate(item.tikkling_terminated_at)}
+                          {actions.formatDate(item.send_at)}
                           {'   '}
                           {item.send_quantity}
                           {'개'}
