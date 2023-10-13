@@ -541,6 +541,7 @@ export const useMyPageViewModel = () => {
           if (res.DSdata.success === true) {
             topActions.showSnackbar('환불 신청에 성공했어요', 1);
             actions.setPaymentData(null);
+            loadData();
             navigation.goBack();
           } else {
             topActions.showSnackbar('환불 신청에 실패했어요', 0);
