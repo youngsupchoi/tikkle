@@ -45,6 +45,7 @@ import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/Upda
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {createBuyMyTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateBuyMyTikkleData';
+import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdateBuyMyTikkleInitData';
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
@@ -61,6 +62,30 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         item.tikkling_id,
         selectedValue,
         message,
+      )
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          // console.log('$$$', res);
+          setErrorMessage('');
+          setReceivedMessage(res.DSdata);
+          return res.DSdata;
+        }));
+    } catch (error) {
+      //에러 처리 필요 -> 정해야함
+      console.log(
+        '[Error in BuyTikklingModal post_tikkling_sendtikkle]\n',
+        error,
+      );
+    }
+  }
+
+  async function post_tikkling_buymytikkle(item) {
+    try {
+      return (ret = await updateBuyMyTikkleInitData(
+        item.tikkling_id,
+        item.tikkle_quantity - item.tikkle_count,
       )
         .then(res => {
           return topActions.setStateAndError(res);
@@ -147,8 +172,8 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   };
 
   const buttonPress = async () => {
+    actions.setPaymentButtonPressed(true);
     if (data.state_id == 1) {
-      actions.setPaymentButtonPressed(true);
       await post_tikkling_sendtikkle(data).then(res => {
         // console.log('$$$$ ', res);
         if (res.success === true) {
@@ -186,24 +211,45 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         }
       });
     } else {
-      actions.setPaymentButtonPressed(true);
-      await createBuyMyTikkleData(data.tikkling_id)
-        .then(res => {
-          topActions.setStateAndError(res);
-          return res;
-        })
-        .then(res => {
-          // console.log(res);
-          if (res.DSdata.success === true) {
-            setServerMessage(res.DSmessage);
-            onCloseButtonPress();
-            navigation.navigate('payment', data);
-          } else if (res.DSdata.success === false) {
-            setServerMessage(res.DSmessage);
-            setPaymentButtonPressed(false);
-            onCloseButtonPress();
-          }
-        });
+      await post_tikkling_buymytikkle(data).then(res => {
+        console.log(
+          '🚀 ~ file: BuyTikkleModal.js:215 ~ awaitpost_tikkling_buymytikkle ~ res:',
+          res,
+        );
+        if (res.success === true) {
+          const payment_param = res.payment_param;
+          setServerMessage(res.message);
+          onCloseButtonPress();
+          //데이터 세팅
+          const data_in = {
+            pg: PG,
+            pay_method: payment_param.pay_method,
+            merchant_uid: payment_param.merchant_uid,
+            name:
+              data.user_name +
+              '님에게 선물하는 티클 ' +
+              payment_param.amount / 5000 +
+              '개',
+            buyer_email: null,
+            buyer_name: payment_param.buyer_name,
+            buyer_tel: payment_param.buyer_tel,
+            buyer_addr: null,
+            m_redirect_url: 'null',
+            app_scheme: payment_param.app_scheme,
+            amount: payment_param.amount,
+            notice_url: payment_param.notice_url,
+          };
+          // navigation.navigate('payment', data); //중간 스크린 없이
+
+          //바로 보내기
+          // console.log('data_in', data_in);
+          navigation.navigate('hectoPayment', data_in);
+        } else if (res.DSdata.success === false) {
+          setServerMessage(res.DSmessage);
+          setPaymentButtonPressed(false);
+          onCloseButtonPress();
+        }
+      });
     }
   };
 
