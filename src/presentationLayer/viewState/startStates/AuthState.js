@@ -23,8 +23,10 @@ export const StartViewStateProvider = ({children}) => {
   const [message, setMessage] = useState('');
   const [userId, setUserId] = useState();
   const [done1, setDone1] = useState();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  
   const inputRefs = useRef([]);
   const [timeLeft, setTimeLeft] = useState(180);
   const [gender, setGender] = useState('');
