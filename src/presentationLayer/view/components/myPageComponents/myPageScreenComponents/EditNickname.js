@@ -12,6 +12,7 @@ import {
 import {
   COLOR_BLACK,
   COLOR_SUCCESS,
+  COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
@@ -39,6 +40,7 @@ export default function EditNickname() {
       <View
         style={{
           borderRadius: 4,
+          backgroundColor: COLOR_WHITE,
           borderColor: COLOR_SEPARATOR,
           borderWidth: 1,
           marginTop: 5,
