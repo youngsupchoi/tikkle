@@ -3,10 +3,6 @@ import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
 export async function updateBuyMyTikkleInitData(tikkling_id, tikkle_quantity) {
-  console.log(
-    '🚀 ~ file: UpdateBuyMyTikkleInitData.js:6 ~ updateBuyMyTikkleInitData ~ tikkle_quantity:',
-    tikkle_quantity,
-  );
   //------ get token ------------------------------------------------------//
   let authorization = null;
   try {
