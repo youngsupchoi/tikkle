@@ -1,7 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Image, StyleSheet, Platform} from 'react-native';
-import {EB} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {View, Image, StyleSheet, Platform, TextInput} from 'react-native';
 import {
+  EB,
+  B22,
+  B12,
+  B15,
+  B17,
+  B20,
+  B,
+  M11,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  COLOR_BACKGROUND_WHITE,
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
@@ -36,6 +46,8 @@ import GoodsReceptionModal from 'src/presentationLayer/view/components/mainCompo
 import TikklingCancleModal from 'src/presentationLayer/view/components/mainComponents/TikklingCancleModal';
 import RefundModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/RefundModal';
 import Delivery from 'src/assets/icons/Delivery';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import Location from 'src/assets/icons/Location';
 
 //-------------------------------------------------------------------------
 
@@ -220,12 +232,171 @@ const FirstHero = props => {
               </View>
             )}
           </View>
-          <ButtonComponent
-            ButtonIcon={ButtonIcon}
-            ButtonText={ButtonText}
-            ButtonAction={ButtonAction}
-            IsStopped={state.myTikklingData.state_id != 1}
-          />
+          {state.showEndModal ? (
+            <View style={modalStyles.modalContent}>
+              <View style={modalStyles.contentSection}>
+                <B22 customStyle={modalStyles.titleText}>
+                  배송지를 수정할까요?
+                </B22>
+              </View>
+
+              <View style={modalStyles.contentSection}>
+                <View style={{}}>
+                  <B15 customStyle={{marginTop: 16}}>{'주소 (우편번호)'}</B15>
+                  <AnimatedButton
+                    onPress={() => {
+                      // actions.setShowEndModal(false);
+                      actions.setShowPostCodeModal(true);
+                    }}
+                    style={{
+                      marginTop: 16,
+                      flexDirection: 'row',
+                      alignSelf: 'center',
+                      width: '100%',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View
+                      style={{
+                        backgroundColor: COLOR_WHITE,
+                        borderRadius: 12,
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        padding: 8,
+                        paddingHorizontal: 12,
+                        width: '100%',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                      <View
+                        style={{
+                          alignSelf: 'center',
+                          padding: 4,
+                          alignItems: 'center',
+                        }}>
+                        <Location
+                          width={24}
+                          height={24}
+                          stroke={COLOR_BLACK}
+                          scale={1}
+                          strokeWidth={1.5}
+                        />
+                      </View>
+                      <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
+                        {
+                          state.address && state.zonecode // state.address와 state.zonecode가 존재하는 경우
+                            ? `${state.address} (${state.zonecode})`
+                            : state.userData.address && state.userData.zonecode // state.userData.address와 state.userData.zonecode가 존재하는 경우
+                            ? `${state.userData.address} (${state.userData.zonecode})`
+                            : '도로명주소 검색' // 둘 다 존재하지 않는 경우
+                        }
+                      </B15>
+                    </View>
+                  </AnimatedButton>
+                  <B15 customStyle={{marginTop: 16}}>상세주소</B15>
+                  <View
+                    style={{
+                      marginTop: 12,
+                      flexDirection: 'row',
+                      alignSelf: 'center',
+                      width: '100%',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View
+                      style={{
+                        backgroundColor: COLOR_WHITE,
+                        borderRadius: 12,
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        padding: 8,
+                        paddingHorizontal: 12,
+                        width: '100%',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                      <View
+                        style={{
+                          alignSelf: 'center',
+                          padding: 4,
+                          alignItems: 'center',
+                        }}>
+                        <Location
+                          width={24}
+                          height={24}
+                          stroke={COLOR_BLACK}
+                          scale={1}
+                          strokeWidth={1.5}
+                        />
+                      </View>
+
+                      <TextInput
+                        placeholder={
+                          state.detailAddress // state.detailAddress가 존재하는 경우
+                            ? `${state.detailAddress}`
+                            : state.userData.detail_address // state.userData.detail_address가 존재하는 경우
+                            ? `${state.userData.detail_address}`
+                            : '상세주소 입력' // 둘 다 존재하지 않는 경우
+                        }
+                        style={{
+                          fontFamily: B,
+                          fontSize: 15,
+                          marginLeft: 12,
+                          width: '85%',
+                          color: COLOR_GRAY,
+                        }}
+                        onChangeText={value => actions.setDetailAddress(value)}
+                        value={state.detailAddress}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  marginTop: 12,
+                }}>
+                <AnimatedButton
+                  onPress={async () => {
+                    console.log(state.myTikklingData.tikkling_id);
+                    actions.endTikklingGoods();
+                    actions.setShowEndModal(false);
+                    actions.navigation.reset({
+                      index: 0,
+                      routes: [
+                        {
+                          name: 'main',
+                          params: {updated: new Date().toString()},
+                        },
+                      ],
+                    });
+                  }}
+                  style={modalStyles.confirmButton}>
+                  <B15 customStyle={modalStyles.whiteText}>
+                    이 주소로 배송 요청
+                  </B15>
+                </AnimatedButton>
+                <AnimatedButton
+                  onPress={() => actions.setShowEndModal(false)}
+                  style={modalStyles.laterButton}>
+                  <B15 customStyle={modalStyles.primaryText}>
+                    나중에 배송 요청
+                  </B15>
+                </AnimatedButton>
+                <M11 customStyle={{color: COLOR_GRAY}}>
+                  티클링 종료일 기준 7일 이후부터 환급받을 수 있어요.
+                </M11>
+              </View>
+            </View>
+          ) : (
+            <View>
+              <ButtonComponent
+                ButtonIcon={ButtonIcon}
+                ButtonText={ButtonText}
+                ButtonAction={ButtonAction}
+                IsStopped={state.myTikklingData.state_id != 1}
+              />
+            </View>
+          )}
         </View>
       </ViewShot>
 
@@ -237,7 +408,6 @@ const FirstHero = props => {
 
       <CancelModal />
       <StopModal />
-      <GoodsReceptionModal />
       <RefundModal />
       <PostCodeModal actions={actions} state={state} />
       <DetailAddressInput state={state} actions={actions} />
@@ -359,10 +529,12 @@ const modalStyles = StyleSheet.create({
     margin: 0,
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: COLOR_SEPARATOR,
     padding: 16,
     paddingVertical: 24,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: COLOR_SEPARATOR,
   },
   contentSection: {
     paddingHorizontal: 8,
@@ -408,13 +580,16 @@ const modalStyles = StyleSheet.create({
     borderWidth: 2,
   },
   laterButton: {
+    backgroundColor: COLOR_WHITE,
     padding: 12,
     borderRadius: 12,
     alignItems: 'center',
     marginBottom: 12,
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
   },
   primaryText: {
-    color: COLOR_PRIMARY,
+    color: COLOR_PRIMARY_OUTLINE,
   },
   whiteText: {
     color: COLOR_WHITE,
