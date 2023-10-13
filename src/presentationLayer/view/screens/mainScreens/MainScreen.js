@@ -103,6 +103,10 @@ export default function HomeScreen({route}) {
   //     actions.loadData();
   //   }
   // }, [route.params?.updated]);
+
+  useEffect(() => {
+    actions.setPaymentButtonPressed(false);
+  }, []);
   return (
     <View>
       <View style={{}}>
