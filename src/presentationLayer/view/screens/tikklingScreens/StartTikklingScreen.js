@@ -82,6 +82,10 @@ export default function StartTikklingScreen() {
         : null,
     );
   }, [state.userData]);
+
+  useEffect(() => {
+    actions.setCreateTikklingButtonPressed(false);
+  }, []);
   return (
     <View style={{}}>
       <ScrollView
@@ -606,18 +610,11 @@ export default function StartTikklingScreen() {
 
         <AnimatedButton
           onPress={actions.buttonPress}
-          style={{
-            backgroundColor: COLOR_PRIMARY,
-            borderRadius: 12,
-            padding: 12,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: windowWidth - 32,
-            marginTop: 0,
-            marginBottom: 15,
-            alignSelf: 'center',
-          }}
-          disabled={!state.isButtonEnabled} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
+          style={[
+            styles.tikklingStartButton,
+            state.createTikklingButtonPressed ? styles.inactiveButton : {},
+          ]}
+          disabled={!state.isButtonEnabled && state.createTikklingButtonPressed} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
         >
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
@@ -657,5 +654,21 @@ const styles = StyleSheet.create({
     width: '33%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  inactiveButton: {
+    backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
+    shadowOpacity: 0, // Remove shadow for inactive button
+    borderColor: COLOR_GRAY,
+  },
+  tikklingStartButton: {
+    backgroundColor: COLOR_PRIMARY,
+    borderRadius: 12,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: windowWidth - 32,
+    marginTop: 0,
+    marginBottom: 15,
+    alignSelf: 'center',
   },
 });

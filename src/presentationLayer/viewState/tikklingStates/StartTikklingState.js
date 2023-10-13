@@ -34,6 +34,8 @@ export const StartTikklingViewStateProvider = ({children}) => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showPostCodeModal, setShowPostCodeModal] = useState(false);
+  const [createTikklingButtonPressed, setCreateTikklingButtonPressed] =
+    useState(false);
   const events = [
     {
       type: 'birthday',
@@ -67,6 +69,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     events,
     loading,
     showPostCodeModal,
+    createTikklingButtonPressed,
   };
   const actions = {
     setUserData,
@@ -86,6 +89,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     setShowDetailModal,
     setLoading,
     setShowPostCodeModal,
+    setCreateTikklingButtonPressed,
   };
 
   return (
