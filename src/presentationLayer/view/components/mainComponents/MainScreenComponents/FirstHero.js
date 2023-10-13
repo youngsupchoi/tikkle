@@ -236,7 +236,7 @@ const FirstHero = props => {
                         borderRadius: 12,
                         borderColor: COLOR_SEPARATOR,
                         borderWidth: 1,
-                        padding: 8,
+                        padding: 3,
                         paddingHorizontal: 12,
                         width: '100%',
                         flexDirection: 'row',
@@ -270,6 +270,7 @@ const FirstHero = props => {
                           fontSize: 15,
                           marginLeft: 12,
                           width: '85%',
+                          height: 40,
                           color: COLOR_GRAY,
                         }}
                         onChangeText={value => actions.setDetailAddress(value)}
