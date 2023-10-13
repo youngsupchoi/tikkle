@@ -29,10 +29,8 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
 
     if (tikkleQuantity === tikkleCount) {
       actions.setShowEndModal(true);
-    } else if (fundingLimit > currentDate) {
+    } else if (tikkleQuantity > tikkleCount) {
       actions.setShowBuyModal(true);
-    } else {
-      actions.setShowCancelModal(true);
     }
   };
 
