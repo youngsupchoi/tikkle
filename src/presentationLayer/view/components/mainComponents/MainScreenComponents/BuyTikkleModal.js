@@ -175,7 +175,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
     actions.setPaymentButtonPressed(true);
     if (data.state_id == 1) {
       await post_tikkling_sendtikkle(data).then(res => {
-        // console.log('$$$$ ', res);
         if (res.success === true) {
           const payment_param = res.payment_param;
           setServerMessage(res.message);
@@ -205,9 +204,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
           // console.log('data_in', data_in);
           actions.setPaymentButtonPressed(false);
           navigation.navigate('hectoPayment', data_in);
-        } else if (res.success === false) {
+        } else {
           setServerMessage(res.message);
           actions.setPaymentButtonPressed(false);
+          topActions.showSnackbar('결제에 실패했어요!', 1);
           onCloseButtonPress();
         }
       });
@@ -239,9 +239,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
           // console.log('data_in', data_in);
           actions.setPaymentButtonPressed(false);
           navigation.navigate('hectoPayment', data_in);
-        } else if (res.DSdata.success === false) {
-          setServerMessage(res.DSmessage);
+        } else {
+          setServerMessage(res.message);
           actions.setPaymentButtonPressed(false);
+          topActions.showSnackbar('결제에 실패했어요!', 1);
           onCloseButtonPress();
         }
       });
