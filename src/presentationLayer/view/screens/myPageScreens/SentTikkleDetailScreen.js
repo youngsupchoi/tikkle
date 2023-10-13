@@ -24,6 +24,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_ERROR,
   COLOR_PRIMARY,
   COLOR_GRAY,
   COLOR_SEPARATOR,
