@@ -21,8 +21,7 @@ import PaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/Se
 import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleSuccessScreen';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {Easing} from 'react-native';
-
+import {Easing, Linking} from 'react-native';
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
@@ -37,9 +36,9 @@ const ProductDetail = () => (
   </ProductDetailViewStateProvider>
 );
 
-const StartTikkling = () => (
+const StartTikkling = ({route}) => (
   <StartTikklingViewStateProvider>
-    <StartTikklingScreen />
+    <StartTikklingScreen route={route} />
   </StartTikklingViewStateProvider>
 );
 
@@ -145,9 +144,61 @@ function SignUpNavigator() {
   );
 }
 
+//deep link code----------------------------------------------------------------------------------------------------------------
+
+const config = {
+  screens: {
+    SignUpNavigator: '/signup', // 매핑되는 URL 경로
+    main: '/main', // 매핑되는 URL 경로
+    startTikkling: '/start-tikkling/:id/:name', // 매핑되는 URL 경로
+    productDetail: '/product-detail', // 매핑되는 URL 경로
+    notification: '/notification', // 매핑되는 URL 경로
+    notificationSetting: '/notification-setting', // 매핑되는 URL 경로
+    searchAddress: '/search-address', // 매핑되는 URL 경로
+    wishlistManagement: '/wishlist-management', // 매핑되는 URL 경로
+    payment: '/payment', // 매핑되는 URL 경로
+    hectoPayment: '/hecto-payment', // 매핑되는 URL 경로
+    paymentSuccess: '/payment-success', // 매핑되는 URL 경로
+  },
+};
+
+const linking = {
+  //디폴트 프로토콜 설정 필요
+  prefixes: ['https://...', 'http://localhost:3000', 'tikkle://'],
+
+  async getInitialURL() {
+    const url = await Linking.getInitialURL();
+
+    if (url != null) {
+      return url;
+    }
+
+    return null;
+  },
+
+  //받아준 딥링크 url을 subscribe에 넣어줘야 한다
+  subscribe(listener) {
+    console.log('linking subscribe to ', listener);
+    const onReceiveURL = event => {
+      const {url} = event;
+      console.log('link has url', url, event);
+      return listener(url);
+    };
+
+    Linking.addEventListener('url', onReceiveURL);
+    return () => {
+      console.log('linking unsubscribe to ', listener);
+      Linking.removeEventListener('url', onReceiveURL);
+    };
+  },
+  config, //스텍 네비게이션 디렉토리 정보 설정 필요
+};
+
+//deep link code----------------------------------------------------------------------------------------------------------------
+
 export default function MainStackNavigator() {
   return (
-    <NavigationContainer theme={MyTheme} ref={navigationRef}>
+    <NavigationContainer theme={MyTheme} ref={navigationRef} linking={linking}>
       <MainStack.Navigator
         initialRouteName="SignUpNavigator"
         screenOptions={{
