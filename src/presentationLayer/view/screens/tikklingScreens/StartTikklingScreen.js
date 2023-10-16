@@ -51,7 +51,7 @@ import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklin
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
-export default function StartTikklingScreen() {
+export default function StartTikklingScreen({route}) {
   const {state, actions} = useStartTikklingViewModel();
   useEffect(() => {
     actions.loadData();
@@ -65,6 +65,11 @@ export default function StartTikklingScreen() {
         state.eventType !== null,
     );
   }, [state.zonecode, state.address, state.detailAddress, state.event]);
+
+  useEffect(() => {
+    console.log('🚨');
+    console.log(route);
+  }, []);
 
   useEffect(() => {
     state.userData.birthday !== undefined
