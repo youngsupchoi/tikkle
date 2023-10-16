@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "120372955557",
+    "project_id": "tikkle-android",
+    "storage_bucket": "tikkle-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120372955557:android:4f509faebd4b3f637b804c",
+        "android_client_info": {
+          "package_name": "com.tikkle_revive_ios"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNBuNDPcIdV8FiMYQKINibx2uxA1EXu1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
