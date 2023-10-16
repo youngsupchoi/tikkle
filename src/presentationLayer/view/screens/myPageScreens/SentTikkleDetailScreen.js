@@ -76,7 +76,7 @@ export default function SentTikkleDetailScreen({route}) {
       ) : (
         <ScrollView style={{marginTop: HEADER_HEIGHT}}>
           {/* 결제 정보 */}
-          <View style={{marginHorizontal: 15}}>
+          <View style={{marginHorizontal: 5}}>
             <View
               style={{
                 padding: 24,
@@ -91,6 +91,11 @@ export default function SentTikkleDetailScreen({route}) {
               <B20 customStyle={{fontFamily: EB, marginBottom: 10}}>
                 주문 상세
               </B20>
+
+              <View style={styles.detailDataStyle}>
+                <B15>주문 번호</B15>
+                <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15>
+              </View>
 
               <View style={styles.detailDataStyle}>
                 <B15>결제 일시</B15>
@@ -146,6 +151,25 @@ export default function SentTikkleDetailScreen({route}) {
                   {state.paymentData.buyer_tel}
                 </M15>
               </View>
+
+              <View style={styles.detailDataStyle}>
+                <B15>판매자 상호</B15>
+                <M15 customStyle={{color: COLOR_GRAY}}>{'(주)라이폴리'}</M15>
+              </View>
+
+              <View style={styles.detailDataStyle}>
+                <B15>판매자 법인등록번호</B15>
+                <M15 customStyle={{color: COLOR_GRAY}}>{'110111-8753941'}</M15>
+              </View>
+              {/* 
+              <View style={styles.detailDataStyle}>
+                <B15>판매자 주소</B15>
+              </View>
+              <View style={styles.detailDataStyle_2}>
+                <M15 customStyle={{color: COLOR_GRAY}}>
+                  {'서울특별시 서초구 사임당로 8길 13, 4층 402호-a593'}
+                </M15>
+              </View> */}
             </View>
           </View>
 
@@ -417,6 +441,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'left',
+    marginHorizontal: 5,
+    marginVertical: 3,
+    marginLeft: 0,
+  },
+  detailDataStyle_2: {
+    alignItems: 'flex-end',
     marginHorizontal: 5,
     marginVertical: 3,
     marginLeft: 0,
