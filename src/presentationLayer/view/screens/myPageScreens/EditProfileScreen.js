@@ -34,7 +34,7 @@ export default function EditProfileScreen() {
               </View>
             ) : null}
             <EditAddress />
-            <View style={{height: 240}} />
+            <View style={{height: 20}} />
           </View>
         )}
         <Footer />

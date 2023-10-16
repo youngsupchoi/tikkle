@@ -80,9 +80,9 @@ export default function EditAddress() {
                 strokeWidth={1.5}
               />
             </View>
-            <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
+            <B15 customStyle={{color: COLOR_GRAY, marginHorizontal: 12}}>
               {state.zonecode !== null && state.address !== null
-                ? `${state.address}(${state.zonecode})`
+                ? `${state.address} (${state.zonecode})`
                 : '도로명주소 검색'}
             </B15>
           </View>

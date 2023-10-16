@@ -26,11 +26,11 @@ export default function PaymentScreen(route) {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      {console.log(data)}
+      {console.log('중간에 넘어온 데이터', data)}
       <B20 customStyle={{}}>여기서 결제합니다.</B20>
       <AnimatedButton
         onPress={() => {
-          navigation.navigate('paymentSuccess', data);
+          navigation.navigate('hectoPayment', data);
         }}
         style={{
           backgroundColor: COLOR_PRIMARY,

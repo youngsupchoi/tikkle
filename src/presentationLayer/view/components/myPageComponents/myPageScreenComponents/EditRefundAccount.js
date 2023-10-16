@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {
   COLOR_SEPARATOR,
   COLOR_PRIMARY,
+  COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B,
@@ -35,6 +36,7 @@ export default function EditRefundAccount() {
       <View
         style={{
           borderRadius: 4,
+          backgroundColor: COLOR_WHITE,
           borderColor: COLOR_SEPARATOR,
           borderWidth: 1,
           marginTop: 5,

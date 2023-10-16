@@ -18,9 +18,35 @@ import {
   windowWidth,
   windowHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-function InputBox({value, placeholder, onChange, onSubmit, refValue}) {
+function InputBox({
+  value,
+  placeholder,
+  onChange,
+  onSubmit,
+  refValue,
+  maxLength,
+}) {
+  // Define a state variable to track the current input value
+  const [inputValue, setInputValue] = useState(value);
+  const {topActions} = useTopViewModel();
+  // Define a function to handle text input changes
+  const handleTextChange = text => {
+    // Check if the text length exceeds the maxLength
+    if (text.length <= maxLength) {
+      setInputValue(text); // Update the input value in state
+      onChange(text); // Call the provided onChange function
+    } else {
+      if (maxLength === 4) {
+        topActions.showSnackbar('성은 4 글자를 초과할 수 없어요', 0);
+      } else {
+        topActions.showSnackbar('이름은 5 글자를 초과할 수 없어요', 0);
+      }
+    }
+  };
+
   return (
     <TextInput
       ref={refValue}
@@ -29,9 +55,8 @@ function InputBox({value, placeholder, onChange, onSubmit, refValue}) {
       placeholderTextColor={COLOR_GRAY}
       style={styles.nativeInput}
       underlineColorAndroid="transparent"
-      clearButtonMode="while-editing"
-      value={value}
-      onChangeText={onChange}
+      value={inputValue}
+      onChangeText={handleTextChange} // Use the handleTextChange function
       onSubmitEditing={onSubmit}
     />
   );
@@ -47,6 +72,7 @@ export default function NameInput() {
         onChange={actions.setFirstName}
         onSubmit={() => ref.lastNameRef.current.focus()}
         refValue={ref.firstNameRef}
+        maxLength={4}
       />
       <InputBox
         value={state.lastName}
@@ -54,6 +80,7 @@ export default function NameInput() {
         onChange={actions.setLastName}
         onSubmit={actions.handleButtonPress}
         refValue={ref.lastNameRef}
+        maxLength={5}
       />
     </View>
   );

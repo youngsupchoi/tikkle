@@ -21,12 +21,14 @@ export default function FriendsEventComponent() {
   const {state} = useMainViewModel();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <B20 customStyle={{fontFamily: EB, marginVertical: 10}}>
-          다가오는 기념일
-        </B20>
-        {/* <AnimatedButton style={styles.animatedButton}>
+    <View>
+      {state.friendEventData.length > 0 && (
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <B20 customStyle={{fontFamily: EB, marginVertical: 10}}>
+              다가오는 기념일
+            </B20>
+            {/* <AnimatedButton style={styles.animatedButton}>
           <ArrowRight
             width={24}
             height={24}
@@ -35,9 +37,10 @@ export default function FriendsEventComponent() {
             scale={1}
           />
         </AnimatedButton> */}
-      </View>
-      {state.friendEventData.length > 0 && (
-        <FriendsEvents friendsEventData={state.friendEventData} />
+          </View>
+
+          <FriendsEvents friendsEventData={state.friendEventData} />
+        </View>
       )}
     </View>
   );

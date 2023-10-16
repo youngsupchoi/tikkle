@@ -67,13 +67,15 @@ export default function FriendsTikklingCarousel(data) {
             <M15 customStyle={{color: COLOR_GRAY}}>•@{item.nick}</M15>
           </View>
         </View>
+        {/** */}
+
         <View style={{padding: 0, paddingBottom: 20}}>
           <View
             style={{
               borderRadius: 16,
               margin: 12,
             }}>
-            <View style={{}}>
+            <View style={styles.cardContainer}>
               <View
                 style={{
                   width: 240,
@@ -131,133 +133,150 @@ export default function FriendsTikklingCarousel(data) {
                   <B12>{item.brand_name}</B12>
                 </View>
               </View>
-
+              {/**이상한 놈들 */}
               <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginVertical: 12,
-                  marginTop: 20,
-                  paddingHorizontal: 12,
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  <FlagFilled fill={COLOR_PRIMARY} />
-                  <B15>달성률</B15>
-                </View>
-                <B12 customStyle={{color: COLOR_GRAY, marginVertical: 4}}>
-                  {Math.round(
-                    (item.tikkle_count / item.tikkle_quantity) * 1000,
-                  ) / 10}
-                  %
-                </B12>
-              </View>
-              <View style={{paddingHorizontal: 12}}>
-                <BarComponent
-                  totalPieces={item.tikkle_quantity}
-                  gatheredPieces={item.tikkle_count}
-                />
-              </View>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginTop: 12,
-                  justifyContent: 'space-around',
-                }}>
+                style={{position: 'relative', width: 240, marginBottom: 20}}>
+                {/**달성률 */}
                 <View
                   style={{
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 1,
-                    backgroundColor: COLOR_WHITE,
                     flexDirection: 'row',
-                    alignItems: 'center',
-                    borderRadius: 16,
-                    paddingRight: 12,
+                    justifyContent: 'space-between',
+                    marginVertical: 12,
+                    marginTop: 20,
+                    paddingHorizontal: 12,
+                  }}>
+                  <View style={{flexDirection: 'row'}}>
+                    <FlagFilled fill={COLOR_PRIMARY} />
+                    <B15>달성률</B15>
+                  </View>
+                  <B12 customStyle={{color: COLOR_GRAY, marginVertical: 4}}>
+                    {Math.round(
+                      (item.tikkle_count / item.tikkle_quantity) * 1000,
+                    ) / 10}
+                    %
+                  </B12>
+                </View>
+
+                <View style={{paddingHorizontal: 12}}>
+                  <BarComponent
+                    totalPieces={item.tikkle_quantity}
+                    gatheredPieces={item.tikkle_count}
+                  />
+                </View>
+
+                {/**버튼 시작*/}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: 12,
+                    justifyContent: 'space-around',
                   }}>
                   <View
                     style={{
-                      backgroundColor: COLOR_SECONDARY,
                       borderColor: COLOR_SEPARATOR,
                       borderWidth: 1,
-                      padding: 8,
-                      borderRadius: 30,
+                      backgroundColor: COLOR_WHITE,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      borderRadius: 16,
+                      paddingRight: 12,
                     }}>
-                    <BubbleFilled fill={COLOR_PRIMARY} width={16} height={16} />
+                    <View
+                      style={{
+                        backgroundColor: COLOR_SECONDARY,
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        padding: 8,
+                        borderRadius: 30,
+                      }}>
+                      <BubbleFilled
+                        fill={COLOR_PRIMARY}
+                        width={16}
+                        height={16}
+                      />
+                    </View>
+
+                    <View style={{marginLeft: 4}}>
+                      <B12>{item.tikkle_quantity - item.tikkle_count}개</B12>
+                    </View>
                   </View>
-                  <View style={{marginLeft: 4}}>
-                    <B12>{item.tikkle_quantity - item.tikkle_count}개</B12>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 1,
-                    backgroundColor: COLOR_WHITE,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    borderRadius: 16,
-                    paddingRight: 12,
-                  }}>
+
                   <View
                     style={{
-                      backgroundColor: COLOR_SECONDARY,
                       borderColor: COLOR_SEPARATOR,
                       borderWidth: 1,
-                      padding: 8,
-                      borderRadius: 30,
+                      backgroundColor: COLOR_WHITE,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      borderRadius: 16,
+                      paddingRight: 12,
                     }}>
-                    <CalendarFilled
-                      fill={COLOR_PRIMARY}
-                      width={16}
-                      height={16}
-                    />
-                  </View>
-                  <View style={{marginLeft: 4}}>
-                    <TimerComponent
-                      timerStyle={{
-                        fontSize: 12,
-                        fontFamily: B,
-                        color: COLOR_BLACK,
-                      }}
-                      deadline={item.funding_limit}
-                    />
+                    <View
+                      style={{
+                        backgroundColor: COLOR_SECONDARY,
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        padding: 8,
+                        borderRadius: 30,
+                      }}>
+                      <CalendarFilled
+                        fill={COLOR_PRIMARY}
+                        width={16}
+                        height={16}
+                      />
+                    </View>
+                    <View style={{marginLeft: 4}}>
+                      <TimerComponent
+                        timerStyle={{
+                          fontSize: 12,
+                          fontFamily: B,
+                          color: COLOR_BLACK,
+                        }}
+                        deadline={item.funding_limit}
+                      />
+                    </View>
                   </View>
                 </View>
+                {/**버튼 끝 */}
+              </View>
+              {/**이상한 놈들 끝 */}
+            </View>
+
+            <View style={{paddingHorizontal: 24}}>
+              <View style={{marginTop: 4}}>
+                <AnimatedButton
+                  onPress={() => {
+                    new Date(item.funding_limit) > new Date()
+                      ? setShowBuyModal(item.tikkling_id)
+                      : null;
+                  }}
+                  style={{
+                    padding: 8,
+                    borderRadius: 12,
+                    backgroundColor: COLOR_PRIMARY,
+                    borderColor: COLOR_PRIMARY_OUTLINE,
+                    borderWidth: 2,
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
+                  disabled={new Date(item.funding_limit) < new Date()}>
+                  <B15 customStyle={{color: COLOR_PRIMARY_TEXT}}>
+                    {'티클 선물하기'}
+                  </B15>
+                </AnimatedButton>
               </View>
             </View>
           </View>
 
-          <View style={{paddingHorizontal: 24}}>
-            <View style={{marginTop: 4}}>
-              <AnimatedButton
-                onPress={() => {
-                  new Date(item.funding_limit) > new Date()
-                    ? setShowBuyModal(item.tikkling_id)
-                    : null;
-                }}
-                style={{
-                  padding: 8,
-                  borderRadius: 12,
-                  backgroundColor: COLOR_PRIMARY,
-                  borderColor: COLOR_PRIMARY_OUTLINE,
-                  borderWidth: 2,
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}
-                disabled={new Date(item.funding_limit) < new Date()}>
-                <B15 customStyle={{color: COLOR_PRIMARY_TEXT}}>
-                  {'티클 선물하기'}
-                </B15>
-              </AnimatedButton>
-            </View>
-          </View>
+          {/** */}
+
+          <BuyTikkleModal
+            data={item}
+            showModal={showBuyModal === item.tikkling_id}
+            onCloseModal={onCloseModal}
+          />
         </View>
-        <BuyTikkleModal
-          data={item}
-          showModal={showBuyModal === item.tikkling_id}
-          onCloseModal={onCloseModal}
-        />
       </View>
     );
   };

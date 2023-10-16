@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   },
   instructionContainer: {
     marginBottom: SPACING_6,
+    alignItems: 'center',
   },
   inputContainer: {
     flexDirection: 'row',

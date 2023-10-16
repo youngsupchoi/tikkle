@@ -1,157 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>tikkle_revive_ios</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>CFBundleDevelopmentRegion</key>
-		<string>en</string>
-		<key>CFBundleDisplayName</key>
-		<string>tikkle_revive_ios</string>
-		<key>CFBundleExecutable</key>
-		<string>$(EXECUTABLE_NAME)</string>
-		<key>CFBundleIdentifier</key>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
-		<key>CFBundleName</key>
-		<string>$(PRODUCT_NAME)</string>
-		<key>CFBundlePackageType</key>
-		<string>APPL</string>
-		<key>CFBundleShortVersionString</key>
-		<string>$(MARKETING_VERSION)</string>
-		<key>CFBundleSignature</key>
-		<string>????</string>
-		<key>CFBundleVersion</key>
-		<string>$(CURRENT_PROJECT_VERSION)</string>
-		<key>LSRequiresIPhoneOS</key>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
 		<true/>
-		<key>NSAppTransportSecurity</key>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
 		<dict>
-			<key>NSExceptionDomains</key>
+			<key>NSAllowsArbitraryLoadsInWebContent</key>
+			<true/>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+			<key>localhost</key>
 			<dict>
-				<key>NSAllowsArbitraryLoadsInWebContent</key>
-				<true />
-				<key>NSAllowsArbitraryLoads</key>
-				<true />
-				<key>localhost</key>
-				<dict>
-					<key>NSExceptionAllowsInsecureHTTPLoads</key>
-					<true/>
-				</dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
 			</dict>
 		</dict>
-		<key>NSLocationWhenInUseUsageDescription</key>
-		<string/>
-		<!-- 카메라 권한 -->
-		<key>NSCameraUsageDescription</key>
-		<string>App would like to access your camera</string>
-
-		<!-- 사진 라이브러리 권한 -->
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>App would like to access your photo library</string>
-
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIRequiredDeviceCapabilities</key>
-		<array>
-			<string>armv7</string>
-		</array>
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
-		<key>UIAppFonts</key>
-		<array>
-			<string>AppleSDGothicNeoB.ttf</string>
-			<string>AppleSDGothicNeoEB.ttf</string>
-			<string>AppleSDGothicNeoH.ttf</string>
-			<string>AppleSDGothicNeoL.ttf</string>
-			<string>AppleSDGothicNeoM.ttf</string>
-			<string>AppleSDGothicNeoR.ttf</string>
-			<string>AppleSDGothicNeoSB.ttf</string>
-			<string>AppleSDGothicNeoT.ttf</string>
-			<string>AppleSDGothicNeoUL.ttf</string>
-			<string>CherryBombOne-Regular.ttf</string>
-		</array>
-
-		<key>LSApplicationQueriesSchemes</key>
-		<array>
-			<string>instagram</string>
-			<string>kftc-bankpay</string>
-			<!-- 계좌이체 -->
-			<string>ispmobile</string>
-			<!-- ISP모바일 -->
-			<string>itms-apps</string>
-			<!-- 앱스토어 -->
-			<string>hdcardappcardansimclick</string>
-			<!-- 현대카드-앱카드 -->
-			<string>smhyundaiansimclick</string>
-			<!-- 현대카드-공인인증서 -->
-			<string>shinhan-sr-ansimclick</string>
-			<!-- 신한카드-앱카드 -->
-			<string>smshinhanansimclick</string>
-			<!-- 신한카드-공인인증서 -->
-			<string>kb-acp</string>
-			<!-- 국민카드-앱카드 -->
-			<string>mpocket.online.ansimclick</string>
-			<!-- 삼성카드-앱카드 -->
-			<string>ansimclickscard</string>
-			<!-- 삼성카드-온라인결제 -->
-			<string>ansimclickipcollect</string>
-			<!-- 삼성카드-온라인결제 -->
-			<string>vguardstart</string>
-			<!-- 삼성카드-백신 -->
-			<string>samsungpay</string>
-			<!-- 삼성카드-삼성페이 -->
-			<string>scardcertiapp</string>
-			<!-- 삼성카드-공인인증서 -->
-			<string>lottesmartpay</string>
-			<!-- 롯데카드-모바일결제 -->
-			<string>lotteappcard</string>
-			<!-- 롯데카드-앱카드 -->
-			<string>cloudpay</string>
-			<!-- 하나카드-앱카드 -->
-			<string>nhappcardansimclick</string>
-			<!-- 농협카드-앱카드 -->
-			<string>nonghyupcardansimclick</string>
-			<!-- 농협카드-공인인증서 -->
-			<string>citispay</string>
-			<!-- 씨티카드-앱카드 -->
-			<string>citicardappkr</string>
-			<!-- 씨티카드-공인인증서 -->
-			<string>citimobileapp</string>
-			<!-- 씨티카드-간편결제 -->
-			<string>kakaotalk</string>
-			<!-- 카카오톡 -->
-			<string>payco</string>
-			<!-- 페이코 -->
-			<string>lpayapp</string>
-			<!-- 롯데 L페이 -->
-			<string>hanamopmoasign</string>
-			<!-- 하나카드 공인인증앱 -->
-			<string>wooripay</string>
-			<!-- 우리페이 -->
-			<string>nhallonepayansimclick</string>
-			<!-- NH 올원페이 -->
-			<string>hanawalletmembers</string>
-			<!-- 하나카드(하나멤버스 월렛) -->
-		</array>
-
-		<!-- Contacts Permission -->
-		<key>NSContactsUsageDescription</key>
-		<string>YOUR TEXT</string>
-
-		<!-- Photo Library Permission (for external storage) -->
-
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>YOUR TEXT</string>
-
-		<!-- Documents Folder Permission (for external storage) -->
-		<!-- <key>NSDocumentsFolderUsageDescription</key>
-		<string>We need access to your documents to save and manage files you use within the app.</string> -->
-
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>App would like to access your camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>YOUR TEXT</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AppleSDGothicNeoB.ttf</string>
+		<string>AppleSDGothicNeoEB.ttf</string>
+		<string>AppleSDGothicNeoH.ttf</string>
+		<string>AppleSDGothicNeoL.ttf</string>
+		<string>AppleSDGothicNeoM.ttf</string>
+		<string>AppleSDGothicNeoR.ttf</string>
+		<string>AppleSDGothicNeoSB.ttf</string>
+		<string>AppleSDGothicNeoT.ttf</string>
+		<string>AppleSDGothicNeoUL.ttf</string>
+		<string>CherryBombOne-Regular.ttf</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string></string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram</string>
+		<string>kftc-bankpay</string>
+		<string>ispmobile</string>
+		<string>itms-apps</string>
+		<string>hdcardappcardansimclick</string>
+		<string>smhyundaiansimclick</string>
+		<string>shinhan-sr-ansimclick</string>
+		<string>smshinhanansimclick</string>
+		<string>kb-acp</string>
+		<string>mpocket.online.ansimclick</string>
+		<string>ansimclickscard</string>
+		<string>ansimclickipcollect</string>
+		<string>vguardstart</string>
+		<string>samsungpay</string>
+		<string>scardcertiapp</string>
+		<string>lottesmartpay</string>
+		<string>lotteappcard</string>
+		<string>cloudpay</string>
+		<string>nhappcardansimclick</string>
+		<string>nonghyupcardansimclick</string>
+		<string>citispay</string>
+		<string>citicardappkr</string>
+		<string>citimobileapp</string>
+		<string>kakaotalk</string>
+		<string>payco</string>
+		<string>lpayapp</string>
+		<string>hanamopmoasign</string>
+		<string>wooripay</string>
+		<string>nhallonepayansimclick</string>
+		<string>hanawalletmembers</string>
+		<string>chaipayment</string>
+		<string>kb-auth</string>
+		<string>hyundaicardappcardid</string>
+		<string>com.wooricard.wcard</string>
+		<string>lmslpay</string>
+		<string>lguthepay-xpay</string>
+		<string>liivbank</string>
+		<string>supertoss</string>
+		<string>newsmartpib</string>
+		<string>ukbanksmartbanknonloginpay</string>
+	</array>
+	<key>NSContactsUsageDescription</key>
+	<string>YOUR TEXT</string>
+</dict>
 </plist>

@@ -45,7 +45,7 @@ export default function GoodsReceptionModal() {
 
           <View style={modalStyles.contentSection}>
             <View style={{}}>
-              <B15 customStyle={{marginTop: 16}}>도로명주소</B15>
+              <B15 customStyle={{marginTop: 16}}>{'주소 (우편번호)'}</B15>
               <AnimatedButton
                 onPress={() => {
                   // actions.setShowEndModal(false);
@@ -87,9 +87,9 @@ export default function GoodsReceptionModal() {
                   <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
                     {
                       state.address && state.zonecode // state.address와 state.zonecode가 존재하는 경우
-                        ? `${state.address}(${state.zonecode})`
+                        ? `${state.address} (${state.zonecode})`
                         : state.userData.address && state.userData.zonecode // state.userData.address와 state.userData.zonecode가 존재하는 경우
-                        ? `${state.userData.address}(${state.userData.zonecode})`
+                        ? `${state.userData.address} (${state.userData.zonecode})`
                         : '도로명주소 검색' // 둘 다 존재하지 않는 경우
                     }
                   </B15>
