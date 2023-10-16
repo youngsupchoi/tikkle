@@ -22,7 +22,6 @@ import OTPInput from 'src/presentationLayer/view/components/startComponents/Auth
 import {InstructionText} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/InstructionText';
 import TimerComponent from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/TimerComponent';
 
-import {verifyOTP} from 'src/components/Axios/OTPVerification';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import {checkOtpData} from 'src/dataLayer/DataSource/Auth/CheckOtpData';

@@ -1,9 +1,7 @@
-import {View, Text, Button, Platform, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import ImagePicker from 'react-native-image-crop-picker';
+import {View, Platform, Image} from 'react-native';
+import React, {useEffect} from 'react';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import {PermissionsAndroid} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {COLOR_PRIMARY} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';

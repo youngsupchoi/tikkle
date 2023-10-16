@@ -1,5 +1,5 @@
 import {View, TextInput, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   COLOR_SEPARATOR,
   COLOR_PRIMARY,
@@ -7,19 +7,14 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B,
-  B12,
   B15,
   B17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_2,
-  backgroundColor,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+
 export default function EditRefundAccount() {
   const {ref, state, actions} = useMyPageViewModel();
 

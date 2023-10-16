@@ -1,5 +1,5 @@
 // mainStack.js
-import React, {useRef} from 'react';
+import React from 'react';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -15,8 +15,6 @@ import SignUpScreen6 from 'src/presentationLayer/view/screens/startScreens/AuthS
 import StartTikklingScreen from 'src/presentationLayer/view/screens/tikklingScreens/StartTikklingScreen';
 import NotificationScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationScreen';
 import NotificationSettingScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationSettingScreen';
-import MyTikklingScreen from 'src/presentationLayer/view/screens/notUseScreens/TikklingDetailScreen';
-import FriendsTikklingScreen from 'src/presentationLayer/view/screens/notUseScreens/FriendsTikklingDetailScreen';
 import SearchAddressScreen from 'src/presentationLayer/view/screens/notUseScreens/SearchAddressScreen';
 import WishlistManagementScreen from 'src/presentationLayer/view/screens/notUseScreens/WishlistManagementScreen';
 import PaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleScreen';
@@ -31,7 +29,6 @@ import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/pr
 import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
 import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationSettingState';
-import EditProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/EditProfileScreen';
 import HectoPaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/HectoPaymentScreen';
 
 const ProductDetail = () => (

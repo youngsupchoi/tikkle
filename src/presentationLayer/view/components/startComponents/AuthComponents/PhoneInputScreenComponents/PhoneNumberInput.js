@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
 import {
   COLOR_BLACK,
@@ -7,10 +7,9 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import { useStartViewModel } from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 export const PhoneNumberInput = () => {
-
   const {ref, state, actions} = useStartViewModel();
   const validatePhoneNumber = number => /^010\d{8}$/.test(number);
 

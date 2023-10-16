@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {
   B,
@@ -19,8 +19,6 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
-// import BarComponent from 'src/presentationLayer/view/components/Home/ProgressBar/ProgressBar';
-import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';

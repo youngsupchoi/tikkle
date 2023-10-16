@@ -1,15 +1,7 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Platform,
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
-  COLOR_BLACK,
   COLOR_ERROR,
   COLOR_PRIMARY,
   COLOR_SECONDARY,
@@ -19,21 +11,14 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B15,
-  B22,
-  H1,
   UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-
-import Notification from 'src/assets/icons/Notification.js';
-import HamburgerMenu from 'src/assets/icons/Hambergermenu.js';
 import {
-  StatusBarHeight,
   HEADER_HEIGHT,
   SPACING_2,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import Ticket from 'src/assets/icons/Ticket';
 import TicketFilled from 'src/assets/icons/TicketFilled';
 import NotificationFilled from 'src/assets/icons/NotificationFilled';
 

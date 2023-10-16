@@ -1,6 +1,4 @@
 import {apiModel} from '../../APIModel/ApiModel';
-import {getToken} from '../../APIModel/GetToken';
-import {resetToken} from '../../APIModel/ResetToken';
 
 export async function getMyTikklingDS(authorization) {
   /** if there is some data control for company that will be added here **/

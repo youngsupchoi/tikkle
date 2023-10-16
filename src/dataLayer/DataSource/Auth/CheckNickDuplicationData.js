@@ -1,6 +1,4 @@
 import {apiModel} from '../../APIModel/ApiModel';
-import {getToken} from '../../APIModel/GetToken';
-import {resetToken} from '../../APIModel/ResetToken';
 
 export async function checkNickDuplicationData(nick) {
   //------ collect data ---------------------------------------------------//

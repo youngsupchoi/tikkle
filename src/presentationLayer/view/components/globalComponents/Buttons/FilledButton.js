@@ -1,12 +1,7 @@
-import {View, Text, Touchable, TouchableOpacity, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import React from 'react';
 import {Button} from '../Typography/Typography';
-import {
-  COLOR_BLACK,
-  COLOR_PRIMARY,
-  COLOR_SECONDARY,
-  COLOR_WHITE,
-} from '../Colors/Colors';
+import {COLOR_PRIMARY, COLOR_SECONDARY, COLOR_WHITE} from '../Colors/Colors';
 import Animated, {
   interpolateColor,
   useAnimatedStyle,

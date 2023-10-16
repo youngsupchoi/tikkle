@@ -7,7 +7,6 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {useRef} from 'react';
 
 function OTPInput({handleTextChange, inputCode, inputRefs}) {
   return (

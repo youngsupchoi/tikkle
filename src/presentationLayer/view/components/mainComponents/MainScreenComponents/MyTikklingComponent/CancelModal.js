@@ -1,8 +1,7 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {
-  COLOR_BLACK,
   COLOR_ERROR,
   COLOR_WHITE,
   backgroundColor,

@@ -1,17 +1,8 @@
-import {
-  View,
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
-import React, {useEffect} from 'react';
+import {View, StyleSheet, Linking} from 'react-native';
+import React from 'react';
 import {
   B,
   B12,
-  B17,
-  B20,
   EB,
   UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
@@ -29,7 +20,6 @@ import {
   COLOR_GRAY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {CONTRACT_URL, PRIVATECONTRACT_URL} from '@env';
 

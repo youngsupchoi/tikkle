@@ -1,6 +1,6 @@
 // TimerComponent.js
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {COLOR_ERROR} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {M11} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {

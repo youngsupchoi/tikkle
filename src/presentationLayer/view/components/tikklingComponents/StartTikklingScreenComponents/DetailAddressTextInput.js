@@ -1,4 +1,4 @@
-import {View, Text, TextInput} from 'react-native';
+import {TextInput} from 'react-native';
 import React, {useState} from 'react';
 import {COLOR_GRAY} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';

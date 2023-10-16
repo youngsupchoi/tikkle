@@ -1,12 +1,11 @@
-import {View, StyleSheet, TextInput} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import React from 'react';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,
   SPACING_2,
   SPACING_4,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,

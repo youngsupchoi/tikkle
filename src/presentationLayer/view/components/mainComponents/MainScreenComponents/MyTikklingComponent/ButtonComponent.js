@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, StyleSheet, Platform} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 import {
   B15,
   EB,

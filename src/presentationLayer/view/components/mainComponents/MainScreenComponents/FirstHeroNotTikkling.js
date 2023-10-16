@@ -1,12 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {
   View,
   Image,
   StyleSheet,
-  Platform,
   FlatList,
   Animated,
-  Text,
   ScrollView,
 } from 'react-native';
 import {
@@ -14,13 +12,8 @@ import {
   B15,
   B17,
   B20,
-  B22,
-  B28,
-  B34,
   M11,
   M15,
-  M17,
-  M20,
   M22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -30,26 +23,19 @@ import {
   COLOR_PRIMARY_OUTLINE,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
-  SPACING_1,
   SPACING_2,
   SPACING_3,
   SPACING_4,
-  SPACING_5,
-  SPACING_6,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import LinearGradient from 'react-native-linear-gradient';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import ShoppingBagAdd1 from 'src/assets/icons/shopping-bag-add-1';
-import LottieView from 'lottie-react-native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
 import Image2 from 'src/assets/icons/undraw_gaming_re_cma2.svg';
 import Image3 from 'src/assets/icons/undraw_jewelry_iima.svg';
 import Image4 from 'src/assets/icons/undraw_studying_re_deca.svg';
-import Image5 from 'src/assets/icons/undraw_happy_birthday_re_c16u.svg';
 import Start from 'src/assets/icons/Start';
 
 const imageSize = windowWidth - 2 * SPACING_4;

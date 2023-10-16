@@ -1,18 +1,10 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, TextInput, ScrollView} from 'react-native';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
-  COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -23,7 +15,6 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import {
   B,
   B12,
-  B15,
   M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';

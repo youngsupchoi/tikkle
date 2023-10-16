@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, StyleSheet, Animated} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import Delete from 'src/assets/icons/Delete';
 import Detail from 'src/assets/icons/Detail';

@@ -1,23 +1,7 @@
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Dimensions, FlatList, Image, StyleSheet, View} from 'react-native';
 import {B17, B20, M11, M15} from '../Global/Typography/Typography';
-import {
-  SPACING_1,
-  SPACING_2,
-  SPACING_5,
-  SPACING_6,
-} from '../Global/Spacing/BaseSpacing';
-import {
-  COLOR_GRAY,
-  COLOR_WHITE,
-  backgroundColor,
-} from '../Global/Colors/Colors';
+import {SPACING_1, SPACING_2, SPACING_5} from '../Global/Spacing/BaseSpacing';
+import {COLOR_WHITE, backgroundColor} from '../Global/Colors/Colors';
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
