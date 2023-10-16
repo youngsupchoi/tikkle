@@ -14,11 +14,8 @@ import {
   Easing,
 } from 'react-native-reanimated';
 import {
-  B12,
   B15,
-  B20,
   B22,
-  B28,
   M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import LottieView from 'lottie-react-native';

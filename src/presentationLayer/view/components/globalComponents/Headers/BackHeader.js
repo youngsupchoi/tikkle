@@ -1,19 +1,12 @@
-import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   HEADER_HEIGHT,
   SPACING_1,
   SPACING_2,
-  SPACING_3,
-  StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
 import {
-  COLOR_BACKGROUND_WHITE,
   COLOR_BLACK,
-  COLOR_SEPARATOR,
-  COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useNavigation} from '@react-navigation/native';

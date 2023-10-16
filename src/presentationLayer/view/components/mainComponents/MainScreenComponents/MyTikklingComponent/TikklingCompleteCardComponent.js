@@ -1,55 +1,23 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, Image, StyleSheet, Platform} from 'react-native';
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
 import {
-  B,
-  B12,
   B15,
-  B17,
-  B20,
-  B22,
   B28,
   EB,
-  H,
-  M,
-  M11,
-  M17,
-  UNIQUE,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
-  COLOR_SECONDARY,
   COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import Modal from 'react-native-modal';
-import Share, {Social} from 'react-native-share';
-import {Linking} from 'react-native';
-import ViewShot, {captureRef} from 'react-native-view-shot';
-import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
-import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/BuyTikkleModal';
 import LottieView from 'lottie-react-native';
-import Location from 'src/assets/icons/Location';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
-import Present from 'src/assets/icons/Present';
-import Delete from 'src/assets/icons/Delete';
-import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
-import LinearGradient from 'react-native-linear-gradient';
-import CancelModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CancelModal';
-import StopModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/StopModal';
-import FlagFilled from 'src/assets/icons/FlagFilled';
-import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
-import ButtonComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent';
-import TimeAndPieceCounter from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TimeAndPieceCounterComponent';
-import ProgressVisualization from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ProgressVisualizerComponent';
 
 export default function TikklingCompleteCard({ButtonIcon, ButtonText}) {
   const {state, actions} = useMainViewModel();

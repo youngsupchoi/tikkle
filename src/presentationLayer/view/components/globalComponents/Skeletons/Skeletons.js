@@ -1,4 +1,4 @@
-import ContentLoader, {Rect, Circle, Path} from 'react-content-loader/native';
+import ContentLoader, {Rect} from 'react-content-loader/native';
 import React from 'react';
 
 export const WishlistManagementLoader = (width, height, props) => (

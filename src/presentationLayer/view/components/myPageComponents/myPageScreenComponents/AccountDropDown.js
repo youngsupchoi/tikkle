@@ -1,38 +1,13 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  ScrollView,
-  FlatList,
-} from 'react-native';
-import React, {useState} from 'react';
-import {
-  B,
-  B12,
-  B15,
-  B17,
-} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_1,
-  SPACING_2,
-  SPACING_3,
-  SPACING_4,
-  SPACING_6,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {View, StyleSheet, FlatList} from 'react-native';
+import React from 'react';
+import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {SPACING_1} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
-import {Menu} from 'react-native-paper';
 import {
-  COLOR_BLACK,
-  COLOR_ERROR,
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import Modal from 'react-native-modal';
 import {
   windowHeight,
   windowWidth,

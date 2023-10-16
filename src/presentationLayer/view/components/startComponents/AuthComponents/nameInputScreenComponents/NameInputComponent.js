@@ -1,5 +1,5 @@
 import {View, StyleSheet, TextInput} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,

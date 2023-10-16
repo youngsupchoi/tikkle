@@ -1,26 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {PG} from '@env';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Animated,
-} from 'react-native';
+import {View, StyleSheet, TextInput, Animated} from 'react-native';
 import Modal from 'react-native-modal';
-import {Picker} from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {
-  B,
-  B15,
   B17,
-  B20,
   B22,
-  B28,
   M,
   M11,
-  M15,
   M20,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import Bubble from 'src/assets/icons/Bubble';
@@ -32,19 +19,14 @@ import {
   COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import DollarCircle from 'src/assets/icons/DollarCircle';
-import CloseCircle from 'src/assets/icons/CloseCircle';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-
 import {useNavigation} from '@react-navigation/native';
 import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdatePresentTikkleInitData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import {createBuyMyTikkleData} from 'src/dataLayer/DataSource/Tikkling/CreateBuyMyTikkleData';
 import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdateBuyMyTikkleInitData';
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {

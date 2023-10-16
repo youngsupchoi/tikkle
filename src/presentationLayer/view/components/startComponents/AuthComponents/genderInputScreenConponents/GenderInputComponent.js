@@ -1,5 +1,5 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   SPACING_1,
   SPACING_6,

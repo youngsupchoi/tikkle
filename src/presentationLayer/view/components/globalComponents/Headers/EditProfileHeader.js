@@ -3,18 +3,9 @@ import React from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_BLACK,
-  COLOR_PRIMARY,
-  COLOR_SUCCESS,
-  COLOR_WHITE,
-  COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {
-  B15,
-  B20,
-} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-
-import Notification from 'src/assets/icons/Notification.js';
+import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,

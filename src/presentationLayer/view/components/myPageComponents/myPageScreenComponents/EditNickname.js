@@ -1,4 +1,4 @@
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
 import {
   COLOR_SEPARATOR,
@@ -7,11 +7,8 @@ import {
 import {
   StatusBarHeight,
   HEADER_HEIGHT,
-  SPACING_2,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
-  COLOR_BLACK,
-  COLOR_SUCCESS,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -19,7 +16,6 @@ import {
   B,
   B15,
   B17,
-  B20,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';

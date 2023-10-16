@@ -1,17 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  Image,
-  PanResponder,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Image, Modal} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withTiming,
-  Easing,
   useAnimatedGestureHandler,
   withSpring,
   cancelAnimation,
@@ -24,8 +15,7 @@ import {
   COLOR_WHITE,
 } from '../Global/Colors/Colors';
 import {PanGestureHandler} from 'react-native-gesture-handler';
-import {Text} from 'react-native-svg';
-import {B, B15, B17, M11, M17} from '../Global/Typography/Typography';
+import {B, B17, M11, M17} from '../Global/Typography/Typography';
 import CloseCircle from '../../assets/icons/CloseCircle';
 import {SPACING_1, SPACING_2, SPACING_3} from '../Global/Spacing/BaseSpacing';
 import AnimatedButton from '../Global/Buttons/AnimatedButton';

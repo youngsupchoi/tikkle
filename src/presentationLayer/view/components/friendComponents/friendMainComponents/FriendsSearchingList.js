@@ -1,7 +1,6 @@
-import {View, Text, StyleSheet, TextInput, FlatList, Image} from 'react-native';
-import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import Refresh from '../../assets/icons/Refresh';
+import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
+import React from 'react';
+
 import {SPACING_1, SPACING_2} from '../Global/Spacing/BaseSpacing';
 import {
   COLOR_BLACK,
@@ -9,9 +8,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
 } from '../Global/Colors/Colors';
-import {windowWidth} from '../Global/Containers/MainContainer';
-import {B12, B15, B17, M, M11, M15} from '../Global/Typography/Typography';
-import SearchNormal1 from '../../assets/icons/SearchNormal1';
+import {B15, M11, M15} from '../Global/Typography/Typography';
 import Present from '../../assets/icons/Present';
 import AnimatedButton from '../Global/Buttons/AnimatedButton';
 

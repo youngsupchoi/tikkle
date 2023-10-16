@@ -1,12 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import {
-  COLOR_BLACK,
-  COLOR_PRIMARY,
-  COLOR_SEPARATOR,
-  COLOR_WHITE,
-  backgroundColor,
-} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {View, StyleSheet, Image} from 'react-native';
+import {COLOR_SEPARATOR} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   SPACING_1,
   SPACING_2,
@@ -14,14 +8,10 @@ import {
 import {
   B12,
   B15,
-  B17,
-  M11,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import Present from 'src/assets/icons/Present.js';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import MessageQuestion from 'src/assets/icons/MessageQuestion';
 
 const FriendsEvents = props => {
   const {friendsEventData} = props;

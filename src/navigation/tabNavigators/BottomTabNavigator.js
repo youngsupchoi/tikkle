@@ -3,7 +3,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import Home2 from 'src/assets/icons/Home2';
 import Home2Filled from 'src/assets/icons/Home2Filled';
 import Profile from 'src/assets/icons/Profile';

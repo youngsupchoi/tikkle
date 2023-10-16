@@ -1,17 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, Image, StyleSheet, Platform, TextInput} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, Platform, TextInput} from 'react-native';
 import {
   EB,
   B22,
-  B12,
   B15,
-  B17,
-  B20,
   B,
   M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
-  COLOR_BACKGROUND_WHITE,
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
@@ -21,18 +17,15 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import Modal from 'react-native-modal';
-import Share, {Social} from 'react-native-share';
+import Share from 'react-native-share';
 import {Linking} from 'react-native';
-import ViewShot, {captureRef} from 'react-native-view-shot';
+import ViewShot from 'react-native-view-shot';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/BuyTikkleModal';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import Present from 'src/assets/icons/Present';
-import Delete from 'src/assets/icons/Delete';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import CancelModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CancelModal';
 import StopModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/StopModal';
@@ -42,7 +35,6 @@ import TimeAndPieceCounter from 'src/presentationLayer/view/components/mainCompo
 import ProgressVisualization from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ProgressVisualizerComponent';
 import TikklingCompleteCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingCompleteCardComponent';
 import TikklingProgressCard from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingProgressCardComponent';
-import GoodsReceptionModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/GoodsReceptionModal';
 import TikklingCancleModal from 'src/presentationLayer/view/components/mainComponents/TikklingCancleModal';
 import RefundModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/RefundModal';
 import Delivery from 'src/assets/icons/Delivery';

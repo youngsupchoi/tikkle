@@ -1,15 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {
-  B12,
-  B15,
-  B20,
-  B22,
-  B28,
-  B34,
-  M15,
-  M34,
-} from '../../Global/Typography/Typography';
+import {B15, M15, M34} from '../../Global/Typography/Typography';
 import {COLOR_BLACK, COLOR_GRAY} from '../../Global/Colors/Colors';
 import {SPACING_1} from '../../Global/Spacing/BaseSpacing';
 import moment from 'moment-timezone';

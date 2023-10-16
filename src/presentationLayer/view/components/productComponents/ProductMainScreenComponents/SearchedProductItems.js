@@ -1,11 +1,5 @@
-import {
-  View,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Animated,
-} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {View, Image, StyleSheet, Animated} from 'react-native';
+import React from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   SPACING_1,
@@ -21,13 +15,8 @@ import {
 import {
   B12,
   B17,
-  B,
-  B15,
   B22,
-  EB,
-  M11,
   M15,
-  M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';

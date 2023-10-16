@@ -1,27 +1,13 @@
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, FlatList, StyleSheet, Image} from 'react-native';
 import React, {useState} from 'react';
 import {
   B,
   B12,
   B15,
   B17,
-  B22,
   EB,
-  M,
-  M11,
   M15,
-  M17,
-  M20,
-  UNIQUE,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {SPACING_1} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import LinearGradient from 'react-native-linear-gradient';
@@ -34,7 +20,6 @@ import {
   COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useNavigation} from '@react-navigation/core';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';

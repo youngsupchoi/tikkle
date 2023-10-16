@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   ScrollView,
   StyleSheet,
   Animated,
@@ -10,22 +9,18 @@ import {
 import React, {useEffect, useRef, useState} from 'react';
 import {
   M15,
-  B17,
   M20,
   EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
-  COLOR_BLACK,
   COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_PRIMARY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {WithLocalSvg} from 'react-native-svg';
 import Image1 from 'src/assets/icons/undraw_wishlist_re_m7tv.svg';
 import Image2 from 'src/assets/icons/undraw_online_wishes_dlmr.svg';
-import Welcome from 'src/assets/icons/undraw_welcome_cats_thqn.svg';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 
 export default function SecondHero() {

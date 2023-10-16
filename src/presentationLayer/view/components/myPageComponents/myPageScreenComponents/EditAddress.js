@@ -1,4 +1,4 @@
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
 import {
   COLOR_BLACK,
@@ -8,12 +8,6 @@ import {
   COLOR_PRIMARY,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_2,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-
 import {
   B,
   B15,

@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {
   COLOR_BLACK,
-  COLOR_ERROR,
-  COLOR_SUCCESS,
   backgroundColor,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -17,7 +15,6 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {BlurView} from '@react-native-community/blur';
 import TickSquare from 'src/assets/icons/TickSquare';
 import Information from 'src/assets/icons/Information';
 

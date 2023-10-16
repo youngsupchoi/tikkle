@@ -1,16 +1,10 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import {
-  COLOR_BLACK,
-  COLOR_WHITE,
-} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B20,
   EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import ArrowRight from 'src/assets/icons/ArrowRight';
 import FriendsTikklingCarousel from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FriendsTikklingComponents/FriendsTikklingCarousel';
 
 export default function FriendsTikklingComponent() {
