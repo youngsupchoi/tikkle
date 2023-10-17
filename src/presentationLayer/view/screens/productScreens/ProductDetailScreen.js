@@ -13,17 +13,22 @@ import {
   B,
   B15,
   EB,
+  B20,
   M15,
   M17,
+  M20,
   M28,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
+  COLOR_SECONDARY,
   COLOR_SECOND_SEPARATOR,
   COLOR_SEPARATOR,
+  COLOR_SUCCESS,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -39,6 +44,7 @@ import ArrowRight from 'src/assets/icons/ArrowRight';
 import {useProductDetailViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductDetailViewModel';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import Wishlisted from 'src/assets/icons/wishlisted.svg';
+import Wishlisted_non from 'src/assets/icons/wishlisted_non.svg';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
 
@@ -118,26 +124,43 @@ export default function ProductDetailScreen(route) {
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
               }}>
+              <M28 customStyle={{marginBottom: 5, fontFamily: EB}}>
+                {state.data.name}
+              </M28>
+
               <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <M28 customStyle={{marginBottom: 16, fontFamily: EB}}>
-                    {state.data.name}
-                  </M28>
-                  {state.wishlisted && (
-                    <Wishlisted
-                      width={50}
-                      marginBottom={17}
-                      marginHorizontal={5}
-                    />
-                  )}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 5,
+                  marginLeft: 5,
+                }}>
+                <M20>￦{state.data.price.toLocaleString()}</M20>
+                {/* <View style={{marginHorizontal: 4}}>
+                  <ArrowRight
+                    width={13}
+                    height={13}
+                    stroke={COLOR_BLACK}
+                    strokeWidth={3}
+                    scale={0.6}
+                  />
                 </View>
-                <M15 customStyle={{color: COLOR_GRAY, marginBottom: 40}}>
-                  {state.data.brand_name}
-                </M15>
+                <M20 customStyle={{zIndex: 100}}>
+                  티클 {(state.data.price / 5000).toLocaleString()}개
+                </M20> */}
               </View>
+
+              <M15
+                customStyle={{
+                  color: COLOR_GRAY,
+                  marginBottom: 15,
+                  marginLeft: 5,
+                }}>
+                {state.data.brand_name}
+              </M15>
+
               <B15 customStyle={{marginBottom: 4}}>상품 설명</B15>
-              <M15 customStyle={{color: COLOR_GRAY, marginBottom: 40}}>
+              <M15 customStyle={{color: COLOR_GRAY, marginBottom: 20}}>
                 {state.data.description}
               </M15>
             </View>
@@ -223,32 +246,18 @@ export default function ProductDetailScreen(route) {
             }}>
             <View
               style={{
-                height: 72,
+                height: 60,
                 paddingHorizontal: 24,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <View>
-                <M17 customStyle={{marginBottom: 4}}>
-                  ￦{state.data.price.toLocaleString()}
-                </M17>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{marginHorizontal: 4}}>
-                    <ArrowRight
-                      width={15}
-                      height={15}
-                      stroke={COLOR_BLACK}
-                      strokeWidth={3}
-                      scale={0.6}
-                    />
-                  </View>
-                  <B15 customStyle={{zIndex: 100}}>
-                    티클 {(state.data.price / 5000).toLocaleString()}개
-                  </B15>
-                </View>
-              </View>
-              <View>
+              {state.wishlisted ? (
+                <Wishlisted marginHorizontal={5} />
+              ) : (
+                <Wishlisted_non marginHorizontal={5} />
+              )}
+              <View style={{paddingHorizontal: 10}}>
                 <AnimatedButton
                   onPress={() => {
                     if (state.wishlisted) {
@@ -268,23 +277,30 @@ export default function ProductDetailScreen(route) {
                     }
                   }}
                   style={{
+                    width: windowWidth - 80,
                     paddingVertical: 12,
-                    paddingHorizontal: 24,
+                    paddingHorizontal: 10,
                     backgroundColor: !state.wishlisted
                       ? COLOR_PRIMARY
-                      : COLOR_WHITE,
+                      : COLOR_SEPARATOR,
                     borderColor: COLOR_PRIMARY_OUTLINE,
                     borderWidth: 2,
                     borderRadius: 8,
                     borderColor: COLOR_SEPARATOR,
                     borderWidth: 0.5,
+                    alignItems: 'center',
                   }}>
-                  <B15
-                    customStyle={{
-                      color: !state.wishlisted ? COLOR_WHITE : COLOR_PRIMARY,
-                    }}>
-                    {!state.wishlisted ? '위시리스트 추가' : '위시리스트 제거'}
-                  </B15>
+                  <View style={{flexDirection: 'row'}}>
+                    <B15
+                      customStyle={{
+                        marginHorizontal: 5,
+                        color: !state.wishlisted ? COLOR_WHITE : COLOR_ERROR,
+                      }}>
+                      {!state.wishlisted
+                        ? '위시리스트 추가'
+                        : '위시리스트 제거'}
+                    </B15>
+                  </View>
                 </AnimatedButton>
               </View>
             </View>
