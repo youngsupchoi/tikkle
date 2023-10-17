@@ -623,7 +623,7 @@ export default function StartTikklingScreen({route}) {
             styles.tikklingStartButton,
             state.createTikklingButtonPressed ? styles.inactiveButton : {},
           ]}
-          disabled={!state.isButtonEnabled && state.createTikklingButtonPressed} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
+          disabled={!state.isButtonEnabled || state.createTikklingButtonPressed} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
         >
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>
