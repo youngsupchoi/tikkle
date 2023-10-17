@@ -176,7 +176,11 @@ export default function StartTikklingScreen({route}) {
                   }}
                 />
                 <View style={{alignItems: 'center', marginTop: 8}}>
-                  <B15>{state.selectedItem.name}</B15>
+                  <B15>
+                    {state.selectedItem.name.length > 9
+                      ? `${state.selectedItem.name.slice(0, 9)}...`
+                      : state.selectedItem.name}
+                  </B15>
                   <M11 customStyle={{color: COLOR_GRAY}}>
                     {state.selectedItem.brand_name}
                   </M11>
