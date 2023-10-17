@@ -102,6 +102,7 @@ export default function MyWishlistComponent() {
                 {state.myTikklingData !== undefined ? null : (
                   <AnimatedButton
                     onPress={() => {
+                      console.log(wishlist);
                       actions.navigation.navigate('startTikkling', wishlist);
                     }}
                     style={{
