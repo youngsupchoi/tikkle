@@ -63,6 +63,8 @@ export default function ProductDetailScreen(route) {
     if (state.data.wishlisted) {
       actions.setWishlisted(true);
     }
+    actions.isTikkling();
+    // console.log('state.data : ', state.data);
   }, []);
 
   return (
@@ -252,56 +254,100 @@ export default function ProductDetailScreen(route) {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              {state.wishlisted ? (
-                <Wishlisted marginHorizontal={5} />
-              ) : (
-                <Wishlisted_non marginHorizontal={5} />
-              )}
+              <AnimatedButton
+                onPress={() => {
+                  if (state.wishlisted) {
+                    actions.setWishlisted(!state.wishlisted);
+                    actions.deleteMyWishlistData_(state.data.id);
+                    topActions.showSnackbar(
+                      '위시리스트에서 상품을 삭제했어요!',
+                      1,
+                    );
+                  } else {
+                    actions.setWishlisted(!state.wishlisted);
+                    actions.createMyWishlistData_(state.data.id);
+                    topActions.showSnackbar(
+                      '위시리스트에 상품을 추가했어요!',
+                      1,
+                    );
+                  }
+                }}>
+                {state.wishlisted ? (
+                  <Wishlisted marginHorizontal={5} />
+                ) : (
+                  <Wishlisted_non marginHorizontal={5} />
+                )}
+              </AnimatedButton>
+
               <View style={{paddingHorizontal: 10}}>
-                <AnimatedButton
-                  onPress={() => {
-                    if (state.wishlisted) {
-                      actions.setWishlisted(!state.wishlisted);
-                      actions.deleteMyWishlistData_(state.data.id);
-                      topActions.showSnackbar(
-                        '위시리스트에서 상품을 삭제했어요!',
-                        1,
-                      );
-                    } else {
-                      actions.setWishlisted(!state.wishlisted);
-                      actions.createMyWishlistData_(state.data.id);
-                      topActions.showSnackbar(
-                        '위시리스트에 상품을 추가했어요!',
-                        1,
-                      );
-                    }
-                  }}
-                  style={{
-                    width: windowWidth - 80,
-                    paddingVertical: 12,
-                    paddingHorizontal: 10,
-                    backgroundColor: !state.wishlisted
-                      ? COLOR_PRIMARY
-                      : COLOR_SEPARATOR,
-                    borderColor: COLOR_PRIMARY_OUTLINE,
-                    borderWidth: 2,
-                    borderRadius: 8,
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 0.5,
-                    alignItems: 'center',
-                  }}>
-                  <View style={{flexDirection: 'row'}}>
-                    <B15
-                      customStyle={{
-                        marginHorizontal: 5,
-                        color: !state.wishlisted ? COLOR_WHITE : COLOR_ERROR,
-                      }}>
-                      {!state.wishlisted
-                        ? '위시리스트 추가'
-                        : '위시리스트 제거'}
-                    </B15>
-                  </View>
-                </AnimatedButton>
+                {state.isTikkling == false ? (
+                  <AnimatedButton
+                    onPress={() => {
+                      // console.log('전달 값 : ');
+                      const wishlist = {
+                        brand_name: state.data.brand_name,
+                        category_id: state.data.category_id,
+                        created_at: state.data.created_at,
+                        description: state.data.description,
+                        is_deleted: state.data.is_deleted,
+                        name: state.data.name,
+                        price: state.data.price,
+                        product_id: state.data.id,
+                        quantity: state.data.quantity,
+                        sales_volume: state.data,
+                        thumbnail_image: state.data.thumbnail_image,
+                        views: state.data.views,
+                        wishlist_count: state.data.wishlist_count,
+                      };
+                      actions.navigation.navigate('startTikkling', wishlist);
+                    }}
+                    style={{
+                      width: windowWidth - 80,
+                      paddingVertical: 12,
+                      paddingHorizontal: 10,
+                      backgroundColor: COLOR_PRIMARY,
+                      borderColor: COLOR_PRIMARY_OUTLINE,
+                      borderWidth: 2,
+                      borderRadius: 8,
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 0.5,
+                      alignItems: 'center',
+                    }}>
+                    <View style={{flexDirection: 'row'}}>
+                      <B15
+                        customStyle={{
+                          marginHorizontal: 5,
+                          color: COLOR_WHITE,
+                        }}>
+                        {'이 상품으로 티클링 시작하기'}
+                      </B15>
+                    </View>
+                  </AnimatedButton>
+                ) : (
+                  <AnimatedButton
+                    style={{
+                      width: windowWidth - 80,
+                      paddingVertical: 12,
+                      paddingHorizontal: 10,
+                      backgroundColor: COLOR_SEPARATOR,
+                      borderColor: COLOR_PRIMARY_OUTLINE,
+                      borderWidth: 2,
+                      borderRadius: 8,
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 0.5,
+                      alignItems: 'center',
+                    }}>
+                    <View style={{flexDirection: 'row'}}>
+                      <B15
+                        customStyle={{
+                          marginHorizontal: 5,
+                          color: COLOR_GRAY,
+                        }}>
+                        {'현재 티클링이 진행중이에요'}
+                      </B15>
+                    </View>
+                  </AnimatedButton>
+                )}
               </View>
             </View>
           </View>
