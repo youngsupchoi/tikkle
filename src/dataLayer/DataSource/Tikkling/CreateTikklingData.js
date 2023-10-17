@@ -80,8 +80,13 @@ export async function createTikklingData(
         DSmessage:
           '티클링 티켓의 개수가 부족해요. 선물을 보내서 티클링 티켓을 받아보세요',
       };
+    } else if (response.data.detail_code === '04') {
+      return {
+        DScode: 2,
+        DSdata: null,
+        DSmessage: '티클링 종료 날짜는 오늘로부터 8일 이내여야만 해요.',
+      };
     }
-
     throw new Error();
   } else if (response.status !== 200) {
     return {

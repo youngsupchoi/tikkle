@@ -618,7 +618,7 @@ export default function StartTikklingScreen({route}) {
         </View>
 
         <AnimatedButton
-          onPress={actions.buttonPress}
+          onPress={actions.tikklingStartButtonPress}
           style={[
             styles.tikklingStartButton,
             state.createTikklingButtonPressed ? styles.inactiveButton : {},
