@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Animated} from 'react-native';
+import {Animated, Image} from 'react-native';
 import {captureRef} from 'react-native-view-shot';
 import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
@@ -19,6 +19,7 @@ import {updateCancleTikklingData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingRefundData';
 import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
+import RNFS from 'react-native-fs';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -197,39 +198,63 @@ export const useMainViewModel = () => {
   };
 
   const onInstagramShareButtonPressed = async () => {
+    async function convertImageToBase64() {
+      const imageUri = Image.resolveAssetSource(
+        require('src/assets/images/instagram_background.png'),
+      ).uri;
+
+      try {
+        const response = await fetch(imageUri);
+        const blob = await response.blob();
+
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = function () {
+            let base64data = reader.result;
+
+            // 올바른 MIME 타입으로 접두사 변경
+            base64data = base64data.replace(
+              /^data:application\/octet-stream;base64,/,
+              'data:image/png;base64,',
+            );
+            // 이후 접두사 제거
+            base64data = base64data.replace(/^data:image\/png;base64,/, '');
+            resolve(base64data);
+          };
+
+          reader.onerror = function (error) {
+            reject('Failed to read blob data: ', error);
+          };
+        });
+      } catch (error) {
+        console.error('Failed to convert image to base64', error);
+        throw error;
+      }
+    }
     try {
-      const stickerUri = await captureRef(state.smallImageRef, {
-        format: 'png',
-        quality: 1,
-        result: 'base64', // capture image as base64
-      });
-
-      const backgroundUri = await captureRef(state.backgroundImageRef, {
-        format: 'png',
-        quality: 1,
-        result: 'base64', // capture image as base64
-      });
-
-      actions.setCapturedImage(`data:image/png;base64,${stickerUri}`); // Update state
+      const backgroundBase64 = await convertImageToBase64();
+      console.log(backgroundBase64.substring(0, 100));
 
       if (state.hasInstagramInstalled) {
         const res = await Share.shareSingle({
           appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
-          stickerImage: `data:image/png;base64,${stickerUri}`,
-          backgroundImage: `data:image/png;base64,${backgroundUri}`,
+          // stickerImage: `data:image/png;base64,${stickerBase64}`,
+          backgroundImage: `data:image/png;base64,${backgroundBase64}`,
           method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
           social: Share.Social.INSTAGRAM_STORIES,
-          backgroundBottomColor: '#ffffff', // You can use any hexcode here and below
-          backgroundTopColor: '#ffffff',
-          backgroundColor: '#ffffff',
           contentUrl: '',
         });
       } else {
-        // If instagram is not installed in user's device then just share using the usual device specific bottomsheet (https://react-native-share.github.io/react-native-share/docs/share-open)
-        await Share.open({url: stickerUri});
+        await Share.open({url: backgroundBase64});
       }
     } catch (error) {
-      console.error('Error sharing:', error);
+      console.log(error);
+      if (error === 'User did not share') {
+        return;
+      } else {
+        console.error('Error sharing:', error);
+      }
     }
   };
 
