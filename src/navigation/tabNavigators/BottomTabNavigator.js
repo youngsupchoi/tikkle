@@ -97,29 +97,8 @@ export default function BottomTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
+          height: 40,
           backgroundColor: backgroundColor,
-          width: windowWidth,
-          alignSelf: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderColor: COLOR_SEPARATOR,
-          borderWidth: 2,
-          height: 56,
-          width: '90%',
-          position: 'absolute',
-          left: '5%',
-          right: '5%',
-          borderRadius: 100,
-          bottom: StatusBarHeight,
-          elevation: 3,
-          shadowColor: '#000',
-          shadowOffset: {
-            // iOS용 그림자 위치
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.2, // iOS용 그림자 투명도
-          shadowRadius: 3, // iOS용 그림자 반경
         },
         tabBarShowLabel: false,
         tabBarLabelStyle: {
