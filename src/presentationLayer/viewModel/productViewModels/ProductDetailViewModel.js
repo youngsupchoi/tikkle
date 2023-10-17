@@ -8,6 +8,7 @@ import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteMyWishli
 import {createMyWishlistData} from 'src/dataLayer/DataSource/Product/CreateMyWishlistData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useState} from 'react';
+import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useProductDetailViewModel = () => {
@@ -26,6 +27,23 @@ export const useProductDetailViewModel = () => {
   const index = route.params[1];
   const list = route.params[2];
   // console.log('*************', list);
+
+  /**
+   * 상세페에지 오류시 티클링 중인지 아닌지 확인
+   */
+  const isTikkling = async () => {
+    await getMyUserInfoData()
+      .then(async res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        if (res.DSdata.info.is_tikkling == 0) {
+          actions.setIsTikkling(false);
+        } else {
+          actions.setIsTikkling(true);
+        }
+      });
+  };
 
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
@@ -57,6 +75,7 @@ export const useProductDetailViewModel = () => {
       deleteMyWishlistData_,
       createMyWishlistData_,
       navigation,
+      isTikkling,
     },
   };
 };
