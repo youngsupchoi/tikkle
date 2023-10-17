@@ -90,7 +90,11 @@ export default function MyWishlistComponent() {
                     style={{width: 80, height: 80, borderRadius: 16}}
                   />
                   <View style={{marginLeft: 12}}>
-                    <B17 customStyle={{fontFamily: EB}}>{wishlist.name}</B17>
+                    <B17 customStyle={{fontFamily: EB}}>
+                      {wishlist.name.length > 17
+                        ? wishlist.name.substring(0, 14) + '...'
+                        : wishlist.name}
+                    </B17>
                     <B15 customStyle={{color: COLOR_GRAY}}>
                       {wishlist.brand_name}
                     </B15>
@@ -109,6 +113,9 @@ export default function MyWishlistComponent() {
                       paddingHorizontal: 8,
                       backgroundColor: COLOR_SECONDARY,
                       borderRadius: 8,
+                      position: 'absolute',
+                      right: 10,
+                      bottom: 10,
                     }}>
                     <B12
                       customStyle={{
