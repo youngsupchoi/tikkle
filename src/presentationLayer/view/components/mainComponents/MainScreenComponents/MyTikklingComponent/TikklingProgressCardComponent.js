@@ -85,9 +85,13 @@ export default function TikklingProgressCard({ButtonIcon, ButtonText}) {
           right: 16,
         }}>
         <B22 customStyle={{fontFamily: H}}>
-          {state.myTikklingData.product_name}
+          {state.myTikklingData.product_name.length > 30
+            ? state.myTikklingData.product_name.substring(0, 30) + '...'
+            : state.myTikklingData.product_name}
         </B22>
-        <B15 customStyle={{}}>{state.myTikklingData.brand_name}</B15>
+        <B15 customStyle={{position: 'absolute', right: 0}}>
+          {state.myTikklingData.brand_name}
+        </B15>
       </View>
     </View>
   );
