@@ -35,7 +35,7 @@ export const useTopViewModel = () => {
       throw new Error(JSON.stringify(res));
     } else if (res.DScode === 3) {
       showModal(res.DSmessage, 0);
-      navigation.reset({routes: [{name: 'splash'}]});
+      reset({routes: [{name: 'splash'}]});
       throw new Error(JSON.stringify(res));
     }
     return res;
