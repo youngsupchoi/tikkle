@@ -97,8 +97,9 @@ export default function BottomTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          // height: 40,
+          height: 56,
           backgroundColor: backgroundColor,
+          // backgroundColor: 'red',
         },
         tabBarShowLabel: false,
         tabBarLabelStyle: {
@@ -115,26 +116,22 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: 'backgroundColor',
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: 'backgroundColor',
+                  // margin: 0,
+                }}>
                 <Home2Filled fill={color} width={size} height={size} />
               </View>
             ) : (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: backgroundColor,
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
+                }}>
                 <Home2
                   stroke={color}
                   width={size}
@@ -153,14 +150,12 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: backgroundColor,
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
+                }}>
                 <SearchFavorite1Filled
                   fill={color}
                   width={size}
@@ -169,14 +164,12 @@ export default function BottomTabNavigator() {
               </View>
             ) : (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: backgroundColor,
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
+                }}>
                 <SearchFavorite1
                   stroke={color}
                   width={size}
@@ -198,26 +191,22 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: backgroundColor,
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
+                }}>
                 <Profile2UserFilled fill={color} width={size} height={size} />
               </View>
             ) : (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: backgroundColor,
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
+                }}>
                 <Profile2User
                   stroke={color}
                   width={size}
@@ -238,26 +227,22 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({color, size, focused}) =>
             focused ? (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: backgroundColor,
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
+                }}>
                 <ProfileFilled fill={color} width={size} height={size} />
               </View>
             ) : (
               <View
-                style={
-                  {
-                    // position: 'absolute',
-                    // top: 16,
-                    // backgroundColor: backgroundColor,
-                    // margin: 0,
-                  }
-                }>
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
+                }}>
                 <Profile
                   stroke={color}
                   width={size}
