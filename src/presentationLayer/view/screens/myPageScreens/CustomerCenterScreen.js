@@ -31,7 +31,6 @@ import Footer from 'src/presentationLayer/view/components/globalComponents/Heade
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
-import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function CustomerCenterScreen() {

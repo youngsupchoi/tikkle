@@ -7,7 +7,6 @@ import {useMainViewState} from 'src/presentationLayer/viewState/mainStates/MainS
 
 // 2. 데이터 소스 또는 API 가져오기
 import {useNavigation} from '@react-navigation/native';
-import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancelTikklingData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
 import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingData';
@@ -15,7 +14,7 @@ import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
 import {getMyTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetMyTikklingData';
-import {updateCancleTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancleTikklingData';
+import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancelTikklingData';
 import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingRefundData';
 import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
@@ -35,15 +34,19 @@ export const useMainViewModel = () => {
   const loadData = async () => {
     try {
       await actions.setLoading(true);
-      await getHomeScreenData().then(res => {
-        actions.setFriendEventData(res.DSdata.friend_event);
-        actions.setFriendTikklingData(res.DSdata.friend_tikkling);
-        actions.setIsNotice(res.DSdata.is_notification);
-        actions.setMyTikklingData(res.DSdata.my_tikkling.info[0]);
-        actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
-        actions.setWishlistData(res.DSdata.my_wishlist);
-        actions.setUserData(res.DSdata.user_info);
-      });
+      await getHomeScreenData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          actions.setFriendEventData(res.DSdata.friend_event);
+          actions.setFriendTikklingData(res.DSdata.friend_tikkling);
+          actions.setIsNotice(res.DSdata.is_notification);
+          actions.setMyTikklingData(res.DSdata.my_tikkling.info[0]);
+          actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
+          actions.setWishlistData(res.DSdata.my_wishlist);
+          actions.setUserData(res.DSdata.user_info);
+        });
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -54,11 +57,15 @@ export const useMainViewModel = () => {
   const loadTikklingData = async () => {
     try {
       await actions.setLoading(true);
-      await getMyTikklingData().then(res => {
-        console.log(res.DSdata);
-        actions.setMyTikklingData(res.DSdata.info[0]);
-        actions.setIsTikkling(res.DSdata.is_tikkling);
-      });
+      await getMyTikklingData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          console.log(res.DSdata);
+          actions.setMyTikklingData(res.DSdata.info[0]);
+          actions.setIsTikkling(res.DSdata.is_tikkling);
+        });
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -149,11 +156,15 @@ export const useMainViewModel = () => {
   //우측 상단 종료하기 버튼
   const buttonPress = () => {
     if (state.myTikklingData.tikkle_count === '0') {
-      updateCancelTikklingData(state.myTikklingData.tikkling_id);
+      updateCancelTikklingData(state.myTikklingData.tikkling_id).then(res => {
+        return topActions.setStateAndError(res);
+      });
       actions.setDropdownVisible(false);
     } else {
       console.log(state.myTikklingData.tikkling_id);
-      updateEndTikklingData(state.myTikklingData.tikkling_id);
+      updateEndTikklingData(state.myTikklingData.tikkling_id).then(res => {
+        return topActions.setStateAndError(res);
+      });
       actions.setDropdownVisible(false);
     }
   };
@@ -260,7 +271,7 @@ export const useMainViewModel = () => {
 
   const cancel_action = async () => {
     try {
-      updateCancleTikklingData(state.myTikklingData.tikkling_id)
+      updateCancelTikklingData(state.myTikklingData.tikkling_id)
         .then(res => {
           return topActions.setStateAndError(res);
         })

@@ -56,15 +56,19 @@ export const useFriendMainViewModel = () => {
 
   async function create_friend(friendId) {
     try {
-      await createNewFriendData(friendId).then(res => {
-        if (res.DScode === 0) {
-          console.log(res);
-          topActions.showSnackbar(res.DSmessage, 1);
-          onRefresh();
-          actions.setSearchedData([]);
-          actions.setText_search('');
-        }
-      });
+      await createNewFriendData(friendId)
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          if (res.DScode === 0) {
+            console.log(res);
+            topActions.showSnackbar(res.DSmessage, 1);
+            onRefresh();
+            actions.setSearchedData([]);
+            actions.setText_search('');
+          }
+        });
     } catch {}
   }
 
