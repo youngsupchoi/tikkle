@@ -51,8 +51,9 @@ export const useNotificationViewModel = () => {
    * NotificationScreen에서 나의 알림을 삭제하는 함수
    */
   async function noti_delete(index) {
+    await actions.setRefreshing(true);
     try {
-      console.log(state.notificationData[index].id);
+      // console.log(state.notificationData[index].id);
       await deleteNoticeData(state.notificationData[index].id)
         .then(res => {
           return topActions.setStateAndError(res);
@@ -204,11 +205,13 @@ export const useNotificationViewModel = () => {
   const onDeleteComplete = index => {
     noti_delete(index)
       .then(() => {
-        onRefresh();
+        loadData();
       })
       .catch(error => {
+        actions.setRefreshing(false);
         console.log("[Error in MyPageViewModel's onDeleteComplete]\n", error);
       });
+    actions.setRefreshing(false);
   };
 
   return {

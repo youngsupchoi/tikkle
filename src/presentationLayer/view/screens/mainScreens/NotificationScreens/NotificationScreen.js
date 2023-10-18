@@ -6,6 +6,10 @@ import {
   B17,
   B20,
   M15,
+  B22,
+  B15,
+  M22,
+  EB20,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -28,9 +32,8 @@ import Noti_Friend from 'src/assets/icons/Noti_Friend';
 import Noti_StartTikkling from 'src/assets/icons/Noti_StartTikkling';
 import Noti_Refund from 'src/assets/icons/Noti_Refund';
 import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
-
+import LottieView from 'lottie-react-native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-
 import {useNotificationViewModel} from 'src/presentationLayer/viewModel/mainViewModels/NotificationViewModel';
 import Close from 'src/assets/icons/Close';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
@@ -286,6 +289,27 @@ export default function NotificationScreen() {
           data={state.notificationData}
           renderItem={renderItem}
           ListFooterComponent={<Footer />}
+          ListEmptyComponent={
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: windowWidth,
+              }}>
+              <LottieView
+                source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                autoPlay
+                loop
+                style={{
+                  width: 250,
+                  height: 250,
+                  alignSelf: 'center',
+                  backgroundColor: backgroundColor,
+                }}
+              />
+              <EB20>알림함이 텅 비었어요!</EB20>
+            </View>
+          }
         />
       )}
     </View>
