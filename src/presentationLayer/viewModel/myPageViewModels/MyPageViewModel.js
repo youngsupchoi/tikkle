@@ -29,8 +29,6 @@ export const useMyPageViewModel = () => {
   const {topActions} = useTopViewModel();
   const navigation = useNavigation();
 
-  const temp_R = useRoute();
-  const route_data = temp_R.params;
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
@@ -558,7 +556,6 @@ export const useMyPageViewModel = () => {
     },
     state: {
       ...state,
-      route_data,
     },
     actions: {
       ...actions,

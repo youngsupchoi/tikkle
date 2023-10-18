@@ -15,10 +15,10 @@ export default function SplashScreen() {
   useEffect(() => {
     loginTokenData().then(res => {
       if (res.DScode === 0) {
-        console.log('@@@@@@login@@@@@@');
+        // console.log('@@@@@@login@@@@@@');
         navigation.reset({routes: [{name: 'main'}]});
       } else {
-        console.log('@@@@@@signup@@@@@@');
+        // console.log('@@@@@@signup@@@@@@');
         navigation.reset({routes: [{name: 'signup1'}]});
       }
     });
