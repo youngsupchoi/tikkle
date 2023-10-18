@@ -40,6 +40,7 @@ import RefundModal from 'src/presentationLayer/view/components/mainComponents/Ma
 import Delivery from 'src/assets/icons/Delivery';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import Location from 'src/assets/icons/Location';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 //-------------------------------------------------------------------------
 
@@ -72,6 +73,7 @@ request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
 
 const FirstHero = props => {
   const {state, actions} = useMainViewModel();
+  const navigation = useNavigation();
 
   const CurrentDate = getKoreanDate();
   const FundingLimit = new Date(state.myTikklingData.funding_limit);
@@ -147,6 +149,16 @@ const FirstHero = props => {
               <TikklingCompleteCard />
             ) : (
               <View>
+                <AnimatedButton
+                  onPress={() => {
+                    // console.log('이동! : ', state.myTikklingData);
+                    navigation.navigate(
+                      'tikklingDetail',
+                      state.myTikklingData.tikkling_id,
+                    );
+                  }}>
+                  <B22 customStyle={{marginBottom: 12}}>이동!</B22>
+                </AnimatedButton>
                 <TikklingProgressCard />
                 <ProgressVisualization />
                 <TimeAndPieceCounter />

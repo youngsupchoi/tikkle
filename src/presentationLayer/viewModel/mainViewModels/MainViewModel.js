@@ -6,7 +6,7 @@ import Share, {Social} from 'react-native-share';
 import {useMainViewState} from 'src/presentationLayer/viewState/mainStates/MainState';
 
 // 2. 데이터 소스 또는 API 가져오기
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
 import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingData';
@@ -18,6 +18,9 @@ import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingRefundData';
 import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
+import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
+import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
+
 import RNFS from 'react-native-fs';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
@@ -26,6 +29,8 @@ export const useMainViewModel = () => {
   const {ref, state, actions} = useMainViewState();
   const {topActions} = useTopViewModel();
 
+  const temp_R = useRoute();
+  const route_tikkling_id = temp_R.params;
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
@@ -53,6 +58,55 @@ export const useMainViewModel = () => {
       await actions.setLoading(false);
     }
   };
+
+  async function loadDetail() {
+    await actions.setDetailLoading(true);
+    await getTikkleData();
+    await getTikklingData();
+    await actions.setDetailLoading(false);
+  }
+
+  /**
+   *  티클링 데이터 가져오기
+   * @param
+   */
+  async function getTikklingData() {
+    await getTikkleDetailData(route_tikkling_id)
+      .then(async res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        console.log('@@@@@@@ : ', res.DSdata.info[0]);
+        actions.setRoute_data(res.DSdata.info[0]);
+      });
+  }
+
+  /**
+   *  티클링의 받은 티클 데이터 가져오기
+   * @param
+   */
+  async function getTikkleData() {
+    let tikkle_data = [];
+    await getRecivedTikkleData(route_tikkling_id)
+      .then(async res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        tikkle_data = res.DSdata.info;
+        actions.setList_data(res.DSdata.info);
+      })
+      .then(async res => {
+        // console.log('#### : ', tikkle_data);
+        let sum = 0;
+        tikkle_data.map(item => {
+          if (item.state_id != 2) {
+            sum += item.quantity;
+          }
+        });
+        actions.setTikkle_sum(sum);
+        // console.log(state.tikkle_sum);
+      });
+  }
 
   const loadTikklingData = async () => {
     try {
@@ -359,6 +413,9 @@ export const useMainViewModel = () => {
       bankList,
       setNewbankButton,
       changeBank,
+      getTikklingData,
+      getTikkleData,
+      loadDetail,
     },
   };
 };
