@@ -49,11 +49,14 @@ export const useStartTikklingViewModel = () => {
   };
 
   const put_user_address = async () => {
-    updateMyAddressData(
-      state.zonecode,
-      state.address,
-      state.detailAddress,
-    ).then(res => {
+    let newdetail;
+    if (state.detailAddress == null) {
+      newdetail = state.userData.detail_address;
+    } else {
+      newdetail = state.detailAddress;
+    }
+
+    updateMyAddressData(state.zonecode, state.address, newdetail).then(res => {
       return topActions.setStateAndError(res);
     });
   };
@@ -151,6 +154,7 @@ export const useStartTikklingViewModel = () => {
   const tikklingStartButtonPress = () => {
     try {
       actions.setCreateTikklingButtonPressed(true);
+
       put_user_address();
 
       // const currentYear = new Date().getFullYear();
