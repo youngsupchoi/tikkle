@@ -114,8 +114,12 @@ export default function FriendsTikklingCarousel(data) {
                     alignItems: 'flex-end',
                     justifyContent: 'space-between',
                   }}>
-                  <B17 customStyle={{fontFamily: EB}}>{item.product_name}</B17>
-                  <B12>{item.brand_name}</B12>
+                  <B17 customStyle={{fontFamily: EB}}>
+                    {item.product_name.length > 30
+                      ? item.product_name.substring(0, 30) + '...'
+                      : item.product_name}
+                  </B17>
+                  {/* <B12>{item.brand_name}</B12> */}
                 </View>
               </View>
               {/**이상한 놈들 */}

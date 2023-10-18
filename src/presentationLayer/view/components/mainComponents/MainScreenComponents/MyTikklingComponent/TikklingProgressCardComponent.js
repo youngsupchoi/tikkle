@@ -89,9 +89,9 @@ export default function TikklingProgressCard({ButtonIcon, ButtonText}) {
             ? state.myTikklingData.product_name.substring(0, 30) + '...'
             : state.myTikklingData.product_name}
         </B22>
-        <B15 customStyle={{position: 'absolute', right: 0}}>
+        {/* <B15 customStyle={{position: 'absolute', right: 0}}>
           {state.myTikklingData.brand_name}
-        </B15>
+        </B15> */}
       </View>
     </View>
   );
