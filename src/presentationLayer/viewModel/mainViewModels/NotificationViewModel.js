@@ -32,21 +32,6 @@ export const useNotificationViewModel = () => {
     await actions.setLoading(false);
   };
 
-  // async function get_notification_list() {
-  //   try {
-  //     await getNoticeListData()
-  //       .then(res => {
-  //         return topActions.setStateAndError(res);
-  //       })
-  //       .then(res => {
-  //         actions.setNotificationData(res.DSdata.info);
-  //       });
-  //   } catch (error) {
-  //     //에러 처리 필요 -> 정해야함
-  //     console.log("[Error in MyPageViewModel's get_user_info]\n", error);
-  //   }
-  // }
-
   /**
    * NotificationScreen에서 나의 알림을 삭제하는 함수
    */

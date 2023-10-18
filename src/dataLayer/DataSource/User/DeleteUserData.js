@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export async function deleteMyWishlistData() {
+export async function deleteUserData() {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 

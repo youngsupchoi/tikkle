@@ -6,20 +6,16 @@ import {useMyPageViewState} from '../../viewState/myPageStates/MyPageState';
 
 // 2. 데이터 소스 또는 API 가져오기
 
-import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
-import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikklingData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-import {getMyPaymentData} from 'src/dataLayer/DataSource/User/GetMyPaymentData';
 import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreenData';
 import {useNavigation, useRoute} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
-import {getBankData} from 'src/dataLayer/DataSource/User/GetBankData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
-import {deleteMyWishlistData} from 'src/dataLayer/DataSource/User/DeleteUserData';
+import {deleteUserData} from 'src/dataLayer/DataSource/User/DeleteUserData';
 import {getImportPaymentData} from 'src/dataLayer/DataSource/Payment/GetImportPaymentData';
 import {updateRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdateRefundMyPaymentData';
 
@@ -107,17 +103,21 @@ export const useMyPageViewModel = () => {
   const loadData = async () => {
     try {
       await actions.setLoading_profile(true);
-      await getMyPageScreenData().then(async res => {
-        console.log('res : ', res.DSdata.user_info);
-        actions.setUserData_profile(res.DSdata.user_info);
-        actions.setBank(res.DSdata.bank);
-        actions.setNewBankName(res.DSdata.user_info.bank_name);
-        actions.setEndTikklingData(res.DSdata.end_tikkling);
-        actions.setPaymentHistoryData(res.DSdata.payment);
-        actions.setZonecode(res.DSdata.user_info.zonecode);
-        actions.setAddress(res.DSdata.user_info.address);
-        calculateDaysUntilNextBirthday(res.DSdata.user_info.birthday);
-      });
+      await getMyPageScreenData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(async res => {
+          // console.log('res : ', res.DSdata.user_info);
+          actions.setUserData_profile(res.DSdata.user_info);
+          actions.setBank(res.DSdata.bank);
+          actions.setNewBankName(res.DSdata.user_info.bank_name);
+          actions.setEndTikklingData(res.DSdata.end_tikkling);
+          actions.setPaymentHistoryData(res.DSdata.payment);
+          actions.setZonecode(res.DSdata.user_info.zonecode);
+          actions.setAddress(res.DSdata.user_info.address);
+          calculateDaysUntilNextBirthday(res.DSdata.user_info.birthday);
+        });
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -462,7 +462,7 @@ export const useMyPageViewModel = () => {
    */
   async function deleteUser_logeout() {
     try {
-      await deleteMyWishlistData()
+      await deleteUserData()
         .then(async res => {
           return topActions.setStateAndError(res);
         })

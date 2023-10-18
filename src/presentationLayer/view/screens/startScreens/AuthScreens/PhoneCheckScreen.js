@@ -98,7 +98,9 @@ export default function SignUpScreen2() {
   useEffect(() => {
     const fullCode = state.inputCode.join('');
     if (fullCode.length === 6) {
-      checkOtpData(state.encryptedOTP, fullCode, state.message);
+      checkOtpData(state.encryptedOTP, fullCode, state.message).then(res => {
+        topActions.setStateAndError(res);
+      });
     }
   }, [state.inputCode.join('').length === 6]);
 

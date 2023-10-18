@@ -46,6 +46,7 @@ export const useStartViewModel = () => {
     await actions.setMessage(res.DSdata.login_or_signup);
     await actions.setEncryptedOTP(res.DSdata.encrypted_otp);
     navigation.navigate('signup2');
+    await actions.setPhoneInputButtonPressed(false);
   };
 
   const decreaseTime = () => {

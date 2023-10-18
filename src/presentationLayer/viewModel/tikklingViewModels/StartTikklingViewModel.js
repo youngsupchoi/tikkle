@@ -49,7 +49,13 @@ export const useStartTikklingViewModel = () => {
   };
 
   const put_user_address = async () => {
-    updateMyAddressData(state.zonecode, state.address, state.detailAddress);
+    updateMyAddressData(
+      state.zonecode,
+      state.address,
+      state.detailAddress,
+    ).then(res => {
+      return topActions.setStateAndError(res);
+    });
   };
 
   //==========Utils 부분=========================================================
