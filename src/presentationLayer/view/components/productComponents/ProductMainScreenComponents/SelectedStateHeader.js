@@ -1,5 +1,5 @@
 import React from 'react';
-import {Animated, ScrollView, StyleSheet} from 'react-native';
+import {Animated, ScrollView, StyleSheet, View} from 'react-native';
 import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -14,27 +14,8 @@ import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productVi
 const SelectedStateHeader = ({scrollY}) => {
   const {state, actions} = useProductMainViewModel();
 
-  const headerOpacity = scrollY.interpolate({
-    inputRange: [0, 50],
-    outputRange: [1, 0],
-    extrapolate: 'clamp',
-  });
-
-  const headerTranslateY = scrollY.interpolate({
-    inputRange: [0, 50],
-    outputRange: [0, -50],
-    extrapolate: 'clamp',
-  });
-
   return (
-    <Animated.View
-      style={[
-        styles.headerContainer,
-        {
-          opacity: headerOpacity,
-          transform: [{translateY: headerTranslateY}],
-        },
-      ]}>
+    <View style={[styles.headerContainer]}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {state.selectedCategory && (
           <AnimatedButton style={styles.chip}>
@@ -76,25 +57,26 @@ const SelectedStateHeader = ({scrollY}) => {
           />
         </AnimatedButton>
       </ScrollView>
-    </Animated.View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: backgroundColor, // Semi-transparent white
-    paddingVertical: 4,
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-    elevation: 1,
-    borderBottomColor: COLOR_SEPARATOR,
-    borderBottomWidth: 1,
-    paddingVertical: 8,
+    // backgroundColor: backgroundColor, // Semi-transparent white
+    // paddingVertical: 4,
+    // justifyContent: 'center',
+    // paddingHorizontal: 15,
+    // elevation: 1,
+    // borderBottomColor: COLOR_SEPARATOR,
+    // borderBottomWidth: 1,
+    // paddingVertical: 8,
+    // height: 40,
   },
   chip: {
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
+    paddingVertical: 0,
+    borderRadius: 8,
     backgroundColor: COLOR_WHITE, // Light gray background for chip
     marginRight: 8,
     alignItems: 'center',

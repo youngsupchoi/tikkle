@@ -63,6 +63,23 @@ export const useStartViewModel = () => {
       return () => clearInterval(timer);
     });
   };
+
+  function formatPhoneNumber(phoneNumber) {
+    if (!phoneNumber) return '';
+
+    // 숫자만 남기기 위한 정규식
+    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+
+    // 숫자만 추출된 번호가 11자리인지 확인
+    const match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
+
+    if (match) {
+      return `${match[1]}-${match[2]}-${match[3]}`;
+    }
+
+    return phoneNumber;
+  }
+
   const handleTextChange = async (text, index) => {
     const newInputCode = [...inputCode];
     newInputCode[index] = text;
@@ -193,6 +210,7 @@ export const useStartViewModel = () => {
       handleBackPress,
       handleButtonPress,
       completeSignUp,
+      formatPhoneNumber,
     },
   };
 };

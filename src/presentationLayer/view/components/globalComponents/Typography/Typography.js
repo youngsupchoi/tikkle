@@ -22,98 +22,458 @@ export const L =
 export const UL =
   Platform.OS === 'ios' ? 'AppleSDGothicNeoUL00' : 'AppleSDGothicNeoUL';
 
-export const UNIQUE22 = ({children, customStyle}) => {
-  return <Text style={[styles.UNIQUE22, customStyle]}>{children}</Text>;
+export const UNIQUE22 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.UNIQUE22, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const UNIQUE34 = ({children, customStyle}) => {
-  return <Text style={[styles.UNIQUE34, customStyle]}>{children}</Text>;
+export const UNIQUE34 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.UNIQUE34, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const EB34 = ({children, customStyle}) => {
-  return <Text style={[styles.EB34, customStyle]}>{children}</Text>;
+export const EB34 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.EB34, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const EB28 = ({children, customStyle}) => {
-  return <Text style={[styles.EB28, customStyle]}>{children}</Text>;
+export const EB28 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.EB28, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const EB22 = ({children, customStyle}) => {
-  return <Text style={[styles.EB22, customStyle]}>{children}</Text>;
+export const EB22 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.EB22, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const EB20 = ({children, customStyle}) => {
-  return <Text style={[styles.EB20, customStyle]}>{children}</Text>;
+export const EB20 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.EB20, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const EB17 = ({children, customStyle}) => {
-  return <Text style={[styles.EB17, customStyle]}>{children}</Text>;
+export const EB17 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.EB17, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const EB15 = ({children, customStyle}) => {
-  return <Text style={[styles.EB15, customStyle]}>{children}</Text>;
+export const EB15 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.EB15, customStyle]}>
+      {children}
+    </Text>
+  );
 };
 
-export const B34 = ({children, customStyle}) => {
-  return <Text style={[styles.B34, customStyle]}>{children}</Text>;
+export const B34 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.B34, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const B28 = ({children, customStyle}) => {
-  return <Text style={[styles.B28, customStyle]}>{children}</Text>;
+export const B28 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.B28, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const B22 = ({children, customStyle}) => {
-  return <Text style={[styles.B22, customStyle]}>{children}</Text>;
+export const B22 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.B22, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const B20 = ({children, customStyle}) => {
-  return <Text style={[styles.B20, customStyle]}>{children}</Text>;
+export const B20 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.B20, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const B17 = ({children, customStyle}) => {
-  return <Text style={[styles.B17, customStyle]}>{children}</Text>;
+export const B17 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.B17, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const B15 = ({children, customStyle}) => {
-  return <Text style={[styles.B15, customStyle]}>{children}</Text>;
+export const B15 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.B15, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const B12 = ({children, customStyle}) => {
-  return <Text style={[styles.B12, customStyle]}>{children}</Text>;
+export const B12 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.B12, customStyle]}>
+      {children}
+    </Text>
+  );
 };
 
-export const M34 = ({children, customStyle}) => {
-  return <Text style={[styles.M34, customStyle]}>{children}</Text>;
+export const M34 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.M34, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const M28 = ({children, customStyle}) => {
-  return <Text style={[styles.M28, customStyle]}>{children}</Text>;
+export const M28 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.M28, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const M22 = ({children, customStyle}) => {
-  return <Text style={[styles.M22, customStyle]}>{children}</Text>;
+export const M22 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.M22, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const M20 = ({children, customStyle}) => {
-  return <Text style={[styles.M20, customStyle]}>{children}</Text>;
+export const M20 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.M20, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const M17 = ({children, customStyle}) => {
-  return <Text style={[styles.M17, customStyle]}>{children}</Text>;
+export const M17 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.M17, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const M15 = ({children, customStyle}) => {
-  return <Text style={[styles.M15, customStyle]}>{children}</Text>;
+export const M15 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.M15, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const M11 = ({children, customStyle}) => {
-  return <Text style={[styles.M11, customStyle]}>{children}</Text>;
+export const M11 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.M11, customStyle]}>
+      {children}
+    </Text>
+  );
 };
 
-export const H1 = ({children, customStyle}) => {
-  return <Text style={[styles.h1, customStyle]}>{children}</Text>;
+export const H1 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.h1, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const H2 = ({children, customStyle}) => {
-  return <Text style={[styles.h2, customStyle]}>{children}</Text>;
+export const H2 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.h2, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const H3 = ({children, customStyle}) => {
-  return <Text style={[styles.h3, customStyle]}>{children}</Text>;
+export const H3 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.h3, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const T34 = ({children, customStyle}) => {
-  return <Text style={[styles.t34, customStyle]}>{children}</Text>;
+export const T34 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.t34, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const Body = ({children, customStyle}) => {
-  return <Text style={[styles.body, customStyle]}>{children}</Text>;
+export const Body = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.body, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const Caption = ({children, customStyle}) => {
-  return <Text style={[styles.caption, customStyle]}>{children}</Text>;
+export const Caption = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.caption, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const Button = ({children, customStyle}) => {
-  return <Text style={[styles.button, customStyle]}>{children}</Text>;
+export const Button = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.button, customStyle]}>
+      {children}
+    </Text>
+  );
 };
-export const Label = ({children, customStyle}) => {
-  return <Text style={[styles.label, customStyle]}>{children}</Text>;
+export const Label = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.label, customStyle]}>
+      {children}
+    </Text>
+  );
 };
 const styles = StyleSheet.create({
   UNIQUE34: {

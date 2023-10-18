@@ -14,6 +14,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B12,
+  B15,
   B17,
   B22,
   M15,
@@ -36,7 +37,7 @@ export default function SearchedProductItems({productData, category}) {
   // }, [state.searchedData]);
 
   const data = state.searchedData.length > 0 ? state.searchedData : [];
-  const scaleValues = data.map(() => new Animated.Value(1));
+  // const scaleValues = data.map(() => new Animated.Value(1));
 
   const navigation = useNavigation();
 
@@ -54,7 +55,7 @@ export default function SearchedProductItems({productData, category}) {
               }}
               style={[
                 styles.itemContainer,
-                {transform: [{scale: scaleValues[index]}]},
+                // {transform: [{scale: scaleValues[index]}]},
               ]}
               key={item.id}>
               <Image
@@ -62,11 +63,20 @@ export default function SearchedProductItems({productData, category}) {
                 style={styles.imageContainer}
               />
               <View style={styles.textContainer}>
-                <B17 customStyle={styles.title}>{item.name}</B17>
+                <B15 numberOfLines={2} customStyle={{lineHeight: 20}}>
+                  {item.name}
+                </B15>
+                {/* <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: 12,
+                  }}> */}
                 <B12 customStyle={styles.brand}>{item.brand_name}</B12>
-                <B12 customStyle={styles.price}>
+                <B12 customStyle={{lineHeight: 17}}>
                   ￦{item.price.toLocaleString()}
                 </B12>
+                {/* </View> */}
               </View>
             </AnimatedButton>
           ))}
@@ -105,16 +115,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   itemContainer: {
-    width: '48%', // to get two items per row with some space between
-    marginBottom: SPACING_2,
+    width: '49%', // to get two items per row with some space between
+    // marginBottom: SPACING_2,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLOR_WHITE,
-    padding: 8,
+    // backgroundColor: COLOR_WHITE,
+    // padding: 8,
     paddingBottom: 12,
-    borderRadius: 16,
-    borderColor: COLOR_SEPARATOR,
-    borderWidth: 1,
+    // borderRadius: 16,
+    // borderColor: COLOR_SEPARATOR,
+    // borderWidth: 1,
   },
   imageContainer: {
     width: '100%',
@@ -130,5 +140,6 @@ const styles = StyleSheet.create({
   },
   brand: {
     color: COLOR_GRAY,
+    lineHeight: 17,
   },
 });

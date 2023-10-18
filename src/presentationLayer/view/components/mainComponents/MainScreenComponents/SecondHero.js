@@ -11,6 +11,9 @@ import {
   M15,
   M20,
   EB,
+  M17,
+  M11,
+  B,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_SECONDARY,
@@ -68,37 +71,31 @@ export default function SecondHero() {
           <View
             style={{
               borderColor: COLOR_SEPARATOR,
-              borderWidth: 0.5,
+              borderWidth: 1,
               borderRadius: 16,
-              elevation: 3,
               backgroundColor: COLOR_SECONDARY,
-              opacity: 1,
               height: 120,
               width: windowWidth - 16,
-              left: -40,
+              // left: -40,
               paddingLeft: 56,
               paddingTop: 20,
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
-              elevation: 3,
-              shadowColor: '#000',
-              shadowOffset: {
-                // iOS용 그림자 위치
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.2, // iOS용 그림자 투명도
-              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
-              <M15>특별한 선물하기, 티클에서</M15>
-              <M20 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+              <M11>특별한 선물하기, 티클에서</M11>
+              <M17
+                customStyle={{
+                  color: COLOR_PRIMARY,
+                  fontFamily: EB,
+                  marginTop: 4,
+                }}>
                 여러분의 꿈은
-              </M20>
-              <M20 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+              </M17>
+              <M17 customStyle={{color: COLOR_PRIMARY, fontFamily: B}}>
                 현실이 됩니다.
-              </M20>
+              </M17>
             </View>
           </View>
           <View style={{position: 'absolute', right: 80, top: 12}}>
@@ -111,7 +108,6 @@ export default function SecondHero() {
               borderColor: COLOR_SEPARATOR,
               borderWidth: 0.5,
               borderRadius: 16,
-              elevation: 3,
               backgroundColor: COLOR_SECONDARY,
               opacity: 0.7,
               height: 120,
@@ -122,24 +118,15 @@ export default function SecondHero() {
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
-              elevation: 3,
-              shadowColor: '#000',
-              shadowOffset: {
-                // iOS용 그림자 위치
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.2, // iOS용 그림자 투명도
-              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
-              <M15>기념일을 더욱 특별하게</M15>
-              <M20 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+              <M11>기념일을 더욱 특별하게</M11>
+              <M17 customStyle={{color: COLOR_PRIMARY, fontFamily: B}}>
                 티클에서의 기념일은
-              </M20>
-              <M20 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+              </M17>
+              <M17 customStyle={{color: COLOR_PRIMARY, fontFamily: B}}>
                 소원을 이루는 날이에요.
-              </M20>
+              </M17>
             </View>
           </View>
           <View style={{position: 'absolute', right: 75, top: 12}}>
@@ -152,7 +139,6 @@ export default function SecondHero() {
               borderColor: COLOR_SEPARATOR,
               borderWidth: 0.5,
               borderRadius: 16,
-              elevation: 3,
               backgroundColor: COLOR_SECONDARY,
               opacity: 0.7,
               height: 120,
@@ -163,24 +149,15 @@ export default function SecondHero() {
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
-              elevation: 3,
-              shadowColor: '#000',
-              shadowOffset: {
-                // iOS용 그림자 위치
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.2, // iOS용 그림자 투명도
-              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
-              <M15>올해 생일선물은 맥북, 좋다.</M15>
-              <M20 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+              <M11>올해 생일선물은 맥북, 좋다.</M11>
+              <M17 customStyle={{color: COLOR_PRIMARY, fontFamily: B}}>
                 진짜 선물은
-              </M20>
-              <M20 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+              </M17>
+              <M17 customStyle={{color: COLOR_PRIMARY, fontFamily: B}}>
                 받는 사람도 만족해야죠.
-              </M20>
+              </M17>
             </View>
           </View>
           <View
@@ -201,7 +178,6 @@ export default function SecondHero() {
               borderColor: COLOR_SEPARATOR,
               borderWidth: 0.5,
               borderRadius: 16,
-              elevation: 3,
               backgroundColor: COLOR_SECONDARY,
               opacity: 0.7,
               height: 120,
@@ -212,32 +188,23 @@ export default function SecondHero() {
               marginRight: 16,
               flexDirection: 'row',
               justifyContent: 'space-between',
-              elevation: 3,
-              shadowColor: '#000',
-              shadowOffset: {
-                // iOS용 그림자 위치
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.2, // iOS용 그림자 투명도
-              shadowRadius: 3, // iOS용 그림자 반경
             }}>
             <View>
-              <M15>그래서, 어떻게 하는데?</M15>
+              <M11>그래서, 어떻게 하는데?</M11>
               <View
                 style={{
                   flexDirection: 'row',
                   marginTop: 12,
                   alignItems: 'center',
                 }}>
-                <M20
+                <M17
                   customStyle={{
                     color: COLOR_PRIMARY,
-                    fontFamily: EB,
+                    fontFamily: B,
                     marginRight: 8,
                   }}>
                   설명 바로가기
-                </M20>
+                </M17>
                 <ArrowRight
                   width={24}
                   height={24}

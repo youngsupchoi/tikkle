@@ -495,8 +495,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
-    padding: 8,
-    paddingHorizontal: 12,
+    padding: 4,
+    paddingHorizontal: 8,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -555,8 +555,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   searchButton: {
-    alignSelf: 'center',
-    padding: 4,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   flatListItemContainer: {
