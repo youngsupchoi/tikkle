@@ -44,16 +44,12 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         item.tikkling_id,
         selectedValue,
         message,
-      )
-        .then(res => {
-          return topActions.setStateAndError(res);
-        })
-        .then(res => {
-          // console.log('$$$', res);
-          setErrorMessage('');
-          setReceivedMessage(res.DSdata);
-          return res.DSdata;
-        }));
+      ).then(res => {
+        // console.log('$$$', res);
+        setErrorMessage('');
+        setReceivedMessage(res.DSdata);
+        return res.DSdata;
+      }));
     } catch (error) {
       //에러 처리 필요 -> 정해야함
       console.log(
