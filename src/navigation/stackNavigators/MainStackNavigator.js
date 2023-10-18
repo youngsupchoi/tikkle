@@ -27,13 +27,22 @@ import ProductDetailScreen from 'src/presentationLayer/view/screens/productScree
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
 import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
+import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationSettingState';
 import HectoPaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/HectoPaymentScreen';
+
+import TikklingDetailScreen from 'src/presentationLayer/view/screens/mainScreens/TikklingDetailScreen';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
     <ProductDetailScreen />
   </ProductDetailViewStateProvider>
+);
+
+const TikklingDetail = () => (
+  <MainViewStateProvider>
+    <TikklingDetailScreen />
+  </MainViewStateProvider>
 );
 
 const StartTikkling = ({route}) => (
@@ -154,6 +163,7 @@ const config = {
     productDetail: '/product-detail', // 매핑되는 URL 경로
     notification: '/notification', // 매핑되는 URL 경로
     notificationSetting: '/notification-setting', // 매핑되는 URL 경로
+    tikklingDetail: '/tikklingDetail', // 매핑되는 URL 경로
     searchAddress: '/search-address', // 매핑되는 URL 경로
     wishlistManagement: '/wishlist-management', // 매핑되는 URL 경로
     payment: '/payment', // 매핑되는 URL 경로
@@ -225,6 +235,7 @@ export default function MainStackNavigator() {
         <MainStack.Screen name="startTikkling" component={StartTikkling} />
         <MainStack.Screen name="productDetail" component={ProductDetail} />
         <MainStack.Screen name="notification" component={Notification} />
+        <MainStack.Screen name="tikklingDetail" component={TikklingDetail} />
         <MainStack.Screen
           name="notificationSetting"
           component={NotificationSetting}
