@@ -104,7 +104,7 @@
 	<key>NSContactsUsageDescription</key>
 	<string>YOUR TEXT</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>YOUR TEXT</string>
 	<key>UIAppFonts</key>
@@ -119,6 +119,7 @@
 		<string>AppleSDGothicNeoT.ttf</string>
 		<string>AppleSDGothicNeoUL.ttf</string>
 		<string>CherryBombOne-Regular.ttf</string>
+		<string>BMHANNA_11yrs_otf.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

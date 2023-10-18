@@ -1,28 +1,24 @@
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
-import {View, StyleSheet, TextInput, ScrollView} from 'react-native';
+import {
+  B,
+  B12,
+  B15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
+import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 import {
   COLOR_BLACK,
-  COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import SearchNormal1 from 'src/assets/icons/SearchNormal1';
-import FilterSearch from 'src/assets/icons/FilterSearch';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {
-  B,
-  B12,
-  M,
-} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
-import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
-import FilterAndSelectedState from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/FilterAndSelectedState';
-
-export default function ProductSearch() {
+import Modal from 'react-native-modal';
+export default function ProductFilter() {
   const {state, actions} = useProductMainViewModel();
 
   const priceRanges = [
@@ -33,53 +29,64 @@ export default function ProductSearch() {
     {label: '30만~100만', min: 300000, max: 1000000},
     {label: '100만 이상', min: 1000000, max: 999999999},
   ];
-
   return (
-    <View
-      style={{
-        backgroundColor: backgroundColor,
-        width: windowWidth,
-        alignItems: 'center',
-        zIndex: 2,
-        borderColor: COLOR_SEPARATOR,
-        borderBottomWidth: 1,
-      }}>
-      <View
-        style={{
-          width: windowWidth - 32,
-          paddingTop: 16,
-          marginBottom: 4,
-        }}>
-        <View style={styles.searchContainer}>
-          <View style={styles.searchbar}>
-            <TextInput
-              style={styles.input}
-              placeholder="상품 이름으로 검색하기"
-              placeholderTextColor={COLOR_GRAY}
-              value={state.search} // Bind the value prop to the search prop
-              onChangeText={text => actions.setSearch(text)} // Update the search value using setSearch
+    <View style={styles.filterContainer}>
+      <Modal
+        onSwipeComplete={() => actions.setShowFilter(false)}
+        swipeDirection={'down'}
+        onBackdropPress={() => actions.setShowFilter(false)}
+        isVisible={state.showFilter}
+        backdropOpacity={0.5}
+        style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.
+        animationIn="slideInUp" // 이 부분이 추가되었습니다.
+        animationOut="slideOutDown" // 이 부분이 추가되었습니다.
+      >
+        <View style={styles.modalContent}>
+          <B15>가격대 선택</B15>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {priceRanges.map((range, index) => (
+              <AnimatedButton
+                key={index}
+                style={[
+                  styles.chip,
+                  state.selectedRange === range.label && styles.selectedChip,
+                ]}
+                onPress={() => {
+                  actions.setSelectedRange(range.label);
+                  actions.setPriceMin(range.min);
+                  if (range.max !== 'Infinity') {
+                    actions.setPriceMax(range.max);
+                  } else {
+                    actions.setPriceMax(''); // or set to a very large number if you prefer
+                  }
+                }}>
+                <B12
+                  customStyle={
+                    state.selectedRange === range.label &&
+                    styles.selectedChipText
+                  }>
+                  {range.label}
+                </B12>
+              </AnimatedButton>
+            ))}
+          </ScrollView>
+
+          <View>
+            <ProductSearchChips
+              sortAttribute={state.sortAttribute}
+              setSortAttribute={actions.setSortAttribute}
+              sortWay={state.sortWay}
+              setSortWay={actions.setSortWay}
+              selectedSort={state.selectedSort}
+              setSelectedSort={actions.setSelectedSort}
             />
           </View>
-          <AnimatedButton
-            style={styles.searchIconContainer}
-            onPress={() => {
-              actions.onRefresh();
-            }}>
-            <SearchNormal1
-              width={20}
-              height={20}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.2}
-              scale={1.1}
-            />
-          </AnimatedButton>
         </View>
-      </View>
-
-      <FilterAndSelectedState />
+      </Modal>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: COLOR_WHITE,
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     padding: 4,
-    paddingHorizontal: 8,
+    paddingHorizontal: 12,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -145,7 +152,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   filterContainer: {
-    marginTop: 16,
+    // marginTop: 16,
     // paddingBottom: 4,
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 2,
@@ -176,5 +183,10 @@ const styles = StyleSheet.create({
   },
   selectedChipText: {
     color: COLOR_WHITE, // Change to desired text color for selected chip
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 16,
+    borderRadius: 16,
   },
 });

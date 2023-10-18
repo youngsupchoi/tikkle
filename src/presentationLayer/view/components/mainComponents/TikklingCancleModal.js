@@ -77,7 +77,7 @@ export default function TikklingCancleModal({mode}) {
               onPress={actions.cancel_action}
               style={{
                 padding: 12,
-                borderRadius: 12,
+                borderRadius: 8,
                 backgroundColor: COLOR_PRIMARY,
                 borderColor: COLOR_PRIMARY_OUTLINE,
                 borderWidth: 2,
@@ -90,7 +90,7 @@ export default function TikklingCancleModal({mode}) {
               onPress={() => actions.setShowCancelModal(false)}
               style={{
                 padding: 12,
-                borderRadius: 12,
+                borderRadius: 8,
                 alignItems: 'center',
               }}>
               <B15 customStyle={{color: COLOR_PRIMARY}}>{cancel_message}</B15>

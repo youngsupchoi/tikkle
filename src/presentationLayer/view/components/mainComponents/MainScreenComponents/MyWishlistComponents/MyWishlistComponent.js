@@ -117,6 +117,8 @@ export default function MyWishlistComponent() {
                       position: 'absolute',
                       right: 10,
                       bottom: 10,
+                      borderColor: COLOR_PRIMARY,
+                      borderWidth: 0.5,
                     }}>
                     <B12
                       customStyle={{
