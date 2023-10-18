@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RefreshControl} from 'react-native-gesture-handler';
+import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
 import {
   StatusBarHeight,
   SPACING_1,

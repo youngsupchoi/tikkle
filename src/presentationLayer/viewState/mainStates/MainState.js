@@ -54,6 +54,13 @@ export const MainViewStateProvider = ({children}) => {
   const [hasInstagramInstalled, setHasInstagramInstalled] = useState(false); // State to track if Instagram is installed on user's device or not
   const smallImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
+
+  const [tikkle_sum, setTikkle_sum] = useState(0);
+  const [list_data, setList_data] = useState([]);
+  const [route_data, setRoute_data] = useState([]);
+
+  const [detailLoading, setDetailLoading] = useState(false);
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -95,6 +102,10 @@ export const MainViewStateProvider = ({children}) => {
     bankCode,
     bankDropDownVisible_home,
     bank,
+    tikkle_sum,
+    list_data,
+    route_data,
+    detailLoading,
   };
 
   const actions = {
@@ -131,6 +142,10 @@ export const MainViewStateProvider = ({children}) => {
     setBankCode,
     setBankDropDownVisible_home,
     setBank,
+    setTikkle_sum,
+    setList_data,
+    setRoute_data,
+    setDetailLoading,
   };
 
   return (

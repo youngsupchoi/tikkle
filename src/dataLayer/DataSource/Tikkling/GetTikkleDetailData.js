@@ -48,7 +48,7 @@ export async function getTikkleDetailData(tikkling_id) {
     };
   }
 
-  console.log(response);
+  // console.log(response);
 
   //------ control result & error of post_user_getTikklingDetail-----------------------------------------//
 
@@ -59,6 +59,8 @@ export async function getTikkleDetailData(tikkling_id) {
       DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
+
+  const info = response.data.data;
 
   //------ update token ---------------------------------------------------//
 
@@ -73,7 +75,7 @@ export async function getTikkleDetailData(tikkling_id) {
 
   return {
     DScode: 0,
-    DSdata: response.data.data,
+    DSdata: {info: info},
     DSmessage: '티클링 상세 정보 가져오기 성공',
   };
 }
