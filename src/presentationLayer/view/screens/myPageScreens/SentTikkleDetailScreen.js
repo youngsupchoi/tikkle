@@ -303,7 +303,7 @@ export default function SentTikkleDetailScreen({route}) {
                         <B12>{item.brand_name}</B12>
                       </View>
                       <View style={{marginBottom: 5}}>
-                        <B12>{item.product_price}₩</B12>
+                        <B12>{item.product_price.toLocaleString()}₩</B12>
                       </View>
                       <View style={{marginBottom: 5}}>
                         <B12>{item.product_price / 5000}개</B12>
