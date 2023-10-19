@@ -149,7 +149,7 @@ const FirstHero = props => {
               <TikklingCompleteCard />
             ) : (
               <View>
-                <AnimatedButton
+                {/* <AnimatedButton
                   onPress={() => {
                     // console.log('이동! : ', state.myTikklingData);
                     navigation.navigate(
@@ -158,7 +158,7 @@ const FirstHero = props => {
                     );
                   }}>
                   <B22 customStyle={{marginBottom: 12}}>이동!</B22>
-                </AnimatedButton>
+                </AnimatedButton> */}
                 <TikklingProgressCard />
                 <ProgressVisualization />
                 <TimeAndPieceCounter />

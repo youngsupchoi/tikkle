@@ -272,7 +272,11 @@ export default function SentTikkleDetailScreen({route}) {
                     width: windowWidth * 0.55,
                   }}>
                   <View style={{marginBottom: 5}}>
-                    <B15>{item.product_name}</B15>
+                    <B15>
+                      {item.product_name.length > 30
+                        ? item.product_name.substring(0, 30) + '...'
+                        : item.product_name}
+                    </B15>
                   </View>
                   <View
                     style={{

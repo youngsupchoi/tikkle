@@ -94,8 +94,13 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   const [message, setMessage] = useState('');
   // console.log('buyTikkleModalData', data);
   const totalPieces = data.tikkle_quantity;
-  const gatheredPieces = data.tikkle_count;
-  // console.log(totalPieces, gatheredPieces);
+  let gatheredPieces = data.tikkle_count;
+
+  if (!gatheredPieces) {
+    gatheredPieces = state.tikkle_sum;
+  }
+
+  // console.log('#$#$#$#$#$ : ', totalPieces, gatheredPieces);
   const itemLength = totalPieces - gatheredPieces;
   const items = Array.from({length: itemLength}, (_, index) => ({
     label: (index + 1).toString(),

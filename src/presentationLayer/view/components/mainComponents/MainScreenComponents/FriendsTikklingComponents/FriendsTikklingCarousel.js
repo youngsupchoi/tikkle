@@ -12,6 +12,7 @@ import {
 import {SPACING_1} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import LinearGradient from 'react-native-linear-gradient';
+import ArrowRight from 'src/assets/icons/ArrowRight';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -41,21 +42,39 @@ export default function FriendsTikklingCarousel(data) {
     return (
       <View style={styles.renderItemContainer}>
         <View style={styles.renderItemHeaderContainer}>
-          <Image
-            resizeMode="contain"
-            style={styles.renderItemProfileImage}
-            source={{
-              uri: item.friend_image,
-            }}
-          />
-          <View style={{flexDirection: 'row'}}>
+
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image
+              resizeMode="contain"
+              style={styles.renderItemProfileImage}
+              source={{
+                uri: item.friend_image,
+              }}
+            />
+
             <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
               {item.user_name}
             </B15>
             <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
-              •@{item.nick}
+              {item.nick}
             </M15>
+
           </View>
+
+          <AnimatedButton
+            style={{marginRight: 5}}
+            onPress={() => {
+              // console.log('press');
+              navigation.navigate('tikklingDetail', item.tikkling_id);
+            }}>
+            <ArrowRight
+              stroke={COLOR_GRAY}
+              width={20}
+              height={15}
+              strokeWidth={1.5}
+              scale={0.85}
+            />
+          </AnimatedButton>
         </View>
 
         <View style={{padding: 0, paddingBottom: 0}}>
@@ -63,6 +82,7 @@ export default function FriendsTikklingCarousel(data) {
             style={{
               borderRadius: 12,
               margin: 12,
+              marginTop: 0,
             }}>
             <View style={styles.cardContainer}>
               <View
@@ -350,7 +370,7 @@ const styles = StyleSheet.create({
   },
   smallTextContainer: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   bodyContainer: {
     flexDirection: 'row',
@@ -370,6 +390,7 @@ const styles = StyleSheet.create({
   },
   renderItemHeaderContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between', // Add this line
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 4,
