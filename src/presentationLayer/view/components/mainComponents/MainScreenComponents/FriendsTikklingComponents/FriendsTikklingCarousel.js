@@ -42,8 +42,11 @@ export default function FriendsTikklingCarousel(data) {
     return (
       <View style={styles.renderItemContainer}>
         <View style={styles.renderItemHeaderContainer}>
-
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <Image
               resizeMode="contain"
               style={styles.renderItemProfileImage}
@@ -58,7 +61,6 @@ export default function FriendsTikklingCarousel(data) {
             <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
               {item.nick}
             </M15>
-
           </View>
 
           <AnimatedButton
@@ -394,6 +396,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 4,
+    marginBottom: 10,
   },
   renderItemProfileImage: {width: 30, height: 30, borderRadius: 12},
 });
