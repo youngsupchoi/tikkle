@@ -61,7 +61,6 @@ export const useMainViewModel = () => {
 
   async function loadDetail() {
     await actions.setDetailLoading(true);
-    await getTikkleData();
     await getTikklingData();
     await actions.setDetailLoading(false);
   }
@@ -76,37 +75,37 @@ export const useMainViewModel = () => {
         return topActions.setStateAndError(res);
       })
       .then(async res => {
-        console.log('@@@@@@@ : ', res.DSdata.info[0]);
+        // console.log('@@@@@@@ : ', res.DSdata.info[0]);
         actions.setRoute_data(res.DSdata.info[0]);
       });
   }
 
-  /**
-   *  티클링의 받은 티클 데이터 가져오기
-   * @param
-   */
-  async function getTikkleData() {
-    let tikkle_data = [];
-    await getRecivedTikkleData(route_tikkling_id)
-      .then(async res => {
-        return topActions.setStateAndError(res);
-      })
-      .then(async res => {
-        tikkle_data = res.DSdata.info;
-        actions.setList_data(res.DSdata.info);
-      })
-      .then(async res => {
-        // console.log('#### : ', tikkle_data);
-        let sum = 0;
-        tikkle_data.map(item => {
-          if (item.state_id != 2) {
-            sum += item.quantity;
-          }
-        });
-        actions.setTikkle_sum(sum);
-        // console.log(state.tikkle_sum);
-      });
-  }
+  // /**
+  //  *  티클링의 받은 티클 데이터 가져오기
+  //  * @param
+  //  */
+  // async function getTikkleData() {
+  //   let tikkle_data = [];
+  //   await getRecivedTikkleData(route_tikkling_id)
+  //     .then(async res => {
+  //       return topActions.setStateAndError(res);
+  //     })
+  //     .then(async res => {
+  //       tikkle_data = res.DSdata.info;
+  //       actions.setList_data(res.DSdata.info);
+  //     })
+  //     .then(async res => {
+  //       // console.log('#### : ', tikkle_data);
+  //       let sum = 0;
+  //       tikkle_data.map(item => {
+  //         if (item.state_id != 2) {
+  //           sum += item.quantity;
+  //         }
+  //       });
+  //       actions.setTikkle_sum(sum);
+  //       // console.log(state.tikkle_sum);
+  //     });
+  // }
 
   const loadTikklingData = async () => {
     try {
@@ -414,7 +413,6 @@ export const useMainViewModel = () => {
       setNewbankButton,
       changeBank,
       getTikklingData,
-      getTikkleData,
       loadDetail,
     },
   };
