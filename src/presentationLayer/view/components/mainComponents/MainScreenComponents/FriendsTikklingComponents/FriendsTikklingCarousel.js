@@ -40,17 +40,27 @@ export default function FriendsTikklingCarousel(data) {
     return (
       <View style={styles.renderItemContainer}>
         <View style={styles.renderItemHeaderContainer}>
-          <Image
-            resizeMode="contain"
-            style={styles.renderItemProfileImage}
-            source={{
-              uri: item.friend_image,
-            }}
-          />
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image
+              resizeMode="contain"
+              style={styles.renderItemProfileImage}
+              source={{
+                uri: item.friend_image,
+              }}
+            />
+
             <B15 customStyle={{marginLeft: 8}}>{item.user_name}</B15>
-            <M15 customStyle={{color: COLOR_GRAY}}>•@{item.nick}</M15>
+            <M15 customStyle={{color: COLOR_GRAY}}> {item.nick}</M15>
           </View>
+
+          <AnimatedButton
+            style={{marginRight: 10}}
+            onPress={() => {
+              console.log('press');
+              navigation.navigate('tikklingDetail', item.tikkling_id);
+            }}>
+            <B15 customStyle={{color: COLOR_PRIMARY}}>상세보기</B15>
+          </AnimatedButton>
         </View>
         {/** */}
 
@@ -59,6 +69,7 @@ export default function FriendsTikklingCarousel(data) {
             style={{
               borderRadius: 16,
               margin: 12,
+              marginTop: 0,
             }}>
             <View style={styles.cardContainer}>
               <View
@@ -346,7 +357,7 @@ const styles = StyleSheet.create({
   },
   smallTextContainer: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   bodyContainer: {
     flexDirection: 'row',
@@ -366,6 +377,7 @@ const styles = StyleSheet.create({
   },
   renderItemHeaderContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between', // Add this line
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 4,

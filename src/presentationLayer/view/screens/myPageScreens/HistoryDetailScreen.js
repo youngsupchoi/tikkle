@@ -608,22 +608,26 @@ export default function HistoryDetailScreen(route) {
                       </View>
                     )}
 
-                    <M15 customStyle={{color: COLOR_BLACK}}>
-                      [{route_data.product_name}]의 조각 {item.quantity}개
+                    <M15 customStyle={{color: COLOR_BLACK, width: 270}}>
+                      [
+                      {route_data.product_name.length > 30
+                        ? route_data.product_name.substring(0, 30) + '...'
+                        : route_data.product_name}
+                      ]의 조각 {item.quantity}개
                     </M15>
-                  </View>
-                  <View
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      marginLeft: 60,
-                    }}>
-                    <B12 customStyle={{color: COLOR_GRAY}}>
-                      {item.created_at.split('T')[0]}
-                    </B12>
-                    <B12 customStyle={{color: COLOR_GRAY}}>
-                      {item.created_at.split('T')[1].split('.')[0]}
-                    </B12>
+                    <View
+                      style={{
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginLeft: 60,
+                      }}>
+                      <B12 customStyle={{color: COLOR_GRAY}}>
+                        {item.created_at.split('T')[0]}
+                      </B12>
+                      <B12 customStyle={{color: COLOR_GRAY}}>
+                        {item.created_at.split('T')[1].split('.')[0]}
+                      </B12>
+                    </View>
                   </View>
                 </View>
 
