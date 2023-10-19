@@ -23,7 +23,7 @@ export default function GlobalLoader() {
       }}>
       <LottieView
         pointerEvents="none"
-        source={require('src/assets/animations/loading.json')} // replace with your Lottie file path
+        source={require('src/assets/animations/loading2.json')} // replace with your Lottie file path
         autoPlay
         style={{
           width: 120,

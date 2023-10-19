@@ -1,4 +1,11 @@
-import {View, StyleSheet, ScrollView, Image, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Text,
+  Animated,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   StatusBarHeight,
@@ -18,6 +25,8 @@ import {
   M17,
   M20,
   M28,
+  M22,
+  B12,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -47,24 +56,63 @@ import Wishlisted from 'src/assets/icons/wishlisted.svg';
 import Wishlisted_non from 'src/assets/icons/wishlisted_non.svg';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
+import LinearGradient from 'react-native-linear-gradient';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 const containerWidth = windowWidth - SPACING_6;
+const Tab = createMaterialTopTabNavigator();
+const ProductInfo = () => {
+  const {state, actions} = useProductDetailViewModel();
+  return (
+    <View>
+      <B15 customStyle={{marginBottom: 4}}>{state.data.notice_info}</B15>
+    </View>
+  );
+};
+function TopTab() {
+  return (
+    <Tab.Navigator
+      initialRouteName="DetailView"
+      tabBarOptions={{
+        labelStyle: {fontSize: 12},
+        tabStyle: {width: 100},
+        style: {backgroundColor: 'powderblue'},
+      }}>
+      <Tab.Screen
+        name="DetailView"
+        component={DetailImages}
+        options={{title: '상세보기'}}
+      />
+      <Tab.Screen
+        name="ProductInfo"
+        component={ProductInfo}
+        options={{title: '상품고시정보'}}
+      />
+    </Tab.Navigator>
+  );
+}
 
 export default function ProductDetailScreen(route) {
   const {state, actions} = useProductDetailViewModel();
-
   const {topActions} = useTopViewModel();
 
   const [selected, setSelected] = useState('상세정보');
-  // console.log('selected : ', state.data);
+  const scrollY = new Animated.Value(0);
+  const imageScale = scrollY.interpolate({
+    inputRange: [0, 200], // These numbers might need tweaking based on your requirements
+    outputRange: [1.1, 0.8], // Scaling from full size to 80%
+    extrapolate: 'clamp', // This ensures the scale doesn't go beyond our outputRange
+  });
+  const animatedThumbnailStyle = {
+    transform: [{scale: imageScale}],
+  };
+
   useEffect(() => {
-    // console.log('&&&&&&& : ', state.data.pares);
     actions.setParse(state.data.parse);
     if (state.data.wishlisted) {
       actions.setWishlisted(true);
     }
     actions.isTikkling();
-    // console.log('state.data : ', state.data);
   }, []);
 
   return (
@@ -73,7 +121,13 @@ export default function ProductDetailScreen(route) {
         <GlobalLoader />
       ) : (
         <View>
-          <ScrollView>
+          <Animated.ScrollView
+            scrollEventThrottle={16} // Ensures onScroll is called every 16ms
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {y: scrollY}}}],
+              {useNativeDriver: false}, // Can be set to true if you don't plan to use React animations
+            )}
+            stickyHeaderIndices={[0]}>
             <View
               style={{
                 position: 'absolute',
@@ -82,8 +136,26 @@ export default function ProductDetailScreen(route) {
                 right: 0,
                 zIndex: 10,
                 backgroundColor: 'transparent',
-                padding: 16,
+                // padding: 16,
+                // backgroundColor: 'red',
               }}>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 1}}
+                colors={[
+                  'rgba(255,255,255,1)',
+                  'rgba(255,255,255,0.3)',
+                  'rgba(255,255,255,0)',
+                ]}
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  top: 0,
+                  zIndex: -1,
+                }}
+              />
               <AnimatedButton
                 onPress={() => actions.navigation.goBack()}
                 style={{
@@ -91,11 +163,7 @@ export default function ProductDetailScreen(route) {
                   height: 40,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: COLOR_WHITE,
-                  borderColor: COLOR_SEPARATOR,
-                  borderWidth: 0.5,
-                  elevation: 1,
-                  borderRadius: 20,
+                  margin: 16,
                 }}>
                 <ArrowLeft
                   stroke={COLOR_BLACK}
@@ -107,62 +175,59 @@ export default function ProductDetailScreen(route) {
               </AnimatedButton>
             </View>
 
-            <Image
+            <Animated.Image
               source={{uri: state.data.thumbnail_image}}
-              style={{
-                width: windowWidth,
-                height: windowWidth,
-              }}
+              style={[
+                {
+                  width: windowWidth,
+                  height: (windowWidth * 2) / 3,
+                },
+                animatedThumbnailStyle,
+              ]}
             />
 
             <View
               style={{
                 paddingHorizontal: 24,
-                paddingVertical: 24,
-                // marginHorizontal: 12,
-                marginVertical: 8,
-                borderBottomColor: COLOR_SEPARATOR,
-                borderBottomWidth: 1,
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                // paddingVertical: 24,
+                paddingTop: 16,
+                // marginVertical: 8,
+                backgroundColor: backgroundColor,
+                borderTopColor: COLOR_SEPARATOR,
+                borderTopWidth: 1,
+                borderTopRightRadius: 16,
+                borderTopLeftRadius: 16,
+                top: -20,
               }}>
-              <M28 customStyle={{marginBottom: 5, fontFamily: EB}}>
+              <M15
+                customStyle={{
+                  color: COLOR_GRAY,
+                  marginBottom: 4,
+                }}>
+                {state.data.brand_name}
+              </M15>
+              <M20
+                numberOfLines={2}
+                customStyle={{marginBottom: 5, fontFamily: EB, lineHeight: 32}}>
                 {state.data.name}
-              </M28>
+              </M20>
 
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  marginBottom: 5,
-                  marginLeft: 5,
+                  marginTop: 8,
                 }}>
-                <M20>￦{state.data.price.toLocaleString()}</M20>
-                {/* <View style={{marginHorizontal: 4}}>
-                  <ArrowRight
-                    width={13}
-                    height={13}
-                    stroke={COLOR_BLACK}
-                    strokeWidth={3}
-                    scale={0.6}
-                  />
-                </View>
-                <M20 customStyle={{zIndex: 100}}>
-                  티클 {(state.data.price / 5000).toLocaleString()}개
-                </M20> */}
+                <M15>￦</M15>
+                <M15 customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}>
+                  {state.data.price.toLocaleString()}
+                </M15>
               </View>
 
-              <M15
-                customStyle={{
-                  color: COLOR_GRAY,
-                  marginBottom: 15,
-                  marginLeft: 5,
-                }}>
-                {state.data.brand_name}
-              </M15>
-
-              <B15 customStyle={{marginBottom: 4}}>상품 설명</B15>
-              <M15 customStyle={{color: COLOR_GRAY, marginBottom: 20}}>
+              {/* <B15 customStyle={{marginBottom: 4, marginTop: 24}}>
+                상품 설명
+              </B15> */}
+              <M15 customStyle={{color: COLOR_GRAY, marginBottom: 0}}>
                 {state.data.description}
               </M15>
             </View>
@@ -178,7 +243,7 @@ export default function ProductDetailScreen(route) {
                 style={{
                   padding: 8,
                   paddingHorizontal: 24,
-                  width: '45%',
+                  width: '50%',
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderColor: COLOR_SEPARATOR,
@@ -187,8 +252,6 @@ export default function ProductDetailScreen(route) {
                     selected === '상세정보'
                       ? COLOR_SECOND_SEPARATOR
                       : COLOR_WHITE,
-                  borderTopLeftRadius: 12,
-                  borderBottomLeftRadius: 12,
                 }}>
                 <M15 customStyle={{color: COLOR_BLACK}}>상세정보</M15>
               </AnimatedButton>
@@ -197,7 +260,7 @@ export default function ProductDetailScreen(route) {
                 style={{
                   padding: 8,
                   paddingHorizontal: 24,
-                  width: '45%',
+                  width: '50%',
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderColor: COLOR_SEPARATOR,
@@ -206,8 +269,6 @@ export default function ProductDetailScreen(route) {
                     selected === '상품고시정보'
                       ? COLOR_SECOND_SEPARATOR
                       : COLOR_WHITE,
-                  borderTopRightRadius: 12,
-                  borderBottomRightRadius: 12,
                 }}>
                 <M15
                   customStyle={{
@@ -234,7 +295,7 @@ export default function ProductDetailScreen(route) {
                 </View>
               )}
             </View>
-          </ScrollView>
+          </Animated.ScrollView>
           <View
             style={{
               position: 'absolute',
@@ -272,11 +333,19 @@ export default function ProductDetailScreen(route) {
                     );
                   }
                 }}>
-                {state.wishlisted ? (
-                  <Wishlisted marginHorizontal={5} />
-                ) : (
-                  <Wishlisted_non marginHorizontal={5} />
-                )}
+                <View style={{alignItems: 'center'}}>
+                  {state.wishlisted ? (
+                    <Wishlisted marginHorizontal={5} />
+                  ) : (
+                    <Wishlisted_non marginHorizontal={5} />
+                  )}
+                  {console.log(state.wishlisted)}
+                  <B12>
+                    {state.wishlisted
+                      ? state.data.wishlist_count + 1
+                      : state.data.wishlist_count}
+                  </B12>
+                </View>
               </AnimatedButton>
 
               <View style={{paddingHorizontal: 10}}>

@@ -7,6 +7,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_BLACK,
+  COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useNavigation} from '@react-navigation/native';
@@ -18,6 +19,7 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import Ticket from 'src/assets/icons/Ticket';
+import TicketFilled from 'src/assets/icons/TicketFilled';
 
 export default function BackHeader({children, customStyle, tikkling_ticket}) {
   const navigation = useNavigation();
@@ -47,15 +49,16 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
         style={{
           padding: 12,
           paddingVertical: 8,
-          borderColor: 'backgroundColor',
-          backgroundColor: 'backgroundColor',
-          borderWidth: 0,
+          borderColor: COLOR_SEPARATOR,
+          borderWidth: 1,
+          backgroundColor: backgroundColor,
+          // borderWidth: 0,
           borderRadius: 40,
           flexDirection: 'row',
           marginLeft: 16,
           alignItems: 'center',
         }}>
-        <Ticket
+        <TicketFilled
           width={24}
           height={24}
           stroke={COLOR_BLACK}
@@ -76,7 +79,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    backgroundColor: backgroundColor,
+    // backgroundColor: 'blue',
+    alignSelf: 'center',
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
   },
   backButton: {
     height: 44,

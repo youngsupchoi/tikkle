@@ -26,6 +26,9 @@ import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGener
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import {checkOtpData} from 'src/dataLayer/DataSource/Auth/CheckOtpData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
+import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import {useNavigation} from '@react-navigation/native';
 
 export default function SignUpScreen2() {
   const {ref, state, actions} = useStartViewModel();
@@ -104,10 +107,32 @@ export default function SignUpScreen2() {
     }
   }, [state.inputCode.join('').length === 6]);
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.signupContainer}>
-      <View style={styles.signUpHeader}></View>
-      <InstructionText />
+      <View style={styles.signUpHeader}>
+        <AnimatedButton
+          onPress={() => navigation.goBack()}
+          style={{
+            width: 40,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ArrowLeft2
+            width={24}
+            height={24}
+            stroke={COLOR_BLACK}
+            strokeWidth={1.5}
+          />
+        </AnimatedButton>
+      </View>
+      <InstructionText
+        phoneNumber={state.phoneNumber}
+        formatPhoneNumber={actions.formatPhoneNumber}
+      />
+      {console.log(actions.formatPhoneNumber)}
       <View style={styles.changeContainer}>
         <OTPInput
           handleTextChange={handleTextChange}

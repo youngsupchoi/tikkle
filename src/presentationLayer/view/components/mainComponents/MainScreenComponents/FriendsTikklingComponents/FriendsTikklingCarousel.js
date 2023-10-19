@@ -6,6 +6,7 @@ import {
   B15,
   B17,
   EB,
+  M11,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {SPACING_1} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
@@ -41,6 +42,7 @@ export default function FriendsTikklingCarousel(data) {
     return (
       <View style={styles.renderItemContainer}>
         <View style={styles.renderItemHeaderContainer}>
+
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               resizeMode="contain"
@@ -50,8 +52,13 @@ export default function FriendsTikklingCarousel(data) {
               }}
             />
 
-            <B15 customStyle={{marginLeft: 8}}>{item.user_name}</B15>
-            <M15 customStyle={{color: COLOR_GRAY}}> {item.nick}</M15>
+            <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
+              {item.user_name}
+            </B15>
+            <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
+              {item.nick}
+            </M15>
+
           </View>
 
           <AnimatedButton
@@ -69,12 +76,11 @@ export default function FriendsTikklingCarousel(data) {
             />
           </AnimatedButton>
         </View>
-        {/** */}
 
-        <View style={{padding: 0, paddingBottom: 20}}>
+        <View style={{padding: 0, paddingBottom: 0}}>
           <View
             style={{
-              borderRadius: 16,
+              borderRadius: 12,
               margin: 12,
               marginTop: 0,
             }}>
@@ -84,7 +90,7 @@ export default function FriendsTikklingCarousel(data) {
                   width: 240,
                   height: 180,
                   borderColor: COLOR_SEPARATOR,
-                  borderRadius: 16,
+                  borderRadius: 12,
                   borderWidth: 1,
                 }}>
                 <Image
@@ -93,7 +99,7 @@ export default function FriendsTikklingCarousel(data) {
                     uri: item.thumbnail_image,
                   }}
                   style={{
-                    borderRadius: 16,
+                    borderRadius: 12,
                     position: 'absolute',
                     top: 0,
                     left: 0,
@@ -118,7 +124,7 @@ export default function FriendsTikklingCarousel(data) {
                     bottom: 0,
                     top: 0,
                     zIndex: -1,
-                    borderRadius: 16,
+                    borderRadius: 12,
                   }}
                 />
 
@@ -132,11 +138,11 @@ export default function FriendsTikklingCarousel(data) {
                     alignItems: 'flex-end',
                     justifyContent: 'space-between',
                   }}>
-                  <B17 customStyle={{fontFamily: EB}}>
+                  <B15 customStyle={{fontFamily: EB}}>
                     {item.product_name.length > 30
                       ? item.product_name.substring(0, 30) + '...'
                       : item.product_name}
-                  </B17>
+                  </B15>
                   {/* <B12>{item.brand_name}</B12> */}
                 </View>
               </View>
@@ -249,8 +255,8 @@ export default function FriendsTikklingCarousel(data) {
               {/**이상한 놈들 끝 */}
             </View>
 
-            <View style={{paddingHorizontal: 24}}>
-              <View style={{marginTop: 4}}>
+            <View style={{paddingHorizontal: 0}}>
+              <View style={{marginTop: 0}}>
                 <AnimatedButton
                   onPress={() => {
                     new Date(item.funding_limit) > new Date()
@@ -258,8 +264,8 @@ export default function FriendsTikklingCarousel(data) {
                       : null;
                   }}
                   style={{
-                    padding: 8,
-                    borderRadius: 12,
+                    padding: 6,
+                    borderRadius: 8,
                     backgroundColor: COLOR_PRIMARY,
                     borderColor: COLOR_PRIMARY_OUTLINE,
                     borderWidth: 2,
@@ -350,7 +356,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   cardContainer: {
-    marginTop: 16,
+    // marginTop: 16,
     // width: windowWidth / 2 - 32,
     // height: windowWidth / 2 - 32,
     zIndex: 1,
@@ -375,7 +381,7 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     paddingTop: 8,
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: COLOR_WHITE,
     elevation: 4,
     marginLeft: 24,
@@ -389,5 +395,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 4,
   },
-  renderItemProfileImage: {width: 30, height: 30, borderRadius: 15},
+  renderItemProfileImage: {width: 30, height: 30, borderRadius: 12},
 });

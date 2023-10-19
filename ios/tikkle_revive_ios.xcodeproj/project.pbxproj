@@ -24,6 +24,7 @@
 		AF4198B54BD746EBA15609B1 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 705A869C88B648F780E6EE44 /* AppleSDGothicNeoR.ttf */; };
 		B2E8A5BE441949148D361989 /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */; };
 		E349ECDD69244341A9037E53 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 686FD629E15E468AAD926982 /* AppleSDGothicNeoL.ttf */; };
+		036EACA7AB4046A8A525AFC1 /* BMHANNA_11yrs_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		BAD8163DCE224509A207431F /* AppleSDGothicNeoEB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoEB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoEB.ttf; sourceTree = "<group>"; };
 		CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CherryBombOne-Regular.ttf"; path = "../src/assets/fonts/CherryBombOne-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */ = {isa = PBXFileReference; name = "BMHANNA_11yrs_otf.otf"; path = "../src/assets/fonts/BMHANNA_11yrs_otf.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				0E71B5E60B964B5282F16037 /* AppleSDGothicNeoT.ttf */,
 				6DB68188F921465BBB46A15B /* AppleSDGothicNeoUL.ttf */,
 				CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */,
+				6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				4ADF6BC809EA4544B60ECF0B /* AppleSDGothicNeoT.ttf in Resources */,
 				08509BCB6DE34A95BBC4651D /* AppleSDGothicNeoUL.ttf in Resources */,
 				8325D4F4B4E44C0D8E2FC2DB /* CherryBombOne-Regular.ttf in Resources */,
+				036EACA7AB4046A8A525AFC1 /* BMHANNA_11yrs_otf.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

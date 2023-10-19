@@ -3,6 +3,8 @@ import React from 'react';
 import {
   B,
   B12,
+  B15,
+  B20,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -17,61 +19,71 @@ import Image2 from 'src/assets/icons/undraw_gaming_re_cma2.svg';
 import Image3 from 'src/assets/icons/undraw_jewelry_iima.svg';
 import Image4 from 'src/assets/icons/undraw_studying_re_deca.svg';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
+import {opacity} from 'react-native-reanimated';
 
 export default function CategoryCarousel() {
   const {state, actions} = useProductMainViewModel();
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      {state.categories.map(category => (
-        <AnimatedButton
-          onPress={() => {
-            actions.setSelectedCategory(category.name);
-            actions.setCategoryId(category.id);
-          }}
-          key={category.id}
-          style={{
-            backgroundColor:
-              state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
-            paddingLeft: 20,
-            paddingRight: 18,
-            paddingVertical: 8,
-            borderColor: COLOR_SEPARATOR,
-            borderWidth: 0.5,
-            borderRadius: 40,
-            elevation: 1,
-            marginBottom: 4,
-            marginTop: 16,
-            marginHorizontal: 8,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}>
-          <View
+    <View>
+      <B20 customStyle={{paddingHorizontal: 16, marginBottom: 12}}>
+        전체 카테고리
+      </B20>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {state.categories.map(category => (
+          <AnimatedButton
+            onPress={() => {
+              actions.setSelectedCategory(category.name);
+              actions.setCategoryId(category.id);
+            }}
+            key={category.id}
             style={{
-              position: 'absolute',
-              bottom: 24,
-              left: 6,
-              right: 0,
-              // top: 0,
-              // backgroundColor: 'red',
+              backgroundColor:
+                state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
+              paddingLeft: 20,
+              paddingRight: 18,
+              paddingVertical: 8,
+              borderColor: COLOR_SEPARATOR,
+              borderWidth: 1,
+              borderRadius: 8,
+              elevation: 1,
+              marginBottom: 4,
+              alignItems: 'center',
+              // marginTop: 16,
+              marginHorizontal: 8,
+              // flexDirection: 'row',
+              // justifyContent: 'space-between',
             }}>
-            {category.id === 1 ? <Image1 width={24} height={24} /> : null}
-            {category.id === 2 ? <Image2 width={24} height={24} /> : null}
-            {category.id === 3 ? <Image3 width={24} height={24} /> : null}
-            {category.id === 4 ? <Image4 width={24} height={24} /> : null}
-          </View>
-          <B12
-            customStyle={{
-              color:
-                state.categoryId === category.id
-                  ? COLOR_PRIMARY_TEXT
-                  : COLOR_BLACK,
-            }}>
-            #{category.name}
-          </B12>
-        </AnimatedButton>
-      ))}
-    </ScrollView>
+            <View
+              style={
+                {
+                  // position: 'absolute',
+                  // bottom: 24,
+                  // left: 6,
+                  // right: 0,
+                  // top: 0,
+                  // backgroundColor: 'red',
+                }
+              }>
+              {category.id === 1 ? <Image1 width={48} height={48} /> : null}
+              {category.id === 2 ? <Image2 width={48} height={48} /> : null}
+              {category.id === 3 ? <Image3 width={48} height={48} /> : null}
+              {category.id === 4 ? <Image4 width={48} height={48} /> : null}
+            </View>
+            <B12
+              customStyle={{
+                marginTop: 8,
+                color:
+                  state.categoryId === category.id
+                    ? COLOR_PRIMARY_TEXT
+                    : COLOR_BLACK,
+              }}>
+              #{category.name}
+            </B12>
+          </AnimatedButton>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 

@@ -22,7 +22,6 @@ export const useProductDetailViewModel = () => {
 
   const navigation = useNavigation();
   const route = useRoute();
-
   const data = route.params[0];
   const index = route.params[1];
   const list = route.params[2];

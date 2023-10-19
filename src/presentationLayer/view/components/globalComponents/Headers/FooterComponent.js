@@ -2,9 +2,9 @@ import {View, StyleSheet, Linking} from 'react-native';
 import React from 'react';
 import {
   B,
-  B12,
   EB,
   UNIQUE22,
+  M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   HEADER_HEIGHT,
@@ -59,11 +59,11 @@ export default function Footer({style}) {
           justifyContent: 'flex-start',
           marginBottom: 10,
         }}>
-        <B12 customStyle={{color: COLOR_GRAY}}>
+        <M11 customStyle={{color: COLOR_GRAY}}>
           (주)라이폴리는 통신판매중개업자로서 통신판매의 당사자가 아니며{'\n'}
           상품의 주문 배송 및 환불 등과 관련한 의무와 책임은 각 판매자에게
           있습니다.
-        </B12>
+        </M11>
       </View>
       <View
         style={{
@@ -75,19 +75,19 @@ export default function Footer({style}) {
         <View>
           <View></View>
         </View>
-        <B12 customStyle={{color: COLOR_GRAY}}>
+        <M11 customStyle={{color: COLOR_GRAY}}>
           상호명: (주)라이폴리
           {'\n'}
-          대표: 이흥규
+          대표이사: 이흥규
           {'\n'}
-          {/* 사업자등록번호: 891-41-01048 |{'\n'} */}
-          법인등록번호 : 110111-8753942 |{'\n'}
+          사업자등록번호: 363-86-03182 {'\n'}
+          {/* 법인등록번호 : 110111-8753942 |{'\n'} */}
           {/* 통신판매업신고번호: 제2021-서울강남-00000호 */}
           {'\n'}개인정보관리책임자: 이흥규
           {'\n'}
           주소: 서울특별시 서초구 사임당로 8길 13, 4층 402호-a593
           {'\n'}
-        </B12>
+        </M11>
       </View>
 
       <View
@@ -97,12 +97,12 @@ export default function Footer({style}) {
             onPress={() => {
               Linking.openURL(CONTRACT_URL);
             }}>
-            <B12 customStyle={{color: COLOR_GRAY}}>이용약관</B12>
+            <M11 customStyle={{color: COLOR_GRAY}}>이용약관</M11>
           </AnimatedButton>
         </View>
 
         <View>
-          <B12 customStyle={{color: COLOR_GRAY}}> | </B12>
+          <M11 customStyle={{color: COLOR_GRAY}}> | </M11>
         </View>
 
         <View>
@@ -110,11 +110,11 @@ export default function Footer({style}) {
             onPress={() => {
               Linking.openURL(PRIVATECONTRACT_URL);
             }}>
-            <B12 customStyle={{color: COLOR_GRAY}}>개인정보처리방침</B12>
+            <M11 customStyle={{color: COLOR_GRAY}}>개인정보처리방침</M11>
           </AnimatedButton>
         </View>
 
-        <B12 customStyle={{color: COLOR_GRAY}}> | 제휴문의 | 입점문의</B12>
+        <M11 customStyle={{color: COLOR_GRAY}}> | 제휴문의 | 입점문의</M11>
       </View>
     </View>
   );
