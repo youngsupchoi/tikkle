@@ -56,7 +56,9 @@
 		5A125C352AA5CDB400F85EF1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-tikkle_revive_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tikkle_revive_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+
 		6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BMHANNA_11yrs_otf.otf; path = ../src/assets/fonts/BMHANNA_11yrs_otf.otf; sourceTree = "<group>"; };
+
 		686FD629E15E468AAD926982 /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoL.ttf; path = ../src/assets/fonts/AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
 		6BB674DFDA384B9CB9B87F49 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
 		6DB68188F921465BBB46A15B /* AppleSDGothicNeoUL.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoUL.ttf; path = ../src/assets/fonts/AppleSDGothicNeoUL.ttf; sourceTree = "<group>"; };
