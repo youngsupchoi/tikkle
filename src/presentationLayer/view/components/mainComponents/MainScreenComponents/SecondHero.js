@@ -76,7 +76,7 @@ export default function SecondHero() {
               backgroundColor: COLOR_SECONDARY,
               height: 120,
               width: windowWidth - 16,
-              // left: -40,
+              left: -40,
               paddingLeft: 56,
               paddingTop: 20,
               marginRight: 16,
