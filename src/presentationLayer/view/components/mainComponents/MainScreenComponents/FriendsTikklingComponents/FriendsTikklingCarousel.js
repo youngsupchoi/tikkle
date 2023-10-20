@@ -64,7 +64,12 @@ export default function FriendsTikklingCarousel(data) {
           </View>
 
           <AnimatedButton
-            style={{marginRight: 5}}
+            style={{
+              marginRight: 5,
+              marginBottom: 5,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
             onPress={() => {
               // console.log('press');
               navigation.navigate('tikklingDetail', item.tikkling_id);
@@ -392,7 +397,7 @@ const styles = StyleSheet.create({
   },
   renderItemHeaderContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Add this line
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 4,
