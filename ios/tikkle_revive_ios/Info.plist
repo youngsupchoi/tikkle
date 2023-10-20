@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>tikkle_revive_ios</string>
+	<string>TIKKLE</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -104,7 +104,7 @@
 	<key>NSContactsUsageDescription</key>
 	<string>YOUR TEXT</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>YOUR TEXT</string>
 	<key>UIAppFonts</key>
