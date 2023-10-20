@@ -132,6 +132,7 @@ export default function SignUpScreen2() {
         phoneNumber={state.phoneNumber}
         formatPhoneNumber={actions.formatPhoneNumber}
       />
+
       {console.log(actions.formatPhoneNumber)}
       <View style={styles.changeContainer}>
         <OTPInput

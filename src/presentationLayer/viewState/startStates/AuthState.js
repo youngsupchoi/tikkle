@@ -26,7 +26,7 @@ export const StartViewStateProvider = ({children}) => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  
+
   const inputRefs = useRef([]);
   const [timeLeft, setTimeLeft] = useState(180);
   const [gender, setGender] = useState('');
