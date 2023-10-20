@@ -77,3 +77,6 @@ target 'tikkle_revive_ios' do
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
+
+# Firebase 연동 관련 설정 23.10.20
+pod 'GoogleUtilities', :modular_headers => true
