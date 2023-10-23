@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Animated, Image} from 'react-native';
+import {Animated, Image, Platform} from 'react-native';
 import {captureRef} from 'react-native-view-shot';
 import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
@@ -395,15 +395,22 @@ export const useMainViewModel = () => {
    */
   const findContacts = async () => {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-        {
-          title: 'Contacts',
-          message: 'This app would like to view your contacts.',
-          buttonPositive: 'Allow',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      let granted;
+      if (Platform.OS === 'android') {
+        granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: 'Contacts',
+            message: 'This app would like to view your contacts.',
+            buttonPositive: 'Allow',
+          },
+        );
+      }
+
+      if (
+        granted === PermissionsAndroid.RESULTS.GRANTED ||
+        Platform.OS === 'ios'
+      ) {
         const result = await Contacts.getAll();
         let phoneNumbersProcessed = [];
         const formattedData = result.reduce((acc, contact) => {

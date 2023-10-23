@@ -212,8 +212,6 @@ export const useStartViewModel = () => {
       handleButtonPress,
       completeSignUp,
       formatPhoneNumber,
-      findContacts,
-      addFriendPhoneList,
     },
   };
 };
