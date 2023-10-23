@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Animated, Image} from 'react-native';
+import {Animated, Image, Platform} from 'react-native';
 import {captureRef} from 'react-native-view-shot';
 import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
@@ -403,7 +403,11 @@ export const useMainViewModel = () => {
           buttonPositive: 'Allow',
         },
       );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+
+      if (
+        granted === PermissionsAndroid.RESULTS.GRANTED ||
+        Platform.OS === 'ios'
+      ) {
         const result = await Contacts.getAll();
         let phoneNumbersProcessed = [];
         const formattedData = result.reduce((acc, contact) => {
@@ -432,7 +436,7 @@ export const useMainViewModel = () => {
           return acc;
         }, []);
         const temp = await transformContactsData(formattedData);
-        // console.log('TEMP : ', temp.phone_list);
+        console.log('TEMP : ', temp.phone_list);
         await createPhoneFriendData(temp.phone_list)
           .then(async res => {
             return await topActions.setStateAndError(res);
