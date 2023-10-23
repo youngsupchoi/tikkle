@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+//Firebase연동 코드
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "com.facebook.react"
 
