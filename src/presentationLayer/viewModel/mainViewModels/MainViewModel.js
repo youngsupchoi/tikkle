@@ -395,14 +395,17 @@ export const useMainViewModel = () => {
    */
   const findContacts = async () => {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-        {
-          title: 'Contacts',
-          message: 'This app would like to view your contacts.',
-          buttonPositive: 'Allow',
-        },
-      );
+      let granted;
+      if (Platform.OS === 'android') {
+        granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: 'Contacts',
+            message: 'This app would like to view your contacts.',
+            buttonPositive: 'Allow',
+          },
+        );
+      }
 
       if (
         granted === PermissionsAndroid.RESULTS.GRANTED ||
@@ -436,7 +439,7 @@ export const useMainViewModel = () => {
           return acc;
         }, []);
         const temp = await transformContactsData(formattedData);
-        console.log('TEMP : ', temp.phone_list);
+        // console.log('TEMP : ', temp.phone_list);
         await createPhoneFriendData(temp.phone_list)
           .then(async res => {
             return await topActions.setStateAndError(res);
