@@ -17,9 +17,26 @@
 		1CD51DC7F67043ABB393717C /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 390BFB439B29463EA6D6E6A3 /* AppleSDGothicNeoM.ttf */; };
 		36CF22812AE280AA008FA6DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36CF22802AE280AA008FA6DE /* GoogleService-Info.plist */; };
 		4ADF6BC809EA4544B60ECF0B /* AppleSDGothicNeoT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E71B5E60B964B5282F16037 /* AppleSDGothicNeoT.ttf */; };
+		575961032AE66C3A00404F26 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		575961042AE66C3A00404F26 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		575961082AE66C3A00404F26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		575961092AE66C3A00404F26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		5759610A2AE66C3A00404F26 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB674DFDA384B9CB9B87F49 /* AppleSDGothicNeoB.ttf */; };
+		5759610B2AE66C3A00404F26 /* AppleSDGothicNeoEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAD8163DCE224509A207431F /* AppleSDGothicNeoEB.ttf */; };
+		5759610C2AE66C3A00404F26 /* AppleSDGothicNeoH.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FB64ED819654F83BB2C2C1A /* AppleSDGothicNeoH.ttf */; };
+		5759610D2AE66C3A00404F26 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 686FD629E15E468AAD926982 /* AppleSDGothicNeoL.ttf */; };
+		5759610E2AE66C3A00404F26 /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 390BFB439B29463EA6D6E6A3 /* AppleSDGothicNeoM.ttf */; };
+		5759610F2AE66C3A00404F26 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 705A869C88B648F780E6EE44 /* AppleSDGothicNeoR.ttf */; };
+		575961102AE66C3A00404F26 /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */; };
+		575961112AE66C3A00404F26 /* AppleSDGothicNeoT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E71B5E60B964B5282F16037 /* AppleSDGothicNeoT.ttf */; };
+		575961122AE66C3A00404F26 /* AppleSDGothicNeoUL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DB68188F921465BBB46A15B /* AppleSDGothicNeoUL.ttf */; };
+		575961132AE66C3A00404F26 /* CherryBombOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */; };
+		575961142AE66C3A00404F26 /* BMHANNA_11yrs_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */; };
+		575961152AE66C3A00404F26 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36CF22802AE280AA008FA6DE /* GoogleService-Info.plist */; };
 		5A649E183FDA43A5B6DE43DC /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB674DFDA384B9CB9B87F49 /* AppleSDGothicNeoB.ttf */; };
 		73054AAFE6C54CBDB1CE6FAB /* AppleSDGothicNeoH.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FB64ED819654F83BB2C2C1A /* AppleSDGothicNeoH.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-tikkle_revive_ios-tikkle_revive_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-tikkle_revive_ios-tikkle_revive_iosTests.a */; };
+		7F15E5450010290B583A4836 /* libPods-tikkle_revive_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-tikkle_revive_ios.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8325D4F4B4E44C0D8E2FC2DB /* CherryBombOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */; };
 		96B82BA96C9A4F1D8F1CD851 /* AppleSDGothicNeoEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAD8163DCE224509A207431F /* AppleSDGothicNeoEB.ttf */; };
@@ -53,8 +70,11 @@
 		1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoSB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoSB.ttf; sourceTree = "<group>"; };
 		36CF22802AE280AA008FA6DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		390BFB439B29463EA6D6E6A3 /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoM.ttf; path = ../src/assets/fonts/AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-tikkle_revive_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-tikkle_revive_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.release.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.release.xcconfig"; sourceTree = "<group>"; };
+		3DFC798EB59CE10CF1403BD6 /* Pods-tikkle_revive_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.debug.xcconfig"; sourceTree = "<group>"; };
+		4B7F598061F338C4B190A62C /* Pods-tikkle_revive_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.release.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.release.xcconfig"; sourceTree = "<group>"; };
+		575960FE2AE66C3700404F26 /* tikkle_revive_ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tikkle_revive_ios.entitlements; path = tikkle_revive_ios/tikkle_revive_ios.entitlements; sourceTree = "<group>"; };
+		5759611D2AE66C3A00404F26 /* tikkle_revive_ios copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tikkle_revive_ios copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5759611E2AE66C3A00404F26 /* tikkle_revive_ios copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "tikkle_revive_ios copy-Info.plist"; path = "/Users/sjsjmine1/Desktop/tikkle/ios/tikkle_revive_ios copy-Info.plist"; sourceTree = "<absolute>"; };
 		5A125C352AA5CDB400F85EF1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-tikkle_revive_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tikkle_revive_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +105,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C80B921A6F3F58F76C31292 /* libPods-tikkle_revive_ios.a in Frameworks */,
+				7F15E5450010290B583A4836 /* libPods-tikkle_revive_ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		575961052AE66C3A00404F26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +139,7 @@
 		13B07FAE1A68108700A75B9A /* tikkle_revive_ios */ = {
 			isa = PBXGroup;
 			children = (
+				575960FE2AE66C3700404F26 /* tikkle_revive_ios.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -150,6 +179,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				89DEC31739B741A7B582FD41 /* Resources */,
+				5759611E2AE66C3A00404F26 /* tikkle_revive_ios copy-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -161,6 +191,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* tikkle_revive_ios.app */,
 				00E356EE1AD99517003FC87E /* tikkle_revive_iosTests.xctest */,
+				5759611D2AE66C3A00404F26 /* tikkle_revive_ios copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,10 +217,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-tikkle_revive_ios.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-tikkle_revive_ios.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */,
+				3DFC798EB59CE10CF1403BD6 /* Pods-tikkle_revive_ios.debug.xcconfig */,
+				4B7F598061F338C4B190A62C /* Pods-tikkle_revive_ios.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -241,6 +272,25 @@
 			productReference = 13B07F961A680F5B00A75B9A /* tikkle_revive_ios.app */;
 			productType = "com.apple.product-type.application";
 		};
+		575960FF2AE66C3A00404F26 /* tikkle_revive_ios copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5759611A2AE66C3A00404F26 /* Build configuration list for PBXNativeTarget "tikkle_revive_ios copy" */;
+			buildPhases = (
+				575961012AE66C3A00404F26 /* Start Packager */,
+				575961022AE66C3A00404F26 /* Sources */,
+				575961052AE66C3A00404F26 /* Frameworks */,
+				575961072AE66C3A00404F26 /* Resources */,
+				575961162AE66C3A00404F26 /* Bundle React Native code and images */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "tikkle_revive_ios copy";
+			productName = tikkle_revive_ios;
+			productReference = 5759611D2AE66C3A00404F26 /* tikkle_revive_ios copy.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -273,6 +323,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* tikkle_revive_ios */,
 				00E356ED1AD99517003FC87E /* tikkle_revive_iosTests */,
+				575960FF2AE66C3A00404F26 /* tikkle_revive_ios copy */,
 			);
 		};
 /* End PBXProject section */
@@ -303,6 +354,27 @@
 				8325D4F4B4E44C0D8E2FC2DB /* CherryBombOne-Regular.ttf in Resources */,
 				036EACA7AB4046A8A525AFC1 /* BMHANNA_11yrs_otf.otf in Resources */,
 				36CF22812AE280AA008FA6DE /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		575961072AE66C3A00404F26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				575961082AE66C3A00404F26 /* LaunchScreen.storyboard in Resources */,
+				575961092AE66C3A00404F26 /* Images.xcassets in Resources */,
+				5759610A2AE66C3A00404F26 /* AppleSDGothicNeoB.ttf in Resources */,
+				5759610B2AE66C3A00404F26 /* AppleSDGothicNeoEB.ttf in Resources */,
+				5759610C2AE66C3A00404F26 /* AppleSDGothicNeoH.ttf in Resources */,
+				5759610D2AE66C3A00404F26 /* AppleSDGothicNeoL.ttf in Resources */,
+				5759610E2AE66C3A00404F26 /* AppleSDGothicNeoM.ttf in Resources */,
+				5759610F2AE66C3A00404F26 /* AppleSDGothicNeoR.ttf in Resources */,
+				575961102AE66C3A00404F26 /* AppleSDGothicNeoSB.ttf in Resources */,
+				575961112AE66C3A00404F26 /* AppleSDGothicNeoT.ttf in Resources */,
+				575961122AE66C3A00404F26 /* AppleSDGothicNeoUL.ttf in Resources */,
+				575961132AE66C3A00404F26 /* CherryBombOne-Regular.ttf in Resources */,
+				575961142AE66C3A00404F26 /* BMHANNA_11yrs_otf.otf in Resources */,
+				575961152AE66C3A00404F26 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +413,41 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		575961012AE66C3A00404F26 /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		575961162AE66C3A00404F26 /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -489,6 +596,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		575961022AE66C3A00404F26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				575961032AE66C3A00404F26 /* AppDelegate.mm in Sources */,
+				575961042AE66C3A00404F26 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -553,10 +669,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-tikkle_revive_ios.debug.xcconfig */;
+			baseConfigurationReference = 3DFC798EB59CE10CF1403BD6 /* Pods-tikkle_revive_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = tikkle_revive_ios/tikkle_revive_ios.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = tikkle_revive_ios/Info.plist;
@@ -582,10 +699,11 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-tikkle_revive_ios.release.xcconfig */;
+			baseConfigurationReference = 4B7F598061F338C4B190A62C /* Pods-tikkle_revive_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = tikkle_revive_ios/tikkle_revive_ios.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = tikkle_revive_ios/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TIKKLE;
@@ -602,6 +720,62 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = tikkle_revive_ios;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		5759611B2AE66C3A00404F26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = tikkle_revive_ios/tikkle_revive_ios.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "tikkle_revive_ios copy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = TIKKLE;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		5759611C2AE66C3A00404F26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = tikkle_revive_ios/tikkle_revive_ios.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = "tikkle_revive_ios copy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = TIKKLE;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -765,6 +939,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5759611A2AE66C3A00404F26 /* Build configuration list for PBXNativeTarget "tikkle_revive_ios copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5759611B2AE66C3A00404F26 /* Debug */,
+				5759611C2AE66C3A00404F26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
