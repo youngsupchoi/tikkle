@@ -13,12 +13,17 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.72.4)
   - Firebase/CoreOnly (10.15.0):
     - FirebaseCore (= 10.15.0)
+  - Firebase/DynamicLinks (10.15.0):
+    - Firebase/CoreOnly
+    - FirebaseDynamicLinks (~> 10.15.0)
   - FirebaseCore (10.15.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
   - FirebaseCoreInternal (10.16.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseDynamicLinks (10.15.0):
+    - FirebaseCore (~> 10.0)
   - fmt (6.2.1)
   - glog (0.3.5)
   - GoogleUtilities (7.11.5):
@@ -506,6 +511,11 @@ PODS:
   - RNFBApp (18.5.0):
     - Firebase/CoreOnly (= 10.15.0)
     - React-Core
+  - RNFBDynamicLinks (18.5.0):
+    - Firebase/DynamicLinks (= 10.15.0)
+    - GoogleUtilities/AppDelegateSwizzler
+    - React-Core
+    - RNFBApp
   - RNFS (2.20.0):
     - React-Core
   - RNGestureHandler (2.12.1):
@@ -620,6 +630,7 @@ DEPENDENCIES:
   - "RNCClipboard (from `../node_modules/@react-native-community/clipboard`)"
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBDynamicLinks (from `../node_modules/@react-native-firebase/dynamic-links`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
@@ -635,6 +646,7 @@ SPEC REPOS:
     - Firebase
     - FirebaseCore
     - FirebaseCoreInternal
+    - FirebaseDynamicLinks
     - fmt
     - GoogleUtilities
     - libevent
@@ -755,6 +767,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-masked-view/masked-view"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBDynamicLinks:
+    :path: "../node_modules/@react-native-firebase/dynamic-links"
   RNFS:
     :path: "../node_modules/react-native-fs"
   RNGestureHandler:
@@ -783,6 +797,7 @@ SPEC CHECKSUMS:
   Firebase: 66043bd4579e5b73811f96829c694c7af8d67435
   FirebaseCore: 2cec518b43635f96afe7ac3a9c513e47558abd2e
   FirebaseCoreInternal: 26233f705cc4531236818a07ac84d20c333e505a
+  FirebaseDynamicLinks: 206d4ed3efd2b722822598017f3980d9fda89815
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
@@ -838,6 +853,7 @@ SPEC CHECKSUMS:
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNFBApp: 082df9f8ffba99f23f7aee3ecb64df703e7e1adb
+  RNFBDynamicLinks: 3238a210dd36c05d652279f70cee2bea67a15663
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
