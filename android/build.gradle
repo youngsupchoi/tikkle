@@ -4,7 +4,7 @@ buildscript {
     ext {
         //알림
         googlePlayServicesVersion = "+"
-//        firebaseMessagingVersion = "21.1.0"
+        firebaseMessagingVersion = "21.1.0"
 
         buildToolsVersion = "33.0.0"
         minSdkVersion = 21
