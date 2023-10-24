@@ -49,7 +49,6 @@
     "react-native-gesture-handler": "^2.12.1",
     "react-native-image-base64": "^0.1.4",
     "react-native-image-crop-picker": "^0.40.0",
-    "react-native-image-picker": "^7.0.0",
     "react-native-linear-gradient": "^2.8.0",
     "react-native-modal": "^13.0.1",
     "react-native-otp-verify": "^1.1.6",

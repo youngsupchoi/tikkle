@@ -13,6 +13,9 @@ node_require('react-native-permissions/scripts/setup.rb')
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
+#firebase 연동 관련 설정 23.10.24
+$RNFirebaseAsStaticFramework = true
+
 # ⬇️ uncomment wanted permissions (don't forget to remove the last comma)
 setup_permissions([
  # 'AppTrackingTransparency',
@@ -34,6 +37,9 @@ setup_permissions([
  # 'SpeechRecognition',
  # 'StoreKit'
 ])
+#firebase 연동 관련 설정 23.10.24
+use_frameworks! :linkage => :static
+
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -57,7 +63,8 @@ target 'tikkle_revive_ios' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    # Firebase 연동 관련 설정하면서 아래줄 주석처리 23.10.24
+    #:flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
