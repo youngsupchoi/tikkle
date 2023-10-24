@@ -269,7 +269,6 @@
 			buildPhases = (
 				575961012AE66C3A00404F26 /* Start Packager */,
 				575961022AE66C3A00404F26 /* Sources */,
-				575961052AE66C3A00404F26 /* Frameworks */,
 				575961072AE66C3A00404F26 /* Resources */,
 				575961162AE66C3A00404F26 /* Bundle React Native code and images */,
 			);
