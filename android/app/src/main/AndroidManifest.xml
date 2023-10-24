@@ -15,7 +15,14 @@
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
-
+      <!-- dynamic links 관련설정 23.10.24 -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="tikkle.lifoli.co.kr" android:scheme="https"/>
+      </intent-filter>
+      
       <!-- deep link 관련설정 23.10.16 -->
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
