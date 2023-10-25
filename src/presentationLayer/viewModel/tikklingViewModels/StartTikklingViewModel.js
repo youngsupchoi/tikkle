@@ -49,7 +49,16 @@ export const useStartTikklingViewModel = () => {
   };
 
   const put_user_address = async () => {
-    updateMyAddressData(state.zonecode, state.address, state.detailAddress);
+    let newdetail;
+    if (state.detailAddress == null) {
+      newdetail = state.userData.detail_address;
+    } else {
+      newdetail = state.detailAddress;
+    }
+
+    updateMyAddressData(state.zonecode, state.address, newdetail).then(res => {
+      return topActions.setStateAndError(res);
+    });
   };
 
   //==========Utils 부분=========================================================
@@ -142,29 +151,44 @@ export const useStartTikklingViewModel = () => {
   }
 
   //-------------------------------------------------------------------
-  const buttonPress = () => {
-    actions.setCreateTikklingButtonPressed(true);
-    put_user_address();
-    createTikklingData(
-      state.endDate,
-      state.selectedItem.price / 5000,
-      state.selectedItem.product_id,
-      state.eventType,
-    )
-      .then(res => {
-        return topActions.setStateAndError(res);
-      })
-      .then(() => {
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'main',
-              params: {updated: new Date().toString()},
-            },
-          ],
+  const tikklingStartButtonPress = () => {
+    try {
+      actions.setCreateTikklingButtonPressed(true);
+
+      put_user_address();
+
+      // const currentYear = new Date().getFullYear();
+
+      // // 기존의 endDate 객체를 가져와서 년도만 바꿉니다.
+      // const oldEndDate = new Date(state.endDate);
+      // oldEndDate.setFullYear(currentYear);
+
+      createTikklingData(
+        state.endDate,
+        state.selectedItem.price / 5000,
+        state.selectedItem.product_id,
+        state.eventType,
+      )
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(() => {
+          topActions.showSnackbar('티클링이 시작되었습니다!.', 1);
         });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      actions.setCreateTikklingButtonPressed(false);
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'main',
+            params: {updated: new Date().toString()},
+          },
+        ],
       });
+    }
   };
 
   let currentDate = state.startDate
@@ -201,7 +225,7 @@ export const useStartTikklingViewModel = () => {
       calculateDaysUntilNextBirthday,
       getNextBirthday,
       formatDate,
-      buttonPress,
+      tikklingStartButtonPress,
       setToEndOfDay,
     },
   };

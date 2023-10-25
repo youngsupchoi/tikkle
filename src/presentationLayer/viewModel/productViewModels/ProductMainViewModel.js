@@ -1,7 +1,7 @@
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 // import {useMainViewState} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {useProductMainViewState} from 'src/presentationLayer/viewState/productStates/ProductMainState';
-
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 // 2. 데이터 소스 또는 API 가져오기
 import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 
@@ -9,6 +9,7 @@ import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductLis
 export const useProductMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useProductMainViewState();
+  const {topActions} = useTopViewModel();
 
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
@@ -24,9 +25,13 @@ export const useProductMainViewModel = () => {
       state.sortWay,
       state.search,
       state.getNum,
-    ).then(async res => {
-      actions.setSearchedData(res.DSdata.info);
-    });
+    )
+      .then(res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        actions.setSearchedData(res.DSdata.info);
+      });
     await actions.setLoading(false);
   };
 

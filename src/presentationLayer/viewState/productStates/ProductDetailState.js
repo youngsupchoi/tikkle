@@ -20,6 +20,8 @@ export const ProductDetailViewStateProvider = ({children}) => {
   const [data, setData] = useState({});
   const [parse, setParse] = useState({});
 
+  const [isTikkling, setIsTikkling] = useState(false);
+
   const ref = {};
   const state = {
     selected,
@@ -28,6 +30,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     loading,
     data,
     parse,
+    isTikkling,
   };
 
   const actions = {
@@ -37,6 +40,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     setLoading,
     setData,
     setParse,
+    setIsTikkling,
   };
 
   return (

@@ -8,7 +8,6 @@ import {
   M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
-  COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
@@ -17,11 +16,8 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import Modal from 'react-native-modal';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import Location from 'src/assets/icons/Location';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {TextInput} from 'react-native-gesture-handler';
-import Account from 'src/assets/icons/Account';
-import Bank from 'src/assets/icons/Bank';
 import AccountDropDown_home from './AccountDropDown_home';
 
 export default function RefundModal() {

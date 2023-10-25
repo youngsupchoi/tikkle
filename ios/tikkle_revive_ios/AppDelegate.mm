@@ -1,11 +1,15 @@
 #import "AppDelegate.h"
-
+// Firebase 설정 23.10.20
+#import <Firebase.h>
 #import <React/RCTBundleURLProvider.h>
-
+// deeplink 관련 설정 23.10.16
+#import <React/RCTLinkingManager.h> 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Firebase 설정 23.10.20
+  [FIRApp configure];
   self.moduleName = @"tikkle_revive_ios";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
@@ -21,6 +25,15 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+
+// deeplink 관련 설정 23.10.16
+- (BOOL)application:(UIApplication *)application
+   openURL:(NSURL *)url
+   options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 @end

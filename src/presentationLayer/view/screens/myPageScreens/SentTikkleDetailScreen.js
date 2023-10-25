@@ -272,7 +272,11 @@ export default function SentTikkleDetailScreen({route}) {
                     width: windowWidth * 0.55,
                   }}>
                   <View style={{marginBottom: 5}}>
-                    <B15>{item.product_name}</B15>
+                    <B15>
+                      {item.product_name.length > 30
+                        ? item.product_name.substring(0, 30) + '...'
+                        : item.product_name}
+                    </B15>
                   </View>
                   <View
                     style={{
@@ -303,7 +307,7 @@ export default function SentTikkleDetailScreen({route}) {
                         <B12>{item.brand_name}</B12>
                       </View>
                       <View style={{marginBottom: 5}}>
-                        <B12>{item.product_price}₩</B12>
+                        <B12>{item.product_price.toLocaleString()}₩</B12>
                       </View>
                       <View style={{marginBottom: 5}}>
                         <B12>{item.product_price / 5000}개</B12>

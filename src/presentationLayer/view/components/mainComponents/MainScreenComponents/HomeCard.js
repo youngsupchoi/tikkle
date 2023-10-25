@@ -1,36 +1,18 @@
 import React, {forwardRef} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
+import {useAnimatedStyle} from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 import {
   COLOR_BLACK,
-  COLOR_GRAY,
-  COLOR_PRIMARY,
-  COLOR_SECOND_BLACK,
   COLOR_SECOND_SEPARATOR,
   COLOR_SEPARATOR,
   COLOR_WHITE,
-  backgroundColor,
 } from '../../Global/Colors/Colors';
-import {
-  B12,
-  B15,
-  B17,
-  B22,
-  B28,
-  M15,
-  M17,
-  M20,
-} from '../../Global/Typography/Typography';
+import {B12, M15} from '../../Global/Typography/Typography';
 import GaugeProgress from './GaugeProgress';
 import {
   SPACING_1,
   SPACING_2,
-  SPACING_3,
   SPACING_6,
 } from '../../Global/Spacing/BaseSpacing';
 import TimerComponent from '../Timer/HomeTimer';

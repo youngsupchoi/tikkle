@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function updateCancleTikklingData(tikkling_id) {
+export async function getTikkleDetailData(tikkling_id) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -19,19 +19,23 @@ export async function updateCancleTikklingData(tikkling_id) {
     };
   }
 
-  //console.log('auth get : ', authorization);
-
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
-  //------ call put_tikkling_end -------------------------------------------------------//
+  //------ call post_user_getTikklingDetail -------------------------------------------------------//
   let response;
+
   const body = {
     tikkling_id: tikkling_id,
   };
 
   try {
-    response = await apiModel('put_tikkling_cancel', authorization, body, null);
+    response = await apiModel(
+      'post_user_getTikklingDetail',
+      authorization,
+      body,
+      null,
+    );
     if (!response) {
       //  error
       throw new Error();
@@ -44,27 +48,11 @@ export async function updateCancleTikklingData(tikkling_id) {
     };
   }
 
-  //------ control result & error of put_tikkling_end-----------------------------------------//
-  if (response.status === 400) {
-    return {
-      DScode: 2,
-      DSdata: null,
-      DSmessage: '이미 종료된 티클링 이에요.',
-    };
-  } else if (response.status === 401) {
-    return {
-      DScode: 1,
-      DSdata: null,
-      DSmessage:
-        '티클이 도착한 상태에서는 취소가 불가능합니다. 화면을 새로고침해주세요',
-    };
-  } else if (response.status === 404) {
-    return {
-      DScode: 2,
-      DSdata: null,
-      DSmessage: '존재하지 않는 티클링 이에요.',
-    };
-  } else if (response.status !== 200) {
+  // console.log(response);
+
+  //------ control result & error of post_user_getTikklingDetail-----------------------------------------//
+
+  if (response.status !== 200) {
     return {
       DScode: 2,
       DSdata: null,
@@ -72,8 +60,10 @@ export async function updateCancleTikklingData(tikkling_id) {
     };
   }
 
+  const info = response.data.data;
+
   //------ update token ---------------------------------------------------//
-  //console.log('response.data.returnToken : ', response.data.returnToken);
+
   if (response.data.returnToken) {
     const response_setToken = await resetToken(
       response.data.returnToken,
@@ -85,7 +75,7 @@ export async function updateCancleTikklingData(tikkling_id) {
 
   return {
     DScode: 0,
-    DSdata: {success: true},
-    DSmessage: '성공적으로 티클링이 취소 되었습니다.',
+    DSdata: {info: info},
+    DSmessage: '티클링 상세 정보 가져오기 성공',
   };
 }

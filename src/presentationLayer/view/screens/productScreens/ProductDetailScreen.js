@@ -1,4 +1,11 @@
-import {View, StyleSheet, ScrollView, Image, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Text,
+  Animated,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   StatusBarHeight,
@@ -13,17 +20,24 @@ import {
   B,
   B15,
   EB,
+  B20,
   M15,
   M17,
+  M20,
   M28,
+  M22,
+  B12,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
+  COLOR_SECONDARY,
   COLOR_SECOND_SEPARATOR,
   COLOR_SEPARATOR,
+  COLOR_SUCCESS,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -39,24 +53,66 @@ import ArrowRight from 'src/assets/icons/ArrowRight';
 import {useProductDetailViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductDetailViewModel';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import Wishlisted from 'src/assets/icons/wishlisted.svg';
+import Wishlisted_non from 'src/assets/icons/wishlisted_non.svg';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
+import LinearGradient from 'react-native-linear-gradient';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 const containerWidth = windowWidth - SPACING_6;
+const Tab = createMaterialTopTabNavigator();
+const ProductInfo = () => {
+  const {state, actions} = useProductDetailViewModel();
+  return (
+    <View>
+      <B15 customStyle={{marginBottom: 4}}>{state.data.notice_info}</B15>
+    </View>
+  );
+};
+function TopTab() {
+  return (
+    <Tab.Navigator
+      initialRouteName="DetailView"
+      tabBarOptions={{
+        labelStyle: {fontSize: 12},
+        tabStyle: {width: 100},
+        style: {backgroundColor: 'powderblue'},
+      }}>
+      <Tab.Screen
+        name="DetailView"
+        component={DetailImages}
+        options={{title: '상세보기'}}
+      />
+      <Tab.Screen
+        name="ProductInfo"
+        component={ProductInfo}
+        options={{title: '상품고시정보'}}
+      />
+    </Tab.Navigator>
+  );
+}
 
 export default function ProductDetailScreen(route) {
   const {state, actions} = useProductDetailViewModel();
-
   const {topActions} = useTopViewModel();
 
   const [selected, setSelected] = useState('상세정보');
-  // console.log('selected : ', state.data);
+  const scrollY = new Animated.Value(0);
+  const imageScale = scrollY.interpolate({
+    inputRange: [0, 200], // These numbers might need tweaking based on your requirements
+    outputRange: [1.1, 0.8], // Scaling from full size to 80%
+    extrapolate: 'clamp', // This ensures the scale doesn't go beyond our outputRange
+  });
+  const animatedThumbnailStyle = {
+    transform: [{scale: imageScale}],
+  };
+
   useEffect(() => {
-    // console.log('&&&&&&& : ', state.data.pares);
     actions.setParse(state.data.parse);
     if (state.data.wishlisted) {
       actions.setWishlisted(true);
     }
+    actions.isTikkling();
   }, []);
 
   return (
@@ -65,7 +121,13 @@ export default function ProductDetailScreen(route) {
         <GlobalLoader />
       ) : (
         <View>
-          <ScrollView>
+          <Animated.ScrollView
+            scrollEventThrottle={16} // Ensures onScroll is called every 16ms
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {y: scrollY}}}],
+              {useNativeDriver: false}, // Can be set to true if you don't plan to use React animations
+            )}
+            stickyHeaderIndices={[0]}>
             <View
               style={{
                 position: 'absolute',
@@ -74,8 +136,26 @@ export default function ProductDetailScreen(route) {
                 right: 0,
                 zIndex: 10,
                 backgroundColor: 'transparent',
-                padding: 16,
+                // padding: 16,
+                // backgroundColor: 'red',
               }}>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 1}}
+                colors={[
+                  'rgba(255,255,255,1)',
+                  'rgba(255,255,255,0.3)',
+                  'rgba(255,255,255,0)',
+                ]}
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  top: 0,
+                  zIndex: -1,
+                }}
+              />
               <AnimatedButton
                 onPress={() => actions.navigation.goBack()}
                 style={{
@@ -83,11 +163,7 @@ export default function ProductDetailScreen(route) {
                   height: 40,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: COLOR_WHITE,
-                  borderColor: COLOR_SEPARATOR,
-                  borderWidth: 0.5,
-                  elevation: 1,
-                  borderRadius: 20,
+                  margin: 16,
                 }}>
                 <ArrowLeft
                   stroke={COLOR_BLACK}
@@ -99,45 +175,59 @@ export default function ProductDetailScreen(route) {
               </AnimatedButton>
             </View>
 
-            <Image
+            <Animated.Image
               source={{uri: state.data.thumbnail_image}}
-              style={{
-                width: windowWidth,
-                height: windowWidth,
-              }}
+              style={[
+                {
+                  width: windowWidth,
+                  height: (windowWidth * 2) / 3,
+                },
+                animatedThumbnailStyle,
+              ]}
             />
 
             <View
               style={{
                 paddingHorizontal: 24,
-                paddingVertical: 24,
-                // marginHorizontal: 12,
-                marginVertical: 8,
-                borderBottomColor: COLOR_SEPARATOR,
-                borderBottomWidth: 1,
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                // paddingVertical: 24,
+                paddingTop: 16,
+                // marginVertical: 8,
+                backgroundColor: backgroundColor,
+                borderTopColor: COLOR_SEPARATOR,
+                borderTopWidth: 1,
+                borderTopRightRadius: 16,
+                borderTopLeftRadius: 16,
+                top: -20,
               }}>
+              <M15
+                customStyle={{
+                  color: COLOR_GRAY,
+                  marginBottom: 4,
+                }}>
+                {state.data.brand_name}
+              </M15>
+              <M20
+                numberOfLines={2}
+                customStyle={{marginBottom: 5, fontFamily: EB, lineHeight: 32}}>
+                {state.data.name}
+              </M20>
+
               <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <M28 customStyle={{marginBottom: 16, fontFamily: EB}}>
-                    {state.data.name}
-                  </M28>
-                  {state.wishlisted && (
-                    <Wishlisted
-                      width={50}
-                      marginBottom={17}
-                      marginHorizontal={5}
-                    />
-                  )}
-                </View>
-                <M15 customStyle={{color: COLOR_GRAY, marginBottom: 40}}>
-                  {state.data.brand_name}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 8,
+                }}>
+                <M15>￦</M15>
+                <M15 customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}>
+                  {state.data.price.toLocaleString()}
                 </M15>
               </View>
-              <B15 customStyle={{marginBottom: 4}}>상품 설명</B15>
-              <M15 customStyle={{color: COLOR_GRAY, marginBottom: 40}}>
+
+              {/* <B15 customStyle={{marginBottom: 4, marginTop: 24}}>
+                상품 설명
+              </B15> */}
+              <M15 customStyle={{color: COLOR_GRAY, marginBottom: 0}}>
                 {state.data.description}
               </M15>
             </View>
@@ -153,7 +243,7 @@ export default function ProductDetailScreen(route) {
                 style={{
                   padding: 8,
                   paddingHorizontal: 24,
-                  width: '45%',
+                  width: '50%',
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderColor: COLOR_SEPARATOR,
@@ -162,8 +252,6 @@ export default function ProductDetailScreen(route) {
                     selected === '상세정보'
                       ? COLOR_SECOND_SEPARATOR
                       : COLOR_WHITE,
-                  borderTopLeftRadius: 12,
-                  borderBottomLeftRadius: 12,
                 }}>
                 <M15 customStyle={{color: COLOR_BLACK}}>상세정보</M15>
               </AnimatedButton>
@@ -172,7 +260,7 @@ export default function ProductDetailScreen(route) {
                 style={{
                   padding: 8,
                   paddingHorizontal: 24,
-                  width: '45%',
+                  width: '50%',
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderColor: COLOR_SEPARATOR,
@@ -181,8 +269,6 @@ export default function ProductDetailScreen(route) {
                     selected === '상품고시정보'
                       ? COLOR_SECOND_SEPARATOR
                       : COLOR_WHITE,
-                  borderTopRightRadius: 12,
-                  borderBottomRightRadius: 12,
                 }}>
                 <M15
                   customStyle={{
@@ -209,7 +295,7 @@ export default function ProductDetailScreen(route) {
                 </View>
               )}
             </View>
-          </ScrollView>
+          </Animated.ScrollView>
           <View
             style={{
               position: 'absolute',
@@ -223,69 +309,114 @@ export default function ProductDetailScreen(route) {
             }}>
             <View
               style={{
-                height: 72,
+                height: 60,
                 paddingHorizontal: 24,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <View>
-                <M17 customStyle={{marginBottom: 4}}>
-                  ￦{state.data.price.toLocaleString()}
-                </M17>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{marginHorizontal: 4}}>
-                    <ArrowRight
-                      width={15}
-                      height={15}
-                      stroke={COLOR_BLACK}
-                      strokeWidth={3}
-                      scale={0.6}
-                    />
-                  </View>
-                  <B15 customStyle={{zIndex: 100}}>
-                    티클 {(state.data.price / 5000).toLocaleString()}개
-                  </B15>
+              <AnimatedButton
+                onPress={() => {
+                  if (state.wishlisted) {
+                    actions.setWishlisted(!state.wishlisted);
+                    actions.deleteMyWishlistData_(state.data.id);
+                    topActions.showSnackbar(
+                      '위시리스트에서 상품을 삭제했어요!',
+                      1,
+                    );
+                  } else {
+                    actions.setWishlisted(!state.wishlisted);
+                    actions.createMyWishlistData_(state.data.id);
+                    topActions.showSnackbar(
+                      '위시리스트에 상품을 추가했어요!',
+                      1,
+                    );
+                  }
+                }}>
+                <View style={{alignItems: 'center'}}>
+                  {state.wishlisted ? (
+                    <Wishlisted marginHorizontal={5} />
+                  ) : (
+                    <Wishlisted_non marginHorizontal={5} />
+                  )}
+                  {console.log(state.wishlisted)}
+                  <B12>
+                    {state.wishlisted
+                      ? state.data.wishlist_count + 1
+                      : state.data.wishlist_count}
+                  </B12>
                 </View>
-              </View>
-              <View>
-                <AnimatedButton
-                  onPress={() => {
-                    if (state.wishlisted) {
-                      actions.setWishlisted(!state.wishlisted);
-                      actions.deleteMyWishlistData_(state.data.id);
-                      topActions.showSnackbar(
-                        '위시리스트에서 상품을 삭제했어요!',
-                        1,
-                      );
-                    } else {
-                      actions.setWishlisted(!state.wishlisted);
-                      actions.createMyWishlistData_(state.data.id);
-                      topActions.showSnackbar(
-                        '위시리스트에 상품을 추가했어요!',
-                        1,
-                      );
-                    }
-                  }}
-                  style={{
-                    paddingVertical: 12,
-                    paddingHorizontal: 24,
-                    backgroundColor: !state.wishlisted
-                      ? COLOR_PRIMARY
-                      : COLOR_WHITE,
-                    borderColor: COLOR_PRIMARY_OUTLINE,
-                    borderWidth: 2,
-                    borderRadius: 8,
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 0.5,
-                  }}>
-                  <B15
-                    customStyle={{
-                      color: !state.wishlisted ? COLOR_WHITE : COLOR_PRIMARY,
+              </AnimatedButton>
+
+              <View style={{paddingHorizontal: 10}}>
+                {state.isTikkling == false ? (
+                  <AnimatedButton
+                    onPress={() => {
+                      // console.log('전달 값 : ');
+                      const wishlist = {
+                        brand_name: state.data.brand_name,
+                        category_id: state.data.category_id,
+                        created_at: state.data.created_at,
+                        description: state.data.description,
+                        is_deleted: state.data.is_deleted,
+                        name: state.data.name,
+                        price: state.data.price,
+                        product_id: state.data.id,
+                        quantity: state.data.quantity,
+                        sales_volume: state.data,
+                        thumbnail_image: state.data.thumbnail_image,
+                        views: state.data.views,
+                        wishlist_count: state.data.wishlist_count,
+                      };
+                      actions.navigation.navigate('startTikkling', wishlist);
+                    }}
+                    style={{
+                      width: windowWidth - 80,
+                      paddingVertical: 12,
+                      paddingHorizontal: 10,
+                      backgroundColor: COLOR_PRIMARY,
+                      borderColor: COLOR_PRIMARY_OUTLINE,
+                      borderWidth: 2,
+                      borderRadius: 8,
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 0.5,
+                      alignItems: 'center',
                     }}>
-                    {!state.wishlisted ? '위시리스트 추가' : '위시리스트 제거'}
-                  </B15>
-                </AnimatedButton>
+                    <View style={{flexDirection: 'row'}}>
+                      <B15
+                        customStyle={{
+                          marginHorizontal: 5,
+                          color: COLOR_WHITE,
+                        }}>
+                        {'이 상품으로 티클링 시작하기'}
+                      </B15>
+                    </View>
+                  </AnimatedButton>
+                ) : (
+                  <AnimatedButton
+                    style={{
+                      width: windowWidth - 80,
+                      paddingVertical: 12,
+                      paddingHorizontal: 10,
+                      backgroundColor: COLOR_SEPARATOR,
+                      borderColor: COLOR_PRIMARY_OUTLINE,
+                      borderWidth: 2,
+                      borderRadius: 8,
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 0.5,
+                      alignItems: 'center',
+                    }}>
+                    <View style={{flexDirection: 'row'}}>
+                      <B15
+                        customStyle={{
+                          marginHorizontal: 5,
+                          color: COLOR_GRAY,
+                        }}>
+                        {'현재 티클링이 진행중이에요'}
+                      </B15>
+                    </View>
+                  </AnimatedButton>
+                )}
               </View>
             </View>
           </View>

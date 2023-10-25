@@ -51,7 +51,7 @@ import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklin
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
-export default function StartTikklingScreen() {
+export default function StartTikklingScreen({route}) {
   const {state, actions} = useStartTikklingViewModel();
   useEffect(() => {
     actions.loadData();
@@ -65,6 +65,11 @@ export default function StartTikklingScreen() {
         state.eventType !== null,
     );
   }, [state.zonecode, state.address, state.detailAddress, state.event]);
+
+  useEffect(() => {
+    console.log('🚨');
+    console.log(route);
+  }, []);
 
   useEffect(() => {
     state.userData.birthday !== undefined
@@ -171,7 +176,11 @@ export default function StartTikklingScreen() {
                   }}
                 />
                 <View style={{alignItems: 'center', marginTop: 8}}>
-                  <B15>{state.selectedItem.name}</B15>
+                  <B15>
+                    {state.selectedItem.name.length > 9
+                      ? `${state.selectedItem.name.slice(0, 9)}...`
+                      : state.selectedItem.name}
+                  </B15>
                   <M11 customStyle={{color: COLOR_GRAY}}>
                     {state.selectedItem.brand_name}
                   </M11>
@@ -609,12 +618,12 @@ export default function StartTikklingScreen() {
         </View>
 
         <AnimatedButton
-          onPress={actions.buttonPress}
+          onPress={actions.tikklingStartButtonPress}
           style={[
             styles.tikklingStartButton,
             state.createTikklingButtonPressed ? styles.inactiveButton : {},
           ]}
-          disabled={!state.isButtonEnabled && state.createTikklingButtonPressed} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
+          disabled={!state.isButtonEnabled || state.createTikklingButtonPressed} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
         >
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
         </AnimatedButton>

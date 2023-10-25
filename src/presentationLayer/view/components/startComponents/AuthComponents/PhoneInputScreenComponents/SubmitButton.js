@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
@@ -9,6 +9,7 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 export const SubmitButton = () => {
   const {state, actions} = useStartViewModel();
@@ -27,9 +28,10 @@ export const SubmitButton = () => {
         onPress={actions.phoneInputbuttonPress}
         style={[
           styles.button,
-          (!state.isValidPhoneNumber|| state.phoneInputButtonPressed) && styles.disabledButton,
+          (!state.isValidPhoneNumber || state.phoneInputButtonPressed) &&
+            styles.disabledButton,
         ]}
-        disabled={(!state.isValidPhoneNumber|| state.phoneInputButtonPressed)}>
+        disabled={!state.isValidPhoneNumber || state.phoneInputButtonPressed}>
         <B15 customStyle={{color: COLOR_WHITE}}>인증번호 전송</B15>
       </AnimatedButton>
     </View>
@@ -43,9 +45,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: COLOR_BLACK,
-    width: '90%',
+    width: windowWidth - 32,
     height: 50,
-    borderRadius: 25,
+    // borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',

@@ -7,9 +7,14 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {useRef} from 'react';
 
 function OTPInput({handleTextChange, inputCode, inputRefs}) {
+  const handleBackspace = index => {
+    if (inputCode[index] === '' && index > 0) {
+      inputRefs.current[index - 1].focus();
+      handleTextChange('', index - 1); // 이전 칸의 값을 지워줍니다.
+    }
+  };
   return (
     <View style={styles.inputContainer}>
       {inputCode.map((code, index) => (
@@ -23,6 +28,11 @@ function OTPInput({handleTextChange, inputCode, inputRefs}) {
             style={styles.authCodeInput}
             value={code}
             onChangeText={text => handleTextChange(text, index)}
+            onKeyPress={({nativeEvent}) => {
+              if (nativeEvent.key === 'Backspace') {
+                handleBackspace(index);
+              }
+            }}
           />
         </View>
       ))}
@@ -37,14 +47,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   authCodeInputContainer: {
-    borderColor: COLOR_SEPARATOR,
-    borderWidth: 0.5,
+    // borderColor: COLOR_SEPARATOR,
+    // borderWidth: 0.5,
     width: 40,
     height: 48,
     borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLOR_WHITE,
+    // backgroundColor: COLOR_WHITE,
     elevation: 1,
   },
   authCodeInput: {

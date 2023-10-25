@@ -1,23 +1,9 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Platform,
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {windowWidth} from '../Containers/MainContainer';
-import {
-  COLOR_BLACK,
-  COLOR_SEPARATOR,
-  COLOR_WHITE,
-  backgroundColor,
-} from '../Colors/Colors';
-import {B17, B20, B22, H1, UNIQUE22} from '../Typography/Typography';
-
+import {COLOR_BLACK, backgroundColor} from '../Colors/Colors';
+import {B20} from '../Typography/Typography';
 import Notification from '../../../assets/icons/Notification.js';
-import HamburgerMenu from '../../../assets/icons/Hambergermenu.js';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,

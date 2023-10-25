@@ -1,12 +1,11 @@
-import {View, StyleSheet, TextInput} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import React from 'react';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,
   SPACING_2,
   SPACING_4,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
@@ -25,16 +24,18 @@ export default function SignUpHeader() {
   const PaginationComponent = () => {
     return (
       <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-          <View style={styles.selectedPagination} />
-          <View style={styles.pagination} />
+        <View style={styles.pagination} />
+        <View style={styles.pagination} />
+        <View style={styles.selectedPagination} />
+        <View style={styles.pagination} />
       </View>
     );
   };
   return (
     <View style={styles.signUpHeader}>
-      <AnimatedButton onPress={actions.handleBackPress} style={styles.backButton}>
+      <AnimatedButton
+        onPress={actions.handleBackPress}
+        style={styles.backButton}>
         <BackIcon width={24} height={24} stroke={COLOR_BLACK} strokeWidth={1} />
       </AnimatedButton>
       <PaginationComponent />
@@ -42,8 +43,6 @@ export default function SignUpHeader() {
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   signupContainer: {

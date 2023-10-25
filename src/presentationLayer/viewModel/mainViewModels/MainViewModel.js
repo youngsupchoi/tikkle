@@ -1,13 +1,12 @@
 import {useState} from 'react';
-import {Animated} from 'react-native';
+import {Animated, Image, Platform} from 'react-native';
 import {captureRef} from 'react-native-view-shot';
 import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useMainViewState} from 'src/presentationLayer/viewState/mainStates/MainState';
 
 // 2. 데이터 소스 또는 API 가져오기
-import {useNavigation} from '@react-navigation/native';
-import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancelTikklingData';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {getHomeScreenData} from 'src/dataLayer/DataSource/User/GetHomeScreenData';
 import {updateEndTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingData';
@@ -15,10 +14,16 @@ import {updateEndTikklingBuyData} from 'src/dataLayer/DataSource/Tikkling/Update
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {updateStopTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateStopTikklingData';
 import {getMyTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetMyTikklingData';
-import {updateCancleTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancleTikklingData';
+import {updateCancelTikklingData} from 'src/dataLayer/DataSource/Tikkling/UpdateCancelTikklingData';
 import {updateEndTikklingRefundData} from 'src/dataLayer/DataSource/Tikkling/UpdateEndTikklingRefundData';
 import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
+import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
+import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
+import Contacts from 'react-native-contacts';
+import {PermissionsAndroid} from 'react-native';
+import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
+import RNFS from 'react-native-fs';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -26,6 +31,8 @@ export const useMainViewModel = () => {
   const {ref, state, actions} = useMainViewState();
   const {topActions} = useTopViewModel();
 
+  const temp_R = useRoute();
+  const route_tikkling_id = temp_R.params;
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
@@ -34,15 +41,19 @@ export const useMainViewModel = () => {
   const loadData = async () => {
     try {
       await actions.setLoading(true);
-      await getHomeScreenData().then(res => {
-        actions.setFriendEventData(res.DSdata.friend_event);
-        actions.setFriendTikklingData(res.DSdata.friend_tikkling);
-        actions.setIsNotice(res.DSdata.is_notification);
-        actions.setMyTikklingData(res.DSdata.my_tikkling.info[0]);
-        actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
-        actions.setWishlistData(res.DSdata.my_wishlist);
-        actions.setUserData(res.DSdata.user_info);
-      });
+      await getHomeScreenData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          actions.setFriendEventData(res.DSdata.friend_event);
+          actions.setFriendTikklingData(res.DSdata.friend_tikkling);
+          actions.setIsNotice(res.DSdata.is_notification);
+          actions.setMyTikklingData(res.DSdata.my_tikkling.info[0]);
+          actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
+          actions.setWishlistData(res.DSdata.my_wishlist);
+          actions.setUserData(res.DSdata.user_info);
+        });
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -50,14 +61,66 @@ export const useMainViewModel = () => {
     }
   };
 
+  async function loadDetail() {
+    await actions.setDetailLoading(true);
+    await getTikklingData();
+    await actions.setDetailLoading(false);
+  }
+
+  /**
+   *  티클링 데이터 가져오기
+   * @param
+   */
+  async function getTikklingData() {
+    await getTikkleDetailData(route_tikkling_id)
+      .then(async res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        // console.log('@@@@@@@ : ', res.DSdata.info[0]);
+        actions.setRoute_data(res.DSdata.info[0]);
+      });
+  }
+
+  // /**
+  //  *  티클링의 받은 티클 데이터 가져오기
+  //  * @param
+  //  */
+  // async function getTikkleData() {
+  //   let tikkle_data = [];
+  //   await getRecivedTikkleData(route_tikkling_id)
+  //     .then(async res => {
+  //       return topActions.setStateAndError(res);
+  //     })
+  //     .then(async res => {
+  //       tikkle_data = res.DSdata.info;
+  //       actions.setList_data(res.DSdata.info);
+  //     })
+  //     .then(async res => {
+  //       // console.log('#### : ', tikkle_data);
+  //       let sum = 0;
+  //       tikkle_data.map(item => {
+  //         if (item.state_id != 2) {
+  //           sum += item.quantity;
+  //         }
+  //       });
+  //       actions.setTikkle_sum(sum);
+  //       // console.log(state.tikkle_sum);
+  //     });
+  // }
+
   const loadTikklingData = async () => {
     try {
       await actions.setLoading(true);
-      await getMyTikklingData().then(res => {
-        console.log(res.DSdata);
-        actions.setMyTikklingData(res.DSdata.info[0]);
-        actions.setIsTikkling(res.DSdata.is_tikkling);
-      });
+      await getMyTikklingData()
+        .then(res => {
+          return topActions.setStateAndError(res);
+        })
+        .then(res => {
+          console.log(res.DSdata);
+          actions.setMyTikklingData(res.DSdata.info[0]);
+          actions.setIsTikkling(res.DSdata.is_tikkling);
+        });
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -148,11 +211,15 @@ export const useMainViewModel = () => {
   //우측 상단 종료하기 버튼
   const buttonPress = () => {
     if (state.myTikklingData.tikkle_count === '0') {
-      updateCancelTikklingData(state.myTikklingData.tikkling_id);
+      updateCancelTikklingData(state.myTikklingData.tikkling_id).then(res => {
+        return topActions.setStateAndError(res);
+      });
       actions.setDropdownVisible(false);
     } else {
       console.log(state.myTikklingData.tikkling_id);
-      updateEndTikklingData(state.myTikklingData.tikkling_id);
+      updateEndTikklingData(state.myTikklingData.tikkling_id).then(res => {
+        return topActions.setStateAndError(res);
+      });
       actions.setDropdownVisible(false);
     }
   };
@@ -197,45 +264,69 @@ export const useMainViewModel = () => {
   };
 
   const onInstagramShareButtonPressed = async () => {
+    async function convertImageToBase64() {
+      const imageUri = Image.resolveAssetSource(
+        require('src/assets/images/instagram_background.png'),
+      ).uri;
+
+      try {
+        const response = await fetch(imageUri);
+        const blob = await response.blob();
+
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = function () {
+            let base64data = reader.result;
+
+            // 올바른 MIME 타입으로 접두사 변경
+            base64data = base64data.replace(
+              /^data:application\/octet-stream;base64,/,
+              'data:image/png;base64,',
+            );
+            // 이후 접두사 제거
+            base64data = base64data.replace(/^data:image\/png;base64,/, '');
+            resolve(base64data);
+          };
+
+          reader.onerror = function (error) {
+            reject('Failed to read blob data: ', error);
+          };
+        });
+      } catch (error) {
+        console.error('Failed to convert image to base64', error);
+        throw error;
+      }
+    }
     try {
-      const stickerUri = await captureRef(state.smallImageRef, {
-        format: 'png',
-        quality: 1,
-        result: 'base64', // capture image as base64
-      });
-
-      const backgroundUri = await captureRef(state.backgroundImageRef, {
-        format: 'png',
-        quality: 1,
-        result: 'base64', // capture image as base64
-      });
-
-      actions.setCapturedImage(`data:image/png;base64,${stickerUri}`); // Update state
+      const backgroundBase64 = await convertImageToBase64();
+      console.log(backgroundBase64.substring(0, 100));
 
       if (state.hasInstagramInstalled) {
         const res = await Share.shareSingle({
           appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
-          stickerImage: `data:image/png;base64,${stickerUri}`,
-          backgroundImage: `data:image/png;base64,${backgroundUri}`,
+          // stickerImage: `data:image/png;base64,${stickerBase64}`,
+          backgroundImage: `data:image/png;base64,${backgroundBase64}`,
           method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
           social: Share.Social.INSTAGRAM_STORIES,
-          backgroundBottomColor: '#ffffff', // You can use any hexcode here and below
-          backgroundTopColor: '#ffffff',
-          backgroundColor: '#ffffff',
           contentUrl: '',
         });
       } else {
-        // If instagram is not installed in user's device then just share using the usual device specific bottomsheet (https://react-native-share.github.io/react-native-share/docs/share-open)
-        await Share.open({url: stickerUri});
+        await Share.open({url: backgroundBase64});
       }
     } catch (error) {
-      console.error('Error sharing:', error);
+      console.log(error);
+      if (error === 'User did not share') {
+        return;
+      } else {
+        console.error('Error sharing:', error);
+      }
     }
   };
 
   const cancel_action = async () => {
     try {
-      updateCancleTikklingData(state.myTikklingData.tikkling_id)
+      updateCancelTikklingData(state.myTikklingData.tikkling_id)
         .then(res => {
           return topActions.setStateAndError(res);
         })
@@ -293,6 +384,91 @@ export const useMainViewModel = () => {
     });
   }
 
+  async function transformContactsData(contactsData) {
+    return {
+      phone_list: contactsData.map(contact => contact.phoneNumber),
+    };
+  }
+
+  /**
+   * 기기에서 전화번호부 긁어오는 함수
+   */
+  const findContacts = async () => {
+    try {
+      let granted;
+      if (Platform.OS === 'android') {
+        granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: 'Contacts',
+            message: 'This app would like to view your contacts.',
+            buttonPositive: 'Allow',
+          },
+        );
+      }
+
+      if (
+        granted === PermissionsAndroid.RESULTS.GRANTED ||
+        Platform.OS === 'ios'
+      ) {
+        const result = await Contacts.getAll();
+        let phoneNumbersProcessed = [];
+        const formattedData = result.reduce((acc, contact) => {
+          const {phoneNumbers, givenName, familyName} = contact;
+          phoneNumbers.forEach(phoneNumber => {
+            const numberWithoutDashes = phoneNumber.number.replace(/-/g, ''); // Remove dashes
+            if (
+              numberWithoutDashes.length === 11 &&
+              numberWithoutDashes.startsWith('010') &&
+              !phoneNumbersProcessed.includes(numberWithoutDashes)
+            ) {
+              phoneNumbersProcessed.push(numberWithoutDashes);
+              const formattedPhoneNumber =
+                numberWithoutDashes.slice(0, 3) +
+                '-' +
+                numberWithoutDashes.slice(3, 7) +
+                '-' +
+                numberWithoutDashes.slice(7);
+              acc.push({
+                name: `${familyName}${givenName}`,
+                phoneNumber: numberWithoutDashes, // For server
+                formattedPhoneNumber: formattedPhoneNumber, // For display
+              });
+            }
+          });
+          return acc;
+        }, []);
+        const temp = await transformContactsData(formattedData);
+        // console.log('TEMP : ', temp.phone_list);
+        await createPhoneFriendData(temp.phone_list)
+          .then(async res => {
+            return await topActions.setStateAndError(res);
+          })
+          .then(async res => {
+            // console.log('RETRUN : ', res);
+          });
+      } else {
+        console.log('Contacts permission denied');
+      }
+    } catch (error) {
+      console.log('Error fetching contacts:', error);
+    }
+  };
+
+  // /**
+  //  * 전화번호 리스트로 친구 추가하는 함수
+  //  */
+  // const = async data => {
+  //   console.log('ERERERER : ', data);
+  //   await createPhoneFriendData(data)
+  //     .then(async res => {
+  //       return await topActions.setStateAndError(res);
+  //     })
+  //     .then(async res => {
+  //       console.log('RETRUN : ', res);
+  //     });
+  // };
+
   return {
     ref: {
       ...ref,
@@ -323,6 +499,9 @@ export const useMainViewModel = () => {
       bankList,
       setNewbankButton,
       changeBank,
+      getTikklingData,
+      loadDetail,
+      findContacts,
     },
   };
 };

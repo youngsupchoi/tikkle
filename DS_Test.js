@@ -64,6 +64,8 @@ import {updateRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/Update
 import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdatePresentTikkleInitData';
 import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdateBuyMyTikkleInitData';
 
+import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
+
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
 
@@ -71,10 +73,7 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await updateRefundMyPaymentData(
-      'updateRefundMyPaymentData',
-      '테스트',
-    );
+    const axiosResponse = await getTikkleDetailData(46);
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);

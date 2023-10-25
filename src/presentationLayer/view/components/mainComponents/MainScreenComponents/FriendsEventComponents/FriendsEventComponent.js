@@ -1,17 +1,12 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import ArrowRight from 'src/assets/icons/ArrowRight';
 import FriendsEvents from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FriendsEventComponents/FriendsEvent';
-import {
-  COLOR_BLACK,
-  COLOR_WHITE,
-} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B20,
   EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {
   SPACING_2,
   SPACING_4,

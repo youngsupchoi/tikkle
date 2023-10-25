@@ -1,17 +1,9 @@
-import {
-  ScrollView,
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {ScrollView, View, StyleSheet} from 'react-native';
 import React from 'react';
 // import {B12, B15, M11} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   B12,
   B15,
-  M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_PRIMARY,
@@ -66,7 +58,7 @@ export default function ProductSearchChips(props) {
 
   return (
     <View>
-      <B12>정렬 선택</B12>
+      <B15>정렬 선택</B15>
       <ScrollView
         style={{
           backgroundColor: backgroundColor,

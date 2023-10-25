@@ -10,30 +10,13 @@ import Animated from 'react-native-reanimated';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import {
   COLOR_BLACK,
-  COLOR_GRAY,
-  COLOR_PRIMARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
 } from '../../Global/Colors/Colors';
-import {
-  B12,
-  B15,
-  B17,
-  B22,
-  B28,
-  M11,
-  M15,
-  M17,
-  M20,
-} from '../../Global/Typography/Typography';
+import {B12, M11} from '../../Global/Typography/Typography';
 import GaugeProgress from './GaugeProgress';
-import {
-  SPACING_1,
-  SPACING_2,
-  SPACING_3,
-  SPACING_6,
-} from '../../Global/Spacing/BaseSpacing';
+import {SPACING_1, SPACING_6} from '../../Global/Spacing/BaseSpacing';
 import TimerComponent from './HomeTimer';
 
 const FriendsTikklingCard = forwardRef(({data}, ref) => {

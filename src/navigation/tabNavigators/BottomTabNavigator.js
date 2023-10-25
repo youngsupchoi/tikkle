@@ -3,7 +3,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import Home2 from 'src/assets/icons/Home2';
 import Home2Filled from 'src/assets/icons/Home2Filled';
 import Profile from 'src/assets/icons/Profile';
@@ -97,29 +97,9 @@ export default function BottomTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: backgroundColor,
-          width: windowWidth,
-          alignSelf: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderColor: COLOR_SEPARATOR,
-          borderWidth: 2,
           height: 56,
-          width: '90%',
-          position: 'absolute',
-          left: '5%',
-          right: '5%',
-          borderRadius: 100,
-          bottom: StatusBarHeight,
-          elevation: 3,
-          shadowColor: '#000',
-          shadowOffset: {
-            // iOS용 그림자 위치
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.2, // iOS용 그림자 투명도
-          shadowRadius: 3, // iOS용 그림자 반경
+          backgroundColor: backgroundColor,
+          // backgroundColor: 'red',
         },
         tabBarShowLabel: false,
         tabBarLabelStyle: {
@@ -138,9 +118,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: 'backgroundColor',
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: 'backgroundColor',
+                  // margin: 0,
                 }}>
                 <Home2Filled fill={color} width={size} height={size} />
               </View>
@@ -148,9 +128,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: backgroundColor,
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
                 }}>
                 <Home2
                   stroke={color}
@@ -172,9 +152,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: backgroundColor,
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
                 }}>
                 <SearchFavorite1Filled
                   fill={color}
@@ -186,9 +166,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: backgroundColor,
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
                 }}>
                 <SearchFavorite1
                   stroke={color}
@@ -213,9 +193,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: backgroundColor,
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
                 }}>
                 <Profile2UserFilled fill={color} width={size} height={size} />
               </View>
@@ -223,9 +203,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: backgroundColor,
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
                 }}>
                 <Profile2User
                   stroke={color}
@@ -249,9 +229,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: backgroundColor,
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
                 }}>
                 <ProfileFilled fill={color} width={size} height={size} />
               </View>
@@ -259,9 +239,9 @@ export default function BottomTabNavigator() {
               <View
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  backgroundColor: backgroundColor,
-                  margin: 0,
+                  top: 14,
+                  // backgroundColor: backgroundColor,
+                  // margin: 0,
                 }}>
                 <Profile
                   stroke={color}

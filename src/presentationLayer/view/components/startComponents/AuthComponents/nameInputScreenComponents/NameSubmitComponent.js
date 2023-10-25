@@ -1,6 +1,5 @@
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
-
 import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {SPACING_6} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
@@ -8,7 +7,6 @@ import {
   COLOR_WHITE,
   COLOR_GRAY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 

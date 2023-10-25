@@ -13,6 +13,7 @@ import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData
 import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 import {Platform} from 'react-native';
+
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();
@@ -46,6 +47,7 @@ export const useStartViewModel = () => {
     await actions.setMessage(res.DSdata.login_or_signup);
     await actions.setEncryptedOTP(res.DSdata.encrypted_otp);
     navigation.navigate('signup2');
+    await actions.setPhoneInputButtonPressed(false);
   };
 
   const decreaseTime = () => {
@@ -62,6 +64,23 @@ export const useStartViewModel = () => {
       return () => clearInterval(timer);
     });
   };
+
+  function formatPhoneNumber(phoneNumber) {
+    if (!phoneNumber) return '';
+
+    // 숫자만 남기기 위한 정규식
+    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+
+    // 숫자만 추출된 번호가 11자리인지 확인
+    const match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
+
+    if (match) {
+      return `${match[1]}-${match[2]}-${match[3]}`;
+    }
+
+    return phoneNumber;
+  }
+
   const handleTextChange = async (text, index) => {
     const newInputCode = [...inputCode];
     newInputCode[index] = text;
@@ -192,6 +211,7 @@ export const useStartViewModel = () => {
       handleBackPress,
       handleButtonPress,
       completeSignUp,
+      formatPhoneNumber,
     },
   };
 };

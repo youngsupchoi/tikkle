@@ -1,7 +1,4 @@
 //OTPVerification.js
-import axios from 'axios';
-import api from './api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function verifyOTP(encryptOTP, inputOTP) {
   return new Promise((resolve, reject) => {

@@ -1,21 +1,17 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   B,
   B17,
   EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {
-  HEADER_HEIGHT,
-  StatusBarHeight,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {HEADER_HEIGHT} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
-  backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';

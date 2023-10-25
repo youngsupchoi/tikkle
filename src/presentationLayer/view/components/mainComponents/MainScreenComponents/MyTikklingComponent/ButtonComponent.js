@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, StyleSheet, Platform} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 import {
   B15,
   EB,
@@ -19,7 +19,14 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import Refund from 'src/assets/icons/Refund';
-export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
+export default function ButtonComponent({
+  ButtonIcon,
+  ButtonText,
+  IsStopped,
+  Home,
+  Q,
+  S,
+}) {
   const {state, actions} = useMainViewModel();
   const handleButtonPress = () => {
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
@@ -27,10 +34,18 @@ export default function ButtonComponent({ButtonIcon, ButtonText, IsStopped}) {
     const fundingLimit = new Date(state.myTikklingData.funding_limit);
     const currentDate = getKoreanDate();
 
-    if (tikkleQuantity === tikkleCount) {
-      actions.setShowEndModal(true);
-    } else if (tikkleQuantity > tikkleCount) {
-      actions.setShowBuyModal(true);
+    if (Home == true) {
+      if (Q === S) {
+        actions.setShowEndModal(true);
+      } else if (Q > S) {
+        actions.setShowBuyModal(true);
+      }
+    } else {
+      if (tikkleQuantity === tikkleCount) {
+        actions.setShowEndModal(true);
+      } else if (tikkleQuantity > tikkleCount) {
+        actions.setShowBuyModal(true);
+      }
     }
   };
 

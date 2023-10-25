@@ -1,18 +1,10 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, TextInput, ScrollView} from 'react-native';
 import {
   COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
-  COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -23,12 +15,12 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import {
   B,
   B12,
-  B15,
   M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
+import FilterAndSelectedState from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/FilterAndSelectedState';
 
 export default function ProductSearch() {
   const {state, actions} = useProductMainViewModel();
@@ -45,32 +37,20 @@ export default function ProductSearch() {
   return (
     <View
       style={{
-        backgroundColor: state.showFilter ? backgroundColor : backgroundColor,
+        backgroundColor: backgroundColor,
         width: windowWidth,
         alignItems: 'center',
         zIndex: 2,
+        borderColor: COLOR_SEPARATOR,
+        borderBottomWidth: 1,
       }}>
       <View
         style={{
           width: windowWidth - 32,
           paddingTop: 16,
-          marginBottom: 12,
+          marginBottom: 4,
         }}>
         <View style={styles.searchContainer}>
-          {/* {console.log(state.showFilter)} */}
-          <AnimatedButton
-            style={styles.filterIconContainer}
-            onPress={() => {
-              actions.setShowFilter(!state.showFilter);
-            }}>
-            <FilterSearch
-              width={24}
-              height={24}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.5}
-              scale={1.2}
-            />
-          </AnimatedButton>
           <View style={styles.searchbar}>
             <TextInput
               style={styles.input}
@@ -81,7 +61,7 @@ export default function ProductSearch() {
             />
           </View>
           <AnimatedButton
-            style={styles.filterIconContainer}
+            style={styles.searchIconContainer}
             onPress={() => {
               actions.onRefresh();
             }}>
@@ -94,85 +74,38 @@ export default function ProductSearch() {
             />
           </AnimatedButton>
         </View>
-        {state.showFilter && (
-          <View style={styles.filterContainer}>
-            <B12>가격대 선택</B12>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {priceRanges.map((range, index) => (
-                <AnimatedButton
-                  key={index}
-                  style={[
-                    styles.chip,
-                    state.selectedRange === range.label && styles.selectedChip,
-                  ]}
-                  onPress={() => {
-                    actions.setSelectedRange(range.label);
-                    actions.setPriceMin(range.min);
-                    if (range.max !== 'Infinity') {
-                      actions.setPriceMax(range.max);
-                    } else {
-                      actions.setPriceMax(''); // or set to a very large number if you prefer
-                    }
-                  }}>
-                  <B12
-                    customStyle={
-                      state.selectedRange === range.label &&
-                      styles.selectedChipText
-                    }>
-                    {range.label}
-                  </B12>
-                </AnimatedButton>
-              ))}
-            </ScrollView>
-
-            <View>
-              <ProductSearchChips
-                sortAttribute={state.sortAttribute}
-                setSortAttribute={actions.setSortAttribute}
-                sortWay={state.sortWay}
-                setSortWay={actions.setSortWay}
-                selectedSort={state.selectedSort}
-                setSelectedSort={actions.setSelectedSort}
-              />
-            </View>
-          </View>
-        )}
       </View>
+
+      <FilterAndSelectedState />
     </View>
   );
 }
 const styles = StyleSheet.create({
   searchContainer: {
-    width: '100%',
-    // height: 40,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderColor: COLOR_SEPARATOR,
-    borderWidth: 0.5,
-    padding: 8,
     backgroundColor: COLOR_WHITE,
-    marginBottom: 2,
-    borderRadius: 40,
+    borderRadius: 12,
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    padding: 4,
+    paddingHorizontal: 8,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   searchbar: {
     backgroundColor: backgroundColor,
     backgroundColor: COLOR_WHITE,
-    // borderColor: COLOR_SEPARATOR,
-    // borderWidth: .5,
     borderRadius: 40,
     flexDirection: 'row',
     width: windowWidth - 16 - 16 - 40 - 40 - 12 - 24,
   },
   input: {
-    marginLeft: 4,
     color: COLOR_BLACK,
-    alignSelf: 'flex-end',
-    lineHeight: 20,
-    fontFamily: M,
+    marginLeft: 12,
     padding: 0,
-    // backgroundColor: 'red',
-    paddingVertical: 10,
+    fontFamily: B,
+    fontSize: 15,
   },
   searchIconContainer: {
     width: 40,

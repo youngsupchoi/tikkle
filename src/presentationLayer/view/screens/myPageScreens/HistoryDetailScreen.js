@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RefreshControl} from 'react-native-gesture-handler';
+import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
 import {
   StatusBarHeight,
   SPACING_1,
@@ -25,14 +26,17 @@ import {
   B17,
   B20,
   M17,
+  B22,
   M20,
   B12,
   M28,
   M11,
   M,
+  H,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_SECONDARY,
   COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
@@ -46,49 +50,51 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
 import ArrowRight from 'src/assets/icons/ArrowRight';
-// import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
+import CalendarFilled from 'src/assets/icons/CalendarFilled';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
-import Wishlisted from 'src/assets/icons/wishlisted.svg';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
 import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import Noti_Refund from 'src/assets/icons/Noti_Refund';
+import LinearGradient from 'react-native-linear-gradient';
+import FlagFilled from 'src/assets/icons/FlagFilled';
+import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 
 const containerWidth = windowWidth - SPACING_6;
 
 export default function HistoryDetailScreen(route) {
-  const {state, actions} = useMyPageViewModel();
-
   const {topActions} = useTopViewModel();
-
+  const navigation = useNavigation();
   const [tikkle_sum, setTikkle_sum] = useState(0);
   const [list_data, setList_data] = useState([]);
 
   let tikkle_data = [];
+
+  const temp_R = useRoute();
+  const route_data = temp_R.params;
 
   /**
    *  티클링의 받은 티클 데이터 가져오기
    * @param {int} tikkling_id
    */
   async function getTikkleData(tikkling_id) {
+    // console.log('###$#$#$#$ : ', route_data);
     await getRecivedTikkleData(tikkling_id)
       .then(async res => {
         return topActions.setStateAndError(res);
       })
       .then(async res => {
-        // console.log(res.DSdata.info);
-        // setTikkle_data(res.DSdata.info);
         tikkle_data = res.DSdata.info;
         setList_data(res.DSdata.info);
       })
       .then(async res => {
-        console.log('#### : ', tikkle_data);
+        // console.log('#### : ', tikkle_data);
         let sum = 0;
         tikkle_data.map(item => {
           if (item.state_id != 2) {
@@ -101,15 +107,15 @@ export default function HistoryDetailScreen(route) {
   }
 
   useEffect(() => {
-    getTikkleData(state.route_data.tikkling_id);
-  }, [state.route_data.tikkling_id]);
+    getTikkleData(route_data.tikkling_id);
+  }, [route_data.tikkling_id]);
 
   return (
     <View style={{paddingTop: 0, backgroundColor: backgroundColor}}>
       <View style={styles.header}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <AnimatedButton
-            onPress={() => actions.navigation.goBack()}
+            onPress={() => navigation.goBack()}
             style={{
               width: 20,
               height: 20,
@@ -133,6 +139,7 @@ export default function HistoryDetailScreen(route) {
           </View>
         </View>
       </View>
+
       <FlatList
         data={list_data}
         keyExtractor={(item, index) => String(item.created_at)}
@@ -154,112 +161,232 @@ export default function HistoryDetailScreen(route) {
                   justifyContent: 'space-between',
                 }}>
                 <M20 customStyle={{marginBottom: 16, fontFamily: EB}}>
-                  {state.route_data.created_at.split('-')[0]}{' '}
-                  {state.route_data.tikkling_type} 티클링
+                  {route_data.created_at.split('-')[0]}{' '}
+                  {route_data.tikkling_type} 티클링
                 </M20>
-                {state.route_data.state_id === 1 ? (
+                {route_data.state_id === 1 ? (
                   <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
                     진행중
                   </M15>
-                ) : state.route_data.state_id === 2 ? (
+                ) : route_data.state_id === 2 ? (
                   <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
                     취소
                   </M15>
-                ) : state.route_data.state_id === 3 ? (
+                ) : route_data.state_id === 3 ? (
                   <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
                     미달성 종료
                   </M15>
-                ) : state.route_data.state_id === 4 ? (
+                ) : route_data.state_id === 4 ? (
                   <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
                     펀딩 달성
                   </M15>
-                ) : state.route_data.state_id === 5 ? (
+                ) : route_data.state_id === 5 ? (
                   <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
                     기간 만료
                   </M15>
                 ) : null}
               </View>
 
-              <View
-                style={{
-                  // marginBottom: 15,
-                  backgroundColor: COLOR_SEPARATOR,
-                  borderRadius: 16,
-                  marginBottom: 16,
-                  marginTop: 5,
-                  elevation: 1,
-                  borderColor: COLOR_SEPARATOR,
-                  // height: 100,
-                  borderWidth: 0.5,
-                  // padding: 16,
-                  paddingBottom: 16,
-                  // paddingTop: 0,
-                  width: '100%',
-                  height: 170,
-                  alignItems: 'top',
-                  justifyContent: 'space-between',
-                  flexDirection: 'row',
-                  padding: 10,
-                }}>
-                <Image
-                  resizeMode="cover"
-                  source={{
-                    uri: state.route_data.thumbnail_image,
-                  }}
-                  style={{
-                    width: 150,
-                    height: 150,
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    borderColor: COLOR_SEPARATOR,
-                  }}
-                />
+              {/* title */}
+              {/* 옮기기 */}
 
+              <View style={styles.mainContainer}>
+                {/*2*/}
                 <View
                   style={{
-                    padding: 20,
-                    paddingHorizontal: 10,
-                    width: windowWidth * 0.55,
+                    width: windowWidth - 64,
+                    height: ((windowWidth - 64) / 3) * 2,
+                    borderRadius: 16,
+                    borderColor: COLOR_SEPARATOR,
+                    borderWidth: 1,
+                    alignSelf: 'center',
+                    marginBottom: 8,
                   }}>
-                  <View style={{marginBottom: 10}}>
-                    <B15>{state.route_data.product_name}</B15>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      zIndex: -1,
+                    }}>
+                    <Image
+                      resizeMode="cover"
+                      source={{
+                        uri: route_data.thumbnail_image,
+                      }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 16,
+                      }}
+                    />
                   </View>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 0.75}}
+                    colors={[
+                      'rgba(255,255,255,0)',
+                      'rgba(255,255,255,.3)',
+                      'rgba(255,255,255,1)',
+                    ]}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      top: 0,
+                      zIndex: 0,
+                      borderBottomRightRadius: 16,
+                      borderBottomLeftRadius: 16,
+                    }}
+                  />
                   <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
+                      alignItems: 'flex-end',
+                      position: 'absolute',
+                      bottom: 12,
+                      left: 16,
+                      right: 16,
+                    }}>
+                    <B22 customStyle={{fontFamily: H}}>
+                      {route_data.product_name.length > 30
+                        ? route_data.product_name.substring(0, 30) + '...'
+                        : route_data.product_name}
+                    </B22>
+                  </View>
+                </View>
+
+                {/* 2 */}
+
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    width: windowWidth * 0.8,
+                    marginTop: 16,
+                    marginBottom: 24,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      marginBottom: 8,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <FlagFilled
+                        width={24}
+                        height={24}
+                        fill={COLOR_PRIMARY}
+                        scale={1.3}
+                      />
+                      <B17
+                        customStyle={{
+                          fontFamily: EB,
+                          color: COLOR_GRAY,
+                          marginLeft: 8,
+                        }}>
+                        달성률
+                      </B17>
+                    </View>
+                    <View
+                      style={{
+                        alignItems: 'flex-end',
+                        marginBottom: 12,
+                      }}>
+                      <B17>
+                        {Math.round(
+                          (tikkle_sum / route_data.tikkle_quantity) * 1000,
+                        ) / 1000}
+                        %
+                      </B17>
+                    </View>
+                  </View>
+                  <BarComponent
+                    totalPieces={route_data.tikkle_quantity}
+                    gatheredPieces={tikkle_sum}
+                  />
+                </View>
+
+                {/*3*/}
+
+                <View style={{flexDirection: 'row', marginBottom: 20}}>
+                  <View
+                    style={{
                       alignItems: 'center',
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      padding: 12,
+                      paddingVertical: 16,
+                      width: 0.4 * windowWidth,
+                      borderRadius: 12,
                     }}>
                     <View
                       style={{
-                        width: '40%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: 16,
+                        backgroundColor: COLOR_SECONDARY,
+                        borderRadius: 100,
+                        marginBottom: 12,
                       }}>
-                      <View style={{marginBottom: 5}}>
-                        <B12>브랜드 :</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>가격 :</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>총 티클 개수 :</B12>
-                      </View>
+                      <BubbleFilled fill={COLOR_PRIMARY} />
                     </View>
+                    <B12 customStyle={styles.labelText}>남은 티클</B12>
+                    <B17 customStyle={styles.dataText}>
+                      {route_data.tikkle_quantity - tikkle_sum} 개
+                    </B17>
+                  </View>
+
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      borderColor: 'transparent',
+                      width: 10,
+                    }}></View>
+
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      padding: 12,
+                      paddingVertical: 16,
+                      width: 0.4 * windowWidth,
+                      borderRadius: 12,
+                    }}>
                     <View
                       style={{
-                        width: '70%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: 16,
+                        backgroundColor: COLOR_SECONDARY,
+                        borderRadius: 100,
+                        marginBottom: 12,
                       }}>
-                      <View style={{marginBottom: 5}}>
-                        <B12>{state.route_data.brand_name}</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>{state.route_data.price}₩</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>{state.route_data.price / 5000}개</B12>
-                      </View>
+                      <CalendarFilled fill={COLOR_PRIMARY} />
+                    </View>
+                    <B12 customStyle={styles.labelText}>남은 시간</B12>
+                    <View>
+                      {route_data.state_id == 1 ? (
+                        <TimerComponent
+                          timerStyle={{
+                            color: COLOR_BLACK,
+                            fontSize: 17,
+                            fontFamily: B,
+                          }}
+                          deadline={route_data.funding_limit}
+                        />
+                      ) : (
+                        <B15>종료</B15>
+                      )}
                     </View>
                   </View>
                 </View>
+                {/* 옮기기 */}
               </View>
 
               {/* tikkling_info */}
@@ -273,7 +400,7 @@ export default function HistoryDetailScreen(route) {
                     justifyContent: 'space-between',
                     alignItems: 'left',
                   }}>
-                  <B15 customStyle={{marginBottom: 4}}>티클링 기간</B15>
+                  <B15 customStyle={{marginBottom: 10}}>티클링 기간</B15>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -282,26 +409,25 @@ export default function HistoryDetailScreen(route) {
                       marginLeft: 8,
                     }}>
                     <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      {state.route_data.created_at.split('T')[0]}
+                      {route_data.created_at.split('T')[0]}
                     </M15>
                     <B15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
                       {'  ~  '}
                     </B15>
                     <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      {state.route_data.funding_limit.split('T')[0]}
+                      {route_data.funding_limit.split('T')[0]}
                     </M15>
                   </View>
                 </View>
 
-                {state.route_data.state_id === 3 ||
-                state.route_data.state_id === 4 ? (
+                {route_data.state_id === 3 || route_data.state_id === 4 ? (
                   <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'left',
                     }}>
-                    <B15 customStyle={{marginBottom: 4}}>티클링 종료일</B15>
+                    <B15 customStyle={{marginBottom: 10}}>티클링 종료일</B15>
 
                     <M15
                       customStyle={{
@@ -309,7 +435,7 @@ export default function HistoryDetailScreen(route) {
                         marginBottom: 10,
                         marginLeft: 8,
                       }}>
-                      {state.route_data.terminated_at.split('T')[0]}
+                      {route_data.terminated_at.split('T')[0]}
                     </M15>
                   </View>
                 ) : null}
@@ -320,7 +446,7 @@ export default function HistoryDetailScreen(route) {
                     justifyContent: 'space-between',
                     alignItems: 'left',
                   }}>
-                  <B15 customStyle={{marginBottom: 0}}>총 받은 티클 수</B15>
+                  <B15 customStyle={{marginBottom: 10}}>총 받은 티클 수</B15>
 
                   <M15
                     customStyle={{
@@ -332,17 +458,16 @@ export default function HistoryDetailScreen(route) {
                   </M15>
                 </View>
 
-                {state.route_data.state_id === 3 ||
-                state.route_data.state_id === 4 ? (
+                {route_data.state_id === 3 || route_data.state_id === 4 ? (
                   <View>
-                    {state.route_data.resolution_type === 'refund' ? (
+                    {route_data.resolution_type === 'refund' ? (
                       <View
                         style={{
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                           alignItems: 'left',
                         }}>
-                        <B15 customStyle={{marginBottom: 4}}>
+                        <B15 customStyle={{marginBottom: 10}}>
                           환급 / 배송 상태
                         </B15>
                         <M15
@@ -354,14 +479,14 @@ export default function HistoryDetailScreen(route) {
                           환급 신청
                         </M15>
                       </View>
-                    ) : state.route_data.resolution_type === 'goods' ? (
+                    ) : route_data.resolution_type === 'goods' ? (
                       <View
                         style={{
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                           alignItems: 'left',
                         }}>
-                        <B15 customStyle={{marginBottom: 4}}>
+                        <B15 customStyle={{marginBottom: 10}}>
                           환급 / 배송 상태
                         </B15>
                         <M15
@@ -376,6 +501,60 @@ export default function HistoryDetailScreen(route) {
                     ) : null}
                   </View>
                 ) : null}
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'left',
+                  }}>
+                  <B15 customStyle={{marginBottom: 10}}>상품 브랜드</B15>
+
+                  <M15
+                    customStyle={{
+                      color: COLOR_GRAY,
+                      marginBottom: 0,
+                      marginLeft: 8,
+                    }}>
+                    {route_data.brand_name}
+                  </M15>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'left',
+                  }}>
+                  <B15 customStyle={{marginBottom: 10}}>상품 가격</B15>
+
+                  <M15
+                    customStyle={{
+                      color: COLOR_GRAY,
+                      marginBottom: 0,
+                      marginLeft: 8,
+                    }}>
+                    {route_data.price.toLocaleString()}₩
+                  </M15>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'left',
+                  }}>
+                  <B15 customStyle={{marginBottom: 10}}>상품 총 티클 개수</B15>
+
+                  <M15
+                    customStyle={{
+                      color: COLOR_GRAY,
+                      marginBottom: 0,
+                      marginLeft: 8,
+                    }}>
+                    {route_data.price / 5000}개
+                  </M15>
+                </View>
               </View>
             </View>
           </View>
@@ -429,22 +608,26 @@ export default function HistoryDetailScreen(route) {
                       </View>
                     )}
 
-                    <M15 customStyle={{color: COLOR_BLACK}}>
-                      [{state.route_data.product_name}]의 조각 {item.quantity}개
+                    <M15 customStyle={{color: COLOR_BLACK, width: 270}}>
+                      [
+                      {route_data.product_name.length > 30
+                        ? route_data.product_name.substring(0, 30) + '...'
+                        : route_data.product_name}
+                      ]의 조각 {item.quantity}개
                     </M15>
-                  </View>
-                  <View
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      marginLeft: 60,
-                    }}>
-                    <B12 customStyle={{color: COLOR_GRAY}}>
-                      {item.created_at.split('T')[0]}
-                    </B12>
-                    <B12 customStyle={{color: COLOR_GRAY}}>
-                      {item.created_at.split('T')[1].split('.')[0]}
-                    </B12>
+                    <View
+                      style={{
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginLeft: 60,
+                      }}>
+                      <B12 customStyle={{color: COLOR_GRAY}}>
+                        {item.created_at.split('T')[0]}
+                      </B12>
+                      <B12 customStyle={{color: COLOR_GRAY}}>
+                        {item.created_at.split('T')[1].split('.')[0]}
+                      </B12>
+                    </View>
                   </View>
                 </View>
 
@@ -503,6 +686,23 @@ const styles = StyleSheet.create({
       // iOS용 그림자 위치
       width: 0,
       height: 2,
+    },
+    detailsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      marginBottom: 12,
+    },
+    labelText: {
+      fontFamily: EB,
+      color: COLOR_GRAY,
+    },
+    dataText: {
+      color: COLOR_BLACK,
+    },
+    mainContainer: {
+      width: '100%',
+      justifyContent: 'center',
+      backgroundBottomColor: COLOR_WHITE,
     },
   },
 });

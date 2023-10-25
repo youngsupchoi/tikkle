@@ -8,20 +8,11 @@ import {
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {
-  windowHeight,
-  windowWidth,
-} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   B15,
   B22,
-  M11,
-  B12,
-  B17,
-  M15,
-  H2,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import LottieView from 'lottie-react-native';
 import Modal from 'react-native-modal';
 
 export default function LogoutModal() {

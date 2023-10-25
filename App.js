@@ -21,16 +21,14 @@ import {backgroundColor} from 'src/presentationLayer/view/components/globalCompo
 import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 export default function App() {
-  // SystemNavigationBar.setBarMode('dark');
-  SystemNavigationBar.navigationHide();
-  //하단바 제거 코드
-  // SystemNavigationBar.fullScreen();
-
-  // TopViewModel의 새로운 구조에 따라 변경됩니다.
+  SystemNavigationBar.navigationShow();
+  SystemNavigationBar.setNavigationColor(backgroundColor);
+  SystemNavigationBar.setBarMode('dark');
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
-      {/* <Test /> */}
+      {/* <View style={{height: 100}}></View>
+      <Test /> */}
       <PaperProvider>
         <TopViewProvider>
           <View style={{zIndex: 10, backgroundColor: 'red'}}>
@@ -51,12 +49,10 @@ export default function App() {
             <View
               style={{
                 marginTop: StatusBarHeight,
-                // marginBottom: StatusBarHeight,
-                // marginVertical: StatusBarHeight,
                 width: windowWidth,
-                height: windowHeight - 2 * StatusBarHeight,
-                // backgroundColor: 'blue',
+                height: windowHeight - StatusBarHeight,
                 backgroundColor: backgroundColor,
+                // backgroundColor: backgroundColor,
               }}>
               <MainStackNavigator />
             </View>

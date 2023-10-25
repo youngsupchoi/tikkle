@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import Modal from 'react-native-modal';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';

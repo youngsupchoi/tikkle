@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "953488629555",
+    "project_id": "tikkle-c9666",
+    "storage_bucket": "tikkle-c9666.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953488629555:android:c722ec89e32b1d870c2846",
+        "android_client_info": {
+          "package_name": "com.tikkle_revive_ios"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953488629555-c21jgfudvrng99v33s3tsmklls3k7c5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdCSbzNSH0fhJtg9YsAAMGhblD-sm807c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953488629555-c21jgfudvrng99v33s3tsmklls3k7c5o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "953488629555-bul4ppo0r8qb4ltmcarm1pjoc8147u2f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.tikkle-revive-ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

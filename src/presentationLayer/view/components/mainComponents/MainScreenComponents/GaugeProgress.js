@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Svg, {Circle, Path} from 'react-native-svg';
+import Svg, {Circle} from 'react-native-svg';
 import {
   COLOR_GRAY,
   COLOR_PRIMARY,
