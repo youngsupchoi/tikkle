@@ -32,6 +32,8 @@ import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewSt
 import HectoPaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/HectoPaymentScreen';
 
 import TikklingDetailScreen from 'src/presentationLayer/view/screens/mainScreens/TikklingDetailScreen';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
+import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -155,9 +157,21 @@ function SignUpNavigator() {
 
 //deep link code----------------------------------------------------------------------------------------------------------------
 
+const resolveDynamicLink = async shortLink => {
+  try {
+    const linkData = await dynamicLinks().resolveLink(shortLink);
+    const originalLink = linkData.url; // 원래의 link 파라미터
+    console.log('Original link:', originalLink);
+    return originalLink;
+  } catch (error) {
+    console.error('Error resolving dynamic link', error);
+    return null;
+  }
+};
+
 const config = {
   screens: {
-    SignUpNavigator: '/signup', // 매핑되는 URL 경로
+    SignUpNavigator: {screens: {splash: '/tikkling/:tikkling_id/:user_name'}},
     main: '/main', // 매핑되는 URL 경로
     startTikkling: '/start-tikkling/:id/:name', // 매핑되는 URL 경로
     productDetail: '/product-detail', // 매핑되는 URL 경로
@@ -174,15 +188,22 @@ const config = {
 
 const linking = {
   //디폴트 프로토콜 설정 필요
-  prefixes: ['https://...', 'http://localhost:3000', 'tikkle://'],
+  prefixes: [
+    'https://tikkle.lifoli.co.kr',
+    'http://localhost:3000',
+    'tikkle://',
+  ],
 
   async getInitialURL() {
     const url = await Linking.getInitialURL();
-
     if (url != null) {
-      return url;
+      if (url.startsWith('https://tikkle.lifoli.co.kr')) {
+        const originalLink = await resolveDynamicLink(url);
+        return originalLink;
+      } else if (url.startsWith('tikkle://')) {
+        return url;
+      }
     }
-
     return null;
   },
 
@@ -192,6 +213,7 @@ const linking = {
     const onReceiveURL = event => {
       const {url} = event;
       console.log('link has url', url, event);
+      CreateTikklingShareLink('hihi', 1);
       return listener(url);
     };
 
