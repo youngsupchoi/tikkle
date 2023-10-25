@@ -20,9 +20,12 @@ import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
 import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
+import {updateDeviceTokenData} from 'src/dataLayer/DataSource/User/UpdateDeviceTokenData';
+import messaging from '@react-native-firebase/messaging';
 import Contacts from 'react-native-contacts';
 import {PermissionsAndroid} from 'react-native';
 import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
+
 import RNFS from 'react-native-fs';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
@@ -37,6 +40,26 @@ export const useMainViewModel = () => {
   //const [exampleData, setExampleData] = useState([]);
 
   const navigation = useNavigation();
+
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      return getDeviceToken();
+    }
+  };
+
+  const getDeviceToken = async () => {
+    await messaging()
+      .getToken()
+      .then(async res => {
+        await updateDeviceTokenData(res);
+        // console.log('Device Token: ', res);
+      });
+  };
 
   const loadData = async () => {
     try {
@@ -501,6 +524,7 @@ export const useMainViewModel = () => {
       changeBank,
       getTikklingData,
       loadDetail,
+      requestUserPermission,
       findContacts,
     },
   };

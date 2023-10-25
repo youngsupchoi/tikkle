@@ -110,6 +110,7 @@ export default function HomeScreen({route}) {
 
   useEffect(() => {
     actions.setPaymentButtonPressed(false);
+    actions.requestUserPermission();
     actions.findContacts();
   }, []);
 
