@@ -33,9 +33,8 @@ export const useMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useMainViewState();
   const {topState, topActions} = useTopViewModel();
-
+  //FIXME: 아래 코드 getTikklingData함수 안으로 이동
   const temp_R = useRoute();
-
   const route_tikkling_id = temp_R.params?.tikkling_id;
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
