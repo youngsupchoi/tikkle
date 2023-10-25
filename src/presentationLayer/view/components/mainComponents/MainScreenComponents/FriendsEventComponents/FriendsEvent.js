@@ -47,8 +47,12 @@ const FriendsEvents = props => {
 
   friendsEventData.forEach(friend => {
     const diff = calculateDifference(getUpcomingBirthday(friend.birthday));
+    // console.log('diff : ', diff);
     switch (diff) {
       case 0:
+        sortedData['오늘'].push(friend);
+        break;
+      case 366:
         sortedData['오늘'].push(friend);
         break;
       case 1:
@@ -94,6 +98,9 @@ const FriendsEvents = props => {
   return (
     <View>
       {Object.entries(sortedData).map(([key, value], index) => {
+        {
+          /* console.log('value : ', value); */
+        }
         if (value.length > 0) {
           return (
             <View key={index}>
