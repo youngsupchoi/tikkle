@@ -79,7 +79,6 @@ export default function HomeScreen({route}) {
   useEffect(() => {
     actions.setLoading(true);
     actions.loadData();
-    actions.checkDynamicLink();
     setTimeout(() => {
       translateYSecondHero.value = withTiming(0, {
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
