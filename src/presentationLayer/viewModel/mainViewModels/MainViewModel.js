@@ -25,6 +25,7 @@ import messaging from '@react-native-firebase/messaging';
 import Contacts from 'react-native-contacts';
 import {PermissionsAndroid} from 'react-native';
 import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
+import {fcmService} from 'src/push_fcm';
 
 import RNFS from 'react-native-fs';
 
@@ -42,24 +43,27 @@ export const useMainViewModel = () => {
   const navigation = useNavigation();
 
   const requestUserPermission = async () => {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    fcmService.checkPermission(updateDeviceTokenData);
 
-    if (enabled) {
-      return getDeviceToken();
-    }
+    // const authStatus = await messaging().requestPermission();
+    // const enabled =
+    //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    //   authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    // if (enabled) {
+    //   return getDeviceToken();
+    // }
   };
 
-  const getDeviceToken = async () => {
-    await messaging()
-      .getToken()
-      .then(async res => {
-        await updateDeviceTokenData(res);
-        // console.log('Device Token: ', res);
-      });
-  };
+  // // 토큰 가져오기 -> 다른 방식으로 쓰는데 혹시몰라서 남겨둠
+  // const getDeviceToken = async () => {
+  //   await messaging()
+  //     .getToken()
+  //     .then(async res => {
+  //       await updateDeviceTokenData(res);
+  //       // console.log('Device Token: ', res);
+  //     });
+  // };
 
   const loadData = async () => {
     try {

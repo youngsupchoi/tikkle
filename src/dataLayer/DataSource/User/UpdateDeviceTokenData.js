@@ -25,6 +25,9 @@ export async function updateDeviceTokenData(token) {
   /** if there is some data control for company that will be added here **/
 
   //------ call put_user_token -------------------------------------------------------//
+
+  console.log('Device Token : ', token);
+
   let response;
   const body = {
     token: token,
