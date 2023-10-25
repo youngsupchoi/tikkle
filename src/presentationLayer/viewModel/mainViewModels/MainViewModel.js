@@ -27,7 +27,7 @@ import RNFS from 'react-native-fs';
 export const useMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useMainViewState();
-  const {topActions} = useTopViewModel();
+  const {topState, topActions} = useTopViewModel();
 
   const temp_R = useRoute();
   const route_tikkling_id = temp_R.params;
@@ -382,6 +382,14 @@ export const useMainViewModel = () => {
     });
   }
 
+  async function checkDynamicLink() {
+    if (topState.dynamicLinkInfo?.tikkling_id) {
+      topActions.setDynamicLinkInfo(null);
+
+      navigation.navigate('tikklingDetail');
+    }
+  }
+
   return {
     ref: {
       ...ref,
@@ -414,6 +422,7 @@ export const useMainViewModel = () => {
       changeBank,
       getTikklingData,
       loadDetail,
+      checkDynamicLink,
     },
   };
 };

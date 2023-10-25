@@ -70,6 +70,7 @@ import {G} from 'react-native-svg';
 import Present from 'src/assets/icons/Present';
 
 export default function TikklingDetailScreen(route) {
+  console.log(route);
   const {topActions} = useTopViewModel();
   const navigation = useNavigation();
 
