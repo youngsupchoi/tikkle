@@ -140,7 +140,7 @@ function SignUpNavigator() {
           headerShown: false,
           gestureEnabled: true,
           cardOverlayEnabled: true,
-          cardStyleInterpolator: customCardStyleInterpolator,
+          // cardStyleInterpolator: customCardStyleInterpolator,
           transitionSpec: customTransitionSpec,
         }}>
         <SignUpStack.Screen name="splash" component={SplashScreen} />

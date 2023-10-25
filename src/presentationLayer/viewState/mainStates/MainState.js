@@ -63,6 +63,8 @@ export const MainViewStateProvider = ({children}) => {
 
   const [detail_buymodal, setDetail_buymodal] = useState(false);
 
+  const [contactsData, setContactsData] = useState([]);
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -109,6 +111,7 @@ export const MainViewStateProvider = ({children}) => {
     route_data,
     detailLoading,
     detail_buymodal,
+    contactsData,
   };
 
   const actions = {
@@ -150,6 +153,7 @@ export const MainViewStateProvider = ({children}) => {
     setRoute_data,
     setDetailLoading,
     setDetail_buymodal,
+    setContactsData,
   };
 
   return (

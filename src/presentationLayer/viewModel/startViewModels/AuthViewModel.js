@@ -13,6 +13,7 @@ import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData
 import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 import {Platform} from 'react-native';
+
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
   const navigation = useNavigation();

@@ -6,10 +6,14 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {
+  B12,
+  B15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {HomeLoader} from 'src/presentationLayer/view/components/globalComponents/Skeletons/Skeletons';
 import {RefreshControl} from 'react-native-gesture-handler';
 import SecondHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/SecondHero';
-
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import MyTikklingComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/MyTikklingComponent';
 import FriendsTikklingComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FriendsTikklingComponents/FriendsTikklingComponent';
@@ -110,7 +114,10 @@ export default function HomeScreen({route}) {
 
   useEffect(() => {
     actions.setPaymentButtonPressed(false);
+    actions.requestUserPermission();
+    actions.findContacts();
   }, []);
+
   return (
     <View>
       <View style={{}}>
@@ -132,6 +139,14 @@ export default function HomeScreen({route}) {
             <GlobalLoader />
           ) : (
             <View>
+              {/* <AnimatedButton
+                onPress={async () => {
+                  console.log('전화번호 가져오기');
+                  await actions.findContacts();
+                  // await actions.findContacts();
+                }}>
+                <B15>전화번호 가져오기</B15>
+              </AnimatedButton> */}
               {state.isTikkling ? null : (
                 <Animated.View style={[animatedStyleSecondHero]}>
                   <SecondHero />

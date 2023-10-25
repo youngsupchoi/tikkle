@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Animated, Image} from 'react-native';
+import {Animated, Image, Platform} from 'react-native';
 import {captureRef} from 'react-native-view-shot';
 import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
@@ -20,6 +20,11 @@ import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
 import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
+import {updateDeviceTokenData} from 'src/dataLayer/DataSource/User/UpdateDeviceTokenData';
+import messaging from '@react-native-firebase/messaging';
+import Contacts from 'react-native-contacts';
+import {PermissionsAndroid} from 'react-native';
+import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
 
 import RNFS from 'react-native-fs';
 
@@ -35,6 +40,26 @@ export const useMainViewModel = () => {
   //const [exampleData, setExampleData] = useState([]);
 
   const navigation = useNavigation();
+
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      return getDeviceToken();
+    }
+  };
+
+  const getDeviceToken = async () => {
+    await messaging()
+      .getToken()
+      .then(async res => {
+        await updateDeviceTokenData(res);
+        // console.log('Device Token: ', res);
+      });
+  };
 
   const loadData = async () => {
     try {
@@ -382,6 +407,7 @@ export const useMainViewModel = () => {
     });
   }
 
+
   async function checkDynamicLink() {
     if (topState.dynamicLinkInfo?.tikkling_id) {
       topActions.setDynamicLinkInfo(null);
@@ -389,6 +415,93 @@ export const useMainViewModel = () => {
       navigation.navigate('tikklingDetail');
     }
   }
+
+  
+  async function transformContactsData(contactsData) {
+    return {
+      phone_list: contactsData.map(contact => contact.phoneNumber),
+    };
+  }
+
+  /**
+   * 기기에서 전화번호부 긁어오는 함수
+   */
+  const findContacts = async () => {
+    try {
+      let granted;
+      if (Platform.OS === 'android') {
+        granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: 'Contacts',
+            message: 'This app would like to view your contacts.',
+            buttonPositive: 'Allow',
+          },
+        );
+      }
+
+      if (
+        granted === PermissionsAndroid.RESULTS.GRANTED ||
+        Platform.OS === 'ios'
+      ) {
+        const result = await Contacts.getAll();
+        let phoneNumbersProcessed = [];
+        const formattedData = result.reduce((acc, contact) => {
+          const {phoneNumbers, givenName, familyName} = contact;
+          phoneNumbers.forEach(phoneNumber => {
+            const numberWithoutDashes = phoneNumber.number.replace(/-/g, ''); // Remove dashes
+            if (
+              numberWithoutDashes.length === 11 &&
+              numberWithoutDashes.startsWith('010') &&
+              !phoneNumbersProcessed.includes(numberWithoutDashes)
+            ) {
+              phoneNumbersProcessed.push(numberWithoutDashes);
+              const formattedPhoneNumber =
+                numberWithoutDashes.slice(0, 3) +
+                '-' +
+                numberWithoutDashes.slice(3, 7) +
+                '-' +
+                numberWithoutDashes.slice(7);
+              acc.push({
+                name: `${familyName}${givenName}`,
+                phoneNumber: numberWithoutDashes, // For server
+                formattedPhoneNumber: formattedPhoneNumber, // For display
+              });
+            }
+          });
+          return acc;
+        }, []);
+        const temp = await transformContactsData(formattedData);
+        // console.log('TEMP : ', temp.phone_list);
+        await createPhoneFriendData(temp.phone_list)
+          .then(async res => {
+            return await topActions.setStateAndError(res);
+          })
+          .then(async res => {
+            // console.log('RETRUN : ', res);
+          });
+      } else {
+        console.log('Contacts permission denied');
+      }
+    } catch (error) {
+      console.log('Error fetching contacts:', error);
+    }
+  };
+
+  // /**
+  //  * 전화번호 리스트로 친구 추가하는 함수
+  //  */
+  // const = async data => {
+  //   console.log('ERERERER : ', data);
+  //   await createPhoneFriendData(data)
+  //     .then(async res => {
+  //       return await topActions.setStateAndError(res);
+  //     })
+  //     .then(async res => {
+  //       console.log('RETRUN : ', res);
+  //     });
+  // };
+
 
   return {
     ref: {
@@ -423,6 +536,8 @@ export const useMainViewModel = () => {
       getTikklingData,
       loadDetail,
       checkDynamicLink,
+      requestUserPermission,
+      findContacts,
     },
   };
 };
