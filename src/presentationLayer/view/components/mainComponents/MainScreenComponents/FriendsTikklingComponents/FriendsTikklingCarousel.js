@@ -72,7 +72,9 @@ export default function FriendsTikklingCarousel(data) {
             }}
             onPress={() => {
               // console.log('press');
-              navigation.navigate('tikklingDetail', item.tikkling_id);
+              navigation.navigate('tikklingDetail', {
+                tikkling_id: item.tikkling_id,
+              });
             }}>
             <ArrowRight
               stroke={COLOR_GRAY}
