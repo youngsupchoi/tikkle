@@ -24,62 +24,14 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import messaging from '@react-native-firebase/messaging';
 import {PaperProvider} from 'react-native-paper';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-
-import {fcmService} from 'src/push_fcm';
-import {localNotificationService} from 'src/push_noti';
 
 export default function App() {
   SystemNavigationBar.navigationShow();
   SystemNavigationBar.setNavigationColor(backgroundColor);
   SystemNavigationBar.setBarMode('dark');
-
-  useEffect(() => {
-    fcmService.registerAppWithFCM(); //ios일때 자동으로 가져오도록 하는 코드
-    fcmService.register(onRegister, onNotification, onOpenNotification);
-    localNotificationService.configure(onOpenNotification);
-  }, []);
-
-  const onRegister = tk => {
-    //토큰 가져온걸로 뭐할지
-    console.log('[App] onRegister : token :', tk);
-  };
-
-  const onNotification = notify => {
-    console.log('[App] onNotification : notify :', notify);
-    const options = {
-      soundName: 'default',
-      playSound: true,
-    };
-
-    localNotificationService.showNotification(
-      0,
-      notify.title,
-      notify.body,
-      notify,
-      options,
-    );
-  };
-
-  const onOpenNotification = notify => {
-    //앱 켜진 상태에서 알림 받았을 때 하는 일
-    console.log(
-      '[App] onOpenNotification(앱 켜진 상태에서 ) : notify :',
-      notify,
-    );
-    Alert.alert('Open Notification : notify.body :' + notify.body);
-  };
-
-  // useEffect(() => {
-  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
-  //     console.log('when app is open FCM : ', remoteMessage);
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>

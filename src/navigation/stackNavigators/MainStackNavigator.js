@@ -33,6 +33,11 @@ import HectoPaymentScreen from 'src/presentationLayer/view/screens/tikklingScree
 
 import TikklingDetailScreen from 'src/presentationLayer/view/screens/mainScreens/TikklingDetailScreen';
 
+import {fcmService} from 'src/push_fcm';
+import {localNotificationService} from 'src/push_noti';
+import {useEffect, useState} from 'react';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
     <ProductDetailScreen />
@@ -207,6 +212,42 @@ const linking = {
 //deep link code----------------------------------------------------------------------------------------------------------------
 
 export default function MainStackNavigator() {
+  const {topActions} = useTopViewModel();
+
+  useEffect(() => {
+    fcmService.registerAppWithFCM(); //ios일때 자동으로 가져오도록 하는 코드
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    localNotificationService.configure(onOpenNotification);
+  }, []);
+
+  const onRegister = tk => {
+    //토큰 가져온걸로 뭐할지
+    //console.log('[App] onRegister : token :', tk);
+  };
+
+  const onNotification = notify => {
+    //console.log('[onNotification] notify 알림 왔을 때 :', notify);
+    const options = {
+      soundName: 'default',
+      playSound: true,
+    };
+
+    localNotificationService.showNotification(
+      0,
+      notify.title,
+      notify.body,
+      notify,
+      options,
+    );
+  };
+
+  const onOpenNotification = notify => {
+    //앱 켜진 상태에서 알림 받았을 때 하는 일
+    //console.log('[App] onOpenNotification 앱 켜진 상태에서 : notify :', notify);
+    // Alert.alert('Open Notification : notify.body :' + notify.body);
+
+    topActions.showSnackbar(notify.message, 1);
+  };
   return (
     <NavigationContainer theme={MyTheme} ref={navigationRef} linking={linking}>
       <MainStack.Navigator

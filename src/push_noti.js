@@ -8,19 +8,17 @@ class LocalNotificationService {
   configure = onOpenNotification => {
     PushNotification.configure({
       onRegister: function (token) {
-        console.log(
-          '[LocalNotificationService] onRegister : localtoken',
-          token,
-        );
+        // console.log('[LocalNotificationService] onRegister : localtoken',token,);
       },
       onNotification: function (notification) {
-        console.log('[LocalNotificationService] onNotification ', notification);
+        // console.log('[LocalNotificationService] onNotification ', notification);
         if (!notification?.data) {
           return;
         }
         notification.userInteraction = true;
+        // console.log('TEST : ', notification);
         onOpenNotification(
-          Platform.OS === 'ios' ? notification.data.item : notification.data,
+          Platform.OS === 'ios' ? notification.data.item : notification,
         );
 
         if (Platform.OS === 'ios') {
@@ -92,10 +90,7 @@ class LocalNotificationService {
   };
 
   removeDeliveredNotificationByID = notification => {
-    console.log(
-      '[LocalNotificationService] removeDeliveredNotificationByID:',
-      notification,
-    );
+    // console.log('[LocalNotificationService] removeDeliveredNotificationByID:',notification,);
     PushNotification.cancelLocalNotifications({id: `${notificationId}`});
   };
 }

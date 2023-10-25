@@ -1,6 +1,8 @@
 /* import {useNavigation} from '@react-navigation/native'; */
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {reset} from 'src/navigation/stackNavigators/MainStackNavigator';
+import {fcmService} from 'src/push_fcm';
+import {localNotificationService} from 'src/push_noti';
 // import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
@@ -13,14 +15,6 @@ import {useTopViewState} from 'src/presentationLayer/viewState/topStates/TopView
 export const useTopViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {topState, topActions} = useTopViewState();
-  // const {actions} = useMainViewModel();
-  // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
-  //const [exampleData, setExampleData] = useState([]);
-
-  //default
-  //TODO: 에러 처리 함수
-
-  //TODO: 성공 처리 함수
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const setStateAndError = res => {

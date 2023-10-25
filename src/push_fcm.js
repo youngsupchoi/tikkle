@@ -32,7 +32,7 @@ class FCMService {
         }
       })
       .catch(error => {
-        console.log('[FCMService] Permission rejected ', error);
+        //console.log('[FCMService] Permission rejected ', error);
       });
   };
 
@@ -44,11 +44,11 @@ class FCMService {
         if (fcmToken) {
           onRegister(fcmToken);
         } else {
-          console.log('[FCMService] User does not have a device token');
+          //console.log('[FCMService] User does not have a device token');
         }
       })
       .catch(error => {
-        console.log('[FCMService] getToken rejected', error);
+        //console.log('[FCMService] getToken rejected', error);
       });
   };
 
@@ -60,7 +60,7 @@ class FCMService {
         this.getToken(onRegister);
       })
       .catch(error => {
-        console.log('[FCMService] Request Permission rejected', error);
+        //console.log('[FCMService] Request Permission rejected', error);
       });
   };
 
@@ -68,7 +68,7 @@ class FCMService {
     messaging()
       .deleteToken()
       .catch(error => {
-        console.log('[FCMService] Delete token error', error);
+        //console.log('[FCMService] Delete token error', error);
       });
   };
 
@@ -95,7 +95,7 @@ class FCMService {
         }
       })
       .catch(error => {
-        console.log('quit state notification error : ', error);
+        //console.log('quit state notification error : ', error);
       });
 
     this.messageListener = messaging().onMessage(async remoteMessage => {
