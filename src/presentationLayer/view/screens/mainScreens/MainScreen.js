@@ -31,6 +31,7 @@ import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/
 import LottieView from 'lottie-react-native';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import {fcmService} from 'src/push_fcm';
 
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 

@@ -1,6 +1,14 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import {Button, Platform, StatusBar, View, SafeAreaView} from 'react-native';
+import {
+  Button,
+  Platform,
+  StatusBar,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import MainStackNavigator from 'src/navigation/stackNavigators/MainStackNavigator';
 import TopSnackbar from 'src/presentationLayer/view/components/globalComponents/TopView/TopSnackbar';
@@ -16,23 +24,14 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import messaging from '@react-native-firebase/messaging';
 import {PaperProvider} from 'react-native-paper';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 export default function App() {
   SystemNavigationBar.navigationShow();
   SystemNavigationBar.setNavigationColor(backgroundColor);
   SystemNavigationBar.setBarMode('dark');
-
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage);
-    });
-
-    return unsubscribe;
-  }, []);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
