@@ -137,6 +137,53 @@ export const useFriendMainViewModel = () => {
     } catch {}
   }
 
+  const getChosung = str => {
+    const cho = [
+      'ㄱ',
+      'ㄲ',
+      'ㄴ',
+      'ㄷ',
+      'ㄸ',
+      'ㄹ',
+      'ㅁ',
+      'ㅂ',
+      'ㅃ',
+      'ㅅ',
+      'ㅆ',
+      'ㅇ',
+      'ㅈ',
+      'ㅉ',
+      'ㅊ',
+      'ㅋ',
+      'ㅌ',
+      'ㅍ',
+      'ㅎ',
+    ];
+    const uni = str.charCodeAt(0);
+
+    // "가"부터 "힣"까지에 포함된 문자일 경우에만 초성 추출
+    if (0xac00 <= uni && uni <= 0xd7a3) {
+      return cho[Math.floor((uni - 0xac00) / (21 * 28))];
+    }
+
+    return str[0]; // 한글이 아닐 경우 첫 글자 반환
+  };
+
+  const groupedData = state.getFriendData
+    .sort((a, b) => {
+      if (getChosung(a.name) < getChosung(b.name)) return -1;
+      if (getChosung(a.name) > getChosung(b.name)) return 1;
+      return 0;
+    })
+    .reduce((acc, curr) => {
+      const chosung = getChosung(curr.name);
+      if (!acc[chosung]) {
+        acc[chosung] = [];
+      }
+      acc[chosung].push(curr);
+      return acc;
+    }, {});
+
   /**
    * 키보드가 보여지거나 사라질 때 애니메이션 효과를 주는 함수
    * @param {*} async
@@ -193,6 +240,7 @@ export const useFriendMainViewModel = () => {
     },
     state: {
       ...state,
+      groupedData,
     },
     actions: {
       ...actions,

@@ -26,7 +26,6 @@ const FriendsEvents = props => {
     date.setDate(date.getDate() + i);
     sortedData[formatDate(date)] = [];
   }
-  // console.log('DATA#### : ', sortedData);
 
   function getUpcomingBirthday(birthdayString) {
     const today = new Date();
@@ -47,15 +46,17 @@ const FriendsEvents = props => {
 
   friendsEventData.forEach(friend => {
     const diff = calculateDifference(getUpcomingBirthday(friend.birthday));
-    // console.log('diff : ', diff);
     switch (diff) {
       case 0:
         sortedData['오늘'].push(friend);
         break;
-      case 366:
+      case 365:
         sortedData['오늘'].push(friend);
         break;
       case 1:
+        sortedData['내일'].push(friend);
+        break;
+      case 366:
         sortedData['내일'].push(friend);
         break;
       default:
@@ -98,9 +99,6 @@ const FriendsEvents = props => {
   return (
     <View>
       {Object.entries(sortedData).map(([key, value], index) => {
-        {
-          /* console.log('value : ', value); */
-        }
         if (value.length > 0) {
           return (
             <View key={index}>

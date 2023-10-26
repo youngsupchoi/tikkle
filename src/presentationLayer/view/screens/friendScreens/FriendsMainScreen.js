@@ -7,6 +7,7 @@ import {
   Animated,
   Modal,
   StyleSheet,
+  SectionList,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -71,8 +72,9 @@ export default function FriendsManagementScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        {console.log(state.groupedData)}
         <View>
-          <B17>친구 관리</B17>
+          <B17 customStyle={{fontFamily: EB}}>친구 관리</B17>
         </View>
         <AnimatedButton onPress={toggleDropdown} style={{padding: 10}}>
           <Detail
@@ -139,15 +141,6 @@ export default function FriendsManagementScreen() {
             backgroundColor: COLOR_WHITE,
             margin: 24,
             borderRadius: 16,
-            elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: {
-              // iOS용 그림자 위치
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.2, // iOS용 그림자 투명도
-            shadowRadius: 3, // iOS용 그림자 반경
           }}>
           <AnimatedButton
             onPress={() => {
@@ -181,7 +174,7 @@ export default function FriendsManagementScreen() {
           </M15>
 
           <View style={{marginTop: 24}}>
-            {console.log(state.searchedData[0])}
+            {/* {console.log(state.searchedData[0])} */}
             {state.searchedData[0].relation_state_id === null ? (
               <AnimatedButton
                 onPress={() => {
@@ -278,15 +271,6 @@ export default function FriendsManagementScreen() {
                 backgroundColor: COLOR_WHITE,
                 margin: 24,
                 borderRadius: 16,
-                elevation: 3,
-                shadowColor: '#000',
-                shadowOffset: {
-                  // iOS용 그림자 위치
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.2, // iOS용 그림자 투명도
-                shadowRadius: 3, // iOS용 그림자 반경
               }}>
               <AnimatedButton
                 onPress={() => {
@@ -319,14 +303,17 @@ export default function FriendsManagementScreen() {
         {state.refreshing ? (
           <GlobalLoader />
         ) : (
-          <FlatList
+          <SectionList
             refreshControl={
               <RefreshControl
                 refreshing={state.refreshing}
                 onRefresh={actions.onRefresh}
               />
             }
-            data={state.getFriendData}
+            sections={Object.keys(state.groupedData).map(key => ({
+              title: key,
+              data: state.groupedData[key],
+            }))}
             keyExtractor={(item, index) => String(item.id)}
             ListEmptyComponent={
               state.mode_friend === 'unblock'
@@ -360,44 +347,45 @@ export default function FriendsManagementScreen() {
                     );
                   }
             }
-            ListHeaderComponent={
-              // state.getFriendData.length > 0
-              //   ?
-              () => {
-                return (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
-                    <B15
-                      customStyle={{
-                        paddingHorizontal: 24,
-                      }}>
-                      {state.mode_friend === 'unblock'
-                        ? '친구 목록'
-                        : '차단된 이용자'}
-                    </B15>
-                  </View>
-                );
-              }
-              // : null
-            }
+            stickySectionHeadersEnabled={false}
+            renderSectionHeader={({section: {title}}) => (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingVertical: 4,
+                }}>
+                <B15
+                  customStyle={{
+                    paddingHorizontal: 24,
+                  }}>
+                  {title}
+                </B15>
+              </View>
+            )}
             ListFooterComponent={() => {
               return (
-                <View style={{height: 600}}>
+                <View style={{height: 500}}>
                   <View style={{height: 100}} />
                   <Footer />
                 </View>
               );
             }}
-            renderItem={({item, index}) => {
+            ItemSeparatorComponent={() => {
               return (
                 <View
-                  // onLongPress={() => actions.setSelectedItemId(item.id)}
-                  key={item.id}
-                  style={styles.flatListItemContainer}>
+                  style={{
+                    width: '100%',
+                    height: 1,
+                    backgroundColor: COLOR_SEPARATOR,
+                  }}
+                />
+              );
+            }}
+            renderItem={({item, index}) => {
+              return (
+                <View key={item.id} style={styles.flatListItemContainer}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -476,11 +464,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 12,
-    elevation: 10,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     zIndex: 2,
   },
   searchBarContainer: {
@@ -562,23 +545,21 @@ const styles = StyleSheet.create({
   },
   flatListItemContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: COLOR_WHITE,
     borderRadius: 16,
-    marginVertical: 8,
-    marginHorizontal: 24,
+    marginHorizontal: 16,
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // iOS용 그림자 투명도
-    shadowRadius: 3, // iOS용 그림자 반경
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
     flexDirection: 'row',
   },
   listItemTextContainer: {
