@@ -242,8 +242,8 @@ export default function ProfileScreen() {
                           alignItems: 'center',
                         }}>
                         <B15 customStyle={{color: COLOR_BLACK}}>
-                          {item.tikkling_type}
-                          {' 티클링'}
+                          {/* {item.tikkling_type} */}
+                          {/* {' 티클링'} */}
                         </B15>
 
                         <Image
@@ -328,17 +328,10 @@ export default function ProfileScreen() {
                 marginTop: 5,
                 elevation: 1,
                 borderColor: COLOR_SEPARATOR,
-                // height: 100,
                 borderWidth: 0.5,
-                // padding: 16,
                 paddingBottom: 16,
                 paddingTop: 10,
-                // backgroundColor: 'red',
               }}>
-              {/* {console.log(
-                'state.paymentHistoryData : ',
-                state.paymentHistoryData,
-              )} */}
               {state.paymentHistoryData.length > 0 ? (
                 <FlatList
                   data={state.paymentHistoryData}
@@ -391,7 +384,7 @@ export default function ProfileScreen() {
                             marginVertical: 10,
                           }}
                         />
-                        <B15 customStyle={{}}>
+                        <B15 numberOfLines={1} customStyle={{}}>
                           {item.user_name}
                           {'님에게'}
                         </B15>

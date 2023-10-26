@@ -487,13 +487,13 @@ export const useMainViewModel = () => {
         }, []);
         const temp = await transformContactsData(formattedData);
         // console.log('TEMP : ', temp.phone_list);
-        await createPhoneFriendData(temp.phone_list)
-          .then(async res => {
-            return await topActions.setStateAndError(res);
-          })
-          .then(async res => {
-            // console.log('RETRUN : ', res);
-          });
+        await createPhoneFriendData(temp.phone_list);
+        // .then(async res => {
+        //   return await topActions.setStateAndError(res);
+        // })
+        // .then(async res => {
+        //   // console.log('RETRUN : ', res);
+        // });
       } else {
         console.log('Contacts permission denied');
       }

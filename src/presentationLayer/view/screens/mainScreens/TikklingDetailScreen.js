@@ -166,7 +166,8 @@ export default function TikklingDetailScreen() {
                   }}>
                   <M20 customStyle={{marginBottom: 16, fontFamily: EB}}>
                     {state.route_data.created_at.split('-')[0]}{' '}
-                    {state.route_data.tikkling_type} 티클링
+                    {/* {state.route_data.tikkling_type} {' '} */}
+                    티클링
                   </M20>
                   {state.route_data.state_id === 1 ? (
                     <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>

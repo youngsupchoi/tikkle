@@ -205,7 +205,8 @@ export default function SentTikkleDetailScreen({route}) {
                   }}>
                   {item.user_name}
                   {'님의 '}
-                  {item.tikkling_type} 티클링
+                  {/* {item.tikkling_type} */}
+                  티클링
                 </B17>
                 {item.state_id === 1 ? (
                   <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
