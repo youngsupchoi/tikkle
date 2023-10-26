@@ -95,7 +95,7 @@ const TopSnackbar = () => {
             runOnJS(topActions.hideSnackbar)();
           },
         );
-      }, 1500);
+      }, 3000);
 
       return () => clearTimeout(timeout);
     }

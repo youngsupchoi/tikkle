@@ -69,7 +69,7 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 import {G} from 'react-native-svg';
 import Present from 'src/assets/icons/Present';
 
-export default function TikklingDetailScreen(route) {
+export default function TikklingDetailScreen() {
   const {topActions} = useTopViewModel();
   const navigation = useNavigation();
 
@@ -98,6 +98,11 @@ export default function TikklingDetailScreen(route) {
 
   useEffect(() => {
     actions.loadDetail();
+    console.log(state.userData);
+    console.log(
+      '🚀 ~ file: TikklingDetailScreen.js:102 ~ useEffect ~ state.userData:',
+      state.userData,
+    );
   }, []);
 
   // return (

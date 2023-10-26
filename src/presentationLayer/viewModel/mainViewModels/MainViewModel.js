@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Animated, Image, Platform} from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import {captureRef} from 'react-native-view-shot';
 import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
@@ -20,23 +21,51 @@ import {getBankListData} from 'src/dataLayer/DataSource/User/GetBankListData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
 import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
+import {updateDeviceTokenData} from 'src/dataLayer/DataSource/User/UpdateDeviceTokenData';
+import messaging from '@react-native-firebase/messaging';
 import Contacts from 'react-native-contacts';
 import {PermissionsAndroid} from 'react-native';
 import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
+import {fcmService} from 'src/push_fcm';
+
 import RNFS from 'react-native-fs';
+import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useMainViewState();
-  const {topActions} = useTopViewModel();
-
+  const {topState, topActions} = useTopViewModel();
+  //FIXME: 아래 코드 getTikklingData함수 안으로 이동
   const temp_R = useRoute();
-  const route_tikkling_id = temp_R.params;
+  const route_tikkling_id = temp_R.params?.tikkling_id;
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
   const navigation = useNavigation();
+
+  const requestUserPermission = async () => {
+    fcmService.checkPermission(updateDeviceTokenData);
+
+    // const authStatus = await messaging().requestPermission();
+    // const enabled =
+    //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    //   authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    // if (enabled) {
+    //   return getDeviceToken();
+    // }
+  };
+
+  // // 토큰 가져오기 -> 다른 방식으로 쓰는데 혹시몰라서 남겨둠
+  // const getDeviceToken = async () => {
+  //   await messaging()
+  //     .getToken()
+  //     .then(async res => {
+  //       await updateDeviceTokenData(res);
+  //       // console.log('Device Token: ', res);
+  //     });
+  // };
 
   const loadData = async () => {
     try {
@@ -58,6 +87,7 @@ export const useMainViewModel = () => {
       console.error('Error loading data:', error);
     } finally {
       await actions.setLoading(false);
+      checkDynamicLink();
     }
   };
 
@@ -264,6 +294,14 @@ export const useMainViewModel = () => {
   };
 
   const onInstagramShareButtonPressed = async () => {
+    CreateTikklingShareLink(
+      state.userData.name,
+      state.myTikklingData.tikkling_id,
+    ).then(res => {
+      Clipboard.setString(res.DSdata.short_link);
+      console.log(res);
+    });
+
     async function convertImageToBase64() {
       const imageUri = Image.resolveAssetSource(
         require('src/assets/images/instagram_background.png'),
@@ -384,6 +422,15 @@ export const useMainViewModel = () => {
     });
   }
 
+  async function checkDynamicLink() {
+    if (topState.dynamicLinkInfo?.tikkling_id) {
+      const tikkling_id = topState.dynamicLinkInfo.tikkling_id;
+      topActions.setDynamicLinkInfo(null);
+
+      navigation.navigate('tikklingDetail', {tikkling_id});
+    }
+  }
+
   async function transformContactsData(contactsData) {
     return {
       phone_list: contactsData.map(contact => contact.phoneNumber),
@@ -501,6 +548,8 @@ export const useMainViewModel = () => {
       changeBank,
       getTikklingData,
       loadDetail,
+      checkDynamicLink,
+      requestUserPermission,
       findContacts,
     },
   };

@@ -31,9 +31,13 @@ import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/
 import LottieView from 'lottie-react-native';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import {fcmService} from 'src/push_fcm';
+
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
+  const {topState, topViewModel} = useTopViewModel();
   const translateYSecondHero = useSharedValue(20);
   const translateYMyTikkling = useSharedValue(20);
   const translateYFriendsTikkling = useSharedValue(20);
@@ -110,6 +114,7 @@ export default function HomeScreen({route}) {
 
   useEffect(() => {
     actions.setPaymentButtonPressed(false);
+    actions.requestUserPermission();
     actions.findContacts();
   }, []);
 

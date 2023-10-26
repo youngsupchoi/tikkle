@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 // import {MainContainer} from '../../components/Global/Containers/MainContainer';
 // import {useTokenHandler} from '../../components/Splash/useTokenHandler';
 // import {SplashLogo} from '../../components/Splash/SplashLogo';
@@ -11,8 +11,13 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 
 export default function SplashScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const {topActions} = useTopViewModel();
 
   useEffect(() => {
+    if (route.params?.tikkling_id) {
+      topActions.setDynamicLinkInfo(route.params);
+    }
     loginTokenData().then(res => {
       if (res.DScode === 0) {
         // console.log('@@@@@@login@@@@@@');

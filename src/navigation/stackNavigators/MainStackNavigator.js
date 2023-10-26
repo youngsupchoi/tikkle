@@ -21,7 +21,7 @@ import PaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/Se
 import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleSuccessScreen';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {Easing, Linking} from 'react-native';
+import {Easing, Linking, Platform} from 'react-native';
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
@@ -32,6 +32,13 @@ import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewSt
 import HectoPaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/HectoPaymentScreen';
 
 import TikklingDetailScreen from 'src/presentationLayer/view/screens/mainScreens/TikklingDetailScreen';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
+import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
+
+import {fcmService} from 'src/push_fcm';
+import {localNotificationService} from 'src/push_noti';
+import {useEffect, useState} from 'react';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -155,9 +162,21 @@ function SignUpNavigator() {
 
 //deep link code----------------------------------------------------------------------------------------------------------------
 
+const resolveDynamicLink = async shortLink => {
+  try {
+    const linkData = await dynamicLinks().resolveLink(shortLink);
+    const originalLink = linkData.url; // 원래의 link 파라미터
+    console.log('Original link:', originalLink);
+    return originalLink;
+  } catch (error) {
+    console.error('Error resolving dynamic link', error);
+    return null;
+  }
+};
+
 const config = {
   screens: {
-    SignUpNavigator: '/signup', // 매핑되는 URL 경로
+    SignUpNavigator: {screens: {splash: '/tikkling/:tikkling_id'}},
     main: '/main', // 매핑되는 URL 경로
     startTikkling: '/start-tikkling/:id/:name', // 매핑되는 URL 경로
     productDetail: '/product-detail', // 매핑되는 URL 경로
@@ -174,15 +193,22 @@ const config = {
 
 const linking = {
   //디폴트 프로토콜 설정 필요
-  prefixes: ['https://...', 'http://localhost:3000', 'tikkle://'],
+  prefixes: [
+    'https://tikkle.lifoli.co.kr',
+    'http://localhost:3000',
+    'tikkle://',
+  ],
 
   async getInitialURL() {
     const url = await Linking.getInitialURL();
-
     if (url != null) {
-      return url;
+      if (url.startsWith('https://tikkle.lifoli.co.kr')) {
+        const originalLink = await resolveDynamicLink(url);
+        return originalLink;
+      } else if (url.startsWith('tikkle://')) {
+        return url;
+      }
     }
-
     return null;
   },
 
@@ -192,6 +218,7 @@ const linking = {
     const onReceiveURL = event => {
       const {url} = event;
       console.log('link has url', url, event);
+      CreateTikklingShareLink('hihi', 1);
       return listener(url);
     };
 
@@ -207,6 +234,53 @@ const linking = {
 //deep link code----------------------------------------------------------------------------------------------------------------
 
 export default function MainStackNavigator() {
+  const {topActions} = useTopViewModel();
+
+  //--notification code---------------------
+  useEffect(() => {
+    fcmService.registerAppWithFCM(); //ios일때 자동으로 가져오도록 하는 코드
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    localNotificationService.configure(onOpenNotification);
+  }, []);
+
+  // const [token, setToken] = useState('');
+
+  const onRegister = tk => {
+    //토큰 가져온걸로 뭐할지
+    // const temp = tk.substring(0, 10);
+    // setToken(temp);
+    // console.log('[App] onRegister : token :', temp);
+    //console.log('[App] onRegister : token :', tk);
+  };
+
+  const onNotification = notify => {
+    console.log('[onNotification] notify 알림 왔을 때 :', notify);
+    const options = {
+      soundName: 'default',
+      playSound: true,
+    };
+
+    if (Platform.OS === 'ios') {
+      topActions.showSnackbar(notify.body, 1);
+    }
+
+    localNotificationService.showNotification(
+      0,
+      notify.title,
+      notify.body,
+      notify,
+      options,
+    );
+  };
+
+  const onOpenNotification = notify => {
+    //앱 켜진 상태에서 알림 받았을 때 하는 일
+    console.log('[App] onOpenNotification 앱 켜진 상태에서 : notify :', notify);
+    // Alert.alert('Open Notification : notify.body :' + notify.body);
+
+    topActions.showSnackbar(notify.message, 1);
+  };
+
   return (
     <NavigationContainer theme={MyTheme} ref={navigationRef} linking={linking}>
       <MainStack.Navigator

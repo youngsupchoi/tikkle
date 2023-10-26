@@ -26,7 +26,6 @@ const FriendsEvents = props => {
     date.setDate(date.getDate() + i);
     sortedData[formatDate(date)] = [];
   }
-  // console.log('DATA#### : ', sortedData);
 
   function getUpcomingBirthday(birthdayString) {
     const today = new Date();
@@ -51,7 +50,13 @@ const FriendsEvents = props => {
       case 0:
         sortedData['오늘'].push(friend);
         break;
+      case 365:
+        sortedData['오늘'].push(friend);
+        break;
       case 1:
+        sortedData['내일'].push(friend);
+        break;
+      case 366:
         sortedData['내일'].push(friend);
         break;
       default:
