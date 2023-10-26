@@ -1,11 +1,11 @@
 // push.fcm.js
-
+import PushNotification from 'react-native-push-notification';
 import messaging from '@react-native-firebase/messaging';
 import {Alert, Platform} from 'react-native';
 
 class FCMService {
   register = (onRegister, onNotification, onOpenNotification) => {
-    // this.checkPermission(onRegister); //권한 확인 해서 get token & onRegister 함수 실행
+    //this.checkPermission(onRegister); //권한 확인 해서 get token & onRegister 함수 실행
     this.createNotificationListeners(
       onRegister,
       onNotification,
@@ -77,9 +77,26 @@ class FCMService {
     onNotification,
     onOpenNotification,
   ) => {
-    console.log('##createNotificationListeners 1');
+    if (Platform.OS === 'android') {
+      const channelId = 'fcm_fallback_notification_channel';
+      console.log('Channel ID: ', channelId);
+      PushNotification.createChannel(
+        {
+          channelId: channelId, // (required)
+          channelName: 'test channel', // (required)
+          channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
+          playSound: true, // (optional) default: true
+          soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+          // importance: 'high', // (optional) default: Importance.HIGH. Int value of the Android notification importance
+          vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
+        },
+        created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+      );
+    }
+
+    // console.log('##createNotificationListeners 1');
     messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log('%%%createNotificationListeners : ', remoteMessage);
+      // console.log('%%%createNotificationListeners : ', remoteMessage);
       if (remoteMessage) {
         const notification = remoteMessage.notification;
         onOpenNotification(notification);
@@ -87,7 +104,7 @@ class FCMService {
 
       Alert.alert(remoteMessage.body);
     });
-    console.log('##createNotificationListeners 2');
+    // console.log('##createNotificationListeners 2');
     messaging()
       .getInitialNotification()
       .then(remoteMessage => {

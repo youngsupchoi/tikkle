@@ -221,8 +221,13 @@ export default function MainStackNavigator() {
     localNotificationService.configure(onOpenNotification);
   }, []);
 
+  // const [token, setToken] = useState('');
+
   const onRegister = tk => {
     //토큰 가져온걸로 뭐할지
+    // const temp = tk.substring(0, 10);
+    // setToken(temp);
+    // console.log('[App] onRegister : token :', temp);
     //console.log('[App] onRegister : token :', tk);
   };
 
