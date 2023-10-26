@@ -32,7 +32,7 @@ class FCMService {
         }
       })
       .catch(error => {
-        //console.log('[FCMService] Permission rejected ', error);
+        console.log('[FCMService] Permission rejected ', error);
       });
   };
 
@@ -44,7 +44,7 @@ class FCMService {
         if (fcmToken) {
           onRegister(fcmToken);
         } else {
-          //console.log('[FCMService] User does not have a device token');
+          console.log('[FCMService] User does not have a device token');
         }
       })
       .catch(error => {
@@ -60,7 +60,7 @@ class FCMService {
         this.getToken(onRegister);
       })
       .catch(error => {
-        //console.log('[FCMService] Request Permission rejected', error);
+        console.log('[FCMService] Request Permission rejected', error);
       });
   };
 
@@ -68,7 +68,7 @@ class FCMService {
     messaging()
       .deleteToken()
       .catch(error => {
-        //console.log('[FCMService] Delete token error', error);
+        console.log('[FCMService] Delete token error', error);
       });
   };
 
@@ -77,7 +77,9 @@ class FCMService {
     onNotification,
     onOpenNotification,
   ) => {
+    console.log('##createNotificationListeners 1');
     messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log('%%%createNotificationListeners : ', remoteMessage);
       if (remoteMessage) {
         const notification = remoteMessage.notification;
         onOpenNotification(notification);
@@ -85,27 +87,31 @@ class FCMService {
 
       Alert.alert(remoteMessage.body);
     });
-
+    console.log('##createNotificationListeners 2');
     messaging()
       .getInitialNotification()
       .then(remoteMessage => {
+        console.log('quit state notification : ', remoteMessage);
         if (remoteMessage) {
           const notification = remoteMessage.notification;
           onOpenNotification(notification);
         }
       })
       .catch(error => {
-        //console.log('quit state notification error : ', error);
+        console.log('quit state notification error : ', error);
       });
 
     this.messageListener = messaging().onMessage(async remoteMessage => {
       if (remoteMessage) {
         let notification = null;
         if (Platform.OS === 'ios') {
-          notification = remoteMessage.data.notification;
+          // notification = remoteMessage.data.notification;
+          notification = remoteMessage.notification;
+          // console.log('IOS messageListener : ', remoteMessage);
         } else {
           notification = remoteMessage.notification;
         }
+
         onNotification(notification);
       }
     });

@@ -8,15 +8,20 @@ class LocalNotificationService {
   configure = onOpenNotification => {
     PushNotification.configure({
       onRegister: function (token) {
-        // console.log('[LocalNotificationService] onRegister : localtoken',token,);
+        console.log(
+          '[LocalNotificationService] onRegister : localtoken',
+          token,
+        );
       },
+
       onNotification: function (notification) {
-        // console.log('[LocalNotificationService] onNotification ', notification);
+        //앱내 알림 시 오는 부분
+        console.log('[LocalNotificationService] onNotification ', notification);
         if (!notification?.data) {
           return;
         }
         notification.userInteraction = true;
-        // console.log('TEST : ', notification);
+        console.log('TEST : ', notification);
         onOpenNotification(
           Platform.OS === 'ios' ? notification.data.item : notification,
         );
@@ -40,11 +45,14 @@ class LocalNotificationService {
   };
 
   showNotification = (id, title, message, data = {}, options = {}) => {
+    // console.log('TEST : ', id, title, message, data, options);
     PushNotification.localNotification({
       // Android only Properties
       ...this.buildAndroidNotification(id, title, message, data, options),
+
       // IOS and Android properties
       ...this.buildIOSNotification(id, title, message, data, options),
+
       // IOS and Android properties
       title: title || '',
       message: message || '',
@@ -77,6 +85,11 @@ class LocalNotificationService {
       userInfo: {
         id: id,
         item: data,
+        // id: 1,
+        // item: {
+        //   title: 'test',
+        //   message: 'test',
+        // },
       },
     };
   };
@@ -91,7 +104,7 @@ class LocalNotificationService {
 
   removeDeliveredNotificationByID = notification => {
     // console.log('[LocalNotificationService] removeDeliveredNotificationByID:',notification,);
-    PushNotification.cancelLocalNotifications({id: `${notificationId}`});
+    PushNotification.cancelLocalNotifications({id: `${notification.id}`});
   };
 }
 

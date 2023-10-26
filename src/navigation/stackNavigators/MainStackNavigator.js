@@ -21,7 +21,7 @@ import PaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/Se
 import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleSuccessScreen';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {Easing, Linking} from 'react-native';
+import {Easing, Linking, Platform} from 'react-native';
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
@@ -214,6 +214,7 @@ const linking = {
 export default function MainStackNavigator() {
   const {topActions} = useTopViewModel();
 
+  //--notification code---------------------
   useEffect(() => {
     fcmService.registerAppWithFCM(); //ios일때 자동으로 가져오도록 하는 코드
     fcmService.register(onRegister, onNotification, onOpenNotification);
@@ -226,11 +227,15 @@ export default function MainStackNavigator() {
   };
 
   const onNotification = notify => {
-    //console.log('[onNotification] notify 알림 왔을 때 :', notify);
+    console.log('[onNotification] notify 알림 왔을 때 :', notify);
     const options = {
       soundName: 'default',
       playSound: true,
     };
+
+    if (Platform.OS === 'ios') {
+      topActions.showSnackbar(notify.body, 1);
+    }
 
     localNotificationService.showNotification(
       0,
@@ -243,11 +248,12 @@ export default function MainStackNavigator() {
 
   const onOpenNotification = notify => {
     //앱 켜진 상태에서 알림 받았을 때 하는 일
-    //console.log('[App] onOpenNotification 앱 켜진 상태에서 : notify :', notify);
+    console.log('[App] onOpenNotification 앱 켜진 상태에서 : notify :', notify);
     // Alert.alert('Open Notification : notify.body :' + notify.body);
 
     topActions.showSnackbar(notify.message, 1);
   };
+
   return (
     <NavigationContainer theme={MyTheme} ref={navigationRef} linking={linking}>
       <MainStack.Navigator
