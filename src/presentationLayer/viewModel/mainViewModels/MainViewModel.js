@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Animated, Image, Platform} from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import {captureRef} from 'react-native-view-shot';
 import Share, {Social} from 'react-native-share';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
@@ -27,6 +28,7 @@ import {PermissionsAndroid} from 'react-native';
 import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
 
 import RNFS from 'react-native-fs';
+import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -288,6 +290,14 @@ export const useMainViewModel = () => {
   };
 
   const onInstagramShareButtonPressed = async () => {
+    CreateTikklingShareLink(
+      state.userData.name,
+      state.myTikklingData.tikkling_id,
+    ).then(res => {
+      Clipboard.setString(res.DSdata.short_link);
+      console.log(res);
+    });
+
     async function convertImageToBase64() {
       const imageUri = Image.resolveAssetSource(
         require('src/assets/images/instagram_background.png'),
@@ -408,7 +418,6 @@ export const useMainViewModel = () => {
     });
   }
 
-
   async function checkDynamicLink() {
     if (topState.dynamicLinkInfo?.tikkling_id) {
       const tikkling_id = topState.dynamicLinkInfo.tikkling_id;
@@ -418,7 +427,6 @@ export const useMainViewModel = () => {
     }
   }
 
-  
   async function transformContactsData(contactsData) {
     return {
       phone_list: contactsData.map(contact => contact.phoneNumber),
@@ -503,7 +511,6 @@ export const useMainViewModel = () => {
   //       console.log('RETRUN : ', res);
   //     });
   // };
-
 
   return {
     ref: {
