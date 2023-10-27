@@ -21,7 +21,11 @@ class LocalNotificationService {
           return;
         }
         notification.userInteraction = true;
-        console.log('TEST : ', notification);
+        // console.log('TEST : ', notification);
+
+        ///////
+        //////
+        //////
         onOpenNotification(
           Platform.OS === 'ios' ? notification.data : notification,
         );
@@ -63,7 +67,7 @@ class LocalNotificationService {
   };
 
   buildAndroidNotification = (id, title, message, data = {}, options = {}) => {
-    console.log('$$$TEST : ', id, title, message, data, options);
+    // console.log('$$$TEST : ', id, title, message, data, options);
     return {
       channelId: 'fcm_fallback_notification_channel',
       id: id,
@@ -74,8 +78,8 @@ class LocalNotificationService {
       subText: title || '',
       vibrate: options.vibrate || true,
       vibration: options.vibration || 300,
-      // priority: options.priority || 'high',
-      priority: 'high',
+      priority: options.priority || 'high',
+      // priority: 'high',
       importance: options.importance || 'high',
       data: data,
     };
