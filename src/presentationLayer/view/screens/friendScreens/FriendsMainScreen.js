@@ -175,7 +175,8 @@ export default function FriendsManagementScreen() {
 
           <View style={{marginTop: 24}}>
             {/* {console.log(state.searchedData[0])} */}
-            {state.searchedData[0].relation_state_id === null ? (
+            {state.searchedData[0].relation_state_id === null &&
+            state.searchedData.central_user_id != state.searchedData[0].id ? (
               <AnimatedButton
                 onPress={() => {
                   actions.create_friend(state.searchedData[0].id);
