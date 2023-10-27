@@ -281,7 +281,9 @@ export default function MainStackNavigator() {
     if (Platform.OS === 'ios') {
       topActions.showSnackbar(notify.body, 1);
     } else {
-      topActions.showSnackbar(notify.message, 1);
+      if (notify.message) {
+        topActions.showSnackbar(notify.message, 1);
+      }
     }
   };
 

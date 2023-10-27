@@ -48,7 +48,7 @@ class FCMService {
         }
       })
       .catch(error => {
-        //console.log('[FCMService] getToken rejected', error);
+        console.log('[FCMService] getToken rejected', error);
       });
   };
 
@@ -94,7 +94,6 @@ class FCMService {
       );
     }
 
-    // console.log('##createNotificationListeners 1');
     messaging().onNotificationOpenedApp(remoteMessage => {
       // console.log('%%%createNotificationListeners : ', remoteMessage);
       if (remoteMessage) {
@@ -102,13 +101,12 @@ class FCMService {
         onOpenNotification(notification);
       }
 
-      Alert.alert(remoteMessage.body);
+      // Alert.alert(remoteMessage.body);
     });
-    // console.log('##createNotificationListeners 2');
+
     messaging()
       .getInitialNotification()
       .then(remoteMessage => {
-        console.log('quit state notification : ', remoteMessage);
         if (remoteMessage) {
           const notification = remoteMessage.notification;
           onOpenNotification(notification);
@@ -122,9 +120,7 @@ class FCMService {
       if (remoteMessage) {
         let notification = null;
         if (Platform.OS === 'ios') {
-          // notification = remoteMessage.data.notification;
-          notification = remoteMessage.notification;
-          // console.log('IOS messageListener : ', remoteMessage);
+          notification = remoteMessage.data.notification;
         } else {
           notification = remoteMessage.notification;
         }
