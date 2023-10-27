@@ -169,25 +169,13 @@ export default function TikklingDetailScreen() {
                     {/* {state.route_data.tikkling_type} {' '} */}
                     티클링
                   </M20>
-                  {state.route_data.state_id === 1 ? (
-                    <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
-                      진행중
-                    </M15>
-                  ) : state.route_data.state_id === 2 ? (
-                    <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
-                      취소
-                    </M15>
-                  ) : state.route_data.state_id === 3 ? (
-                    <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
-                      미달성 종료
-                    </M15>
-                  ) : state.route_data.state_id === 4 ? (
-                    <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
-                      펀딩 달성
-                    </M15>
-                  ) : state.route_data.state_id === 5 ? (
-                    <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      기간 만료
+                  {state.status ? (
+                    <M15
+                      customStyle={{
+                        color: state.status.color,
+                        marginBottom: 10,
+                      }}>
+                      {state.status.label}
                     </M15>
                   ) : null}
                 </View>

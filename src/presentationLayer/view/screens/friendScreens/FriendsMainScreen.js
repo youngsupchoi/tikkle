@@ -341,6 +341,17 @@ export default function FriendsManagementScreen() {
                           justifyContent: 'center',
                           height: windowWidth,
                         }}>
+                        <LottieView
+                          source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                          autoPlay
+                          loop
+                          style={{
+                            width: 250,
+                            height: 250,
+                            alignSelf: 'center',
+                            backgroundColor: backgroundColor,
+                          }}
+                        />
                         <M15>차단된 친구가 없네요.</M15>
                         <B22>좋아요!</B22>
                       </View>

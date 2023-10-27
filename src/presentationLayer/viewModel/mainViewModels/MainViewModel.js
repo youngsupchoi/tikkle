@@ -30,6 +30,11 @@ import {fcmService} from 'src/push_fcm';
 
 import RNFS from 'react-native-fs';
 import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
+import {
+  COLOR_ERROR,
+  COLOR_GRAY,
+  COLOR_PRIMARY,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -502,6 +507,16 @@ export const useMainViewModel = () => {
     }
   };
 
+  const statusMapping = {
+    1: {label: '진행중', color: COLOR_PRIMARY},
+    2: {label: '취소', color: COLOR_ERROR},
+    3: {label: '미달성 종료', color: COLOR_ERROR},
+    4: {label: '펀딩 달성', color: COLOR_PRIMARY},
+    5: {label: '기간 만료', color: COLOR_GRAY},
+  };
+
+  const status = statusMapping[state.route_data.state_id];
+
   // /**
   //  * 전화번호 리스트로 친구 추가하는 함수
   //  */
@@ -522,6 +537,7 @@ export const useMainViewModel = () => {
     },
     state: {
       ...state,
+      status,
     },
     actions: {
       ...actions,

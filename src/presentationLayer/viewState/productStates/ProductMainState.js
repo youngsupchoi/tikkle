@@ -23,7 +23,7 @@ export const ProductMainViewStateProvider = ({children}) => {
   const [selectedSort, setSelectedSort] = useState('많은 판매'); // State to track selected chip
   //---------------------------------------------------------------------
   //카테고리 관련(카테고리 칩)
-  const [selectedCategory, setSelectedCategory] = useState('전자제품');
+  const [selectedCategory, setSelectedCategory] = useState('디지털/전자');
   const [categoryId, setCategoryId] = useState(1);
   //---------------------------------------------------------------------
   //가격 관련(필터)
@@ -45,27 +45,19 @@ export const ProductMainViewStateProvider = ({children}) => {
   const categories = [
     {
       id: 1,
-      name: '전자제품',
-      image:
-        'https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
+      name: '디지털/전자',
     },
     {
       id: 2,
-      name: '게임기',
-      image:
-        'https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+      name: '가전제품',
     },
     {
       id: 3,
-      name: '화장품',
-      image:
-        'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29zbWV0aWNzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+      name: '패션/잡화',
     },
     {
       id: 4,
       name: '홈데코',
-      image:
-        'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG9tZSUyMGRlY29yfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
     },
   ];
 

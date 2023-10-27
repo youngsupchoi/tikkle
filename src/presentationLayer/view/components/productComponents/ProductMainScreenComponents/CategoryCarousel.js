@@ -15,7 +15,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
-import Image2 from 'src/assets/icons/undraw_gaming_re_cma2.svg';
+import Image2 from 'src/assets/icons/undraw_reading_time_re_phf7.svg';
 import Image3 from 'src/assets/icons/undraw_jewelry_iima.svg';
 import Image4 from 'src/assets/icons/undraw_studying_re_deca.svg';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
@@ -49,22 +49,9 @@ export default function CategoryCarousel() {
               elevation: 1,
               marginBottom: 4,
               alignItems: 'center',
-              // marginTop: 16,
               marginHorizontal: 8,
-              // flexDirection: 'row',
-              // justifyContent: 'space-between',
             }}>
-            <View
-              style={
-                {
-                  // position: 'absolute',
-                  // bottom: 24,
-                  // left: 6,
-                  // right: 0,
-                  // top: 0,
-                  // backgroundColor: 'red',
-                }
-              }>
+            <View>
               {category.id === 1 ? <Image1 width={48} height={48} /> : null}
               {category.id === 2 ? <Image2 width={48} height={48} /> : null}
               {category.id === 3 ? <Image3 width={48} height={48} /> : null}
@@ -78,7 +65,7 @@ export default function CategoryCarousel() {
                     ? COLOR_PRIMARY_TEXT
                     : COLOR_BLACK,
               }}>
-              #{category.name}
+              {category.name}
             </B12>
           </AnimatedButton>
         ))}
