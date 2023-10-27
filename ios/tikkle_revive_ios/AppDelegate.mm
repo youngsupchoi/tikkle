@@ -5,6 +5,9 @@
 // deeplink 관련 설정 23.10.16
 #import <React/RCTLinkingManager.h> 
 
+// Firebase Dynamic Links 관련 설정 23.10.27
+#import <RNFBDynamicLinksAppDelegateInterceptor.h>
+
 //알림 설정
 #import <UserNotifications/UserNotifications.h>
 #import <RNCPushNotificationIOS.h>
@@ -43,6 +46,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
+
+  // Firebase Dynamic Links 관련 설정 23.10.27
+  [RNFBDynamicLinksAppDelegateInterceptor sharedInstance];
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
   

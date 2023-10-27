@@ -15,9 +15,6 @@ export default function SplashScreen() {
   const {topActions} = useTopViewModel();
 
   useEffect(() => {
-    if (route.params?.tikkling_id) {
-      topActions.setDynamicLinkInfo(route.params);
-    }
     loginTokenData().then(res => {
       if (res.DScode === 0) {
         // console.log('@@@@@@login@@@@@@');

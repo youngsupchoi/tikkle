@@ -194,7 +194,7 @@ const config = {
 const linking = {
   //디폴트 프로토콜 설정 필요
   prefixes: [
-    'https://tikkle.lifoli.co.kr',
+    // 'https://tikkle.lifoli.co.kr',
     'http://localhost:3000',
     'tikkle://',
   ],
@@ -214,17 +214,18 @@ const linking = {
 
   //받아준 딥링크 url을 subscribe에 넣어줘야 한다
   subscribe(listener) {
-    console.log('linking subscribe to ', listener);
-    const onReceiveURL = event => {
+    const onReceiveURL = async event => {
       const {url} = event;
-      console.log('link has url', url, event);
-      CreateTikklingShareLink('hihi', 1);
-      return listener(url);
+      if (url.startsWith('https://tikkle.lifoli.co.kr')) {
+        const originalLink = await resolveDynamicLink(url);
+        listener(originalLink);
+      } else {
+        listener(url);
+      }
     };
 
     Linking.addEventListener('url', onReceiveURL);
     return () => {
-      console.log('linking unsubscribe to ', listener);
       Linking.removeEventListener('url', onReceiveURL);
     };
   },
