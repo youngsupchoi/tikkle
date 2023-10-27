@@ -109,7 +109,22 @@ export const useMainViewModel = () => {
       })
       .then(async res => {
         // console.log('@@@@@@@ : ', res.DSdata.info[0]);
+
         actions.setRoute_data(res.DSdata.info[0]);
+      })
+      .then(async res => {
+        if (state.route_data.state_id != 1) {
+          topActions.showSnackbar('이미 종료된 티클링입니다.', 0);
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'main',
+                params: {shouldRefresh: true},
+              },
+            ],
+          });
+        }
       });
   }
 

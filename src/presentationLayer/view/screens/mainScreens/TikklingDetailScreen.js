@@ -58,7 +58,6 @@ import ArrowRight from 'src/assets/icons/ArrowRight';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import CalendarFilled from 'src/assets/icons/CalendarFilled';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
-import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import LinearGradient from 'react-native-linear-gradient';
 import FlagFilled from 'src/assets/icons/FlagFilled';
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
@@ -70,9 +69,7 @@ import {G} from 'react-native-svg';
 import Present from 'src/assets/icons/Present';
 
 export default function TikklingDetailScreen() {
-  const {topActions} = useTopViewModel();
   const navigation = useNavigation();
-
   const {state, actions} = useMainViewModel();
 
   let ButtonIcon = null;
