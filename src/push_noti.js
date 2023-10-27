@@ -23,7 +23,7 @@ class LocalNotificationService {
         notification.userInteraction = true;
         console.log('TEST : ', notification);
         onOpenNotification(
-          Platform.OS === 'ios' ? notification.data.item : notification,
+          Platform.OS === 'ios' ? notification.data : notification,
         );
 
         if (Platform.OS === 'ios') {

@@ -665,6 +665,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tikkle_revive_ios/tikkle_revive_ios.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXB26MS6V2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = tikkle_revive_ios/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TIKKLE;
@@ -695,6 +696,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tikkle_revive_ios/tikkle_revive_ios.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXB26MS6V2;
 				INFOPLIST_FILE = tikkle_revive_ios/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TIKKLE;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
