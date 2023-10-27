@@ -194,7 +194,7 @@ const config = {
 const linking = {
   //디폴트 프로토콜 설정 필요
   prefixes: [
-    'https://tikkle.lifoli.co.kr',
+    // 'https://tikkle.lifoli.co.kr',
     'http://localhost:3000',
     'tikkle://',
   ],

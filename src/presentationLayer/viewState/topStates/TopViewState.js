@@ -23,7 +23,6 @@ export const TopViewProvider = ({children}) => {
   const [modalMessage, setModalMessage] = useState('');
   const [modalStatus, setModalStatus] = useState(null);
 
-  const [dynamicLinkInfo, setDynamicLinkInfo] = useState({});
   const [test, setTest] = useState('');
   // ... 다른 상태들 (필요하면 추가하세요)
 
@@ -34,7 +33,6 @@ export const TopViewProvider = ({children}) => {
     isModalVisible,
     modalMessage,
     modalStatus,
-    dynamicLinkInfo,
     test,
     // ... 다른 상태들
   };
@@ -46,7 +44,6 @@ export const TopViewProvider = ({children}) => {
     setIsModalVisible,
     setModalMessage,
     setModalStatus,
-    setDynamicLinkInfo,
     setTest,
     // ... 다른 상태 설정 함수들
   };

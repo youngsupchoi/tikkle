@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  Linking,
 } from 'react-native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import MainStackNavigator from 'src/navigation/stackNavigators/MainStackNavigator';
@@ -26,12 +27,58 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {PaperProvider} from 'react-native-paper';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  B20,
+  L,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   SystemNavigationBar.navigationShow();
   SystemNavigationBar.setNavigationColor(backgroundColor);
   SystemNavigationBar.setBarMode('dark');
+
+  const handleDynamicLink = link => {
+    // Handle dynamic link inside your own application
+    if (link.url.startsWith('https://tikkle.lifoli.co.kr/tikkling')) {
+      tikkling_id = link.url.replace(
+        'https://tikkle.lifoli.co.kr/tikkling/',
+        '',
+      );
+      appScheme = link.url.replace(
+        'https://tikkle.lifoli.co.kr/tikkling/',
+        'tikkle://tikkling/',
+      );
+      AsyncStorage.setItem('tikkling_detail', tikkling_id);
+      AsyncStorage.setItem('dynamic_link', 'true');
+      Linking.openURL(appScheme);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
+
+    // When the component is unmounted, remove the listener
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    dynamicLinks()
+      .getInitialLink()
+      .then(link => {
+        if (link.url.startsWith('https://tikkle.lifoli.co.kr/tikkling')) {
+          tikkling_id = link.url.replace(
+            'https://tikkle.lifoli.co.kr/tikkling/',
+            '',
+          );
+          AsyncStorage.setItem('tikkling_detail', tikkling_id);
+          AsyncStorage.setItem('dynamic_link', 'true');
+
+          // ...navigate to your offers screen
+        }
+      });
+  }, []);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>

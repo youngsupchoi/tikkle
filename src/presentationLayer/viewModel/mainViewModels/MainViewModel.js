@@ -30,6 +30,7 @@ import {fcmService} from 'src/push_fcm';
 
 import RNFS from 'react-native-fs';
 import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -423,10 +424,12 @@ export const useMainViewModel = () => {
   }
 
   async function checkDynamicLink() {
-    if (topState.dynamicLinkInfo?.tikkling_id) {
-      const tikkling_id = topState.dynamicLinkInfo.tikkling_id;
-      topActions.setDynamicLinkInfo(null);
-
+    const dynamic_link = await AsyncStorage.getItem('dynamic_link');
+    if (dynamic_link == 'true') {
+      const tikkling_id = await AsyncStorage.getItem('tikkling_detail');
+      AsyncStorage.removeItem('tikkling_detail');
+      AsyncStorage.removeItem('dynamic_link');
+      console.log(AsyncStorage.getItem('tikkling_detail'));
       navigation.navigate('tikklingDetail', {tikkling_id});
     }
   }
@@ -487,13 +490,13 @@ export const useMainViewModel = () => {
         }, []);
         const temp = await transformContactsData(formattedData);
         // console.log('TEMP : ', temp.phone_list);
-        await createPhoneFriendData(temp.phone_list)
-          .then(async res => {
-            return await topActions.setStateAndError(res);
-          })
-          .then(async res => {
-            // console.log('RETRUN : ', res);
-          });
+        await createPhoneFriendData(temp.phone_list);
+        // .then(async res => {
+        //   return await topActions.setStateAndError(res);
+        // })
+        // .then(async res => {
+        //   // console.log('RETRUN : ', res);
+        // });
       } else {
         console.log('Contacts permission denied');
       }
