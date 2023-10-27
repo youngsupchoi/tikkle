@@ -277,8 +277,11 @@ export default function MainStackNavigator() {
     //앱 켜진 상태에서 알림 받았을 때 하는 일
     console.log('[App] onOpenNotification 앱 켜진 상태에서 : notify :', notify);
     // Alert.alert('Open Notification : notify.body :' + notify.body);
-
-    topActions.showSnackbar(notify.message, 1);
+    if (Platform.OS === 'ios') {
+      topActions.showSnackbar(notify.body, 1);
+    } else {
+      topActions.showSnackbar(notify.message, 1);
+    }
   };
 
   return (
