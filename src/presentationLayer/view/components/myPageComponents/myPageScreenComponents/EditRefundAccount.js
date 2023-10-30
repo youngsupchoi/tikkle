@@ -10,7 +10,11 @@ import {
   B15,
   B17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  HEADER_HEIGHT,
+  StatusBarHeight,
+  backgroundColor,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
@@ -19,9 +23,9 @@ export default function EditRefundAccount() {
   const {ref, state, actions} = useMyPageViewModel();
 
   return (
-    <View style={{padding: 24, paddingBottom: 10}}>
+    <View style={{marginHorizontal: 24, marginTop: 24}}>
       <View style={styles.headerContainer}>
-        <B15>환불 계좌</B15>
+        <B17>환불 계좌</B17>
         <AnimatedButton
           style={{paddingRight: 50}}
           onPress={() => actions.storeAccountData()}>
@@ -30,13 +34,12 @@ export default function EditRefundAccount() {
       </View>
       <View
         style={{
-          borderRadius: 4,
+          borderRadius: 12,
           backgroundColor: COLOR_WHITE,
           borderColor: COLOR_SEPARATOR,
           borderWidth: 1,
-          marginTop: 5,
+          marginTop: 12,
           flexDirection: 'row',
-          //   justifyContent: 'space-between',
           alignItems: 'center',
         }}>
         <AnimatedButton
@@ -44,7 +47,7 @@ export default function EditRefundAccount() {
             actions.changeBankDropDownVisible();
           }}
           style={{
-            paddingHorizontal: 10,
+            paddingHorizontal: 16,
           }}>
           <B15>
             {state.newBankName !== undefined &&
@@ -68,11 +71,10 @@ export default function EditRefundAccount() {
           value={state.newAccount}
           style={{
             fontFamily: B,
-            fontSize: 17,
-            // width: '80%',
+            fontSize: 15,
+            alignItems: 'center',
             paddingVertical: 12,
             paddingHorizontal: 0,
-            // backgroundColor: 'red',
           }}
         />
       </View>
@@ -83,17 +85,8 @@ export default function EditRefundAccount() {
 const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
-
-    // borderBottomColor: COLOR_SEPARATOR,
-    // borderBottomWidth: 1,
-    // elevation: 1,
-    backgroundColor: backgroundColor,
     flexDirection: 'row',
-    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
   },
 });

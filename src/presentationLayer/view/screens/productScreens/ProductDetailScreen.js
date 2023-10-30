@@ -352,7 +352,8 @@ export default function ProductDetailScreen(route) {
                 {state.isTikkling == false ? (
                   <AnimatedButton
                     onPress={() => {
-                      // console.log('전달 값 : ');
+                      actions.hasOptions(state.data.id);
+                      console.log(state.data.id);
                       const wishlist = {
                         brand_name: state.data.brand_name,
                         category_id: state.data.category_id,
@@ -368,7 +369,7 @@ export default function ProductDetailScreen(route) {
                         views: state.data.views,
                         wishlist_count: state.data.wishlist_count,
                       };
-                      actions.navigation.navigate('startTikkling', wishlist);
+                      // actions.navigation.navigate('startTikkling', wishlist);
                     }}
                     style={{
                       width: windowWidth - 80,

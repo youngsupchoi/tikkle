@@ -1,7 +1,7 @@
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {windowWidth} from '../Containers/MainContainer';
-import {COLOR_BLACK, backgroundColor} from '../Colors/Colors';
+import {COLOR_BLACK, COLOR_SEPARATOR, backgroundColor} from '../Colors/Colors';
 import {B20} from '../Typography/Typography';
 import Notification from '../../../assets/icons/Notification.js';
 import {
@@ -16,18 +16,6 @@ export default function FriendsManagementHeader() {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
-      {/* <AnimatedButton
-        onPress={() => {
-          navigation.openDrawer();
-        }}
-        style={{padding: 10}}>
-        <HamburgerMenu
-          width={24}
-          height={24}
-          stroke={COLOR_BLACK}
-          strokeWidth={2}
-        />
-      </AnimatedButton> */}
       <View>
         <B20>친구 관리</B20>
       </View>
@@ -51,11 +39,11 @@ export default function FriendsManagementHeader() {
 const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
-    height: HEADER_HEIGHT + StatusBarHeight,
-    // borderBottomColor: COLOR_SEPARATOR,
-    // borderBottomWidth: 1,
-    // elevation: 1,
-    paddingTop: StatusBarHeight,
+    height: HEADER_HEIGHT,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
+    elevation: 1,
+    // paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     paddingHorizontal: SPACING_2,

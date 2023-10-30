@@ -3,9 +3,13 @@ import React from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_BLACK,
+  COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  B17,
+  B20,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   StatusBarHeight,
   HEADER_HEIGHT,
@@ -15,41 +19,49 @@ import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
+import ArrowLeft from 'src/assets/icons/ArrowLeft';
 
 export default function EditProfileHeader() {
   const {state, actions} = useMyPageViewModel();
   const navigation = useNavigation();
 
   return (
-    <View style={styles.headerContainer}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <AnimatedButton
+            onPress={() => navigation.goBack()}
+            style={{
+              width: 20,
+              height: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+              elevation: 1,
+            }}>
+            <ArrowLeft
+              stroke={COLOR_BLACK}
+              width={20}
+              height={20}
+              strokeWidth={1.5}
+              scale={0.85}
+            />
+          </AnimatedButton>
+          <B17 customStyle={{marginLeft: 16}}>프로필 수정</B17>
+        </View>
         <AnimatedButton
+          style={styles.filterIconContainer}
           onPress={() => {
-            navigation.goBack();
-          }}
-          style={{padding: 10}}>
-          <ArrowLeft2
-            width={24}
-            height={24}
+            actions.editRefresh();
+          }}>
+          <Refresh
+            width={20}
+            height={20}
             stroke={COLOR_BLACK}
-            strokeWidth={1.5}
+            strokeWidth={1.2}
+            scale={1.1}
           />
         </AnimatedButton>
-        <B20 customStyle={{marginLeft: 4}}>프로필 수정</B20>
       </View>
-      <AnimatedButton
-        style={styles.filterIconContainer}
-        onPress={() => {
-          actions.editRefresh();
-        }}>
-        <Refresh
-          width={20}
-          height={20}
-          stroke={COLOR_BLACK}
-          strokeWidth={1.2}
-          scale={1.1}
-        />
-      </AnimatedButton>
     </View>
   );
 }
@@ -57,12 +69,13 @@ export default function EditProfileHeader() {
 const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
-    height: HEADER_HEIGHT + StatusBarHeight,
-    // borderBottomColor: COLOR_SEPARATOR,
-    // borderBottomWidth: 1,
-    // elevation: 1,
-    paddingTop: StatusBarHeight,
+    height: HEADER_HEIGHT,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
+    elevation: 1,
+    // paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
+    // backgroundColor: 'red',
     flexDirection: 'row',
     paddingHorizontal: SPACING_2,
     alignItems: 'center',
@@ -71,6 +84,21 @@ const styles = StyleSheet.create({
     top: 0,
     zIndex: 100,
   },
+
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    height: HEADER_HEIGHT,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
+    backgroundColor: backgroundColor,
+  },
+
   filterIconContainer: {
     backgroundColor: 'transparent',
     borderColor: backgroundColor,
