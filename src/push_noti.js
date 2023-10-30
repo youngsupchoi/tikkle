@@ -2,7 +2,7 @@
 
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {Platform} from 'react-native';
+import {Platform, Linking} from 'react-native';
 
 class LocalNotificationService {
   configure = onOpenNotification => {
@@ -23,16 +23,14 @@ class LocalNotificationService {
         notification.userInteraction = true;
         // console.log('TEST : ', notification);
 
-        ///////
-        //////
-        //////
         onOpenNotification(
           Platform.OS === 'ios' ? notification.data : notification,
         );
 
-        if (Platform.OS === 'ios') {
-          notification.finish(PushNotificationIOS.FetchResult.NoData);
-        }
+        const {link = null} = notification?.data || {}; // <---- 1
+        link && Linking.openURL(link); // <---- 2
+
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
       permissions: {
         alert: true,
@@ -41,6 +39,14 @@ class LocalNotificationService {
       },
       popInitialNotification: true,
       requestPermissions: true,
+
+      // //추가
+      // onNotification: notification => {
+      //   const {link = null} = notification?.data || {}; // <---- 1
+      //   link && Linking.openURL(link); // <---- 2
+
+      //   notification.finish(PushNotificationIOS.FetchResult.NoData);
+      // },
     });
   };
 
