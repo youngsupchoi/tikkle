@@ -39,6 +39,7 @@ import {fcmService} from 'src/push_fcm';
 import {localNotificationService} from 'src/push_noti';
 import {useEffect, useState} from 'react';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import PushNotification from 'react-native-push-notification';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -239,6 +240,13 @@ export default function MainStackNavigator() {
 
   //--notification code---------------------
   useEffect(() => {
+    // const {link = null} = notification?.data || {}; // <---- 1
+    // PushNotification.popInitialNotification(notification => {
+    //   if (notification) {
+    //     const {link = null} = notification?.data || {};
+    //     Linking.openURL(link); // <---- 2
+    //   }
+    // });
     fcmService.registerAppWithFCM(); //ios일때 자동으로 가져오도록 하는 코드
     fcmService.register(onRegister, onNotification, onOpenNotification);
     localNotificationService.configure(onOpenNotification);
