@@ -27,8 +27,8 @@ class LocalNotificationService {
           Platform.OS === 'ios' ? notification.data : notification,
         );
 
-        const {link = null} = notification?.data || {}; // <---- 1
-        link && Linking.openURL(link); // <---- 2
+        // const {link = null} = notification?.data || {}; // <---- 1
+        // link && Linking.openURL(link); // <---- 2
 
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },

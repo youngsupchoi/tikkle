@@ -1,7 +1,7 @@
 /**
  * @format
  */
-import {Platform, Vibration, AppRegistry} from 'react-native';
+import {Platform, Vibration, AppRegistry, Linking} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
@@ -26,7 +26,10 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 const onMessageReceived = message => {
   console.log('background message: ', message);
-
+  // const {link = null} = notification?.data || {}; // <---- 1
+  const pushDeepLink = message?.data?.link;
+  console.log('pushDeepLink : ', pushDeepLink);
+  pushDeepLink && Linking.openURL(pushDeepLink);
   Platform.OS === 'ios' && Vibration.vibrate([400]);
 };
 

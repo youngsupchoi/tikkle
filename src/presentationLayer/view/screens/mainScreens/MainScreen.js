@@ -1,4 +1,10 @@
-import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Linking,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import HomeHeader from 'src/presentationLayer/view/components/globalComponents/Headers/HomeHeader';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -32,7 +38,7 @@ import LottieView from 'lottie-react-native';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import {fcmService} from 'src/push_fcm';
-
+import PushNotification from 'react-native-push-notification';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function HomeScreen({route}) {
@@ -113,6 +119,12 @@ export default function HomeScreen({route}) {
   // }, [route.params?.updated]);
 
   useEffect(() => {
+    PushNotification.popInitialNotification(notification => {
+      if (notification) {
+        const {link = null} = notification?.data || {};
+        link && Linking.openURL(link); // <---- 2
+      }
+    });
     actions.setPaymentButtonPressed(false);
     actions.requestUserPermission();
     actions.findContacts();
