@@ -112,6 +112,7 @@ export default function HomeScreen({route}) {
       });
     }, 5 * delay); // 다섯 번째 컴포넌트
   }, []);
+
   // useEffect(() => {
   //   if (route.params?.updated) {
   //     actions.loadData();
