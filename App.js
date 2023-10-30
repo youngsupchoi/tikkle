@@ -41,7 +41,11 @@ export default function App() {
 
   const handleDynamicLink = link => {
     // Handle dynamic link inside your own application
-    if (link.url.startsWith('https://tikkle.lifoli.co.kr/tikkling')) {
+    if (
+      link &&
+      link.url &&
+      link.url.startsWith('https://tikkle.lifoli.co.kr/tikkling')
+    ) {
       tikkling_id = link.url.replace(
         'https://tikkle.lifoli.co.kr/tikkling/',
         '',
@@ -67,7 +71,11 @@ export default function App() {
     dynamicLinks()
       .getInitialLink()
       .then(link => {
-        if (link.url.startsWith('https://tikkle.lifoli.co.kr/tikkling')) {
+        if (
+          link &&
+          link.url &&
+          link.url.startsWith('https://tikkle.lifoli.co.kr/tikkling')
+        ) {
           tikkling_id = link.url.replace(
             'https://tikkle.lifoli.co.kr/tikkling/',
             '',
