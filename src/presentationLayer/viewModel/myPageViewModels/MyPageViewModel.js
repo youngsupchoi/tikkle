@@ -136,11 +136,11 @@ export const useMyPageViewModel = () => {
    */
   function formatDate(isoDateString) {
     const date = new Date(isoDateString);
-    const year = date.getFullYear();
+    const year = String(date.getFullYear()).slice(-2); // Get the last 2 digits of the year
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0 indexed, hence +1
     const day = String(date.getDate()).padStart(2, '0');
 
-    return `${year}-${month}-${day}`;
+    return `${year}.${month}.${day}`;
   }
 
   /**

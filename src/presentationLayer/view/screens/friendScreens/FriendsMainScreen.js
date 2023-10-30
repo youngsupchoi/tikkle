@@ -37,6 +37,7 @@ import {
   B12,
   B15,
   B17,
+  B20,
   B22,
   EB,
   M11,
@@ -72,9 +73,8 @@ export default function FriendsManagementScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {console.log(state.groupedData)}
         <View>
-          <B17 customStyle={{fontFamily: EB}}>친구 관리</B17>
+          <B20 customStyle={{fontFamily: EB}}>친구 관리</B20>
         </View>
         <AnimatedButton onPress={toggleDropdown} style={{padding: 10}}>
           <Detail
@@ -305,6 +305,10 @@ export default function FriendsManagementScreen() {
           <GlobalLoader />
         ) : (
           <SectionList
+            contentContainerStyle={{
+              paddingTop: 12,
+              marginTop: 4,
+            }}
             refreshControl={
               <RefreshControl
                 refreshing={state.refreshing}
@@ -368,8 +372,8 @@ export default function FriendsManagementScreen() {
             ListFooterComponent={() => {
               return (
                 <View style={{height: 500}}>
-                  <View style={{height: 100}} />
-                  <Footer />
+                  {/* <View style={{height: 100}} />
+                  <Footer /> */}
                 </View>
               );
             }}
@@ -451,11 +455,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 24,
+    width: windowWidth,
     height: HEADER_HEIGHT,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
+    elevation: 1,
+    // paddingTop: StatusBarHeight,
+    backgroundColor: backgroundColor,
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
   },
   dropdown: {
     position: 'absolute',
@@ -529,7 +542,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   animatedViewContainer: {
-    marginTop: 24,
+    // marginTop: 24,
   },
   searchText: {
     color: COLOR_BLACK,

@@ -19,7 +19,8 @@ export default function EditProfileScreen() {
   return (
     <View>
       <ScrollView
-        style={{backgroundColor: backgroundColor, paddingBottom: 240}}>
+        style={{backgroundColor: backgroundColor, paddingBottom: 240}}
+        stickyHeaderIndices={[0]}>
         <EditProfileHeader />
         {state.loading_profileEdit ? (
           <GlobalLoader />
@@ -37,7 +38,7 @@ export default function EditProfileScreen() {
             <View style={{height: 20}} />
           </View>
         )}
-        <Footer />
+        {/* <Footer /> */}
       </ScrollView>
 
       <PostCodeModal state={state} actions={actions} />

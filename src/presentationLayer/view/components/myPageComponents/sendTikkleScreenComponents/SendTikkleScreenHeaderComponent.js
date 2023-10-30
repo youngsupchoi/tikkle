@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 24,
+    // paddingHorizontal: 24,
+    marginLeft: 16,
     paddingVertical: 6,
-    // height: HEADER_HEIGHT,
   },
   titleBox: {
     marginTop: 0,

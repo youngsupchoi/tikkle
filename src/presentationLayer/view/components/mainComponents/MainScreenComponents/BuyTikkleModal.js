@@ -28,6 +28,9 @@ import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/Upda
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdateBuyMyTikkleInitData';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
+import Add from 'src/assets/icons/Add';
+import Minus from 'src/assets/icons/Minus';
 
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
@@ -89,10 +92,9 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
   //--------------------------------------------------------------
 
-  const [selectedValue, setSelectedValue] = useState('1');
+  const [selectedValue, setSelectedValue] = useState(1);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
-  // console.log('buyTikkleModalData', data);
   const totalPieces = data.tikkle_quantity;
   let gatheredPieces = data.tikkle_count;
 
@@ -100,7 +102,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
     gatheredPieces = state.tikkle_sum;
   }
 
-  // console.log('#$#$#$#$#$ : ', totalPieces, gatheredPieces);
   const itemLength = totalPieces - gatheredPieces;
   const items = Array.from({length: itemLength}, (_, index) => ({
     label: (index + 1).toString(),
@@ -116,47 +117,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
   const [serverMessage, setServerMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [snackbarVisible, setSnackbarVisible] = useState(false);
-  const Snackbar = ({isVisible, onClose}) => {
-    const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
-
-    useEffect(() => {
-      if (isVisible) {
-        // Fade in the Snackbar
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 300,
-          useNativeDriver: true,
-        }).start();
-
-        // Set a timer to hide the Snackbar after 3 seconds
-        const timer = setTimeout(() => {
-          onClose();
-        }, 3000);
-
-        // Clear the timer when component is unmounted or if Snackbar is manually closed
-        return () => clearTimeout(timer);
-      } else {
-        // Fade out the Snackbar
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 300,
-          useNativeDriver: true,
-        }).start();
-      }
-    }, [isVisible]);
-
-    if (!isVisible) return null;
-
-    return (
-      <Animated.View style={[styles.snackbar, {opacity: fadeAnim}]}>
-        <B12>상품을 위시리스트에 담았어요!</B12>
-        <AnimatedButton>
-          <B12 customStyle={styles.undoText}>되돌리기</B12>
-        </AnimatedButton>
-      </Animated.View>
-    );
-  };
 
   const buttonPress = async () => {
     actions.setPaymentButtonPressed(true);
@@ -185,10 +145,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
             amount: payment_param.amount,
             notice_url: payment_param.notice_url,
           };
-          // navigation.navigate('payment', data); //중간 스크린 없이
-
-          //바로 보내기
-          // console.log('data_in', data_in);
           actions.setPaymentButtonPressed(false);
           navigation.navigate('hectoPayment', data_in);
         } else {
@@ -220,10 +176,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
             amount: payment_param.amount,
             notice_url: payment_param.notice_url,
           };
-          // navigation.navigate('payment', data); //중간 스크린 없이
-
-          //바로 보내기
-          // console.log('data_in', data_in);
           actions.setPaymentButtonPressed(false);
           navigation.navigate('hectoPayment', data_in);
         } else {
@@ -269,52 +221,61 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                   }}>
                   <TextInput
                     multiline
-                    style={{color: COLOR_BLACK, fontFamily: M, fontSize: 15}}
+                    style={{
+                      color: COLOR_BLACK,
+                      fontFamily: M,
+                      fontSize: 15,
+                      // lineHeight: 24,
+                    }}
                     onChangeText={value => setMessage(value)}
-                    placeholder="내가 보탠다!"
+                    placeholder="응원해!"
                     placeholderTextColor={COLOR_SECOND_BLACK}
                   />
                 </View>
               </View>
-
-              <DropDownPicker
-                open={open}
-                setOpen={setOpen}
-                setValue={setSelectedValue}
-                textStyle={{fontFamily: M, fontSize: 15}}
-                placeholder={selectedValue || '몇 개의 티클을 보낼까요?'}
-                items={items}
-                defaultValue={selectedValue}
-                containerStyle={{height: 40, marginTop: 24, marginBottom: 12}}
-                style={{
-                  backgroundColor: COLOR_WHITE,
-                  borderColor: COLOR_SEPARATOR,
-                }}
-                itemStyle={{
-                  justifyContent: 'flex-start',
-                  borderColor: COLOR_SEPARATOR,
-                }}
-                dropDownContainerStyle={{
-                  borderColor: COLOR_SEPARATOR,
-                  elevation: 1,
-                }}
-                onChangeItem={item => setSelectedValue(item.value)}
-              />
             </View>
           ) : (
             <B22 customStyle={styles.title}>남은 티클 구매하고 선물받기</B22>
           )}
           <View style={styles.amountContainer}>
+            <View>
+              {selectedValue > 1 ? (
+                <AnimatedButton
+                  onPress={() => {
+                    if (selectedValue > 1) {
+                      setSelectedValue(selectedValue - 1);
+                    }
+                  }}
+                  style={{
+                    borderColor: COLOR_PRIMARY,
+                    borderWidth: 1,
+                    padding: 12,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 12,
+                  }}>
+                  <Minus
+                    width={24}
+                    height={24}
+                    stroke={COLOR_PRIMARY}
+                    strokeWidth={2}
+                  />
+                </AnimatedButton>
+              ) : (
+                <View style={{width: 50}} />
+              )}
+            </View>
             <View style={styles.amountItem}>
               <View style={styles.itemContainer}>
-                <Bubble
-                  width={(24 * 5) / 6}
-                  height={(24 * 5) / 6}
-                  scale={(0.8 * 5) / 6}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={2.4}
+                <BubbleFilled
+                  // width={(24 * 5) / 6}
+                  // height={(24 * 5) / 6}
+                  // scale={(0.8 * 5) / 6}
+                  width={24}
+                  height={24}
+                  fill={COLOR_PRIMARY}
                 />
-                <B17 customStyle={styles.itemTitle}>티클 수</B17>
+                {/* <B17 customStyle={styles.itemTitle}>티클 수</B17> */}
               </View>
               <M20 customStyle={styles.itemDetail}>
                 {data.state_id == 1
@@ -323,29 +284,28 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 개
               </M20>
             </View>
-            <View style={styles.amountItem}>
-              <View style={styles.itemContainer}>
-                <DollarCircle
-                  width={(24 * 5) / 6}
-                  height={(24 * 5) / 6}
-                  scale={(1 * 5) / 6}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={1.8}
-                />
-                <B17 customStyle={styles.itemTitle}>결제할 금액</B17>
-              </View>
-              <M20 customStyle={styles.itemDetail}>
-                {data.state_id == 1
-                  ? (selectedValue * 5000).toLocaleString()
-                  : (
-                      (data.tikkle_quantity - data.tikkle_count) *
-                      5000
-                    ).toLocaleString()}
-                원
-              </M20>
-            </View>
+            <AnimatedButton
+              onPress={() => {
+                if (selectedValue < totalPieces - gatheredPieces) {
+                  setSelectedValue(selectedValue + 1);
+                }
+              }}
+              style={{
+                borderColor: COLOR_PRIMARY,
+                borderWidth: 1,
+                padding: 12,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 12,
+              }}>
+              <Add
+                width={24}
+                height={24}
+                stroke={COLOR_PRIMARY}
+                strokeWidth={2}
+              />
+            </AnimatedButton>
           </View>
-          {/* {console.log('모달', data)} */}
           <View style={styles.buttonsContainer}>
             <AnimatedButton
               onPress={() => {
@@ -357,43 +317,22 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               ]}
               disabled={state.paymentButtonPressed}>
               <B17 customStyle={{color: COLOR_WHITE}}>
-                {state.paymentButtonPressed ? `처리중입니다` : `결제하기`}
+                {state.paymentButtonPressed
+                  ? `처리중입니다`
+                  : `${
+                      data.state_id == 1
+                        ? (selectedValue * 5000).toLocaleString()
+                        : (
+                            (data.tikkle_quantity - data.tikkle_count) *
+                            5000
+                          ).toLocaleString()
+                    }원 결제하기`}
               </B17>
             </AnimatedButton>
           </View>
         </View>
       </Modal>
-
-      {errorMessage !== '' ? <Modal></Modal> : null}
-
-      {/* <Modal
-        onBackdropPress={onCloseModal}
-        isVisible={showSuccessModal}
-        backdropOpacity={0.5}>
-        <View style={styles.modalContent}>
-          <AnimatedButton
-            onPress={setShowSuccessModal(false)}
-            style={styles.closeButton}>
-            <CloseCircle
-              width={24}
-              height={24}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.2}
-            />
-          </AnimatedButton>
-          <B22 customStyle={styles.title}>{receivedMessage}</B22>
-
-          <View style={styles.buttonsContainer}>
-            <AnimatedButton
-              onPress={() => {
-                setShowSuccessModal(false);
-              }}
-              style={styles.presentButton}>
-              <B15 customStyle={{color: COLOR_WHITE}}>확인</B15>
-            </AnimatedButton>
-          </View>
-        </View>
-      </Modal> */}
+      {/* {errorMessage !== '' ? <Modal></Modal> : null} */}
     </View>
   );
 }
@@ -406,7 +345,6 @@ const styles = StyleSheet.create({
     right: 0,
   },
   title: {
-    // marginLeft: 16,
     marginTop: 12,
   },
   modalContent: {
@@ -423,6 +361,8 @@ const styles = StyleSheet.create({
   amountContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 24,
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1.5,
     borderRadius: 10,
@@ -443,7 +383,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   itemContainer: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
   },
@@ -459,8 +399,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: COLOR_PRIMARY_OUTLINE,
-    borderWidth: 2,
+    // borderColor: COLOR_PRIMARY_OUTLINE,
+    // borderWidth: 2,
   },
   inactiveButton: {
     backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
