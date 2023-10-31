@@ -183,7 +183,7 @@ const config = {
     productDetail: '/product-detail', // 매핑되는 URL 경로
     notification: '/notification', // 매핑되는 URL 경로
     notificationSetting: '/notification-setting', // 매핑되는 URL 경로
-    tikklingDetail: '/tikklingDetail', // 매핑되는 URL 경로
+    tikklingDetail: '/tikklingDetail/:tikkling_id', // 매핑되는 URL 경로
     searchAddress: '/search-address', // 매핑되는 URL 경로
     wishlistManagement: '/wishlist-management', // 매핑되는 URL 경로
     payment: '/payment', // 매핑되는 URL 경로
