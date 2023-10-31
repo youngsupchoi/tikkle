@@ -163,6 +163,7 @@ export const useStartTikklingViewModel = () => {
       // const oldEndDate = new Date(state.endDate);
       // oldEndDate.setFullYear(currentYear);
 
+      //TODO: product_option
       createTikklingData(
         state.endDate,
         state.selectedItem.price / 5000,
