@@ -147,7 +147,7 @@ function SignUpNavigator() {
           gestureEnabled: true,
           cardOverlayEnabled: true,
           // cardStyleInterpolator: customCardStyleInterpolator,
-          transitionSpec: customTransitionSpec,
+          // transitionSpec: customTransitionSpec,
         }}>
         <SignUpStack.Screen name="splash" component={SplashScreen} />
         <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
@@ -303,8 +303,8 @@ export default function MainStackNavigator() {
           headerShown: false,
           gestureEnabled: true,
           cardOverlayEnabled: true,
-          cardStyleInterpolator: customCardStyleInterpolator,
-          transitionSpec: customTransitionSpec,
+          // cardStyleInterpolator: customCardStyleInterpolator,
+          // transitionSpec: customTransitionSpec,
         }}>
         {/*  <MainStack.Screen name="splash" component={SplashScreen} /> */}
 
@@ -316,8 +316,8 @@ export default function MainStackNavigator() {
             headerShown: false,
             gestureEnabled: true,
             cardOverlayEnabled: false,
-            cardStyleInterpolator:
-              CardStyleInterpolators.forScaleFromCenterAndroid,
+            // cardStyleInterpolator:
+            //   CardStyleInterpolators.forScaleFromCenterAndroid,
           }}
         />
         <MainStack.Screen name="startTikkling" component={StartTikkling} />
@@ -336,13 +336,13 @@ export default function MainStackNavigator() {
               open: {animation: 'timing', config: {duration: 200}},
               close: {animation: 'timing', config: {duration: 200}},
             },
-            cardStyleInterpolator: ({current: {progress}}) => {
-              return {
-                cardStyle: {
-                  opacity: progress,
-                },
-              };
-            },
+            // cardStyleInterpolator: ({current: {progress}}) => {
+            //   return {
+            //     cardStyle: {
+            //       opacity: progress,
+            //     },
+            //   };
+            // },
           })}
         />
         <MainStack.Screen
