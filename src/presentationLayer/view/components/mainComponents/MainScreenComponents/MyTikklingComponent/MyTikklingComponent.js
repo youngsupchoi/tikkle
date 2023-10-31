@@ -18,10 +18,14 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import FirstHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FirstHero';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
+import {useNavigation} from '@react-navigation/core';
 
 const MyTikklingComponent = () => {
   const {ref, state, actions} = useMainViewModel();
   const {dropdownAnimation} = ref;
+
+  const navigation = useNavigation();
+
   const dropdownStyle = {
     opacity: dropdownAnimation,
     transform: [
@@ -38,6 +42,15 @@ const MyTikklingComponent = () => {
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <B20 customStyle={styles.headerText}>내 티클링</B20>
+        {/* <AnimatedButton
+          onPress={() => {
+            console.log('더보기', state.myTikklingData);
+            navigation.navigate('tikklingDetail', {
+              tikkling_id: state.myTikklingData.tikkling_id,
+            });
+          }}>
+          <B15>상세페이지</B15>
+        </AnimatedButton> */}
         {state.myTikklingData.state_id == 1 ? (
           <AnimatedButton
             onPress={() => {
