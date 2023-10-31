@@ -9,7 +9,7 @@ import {createMyWishlistData} from 'src/dataLayer/DataSource/Product/CreateMyWis
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useState} from 'react';
 import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
-import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionsData';
+import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useProductDetailViewModel = () => {

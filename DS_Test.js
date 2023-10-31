@@ -66,6 +66,7 @@ import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/Update
 
 import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
 import {updateDeviceTokenData} from 'src/dataLayer/DataSource/User/UpdateDeviceTokenData';
+import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
@@ -75,7 +76,7 @@ export default function TestScreen() {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
     // const axiosResponse = await updateDeviceTokenData('TEST_TOKEN');
-    const axiosResponse = await getTikkleDetailData(46);
+    const axiosResponse = await getProductOptionData(1);
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);

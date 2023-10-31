@@ -24,9 +24,9 @@ export async function getProductOptionData(productId) {
 
   try {
     response = await apiModel(
-      'get_product_options',
+      'get_product_options/' + productId.toString(),
       authorization,
-      productId,
+      null,
       null,
     );
 
@@ -41,6 +41,8 @@ export async function getProductOptionData(productId) {
       DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
   }
+
+  // console.log('@@@@ : ', response);
 
   //------ control result & error of get_product_options-----------------------------------------//
   if (response.status !== 200) {
