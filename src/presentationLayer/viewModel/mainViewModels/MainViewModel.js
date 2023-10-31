@@ -441,9 +441,8 @@ export const useMainViewModel = () => {
     const dynamic_link = await AsyncStorage.getItem('dynamic_link');
     if (dynamic_link == 'true') {
       const tikkling_id = await AsyncStorage.getItem('tikkling_detail');
-      AsyncStorage.removeItem('tikkling_detail');
-      AsyncStorage.removeItem('dynamic_link');
-      console.log(AsyncStorage.getItem('tikkling_detail'));
+      await AsyncStorage.removeItem('tikkling_detail');
+      await AsyncStorage.removeItem('dynamic_link');
       navigation.navigate('tikklingDetail', {tikkling_id});
     }
   }
