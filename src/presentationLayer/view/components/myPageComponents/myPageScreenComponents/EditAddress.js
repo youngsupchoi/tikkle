@@ -97,7 +97,7 @@ export default function EditAddress() {
               borderRadius: 12,
               borderColor: COLOR_SEPARATOR,
               borderWidth: 1,
-              padding: 8,
+              // padding: 4,
               paddingHorizontal: 12,
               width: '100%',
               flexDirection: 'row',
@@ -123,11 +123,13 @@ export default function EditAddress() {
                   ? `${state.userData_profile.detail_address}`
                   : '상세주소 입력'
               }
+              placeholderTextColor={COLOR_GRAY}
               style={{
                 fontFamily: B,
                 fontSize: 15,
                 marginLeft: 8,
-                color: COLOR_GRAY,
+                color: COLOR_BLACK,
+                width: windowWidth - 60,
               }}
               onChangeText={value => actions.setDetailAddress(value)}
               value={state.detailAddress}

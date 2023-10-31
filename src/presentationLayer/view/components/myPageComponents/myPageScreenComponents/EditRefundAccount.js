@@ -4,6 +4,8 @@ import {
   COLOR_SEPARATOR,
   COLOR_PRIMARY,
   COLOR_WHITE,
+  COLOR_BLACK,
+  COLOR_GRAY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B,
@@ -67,6 +69,7 @@ export default function EditRefundAccount() {
               ? `${state.userData_profile.account}`
               : '계좌번호'
           }
+          placeholderTextColor={COLOR_GRAY}
           onChangeText={value => actions.setNewAccount(value)}
           value={state.newAccount}
           style={{
@@ -75,6 +78,7 @@ export default function EditRefundAccount() {
             alignItems: 'center',
             paddingVertical: 12,
             paddingHorizontal: 0,
+            color: COLOR_BLACK,
           }}
         />
       </View>
