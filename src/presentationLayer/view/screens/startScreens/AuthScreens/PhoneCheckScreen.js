@@ -29,83 +29,67 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
 import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 import {useNavigation} from '@react-navigation/native';
+import HiddenOTPInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/HiddenOTPInput';
 
 export default function SignUpScreen2() {
   const {ref, state, actions} = useStartViewModel();
   const {topActions} = useTopViewModel();
-  const handleTextChange = async (text, index) => {
-    const newInputCode = [...state.inputCode];
-    newInputCode[index] = text;
-    actions.setInputCode(newInputCode);
-
-    if (text.length === 1 && index < 5) {
-      ref.inputRefs.current[index + 1].focus();
-    }
-
-    if (newInputCode.join('').length === 6) {
-      const fullCode = newInputCode.join('');
-      console.log('All 6 slots are filled!');
-
-      try {
-        const isOTPValid = await checkOtpData(
-          state.encryptedOTP,
-          fullCode,
-        ).then(res => {
-          return topActions.setStateAndError(res);
-        });
-
-        if (isOTPValid.DSdata.verified === true || fullCode === '135600') {
-          console.log('OTP is valid.');
-          console.log(state.message);
-          if (state.message === 'login') {
-            post_auth_tokenGenerate(state.userId).then(() => {
-              actions.navigation.reset({
-                index: 0,
-                routes: [
-                  {name: 'main', params: {updated: new Date().toString()}},
-                ],
-              });
-            });
-          } else if (state.message === 'sign up') {
-            actions.navigation.reset({
-              index: 0,
-              routes: [
-                {
-                  name: 'signup3',
-                  params: {
-                    phoneNumber: state.phoneNumber,
-                    updated: new Date().toString(),
-                  },
-                },
-              ],
-            });
-          }
-        } else {
-          console.log('OTP is not valid.');
-        }
-      } catch (err) {
-        const error = JSON.parse(err.message);
-        if (error.DScode) {
-          return;
-        } else {
-          console.log(err);
-        }
-      }
-    }
-  };
 
   useEffect(() => {
     Platform.OS === 'android' && actions.OtpAutoFill();
   }, []);
 
   useEffect(() => {
-    const fullCode = state.inputCode.join('');
-    if (fullCode.length === 6) {
-      checkOtpData(state.encryptedOTP, fullCode, state.message).then(res => {
-        topActions.setStateAndError(res);
-      });
+    console.log('showed', state.inputCodeShowed, '', state.inputCode);
+
+    // Check if state.inputCode is composed entirely of numbers
+    const isAllNumbers = state.inputCodeShowed.every(
+      item => typeof item === 'number',
+    );
+
+    console.log(state.inputCodeShowed.length === 6 && isAllNumbers);
+
+    if (state.inputCodeShowed.length === 6 && isAllNumbers) {
+      checkOtpData(state.encryptedOTP, state.inputCode, state.message)
+        .then(res => {
+          console.log(res.DSmessage);
+
+          if (res.DSdata.verified === true) {
+            if (state.message === 'login') {
+              console.log('login');
+              post_auth_tokenGenerate(state.userId).then(() => {
+                actions.navigation.reset({
+                  index: 0,
+                  routes: [
+                    {name: 'main', params: {updated: new Date().toString()}},
+                  ],
+                });
+              });
+            } else if (state.message === 'sign up') {
+              actions.navigation.reset({
+                index: 0,
+                routes: [
+                  {
+                    name: 'signup3',
+                    params: {
+                      phoneNumber: state.phoneNumber,
+                      updated: new Date().toString(),
+                    },
+                  },
+                ],
+              });
+            }
+          } else if (res.DSdata.verified === false) {
+            console.log('no');
+          }
+
+          topActions.setStateAndError(res);
+        })
+        .catch(err => {
+          console.log('Error during OTP check:', err);
+        });
     }
-  }, [state.inputCode.join('').length === 6]);
+  }, [state.inputCode]);
 
   const navigation = useNavigation();
 
@@ -133,13 +117,9 @@ export default function SignUpScreen2() {
         formatPhoneNumber={actions.formatPhoneNumber}
       />
 
-      {console.log(actions.formatPhoneNumber)}
       <View style={styles.changeContainer}>
-        <OTPInput
-          handleTextChange={handleTextChange}
-          inputCode={state.inputCode}
-          inputRefs={ref.inputRefs}
-        />
+        <HiddenOTPInput />
+        <OTPInput />
         <TimerComponent />
       </View>
       {/* <View style={styles.buttonContainer}>
