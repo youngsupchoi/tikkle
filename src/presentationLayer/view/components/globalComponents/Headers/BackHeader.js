@@ -7,7 +7,9 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_BLACK,
+  COLOR_PRIMARY,
   COLOR_SEPARATOR,
+  COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useNavigation} from '@react-navigation/native';
@@ -51,7 +53,7 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
           paddingVertical: 8,
           borderColor: COLOR_SEPARATOR,
           borderWidth: 1,
-          backgroundColor: backgroundColor,
+          backgroundColor: COLOR_WHITE,
           // borderWidth: 0,
           borderRadius: 40,
           flexDirection: 'row',
@@ -61,7 +63,7 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
         <TicketFilled
           width={24}
           height={24}
-          stroke={COLOR_BLACK}
+          stroke={COLOR_PRIMARY}
           strokeWidth={1.8}
           scale={1}
         />

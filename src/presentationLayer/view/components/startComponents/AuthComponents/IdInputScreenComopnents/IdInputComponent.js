@@ -1,28 +1,20 @@
 import {View, StyleSheet, TextInput} from 'react-native';
 import React from 'react';
 import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_1,
-  SPACING_2,
-  SPACING_4,
-  SPACING_6,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
-import {
+  B12,
   M,
-  M17,
+  M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
+  COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {
-  windowWidth,
-  windowHeight,
-} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
 export default function IdInput() {
@@ -32,18 +24,17 @@ export default function IdInput() {
     actions.setUserNick(text);
   };
   return (
-    <View>
+    <View style={{alignItems: 'center'}}>
       <View style={styles.inputContainer}>
         <View style={styles.IDInputContainer}>
+          <B12 customStyle={{color: COLOR_GRAY}}>아이디</B12>
           <TextInput
             ref={ref.userIdRef}
-            maxLength={20}
+            maxLength={12}
             keyboardType="default"
             placeholder="lifoli1234"
             placeholderTextColor={COLOR_GRAY}
             style={styles.nativeInput}
-            underlineColorAndroid="transparent"
-            clearButtonMode="while-editing"
             value={state.userNick}
             onChangeText={handleUserIdChange} // Use the new handler here
             onSubmitEditing={() => ref.userIdRef.current.focus()}
@@ -51,118 +42,43 @@ export default function IdInput() {
         </View>
       </View>
       {state.validationMessage !== 'Valid' && (
-        <M17 customStyle={styles.validationMessage}>
+        <B12 customStyle={styles.validationMessage}>
           {state.validationMessage}
-        </M17>
+        </B12>
       )}
       {state.duplicationMessage == 'Duplicate ID' && (
-        <M17 customStyle={styles.validationMessage}>존재하는 아이디입니다.</M17>
+        <B12 customStyle={styles.validationMessage}>존재하는 아이디입니다.</B12>
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  signupContainer: {
-    paddingTop: StatusBarHeight,
-    paddingHorizontal: SPACING_2,
-    backgroundColor: backgroundColor,
-    width: windowWidth,
-    height: windowHeight,
-  },
-  signUpHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: HEADER_HEIGHT,
-    marginBottom: SPACING_4,
-  },
-  backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paginationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pagination: {
-    backgroundColor: COLOR_GRAY,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
-  selectedPagination: {
-    backgroundColor: COLOR_BLACK,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
-  instructionContainer: {
-    marginBottom: SPACING_6,
-  },
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
   IDInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'flex-start',
-    alignSelf: 'center',
-  },
-  IDInput: {
-    color: COLOR_GRAY,
-    fontSize: 20,
-    fontFamily: M,
-    marginLeft: SPACING_1,
-  },
-  buttonContainer: {
-    marginTop: SPACING_6,
-    width: '100%',
-  },
-  button: {
-    backgroundColor: COLOR_PRIMARY,
-    width: '90%',
-    height: 50,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    width: windowWidth - 32,
+    textAlign: 'center',
+    marginBottom: 4,
+    backgroundColor: COLOR_WHITE,
+    padding: 12,
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    borderRadius: 12,
   },
   nativeInput: {
     color: COLOR_GRAY,
     fontSize: 36,
     fontFamily: M,
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLOR_SEPARATOR,
+    justifyContent: 'center',
+    color: COLOR_BLACK,
   },
-
   validationMessage: {
-    color: COLOR_PRIMARY,
-    fontSize: 16,
-    fontFamily: M,
-    marginTop: SPACING_1,
-    marginLeft: SPACING_2,
-  },
-  inactiveButton: {
-    backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
-    shadowOpacity: 0, // Remove shadow for inactive button
+    color: COLOR_ERROR,
+    marginTop: 12,
   },
 });

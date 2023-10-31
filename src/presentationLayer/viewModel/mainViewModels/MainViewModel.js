@@ -354,7 +354,6 @@ export const useMainViewModel = () => {
         console.log(res);
       });
       const backgroundBase64 = await convertImageToBase64();
-      console.log(backgroundBase64.substring(0, 100));
 
       if (state.hasInstagramInstalled) {
         const res = await Share.shareSingle({

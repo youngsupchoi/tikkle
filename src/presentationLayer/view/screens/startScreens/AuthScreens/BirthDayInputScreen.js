@@ -9,6 +9,7 @@ import {
   SPACING_6,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
+  B12,
   B15,
   B28,
   M,
@@ -48,17 +49,14 @@ export default function SignUpScreen5() {
       <SignUpHeader />
       <View style={styles.instructionContainer}>
         <B28>당신의 생일을 알려주세요.</B28>
-        <M15 customStyle={{color: COLOR_GRAY}}>
-          라이폴리가 생일을 더 특별하게 만들어드릴게요:)
-        </M15>
       </View>
       <BirthInput />
-      <BirthSubmit />
-      <View style={{marginTop: 10}}>
-        <M15 customStyle={{color: COLOR_ERROR}}>
+      <View style={{marginTop: 12, alignItems: 'center'}}>
+        <B12 customStyle={{color: COLOR_ERROR}}>
           입력 후 변경이 불가능하니 신중하게 입력해주세요.
-        </M15>
+        </B12>
       </View>
+      <BirthSubmit />
     </View>
   );
 }
@@ -105,6 +103,7 @@ const styles = StyleSheet.create({
   },
   instructionContainer: {
     marginBottom: SPACING_6,
+    alignItems: 'center',
   },
   inputContainer: {
     flexDirection: 'row',

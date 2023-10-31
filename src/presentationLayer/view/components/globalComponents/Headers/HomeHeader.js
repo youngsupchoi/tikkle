@@ -34,14 +34,14 @@ export default function HomeHeader(props) {
         <AnimatedButton
           style={{
             padding: 12,
-            paddingVertical: 6,
+            paddingVertical: 8,
             borderColor: COLOR_SEPARATOR,
             borderWidth: 1,
             borderRadius: 40,
             flexDirection: 'row',
             marginHorizontal: 16,
             alignItems: 'center',
-            backgroundColor: COLOR_SECONDARY,
+            backgroundColor: COLOR_WHITE,
           }}>
           <TicketFilled width={24} height={24} fill={COLOR_PRIMARY} scale={1} />
           <B15 customStyle={{marginLeft: 12, color: COLOR_PRIMARY}}>
