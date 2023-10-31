@@ -309,50 +309,50 @@ export const useMainViewModel = () => {
     actions.setShowStopModal(!state.showStopModal);
   };
 
-  const onInstagramShareButtonPressed = async () => {
-    CreateTikklingShareLink(
-      state.userData.name,
-      state.myTikklingData.tikkling_id,
-    ).then(res => {
-      Clipboard.setString(res.DSdata.short_link);
-      console.log(res);
-    });
+  async function convertImageToBase64() {
+    const imageUri = Image.resolveAssetSource(
+      require('src/assets/images/instagram_background.png'),
+    ).uri;
 
-    async function convertImageToBase64() {
-      const imageUri = Image.resolveAssetSource(
-        require('src/assets/images/instagram_background.png'),
-      ).uri;
-
-      try {
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = function () {
-            let base64data = reader.result;
-
-            // 올바른 MIME 타입으로 접두사 변경
-            base64data = base64data.replace(
-              /^data:application\/octet-stream;base64,/,
-              'data:image/png;base64,',
-            );
-            // 이후 접두사 제거
-            base64data = base64data.replace(/^data:image\/png;base64,/, '');
-            resolve(base64data);
-          };
-
-          reader.onerror = function (error) {
-            reject('Failed to read blob data: ', error);
-          };
-        });
-      } catch (error) {
-        console.error('Failed to convert image to base64', error);
-        throw error;
-      }
-    }
     try {
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+          let base64data = reader.result;
+
+          // 올바른 MIME 타입으로 접두사 변경
+          base64data = base64data.replace(
+            /^data:application\/octet-stream;base64,/,
+            'data:image/png;base64,',
+          );
+          // 이후 접두사 제거
+          base64data = base64data.replace(/^data:image\/png;base64,/, '');
+          resolve(base64data);
+        };
+
+        reader.onerror = function (error) {
+          reject('Failed to read blob data: ', error);
+        };
+      });
+    } catch (error) {
+      console.error('Failed to convert image to base64', error);
+      throw error;
+    }
+  }
+
+  const onInstagramShareButtonPressed = async () => {
+    try {
+      await CreateTikklingShareLink(
+        state.userData.name,
+        state.myTikklingData.tikkling_id,
+      ).then(res => {
+        Clipboard.setString(res.DSdata.short_link);
+        console.log(res);
+      });
       const backgroundBase64 = await convertImageToBase64();
       console.log(backgroundBase64.substring(0, 100));
 
