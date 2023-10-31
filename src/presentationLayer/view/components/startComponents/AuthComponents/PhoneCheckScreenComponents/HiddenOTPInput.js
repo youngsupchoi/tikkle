@@ -1,4 +1,5 @@
-// OTPInput.js
+// HiddenOTPInput.js
+import {useEffect} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {
   COLOR_BLACK,
@@ -6,36 +7,23 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {
-  B,
-  B15,
-  B20,
-} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-function OTPInput() {
+function HiddenOTPInput() {
   const {ref, state, actions} = useStartViewModel();
-
+  useEffect(() => {
+    console.log(state.inputCode);
+  }, [state.inputCode.length === 6]);
   return (
     <View style={styles.inputContainer}>
-      {/* {console.log(inputCode)} */}
-      {state.inputCodeShowed.map((code, index) => {
-        return (
-          <View
-            key={index}
-            style={{
-              backgroundColor: COLOR_WHITE,
-              width: 40,
-              height: 48,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderColor: COLOR_SEPARATOR,
-              borderWidth: 1,
-            }}>
-            <B20>{code}</B20>
-          </View>
-        );
-      })}
+      <TextInput
+        keyboardType="number-pad"
+        maxLength={6}
+        autoFocus
+        style={{position: 'absolute', bottom: -2000}}
+        onChangeText={txt => actions.setInputCode(txt)}
+      />
     </View>
   );
 }
@@ -68,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OTPInput;
+export default HiddenOTPInput;
