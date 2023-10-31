@@ -3,6 +3,8 @@ import React from 'react';
 import {
   COLOR_SEPARATOR,
   COLOR_PRIMARY,
+  COLOR_BLACK,
+  COLOR_GRAY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   StatusBarHeight,
@@ -46,11 +48,13 @@ export default function EditNickname() {
         }}>
         <TextInput
           placeholder={`${state.userData_profile.nick}`}
+          placeholderTextColor={COLOR_GRAY}
           style={{
             fontFamily: B,
             fontSize: 17,
             padding: 12,
             paddingHorizontal: 16,
+            color: COLOR_BLACK,
           }}
           onChangeText={value => actions.setNewNick(value)}
           value={state.newNick}
