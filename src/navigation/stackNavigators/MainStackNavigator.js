@@ -144,8 +144,8 @@ function SignUpNavigator() {
         initialRouteName="splash"
         screenOptions={{
           headerShown: false,
-          gestureEnabled: true,
-          cardOverlayEnabled: true,
+          // gestureEnabled: true,
+          // cardOverlayEnabled: true,
           // cardStyleInterpolator: customCardStyleInterpolator,
           // transitionSpec: customTransitionSpec,
         }}>
@@ -301,8 +301,8 @@ export default function MainStackNavigator() {
         initialRouteName="SignUpNavigator"
         screenOptions={{
           headerShown: false,
-          gestureEnabled: true,
-          cardOverlayEnabled: true,
+          // gestureEnabled: true,
+          // cardOverlayEnabled: true,
           // cardStyleInterpolator: customCardStyleInterpolator,
           // transitionSpec: customTransitionSpec,
         }}>
