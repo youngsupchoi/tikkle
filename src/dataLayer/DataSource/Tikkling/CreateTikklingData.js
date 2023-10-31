@@ -7,6 +7,7 @@ export async function createTikklingData(
   tikkle_quantity,
   product_id,
   type,
+  product_option,
 ) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
@@ -36,6 +37,7 @@ export async function createTikklingData(
     tikkle_quantity: tikkle_quantity,
     product_id: product_id,
     type: type,
+    product_option: product_option,
   };
 
   try {
