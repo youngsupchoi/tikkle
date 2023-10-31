@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     zIndex: 0,
-    marginTop: 12,
+    marginTop: 4,
   },
   myTikklingContainer: {
     marginTop: SPACING_2,

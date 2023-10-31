@@ -53,11 +53,14 @@ export default function NotificationScreen() {
       <View
         style={{
           paddingVertical: 12,
+          paddingHorizontal: 0,
           paddingHorizontal: 16,
           flexDirection: 'row',
-          marginVertical: 4,
-          borderRadius: 16,
-          marginHorizontal: 12,
+          marginVertical: 2,
+          // borderRadius: 16,
+          borderColor: COLOR_SEPARATOR,
+          borderWidth: 1,
+          marginHorizontal: 0,
           backgroundColor: item.is_read ? COLOR_WHITE : COLOR_SECONDARY,
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -260,20 +263,6 @@ export default function NotificationScreen() {
 
           <B20 customStyle={{marginLeft: 12}}>알림</B20>
         </View>
-        {/* 알림 설정 창 이동 버튼*/}
-        {/* <View>
-          <AnimatedButton
-            onPress={() => {
-              navigation.navigate('notificationSetting');
-            }}>
-            <Setting2
-              width={28}
-              height={28}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.5}
-            />
-          </AnimatedButton>
-        </View> */}
       </View>
 
       {state.loading ? (
@@ -288,7 +277,10 @@ export default function NotificationScreen() {
           }
           data={state.notificationData}
           renderItem={renderItem}
-          ListFooterComponent={<Footer />}
+          ListFooterComponent={
+            // <Footer />
+            <View style={{height: 400}} />
+          }
           ListEmptyComponent={
             <View
               style={{

@@ -50,79 +50,16 @@ export default function IdSubmit() {
 }
 
 const styles = StyleSheet.create({
-  signupContainer: {
-    paddingTop: StatusBarHeight,
-    paddingHorizontal: SPACING_2,
-    backgroundColor: backgroundColor,
-    width: windowWidth,
-    height: windowHeight,
-  },
-  signUpHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: HEADER_HEIGHT,
-    marginBottom: SPACING_4,
-  },
-  backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paginationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pagination: {
-    backgroundColor: COLOR_GRAY,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
-  selectedPagination: {
-    backgroundColor: COLOR_BLACK,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
-  instructionContainer: {
-    marginBottom: SPACING_6,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  IDInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    alignSelf: 'center',
-  },
-  IDInput: {
-    color: COLOR_GRAY,
-    fontSize: 20,
-    fontFamily: M,
-    marginLeft: SPACING_1,
-  },
   buttonContainer: {
     marginTop: SPACING_6,
     width: '100%',
   },
   button: {
     backgroundColor: COLOR_PRIMARY,
-    width: '90%',
+    // width: '90%',
+    width: windowWidth - 32,
     height: 50,
-    borderRadius: 25,
+    // borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -137,8 +74,8 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontFamily: M,
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLOR_SEPARATOR,
+    // borderBottomWidth: 1,
+    // borderBottomColor: COLOR_SEPARATOR,
   },
 
   validationMessage: {
