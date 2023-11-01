@@ -68,6 +68,8 @@ import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDe
 import {updateDeviceTokenData} from 'src/dataLayer/DataSource/User/UpdateDeviceTokenData';
 import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 
+import moment from 'moment';
+
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
 
@@ -76,7 +78,34 @@ export default function TestScreen() {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
     // const axiosResponse = await updateDeviceTokenData('TEST_TOKEN');
-    const axiosResponse = await getProductOptionData(1);
+
+    // const input = '1999-11-01';
+    // const input_split = input.split('-');
+    // const cur = moment().startOf('day').add(9, 'hours');
+
+    // const cur_year = moment(cur).year();
+
+    // let next_birth = moment(
+    //   cur_year + '-' + input_split[1] + '-' + input_split[2],
+    // )
+    //   .startOf('day')
+    //   .add(9, 'hours');
+
+    // if (next_birth.isBefore(cur)) {
+    //   console.log('1 년');
+    //   next_birth.add(1, 'years');
+    // }
+
+    // const diff = next_birth.diff(cur, 'days');
+
+    // console.log('cur : ', cur);
+    // console.log('next_birth : ', next_birth);
+    // console.log('diff : ', diff);
+
+    a = moment('2023-10-15').add(9, 'hours').endOf('day');
+    console.log('a : ', a);
+
+    const axiosResponse = 'DS';
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);

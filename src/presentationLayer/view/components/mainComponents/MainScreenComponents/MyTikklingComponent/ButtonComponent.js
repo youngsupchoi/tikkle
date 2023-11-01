@@ -17,7 +17,6 @@ import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import Refund from 'src/assets/icons/Refund';
 export default function ButtonComponent({
   ButtonIcon,
@@ -32,7 +31,6 @@ export default function ButtonComponent({
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
     const fundingLimit = new Date(state.myTikklingData.funding_limit);
-    const currentDate = getKoreanDate();
 
     if (Home == true) {
       if (Q === S) {

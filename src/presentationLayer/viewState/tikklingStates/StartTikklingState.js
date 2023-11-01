@@ -1,5 +1,6 @@
 import {useRoute} from '@react-navigation/native';
 import {createContext, useContext, useState, useRef} from 'react';
+import moment from 'moment';
 const StartTikklingViewContext = createContext();
 
 export const useStartTikklingViewState = () => {
@@ -14,6 +15,7 @@ export const useStartTikklingViewState = () => {
 
 export const StartTikklingViewStateProvider = ({children}) => {
   //TODO: 에러 상태 추가 요함
+  const cur = moment().add(9, 'hours').format('YYYY-MM-DD');
   const [userData, setUserData] = useState([]);
   const route = useRoute();
   const [selectedItem, setSelectedItem] = useState(
@@ -21,7 +23,9 @@ export const StartTikklingViewStateProvider = ({children}) => {
   );
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(new Date());
+
+  const [date, setDate] = useState(cur);
+
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [address, setAddress] = useState(null);

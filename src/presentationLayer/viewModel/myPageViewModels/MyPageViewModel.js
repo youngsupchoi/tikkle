@@ -21,7 +21,7 @@ import {updateRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/Update
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
-
+import moment from 'moment';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMyPageViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -60,44 +60,34 @@ export const useMyPageViewModel = () => {
       console.log("[Error in MyPageViewModel's get_user_info]\n", error);
     }
   }
+
   const calculateDaysUntilNextBirthday = birthdayString => {
-    const todayTemp = getKoreanDate();
-    const todayStr = todayTemp.toISOString();
-    const todayYear = parseInt(todayStr.slice(0, 4));
-    const todayMonth = parseInt(todayStr.slice(5, 7));
-    const todayDay = parseInt(todayStr.slice(8, 10));
-    const birthMonth = parseInt(birthdayString.slice(5, 7));
-    const birthDay = parseInt(birthdayString.slice(8, 10));
+    const input = birthdayString;
+    const input_split = input.split('-');
+    const cur = moment().startOf('day').add(9, 'hours');
 
-    // Calculate the next birthday for this yeard
-    let currentYearBirthday = new Date(
-      `${todayYear}-${birthMonth}-${birthDay}`,
-    );
+    const cur_year = moment(cur).year();
 
-    const today = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
-    console.log('currentYearBirthday : ', currentYearBirthday);
-    console.log('today : ', today);
+    let next_birth = moment(
+      cur_year + '-' + input_split[1] + '-' + input_split[2],
+    )
+      .startOf('day')
+      .add(9, 'hours');
 
-    // Calculate the time difference in milliseconds
-    const timeDifference =
-      (currentYearBirthday - today) / (1000 * 60 * 60 * 24);
-    console.log('timeDiff : ', timeDifference);
-
-    if (timeDifference == 0) {
-      return `오늘은 생일이애요!`;
-    } else if (timeDifference < 0) {
-      currentYearBirthday = new Date(
-        `${todayYear + 1}-${birthMonth}-${birthDay}`,
-      );
+    if (next_birth.isBefore(cur)) {
+      next_birth.add(1, 'years');
     }
 
-    const timeUntilNextBirthday = Math.floor(
-      (currentYearBirthday - today) / (1000 * 60 * 60 * 24),
-    );
-    actions.setTimeUnitlNextBirthday(timeUntilNextBirthday);
+    const diff = next_birth.diff(cur, 'days');
+
+    if (diff == 0) {
+      return `오늘은 생일이에요!`;
+    }
+    actions.setTimeUnitlNextBirthday(diff);
 
     return;
   };
+
   const loadData = async () => {
     try {
       await actions.setLoading_profile(true);
