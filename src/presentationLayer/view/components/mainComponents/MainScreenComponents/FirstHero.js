@@ -296,7 +296,6 @@ const FirstHero = props => {
                       routes: [
                         {
                           name: 'main',
-                          params: {updated: new Date().toString()},
                         },
                       ],
                     });

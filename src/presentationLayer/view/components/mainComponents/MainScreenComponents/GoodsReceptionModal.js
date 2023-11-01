@@ -165,9 +165,7 @@ export default function GoodsReceptionModal() {
                 actions.setShowEndModal(false);
                 actions.navigation.reset({
                   index: 0,
-                  routes: [
-                    {name: 'main', params: {updated: new Date().toString()}},
-                  ],
+                  routes: [{name: 'main'}],
                 });
               }}
               style={modalStyles.confirmButton}>

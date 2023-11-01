@@ -144,7 +144,7 @@ export const useNotificationViewModel = () => {
    */
   function timeSince(dateString) {
     const diff = moment().add(9, 'hours').diff(dateString, 'seconds');
-    console.log('diff : ', diff);
+    // console.log('diff : ', diff);
 
     if (diff < 60) {
       return '방금 전';
