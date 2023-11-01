@@ -61,13 +61,7 @@ export async function updateEndTikklingBuyData(
 
   //------ control result & error of put_tikkling_end-----------------------------------------//
   if (response.status === 400) {
-    if (response.data.detail_code === '00') {
-      return {
-        DScode: 2,
-        DSdata: null,
-        DSmessage: '이미 종료된 티클링 이에요.',
-      };
-    } else if (response.data.detail_code === '01') {
+    if (response.data.detail_code === '01') {
       return {
         DScode: 1,
         DSdata: null,
@@ -90,6 +84,12 @@ export async function updateEndTikklingBuyData(
       DScode: 2,
       DSdata: null,
       DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
+  } else if (response.status === 401) {
+    return {
+      DScode: 1,
+      DSdata: null,
+      DSmessage: '받은 티클이 없을때는 티클링 취소만 가능해요.',
     };
   } else if (response.status === 403) {
     return {

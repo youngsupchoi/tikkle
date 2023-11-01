@@ -60,19 +60,7 @@ export async function updateEndTikklingRefundData(
 
   //------ control result & error of put_tikkling_end-----------------------------------------//
   if (response.status === 400) {
-    if (response.data.detail_code === '00') {
-      return {
-        DScode: 2,
-        DSdata: null,
-        DSmessage: '이미 종료된 티클링 이에요.',
-      };
-    } else if (response.data.detail_code === '03') {
-      return {
-        DScode: 1,
-        DSdata: null,
-        DSmessage: '환급 계좌 정보가 입력되지 않았어요.',
-      };
-    } else if (response.data.detail_code === '06') {
+    if (response.data.detail_code === '06') {
       return {
         DScode: 1,
         DSdata: null,
@@ -84,6 +72,12 @@ export async function updateEndTikklingRefundData(
       DSdata: null,
       DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
     };
+  } else if (response.status === 401) {
+    return {
+      DScode: 1,
+      DSdata: null,
+      DSmessage: '받은 티클이 없을때는 환급받을 수 없어요.',
+    };
   } else if (response.status === 403) {
     return {
       DScode: 1,
@@ -94,7 +88,7 @@ export async function updateEndTikklingRefundData(
     return {
       DScode: 2,
       DSdata: null,
-      DSmessage: '존재하지 않는 티클링 이에요.',
+      DSmessage: '존재하지 않거나 이미 종료된 티클링 이에요.',
     };
   } else if (response.status !== 200 && response.data.detail_code !== '01') {
     return {
