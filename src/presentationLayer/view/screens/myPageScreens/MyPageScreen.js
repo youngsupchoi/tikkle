@@ -154,9 +154,15 @@ export default function ProfileScreen() {
                     <M15 customStyle={{color: COLOR_GRAY}}>
                       {state.userData_profile.nick}
                     </M15>
-                    <M11 customStyle={{color: COLOR_GRAY}}>
-                      생일이 {state.timeUnitlNextBirthday}일 남았어요.
-                    </M11>
+                    {state.timeUnitlNextBirthday == 0 ? (
+                      <M11 customStyle={{color: COLOR_GRAY}}>
+                        생일이 축하해요!
+                      </M11>
+                    ) : (
+                      <M11 customStyle={{color: COLOR_GRAY}}>
+                        생일이 {state.timeUnitlNextBirthday}일 남았어요.
+                      </M11>
+                    )}
                   </View>
                 </View>
               </View>
