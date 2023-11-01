@@ -30,7 +30,7 @@ export default function ButtonComponent({
   const handleButtonPress = () => {
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
-    const fundingLimit = new Date(state.myTikklingData.funding_limit);
+    // const fundingLimit = new Date(state.myTikklingData.funding_limit);
 
     if (Home == true) {
       if (Q === S) {

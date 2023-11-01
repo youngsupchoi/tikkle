@@ -24,7 +24,7 @@ export async function checkPhoneNumberData(phoneNumber, hash) {
     };
   }
 
-  //console.log(response);
+  console.log(response);
 
   //------ control result & error of post_auth_phoneCheck -----------------------------------------//
 

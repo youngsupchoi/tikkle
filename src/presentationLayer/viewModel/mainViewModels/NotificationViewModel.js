@@ -1,6 +1,6 @@
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useNotificationViewState} from 'src/presentationLayer/viewState/mainStates/NotificationState';
-
+import moment from 'moment';
 // 2. 필요한 뷰 모델 가져오기 (topViewModel)
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
@@ -87,35 +87,35 @@ export const useNotificationViewModel = () => {
     {},
   );
 
-  /**
-   * timestamp를 비교해서 오늘, 어제, 그 외에는 날짜를 반환하는 함수
-   * @param {string} created_at
-   */
-  const formatDate = created_at => {
-    const today = new Date();
-    const notificationDate = new Date(created_at);
+  // /**
+  //  * timestamp를 비교해서 오늘, 어제, 그 외에는 날짜를 반환하는 함수
+  //  * @param {string} created_at
+  //  */
+  // const formatDate = created_at => {
+  //   const today = new Date();
+  //   const notificationDate = new Date(created_at);
 
-    if (isSameDay(today, notificationDate)) {
-      return '오늘';
-    } else if (isYesterday(today, notificationDate)) {
-      return '어제';
-    } else {
-      const options = {month: 'short', day: 'numeric'};
-      return notificationDate.toLocaleDateString(undefined, options);
-    }
-  };
+  //   if (isSameDay(today, notificationDate)) {
+  //     return '오늘';
+  //   } else if (isYesterday(today, notificationDate)) {
+  //     return '어제';
+  //   } else {
+  //     const options = {month: 'short', day: 'numeric'};
+  //     return notificationDate.toLocaleDateString(undefined, options);
+  //   }
+  // };
 
-  /**
-   * 어제인지 확인하는 함수
-   * @param {string (date)} date1
-   * @param {string (date)} date2
-   * @returns
-   */
-  const isYesterday = (date1, date2) => {
-    const yesterday = new Date(date1);
-    yesterday.setDate(yesterday.getDate() - 1);
-    return isSameDay(yesterday, date2);
-  };
+  // /**
+  //  * 어제인지 확인하는 함수
+  //  * @param {string (date)} date1
+  //  * @param {string (date)} date2
+  //  * @returns
+  //  */
+  // const isYesterday = (date1, date2) => {
+  //   const yesterday = new Date(date1);
+  //   yesterday.setDate(yesterday.getDate() - 1);
+  //   return isSameDay(yesterday, date2);
+  // };
 
   /**
    * 같은 날인지 확인하는 함수
@@ -139,36 +139,55 @@ export const useNotificationViewModel = () => {
 
   /**
    * 시간 차이를 계산하는 함수
-   * @param {string (date)} dateString
+   * @param {string (date)} dateString 2023-10-26 09:26:46
    * @returns
    */
   function timeSince(dateString) {
-    const then = new Date(dateString);
-    const now = new Date();
+    const diff = moment().add(9, 'hours').diff(dateString, 'seconds');
+    console.log('diff : ', diff);
 
-    const seconds = Math.floor((now - then) / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const weeks = Math.floor(days / 7);
-    const months = Math.floor(days / 30.44); // Average number of days in a month
-    const years = Math.floor(days / 365.25); // Average number of days in a year considering leap year
-
-    if (seconds < 60) {
+    if (diff < 60) {
       return '방금 전';
-    } else if (minutes < 60) {
-      return minutes + ' 분 전';
-    } else if (hours < 24) {
-      return hours + ' 시간 전';
-    } else if (days < 7) {
-      return days + ' 일 전';
-    } else if (weeks < 4) {
-      return weeks + ' 주 전';
-    } else if (months < 12) {
-      return months + ' 달 전';
+    } else if (diff < 3600) {
+      return moment().add(9, 'hours').diff(dateString, 'minutes') + ' 분 전';
+    } else if (diff < 86400) {
+      return moment().add(9, 'hours').diff(dateString, 'hours') + ' 시간 전';
+    } else if (diff < 604800) {
+      return moment().add(9, 'hours').diff(dateString, 'days') + ' 일 전';
+    } else if (weeks < 3024000) {
+      return moment().add(9, 'hours').diff(dateString, 'weeks') + ' 주 전';
+    } else if (months < 36288000) {
+      return moment().add(9, 'hours').diff(dateString, 'months') + ' 달 전';
     } else {
-      return years + ' 년 전';
+      return moment().add(9, 'hours').diff(dateString, 'years') + ' 년 전';
     }
+
+    // const then = new Date(dateString);
+    // const now = new Date();
+
+    // const seconds = Math.floor((now - then) / 1000);
+    // const minutes = Math.floor(seconds / 60);
+    // const hours = Math.floor(minutes / 60);
+    // const days = Math.floor(hours / 24);
+    // const weeks = Math.floor(days / 7);
+    // const months = Math.floor(days / 30.44); // Average number of days in a month
+    // const years = Math.floor(days / 365.25); // Average number of days in a year considering leap year
+
+    // if (seconds < 60) {
+    //   return '방금 전';
+    // } else if (minutes < 60) {
+    //   return minutes + ' 분 전';
+    // } else if (hours < 24) {
+    //   return hours + ' 시간 전';
+    // } else if (days < 7) {
+    //   return days + ' 일 전';
+    // } else if (weeks < 4) {
+    //   return weeks + ' 주 전';
+    // } else if (months < 12) {
+    //   return months + ' 달 전';
+    // } else {
+    //   return years + ' 년 전';
+    // }
   }
 
   //안쓰는 함수 혹시 몰라서 킵 해둠
@@ -210,7 +229,6 @@ export const useNotificationViewModel = () => {
       countUnreadNotifications,
       unreadNotificationAmount,
       groupedNotifications,
-      formatDate,
       timeSince,
       backPress,
       noti_delete,
