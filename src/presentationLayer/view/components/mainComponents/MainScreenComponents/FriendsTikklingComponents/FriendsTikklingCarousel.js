@@ -30,6 +30,7 @@ import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents
 import FlagFilled from 'src/assets/icons/FlagFilled';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import CalendarFilled from 'src/assets/icons/CalendarFilled';
+import moment from 'moment';
 
 export default function FriendsTikklingCarousel(data) {
   const [showBuyModal, setShowBuyModal] = useState(null);
