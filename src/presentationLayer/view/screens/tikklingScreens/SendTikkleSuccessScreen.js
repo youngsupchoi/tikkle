@@ -43,7 +43,7 @@ export default function PaymentSuccessScreen(route) {
         onPress={() => {
           navigation.reset({
             index: 0,
-            routes: [{name: 'main', params: {updated: new Date().toString()}}],
+            routes: [{name: 'main'}],
           });
         }}
         style={{

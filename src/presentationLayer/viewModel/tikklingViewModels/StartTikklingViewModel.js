@@ -168,7 +168,6 @@ export const useStartTikklingViewModel = () => {
         routes: [
           {
             name: 'main',
-            params: {updated: new Date().toString()},
           },
         ],
       });

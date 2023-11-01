@@ -459,7 +459,6 @@ export const useMyPageViewModel = () => {
             routes: [
               {
                 name: 'SignUpNavigator',
-                params: {updated: new Date().toString()},
               },
             ],
           });
@@ -484,7 +483,6 @@ export const useMyPageViewModel = () => {
       routes: [
         {
           name: 'SignUpNavigator',
-          params: {updated: new Date().toString()},
         },
       ],
     });

@@ -112,9 +112,7 @@ export const useStartViewModel = () => {
               .then(() => {
                 navigation.reset({
                   index: 0,
-                  routes: [
-                    {name: 'main', params: {updated: new Date().toString()}},
-                  ],
+                  routes: [{name: 'main'}],
                 });
               });
           } else if (message === 'sign up') {
@@ -172,7 +170,6 @@ export const useStartViewModel = () => {
         routes: [
           {
             name: 'main',
-            params: {updated: new Date().toString()},
           },
         ],
       });

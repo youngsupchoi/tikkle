@@ -60,9 +60,7 @@ export default function SignUpScreen2() {
               post_auth_tokenGenerate(state.userId).then(() => {
                 actions.navigation.reset({
                   index: 0,
-                  routes: [
-                    {name: 'main', params: {updated: new Date().toString()}},
-                  ],
+                  routes: [{name: 'main'}],
                 });
               });
             } else if (state.message === 'sign up') {
