@@ -268,9 +268,9 @@ export default function FriendsTikklingCarousel(data) {
               <View style={{marginTop: 0}}>
                 <AnimatedButton
                   onPress={() => {
-                    new Date(item.funding_limit) > new Date()
-                      ? setShowBuyModal(item.tikkling_id)
-                      : null;
+                    moment().isAfter(moment(item.funding_limit).endOf('day'))
+                      ? null
+                      : setShowBuyModal(item.tikkling_id);
                   }}
                   style={{
                     padding: 6,

@@ -103,7 +103,8 @@ export default function TestScreen() {
     // console.log('diff : ', diff);
 
     a = moment('2023-10-15').add(9, 'hours').endOf('day');
-    console.log('a : ', a);
+
+    console.log('TEST: ', moment().isAfter(moment('2023-11-01').endOf('day')));
 
     const axiosResponse = 'DS';
     const str = JSON.stringify(axiosResponse, null, ' ');
