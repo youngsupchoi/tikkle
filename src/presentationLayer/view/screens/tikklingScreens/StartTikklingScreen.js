@@ -50,6 +50,7 @@ import DetailAddressInput from 'src/presentationLayer/view/components/tikklingCo
 import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import moment from 'moment';
 
 export default function StartTikklingScreen({route}) {
   const {state, actions} = useStartTikklingViewModel();
@@ -67,17 +68,13 @@ export default function StartTikklingScreen({route}) {
   }, [state.zonecode, state.address, state.detailAddress, state.event]);
 
   useEffect(() => {
-    console.log('🚨');
-    console.log(route);
+    console.log('Route : ', route.params);
+    console.log('userDAta : ', state.userData);
   }, []);
 
   useEffect(() => {
     state.userData.birthday !== undefined
-      ? actions.setEndDate(
-          actions.getNextBirthday(
-            actions.setToEndOfDay(state.userData.birthday),
-          ),
-        )
+      ? actions.setEndDate(actions.getNextBirthday(state.userData.birthday))
       : null;
     actions.setAddress(state.userData.address);
     actions.setZonecode(state.userData.zonecode);
@@ -308,7 +305,7 @@ export default function StartTikklingScreen({route}) {
                     actions.setOpen(true);
                   } else if (item.type === 'birthday') {
                     actions.setEndDate(
-                      actions.setToEndOfDay(state.userData.birthday),
+                      actions.getNextBirthday(state.userData.birthday),
                     );
                   }
                   actions.setEvent(item);
@@ -346,7 +343,7 @@ export default function StartTikklingScreen({route}) {
                   }}>
                   {item.label}
                 </B20>
-                {console.log(state.endDate)}
+
                 {item.type === 'birthday' ? (
                   <View
                     style={{
@@ -436,25 +433,13 @@ export default function StartTikklingScreen({route}) {
         <DatePicker
           modal
           open={state.open}
-          date={state.date}
+          date={new Date(state.date)}
           onConfirm={selectedDate => {
+            console.log('selectedDate : ', selectedDate);
             // 로컬 시간대의 연, 월, 일을 가져옵니다.
-            const localYear = selectedDate.getFullYear();
-            const localMonth = selectedDate.getMonth();
-            const localDate = selectedDate.getDate();
 
-            // 로컬 시간대의 23:59:59.999를 설정합니다.
-            const endDate = new Date(
-              localYear,
-              localMonth,
-              localDate,
-              23,
-              59,
-              59,
-              999,
-            );
-
-            endDate.setHours(endDate.getHours() + 9);
+            const endDate = moment(selectedDate).format('YYYY-MM-DD');
+            console.log('endDate : ', endDate);
 
             actions.setOpen(false);
             actions.setDate(endDate);
@@ -618,7 +603,10 @@ export default function StartTikklingScreen({route}) {
         </View>
 
         <AnimatedButton
-          onPress={actions.tikklingStartButtonPress}
+          onPress={() => {
+            console.log('end date ', state.endDate);
+            //actions.tikklingStartButtonPress;
+          }}
           style={[
             styles.tikklingStartButton,
             state.createTikklingButtonPressed ? styles.inactiveButton : {},
