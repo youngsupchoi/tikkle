@@ -15,7 +15,7 @@ const AnimatedButton = ({
     Animated.createAnimatedComponent(TouchableOpacity);
 
   return (
-    <AnimatedTouchableOpacity
+    <TouchableOpacity
       onLongPress={onLongPress}
       activeOpacity={0.9}
       onPressIn={handlePressIn}
@@ -23,18 +23,17 @@ const AnimatedButton = ({
       onPress={onPress}
       disabled={disabled}
       style={[
-        {transform: [{scale: scaleValue}]},
+        // {transform: [{scale: scaleValue}]},
         style,
         disabled ? styles.disabledButton : {}, // 회색 스타일을 추가하려면 disabled 상태를 확인합니다.
       ]}>
       {children}
-    </AnimatedTouchableOpacity>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   disabledButton: {
-    // opacity: 0.5, // 버튼이 비활성화되면 투명도를 줄입니다.
     backgroundColor: COLOR_GRAY, // 필요한 경우 다른 스타일을 추가하십시오.
   },
 });

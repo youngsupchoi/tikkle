@@ -58,6 +58,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
 import LinearGradient from 'react-native-linear-gradient';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import ProductOptionsModal from 'src/presentationLayer/view/components/productComponents/ProductDetailScreenComponents/ProductOptionsModal';
 
 const containerWidth = windowWidth - SPACING_6;
 const Tab = createMaterialTopTabNavigator();
@@ -105,6 +106,25 @@ export default function ProductDetailScreen(route) {
   });
   const animatedThumbnailStyle = {
     transform: [{scale: imageScale}],
+  };
+  const startTikklingButtonPress = () => {
+    const wishlist = {
+      brand_name: state.data.brand_name,
+      category_id: state.data.category_id,
+      created_at: state.data.created_at,
+      description: state.data.description,
+      is_deleted: state.data.is_deleted,
+      name: state.data.name,
+      price: state.data.price,
+      product_id: state.data.id,
+      quantity: state.data.quantity,
+      sales_volume: state.data,
+      thumbnail_image: state.data.thumbnail_image,
+      views: state.data.views,
+      wishlist_count: state.data.wishlist_count,
+    };
+    actions.navigation.navigate('startTikkling', wishlist);
+    actions.setShowProductOptionsModal(false);
   };
 
   useEffect(() => {
@@ -339,7 +359,6 @@ export default function ProductDetailScreen(route) {
                   ) : (
                     <Wishlisted_non marginHorizontal={5} />
                   )}
-                  {console.log(state.wishlisted)}
                   <B12>
                     {state.wishlisted
                       ? state.data.wishlist_count + 1
@@ -352,24 +371,52 @@ export default function ProductDetailScreen(route) {
                 {state.isTikkling == false ? (
                   <AnimatedButton
                     onPress={() => {
-                      actions.hasOptions(state.data.id);
-                      console.log(state.data.id);
-                      const wishlist = {
-                        brand_name: state.data.brand_name,
-                        category_id: state.data.category_id,
-                        created_at: state.data.created_at,
-                        description: state.data.description,
-                        is_deleted: state.data.is_deleted,
-                        name: state.data.name,
-                        price: state.data.price,
-                        product_id: state.data.id,
-                        quantity: state.data.quantity,
-                        sales_volume: state.data,
-                        thumbnail_image: state.data.thumbnail_image,
-                        views: state.data.views,
-                        wishlist_count: state.data.wishlist_count,
-                      };
-                      // actions.navigation.navigate('startTikkling', wishlist);
+                      actions
+                        .hasOptions(state.data.id)
+                        .then(optionStatus => {
+                          if (optionStatus) {
+                            actions.setShowProductOptionsModal(true);
+                            const wishlist = {
+                              brand_name: state.data.brand_name,
+                              category_id: state.data.category_id,
+                              created_at: state.data.created_at,
+                              description: state.data.description,
+                              is_deleted: state.data.is_deleted,
+                              name: state.data.name,
+                              price: state.data.price,
+                              product_id: state.data.id,
+                              quantity: state.data.quantity,
+                              sales_volume: state.data,
+                              thumbnail_image: state.data.thumbnail_image,
+                              views: state.data.views,
+                              wishlist_count: state.data.wishlist_count,
+                            };
+                          } else {
+                            const wishlist = {
+                              brand_name: state.data.brand_name,
+                              category_id: state.data.category_id,
+                              created_at: state.data.created_at,
+                              description: state.data.description,
+                              is_deleted: state.data.is_deleted,
+                              name: state.data.name,
+                              price: state.data.price,
+                              product_id: state.data.id,
+                              quantity: state.data.quantity,
+                              sales_volume: state.data,
+                              thumbnail_image: state.data.thumbnail_image,
+                              views: state.data.views,
+                              wishlist_count: state.data.wishlist_count,
+                            };
+                            actions.navigation.navigate(
+                              'startTikkling',
+                              wishlist,
+                            );
+                          }
+                        })
+                        .catch(() => {
+                          console.log('Error occurred');
+                        });
+                      // console.log(state.selectedOptions, 'tmxpdlxm', wishlist);
                     }}
                     style={{
                       width: windowWidth - 80,
@@ -421,6 +468,18 @@ export default function ProductDetailScreen(route) {
               </View>
             </View>
           </View>
+          <ProductOptionsModal
+            productBrand={state.data.brand_name}
+            productImage={state.data.thumbnail_image}
+            productName={state.data.name}
+            productPrice={state.data.price}
+            productOptions={state.productOptions}
+            showModal={state.showProductOptionsModal}
+            setShowModal={actions.setShowProductOptionsModal}
+            buttonPress={startTikklingButtonPress}
+            selectedOptions={state.selectedOptions}
+            setSelectedOptions={actions.setSelectedOptions}
+          />
         </View>
       )}
     </View>

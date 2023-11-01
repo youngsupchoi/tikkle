@@ -19,6 +19,10 @@ export const ProductDetailViewStateProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
   const [parse, setParse] = useState({});
+  const [productOptions, setProductOptions] = useState();
+  const [showProductOptionsModal, setShowProductOptionsModal] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [itHasOptions, setItHasOptions] = useState(null);
 
   const [isTikkling, setIsTikkling] = useState(false);
 
@@ -31,6 +35,10 @@ export const ProductDetailViewStateProvider = ({children}) => {
     data,
     parse,
     isTikkling,
+    productOptions,
+    showProductOptionsModal,
+    selectedOptions,
+    itHasOptions,
   };
 
   const actions = {
@@ -41,6 +49,10 @@ export const ProductDetailViewStateProvider = ({children}) => {
     setData,
     setParse,
     setIsTikkling,
+    setProductOptions,
+    setShowProductOptionsModal,
+    setSelectedOptions,
+    setItHasOptions,
   };
 
   return (
