@@ -147,7 +147,7 @@ export const useStartTikklingViewModel = () => {
       put_user_address();
 
       //TODO: product_option
-      if (product_option == null) {
+      if (product_option == null || product_option == undefined) {
         product_option = {default: 'default'};
       }
       createTikklingData(

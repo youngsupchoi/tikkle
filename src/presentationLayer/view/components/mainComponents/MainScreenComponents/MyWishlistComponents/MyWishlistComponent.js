@@ -1,5 +1,5 @@
 import {View, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {
   COLOR_BLACK,
@@ -20,9 +20,30 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import LottieView from 'lottie-react-native';
 import Add from 'src/assets/icons/Add';
+import ProductOptionsModal from 'src/presentationLayer/view/components/productComponents/ProductDetailScreenComponents/ProductOptionsModal';
 
 export default function MyWishlistComponent() {
   const {state, ref, actions} = useMainViewModel();
+  const startTikklingButtonPress = () => {
+    const wishlist = {
+      brand_name: state.selectedWishlistData.brand_name,
+      category_id: state.selectedWishlistData.category_id,
+      created_at: state.selectedWishlistData.created_at,
+      description: state.selectedWishlistData.description,
+      is_deleted: state.selectedWishlistData.is_deleted,
+      name: state.selectedWishlistData.name,
+      price: state.selectedWishlistData.price + state.optionPrice,
+      product_id: state.selectedWishlistData.product_id,
+      quantity: state.selectedWishlistData.quantity,
+      sales_volume: state.selectedWishlistData,
+      thumbnail_image: state.selectedWishlistData.thumbnail_image,
+      views: state.selectedWishlistData.views,
+      wishlist_count: state.selectedWishlistData.wishlist_count,
+      product_option: state.selectedOptions,
+    };
+    actions.navigation.navigate('startTikkling', wishlist);
+    actions.setShowProductOptionsModal(false);
+  };
   return (
     <View
       style={{
@@ -40,6 +61,7 @@ export default function MyWishlistComponent() {
         shadowOpacity: 0.2, // iOS용 그림자 투명도
         shadowRadius: 3, // iOS용 그림자 반경
       }}>
+      {console.log('....', state.selectedOptions)}
       <View
         style={{
           paddingHorizontal: 24,
@@ -106,8 +128,54 @@ export default function MyWishlistComponent() {
                 {state.myTikklingData !== undefined ? null : (
                   <AnimatedButton
                     onPress={() => {
-                      console.log('전달 값 : ', wishlist);
-                      actions.navigation.navigate('startTikkling', wishlist);
+                      try {
+                        actions.setSelectedWishlistData(
+                          state.wishlistData[index],
+                        );
+                        actions
+                          .hasOptions(state.wishlistData[index].product_id)
+                          .then(optionStatus => {
+                            console.log(optionStatus);
+                            if (optionStatus) {
+                              actions.setShowProductOptionsModal(true);
+                            } else {
+                              const wishlist = {
+                                brand_name:
+                                  state.wishlistData[index].brand_name,
+                                category_id:
+                                  state.wishlistData[index].category_id,
+                                created_at:
+                                  state.wishlistData[index].created_at,
+                                description:
+                                  state.wishlistData[index].description,
+                                is_deleted:
+                                  state.wishlistData[index].is_deleted,
+                                name: state.wishlistData[index].name,
+                                price:
+                                  state.wishlistData[index].price +
+                                  state.optionPrice,
+                                product_id:
+                                  state.wishlistData[index].product_id,
+                                quantity: state.wishlistData[index].quantity,
+                                sales_volume: state.wishlistData[index],
+                                thumbnail_image:
+                                  state.wishlistData[index].thumbnail_image,
+                                views: state.wishlistData[index].views,
+                                wishlist_count:
+                                  state.wishlistData[index].wishlist_count,
+                              };
+                              actions.navigation.navigate(
+                                'startTikkling',
+                                wishlist,
+                              );
+                            }
+                          })
+                          .catch(error => {
+                            console.log('Error occurred', error);
+                          });
+                      } catch (error) {
+                        console.error('Error occurred:', error);
+                      }
                     }}
                     style={{
                       padding: 4,
@@ -186,6 +254,23 @@ export default function MyWishlistComponent() {
           </View>
         )}
       </View>
+      {console.log('modalshow', state.showProductOptionsModal)}
+
+      {state.selectedWishlistData ? (
+        <ProductOptionsModal
+          productBrand={state.selectedWishlistData.brand_name}
+          productImage={state.selectedWishlistData.thumbnail_image}
+          productName={state.selectedWishlistData.name}
+          productPrice={state.selectedWishlistData.price}
+          productOptions={state.productOptions}
+          showModal={state.showProductOptionsModal}
+          setShowModal={actions.setShowProductOptionsModal}
+          buttonPress={startTikklingButtonPress}
+          selectedOptions={state.selectedOptions}
+          setSelectedOptions={actions.setSelectedOptions}
+          setOptionPrice={actions.setOptionPrice}
+        />
+      ) : null}
     </View>
   );
 }

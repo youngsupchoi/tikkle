@@ -31,6 +31,7 @@ import {fcmService} from 'src/push_fcm';
 import RNFS from 'react-native-fs';
 import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -518,6 +519,29 @@ export const useMainViewModel = () => {
   //     });
   // };
 
+  const hasOptions = async productId => {
+    try {
+      const res = await getProductOptionData(productId);
+
+      actions.setProductOptions(res.DSdata.options);
+
+      let optionStatus = null;
+
+      if (!res.DSdata.options.default) {
+        optionStatus = true;
+      } else if (res.DSdata.options.default) {
+        optionStatus = false;
+      }
+
+      actions.setItHasOptions(optionStatus);
+      topActions.setStateAndError(res);
+      return optionStatus; // 옵션 상태 반환
+    } catch (error) {
+      console.error('Error fetching product options:', error);
+      throw error;
+    }
+  };
+
   return {
     ref: {
       ...ref,
@@ -553,6 +577,7 @@ export const useMainViewModel = () => {
       checkDynamicLink,
       requestUserPermission,
       findContacts,
+      hasOptions,
     },
   };
 };
