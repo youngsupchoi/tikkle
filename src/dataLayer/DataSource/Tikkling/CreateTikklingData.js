@@ -36,17 +36,10 @@ export async function createTikklingData(
     funding_limit: funding_limit,
     tikkle_quantity: tikkle_quantity,
     product_id: product_id,
-    type: type,
+    type: '기념일',
     product_option: product_option,
   };
-  console.log(
-    '🚀 ~ file: CreateTikklingData.js:42 ~ body.product_option:',
-    body.product_option,
-  );
-  console.log(
-    '🚀 ~ file: CreateTikklingData.js:42 ~ body.tikkle_quantity:',
-    body.tikkle_quantity,
-  );
+  console.log('🚀 ~ file: CreateTikklingData.js:42 ~ body:', body);
 
   try {
     response = await apiModel(

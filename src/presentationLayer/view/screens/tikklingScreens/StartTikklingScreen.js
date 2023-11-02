@@ -56,6 +56,7 @@ export default function StartTikklingScreen({route}) {
   const {state, actions} = useStartTikklingViewModel();
   useEffect(() => {
     actions.loadData();
+    console.log(route);
   }, []);
 
   useEffect(() => {
@@ -601,12 +602,12 @@ export default function StartTikklingScreen({route}) {
             </View>
           </View>
         </View>
+        {console.log('라우트', route.params)}
 
         <AnimatedButton
           onPress={
             // console.log('end date ', state.endDate);
             () => {
-              // console.log(route.params);
               actions.tikklingStartButtonPress(route.params.product_option);
             }
           }
