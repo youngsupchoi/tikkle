@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from 'react-native-modal';
 import {
   B12,
@@ -83,6 +83,7 @@ export default function ProductOptionsModal({
   buttonPress,
   selectedOptions,
   setSelectedOptions,
+  setOptionPrice,
 }) {
   const handleOptionSelect = (category, option) => {
     setSelectedOptions(prev => ({
@@ -94,9 +95,28 @@ export default function ProductOptionsModal({
     Object.keys(selectedOptions || {}).length ===
     Object.keys(productOptions || {}).length;
 
+  const getTotalAdditionalAmount = () => {
+    return Object.keys(selectedOptions).reduce((total, category) => {
+      // 선택된 옵션을 찾습니다.
+      const selectedOption = selectedOptions[category];
+      // 해당 카테고리의 모든 옵션들을 가져옵니다.
+      const options = productOptions[category];
+      // 선택된 옵션의 추가 금액을 찾습니다.
+      const optionDetails = options.find(
+        option => option.option === selectedOption,
+      );
+      // 해당 추가 금액을 총합에 더합니다.
+      return total + (optionDetails ? optionDetails.additional_amount : 0);
+    }, 0);
+  };
+  const additionalAmountTotal = getTotalAdditionalAmount();
+  useEffect(() => {
+    setOptionPrice(additionalAmountTotal);
+  }, [additionalAmountTotal]);
+
   return (
     <View style={styles.productOptionsModalContainer}>
-      {console.log(selectedOptions)}
+      {console.log(selectedOptions, productOptions, additionalAmountTotal)}
       <Modal
         onSwipeComplete={() => setShowModal(false)}
         swipeDirection={'down'}

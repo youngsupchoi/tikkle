@@ -140,20 +140,25 @@ export const useStartTikklingViewModel = () => {
   }
 
   //-------------------------------------------------------------------
-  const tikklingStartButtonPress = () => {
+  const tikklingStartButtonPress = product_option => {
     try {
       actions.setCreateTikklingButtonPressed(true);
 
       put_user_address();
 
       //TODO: product_option
+      if (product_option == null) {
+        product_option = {default: 'default'};
+      }
       createTikklingData(
         state.endDate,
         state.selectedItem.price / 5000,
         state.selectedItem.product_id,
         state.eventType,
+        product_option,
       )
         .then(res => {
+          console.log('po', product_option);
           return topActions.setStateAndError(res);
         })
         .then(() => {

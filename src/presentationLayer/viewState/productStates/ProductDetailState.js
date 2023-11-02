@@ -23,6 +23,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
   const [showProductOptionsModal, setShowProductOptionsModal] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [itHasOptions, setItHasOptions] = useState(null);
+  const [optionPrice, setOptionPrice] = useState(null);
 
   const [isTikkling, setIsTikkling] = useState(false);
 
@@ -39,6 +40,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     showProductOptionsModal,
     selectedOptions,
     itHasOptions,
+    optionPrice,
   };
 
   const actions = {
@@ -53,6 +55,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     setShowProductOptionsModal,
     setSelectedOptions,
     setItHasOptions,
+    setOptionPrice,
   };
 
   return (

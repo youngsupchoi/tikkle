@@ -115,13 +115,14 @@ export default function ProductDetailScreen(route) {
       description: state.data.description,
       is_deleted: state.data.is_deleted,
       name: state.data.name,
-      price: state.data.price,
+      price: state.data.price + state.optionPrice,
       product_id: state.data.id,
       quantity: state.data.quantity,
       sales_volume: state.data,
       thumbnail_image: state.data.thumbnail_image,
       views: state.data.views,
       wishlist_count: state.data.wishlist_count,
+      product_option: state.selectedOptions,
     };
     actions.navigation.navigate('startTikkling', wishlist);
     actions.setShowProductOptionsModal(false);
@@ -141,6 +142,7 @@ export default function ProductDetailScreen(route) {
         <GlobalLoader />
       ) : (
         <View>
+          {console.log('asdfasdfasd', state.selectedOptions)}
           <Animated.ScrollView
             scrollEventThrottle={16} // Ensures onScroll is called every 16ms
             onScroll={Animated.event(
@@ -479,6 +481,7 @@ export default function ProductDetailScreen(route) {
             buttonPress={startTikklingButtonPress}
             selectedOptions={state.selectedOptions}
             setSelectedOptions={actions.setSelectedOptions}
+            setOptionPrice={actions.setOptionPrice}
           />
         </View>
       )}
