@@ -92,6 +92,7 @@ export default function App() {
     <GestureHandlerRootView style={{flex: 1}}>
       {/* <View style={{height: 100}}></View> */}
       {/* <Test /> */}
+
       <PaperProvider>
         <TopViewProvider>
           <View style={{zIndex: 10, backgroundColor: 'red'}}>

@@ -17,10 +17,13 @@ export const ProductDetailViewStateProvider = ({children}) => {
   const [receivedData, setReceivedData] = useState();
   const [wishlisted, setWishlisted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({});
+
   const [parse, setParse] = useState({});
 
   const [isTikkling, setIsTikkling] = useState(false);
+
+  const [detail_images, setDetail_images] = useState({});
+  const [components, setComponents] = useState([]);
 
   const ref = {};
   const state = {
@@ -28,9 +31,10 @@ export const ProductDetailViewStateProvider = ({children}) => {
     receivedData,
     wishlisted,
     loading,
-    data,
     parse,
     isTikkling,
+    detail_images,
+    components,
   };
 
   const actions = {
@@ -38,9 +42,10 @@ export const ProductDetailViewStateProvider = ({children}) => {
     setReceivedData,
     setWishlisted,
     setLoading,
-    setData,
     setParse,
     setIsTikkling,
+    setDetail_images,
+    setComponents,
   };
 
   return (
