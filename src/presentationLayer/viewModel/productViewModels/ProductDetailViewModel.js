@@ -1,6 +1,9 @@
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useProductDetailViewState} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
+import {View, StyleSheet, Image, Platform} from 'react-native';
+import AutoHeightImage from 'react-native-auto-height-image';
 
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 // 2. 데이터 소스 또는 API 가져오기
 import {getProductInfoData} from 'src/dataLayer/DataSource/Product/GetProductInfoData';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -27,6 +30,17 @@ export const useProductDetailViewModel = () => {
   const index = route.params[1];
   const list = route.params[2];
   // console.log('*************', list);
+
+  const loadDetailData = async () => {
+    await actions.setLoading(true);
+    await actions.setParse(data.parse);
+    await cutImage();
+    if (data.wishlisted) {
+      await actions.setWishlisted(true);
+    }
+    await isTikkling();
+    await actions.setLoading(false);
+  };
 
   /**
    * 상세페에지 오류시 티클링 중인지 아닌지 확인
@@ -91,6 +105,34 @@ export const useProductDetailViewModel = () => {
     });
   };
 
+  const cutImage = async () => {
+    // console.log('sdfsdfsdfsdf', data.images);
+    const images = JSON.parse(data.images);
+
+    /// 이미지 표시하기
+    const components = [];
+
+    for (let i = 1; ; i++) {
+      if (images[i.toString()] === undefined) {
+        break;
+      }
+      temp = (
+        <View key={i}>
+          <AutoHeightImage
+            width={windowWidth}
+            source={{
+              uri: images[i.toString()],
+            }}
+          />
+        </View>
+      );
+
+      components.push(temp);
+    }
+
+    actions.setComponents(components);
+  };
+
   return {
     ref,
     state: {
@@ -105,7 +147,10 @@ export const useProductDetailViewModel = () => {
       navigation,
       isTikkling,
       hasOptions,
+      cutImage,
+      loadDetailData,
       tikklingStartButtonPressWithOptions,
+
     },
   };
 };

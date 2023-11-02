@@ -70,6 +70,7 @@ const ProductInfo = () => {
     </View>
   );
 };
+
 function TopTab() {
   return (
     <Tab.Navigator
@@ -129,11 +130,7 @@ export default function ProductDetailScreen(route) {
   };
 
   useEffect(() => {
-    actions.setParse(state.data.parse);
-    if (state.data.wishlisted) {
-      actions.setWishlisted(true);
-    }
-    actions.isTikkling();
+    actions.loadDetailData();
   }, []);
 
   return (
