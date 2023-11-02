@@ -60,10 +60,31 @@ export const useProductDetailViewModel = () => {
   };
 
   const hasOptions = async productId => {
-    await getProductOptionData(productId).then(res => {
-      console.log('option? : ', res);
-      return topActions.setStateAndError(res);
-    });
+    try {
+      const res = await getProductOptionData(productId);
+
+      actions.setProductOptions(res.DSdata.options);
+
+      let optionStatus = null;
+
+      if (!res.DSdata.options.default) {
+        optionStatus = true;
+      } else if (res.DSdata.options.default) {
+        optionStatus = false;
+      }
+
+      actions.setItHasOptions(optionStatus);
+      topActions.setStateAndError(res);
+      return optionStatus; // 옵션 상태 반환
+    } catch (error) {
+      console.error('Error fetching product options:', error);
+      throw error;
+    }
+  };
+
+  const tikklingStartButtonPressWithOptions = () => {
+    // navigation.navigate('startTikkling', wishlist);
+    actions.setShowProductOptionsModal(false);
   };
 
   const deleteMyWishlistData_ = async productId => {
@@ -128,6 +149,8 @@ export const useProductDetailViewModel = () => {
       hasOptions,
       cutImage,
       loadDetailData,
+      tikklingStartButtonPressWithOptions,
+
     },
   };
 };

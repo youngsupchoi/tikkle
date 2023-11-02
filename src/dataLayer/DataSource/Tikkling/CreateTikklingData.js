@@ -39,6 +39,14 @@ export async function createTikklingData(
     type: type,
     product_option: product_option,
   };
+  console.log(
+    '🚀 ~ file: CreateTikklingData.js:42 ~ body.product_option:',
+    body.product_option,
+  );
+  console.log(
+    '🚀 ~ file: CreateTikklingData.js:42 ~ body.tikkle_quantity:',
+    body.tikkle_quantity,
+  );
 
   try {
     response = await apiModel(
@@ -47,6 +55,7 @@ export async function createTikklingData(
       body,
       null,
     );
+    console.log('🚀 ~ file: CreateTikklingData.js:53 ~ response:', response);
     if (!response) {
       //  error
       throw new Error();

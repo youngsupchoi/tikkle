@@ -603,10 +603,13 @@ export default function StartTikklingScreen({route}) {
         </View>
 
         <AnimatedButton
-          onPress={() => {
-            console.log('end date ', state.endDate);
-            //actions.tikklingStartButtonPress;
-          }}
+          onPress={
+            // console.log('end date ', state.endDate);
+            () => {
+              // console.log(route.params);
+              actions.tikklingStartButtonPress(route.params.product_option);
+            }
+          }
           style={[
             styles.tikklingStartButton,
             state.createTikklingButtonPressed ? styles.inactiveButton : {},
@@ -614,6 +617,7 @@ export default function StartTikklingScreen({route}) {
           disabled={!state.isButtonEnabled || state.createTikklingButtonPressed} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
         >
           <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
+          {console.log()}
         </AnimatedButton>
         <Footer />
       </ScrollView>
