@@ -23,7 +23,7 @@ export default function ButtonComponent({
   ButtonIcon,
   ButtonText,
   IsStopped,
-  Home,
+  FromDetail,
   Q,
   S,
 }) {
@@ -33,7 +33,7 @@ export default function ButtonComponent({
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
     // const fundingLimit = new Date(state.myTikklingData.funding_limit);
 
-    if (Home == true) {
+    if (FromDetail == true) {
       if (Q === S) {
         actions.setShowEndModal(true);
       } else if (Q > S) {
@@ -108,7 +108,26 @@ export default function ButtonComponent({
       ) : (
         <View style={{flex: 2, flexDirection: 'row', marginLeft: 8}}>
           <AnimatedButton
-            onPress={actions.onInstagramShareButtonPressed}
+            onPress={async () => {
+              if (FromDetail == true) {
+                //detail에서 눌렀을 때
+                console.log(
+                  'detail에서 눌렀을 때',
+                  state.route_data.user_name,
+                  state.route_data.tikkling_id,
+                );
+                await actions.onInstagramShareButtonPressed(
+                  state.route_data.user_name,
+                  state.route_data.tikkling_id,
+                );
+              } else {
+                //main에서 눌렀을 때
+                await actions.onInstagramShareButtonPressed(
+                  state.userData.name,
+                  state.myTikklingData.tikkling_id,
+                );
+              }
+            }}
             style={{
               flex: 1,
               alignItems: 'center',
@@ -120,7 +139,21 @@ export default function ButtonComponent({
             />
           </AnimatedButton>
           <AnimatedButton
-            onPress={actions.onClipboardButtonPressed}
+            onPress={async () => {
+              if (FromDetail == true) {
+                //detail에서 눌렀을 때
+                await actions.onClipboardButtonPressed(
+                  state.route_data.user_name,
+                  state.route_data.tikkling_id,
+                );
+              } else {
+                //main에서 눌렀을 때
+                await actions.onClipboardButtonPressed(
+                  state.userData.name,
+                  state.myTikklingData.tikkling_id,
+                );
+              }
+            }}
             style={{
               flex: 1,
               borderRadius: 12,
