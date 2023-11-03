@@ -117,7 +117,6 @@ export default function SentTikkleDetailScreen({route}) {
                   }}>
                   {item.user_name}
                   {'님의 '}
-                  {/* {item.tikkling_type}  */}
                   티클링
                 </B17>
                 {item.state_id === 1 ? (
