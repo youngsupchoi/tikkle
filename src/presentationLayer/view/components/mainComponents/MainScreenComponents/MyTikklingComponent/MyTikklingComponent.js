@@ -57,7 +57,13 @@ const MyTikklingComponent = () => {
               actions.setDropdownVisible(!state.dropdownVisible);
             }}
             style={styles.animatedButton}>
-            <Detail style={styles.detail} />
+            <Detail
+              height={16}
+              width={16}
+              stroke={COLOR_BLACK}
+              strokeWidth={2}
+              style={styles.detail}
+            />
             {/* {console.log('tikklingData', state.myTikklingData)} */}
           </AnimatedButton>
         ) : null}
@@ -141,8 +147,8 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 0,
+    paddingTop: 16,
+    // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -152,7 +158,6 @@ const styles = StyleSheet.create({
   },
   animatedButton: {
     padding: 10,
-    marginHorizontal: -10,
   },
   detail: {
     width: 20,
@@ -199,7 +204,7 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     zIndex: 0,
-    marginTop: 12,
+    marginTop: 4,
   },
   myTikklingContainer: {
     marginTop: SPACING_2,

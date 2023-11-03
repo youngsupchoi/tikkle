@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR_WHITE,
     marginHorizontal: SPACING_2,
     borderRadius: 16,
-    marginBottom: 24,
+    marginBottom: 16,
     marginTop: 4,
   },
   innerContainer: {

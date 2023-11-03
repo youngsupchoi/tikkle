@@ -128,7 +128,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
           onCloseButtonPress();
           //데이터 세팅
           const data_in = {
-            pg: PG,
+            pg: 'settle_acc.M23B0586',
             pay_method: payment_param.pay_method,
             merchant_uid: payment_param.merchant_uid,
             name:
@@ -162,7 +162,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
           onCloseButtonPress();
           //데이터 세팅
           const data_in = {
-            pg: PG,
+            pg: 'settle_acc.M23B0586',
             pay_method: payment_param.pay_method,
             merchant_uid: payment_param.merchant_uid,
             name:
