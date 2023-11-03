@@ -13,7 +13,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {useState} from 'react';
 import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
 import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
-
+import WebView from 'react-native-webview';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useProductDetailViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -116,18 +116,58 @@ export const useProductDetailViewModel = () => {
       if (images[i.toString()] === undefined) {
         break;
       }
-      temp = (
-        <View key={i}>
-          <AutoHeightImage
-            width={windowWidth}
-            source={{
-              uri: images[i.toString()],
-            }}
-          />
-        </View>
-      );
+      let temp;
 
-      components.push(temp);
+      if (Platform.OS === 'ios') {
+        temp = (
+          <View key={i}>
+            <AutoHeightImage
+              width={windowWidth}
+              source={{
+                uri: images[i.toString()],
+              }}
+            />
+          </View>
+        );
+
+        components.push(temp);
+
+        //
+      } else {
+        Image.getSize(
+          images[i.toString()],
+          (width, height) => {
+            const ratio = height / width;
+            const height_im = windowWidth * ratio;
+            let temp_2 = (
+              <View key={i}>
+                <WebView
+                  style={{flex: 1, width: windowWidth, height: height_im}}
+                  source={{
+                    uri: images[i.toString()],
+                  }}
+                />
+              </View>
+            );
+
+            components.push(temp_2);
+          },
+          error => {
+            console.error(`Error getting image size: ${error}`);
+          },
+        );
+
+        temp = (
+          <View key={i}>
+            <WebView
+              style={{flex: 1, width: windowWidth, height: 1000}}
+              source={{
+                uri: images[i.toString()],
+              }}
+            />
+          </View>
+        );
+      }
     }
 
     actions.setComponents(components);
@@ -150,7 +190,6 @@ export const useProductDetailViewModel = () => {
       cutImage,
       loadDetailData,
       tikklingStartButtonPressWithOptions,
-
     },
   };
 };
