@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     marginHorizontal: 16,
     backgroundColor: COLOR_WHITE,
-    borderRadius: 16,
+    borderRadius: 24,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     paddingHorizontal: 24,
-    paddingTop: 16,
+    paddingTop: 24,
     paddingBottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     zIndex: 0,
-    marginTop: 4,
+    marginTop: 12,
   },
   myTikklingContainer: {
     marginTop: SPACING_2,
