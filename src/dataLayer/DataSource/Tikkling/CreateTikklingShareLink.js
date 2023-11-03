@@ -11,7 +11,7 @@ export async function CreateTikklingShareLink(user_name, tikkling_id) {
       data: {
         dynamicLinkInfo: {
           domainUriPrefix: 'https://tikkle.lifoli.co.kr',
-          link: `https://tikkle.lilfoli.co.kr/tikkling/${tikkling_id}`,
+          link: `https://tikkle.lifoli.co.kr/tikkling/${tikkling_id}`,
           androidInfo: {
             androidPackageName: 'com.tikkle_revive_ios',
           },
