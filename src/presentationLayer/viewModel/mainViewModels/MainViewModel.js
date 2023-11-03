@@ -359,7 +359,43 @@ export const useMainViewModel = () => {
       if (error === 'User did not share') {
         return;
       } else {
-        console.error('Error sharing:', error);
+        console.log('Error sharing:', error);
+      }
+    }
+  };
+
+  const onClipboardButtonPressed = async () => {
+    try {
+      await CreateTikklingShareLink(
+        state.userData.name,
+        state.myTikklingData.tikkling_id,
+      )
+        .then(res => {
+          Clipboard.setString(res.DSdata.short_link);
+          return res;
+        })
+        .then(res => {
+          console.log(res.DSdata.short_link);
+          console.log(
+            Clipboard.getString().then(clip => {
+              console.log('클립', clip);
+              if (clip === res.DSdata.short_link) {
+                topActions.showSnackbar('클립보드에 링크가 복사되었어요!', 1);
+              } else {
+                topActions.showSnackbar(
+                  '클립보드에 링크가 복사되지 않았어요!',
+                  0,
+                );
+              }
+            }),
+          );
+        });
+    } catch (error) {
+      console.log(error);
+      if (error === 'User did not share') {
+        return;
+      } else {
+        console.log('Error sharing:', error);
       }
     }
   };
@@ -565,6 +601,7 @@ export const useMainViewModel = () => {
       cancelTikkling,
       stopTikkling,
       onInstagramShareButtonPressed,
+      onClipboardButtonPressed,
       loadTikklingData,
       refundTikkling,
       cancel_action,

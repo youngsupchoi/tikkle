@@ -18,6 +18,7 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import Refund from 'src/assets/icons/Refund';
+import Clipboard from 'src/assets/icons/Clipboard';
 export default function ButtonComponent({
   ButtonIcon,
   ButtonText,
@@ -105,22 +106,35 @@ export default function ButtonComponent({
           </B15>
         </AnimatedButton>
       ) : (
-        <AnimatedButton
-          onPress={actions.onInstagramShareButtonPressed}
-          style={{
-            marginLeft: windowWidth * 0.1,
-            width: 50,
-            height: 50,
-            padding: 6,
-            borderRadius: 12,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Image
-            source={require('src/assets/icons/instagramLogo.png')}
-            style={{width: 32, height: 32}}
-          />
-        </AnimatedButton>
+        <View style={{flex: 2, flexDirection: 'row', marginLeft: 8}}>
+          <AnimatedButton
+            onPress={actions.onInstagramShareButtonPressed}
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('src/assets/icons/instagramLogo.png')}
+              style={{width: 32, height: 32}}
+            />
+          </AnimatedButton>
+          <AnimatedButton
+            onPress={actions.onClipboardButtonPressed}
+            style={{
+              flex: 1,
+              borderRadius: 12,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Clipboard
+              width={24}
+              height={24}
+              stroke={COLOR_BLACK}
+              strokeWidth={1.5}
+            />
+          </AnimatedButton>
+        </View>
       )}
     </View>
   );
