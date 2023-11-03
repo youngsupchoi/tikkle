@@ -35,7 +35,6 @@ import {
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
   COLOR_SECONDARY,
-  COLOR_SECOND_SEPARATOR,
   COLOR_SEPARATOR,
   COLOR_SUCCESS,
   COLOR_WHITE,
@@ -59,6 +58,7 @@ import DetailImages from 'src/presentationLayer/view/components/productComponent
 import LinearGradient from 'react-native-linear-gradient';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ProductOptionsModal from 'src/presentationLayer/view/components/productComponents/ProductDetailScreenComponents/ProductOptionsModal';
+import Warn from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/Warn';
 
 const containerWidth = windowWidth - SPACING_6;
 const Tab = createMaterialTopTabNavigator();
@@ -88,7 +88,7 @@ function TopTab() {
       <Tab.Screen
         name="ProductInfo"
         component={ProductInfo}
-        options={{title: '상품고시정보'}}
+        options={{title: '주의사항'}}
       />
     </Tab.Navigator>
   );
@@ -238,7 +238,9 @@ export default function ProductDetailScreen(route) {
                   marginTop: 8,
                 }}>
                 <M15>￦</M15>
-                <M15 customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}>
+                <M15
+                // customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}
+                >
                   {state.data.price.toLocaleString()}
                 </M15>
               </View>
@@ -268,14 +270,12 @@ export default function ProductDetailScreen(route) {
                   borderColor: COLOR_SEPARATOR,
                   borderWidth: 1,
                   backgroundColor:
-                    selected === '상세정보'
-                      ? COLOR_SECOND_SEPARATOR
-                      : COLOR_WHITE,
+                    selected === '상세정보' ? COLOR_SECONDARY : COLOR_WHITE,
                 }}>
                 <M15 customStyle={{color: COLOR_BLACK}}>상세정보</M15>
               </AnimatedButton>
               <AnimatedButton
-                onPress={() => setSelected('상품고시정보')}
+                onPress={() => setSelected('주의사항')}
                 style={{
                   padding: 8,
                   paddingHorizontal: 24,
@@ -285,15 +285,13 @@ export default function ProductDetailScreen(route) {
                   borderColor: COLOR_SEPARATOR,
                   borderWidth: 1,
                   backgroundColor:
-                    selected === '상품고시정보'
-                      ? COLOR_SECOND_SEPARATOR
-                      : COLOR_WHITE,
+                    selected === '주의사항' ? COLOR_SECONDARY : COLOR_WHITE,
                 }}>
                 <M15
                   customStyle={{
                     color: COLOR_BLACK,
                   }}>
-                  상품고시정보
+                  주의사항
                 </M15>
               </AnimatedButton>
             </View>
@@ -304,15 +302,7 @@ export default function ProductDetailScreen(route) {
                 borderBottomWidth: 1,
                 marginBottom: 200,
               }}>
-              {selected === '상세정보' ? (
-                <DetailImages />
-              ) : (
-                <View>
-                  <B15 customStyle={{marginBottom: 4}}>
-                    {state.data.notice_info}
-                  </B15>
-                </View>
-              )}
+              {selected === '상세정보' ? <DetailImages /> : <Warn />}
             </View>
           </Animated.ScrollView>
           <View

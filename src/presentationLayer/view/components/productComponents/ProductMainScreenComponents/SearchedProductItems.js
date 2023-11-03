@@ -49,14 +49,9 @@ export default function SearchedProductItems({productData, category}) {
             <AnimatedButton
               onPress={() => {
                 const ret = [item, index, state.searchedData];
-                // console.log('*************', state.searchedData);
-                // navigation.navigate('productDetail', item);
                 navigation.navigate('productDetail', ret);
               }}
-              style={[
-                styles.itemContainer,
-                // {transform: [{scale: scaleValues[index]}]},
-              ]}
+              style={[styles.itemContainer]}
               key={item.id}>
               <Image
                 source={{uri: item.thumbnail_image}}
@@ -66,17 +61,10 @@ export default function SearchedProductItems({productData, category}) {
                 <B15 numberOfLines={2} customStyle={{lineHeight: 20}}>
                   {item.name}
                 </B15>
-                {/* <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginTop: 12,
-                  }}> */}
                 <B12 customStyle={styles.brand}>{item.brand_name}</B12>
                 <B12 customStyle={{lineHeight: 17}}>
                   ￦{item.price.toLocaleString()}
                 </B12>
-                {/* </View> */}
               </View>
             </AnimatedButton>
           ))}
@@ -118,7 +106,7 @@ const styles = StyleSheet.create({
     width: '49%', // to get two items per row with some space between
     // marginBottom: SPACING_2,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     // backgroundColor: COLOR_WHITE,
     // padding: 8,
     paddingBottom: 12,

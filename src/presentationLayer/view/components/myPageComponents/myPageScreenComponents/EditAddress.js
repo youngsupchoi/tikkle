@@ -97,7 +97,7 @@ export default function EditAddress() {
               borderRadius: 12,
               borderColor: COLOR_SEPARATOR,
               borderWidth: 1,
-              // padding: 4,
+              padding: 8,
               paddingHorizontal: 12,
               width: '100%',
               flexDirection: 'row',

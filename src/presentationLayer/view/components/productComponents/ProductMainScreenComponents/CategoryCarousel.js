@@ -43,42 +43,29 @@ export default function CategoryCarousel() {
               paddingLeft: 20,
               paddingRight: 18,
               paddingVertical: 8,
-              borderColor: COLOR_SEPARATOR,
+              borderColor: COLOR_PRIMARY,
               borderWidth: 1,
               borderRadius: 8,
               elevation: 1,
-              marginBottom: 4,
+              // marginBottom: 4,
               alignItems: 'center',
-              // marginTop: 16,
-              marginHorizontal: 8,
-              // flexDirection: 'row',
-              // justifyContent: 'space-between',
+              marginLeft: 8,
             }}>
-            <View
-              style={
-                {
-                  // position: 'absolute',
-                  // bottom: 24,
-                  // left: 6,
-                  // right: 0,
-                  // top: 0,
-                  // backgroundColor: 'red',
-                }
-              }>
+            {/* <View>
               {category.id === 1 ? <Image1 width={48} height={48} /> : null}
               {category.id === 2 ? <Image2 width={48} height={48} /> : null}
               {category.id === 3 ? <Image3 width={48} height={48} /> : null}
               {category.id === 4 ? <Image4 width={48} height={48} /> : null}
-            </View>
+            </View> */}
             <B12
               customStyle={{
-                marginTop: 8,
+                // marginTop: 8,
                 color:
                   state.categoryId === category.id
-                    ? COLOR_PRIMARY_TEXT
-                    : COLOR_BLACK,
+                    ? COLOR_WHITE
+                    : COLOR_PRIMARY,
               }}>
-              #{category.name}
+              {category.name}
             </B12>
           </AnimatedButton>
         ))}
