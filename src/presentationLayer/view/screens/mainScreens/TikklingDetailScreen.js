@@ -613,82 +613,86 @@ export default function TikklingDetailScreen() {
             }
             renderItem={({item, index}) => {
               return (
-                <View style={styles.flatListItemContainer}>
+                <View>
                   {state.route_data.is_mine === true ? (
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                        }}>
-                        {item.state_id === 2 ? (
-                          <Noti_Refund
-                            width={60}
-                            height={60}
-                            stroke={COLOR_BLACK}
-                            strokeWidth={1}
-                            scale={1}
-                          />
-                        ) : (
-                          <Image
-                            source={{
-                              uri:
-                                item.image !== null
-                                  ? item.image
-                                  : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-                            }}
-                            style={styles.listItemImage}
-                          />
-                        )}
-
-                        <View style={styles.listItemTextContainer}>
+                    <View style={styles.flatListItemContainer}>
+                      <View>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                          }}>
                           {item.state_id === 2 ? (
-                            <View style={{marginBottom: 5}}>
-                              <B15 customStyle={{color: COLOR_ERROR}}>
-                                환불된 {item.NAME}님의 선물
-                              </B15>
-                            </View>
+                            <Noti_Refund
+                              width={60}
+                              height={60}
+                              stroke={COLOR_BLACK}
+                              strokeWidth={1}
+                              scale={1}
+                            />
                           ) : (
-                            <View style={{marginBottom: 5}}>
-                              <B15>{item.NAME}님의 선물</B15>
-                            </View>
+                            <Image
+                              source={{
+                                uri:
+                                  item.image !== null
+                                    ? item.image
+                                    : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+                              }}
+                              style={styles.listItemImage}
+                            />
                           )}
 
-                          <M15 customStyle={{color: COLOR_BLACK, width: 270}}>
-                            [
-                            {state.route_data.product_name.length > 30
-                              ? state.route_data.product_name.substring(0, 30) +
-                                '...'
-                              : state.route_data.product_name}
-                            ]의 조각 {item.quantity}개
-                          </M15>
-                          <View
-                            style={{
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                              marginLeft: 60,
-                            }}>
-                            <B12 customStyle={{color: COLOR_GRAY}}>
-                              {item.created_at.split('T')[0]}
-                            </B12>
-                            <B12 customStyle={{color: COLOR_GRAY}}>
-                              {item.created_at.split('T')[1].split('.')[0]}
-                            </B12>
+                          <View style={styles.listItemTextContainer}>
+                            {item.state_id === 2 ? (
+                              <View style={{marginBottom: 5}}>
+                                <B15 customStyle={{color: COLOR_ERROR}}>
+                                  환불된 {item.NAME}님의 선물
+                                </B15>
+                              </View>
+                            ) : (
+                              <View style={{marginBottom: 5}}>
+                                <B15>{item.NAME}님의 선물</B15>
+                              </View>
+                            )}
+
+                            <M15 customStyle={{color: COLOR_BLACK, width: 270}}>
+                              [
+                              {state.route_data.product_name.length > 30
+                                ? state.route_data.product_name.substring(
+                                    0,
+                                    30,
+                                  ) + '...'
+                                : state.route_data.product_name}
+                              ]의 조각 {item.quantity}개
+                            </M15>
+                            <View
+                              style={{
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                marginLeft: 60,
+                              }}>
+                              <B12 customStyle={{color: COLOR_GRAY}}>
+                                {item.created_at.split('T')[0]}
+                              </B12>
+                              <B12 customStyle={{color: COLOR_GRAY}}>
+                                {item.created_at.split('T')[1].split('.')[0]}
+                              </B12>
+                            </View>
                           </View>
                         </View>
-                      </View>
 
-                      {item.message ? (
-                        <View style={{margin: 10}}>
-                          <B15 customStyle={{color: COLOR_BLACK}}>
-                            {'[메세지]'}
-                          </B15>
-                          <M11 customStyle={{color: COLOR_BLACK}}>
-                            {item.message}
-                          </M11>
-                        </View>
-                      ) : null}
+                        {item.message ? (
+                          <View style={{margin: 10}}>
+                            <B15 customStyle={{color: COLOR_BLACK}}>
+                              {'[메세지]'}
+                            </B15>
+                            <M11 customStyle={{color: COLOR_BLACK}}>
+                              {item.message}
+                            </M11>
+                          </View>
+                        ) : null}
+                      </View>
                     </View>
                   ) : null}
                 </View>
