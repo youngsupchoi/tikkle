@@ -285,7 +285,7 @@ export default function FriendsTikklingCarousel(data) {
                   }}
                   disabled={
                     // new Date(item.funding_limit) < new Date()
-                    moment().isAfter(moment('2023-11-01').endOf('day'))
+                    moment().isAfter(moment(item.funding_limit).endOf('day'))
                   }>
                   <B15 customStyle={{color: COLOR_PRIMARY_TEXT}}>
                     {'티클 선물하기'}

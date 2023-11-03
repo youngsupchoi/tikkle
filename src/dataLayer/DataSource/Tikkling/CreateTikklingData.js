@@ -61,7 +61,7 @@ export async function createTikklingData(
     };
   }
 
-  //console.log(response);
+  // console.log('#### ', response);
 
   //------ control result & error of post_tikkling_create-----------------------------------------//
   if (response.status === 403) {
@@ -111,7 +111,11 @@ export async function createTikklingData(
 
   //------ call post_notification_send -------------------------------------------------------//
 
-  const body3 = {receive_user_id: null, notification_type_id: 3};
+  const body3 = {
+    receive_user_id: null,
+    notification_type_id: 3,
+    tikkling_id: response.data.data.tikkling_id,
+  };
 
   try {
     const response3 = apiModel(
