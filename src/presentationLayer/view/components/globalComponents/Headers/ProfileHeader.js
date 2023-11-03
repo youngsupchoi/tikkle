@@ -3,6 +3,7 @@ import React from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_PRIMARY,
+  COLOR_SEPARATOR,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {B20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
@@ -30,7 +31,7 @@ export default function ProfileHeader() {
           strokeWidth={2}
         />
       </AnimatedButton> */}
-      <View style={{marginLeft: 15}}>
+      <View style={{marginLeft: 0}}>
         <B20>프로필</B20>
       </View>
 
@@ -54,13 +55,14 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
     height: HEADER_HEIGHT,
-    // borderBottomColor: COLOR_SEPARATOR,
-    // borderBottomWidth: 1,
-    // elevation: 1,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
+    elevation: 1,
     paddingTop: 0,
     backgroundColor: backgroundColor,
+    // backgroundColor: 'blue',
     flexDirection: 'row',
-    paddingHorizontal: SPACING_2,
+    paddingHorizontal: 16,
     alignItems: 'center',
     justifyContent: 'space-between',
     position: 'sticky',

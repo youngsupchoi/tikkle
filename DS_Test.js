@@ -66,6 +66,9 @@ import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/Update
 
 import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
 import {updateDeviceTokenData} from 'src/dataLayer/DataSource/User/UpdateDeviceTokenData';
+import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
+
+import moment from 'moment';
 
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
@@ -74,8 +77,9 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    // const axiosResponse = await updateDeviceTokenData('TEST_TOKEN');
-    const axiosResponse = await getTikkleDetailData(46);
+    const axiosResponse = createTikklingData('2023-11-03', 8, 1, 'none', {
+      color: 'red',
+    });
     const str = JSON.stringify(axiosResponse, null, ' ');
     console.log(str);
     setRet(str);

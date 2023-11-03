@@ -139,8 +139,8 @@ export default function MyStack() {
           headerShown: false,
           gestureEnabled: true,
           cardOverlayEnabled: true,
-          cardStyleInterpolator: customCardStyleInterpolator, // apply the custom card style interpolator
-          transitionSpec: customTransitionSpec, // use the previously defined custom transition spec
+          // cardStyleInterpolator: customCardStyleInterpolator, // apply the custom card style interpolator
+          // transitionSpec: customTransitionSpec, // use the previously defined custom transition spec
         }}>
         <Stack.Screen name="splash" component={SplashScreen} />
         {/* <Stack.Screen name="signupNotUsed" component={SignUpNotUsedScreen} /> */}
@@ -157,8 +157,8 @@ export default function MyStack() {
             headerShown: false,
             gestureEnabled: true,
             cardOverlayEnabled: false,
-            cardStyleInterpolator:
-              CardStyleInterpolators.forScaleFromCenterAndroid,
+            // cardStyleInterpolator:
+            //   CardStyleInterpolators.forScaleFromCenterAndroid,
           }}
         />
         <Stack.Screen name="startTikkling" component={StartTikklingScreen} />
@@ -183,13 +183,13 @@ export default function MyStack() {
               open: {animation: 'timing', config: {duration: 200}},
               close: {animation: 'timing', config: {duration: 200}},
             },
-            cardStyleInterpolator: ({current: {progress}}) => {
-              return {
-                cardStyle: {
-                  opacity: progress,
-                },
-              };
-            },
+            // cardStyleInterpolator: ({current: {progress}}) => {
+            //   return {
+            //     cardStyle: {
+            //       opacity: progress,
+            //     },
+            //   };
+            // },
           })}
         />
         <Stack.Screen
@@ -200,13 +200,13 @@ export default function MyStack() {
               open: {animation: 'timing', config: {duration: 200}},
               close: {animation: 'timing', config: {duration: 200}},
             },
-            cardStyleInterpolator: ({current: {progress}}) => {
-              return {
-                cardStyle: {
-                  opacity: progress,
-                },
-              };
-            },
+            // cardStyleInterpolator: ({current: {progress}}) => {
+            //   return {
+            //     cardStyle: {
+            //       opacity: progress,
+            //     },
+            //   };
+            // },
           })}
         />
         <Stack.Screen
@@ -217,13 +217,13 @@ export default function MyStack() {
               open: {animation: 'timing', config: {duration: 200}},
               close: {animation: 'timing', config: {duration: 200}},
             },
-            cardStyleInterpolator: ({current: {progress}}) => {
-              return {
-                cardStyle: {
-                  opacity: progress,
-                },
-              };
-            },
+            // cardStyleInterpolator: ({current: {progress}}) => {
+            //   return {
+            //     cardStyle: {
+            //       opacity: progress,
+            //     },
+            //   };
+            // },
           })}
         />
         <Stack.Screen

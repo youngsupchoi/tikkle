@@ -20,6 +20,7 @@ import {
 import {
   COLOR_BLACK,
   COLOR_GRAY,
+  COLOR_PRIMARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -42,6 +43,8 @@ import Footer from 'src/presentationLayer/view/components/globalComponents/Heade
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import LogoutModal from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/LogoutModal';
 import {RefreshControl} from 'react-native-gesture-handler';
+import CalendarFilled from 'src/assets/icons/CalendarFilled';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
 
 export default function ProfileScreen() {
   const {ref, state, actions} = useMyPageViewModel();
@@ -151,9 +154,15 @@ export default function ProfileScreen() {
                     <M15 customStyle={{color: COLOR_GRAY}}>
                       {state.userData_profile.nick}
                     </M15>
-                    <M11 customStyle={{color: COLOR_GRAY}}>
-                      생일이 {state.timeUnitlNextBirthday}일 남았어요.
-                    </M11>
+                    {state.timeUnitlNextBirthday == 0 ? (
+                      <M11 customStyle={{color: COLOR_GRAY}}>
+                        생일이 축하해요!
+                      </M11>
+                    ) : (
+                      <M11 customStyle={{color: COLOR_GRAY}}>
+                        생일이 {state.timeUnitlNextBirthday}일 남았어요.
+                      </M11>
+                    )}
                   </View>
                 </View>
               </View>
@@ -235,17 +244,16 @@ export default function ProfileScreen() {
                           // actions.navigation.navigate('HistoryDetail', ret);
                         }}
                         style={{
-                          width: 170,
-                          // height: 120,
+                          paddingHorizontal: 12,
                           borderTopLeftRadius: 12,
                           borderTopRightRadius: 12,
                           alignItems: 'center',
                         }}>
-                        <B15 customStyle={{color: COLOR_BLACK}}>
-                          {/* {item.tikkling_type} */}
-                          {/* {' 티클링'} */}
-                        </B15>
-
+                        {/* <B15 customStyle={{color: COLOR_BLACK}}>
+                          {item.tikkling_type}
+                          {' 티클링'}
+                        </B15> */}
+                        <B15 customStyle={{}}>{item.state_name}</B15>
                         <Image
                           source={{
                             uri: item.thumbnail_image,
@@ -257,15 +265,52 @@ export default function ProfileScreen() {
                             marginVertical: 10,
                           }}
                         />
-
-                        <B15 customStyle={{}}>{item.state_name}</B15>
-
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {actions.formatDate(item.created_at)}
-                          {'   '}
-                          {item.tikkle_quantity}
-                          {'개 수집'}
-                        </M11>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                          }}>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              paddingHorizontal: 6,
+                              paddingVertical: 3,
+                              borderColor: COLOR_PRIMARY,
+                              borderWidth: 1,
+                              borderRadius: 20,
+                              alignItems: 'center',
+                            }}>
+                            <CalendarFilled
+                              width={12}
+                              height={12}
+                              fill={COLOR_PRIMARY}
+                            />
+                            <M11
+                              customStyle={{color: COLOR_GRAY, marginLeft: 3}}>
+                              {actions.formatDate(item.created_at)}
+                            </M11>
+                          </View>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              paddingHorizontal: 6,
+                              paddingVertical: 3,
+                              borderColor: COLOR_PRIMARY,
+                              borderWidth: 1,
+                              borderRadius: 20,
+                              alignItems: 'center',
+                              marginLeft: 8,
+                            }}>
+                            <BubbleFilled
+                              width={12}
+                              height={12}
+                              fill={COLOR_PRIMARY}
+                            />
+                            <M11
+                              customStyle={{color: COLOR_GRAY, marginLeft: 3}}>
+                              {item.tikkle_quantity}개
+                            </M11>
+                          </View>
+                        </View>
                       </AnimatedButton>
                     );
                   }}
@@ -353,7 +398,7 @@ export default function ProfileScreen() {
                     return (
                       <AnimatedButton
                         style={{
-                          width: 120,
+                          paddingHorizontal: 12,
                           borderTopLeftRadius: 12,
                           borderTopRightRadius: 12,
                           alignItems: 'center',
@@ -384,16 +429,53 @@ export default function ProfileScreen() {
                             marginVertical: 10,
                           }}
                         />
-                        <B15 numberOfLines={1} customStyle={{}}>
+                        <B15 customStyle={{marginBottom: 8}}>
                           {item.user_name}
                           {'님에게'}
                         </B15>
-                        <M11 customStyle={{color: COLOR_GRAY}}>
-                          {actions.formatDate(item.send_at)}
-                          {'   '}
-                          {item.send_quantity}
-                          {'개'}
-                        </M11>
+                        <View style={{flexDirection: 'row'}}>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              paddingHorizontal: 6,
+                              paddingVertical: 3,
+                              borderColor: COLOR_PRIMARY,
+                              borderWidth: 1,
+                              borderRadius: 20,
+                              alignItems: 'center',
+                            }}>
+                            <CalendarFilled
+                              width={12}
+                              height={12}
+                              fill={COLOR_PRIMARY}
+                            />
+                            <M11
+                              customStyle={{color: COLOR_GRAY, marginLeft: 3}}>
+                              {actions.formatDate(item.send_at)}
+                            </M11>
+                          </View>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              paddingHorizontal: 6,
+                              paddingVertical: 3,
+                              borderColor: COLOR_PRIMARY,
+                              borderWidth: 1,
+                              borderRadius: 20,
+                              alignItems: 'center',
+                              marginLeft: 8,
+                            }}>
+                            <BubbleFilled
+                              width={12}
+                              height={12}
+                              fill={COLOR_PRIMARY}
+                            />
+                            <M11
+                              customStyle={{color: COLOR_GRAY, marginLeft: 3}}>
+                              {item.send_quantity}개
+                            </M11>
+                          </View>
+                        </View>
                       </AnimatedButton>
                     );
                   }}
@@ -431,7 +513,7 @@ export default function ProfileScreen() {
           </View>
         </View>
       )}
-      <Footer />
+      {/* <Footer /> */}
       <LogoutModal />
     </ScrollView>
   );
@@ -446,20 +528,19 @@ const styles = StyleSheet.create({
     paddingTop: StatusBarHeight,
   },
   buttonStyle: {
-    padding: 5,
-    borderRadius: 14,
-    backgroundColor: '#E7E7E7',
+    borderRadius: 12,
+    backgroundColor: COLOR_WHITE,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',
     width: windowWidth - 32,
-    height: 40,
-    borderColor: 'transparent',
-    borderWidth: 2,
-    marginBottom: 10,
+    height: 44,
+    borderColor: COLOR_PRIMARY,
+    borderWidth: 1,
+    marginBottom: 16,
   },
   buttonText: {
-    color: COLOR_BLACK,
+    color: COLOR_PRIMARY,
   },
 });

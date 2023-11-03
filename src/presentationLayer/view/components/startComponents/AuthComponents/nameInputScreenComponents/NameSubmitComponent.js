@@ -9,6 +9,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
 export default function NameSubmit() {
   const {ref, state, actions} = useStartViewModel();
@@ -34,9 +35,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: COLOR_BLACK,
-    width: '90%',
+    width: windowWidth - 32,
     height: 50,
-    borderRadius: 25,
+    // borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',

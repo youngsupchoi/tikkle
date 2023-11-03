@@ -28,70 +28,40 @@ export default function TimeAndPieceCounter() {
   const {state, actions} = useMainViewModel();
   return (
     <View style={styles.detailsContainer}>
-      <View
-        style={{
-          alignItems: 'center',
-          borderColor: COLOR_SEPARATOR,
-          borderWidth: 1,
-          padding: 12,
-          paddingVertical: 16,
-          width: 0.4 * windowWidth,
-          borderRadius: 12,
-        }}>
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 16,
-            backgroundColor: COLOR_SECONDARY,
-            borderRadius: 100,
-            marginBottom: 12,
-          }}>
+      <View style={styles.itemContainer}>
+        <View style={styles.iconContainer}>
           <BubbleFilled fill={COLOR_PRIMARY} />
         </View>
-        <B12 customStyle={styles.labelText}>남은 티클</B12>
-        <B17 customStyle={styles.dataText}>
-          {state.myTikklingData.tikkle_quantity -
-            state.myTikklingData.tikkle_count}{' '}
-          개
-        </B17>
+        <View style={styles.textContainer}>
+          <B12 customStyle={styles.labelText}>남은 티클</B12>
+          <B17 customStyle={styles.dataText}>
+            {state.myTikklingData.tikkle_quantity -
+              state.myTikklingData.tikkle_count}{' '}
+            개
+          </B17>
+        </View>
       </View>
       <View>
-        <View
-          style={{
-            alignItems: 'center',
-            borderColor: COLOR_SEPARATOR,
-            borderWidth: 1,
-            padding: 12,
-            paddingVertical: 16,
-            width: 0.4 * windowWidth,
-            borderRadius: 12,
-          }}>
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 16,
-              backgroundColor: COLOR_SECONDARY,
-              borderRadius: 100,
-              marginBottom: 12,
-            }}>
+        <View style={styles.itemContainer}>
+          <View style={styles.iconContainer}>
             <CalendarFilled fill={COLOR_PRIMARY} />
           </View>
-          <B12 customStyle={styles.labelText}>남은 시간</B12>
           <View>
-            {state.myTikklingData.state_id == 1 ? (
-              <TimerComponent
-                timerStyle={{
-                  color: COLOR_BLACK,
-                  fontSize: 17,
-                  fontFamily: B,
-                }}
-                deadline={state.myTikklingData.funding_limit}
-              />
-            ) : (
-              <B15>종료</B15>
-            )}
+            <B12 customStyle={styles.labelText}>남은 시간</B12>
+            <View style={styles.textContainer}>
+              {state.myTikklingData.state_id == 1 ? (
+                <TimerComponent
+                  timerStyle={{
+                    color: COLOR_BLACK,
+                    fontSize: 17,
+                    fontFamily: B,
+                  }}
+                  deadline={state.myTikklingData.funding_limit}
+                />
+              ) : (
+                <B15>종료</B15>
+              )}
+            </View>
           </View>
         </View>
       </View>
@@ -127,6 +97,26 @@ const styles = StyleSheet.create({
     // },
     // shadowOpacity: 0.2, // iOS용 그림자 투명도
     // shadowRadius: 3, // iOS용 그림자 반경
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: COLOR_PRIMARY,
+    borderWidth: 1,
+    // padding: 12,
+    // paddingVertical: 16,
+    // width: 0.4 * windowWidth,
+    padding: 4,
+    paddingRight: 24,
+    borderRadius: 100,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    marginRight: 8,
+    // backgroundColor: COLOR_SECONDARY,
+    borderRadius: 100,
   },
   innerRowDirection: {
     flexDirection: 'row',

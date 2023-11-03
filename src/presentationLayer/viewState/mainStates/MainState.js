@@ -55,6 +55,13 @@ export const MainViewStateProvider = ({children}) => {
   const smallImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
 
+  const [productOptions, setProductOptions] = useState();
+  const [showProductOptionsModal, setShowProductOptionsModal] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [itHasOptions, setItHasOptions] = useState(null);
+  const [optionPrice, setOptionPrice] = useState(null);
+  const [selectedWishlistData, setSelectedWishlistData] = useState(null);
+
   const [tikkle_sum, setTikkle_sum] = useState(0);
   const [list_data, setList_data] = useState([]);
   const [route_data, setRoute_data] = useState([]);
@@ -112,6 +119,12 @@ export const MainViewStateProvider = ({children}) => {
     detailLoading,
     detail_buymodal,
     contactsData,
+    productOptions,
+    showProductOptionsModal,
+    selectedOptions,
+    itHasOptions,
+    optionPrice,
+    selectedWishlistData,
   };
 
   const actions = {
@@ -154,6 +167,12 @@ export const MainViewStateProvider = ({children}) => {
     setDetailLoading,
     setDetail_buymodal,
     setContactsData,
+    setProductOptions,
+    setShowProductOptionsModal,
+    setSelectedOptions,
+    setItHasOptions,
+    setOptionPrice,
+    setSelectedWishlistData,
   };
 
   return (

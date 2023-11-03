@@ -22,9 +22,9 @@ import Location from 'src/assets/icons/Location';
 export default function EditAddress() {
   const {state, actions} = useMyPageViewModel();
   return (
-    <View style={{padding: 24, paddingBottom: 10}}>
+    <View style={{marginHorizontal: 24, marginTop: 24}}>
       <View style={styles.headerContainer}>
-        <B15>주소지 변경</B15>
+        <B17>주소지 변경</B17>
         <AnimatedButton
           style={{paddingRight: 50}}
           onPress={() => {
@@ -42,7 +42,7 @@ export default function EditAddress() {
             actions.setShowPostCodeModal(true);
           }}
           style={{
-            marginTop: 5,
+            marginTop: 16,
             flexDirection: 'row',
             alignSelf: 'center',
             width: windowWidth - 32,
@@ -74,7 +74,7 @@ export default function EditAddress() {
                 strokeWidth={1.5}
               />
             </View>
-            <B15 customStyle={{color: COLOR_GRAY, marginHorizontal: 12}}>
+            <B15 customStyle={{color: COLOR_GRAY, marginLeft: 8}}>
               {state.zonecode !== null && state.address !== null
                 ? `${state.address} (${state.zonecode})`
                 : '도로명주소 검색'}
@@ -123,11 +123,13 @@ export default function EditAddress() {
                   ? `${state.userData_profile.detail_address}`
                   : '상세주소 입력'
               }
+              placeholderTextColor={COLOR_GRAY}
               style={{
                 fontFamily: B,
                 fontSize: 15,
-                marginLeft: 12,
-                color: COLOR_GRAY,
+                marginLeft: 8,
+                color: COLOR_BLACK,
+                width: windowWidth - 60,
               }}
               onChangeText={value => actions.setDetailAddress(value)}
               value={state.detailAddress}
@@ -143,16 +145,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: windowWidth,
     paddingTop: 0,
-    // borderBottomColor: COLOR_SEPARATOR,
-    // borderBottomWidth: 1,
-    // elevation: 1,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
-    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
   },
 });

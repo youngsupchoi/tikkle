@@ -17,13 +17,13 @@ import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import Refund from 'src/assets/icons/Refund';
+import Clipboard from 'src/assets/icons/Clipboard';
 export default function ButtonComponent({
   ButtonIcon,
   ButtonText,
   IsStopped,
-  Home,
+  FromDetail,
   Q,
   S,
 }) {
@@ -31,10 +31,9 @@ export default function ButtonComponent({
   const handleButtonPress = () => {
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
-    const fundingLimit = new Date(state.myTikklingData.funding_limit);
-    const currentDate = getKoreanDate();
+    // const fundingLimit = new Date(state.myTikklingData.funding_limit);
 
-    if (Home == true) {
+    if (FromDetail == true) {
       if (Q === S) {
         actions.setShowEndModal(true);
       } else if (Q > S) {
@@ -55,16 +54,19 @@ export default function ButtonComponent({
         marginTop: 12,
         flexDirection: 'row',
         justifyContent: 'center',
+        flex: 1,
       }}>
-      <AnimatedButton onPress={handleButtonPress} style={styles.buttonStyle}>
-        <View
+      <AnimatedButton
+        onPress={handleButtonPress}
+        style={{...styles.buttonStyle, flex: 4}}>
+        {/* <View
           style={{
             marginRight: 4,
             padding: 8,
-            borderRadius: 100,
+            borderRadius: 12,
           }}>
           {ButtonIcon}
-        </View>
+        </View> */}
         <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
       </AnimatedButton>
       {IsStopped ? (
@@ -78,17 +80,19 @@ export default function ButtonComponent({
           }}
           style={{
             ...styles.buttonStyle,
-            backgroundColor: COLOR_GRAY,
-            borderColor: COLOR_GRAY,
+            backgroundColor: COLOR_WHITE,
+            borderColor: COLOR_PRIMARY,
+            borderWidth: 1,
             marginLeft: 15,
+            flex: 1,
           }}>
-          <View
+          {/* <View
             style={{
               marginRight: 4,
               padding: 8,
-              borderRadius: 100,
+              borderRadius: 12,
             }}>
-            {/* TODO: 돈 아이콘으로 반영 */}
+            TODO: 돈 아이콘으로 반영
             <Refund
               width={24}
               height={24}
@@ -96,30 +100,74 @@ export default function ButtonComponent({
               strokeWidth={1}
               scale={1}
             />
-          </View>
-          <B15 customStyle={styles.buttonText}>
-            {Number(state.myTikklingData.tikkle_count) == 0
-              ? '취소하기'
-              : '환급받기'}
+          </View> */}
+          <B15 customStyle={{...styles.buttonText, color: COLOR_PRIMARY}}>
+            {Number(state.myTikklingData.tikkle_count) == 0 ? '취소' : '환급'}
           </B15>
         </AnimatedButton>
       ) : (
-        <AnimatedButton
-          onPress={actions.onInstagramShareButtonPressed}
-          style={{
-            marginLeft: windowWidth * 0.1,
-            width: 50,
-            height: 50,
-            padding: 6,
-            borderRadius: 100,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Image
-            source={require('src/assets/icons/instagramLogo.png')}
-            style={{width: 32, height: 32}}
-          />
-        </AnimatedButton>
+        <View style={{flex: 2, flexDirection: 'row', marginLeft: 8}}>
+          <AnimatedButton
+            onPress={async () => {
+              if (FromDetail == true) {
+                //detail에서 눌렀을 때
+                console.log(
+                  'detail에서 눌렀을 때',
+                  state.route_data.user_name,
+                  state.route_data.tikkling_id,
+                );
+                await actions.onInstagramShareButtonPressed(
+                  state.route_data.user_name,
+                  state.route_data.tikkling_id,
+                );
+              } else {
+                //main에서 눌렀을 때
+                await actions.onInstagramShareButtonPressed(
+                  state.userData.name,
+                  state.myTikklingData.tikkling_id,
+                );
+              }
+            }}
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('src/assets/icons/instagramLogo.png')}
+              style={{width: 32, height: 32}}
+            />
+          </AnimatedButton>
+          <AnimatedButton
+            onPress={async () => {
+              if (FromDetail == true) {
+                //detail에서 눌렀을 때
+                await actions.onClipboardButtonPressed(
+                  state.route_data.user_name,
+                  state.route_data.tikkling_id,
+                );
+              } else {
+                //main에서 눌렀을 때
+                await actions.onClipboardButtonPressed(
+                  state.userData.name,
+                  state.myTikklingData.tikkling_id,
+                );
+              }
+            }}
+            style={{
+              flex: 1,
+              borderRadius: 12,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Clipboard
+              width={24}
+              height={24}
+              stroke={COLOR_BLACK}
+              strokeWidth={1.5}
+            />
+          </AnimatedButton>
+        </View>
       )}
     </View>
   );
@@ -144,15 +192,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    // elevation: 3,
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   // iOS용 그림자 위치
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.2, // iOS용 그림자 투명도
-    // shadowRadius: 3, // iOS용 그림자 반경
   },
   innerRowDirection: {
     flexDirection: 'row',
@@ -215,16 +254,17 @@ const styles = StyleSheet.create({
     color: COLOR_BLACK,
   },
   buttonStyle: {
-    padding: 4,
-    paddingLeft: 12,
-    paddingRight: 24,
-    borderRadius: 100,
+    padding: 12,
+    // paddingHorizontal: 24,
+    // paddingLeft: 12,
+    // paddingRight: 24,
+    borderRadius: 12,
     backgroundColor: COLOR_PRIMARY,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    borderColor: COLOR_PRIMARY_OUTLINE,
-    borderWidth: 2,
+    // borderColor: COLOR_PRIMARY_OUTLINE,
+    // borderWidth: 2,
   },
   buttonText: {
     color: COLOR_WHITE,

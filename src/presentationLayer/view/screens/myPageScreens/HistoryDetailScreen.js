@@ -399,7 +399,6 @@ export default function HistoryDetailScreen(route) {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'left',
                   }}>
                   <B15 customStyle={{marginBottom: 10}}>티클링 기간</B15>
                   <View
@@ -445,9 +444,8 @@ export default function HistoryDetailScreen(route) {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'left',
                   }}>
-                  <B15 customStyle={{marginBottom: 10}}>총 받은 티클 수</B15>
+                  <B15 customStyle={{marginBottom: 10}}>받은 티클 수</B15>
 
                   <M15
                     customStyle={{
@@ -507,7 +505,6 @@ export default function HistoryDetailScreen(route) {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'left',
                   }}>
                   <B15 customStyle={{marginBottom: 10}}>상품 브랜드</B15>
 
@@ -525,7 +522,6 @@ export default function HistoryDetailScreen(route) {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'left',
                   }}>
                   <B15 customStyle={{marginBottom: 10}}>상품 가격</B15>
 
@@ -543,7 +539,6 @@ export default function HistoryDetailScreen(route) {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'left',
                   }}>
                   <B15 customStyle={{marginBottom: 10}}>상품 총 티클 개수</B15>
 
@@ -662,12 +657,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     height: HEADER_HEIGHT,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
   },
   small_header: {
     flexDirection: 'row',
     // justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 24,
+    // paddingHorizontal: 24,
+    marginLeft: 16,
     paddingVertical: 6,
     // height: HEADER_HEIGHT,
   },

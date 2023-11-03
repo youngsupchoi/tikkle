@@ -17,19 +17,22 @@ import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
+import moment from 'moment';
 
 export default function StopedButtonComponent({ButtonIcon, ButtonText}) {
   const {state, actions} = useMainViewModel();
   const handleButtonPress = () => {
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
-    const fundingLimit = new Date(state.myTikklingData.funding_limit);
-    const currentDate = getKoreanDate();
+
+    const cur = moment().add(9, 'hours');
+    const limit = moment(state.myTikklingData.funding_limit)
+      .endOf('day')
+      .add(9, 'hours');
 
     if (tikkleQuantity === tikkleCount) {
       actions.setShowEndModal(true);
-    } else if (fundingLimit > currentDate) {
+    } else if (limit.diff(cur) > 0) {
       actions.setShowBuyModal(true);
     } else {
       actions.setShowCancelModal(true);
@@ -54,7 +57,10 @@ export default function StopedButtonComponent({ButtonIcon, ButtonText}) {
         <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
       </AnimatedButton>
       <AnimatedButton
-        onPress={actions.onInstagramShareButtonPressed}
+        onPress={actions.onInstagramShareButtonPressed(
+          state.userData.name,
+          state.myTikklingData.tikkling_id,
+        )}
         style={{
           marginLeft: windowWidth * 0.1,
           width: 50,

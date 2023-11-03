@@ -26,7 +26,6 @@ import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import Present from 'src/assets/icons/Present';
-import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
 import CancelModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CancelModal';
 import StopModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/StopModal';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
@@ -75,8 +74,6 @@ const FirstHero = props => {
   const {state, actions} = useMainViewModel();
   const navigation = useNavigation();
 
-  const CurrentDate = getKoreanDate();
-  const FundingLimit = new Date(state.myTikklingData.funding_limit);
   const TikkleCount = Number(state.myTikklingData.tikkle_count);
   const TikkleQuantity = state.myTikklingData.tikkle_quantity;
 
@@ -299,7 +296,6 @@ const FirstHero = props => {
                       routes: [
                         {
                           name: 'main',
-                          params: {updated: new Date().toString()},
                         },
                       ],
                     });
@@ -355,7 +351,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR_WHITE,
     marginHorizontal: SPACING_2,
     borderRadius: 16,
-    marginBottom: 24,
+    marginBottom: 16,
     marginTop: 4,
   },
   innerContainer: {

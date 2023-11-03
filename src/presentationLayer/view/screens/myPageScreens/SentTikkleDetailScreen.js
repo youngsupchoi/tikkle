@@ -21,6 +21,7 @@ import {
   M20,
   EB,
   R,
+  M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -52,6 +53,10 @@ import SendTikkle from 'src/presentationLayer/view/components/myPageComponents/s
 import Footer from '../../components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import RefundModal from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/RefundModal';
+import MarqueeText from 'src/presentationLayer/view/components/globalComponents/Typography/MarqueeText';
+import Bubble from 'src/assets/icons/Bubble';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
+import CalendarFilled from 'src/assets/icons/CalendarFilled';
 
 export default function SentTikkleDetailScreen({route}) {
   const item = route.params.item;
@@ -61,6 +66,11 @@ export default function SentTikkleDetailScreen({route}) {
   // console.log('state.paymentData : ', state.paymentData);
   // console.log('item : ', item);
 
+  const formatDate = dateString => {
+    const [year, month, day] = dateString.split('-');
+    return `${year.slice(-2)}.${month}.${day}`;
+  };
+
   useEffect(() => {
     actions.getHistoryPaymentData(item.merchant_uid);
     actions.setRefund_tikkling_id(item.tikkling_id);
@@ -69,22 +79,209 @@ export default function SentTikkleDetailScreen({route}) {
   }, []);
 
   return (
-    <View>
+    <View style={{backgroundColor: backgroundColor}}>
       <SendTikkleScreenHeader />
       {!state.paymentData ? (
         <GlobalLoader />
       ) : (
         <ScrollView style={{marginTop: HEADER_HEIGHT}}>
-          {/* 결제 정보 */}
-          <View style={{marginHorizontal: 5}}>
+          {/* 2 티클링 정보 */}
+          <View>
             <View
               style={{
-                padding: 24,
+                padding: 16,
                 paddingTop: 20,
                 paddingBottom: 10,
                 marginVertical: 8,
                 backgroundColor: COLOR_WHITE,
                 borderRadius: 16,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
+              }}>
+              {/* 티클링 정보 부분 */}
+
+              <B20 customStyle={{marginBottom: 16, fontFamily: EB}}>
+                티클링 정보
+              </B20>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <B17
+                  customStyle={{
+                    marginBottom: 16,
+                    marginLeft: 8,
+                    fontFamily: EB,
+                  }}>
+                  {item.user_name}
+                  {'님의 '}
+                  티클링
+                </B17>
+                {item.state_id === 1 ? (
+                  <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
+                    진행중
+                  </M15>
+                ) : item.state_id === 2 ? (
+                  <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
+                    취소
+                  </M15>
+                ) : item.state_id === 3 ? (
+                  <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
+                    미달성 종료
+                  </M15>
+                ) : item.state_id === 4 ? (
+                  <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
+                    펀딩 달성
+                  </M15>
+                ) : item.state_id === 5 ? (
+                  <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
+                    기간 만료
+                  </M15>
+                ) : null}
+              </View>
+
+              <View
+                style={{
+                  backgroundColor: COLOR_WHITE,
+                  borderRadius: 16,
+                  marginBottom: 16,
+                  elevation: 1,
+                  borderColor: COLOR_SEPARATOR,
+                  borderWidth: 1,
+                  justifyContent: 'space-between',
+                  flexDirection: 'row',
+                  padding: 12,
+                }}>
+                <Image
+                  resizeMode="cover"
+                  source={{
+                    uri: item.product_image,
+                  }}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    borderColor: COLOR_SEPARATOR,
+                  }}
+                />
+
+                <View
+                  style={{
+                    marginLeft: 8,
+                    // backgroundColor: 'blue',
+                    width: windowWidth - 32 - 100 - 6 - 32,
+                  }}>
+                  <View style={{marginBottom: 0}}>
+                    <B12>{item.brand_name}</B12>
+                  </View>
+                  <View style={{marginBottom: 8, fontFamily: EB}}>
+                    <B15 customStyle={{fontFamily: EB}}>
+                      {item.product_name}
+                    </B15>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      marginBottom: 4,
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        padding: 6,
+                        paddingHorizontal: 10,
+                      }}>
+                      <BubbleFilled
+                        width={16}
+                        height={16}
+                        scale={0.85}
+                        fill={COLOR_PRIMARY}
+                      />
+                      <M11 customStyle={{marginLeft: 4}}>
+                        {item.product_price / 5000}개
+                      </M11>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        padding: 6,
+                        paddingHorizontal: 10,
+                      }}>
+                      <CalendarFilled
+                        width={16}
+                        height={16}
+                        scale={0.85}
+                        fill={COLOR_PRIMARY}
+                      />
+                      <M11 customStyle={{color: COLOR_BLACK, marginLeft: 6}}>
+                        {formatDate(item.tikkling_created_at.split('T')[0])}
+                      </M11>
+                      <M11 customStyle={{color: COLOR_BLACK}}>{' ~ '}</M11>
+                      <M11 customStyle={{color: COLOR_BLACK}}>
+                        {formatDate(item.funding_limit.split('T')[0])}
+                      </M11>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              {/* tikkling_info */}
+              <View
+                style={{
+                  paddingHorizontal: 0,
+                }}>
+                {item.tikkling_terminated_at ? (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'left',
+                    }}>
+                    <B15 customStyle={{marginBottom: 4}}>티클링 종료일</B15>
+
+                    <M15
+                      customStyle={{
+                        color: COLOR_GRAY,
+                        marginBottom: 10,
+                        marginLeft: 8,
+                      }}>
+                      {item.tikkling_terminated_at.split('T')[0]}
+                    </M15>
+                  </View>
+                ) : null}
+              </View>
+            </View>
+          </View>
+
+          {/* 결제 정보 */}
+          <View
+            style={
+              {
+                // marginHorizontal: 5
+              }
+            }>
+            <View
+              style={{
+                padding: 16,
+                paddingTop: 20,
+                paddingBottom: 10,
+                marginVertical: 8,
+                backgroundColor: COLOR_WHITE,
+                borderRadius: 16,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
               }}>
               {/* 티클링 정보 부분 */}
 
@@ -94,7 +291,11 @@ export default function SentTikkleDetailScreen({route}) {
 
               <View style={styles.detailDataStyle}>
                 <B15>주문 번호</B15>
-                <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15>
+                {/* <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15> */}
+                <MarqueeText
+                  text={item.merchant_uid}
+                  style={{fontSize: 15, fontFamily: M, color: COLOR_GRAY}}
+                />
               </View>
 
               <View style={styles.detailDataStyle}>
@@ -133,7 +334,7 @@ export default function SentTikkleDetailScreen({route}) {
               <View style={styles.detailDataStyle}>
                 <B15>결제 금액</B15>
                 <M15 customStyle={{color: COLOR_GRAY}}>
-                  {state.paymentData.amount}
+                  {state.paymentData.amount.toLocaleString()}
                   {' 원'}
                 </M15>
               </View>
@@ -158,216 +359,8 @@ export default function SentTikkleDetailScreen({route}) {
               </View>
 
               <View style={styles.detailDataStyle}>
-                <B15>판매자 법인등록번호</B15>
-                <M15 customStyle={{color: COLOR_GRAY}}>{'110111-8753941'}</M15>
-              </View>
-              {/* 
-              <View style={styles.detailDataStyle}>
-                <B15>판매자 주소</B15>
-              </View>
-              <View style={styles.detailDataStyle_2}>
-                <M15 customStyle={{color: COLOR_GRAY}}>
-                  {'서울특별시 서초구 사임당로 8길 13, 4층 402호-a593'}
-                </M15>
-              </View> */}
-            </View>
-          </View>
-
-          {/* 2 티클링 정보 */}
-
-          <View style={{marginHorizontal: 15}}>
-            <View
-              style={{
-                padding: 24,
-                paddingTop: 20,
-                marginVertical: 8,
-                borderTopColor: COLOR_SEPARATOR,
-                borderTopWidth: 1,
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
-              }}>
-              {/* 티클링 정보 부분 */}
-
-              <B20 customStyle={{marginBottom: 16, fontFamily: EB}}>
-                티클링 정보
-              </B20>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
-                <B17
-                  customStyle={{
-                    marginBottom: 16,
-                    marginLeft: 5,
-                    fontFamily: EB,
-                  }}>
-                  {item.user_name}
-                  {'님의 '}
-                  {/* {item.tikkling_type} */}
-                  티클링
-                </B17>
-                {item.state_id === 1 ? (
-                  <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
-                    진행중
-                  </M15>
-                ) : item.state_id === 2 ? (
-                  <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
-                    취소
-                  </M15>
-                ) : item.state_id === 3 ? (
-                  <M15 customStyle={{color: COLOR_ERROR, marginBottom: 10}}>
-                    미달성 종료
-                  </M15>
-                ) : item.state_id === 4 ? (
-                  <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
-                    펀딩 달성
-                  </M15>
-                ) : item.state_id === 5 ? (
-                  <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                    기간 만료
-                  </M15>
-                ) : null}
-              </View>
-
-              <View
-                style={{
-                  // marginBottom: 15,
-                  backgroundColor: COLOR_SEPARATOR,
-                  borderRadius: 16,
-                  marginBottom: 16,
-                  marginTop: 5,
-                  elevation: 1,
-                  borderColor: COLOR_SEPARATOR,
-                  // height: 100,
-                  borderWidth: 0.5,
-                  // padding: 16,
-                  paddingBottom: 16,
-                  // paddingTop: 0,
-                  width: '100%',
-                  height: 120,
-                  alignItems: 'top',
-                  justifyContent: 'space-between',
-                  flexDirection: 'row',
-                  padding: 10,
-                }}>
-                <Image
-                  resizeMode="cover"
-                  source={{
-                    uri: item.product_image,
-                  }}
-                  style={{
-                    width: 100,
-                    height: 100,
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    borderColor: COLOR_SEPARATOR,
-                  }}
-                />
-
-                <View
-                  style={{
-                    padding: 5,
-                    paddingHorizontal: 10,
-                    width: windowWidth * 0.55,
-                  }}>
-                  <View style={{marginBottom: 5}}>
-                    <B15>
-                      {item.product_name.length > 30
-                        ? item.product_name.substring(0, 30) + '...'
-                        : item.product_name}
-                    </B15>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginLeft: 3,
-                    }}>
-                    <View
-                      style={{
-                        width: '40%',
-                      }}>
-                      <View style={{marginBottom: 5}}>
-                        <B12>브랜드 :</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>가격 :</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>총 티클 개수 :</B12>
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        width: '70%',
-                      }}>
-                      <View style={{marginBottom: 5}}>
-                        <B12>{item.brand_name}</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>{item.product_price.toLocaleString()}₩</B12>
-                      </View>
-                      <View style={{marginBottom: 5}}>
-                        <B12>{item.product_price / 5000}개</B12>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-
-              {/* tikkling_info */}
-              <View
-                style={{
-                  paddingHorizontal: 7,
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'left',
-                  }}>
-                  <B15 customStyle={{marginBottom: 4}}>티클링 기간</B15>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'left',
-                      alignItems: 'center',
-                      marginLeft: 8,
-                    }}>
-                    <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      {item.tikkling_created_at.split('T')[0]}
-                    </M15>
-                    <B15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      {'  ~  '}
-                    </B15>
-                    <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      {item.funding_limit.split('T')[0]}
-                    </M15>
-                  </View>
-                </View>
-
-                {item.tikkling_terminated_at ? (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'left',
-                    }}>
-                    <B15 customStyle={{marginBottom: 4}}>티클링 종료일</B15>
-
-                    <M15
-                      customStyle={{
-                        color: COLOR_GRAY,
-                        marginBottom: 10,
-                        marginLeft: 8,
-                      }}>
-                      {item.tikkling_terminated_at.split('T')[0]}
-                    </M15>
-                  </View>
-                ) : null}
+                <B15>판매자 사업자등록번호</B15>
+                <M15 customStyle={{color: COLOR_GRAY}}>{'363-86-03182'}</M15>
               </View>
             </View>
           </View>
@@ -411,7 +404,7 @@ export default function SentTikkleDetailScreen({route}) {
             </View>
           </View>
 
-          <Footer />
+          {/* <Footer /> */}
           <RefundModal />
         </ScrollView>
       )}
@@ -430,16 +423,19 @@ const styles = StyleSheet.create({
   buttonStyle: {
     padding: 5,
     borderRadius: 14,
-    backgroundColor: '#E7E7E7',
+    backgroundColor: COLOR_WHITE,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',
     width: windowWidth - 32,
-    height: 40,
-    borderColor: 'transparent',
-    borderWidth: 2,
-    marginBottom: 10,
+    height: 44,
+    borderColor: COLOR_PRIMARY,
+    borderWidth: 1,
+    marginBottom: 16,
+  },
+  buttonText: {
+    color: COLOR_PRIMARY,
   },
   detailDataStyle: {
     paddingHorizontal: 7,

@@ -7,6 +7,7 @@ export async function createTikklingData(
   tikkle_quantity,
   product_id,
   type,
+  product_option,
 ) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
@@ -35,8 +36,10 @@ export async function createTikklingData(
     funding_limit: funding_limit,
     tikkle_quantity: tikkle_quantity,
     product_id: product_id,
-    type: type,
+    type: '기념일',
+    product_option: product_option,
   };
+  console.log('🚀 ~ file: CreateTikklingData.js:42 ~ body:', body);
 
   try {
     response = await apiModel(
@@ -45,6 +48,7 @@ export async function createTikklingData(
       body,
       null,
     );
+    console.log('🚀 ~ file: CreateTikklingData.js:53 ~ response:', response);
     if (!response) {
       //  error
       throw new Error();
@@ -57,7 +61,7 @@ export async function createTikklingData(
     };
   }
 
-  //console.log(response);
+  // console.log('#### ', response);
 
   //------ control result & error of post_tikkling_create-----------------------------------------//
   if (response.status === 403) {
@@ -107,7 +111,11 @@ export async function createTikklingData(
 
   //------ call post_notification_send -------------------------------------------------------//
 
-  const body3 = {receive_user_id: null, notification_type_id: 3};
+  const body3 = {
+    receive_user_id: null,
+    notification_type_id: 3,
+    tikkling_id: response.data.data.tikkling_id,
+  };
 
   try {
     const response3 = apiModel(

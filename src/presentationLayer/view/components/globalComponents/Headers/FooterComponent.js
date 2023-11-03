@@ -114,8 +114,6 @@ export default function Footer({style}) {
             <M11 customStyle={{color: COLOR_GRAY}}>개인정보처리방침</M11>
           </AnimatedButton>
         </View>
-
-        <M11 customStyle={{color: COLOR_GRAY}}> | 제휴문의 | 입점문의</M11>
       </View>
     </View>
   );

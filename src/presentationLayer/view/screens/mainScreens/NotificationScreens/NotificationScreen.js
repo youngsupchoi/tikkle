@@ -1,4 +1,4 @@
-import {View, Image, FlatList} from 'react-native';
+import {View, Image, FlatList, Linking} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
@@ -50,20 +50,59 @@ export default function NotificationScreen() {
 
   const renderItem = ({item, index}) => {
     return (
-      <View
+      <AnimatedButton
+        onPress={() => {
+          console.log('item', item);
+          if (item.notification_type_id == 1) {
+            navigation.navigate('friendsManagement');
+          } else if (item.notification_type_id == 2) {
+            //null
+          } else if (item.notification_type_id == 3) {
+            if (item.deep_link) {
+              Linking.openURL(item.deep_link);
+            } else {
+              navigation.navigate('main');
+            }
+          } else if (item.notification_type_id == 4) {
+            navigation.navigate('search');
+          } else if (item.notification_type_id == 5) {
+            if (item.deep_link) {
+              Linking.openURL(item.deep_link);
+            } else {
+              navigation.navigate('profile');
+            }
+          } else if (item.notification_type_id == 6) {
+            navigation.navigate('main');
+          } else if (item.notification_type_id == 7) {
+            navigation.navigate('main');
+          } else if (item.notification_type_id == 8) {
+            if (item.deep_link) {
+              Linking.openURL(item.deep_link);
+            } else {
+              navigation.navigate('profile');
+            }
+          }
+        }}
         style={{
           paddingVertical: 12,
+          paddingHorizontal: 0,
           paddingHorizontal: 16,
           flexDirection: 'row',
-          marginVertical: 4,
-          borderRadius: 16,
-          marginHorizontal: 12,
+          marginVertical: 2,
+          // borderRadius: 16,
+          borderColor: COLOR_SEPARATOR,
+          borderWidth: 1,
+          marginHorizontal: 0,
           backgroundColor: item.is_read ? COLOR_WHITE : COLOR_SECONDARY,
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
         <View
-          style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
           <View>
             {item.notification_type_id === 1 ? (
               <View
@@ -211,17 +250,19 @@ export default function NotificationScreen() {
             <B12 customStyle={{color: COLOR_GRAY}}>{item.message}</B12>
           </View>
         </View>
-        <View style={{position: 'absolute', top: 15, right: 15}}>
-          <AnimatedButton onPress={() => actions.onDeleteComplete(index)}>
-            <Close
-              width={16}
-              height={16}
-              stroke={COLOR_BLACK}
-              strokeWidth={2}
-              scale={0.6}
-            />
-          </AnimatedButton>
-        </View>
+
+        <AnimatedButton
+          style={{position: 'absolute', top: 15, right: 15}}
+          onPress={() => actions.onDeleteComplete(index)}>
+          <Close
+            width={20}
+            height={20}
+            stroke={COLOR_BLACK}
+            strokeWidth={2}
+            scale={0.6}
+          />
+        </AnimatedButton>
+
         <View style={{position: 'absolute', bottom: 12, right: 16}}>
           <B12
             customStyle={{
@@ -230,7 +271,7 @@ export default function NotificationScreen() {
             {actions.timeSince(item.created_at)}
           </B12>
         </View>
-      </View>
+      </AnimatedButton>
     );
   };
 
@@ -260,20 +301,6 @@ export default function NotificationScreen() {
 
           <B20 customStyle={{marginLeft: 12}}>알림</B20>
         </View>
-        {/* 알림 설정 창 이동 버튼*/}
-        {/* <View>
-          <AnimatedButton
-            onPress={() => {
-              navigation.navigate('notificationSetting');
-            }}>
-            <Setting2
-              width={28}
-              height={28}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.5}
-            />
-          </AnimatedButton>
-        </View> */}
       </View>
 
       {state.loading ? (
@@ -288,7 +315,10 @@ export default function NotificationScreen() {
           }
           data={state.notificationData}
           renderItem={renderItem}
-          ListFooterComponent={<Footer />}
+          ListFooterComponent={
+            // <Footer />
+            <View style={{height: 400}} />
+          }
           ListEmptyComponent={
             <View
               style={{

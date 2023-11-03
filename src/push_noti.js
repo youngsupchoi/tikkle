@@ -2,7 +2,7 @@
 
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {Platform} from 'react-native';
+import {Platform, Linking} from 'react-native';
 
 class LocalNotificationService {
   configure = onOpenNotification => {
@@ -21,14 +21,16 @@ class LocalNotificationService {
           return;
         }
         notification.userInteraction = true;
-        console.log('TEST : ', notification);
+        // console.log('TEST : ', notification);
+
         onOpenNotification(
-          Platform.OS === 'ios' ? notification.data.item : notification,
+          Platform.OS === 'ios' ? notification.data : notification,
         );
 
-        if (Platform.OS === 'ios') {
-          notification.finish(PushNotificationIOS.FetchResult.NoData);
-        }
+        // const {link = null} = notification?.data || {}; // <---- 1
+        // link && Linking.openURL(link); // <---- 2
+
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
       permissions: {
         alert: true,
@@ -37,6 +39,14 @@ class LocalNotificationService {
       },
       popInitialNotification: true,
       requestPermissions: true,
+
+      // //추가
+      // onNotification: notification => {
+      //   const {link = null} = notification?.data || {}; // <---- 1
+      //   link && Linking.openURL(link); // <---- 2
+
+      //   notification.finish(PushNotificationIOS.FetchResult.NoData);
+      // },
     });
   };
 
@@ -63,19 +73,19 @@ class LocalNotificationService {
   };
 
   buildAndroidNotification = (id, title, message, data = {}, options = {}) => {
-    console.log('$$$TEST : ', id, title, message, data, options);
+    // console.log('$$$TEST : ', id, title, message, data, options);
     return {
       channelId: 'fcm_fallback_notification_channel',
       id: id,
       authCancel: true,
-      largeIcon: options.largeIcon || 'ic_launcher',
-      smallIcon: options.smallIcon || 'ic_notification',
+      // largeIcon: options.largeIcon || 'ic_launcher',
+      // smallIcon: '@drawable/ic_noti' || 'ic_notification',
       bigText: message || '',
       subText: title || '',
       vibrate: options.vibrate || true,
       vibration: options.vibration || 300,
-      // priority: options.priority || 'high',
-      priority: 'high',
+      priority: options.priority || 'high',
+      // priority: 'high',
       importance: options.importance || 'high',
       data: data,
     };

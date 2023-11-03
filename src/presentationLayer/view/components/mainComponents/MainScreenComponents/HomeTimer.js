@@ -24,11 +24,21 @@ const TimerComponent = ({deadline, timerStyle}) => {
       const minutes = duration.minutes();
       const seconds = duration.seconds();
 
-      if (days >= 1) {
-        setDisplay(`D-${days}`);
+      if (minutes <= 1) {
+        setDisplay(`${seconds}초`);
+      } else if (hours <= 1) {
+        setDisplay(`${minutes}분`);
+      } else if (days < 1) {
+        setDisplay(`${hours}시간`);
       } else {
-        setDisplay(`${hours}시간 ${minutes}분 ${seconds}초`);
+        setDisplay(`D-${days}`);
       }
+
+      // if (days >= 1) {
+      // setDisplay(`D-${days}`);
+      // } else if (){
+      //   setDisplay(`${hours}시간 ${minutes}분 ${seconds}초`);
+      // }
     }, 1000);
 
     return () => clearInterval(interval);

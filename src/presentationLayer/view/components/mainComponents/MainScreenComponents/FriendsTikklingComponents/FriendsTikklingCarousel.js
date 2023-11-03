@@ -30,6 +30,7 @@ import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents
 import FlagFilled from 'src/assets/icons/FlagFilled';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import CalendarFilled from 'src/assets/icons/CalendarFilled';
+import moment from 'moment';
 
 export default function FriendsTikklingCarousel(data) {
   const [showBuyModal, setShowBuyModal] = useState(null);
@@ -268,9 +269,9 @@ export default function FriendsTikklingCarousel(data) {
               <View style={{marginTop: 0}}>
                 <AnimatedButton
                   onPress={() => {
-                    new Date(item.funding_limit) > new Date()
-                      ? setShowBuyModal(item.tikkling_id)
-                      : null;
+                    moment().isAfter(moment(item.funding_limit).endOf('day'))
+                      ? null
+                      : setShowBuyModal(item.tikkling_id);
                   }}
                   style={{
                     padding: 6,
@@ -282,7 +283,10 @@ export default function FriendsTikklingCarousel(data) {
                     flexDirection: 'row',
                     justifyContent: 'center',
                   }}
-                  disabled={new Date(item.funding_limit) < new Date()}>
+                  disabled={
+                    // new Date(item.funding_limit) < new Date()
+                    moment().isAfter(moment(item.funding_limit).endOf('day'))
+                  }>
                   <B15 customStyle={{color: COLOR_PRIMARY_TEXT}}>
                     {'티클 선물하기'}
                   </B15>

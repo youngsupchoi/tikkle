@@ -58,7 +58,9 @@ export const useStartViewModel = () => {
     startOtpListener(msg => {
       const message = msg.match(/\d{6}/);
       if (message) {
-        actions.setInputCode(message[0].split(''));
+        const numberValue = Number(message[0]); // 문자열을 숫자로 변환
+        actions.setInputCode(numberValue);
+        console.log('스플릿메시지', numberValue);
       }
       const timer = setInterval(decreaseTime, 1000);
       return () => clearInterval(timer);
@@ -110,9 +112,7 @@ export const useStartViewModel = () => {
               .then(() => {
                 navigation.reset({
                   index: 0,
-                  routes: [
-                    {name: 'main', params: {updated: new Date().toString()}},
-                  ],
+                  routes: [{name: 'main'}],
                 });
               });
           } else if (message === 'sign up') {
@@ -170,7 +170,6 @@ export const useStartViewModel = () => {
         routes: [
           {
             name: 'main',
-            params: {updated: new Date().toString()},
           },
         ],
       });
@@ -193,12 +192,27 @@ export const useStartViewModel = () => {
     }
   };
 
+  function splitNumberToDigits(inputCode) {
+    if (Array.isArray(inputCode)) {
+      return inputCode;
+    }
+
+    const str = inputCode.toString();
+    const paddedStr = str.padEnd(6, '-');
+    return paddedStr
+      .split('')
+      .map(digit => (digit === '-' ? '-' : parseInt(digit, 10)));
+  }
+
+  const inputCodeShowed = splitNumberToDigits(state.inputCode);
+
   return {
     ref: {
       ...ref,
     },
     state: {
       ...state,
+      inputCodeShowed,
     },
     actions: {
       ...actions,
@@ -212,6 +226,7 @@ export const useStartViewModel = () => {
       handleButtonPress,
       completeSignUp,
       formatPhoneNumber,
+      splitNumberToDigits,
     },
   };
 };

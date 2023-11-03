@@ -39,6 +39,7 @@ import {fcmService} from 'src/push_fcm';
 import {localNotificationService} from 'src/push_noti';
 import {useEffect, useState} from 'react';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import PushNotification from 'react-native-push-notification';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -143,10 +144,10 @@ function SignUpNavigator() {
         initialRouteName="splash"
         screenOptions={{
           headerShown: false,
-          gestureEnabled: true,
-          cardOverlayEnabled: true,
+          // gestureEnabled: true,
+          // cardOverlayEnabled: true,
           // cardStyleInterpolator: customCardStyleInterpolator,
-          transitionSpec: customTransitionSpec,
+          // transitionSpec: customTransitionSpec,
         }}>
         <SignUpStack.Screen name="splash" component={SplashScreen} />
         <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
@@ -182,7 +183,7 @@ const config = {
     productDetail: '/product-detail', // 매핑되는 URL 경로
     notification: '/notification', // 매핑되는 URL 경로
     notificationSetting: '/notification-setting', // 매핑되는 URL 경로
-    tikklingDetail: '/tikklingDetail', // 매핑되는 URL 경로
+    tikklingDetail: '/tikklingDetail/:tikkling_id', // 매핑되는 URL 경로
     searchAddress: '/search-address', // 매핑되는 URL 경로
     wishlistManagement: '/wishlist-management', // 매핑되는 URL 경로
     payment: '/payment', // 매핑되는 URL 경로
@@ -194,7 +195,7 @@ const config = {
 const linking = {
   //디폴트 프로토콜 설정 필요
   prefixes: [
-    'https://tikkle.lifoli.co.kr',
+    // 'https://tikkle.lifoli.co.kr',
     'http://localhost:3000',
     'tikkle://',
   ],
@@ -214,17 +215,18 @@ const linking = {
 
   //받아준 딥링크 url을 subscribe에 넣어줘야 한다
   subscribe(listener) {
-    console.log('linking subscribe to ', listener);
-    const onReceiveURL = event => {
+    const onReceiveURL = async event => {
       const {url} = event;
-      console.log('link has url', url, event);
-      CreateTikklingShareLink('hihi', 1);
-      return listener(url);
+      if (url.startsWith('https://tikkle.lifoli.co.kr')) {
+        const originalLink = await resolveDynamicLink(url);
+        listener(originalLink);
+      } else {
+        listener(url);
+      }
     };
 
     Linking.addEventListener('url', onReceiveURL);
     return () => {
-      console.log('linking unsubscribe to ', listener);
       Linking.removeEventListener('url', onReceiveURL);
     };
   },
@@ -238,6 +240,13 @@ export default function MainStackNavigator() {
 
   //--notification code---------------------
   useEffect(() => {
+    // const {link = null} = notification?.data || {}; // <---- 1
+    // PushNotification.popInitialNotification(notification => {
+    //   if (notification) {
+    //     const {link = null} = notification?.data || {};
+    //     Linking.openURL(link); // <---- 2
+    //   }
+    // });
     fcmService.registerAppWithFCM(); //ios일때 자동으로 가져오도록 하는 코드
     fcmService.register(onRegister, onNotification, onOpenNotification);
     localNotificationService.configure(onOpenNotification);
@@ -277,8 +286,13 @@ export default function MainStackNavigator() {
     //앱 켜진 상태에서 알림 받았을 때 하는 일
     console.log('[App] onOpenNotification 앱 켜진 상태에서 : notify :', notify);
     // Alert.alert('Open Notification : notify.body :' + notify.body);
-
-    topActions.showSnackbar(notify.message, 1);
+    if (Platform.OS === 'ios') {
+      topActions.showSnackbar(notify.body, 1);
+    } else {
+      if (notify.message) {
+        topActions.showSnackbar(notify.message, 1);
+      }
+    }
   };
 
   return (
@@ -287,10 +301,10 @@ export default function MainStackNavigator() {
         initialRouteName="SignUpNavigator"
         screenOptions={{
           headerShown: false,
-          gestureEnabled: true,
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: customCardStyleInterpolator,
-          transitionSpec: customTransitionSpec,
+          // gestureEnabled: true,
+          // cardOverlayEnabled: true,
+          // cardStyleInterpolator: customCardStyleInterpolator,
+          // transitionSpec: customTransitionSpec,
         }}>
         {/*  <MainStack.Screen name="splash" component={SplashScreen} /> */}
 
@@ -302,8 +316,8 @@ export default function MainStackNavigator() {
             headerShown: false,
             gestureEnabled: true,
             cardOverlayEnabled: false,
-            cardStyleInterpolator:
-              CardStyleInterpolators.forScaleFromCenterAndroid,
+            // cardStyleInterpolator:
+            //   CardStyleInterpolators.forScaleFromCenterAndroid,
           }}
         />
         <MainStack.Screen name="startTikkling" component={StartTikkling} />
@@ -322,13 +336,13 @@ export default function MainStackNavigator() {
               open: {animation: 'timing', config: {duration: 200}},
               close: {animation: 'timing', config: {duration: 200}},
             },
-            cardStyleInterpolator: ({current: {progress}}) => {
-              return {
-                cardStyle: {
-                  opacity: progress,
-                },
-              };
-            },
+            // cardStyleInterpolator: ({current: {progress}}) => {
+            //   return {
+            //     cardStyle: {
+            //       opacity: progress,
+            //     },
+            //   };
+            // },
           })}
         />
         <MainStack.Screen

@@ -30,6 +30,8 @@ import {fcmService} from 'src/push_fcm';
 
 import RNFS from 'react-native-fs';
 import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -107,37 +109,39 @@ export const useMainViewModel = () => {
         return topActions.setStateAndError(res);
       })
       .then(async res => {
-        // console.log('@@@@@@@ : ', res.DSdata.info[0]);
+        console.log('@@@@@@@ : ', res.DSdata.info[0]);
+
+        await getTikkleData();
         actions.setRoute_data(res.DSdata.info[0]);
       });
   }
 
-  // /**
-  //  *  티클링의 받은 티클 데이터 가져오기
-  //  * @param
-  //  */
-  // async function getTikkleData() {
-  //   let tikkle_data = [];
-  //   await getRecivedTikkleData(route_tikkling_id)
-  //     .then(async res => {
-  //       return topActions.setStateAndError(res);
-  //     })
-  //     .then(async res => {
-  //       tikkle_data = res.DSdata.info;
-  //       actions.setList_data(res.DSdata.info);
-  //     })
-  //     .then(async res => {
-  //       // console.log('#### : ', tikkle_data);
-  //       let sum = 0;
-  //       tikkle_data.map(item => {
-  //         if (item.state_id != 2) {
-  //           sum += item.quantity;
-  //         }
-  //       });
-  //       actions.setTikkle_sum(sum);
-  //       // console.log(state.tikkle_sum);
-  //     });
-  // }
+  /**
+   *  티클링의 받은 티클 데이터 가져오기
+   * @param
+   */
+  async function getTikkleData() {
+    let tikkle_data = [];
+    await getRecivedTikkleData(route_tikkling_id)
+      .then(async res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        tikkle_data = res.DSdata.info;
+        actions.setList_data(res.DSdata.info);
+      })
+      .then(async res => {
+        // console.log('#### : ', tikkle_data);
+        let sum = 0;
+        tikkle_data.map(item => {
+          if (item.state_id != 2) {
+            sum += item.quantity;
+          }
+        });
+        actions.setTikkle_sum(sum);
+        // console.log(state.tikkle_sum);
+      });
+  }
 
   const loadTikklingData = async () => {
     try {
@@ -211,7 +215,6 @@ export const useMainViewModel = () => {
       routes: [
         {
           name: 'main',
-          params: {updated: new Date().toString()},
         },
       ],
     });
@@ -293,71 +296,105 @@ export const useMainViewModel = () => {
     actions.setShowStopModal(!state.showStopModal);
   };
 
-  const onInstagramShareButtonPressed = async () => {
-    CreateTikklingShareLink(
-      state.userData.name,
-      state.myTikklingData.tikkling_id,
-    ).then(res => {
-      Clipboard.setString(res.DSdata.short_link);
-      console.log(res);
-    });
+  async function convertImageToBase64() {
+    const imageUri = Image.resolveAssetSource(
+      require('src/assets/images/instagram_background.png'),
+    ).uri;
 
-    async function convertImageToBase64() {
-      const imageUri = Image.resolveAssetSource(
-        require('src/assets/images/instagram_background.png'),
-      ).uri;
-
-      try {
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = function () {
-            let base64data = reader.result;
-
-            // 올바른 MIME 타입으로 접두사 변경
-            base64data = base64data.replace(
-              /^data:application\/octet-stream;base64,/,
-              'data:image/png;base64,',
-            );
-            // 이후 접두사 제거
-            base64data = base64data.replace(/^data:image\/png;base64,/, '');
-            resolve(base64data);
-          };
-
-          reader.onerror = function (error) {
-            reject('Failed to read blob data: ', error);
-          };
-        });
-      } catch (error) {
-        console.error('Failed to convert image to base64', error);
-        throw error;
-      }
-    }
     try {
-      const backgroundBase64 = await convertImageToBase64();
-      console.log(backgroundBase64.substring(0, 100));
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
 
-      if (state.hasInstagramInstalled) {
-        const res = await Share.shareSingle({
-          appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
-          // stickerImage: `data:image/png;base64,${stickerBase64}`,
-          backgroundImage: `data:image/png;base64,${backgroundBase64}`,
-          method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
-          social: Share.Social.INSTAGRAM_STORIES,
-          contentUrl: '',
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+          let base64data = reader.result;
+
+          // 올바른 MIME 타입으로 접두사 변경
+          base64data = base64data.replace(
+            /^data:application\/octet-stream;base64,/,
+            'data:image/png;base64,',
+          );
+          // 이후 접두사 제거
+          base64data = base64data.replace(/^data:image\/png;base64,/, '');
+          resolve(base64data);
+        };
+
+        reader.onerror = function (error) {
+          reject('Failed to read blob data: ', error);
+        };
+      });
+    } catch (error) {
+      console.error('Failed to convert image to base64', error);
+      throw error;
+    }
+  }
+
+  const onInstagramShareButtonPressed = async (name, tikkling_id) => {
+    try {
+      console.log('인스타그램 버튼 눌림', name, tikkling_id);
+      await CreateTikklingShareLink(name, tikkling_id)
+        .then(async res => {
+          Clipboard.setString(res.DSdata.short_link);
+          console.log(res);
+          return res.DSdata.short_link;
+        })
+        .then(async res => {
+          const backgroundBase64 = await convertImageToBase64();
+          if (state.hasInstagramInstalled) {
+            const res = await Share.shareSingle({
+              appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
+              // stickerImage: `data:image/png;base64,${stickerBase64}`,
+              backgroundImage: `data:image/png;base64,${backgroundBase64}`,
+              method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
+              social: Share.Social.INSTAGRAM_STORIES,
+              contentUrl: '',
+            });
+          } else {
+            await Share.open({url: backgroundBase64});
+          }
         });
-      } else {
-        await Share.open({url: backgroundBase64});
-      }
     } catch (error) {
       console.log(error);
       if (error === 'User did not share') {
         return;
       } else {
-        console.error('Error sharing:', error);
+        console.log('Error sharing:', error);
+      }
+    }
+  };
+
+  const onClipboardButtonPressed = async (name, tikkling_id) => {
+    try {
+      console.log('클립보드 버튼 눌림', name, tikkling_id);
+      await CreateTikklingShareLink(name, tikkling_id)
+        .then(res => {
+          Clipboard.setString(res.DSdata.short_link);
+          return res;
+        })
+        .then(res => {
+          console.log(res.DSdata.short_link);
+          console.log(
+            Clipboard.getString().then(clip => {
+              console.log('클립', clip);
+              if (clip === res.DSdata.short_link) {
+                topActions.showSnackbar('클립보드에 링크가 복사되었어요!', 1);
+              } else {
+                topActions.showSnackbar(
+                  '클립보드에 링크가 복사되지 않았어요!',
+                  0,
+                );
+              }
+            }),
+          );
+        });
+    } catch (error) {
+      console.log(error);
+      if (error === 'User did not share') {
+        return;
+      } else {
+        console.log('Error sharing:', error);
       }
     }
   };
@@ -423,10 +460,11 @@ export const useMainViewModel = () => {
   }
 
   async function checkDynamicLink() {
-    if (topState.dynamicLinkInfo?.tikkling_id) {
-      const tikkling_id = topState.dynamicLinkInfo.tikkling_id;
-      topActions.setDynamicLinkInfo(null);
-
+    const dynamic_link = await AsyncStorage.getItem('dynamic_link');
+    if (dynamic_link == 'true') {
+      const tikkling_id = await AsyncStorage.getItem('tikkling_detail');
+      await AsyncStorage.removeItem('tikkling_detail');
+      await AsyncStorage.removeItem('dynamic_link');
       navigation.navigate('tikklingDetail', {tikkling_id});
     }
   }
@@ -516,6 +554,29 @@ export const useMainViewModel = () => {
   //     });
   // };
 
+  const hasOptions = async productId => {
+    try {
+      const res = await getProductOptionData(productId);
+
+      actions.setProductOptions(res.DSdata.options);
+
+      let optionStatus = null;
+
+      if (!res.DSdata.options.default) {
+        optionStatus = true;
+      } else if (res.DSdata.options.default) {
+        optionStatus = false;
+      }
+
+      actions.setItHasOptions(optionStatus);
+      topActions.setStateAndError(res);
+      return optionStatus; // 옵션 상태 반환
+    } catch (error) {
+      console.error('Error fetching product options:', error);
+      throw error;
+    }
+  };
+
   return {
     ref: {
       ...ref,
@@ -539,6 +600,7 @@ export const useMainViewModel = () => {
       cancelTikkling,
       stopTikkling,
       onInstagramShareButtonPressed,
+      onClipboardButtonPressed,
       loadTikklingData,
       refundTikkling,
       cancel_action,
@@ -551,6 +613,7 @@ export const useMainViewModel = () => {
       checkDynamicLink,
       requestUserPermission,
       findContacts,
+      hasOptions,
     },
   };
 };

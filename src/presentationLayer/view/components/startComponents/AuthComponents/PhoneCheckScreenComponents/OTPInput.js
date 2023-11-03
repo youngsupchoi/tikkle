@@ -6,36 +6,36 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {B} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  B,
+  B15,
+  B20,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-function OTPInput({handleTextChange, inputCode, inputRefs}) {
-  const handleBackspace = index => {
-    if (inputCode[index] === '' && index > 0) {
-      inputRefs.current[index - 1].focus();
-      handleTextChange('', index - 1); // 이전 칸의 값을 지워줍니다.
-    }
-  };
+function OTPInput() {
+  const {ref, state, actions} = useStartViewModel();
+
   return (
     <View style={styles.inputContainer}>
-      {inputCode.map((code, index) => (
-        <View key={index} style={styles.authCodeInputContainer}>
-          <TextInput
-            ref={ref => (inputRefs.current[index] = ref)}
-            keyboardType="number-pad"
-            maxLength={1}
-            placeholder="-"
-            placeholderTextColor={COLOR_GRAY}
-            style={styles.authCodeInput}
-            value={code}
-            onChangeText={text => handleTextChange(text, index)}
-            onKeyPress={({nativeEvent}) => {
-              if (nativeEvent.key === 'Backspace') {
-                handleBackspace(index);
-              }
-            }}
-          />
-        </View>
-      ))}
+      {/* {console.log(inputCode)} */}
+      {state.inputCodeShowed.map((code, index) => {
+        return (
+          <View
+            key={index}
+            style={{
+              backgroundColor: COLOR_WHITE,
+              width: 40,
+              height: 48,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderColor: COLOR_SEPARATOR,
+              borderWidth: 1,
+            }}>
+            <B20>{code}</B20>
+          </View>
+        );
+      })}
     </View>
   );
 }

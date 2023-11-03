@@ -9,8 +9,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
 import {createTikklingData} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
-import {getKoreanDate} from 'src/presentationLayer/view/components/globalComponents/Time/KoreanTime';
-import {create} from 'react-test-renderer';
+import moment from 'moment';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartTikklingViewModel = () => {
@@ -63,60 +62,51 @@ export const useStartTikklingViewModel = () => {
 
   //==========Utils 부분=========================================================
   const calculateDaysUntilNextBirthday = birthdayString => {
-    const currentDate = new Date();
+    if (birthdayString === undefined) {
+      return;
+    }
+    const input = birthdayString.split('T')[0];
+    const input_split = input.split('-');
+    const cur = moment().startOf('day').add(9, 'hours');
 
-    // Resetting the hours, minutes, seconds, and milliseconds
-    currentDate.setHours(0, 0, 0, 0);
+    const cur_year = moment(cur).year();
 
-    const birthDate = new Date(birthdayString);
+    let next_birth = moment(
+      cur_year + '-' + input_split[1] + '-' + input_split[2],
+    )
+      .startOf('day')
+      .add(9, 'hours');
 
-    // Set the birthDate to this year or next year
-    const nextBirthday = new Date(
-      currentDate.getFullYear(),
-      birthDate.getMonth(),
-      birthDate.getDate(),
-    );
-
-    // If the birthday is today, return 0
-    if (currentDate.getTime() === nextBirthday.getTime()) {
-      return 0;
+    if (next_birth.isBefore(cur)) {
+      next_birth.add(1, 'years');
     }
 
-    if (currentDate > nextBirthday) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-    }
+    const diff = next_birth.diff(cur, 'days');
 
-    const timeDiff = nextBirthday - currentDate;
-    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-
-    return dayDiff;
+    return diff;
   };
+
+  //"YYYY-MM-DD"내보냄
   function setToEndOfDay(isoDateString) {
-    if (isoDateString !== undefined) {
-      const dateParts = isoDateString.split('T')[0];
-      return `${dateParts}T23:59:59.999Z`;
+    if (isoDateString === undefined) {
+      return;
     }
+    const input = isoDateString.split('T')[0];
+
+    // Date 객체를 주어진 형식의 문자열로 변환합니다.
+    return input;
   }
 
+  //"YYYY-MM-DD"들어옴 or DATE 객체 -> 수정해서 없도록
   function formatDate(isoDateString) {
-    const date = new Date(isoDateString);
-
-    // 한국 시간대 (UTC+9)를 고려하여 9시간 빼기
-    date.setHours(date.getHours() - 9);
-
-    const currentDate = new Date();
-    if (
-      date.getMonth() < currentDate.getMonth() ||
-      (date.getMonth() === currentDate.getMonth() &&
-        date.getDate() < currentDate.getDate())
-    ) {
-      // 지나갔다면, 연도를 1년 증가
-      date.setFullYear(currentDate.getFullYear() + 1);
+    if (isoDateString === undefined) {
+      return {label: 'null', value: 'null'};
     }
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const dateParts = isoDateString.split('-');
+    const year = dateParts[0];
+    const month = dateParts[1];
+    const day = dateParts[2].split('T')[0];
 
     return {
       label: `${year}년 ${month}월 ${day}일`,
@@ -124,52 +114,51 @@ export const useStartTikklingViewModel = () => {
     };
   }
 
+  //"YYYY-MM-DD"  in : 1999-10-02T00:00:00.000Z
   function getNextBirthday(birthdayString) {
-    // 현재 날짜와 주어진 생일을 Date 객체로 변환합니다.
-    const today = new Date();
-    const birthDate = new Date(birthdayString);
+    if (birthdayString === undefined) {
+      return;
+    }
+    const input = birthdayString.split('T')[0];
+    const input_split = input.split('-');
+    const cur = moment().startOf('day').add(9, 'hours');
 
-    // 현재 연도와 생일의 월/일을 기반으로 다음 생일을 결정합니다.
-    let nextBirthdayYear = today.getFullYear();
-    if (
-      today.getMonth() > birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() &&
-        today.getDate() > birthDate.getDate())
-    ) {
-      nextBirthdayYear += 1;
+    const cur_year = moment(cur).year();
+
+    let next_birth = moment(
+      cur_year + '-' + input_split[1] + '-' + input_split[2],
+    )
+      .startOf('day')
+      .add(9, 'hours');
+
+    if (next_birth.isBefore(cur)) {
+      next_birth.add(1, 'years');
     }
 
-    // 다음 생일의 Date 객체를 생성합니다.
-    const nextBirthday = new Date(
-      nextBirthdayYear,
-      birthDate.getMonth(),
-      birthDate.getDate(),
-    );
-
     // Date 객체를 주어진 형식의 문자열로 변환합니다.
-    return nextBirthday.toISOString();
+    return next_birth.format('YYYY-MM-DD');
   }
 
   //-------------------------------------------------------------------
-  const tikklingStartButtonPress = () => {
+  const tikklingStartButtonPress = product_option => {
     try {
       actions.setCreateTikklingButtonPressed(true);
 
       put_user_address();
 
-      // const currentYear = new Date().getFullYear();
-
-      // // 기존의 endDate 객체를 가져와서 년도만 바꿉니다.
-      // const oldEndDate = new Date(state.endDate);
-      // oldEndDate.setFullYear(currentYear);
-
+      //TODO: product_option
+      if (product_option == null || product_option == undefined) {
+        product_option = {default: 'default'};
+      }
       createTikklingData(
         state.endDate,
         state.selectedItem.price / 5000,
         state.selectedItem.product_id,
         state.eventType,
+        product_option,
       )
         .then(res => {
+          console.log('po', product_option);
           return topActions.setStateAndError(res);
         })
         .then(() => {
@@ -184,23 +173,22 @@ export const useStartTikklingViewModel = () => {
         routes: [
           {
             name: 'main',
-            params: {updated: new Date().toString()},
           },
         ],
       });
     }
   };
 
-  let currentDate = state.startDate
-    ? dayjs(state.startDate).add(1, 'day')
-    : null;
-  while (currentDate && state.endDate && currentDate.isBefore(endDate)) {
-    markedDates[currentDate.format('YYYY-MM-DD')] = {
-      color: '#00adf5',
-      textColor: 'white',
-    };
-    currentDate = currentDate.add(1, 'day');
-  }
+  // let currentDate = state.startDate
+  //   ? dayjs(state.startDate).add(1, 'day')
+  //   : null;
+  // while (currentDate && state.endDate && currentDate.isBefore(endDate)) {
+  //   markedDates[currentDate.format('YYYY-MM-DD')] = {
+  //     color: '#00adf5',
+  //     textColor: 'white',
+  //   };
+  //   currentDate = currentDate.add(1, 'day');
+  // }
 
   const onClosePostCodeModal = () => {
     actions.setShowPostCodeModal(false);

@@ -18,10 +18,14 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import FirstHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FirstHero';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
+import {useNavigation} from '@react-navigation/core';
 
 const MyTikklingComponent = () => {
   const {ref, state, actions} = useMainViewModel();
   const {dropdownAnimation} = ref;
+
+  const navigation = useNavigation();
+
   const dropdownStyle = {
     opacity: dropdownAnimation,
     transform: [
@@ -38,13 +42,28 @@ const MyTikklingComponent = () => {
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <B20 customStyle={styles.headerText}>내 티클링</B20>
+        {/* <AnimatedButton
+          onPress={() => {
+            console.log('더보기', state.myTikklingData);
+            navigation.navigate('tikklingDetail', {
+              tikkling_id: state.myTikklingData.tikkling_id,
+            });
+          }}>
+          <B15>상세페이지</B15>
+        </AnimatedButton> */}
         {state.myTikklingData.state_id == 1 ? (
           <AnimatedButton
             onPress={() => {
               actions.setDropdownVisible(!state.dropdownVisible);
             }}
             style={styles.animatedButton}>
-            <Detail style={styles.detail} />
+            <Detail
+              height={16}
+              width={16}
+              stroke={COLOR_BLACK}
+              strokeWidth={2}
+              style={styles.detail}
+            />
             {/* {console.log('tikklingData', state.myTikklingData)} */}
           </AnimatedButton>
         ) : null}
@@ -116,7 +135,7 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     marginHorizontal: 16,
     backgroundColor: COLOR_WHITE,
-    borderRadius: 16,
+    borderRadius: 24,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -129,7 +148,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     paddingHorizontal: 24,
     paddingTop: 16,
-    paddingBottom: 0,
+    // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -139,7 +158,6 @@ const styles = StyleSheet.create({
   },
   animatedButton: {
     padding: 10,
-    marginHorizontal: -10,
   },
   detail: {
     width: 20,
@@ -186,7 +204,7 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     zIndex: 0,
-    marginTop: 12,
+    marginTop: 4,
   },
   myTikklingContainer: {
     marginTop: SPACING_2,
