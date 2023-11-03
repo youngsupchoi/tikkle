@@ -350,7 +350,7 @@ export default function TikklingDetailScreen() {
                               (state.tikkle_sum /
                                 state.route_data.tikkle_quantity) *
                                 1000,
-                            ) / 1000}
+                            ) / 10}
                             %
                           </B17>
                         </View>
