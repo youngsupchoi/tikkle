@@ -12,6 +12,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import moment from 'moment';
 
 const FriendsEvents = props => {
   const {friendsEventData} = props;
@@ -22,46 +23,46 @@ const FriendsEvents = props => {
   };
 
   for (let i = 2; i <= 7; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() + i);
-    sortedData[formatDate(date)] = [];
+    const temp = moment().add(9, 'hours').add(i, 'days');
+    const date = formatDate(temp);
+    sortedData[date] = [];
   }
 
-  function getUpcomingBirthday(birthdayString) {
-    const today = new Date();
-    today.setHours(today.getHours() + 9); // 한국 시간대로 조정 (UTC+9)
+  const calculateDaysUntilNextBirthday = birthdayString => {
+    const input = birthdayString;
+    const input_split = input.split('-');
+    const cur = moment().startOf('day').add(9, 'hours');
 
-    const birthday = new Date(birthdayString);
+    const cur_year = moment(cur).year();
 
-    // 현재 연도의 해당 날짜로 설정
-    birthday.setFullYear(today.getFullYear());
+    let next_birth = moment(
+      cur_year + '-' + input_split[1] + '-' + input_split[2],
+    )
+      .startOf('day')
+      .add(9, 'hours');
 
-    // 만약 현재 연도의 생일이 이미 지나갔다면, 다음 연도로 설정
-    if (today > birthday) {
-      birthday.setFullYear(today.getFullYear() + 1);
+    if (next_birth.isBefore(cur)) {
+      next_birth.add(1, 'years');
     }
 
-    return birthday.toISOString();
-  }
+    const diff = next_birth.diff(cur, 'days');
+
+    return diff;
+  };
 
   friendsEventData.forEach(friend => {
-    const diff = calculateDifference(getUpcomingBirthday(friend.birthday));
+    const diff = calculateDaysUntilNextBirthday(friend.birthday);
+    console.log('diff of', friend, '\n diff : ', diff);
     switch (diff) {
       case 0:
-        sortedData['오늘'].push(friend);
-        break;
-      case 365:
         sortedData['오늘'].push(friend);
         break;
       case 1:
         sortedData['내일'].push(friend);
         break;
-      case 366:
-        sortedData['내일'].push(friend);
-        break;
       default:
         if (diff < 7) {
-          const date = new Date(friend.birthday);
+          const date = moment(friend.birthday);
           const key = formatDate(date);
           if (sortedData[key]) {
             sortedData[key].push(friend);
@@ -77,7 +78,8 @@ const FriendsEvents = props => {
   //util
 
   function formatDate(date) {
-    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+    const data = moment(date).format('MM월 DD일');
+    return data;
   }
 
   function calculateDifference(dateString) {
