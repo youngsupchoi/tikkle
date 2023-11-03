@@ -443,14 +443,16 @@ export default function TikklingDetailScreen() {
                   {/*Button*/}
 
                   <View>
-                    <ButtonComponent
-                      ButtonIcon={ButtonIcon}
-                      ButtonText={ButtonText}
-                      FromDetail={true}
-                      Q={state.route_data.tikkle_quantity}
-                      S={state.tikkle_sum}
-                      IsStopped={null}
-                    />
+                    {state.route_data.state_id === 1 ? (
+                      <ButtonComponent
+                        ButtonIcon={ButtonIcon}
+                        ButtonText={ButtonText}
+                        FromDetail={true}
+                        Q={state.route_data.tikkle_quantity}
+                        S={state.tikkle_sum}
+                        IsStopped={null}
+                      />
+                    ) : null}
                   </View>
 
                   {/* tikkling_info */}
