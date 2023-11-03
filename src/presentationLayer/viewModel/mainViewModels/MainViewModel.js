@@ -334,27 +334,27 @@ export const useMainViewModel = () => {
   const onInstagramShareButtonPressed = async (name, tikkling_id) => {
     try {
       console.log('인스타그램 버튼 눌림', name, tikkling_id);
-      await CreateTikklingShareLink(name, tikkling_id).then(res => {
-        console.log('@ 1 @');
-        Clipboard.setString(res.DSdata.short_link);
-        console.log('@ 2 @');
-        console.log(res);
-      });
-      const backgroundBase64 = await convertImageToBase64();
-      console.log('@ 3 @');
-      if (state.hasInstagramInstalled) {
-        const res = await Share.shareSingle({
-          appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
-          // stickerImage: `data:image/png;base64,${stickerBase64}`,
-          backgroundImage: `data:image/png;base64,${backgroundBase64}`,
-          method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
-          social: Share.Social.INSTAGRAM_STORIES,
-          contentUrl: '',
+      await CreateTikklingShareLink(name, tikkling_id)
+        .then(async res => {
+          Clipboard.setString(res.DSdata.short_link);
+          console.log(res);
+          return res.DSdata.short_link;
+        })
+        .then(async res => {
+          const backgroundBase64 = await convertImageToBase64();
+          if (state.hasInstagramInstalled) {
+            const res = await Share.shareSingle({
+              appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
+              // stickerImage: `data:image/png;base64,${stickerBase64}`,
+              backgroundImage: `data:image/png;base64,${backgroundBase64}`,
+              method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
+              social: Share.Social.INSTAGRAM_STORIES,
+              contentUrl: '',
+            });
+          } else {
+            await Share.open({url: backgroundBase64});
+          }
         });
-        console.log('@ 4 @');
-      } else {
-        await Share.open({url: backgroundBase64});
-      }
     } catch (error) {
       console.log(error);
       if (error === 'User did not share') {
