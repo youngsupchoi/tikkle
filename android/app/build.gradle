@@ -118,7 +118,7 @@ android {
 
 dependencies {
     // 알림
-    implementation 'com.google.firebase:firebase-analytics:18.5.0'
+    // implementation 'com.google.firebase:firebase-analytics:18.5.0'
     implementation project(':react-native-push-notification')
 
     // The version of react-native is set by the React Native Gradle Plugin
