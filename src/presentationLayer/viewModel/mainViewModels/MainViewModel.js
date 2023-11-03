@@ -331,17 +331,17 @@ export const useMainViewModel = () => {
     }
   }
 
-  const onInstagramShareButtonPressed = async () => {
+  const onInstagramShareButtonPressed = async (name, tikkling_id) => {
     try {
-      await CreateTikklingShareLink(
-        state.userData.name,
-        state.myTikklingData.tikkling_id,
-      ).then(res => {
+      console.log('인스타그램 버튼 눌림', name, tikkling_id);
+      await CreateTikklingShareLink(name, tikkling_id).then(res => {
+        console.log('@ 1 @');
         Clipboard.setString(res.DSdata.short_link);
+        console.log('@ 2 @');
         console.log(res);
       });
       const backgroundBase64 = await convertImageToBase64();
-
+      console.log('@ 3 @');
       if (state.hasInstagramInstalled) {
         const res = await Share.shareSingle({
           appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
@@ -351,6 +351,7 @@ export const useMainViewModel = () => {
           social: Share.Social.INSTAGRAM_STORIES,
           contentUrl: '',
         });
+        console.log('@ 4 @');
       } else {
         await Share.open({url: backgroundBase64});
       }
@@ -364,12 +365,10 @@ export const useMainViewModel = () => {
     }
   };
 
-  const onClipboardButtonPressed = async () => {
+  const onClipboardButtonPressed = async (name, tikkling_id) => {
     try {
-      await CreateTikklingShareLink(
-        state.userData.name,
-        state.myTikklingData.tikkling_id,
-      )
+      console.log('클립보드 버튼 눌림', name, tikkling_id);
+      await CreateTikklingShareLink(name, tikkling_id)
         .then(res => {
           Clipboard.setString(res.DSdata.short_link);
           return res;

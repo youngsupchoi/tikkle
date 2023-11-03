@@ -57,7 +57,10 @@ export default function StopedButtonComponent({ButtonIcon, ButtonText}) {
         <B15 customStyle={styles.buttonText}>{ButtonText}</B15>
       </AnimatedButton>
       <AnimatedButton
-        onPress={actions.onInstagramShareButtonPressed}
+        onPress={actions.onInstagramShareButtonPressed(
+          state.userData.name,
+          state.myTikklingData.tikkling_id,
+        )}
         style={{
           marginLeft: windowWidth * 0.1,
           width: 50,

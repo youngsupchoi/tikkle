@@ -62,7 +62,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import FlagFilled from 'src/assets/icons/FlagFilled';
 import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import ButtonComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent';
-
+import {Linking} from 'react-native';
+import Share from 'react-native-share';
 const containerWidth = windowWidth - SPACING_6;
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {G} from 'react-native-svg';
@@ -102,6 +103,20 @@ export default function TikklingDetailScreen() {
     );
   }, []);
 
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      // If platform is IOS then check if instagram is installed on the user's device using the `Linking.canOpenURL` API
+      Linking.canOpenURL('instagram://').then(val =>
+        actions.setHasInstagramInstalled(val),
+      );
+    } else {
+      // Else check on android device if instagram is installed in user's device using the `Share.isPackageInstalled` API
+      Share.isPackageInstalled('com.instagram.android').then(({isInstalled}) =>
+        actions.setHasInstagramInstalled(isInstalled),
+      );
+    }
+  }, []);
+
   // return (
   //   <View style={{paddingTop: 0, backgroundColor: backgroundColor}}>
   //     {!state.detailLoading ? (
@@ -114,6 +129,7 @@ export default function TikklingDetailScreen() {
 
   return (
     <View>
+      {console.log('$$$$$ ', state.route_data)}
       {state.route_data.created_at ? (
         <View style={{paddingTop: 0, backgroundColor: backgroundColor}}>
           <View style={styles.header}>
@@ -430,7 +446,7 @@ export default function TikklingDetailScreen() {
                     <ButtonComponent
                       ButtonIcon={ButtonIcon}
                       ButtonText={ButtonText}
-                      Home={true}
+                      FromDetail={true}
                       Q={state.route_data.tikkle_quantity}
                       S={state.tikkle_sum}
                       IsStopped={null}
