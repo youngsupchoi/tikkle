@@ -32,8 +32,8 @@
 		575961132AE66C3A00404F26 /* CherryBombOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */; };
 		575961142AE66C3A00404F26 /* BMHANNA_11yrs_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */; };
 		575961152AE66C3A00404F26 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36CF22802AE280AA008FA6DE /* GoogleService-Info.plist */; };
-		578097E85CB73F2E49EDA67A /* Pods_tikkle_revive_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 381C816CDEA7B94E08B661F2 /* Pods_tikkle_revive_ios.framework */; };
 		5A649E183FDA43A5B6DE43DC /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB674DFDA384B9CB9B87F49 /* AppleSDGothicNeoB.ttf */; };
+		64CD4F9077AF40DE73ABF2A4 /* Pods_tikkle_revive_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0AD498EA2555FBEF1633FC6 /* Pods_tikkle_revive_ios.framework */; };
 		73054AAFE6C54CBDB1CE6FAB /* AppleSDGothicNeoH.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FB64ED819654F83BB2C2C1A /* AppleSDGothicNeoH.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8325D4F4B4E44C0D8E2FC2DB /* CherryBombOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */; };
@@ -41,7 +41,7 @@
 		AF4198B54BD746EBA15609B1 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 705A869C88B648F780E6EE44 /* AppleSDGothicNeoR.ttf */; };
 		B2E8A5BE441949148D361989 /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */; };
 		E349ECDD69244341A9037E53 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 686FD629E15E468AAD926982 /* AppleSDGothicNeoL.ttf */; };
-		ED4917C6357E7467E5D28F13 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AFF0B1F218D23C75B19C368 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework */; };
+		FB6B0D00C43E1D73F0853FE6 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A174400878B8EC7D39DCC1 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,6 @@
 		00E356EE1AD99517003FC87E /* tikkle_revive_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tikkle_revive_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* tikkle_revive_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tikkle_revive_iosTests.m; sourceTree = "<group>"; };
-		05C220C41C0E8B2AEDC8FF4E /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0E71B5E60B964B5282F16037 /* AppleSDGothicNeoT.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoT.ttf; path = ../src/assets/fonts/AppleSDGothicNeoT.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* tikkle_revive_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tikkle_revive_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = tikkle_revive_ios/AppDelegate.h; sourceTree = "<group>"; };
@@ -68,25 +67,26 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tikkle_revive_ios/main.m; sourceTree = "<group>"; };
 		1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoSB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoSB.ttf; sourceTree = "<group>"; };
 		36CF22802AE280AA008FA6DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		381C816CDEA7B94E08B661F2 /* Pods_tikkle_revive_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tikkle_revive_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		390BFB439B29463EA6D6E6A3 /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoM.ttf; path = ../src/assets/fonts/AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
-		559FBE4765C21E7619F1585C /* Pods-tikkle_revive_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.release.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.release.xcconfig"; sourceTree = "<group>"; };
+		4B792C3B086B36B383471E96 /* Pods-tikkle_revive_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.release.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.release.xcconfig"; sourceTree = "<group>"; };
 		575960FE2AE66C3700404F26 /* tikkle_revive_ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tikkle_revive_ios.entitlements; path = tikkle_revive_ios/tikkle_revive_ios.entitlements; sourceTree = "<group>"; };
 		5759611D2AE66C3A00404F26 /* tikkle_revive_ios copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tikkle_revive_ios copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5759611E2AE66C3A00404F26 /* tikkle_revive_ios copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "tikkle_revive_ios copy-Info.plist"; path = "/Users/sjsjmine1/Desktop/tikkle/ios/tikkle_revive_ios copy-Info.plist"; sourceTree = "<absolute>"; };
 		5A125C352AA5CDB400F85EF1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BMHANNA_11yrs_otf.otf; path = ../src/assets/fonts/BMHANNA_11yrs_otf.otf; sourceTree = "<group>"; };
 		686FD629E15E468AAD926982 /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoL.ttf; path = ../src/assets/fonts/AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
-		6AFF0B1F218D23C75B19C368 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BB674DFDA384B9CB9B87F49 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
-		6DAA2C7654795A32F8A04D8E /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		6DB68188F921465BBB46A15B /* AppleSDGothicNeoUL.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoUL.ttf; path = ../src/assets/fonts/AppleSDGothicNeoUL.ttf; sourceTree = "<group>"; };
-		6E4A4B26DC1F9BDED46D73DF /* Pods-tikkle_revive_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.debug.xcconfig"; sourceTree = "<group>"; };
 		705A869C88B648F780E6EE44 /* AppleSDGothicNeoR.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoR.ttf; path = ../src/assets/fonts/AppleSDGothicNeoR.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = tikkle_revive_ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		85A174400878B8EC7D39DCC1 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB64ED819654F83BB2C2C1A /* AppleSDGothicNeoH.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoH.ttf; path = ../src/assets/fonts/AppleSDGothicNeoH.ttf; sourceTree = "<group>"; };
+		922ED5129DBA37CAE39A6DFF /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		A65FCC8E3E79F25D7E48E788 /* Pods-tikkle_revive_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.debug.xcconfig"; sourceTree = "<group>"; };
+		B0AD498EA2555FBEF1633FC6 /* Pods_tikkle_revive_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tikkle_revive_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAD8163DCE224509A207431F /* AppleSDGothicNeoEB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoEB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoEB.ttf; sourceTree = "<group>"; };
 		CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CherryBombOne-Regular.ttf"; path = "../src/assets/fonts/CherryBombOne-Regular.ttf"; sourceTree = "<group>"; };
+		E25394DA6C47B9E93B7320E1 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED4917C6357E7467E5D28F13 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework in Frameworks */,
+				FB6B0D00C43E1D73F0853FE6 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				578097E85CB73F2E49EDA67A /* Pods_tikkle_revive_ios.framework in Frameworks */,
+				64CD4F9077AF40DE73ABF2A4 /* Pods_tikkle_revive_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,8 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				381C816CDEA7B94E08B661F2 /* Pods_tikkle_revive_ios.framework */,
-				6AFF0B1F218D23C75B19C368 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework */,
+				B0AD498EA2555FBEF1633FC6 /* Pods_tikkle_revive_ios.framework */,
+				85A174400878B8EC7D39DCC1 /* Pods_tikkle_revive_ios_tikkle_revive_iosTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,10 +208,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6E4A4B26DC1F9BDED46D73DF /* Pods-tikkle_revive_ios.debug.xcconfig */,
-				559FBE4765C21E7619F1585C /* Pods-tikkle_revive_ios.release.xcconfig */,
-				05C220C41C0E8B2AEDC8FF4E /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */,
-				6DAA2C7654795A32F8A04D8E /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */,
+				A65FCC8E3E79F25D7E48E788 /* Pods-tikkle_revive_ios.debug.xcconfig */,
+				4B792C3B086B36B383471E96 /* Pods-tikkle_revive_ios.release.xcconfig */,
+				E25394DA6C47B9E93B7320E1 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */,
+				922ED5129DBA37CAE39A6DFF /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -223,12 +223,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "tikkle_revive_iosTests" */;
 			buildPhases = (
-				B54E7559F8D4D64A9C9137D5 /* [CP] Check Pods Manifest.lock */,
+				B893B0E165E4CE063F526A7B /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				16FDE0B9E116C8EA564409BA /* [CP] Embed Pods Frameworks */,
-				89C839676B1915609C4CBDD4 /* [CP] Copy Pods Resources */,
+				2C6E0577BC430B5E4F3405CD /* [CP] Embed Pods Frameworks */,
+				1D12033448DD9F8EF50C7A43 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -244,15 +244,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "tikkle_revive_ios" */;
 			buildPhases = (
-				24FB5593F9043A0383AB6043 /* [CP] Check Pods Manifest.lock */,
+				CA8BEF5DDE6FF40D4625B418 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				6AAA4625FF54E68F9C371B1C /* [CP] Embed Pods Frameworks */,
-				BA15A252CD98A24824FD6F28 /* [CP] Copy Pods Resources */,
-				FB6C7804227643ADD058E525 /* [CP-User] [RNFB] Core Configuration */,
+				59F34D3FF12A0394BD309D90 /* [CP] Embed Pods Frameworks */,
+				19D4CF152B5EC1B8C006FBDF /* [CP] Copy Pods Resources */,
+				E56AEA54B59EB95140618ADA /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -387,7 +387,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		16FDE0B9E116C8EA564409BA /* [CP] Embed Pods Frameworks */ = {
+		19D4CF152B5EC1B8C006FBDF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1D12033448DD9F8EF50C7A43 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2C6E0577BC430B5E4F3405CD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -402,28 +436,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		24FB5593F9043A0383AB6043 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-tikkle_revive_ios-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		575961012AE66C3A00404F26 /* Start Packager */ = {
@@ -461,7 +473,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		6AAA4625FF54E68F9C371B1C /* [CP] Embed Pods Frameworks */ = {
+		59F34D3FF12A0394BD309D90 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -478,24 +490,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		89C839676B1915609C4CBDD4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B54E7559F8D4D64A9C9137D5 /* [CP] Check Pods Manifest.lock */ = {
+		B893B0E165E4CE063F526A7B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -517,24 +512,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BA15A252CD98A24824FD6F28 /* [CP] Copy Pods Resources */ = {
+		CA8BEF5DDE6FF40D4625B418 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tikkle_revive_ios-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FB6C7804227643ADD058E525 /* [CP-User] [RNFB] Core Configuration */ = {
+		E56AEA54B59EB95140618ADA /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -608,7 +608,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05C220C41C0E8B2AEDC8FF4E /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */;
+			baseConfigurationReference = E25394DA6C47B9E93B7320E1 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -635,7 +635,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6DAA2C7654795A32F8A04D8E /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */;
+			baseConfigurationReference = 922ED5129DBA37CAE39A6DFF /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -659,7 +659,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E4A4B26DC1F9BDED46D73DF /* Pods-tikkle_revive_ios.debug.xcconfig */;
+			baseConfigurationReference = A65FCC8E3E79F25D7E48E788 /* Pods-tikkle_revive_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -690,7 +690,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 559FBE4765C21E7619F1585C /* Pods-tikkle_revive_ios.release.xcconfig */;
+			baseConfigurationReference = 4B792C3B086B36B383471E96 /* Pods-tikkle_revive_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
