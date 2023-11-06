@@ -149,7 +149,7 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
           horizontal>
           <AnimatedButton
             onPress={() =>
-              navigation.navigate('search', {category: '전자제품'})
+              navigation.navigate('search', {category: '디지털/전자'})
             }
             style={{
               backgroundColor: COLOR_WHITE,
@@ -177,10 +177,12 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
               }}>
               <Image1 width={36} height={36} />
             </View>
-            <M11>#전자제품</M11>
+            <M11>#디지털/전자</M11>
           </AnimatedButton>
           <AnimatedButton
-            onPress={() => navigation.navigate('search', {category: '게임기'})}
+            onPress={() =>
+              navigation.navigate('search', {category: '가전제품'})
+            }
             style={{
               backgroundColor: COLOR_WHITE,
               paddingLeft: 20,
@@ -207,10 +209,12 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
               }}>
               <Image2 width={36} height={36} />
             </View>
-            <M11>#게임기</M11>
+            <M11>#가전제품</M11>
           </AnimatedButton>
           <AnimatedButton
-            onPress={() => navigation.navigate('search', {category: '화장품'})}
+            onPress={() =>
+              navigation.navigate('search', {category: '패션/잡화'})
+            }
             style={{
               backgroundColor: COLOR_WHITE,
               paddingLeft: 20,
@@ -237,7 +241,7 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
               }}>
               <Image3 width={36} height={36} />
             </View>
-            <M11>#화장품</M11>
+            <M11>#패션/잡화</M11>
           </AnimatedButton>
           <AnimatedButton
             onPress={() => navigation.navigate('search', {category: '홈데코'})}
