@@ -169,7 +169,7 @@ export const useStartViewModel = () => {
         index: 0,
         routes: [
           {
-            name: 'main',
+            name: 'onboarding',
           },
         ],
       });
@@ -182,6 +182,17 @@ export const useStartViewModel = () => {
         console.log(err);
       }
     }
+  };
+
+  const skipOnboarding = () => {
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'main',
+        },
+      ],
+    });
   };
 
   //TODO : 기존 verifyOTP함수 삭제한 뒤 이 함수 이름 verifyOTP로 바꿀것
@@ -227,6 +238,7 @@ export const useStartViewModel = () => {
       completeSignUp,
       formatPhoneNumber,
       splitNumberToDigits,
+      skipOnboarding,
     },
   };
 };
