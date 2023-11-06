@@ -152,19 +152,11 @@ export default function HomeScreen({route}) {
             <GlobalLoader />
           ) : (
             <View>
-              {/* <AnimatedButton
-                onPress={async () => {
-                  console.log('전화번호 가져오기');
-                  await actions.findContacts();
-                  // await actions.findContacts();
-                }}>
-                <B15>전화번호 가져오기</B15>
-              </AnimatedButton> */}
-              {state.isTikkling ? null : (
+              {/* {state.isTikkling ? null : (
                 <Animated.View style={[animatedStyleSecondHero]}>
                   <SecondHero />
                 </Animated.View>
-              )}
+              )} */}
               {state.isTikkling ? (
                 <Animated.View style={[animatedStyleMyTikkling]}>
                   <MyTikklingComponent />

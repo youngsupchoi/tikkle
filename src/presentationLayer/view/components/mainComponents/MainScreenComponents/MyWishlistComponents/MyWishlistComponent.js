@@ -8,6 +8,7 @@ import {
   COLOR_PRIMARY_OUTLINE,
   COLOR_PRIMARY_TEXT,
   COLOR_SECONDARY,
+  COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
@@ -50,16 +51,18 @@ export default function MyWishlistComponent() {
         marginVertical: 12,
         backgroundColor: COLOR_WHITE,
         borderRadius: 24,
-        elevation: 3,
+        // elevation: 3,
+        borderColor: COLOR_SEPARATOR,
+        borderWidth: 1,
         marginHorizontal: 16,
-        shadowColor: '#000',
-        shadowOffset: {
-          // iOS용 그림자 위치
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.2, // iOS용 그림자 투명도
-        shadowRadius: 3, // iOS용 그림자 반경
+        // shadowColor: '#000',
+        // shadowOffset: {
+        //   // iOS용 그림자 위치
+        //   width: 0,
+        //   height: 2,
+        // },
+        // shadowOpacity: 0.2, // iOS용 그림자 투명도
+        // shadowRadius: 3, // iOS용 그림자 반경
       }}>
       {console.log('....', state.selectedOptions)}
       <View

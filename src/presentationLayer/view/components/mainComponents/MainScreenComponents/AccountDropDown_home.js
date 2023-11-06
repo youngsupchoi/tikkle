@@ -54,15 +54,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     backgroundColor: COLOR_SEPARATOR,
     borderRadius: 5,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // iOS용 그림자 투명도
-    shadowRadius: 3, // iOS용 그림자 반경
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
     width: windowWidth * 0.9,
     height: windowHeight * 0.03,
   },

@@ -2,7 +2,10 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import FriendsEvents from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FriendsEventComponents/FriendsEvent';
-import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  COLOR_SEPARATOR,
+  COLOR_WHITE,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B20,
   EB,
@@ -47,15 +50,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     backgroundColor: COLOR_WHITE,
     borderRadius: 24,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // iOS용 그림자 투명도
-    shadowRadius: 3, // iOS용 그림자 반경
+    borderWidth: 1,
+    borderColor: COLOR_SEPARATOR,
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
   },
   header: {
     paddingHorizontal: 24,

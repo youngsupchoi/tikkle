@@ -120,14 +120,14 @@ const MovingCircle = ({size, maxX, maxY, image, name, message, created_at}) => {
     modalView: {
       backgroundColor: COLOR_WHITE,
       borderRadius: 24,
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
+      // shadowColor: '#000',
+      // shadowOffset: {
+      //   width: 0,
+      //   height: 2,
+      // },
+      // shadowOpacity: 0.25,
+      // shadowRadius: 4,
+      // elevation: 5,
       width: windowWidth * 0.8,
     },
     modalText: {

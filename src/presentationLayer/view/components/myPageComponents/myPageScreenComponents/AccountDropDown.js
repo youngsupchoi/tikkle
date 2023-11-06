@@ -55,15 +55,17 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     backgroundColor: COLOR_WHITE,
     borderRadius: 5,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // iOS용 그림자 투명도
-    shadowRadius: 3, // iOS용 그림자 반경
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
     paddingTop: SPACING_1,
     // width: windowWidth * 0.3,
     // height: windowHeight * 0.2,
