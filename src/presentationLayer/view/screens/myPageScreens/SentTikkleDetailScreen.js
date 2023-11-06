@@ -291,11 +291,11 @@ export default function SentTikkleDetailScreen({route}) {
 
               <View style={styles.detailDataStyle}>
                 <B15>주문 번호</B15>
-                {/* <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15> */}
-                <MarqueeText
+                <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15>
+                {/* <MarqueeText
                   text={item.merchant_uid}
                   style={{fontSize: 15, fontFamily: M, color: COLOR_GRAY}}
-                />
+                /> */}
               </View>
 
               <View style={styles.detailDataStyle}>
