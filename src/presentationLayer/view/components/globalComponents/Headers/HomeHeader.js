@@ -21,22 +21,30 @@ import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import TicketFilled from 'src/assets/icons/TicketFilled';
 import NotificationFilled from 'src/assets/icons/NotificationFilled';
+import Help from 'src/assets/icons/Help';
 
 export default function HomeHeader(props) {
   const {isNotice, tikkling_ticket} = props;
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
-      <View>
-        <UNIQUE22>TIKKLE</UNIQUE22>
-      </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <UNIQUE22>TIKKLE</UNIQUE22>
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
-          }}>
-          <B15 customStyle={{color: COLOR_PRIMARY}}>온보딩</B15>
+          }}
+          style={{marginLeft: 10}}>
+          <Help width={20} height={20} />
         </AnimatedButton>
+      </View>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        {/* <AnimatedButton
+          onPress={() => {
+            navigation.navigate('onboarding');
+          }}>
+          <Help width={24} height={24} />
+        </AnimatedButton> */}
         <AnimatedButton
           style={{
             padding: 12,
