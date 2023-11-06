@@ -77,10 +77,8 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = createTikklingData('2023-11-03', 8, 1, 'none', {
-      color: 'red',
-    });
-    const str = JSON.stringify(axiosResponse, null, ' ');
+    const axiosResponse = await createPhoneFriendData(list);
+    const str = JSON.stringify(axiosResponse);
     console.log(str);
     setRet(str);
   };
