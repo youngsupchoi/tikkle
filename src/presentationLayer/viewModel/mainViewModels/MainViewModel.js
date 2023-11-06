@@ -340,7 +340,7 @@ export const useMainViewModel = () => {
           console.log(res);
           return res.DSdata.short_link;
         })
-        .then(async res => {
+        .then(async () => {
           const backgroundBase64 = await convertImageToBase64();
           if (state.hasInstagramInstalled) {
             const res = await Share.shareSingle({
