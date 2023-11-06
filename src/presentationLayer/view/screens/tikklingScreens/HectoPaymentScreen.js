@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {
   B,
@@ -55,14 +55,31 @@ export function HectoPaymentScreen(route) {
 
   //console.log('넘어옴 : ', data);
 
-  return (
-    <IMP.Payment
-      userCode={'imp11626661'} // 가맹점 식별코드
-      loading={<GlobalLoader />} // 로딩 컴포넌트
-      data={data} // 결제 데이터
-      callback={callback} // 결제 종료 후 콜백
-    />
-  );
+  if (Platform.OS === 'ios') {
+    return (
+      <IMP.Payment
+        userCode={'imp11626661'} // 가맹점 식별코드
+        loading={<GlobalLoader />} // 로딩 컴포넌트
+        data={data} // 결제 데이터
+        callback={callback} // 결제 종료 후 콜백
+      />
+    );
+  } else {
+    return (
+      <KeyboardAvoidingView
+        style={{flex: 1}}
+        behavior="padding"
+        enabled
+        keyboardVerticalOffset={0}>
+        <IMP.Payment
+          userCode={'imp11626661'} // 가맹점 식별코드
+          loading={<GlobalLoader />} // 로딩 컴포넌트
+          data={data} // 결제 데이터
+          callback={callback} // 결제 종료 후 콜백
+        />
+      </KeyboardAvoidingView>
+    );
+  }
 }
 
 export default HectoPaymentScreen;
