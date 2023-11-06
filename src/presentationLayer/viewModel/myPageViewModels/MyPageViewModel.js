@@ -306,15 +306,25 @@ export const useMyPageViewModel = () => {
   const NewImage = async () => {
     await selectAndCropImage()
       .then(async result => {
+        if (result === undefined || result === null) {
+          await topActions.showSnackbar('이미지 불러오기에 실패했어요', 0);
+          return 0;
+        }
         await actions.setLoading_profileEdit(true);
         const image = result;
         const url = await getProfileUrl();
         return {image, url};
       })
       .then(async res => {
+        if (res === 0) {
+          return 0;
+        }
         return uploadImageToServer(res.image, res.url);
       })
       .then(async res => {
+        if (res === 0) {
+          return 0;
+        }
         await new Promise(resolve => setTimeout(resolve, 2500));
         await MyPageData();
         await actions.setLoading_profileEdit(false);
@@ -327,10 +337,7 @@ export const useMyPageViewModel = () => {
       })
       .catch(async err => {
         await actions.setLoading_profileEdit(false);
-        await topActions.showSnackbar(
-          '서버오류로 이미지 업데이트에 실패했어요',
-          0,
-        );
+        await topActions.showSnackbar('이미지 업데이트에 실패했어요', 0);
       });
   };
 
