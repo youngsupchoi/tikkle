@@ -207,10 +207,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
           {data.state_id == 1 ? (
             <View>
               <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
-              <View style={{marginTop: 24}}>
-                <M11 customStyle={{color: COLOR_GRAY}}>
+              <View style={{marginTop: 10}}>
+                {/* <M11 customStyle={{color: COLOR_GRAY}}>
                   마음을 담은 메시지를 보내보세요.
-                </M11>
+                </M11> */}
                 <View
                   style={{
                     padding: 12,
@@ -228,7 +228,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                       // lineHeight: 24,
                     }}
                     onChangeText={value => setMessage(value)}
-                    placeholder="메시지를 입력해주세요."
+                    placeholder="축하 메시지를 입력해주세요."
                     placeholderTextColor={COLOR_GRAY}
                   />
                 </View>

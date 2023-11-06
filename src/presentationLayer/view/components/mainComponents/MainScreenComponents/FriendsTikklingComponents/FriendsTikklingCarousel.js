@@ -57,7 +57,7 @@ export default function FriendsTikklingCarousel(data) {
             />
 
             <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
-              {item.user_name}
+              {item.user_name + '  '}
             </B15>
             <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
               {item.nick}
@@ -87,7 +87,14 @@ export default function FriendsTikklingCarousel(data) {
           </AnimatedButton>
         </View>
 
-        <View style={{padding: 0, paddingBottom: 0}}>
+        <AnimatedButton
+          onPress={() => {
+            // console.log('press');
+            navigation.navigate('tikklingDetail', {
+              tikkling_id: item.tikkling_id,
+            });
+          }}
+          style={{padding: 0, paddingBottom: 0}}>
           <View
             style={{
               borderRadius: 12,
@@ -302,7 +309,7 @@ export default function FriendsTikklingCarousel(data) {
             showModal={showBuyModal === item.tikkling_id}
             onCloseModal={onCloseModal}
           />
-        </View>
+        </AnimatedButton>
       </View>
     );
   };
