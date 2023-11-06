@@ -149,7 +149,7 @@ function SignUpNavigator() {
   return (
     <StartViewStateProvider>
       <SignUpStack.Navigator
-        initialRouteName="splash"
+        initialRouteName="onboarding"
         screenOptions={{
           headerShown: false,
           // gestureEnabled: true,

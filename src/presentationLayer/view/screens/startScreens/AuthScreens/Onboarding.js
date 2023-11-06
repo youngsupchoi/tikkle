@@ -1,170 +1,133 @@
-import {View, StyleSheet, TextInput} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  StatusBarHeight,
-  HEADER_HEIGHT,
-  SPACING_1,
-  SPACING_2,
-  SPACING_4,
-  SPACING_6,
-} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {HEADER_HEIGHT} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import OnboardingComponent1 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent1';
+import OnboardingComponent2 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent2';
+import OnboardingComponent3 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent3';
 import {
   B15,
-  B28,
-  M,
-  M15,
-  M17,
-  M34,
   UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
-  COLOR_BLACK,
   COLOR_GRAY,
-  COLOR_WHITE,
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
-  backgroundColor,
-  COLOR_PRIMARY_OUTLINE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {
-  windowWidth,
-  windowHeight,
-} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
 
-import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-
-export default function Onboarding({route}) {
-  const {ref, state, actions} = useMainViewModel();
+export default function Onboarding() {
+  const [currentPage, setCurrentPage] = useState(0);
+  const scrollViewRef = useRef();
+  const handleScroll = event => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const pageWidth = event.nativeEvent.layoutMeasurement.width;
+    const currentPage = Math.floor(offsetX / pageWidth + 0.5);
+    setCurrentPage(currentPage);
+  };
+  const handleNextPress = () => {
+    const nextPage = currentPage + 1;
+    if (nextPage < 3) {
+      scrollViewRef.current?.scrollTo({
+        x: nextPage * windowWidth,
+        y: 0,
+        animated: true,
+      });
+      setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
+    }
+  };
   const navigation = useNavigation();
   return (
-    <View style={styles.signupContainer}>
-      <View style={styles.signUpHeader}>
-        <UNIQUE22>TIKKLE</UNIQUE22>
-        <View style={{flex: 1}} />
-        <AnimatedButton
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [
-                {
-                  name: 'main',
-                },
-              ],
-            });
-          }}>
-          <M15 customStyle={{color: COLOR_PRIMARY}}>건너뛰기</M15>
-        </AnimatedButton>
+    <View style={styles.onboardingContainer}>
+      <View style={styles.header}>
+        <View style={{...styles.headerItems, alignItems: 'flex-start'}}>
+          {currentPage < 2 && ( // 마지막 페이지가 아닐 경우에만 렌더링
+            <AnimatedButton
+              onPress={() => {
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: 'main',
+                    },
+                  ],
+                });
+              }}>
+              <B15 customStyle={{color: COLOR_GRAY}}>건너뛰기</B15>
+            </AnimatedButton>
+          )}
+        </View>
+
+        <View style={{...styles.headerItems, alignItems: 'center'}}>
+          <UNIQUE22>TIKKLE</UNIQUE22>
+        </View>
+        <View style={{...styles.headerItems, alignItems: 'flex-end'}}>
+          {currentPage < 2 ? (
+            <AnimatedButton onPress={handleNextPress}>
+              <B15 customStyle={{color: COLOR_PRIMARY}}>다음</B15>
+            </AnimatedButton>
+          ) : null}
+        </View>
       </View>
 
-      <View style={styles.instructionContainer}>
-        <M15 customStyle={{color: COLOR_GRAY, marginBottom: 8}}>온보딩</M15>
-        <B28>온보딩 스크린</B28>
+      <View style={styles.paginationWrapper}>
+        {[...Array(3).keys()].map(index => (
+          <View
+            key={index}
+            style={[
+              styles.paginationDot,
+              currentPage === index ? styles.dotActive : styles.dotInactive,
+            ]}
+          />
+        ))}
       </View>
+
+      <ScrollView
+        horizontal
+        pagingEnabled
+        onScroll={handleScroll}
+        scrollEventThrottle={16} // 조정 가능한 값으로, 스크롤 이벤트의 빈도를 조절합니다.
+        ref={scrollViewRef}
+        showsHorizontalScrollIndicator={false}>
+        <OnboardingComponent1 />
+        <OnboardingComponent2 />
+        <OnboardingComponent3 />
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  signupContainer: {
-    paddingTop: 0,
-    paddingHorizontal: 0,
-    backgroundColor: backgroundColor,
-    width: windowWidth,
-    height: windowHeight,
-  },
-  signUpHeader: {
+  onboardingContainer: {},
+  header: {
+    height: HEADER_HEIGHT,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingHorizontal: 24,
     alignItems: 'center',
-    paddingHorizontal: SPACING_2,
-    height: HEADER_HEIGHT,
-    marginBottom: SPACING_4,
+    width: windowWidth,
   },
-  button: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
+  headerItems: {
+    width: '33%',
+  },
+  paginationWrapper: {
     justifyContent: 'center',
-  },
-  paginationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    height: 16,
   },
-  pagination: {
-    backgroundColor: COLOR_GRAY,
-    width: 8,
-    height: 8,
+  paginationDot: {
+    height: 6,
+    width: 6,
+    borderRadius: 5,
+    backgroundColor: COLOR_SEPARATOR,
     marginHorizontal: 6,
-    borderRadius: 4,
   },
-  selectedPagination: {
-    backgroundColor: COLOR_BLACK,
-    width: 8,
-    height: 8,
-    marginHorizontal: 6,
-    borderRadius: 4,
-  },
-  instructionContainer: {
-    marginBottom: SPACING_6,
-    alignItems: 'center',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  IDInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    alignSelf: 'center',
-  },
-  IDInput: {
-    color: COLOR_GRAY,
-    fontSize: 20,
-    fontFamily: M,
-    marginLeft: SPACING_1,
-  },
-  buttonContainer: {
-    marginTop: SPACING_6,
-    width: '100%',
-  },
-  button: {
+  dotActive: {
     backgroundColor: COLOR_PRIMARY,
-    borderColor: COLOR_PRIMARY_OUTLINE,
-    borderWidth: 2,
-    width: '90%',
-    height: 50,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
   },
-  nativeInput: {
-    color: COLOR_GRAY,
-    fontSize: 36,
-    fontFamily: M,
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLOR_SEPARATOR,
-  },
-
-  validationMessage: {
-    color: COLOR_PRIMARY,
-    fontSize: 16,
-    fontFamily: M,
-    marginTop: SPACING_1,
-    marginLeft: SPACING_2,
-  },
-  inactiveButton: {
-    backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
-    shadowOpacity: 0, // Remove shadow for inactive button
+  dotInactive: {
+    backgroundColor: COLOR_SEPARATOR,
   },
 });
