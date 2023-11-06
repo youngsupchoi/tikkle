@@ -12,6 +12,7 @@ import SignUpScreen3 from 'src/presentationLayer/view/screens/startScreens/AuthS
 import SignUpScreen4 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/GenderInputScreen';
 import SignUpScreen5 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/BirthDayInputScreen';
 import SignUpScreen6 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/IdInputScreen';
+import Onboarding from 'src/presentationLayer/view/screens/startScreens/AuthScreens/Onboarding';
 import StartTikklingScreen from 'src/presentationLayer/view/screens/tikklingScreens/StartTikklingScreen';
 import NotificationScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationScreen';
 import NotificationSettingScreen from 'src/presentationLayer/view/screens/mainScreens/NotificationScreens/NotificationSettingScreen';
@@ -156,6 +157,7 @@ function SignUpNavigator() {
         <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
         <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
         <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
+        <SignUpStack.Screen name="onboarding" component={Onboarding} />
       </SignUpStack.Navigator>
     </StartViewStateProvider>
   );
