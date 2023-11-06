@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View, KeyboardAvoidingView} from 'react-native';
 import React from 'react';
 import EditProfileHeader from 'src/presentationLayer/view/components/globalComponents/Headers/EditProfileHeader';
 import EditProfilePicture from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/EditProfilePicture';
@@ -17,7 +17,11 @@ import Footer from 'src/presentationLayer/view/components/globalComponents/Heade
 export default function EditProfileScreen() {
   const {state, actions} = useMyPageViewModel();
   return (
-    <View>
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={0}>
       <ScrollView
         style={{backgroundColor: backgroundColor, paddingBottom: 240}}
         stickyHeaderIndices={[0]}>
@@ -35,7 +39,7 @@ export default function EditProfileScreen() {
               </View>
             ) : null}
             <EditAddress />
-            <View style={{height: 20}} />
+            <View style={{height: 100}} />
           </View>
         )}
         {/* <Footer /> */}
@@ -43,6 +47,6 @@ export default function EditProfileScreen() {
 
       <PostCodeModal state={state} actions={actions} />
       <DetailAddressInput state={state} actions={actions} />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
