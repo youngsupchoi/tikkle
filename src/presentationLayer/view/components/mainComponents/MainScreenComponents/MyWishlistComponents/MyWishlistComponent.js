@@ -257,7 +257,7 @@ export default function MyWishlistComponent() {
           </View>
         )}
       </View>
-      {console.log('modalshow', state.showProductOptionsModal)}
+      {/* {console.log('modalshow', state.showProductOptionsModal)} */}
 
       {state.selectedWishlistData ? (
         <ProductOptionsModal
