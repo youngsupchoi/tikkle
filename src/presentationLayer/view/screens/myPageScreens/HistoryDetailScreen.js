@@ -97,7 +97,7 @@ export default function HistoryDetailScreen(route) {
         // console.log('#### : ', tikkle_data);
         let sum = 0;
         tikkle_data.map(item => {
-          if (item.state_id != 2) {
+          if (item.state_id === 2 || item.state_id === 1) {
             sum += item.quantity;
           }
         });
@@ -301,7 +301,7 @@ export default function HistoryDetailScreen(route) {
                       <B17>
                         {Math.round(
                           (tikkle_sum / route_data.tikkle_quantity) * 1000,
-                        ) / 1000}
+                        ) / 10}
                         %
                       </B17>
                     </View>
@@ -592,10 +592,10 @@ export default function HistoryDetailScreen(route) {
                   )}
 
                   <View style={styles.listItemTextContainer}>
-                    {item.state_id === 2 ? (
+                    {item.state_id == 3 ? (
                       <View style={{marginBottom: 5}}>
                         <B15 customStyle={{color: COLOR_ERROR}}>
-                          환불된 {item.NAME}님의 선물
+                          [환불] {item.NAME}님의 티클
                         </B15>
                       </View>
                     ) : (

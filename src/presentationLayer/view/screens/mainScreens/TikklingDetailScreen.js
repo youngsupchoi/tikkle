@@ -662,10 +662,10 @@ export default function TikklingDetailScreen() {
                           )}
 
                           <View style={styles.listItemTextContainer}>
-                            {item.state_id === 2 ? (
+                            {item.state_id == 3 ? (
                               <View style={{marginBottom: 5}}>
                                 <B15 customStyle={{color: COLOR_ERROR}}>
-                                  환불된 {item.NAME}님의 선물
+                                  [환불] {item.NAME}님의 티클
                                 </B15>
                               </View>
                             ) : (
