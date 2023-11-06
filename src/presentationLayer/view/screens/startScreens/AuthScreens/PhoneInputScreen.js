@@ -28,18 +28,6 @@ export default function SignUpScreen1() {
     <View style={styles.signupContainer}>
       <View style={styles.signUpHeader}></View>
       <InstructionText />
-
-      {/* <AnimatedButton
-        onPress={async () => {
-          console.log('전화번호 가져오기');
-          await actions.findContacts().then(async () => {
-            await actions.addFriendPhoneList();
-          });
-          // await actions.findContacts();
-        }}>
-        <B15>전화번호 가져오기</B15>
-      </AnimatedButton> */}
-
       <PhoneNumberInput />
       <SubmitButton />
       {/* TODO: 카톡방 link추가 */}

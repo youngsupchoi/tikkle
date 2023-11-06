@@ -117,7 +117,7 @@
 		<key>NSCameraUsageDescription</key>
 		<string>App would like to access your camera</string>
 		<key>NSContactsUsageDescription</key>
-		<string>We need access to your contacts to connect you with friends.</string>
+		<string>연락처 상 가입된 친구가 있다면 자동으로 친구가 추가됩니다. 그 외의 용도로는 절대 저장 또는 사용하지 않습니다.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string></string>
 		<key>NSPhotoLibraryUsageDescription</key>

@@ -485,9 +485,10 @@ export const useMainViewModel = () => {
         granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
           {
-            title: 'Contacts',
-            message: 'This app would like to view your contacts.',
-            buttonPositive: 'Allow',
+            title: '연락처 권한 요청',
+            message:
+              '연락처 상 가입된 친구가 있다면 자동으로 친구가 추가됩니다. 그 외의 용도로는 절대 저장 또는 사용하지 않습니다.',
+            buttonPositive: '허용',
           },
         );
       }
@@ -524,14 +525,7 @@ export const useMainViewModel = () => {
           return acc;
         }, []);
         const temp = await transformContactsData(formattedData);
-        // console.log('TEMP : ', temp.phone_list);
         await createPhoneFriendData(temp.phone_list);
-        // .then(async res => {
-        //   return await topActions.setStateAndError(res);
-        // })
-        // .then(async res => {
-        //   // console.log('RETRUN : ', res);
-        // });
       } else {
         console.log('Contacts permission denied');
       }
@@ -539,20 +533,6 @@ export const useMainViewModel = () => {
       console.log('Error fetching contacts:', error);
     }
   };
-
-  // /**
-  //  * 전화번호 리스트로 친구 추가하는 함수
-  //  */
-  // const = async data => {
-  //   console.log('ERERERER : ', data);
-  //   await createPhoneFriendData(data)
-  //     .then(async res => {
-  //       return await topActions.setStateAndError(res);
-  //     })
-  //     .then(async res => {
-  //       console.log('RETRUN : ', res);
-  //     });
-  // };
 
   const hasOptions = async productId => {
     try {
