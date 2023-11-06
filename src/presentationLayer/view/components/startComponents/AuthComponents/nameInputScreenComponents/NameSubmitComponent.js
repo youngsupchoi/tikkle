@@ -17,11 +17,8 @@ export default function NameSubmit() {
     <View style={styles.buttonContainer}>
       <AnimatedButton
         onPress={actions.handleButtonPress}
-        style={[
-          styles.button,
-          !state.firstName || !state.lastName ? styles.inactiveButton : {},
-        ]}
-        disabled={!state.firstName || !state.lastName}>
+        style={[styles.button, !state.lastName ? styles.inactiveButton : {}]}
+        disabled={!state.lastName}>
         <B15 customStyle={{color: COLOR_WHITE}}>다음</B15>
       </AnimatedButton>
     </View>

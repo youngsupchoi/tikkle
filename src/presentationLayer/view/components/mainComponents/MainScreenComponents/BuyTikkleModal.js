@@ -228,8 +228,8 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                       // lineHeight: 24,
                     }}
                     onChangeText={value => setMessage(value)}
-                    placeholder="응원해!"
-                    placeholderTextColor={COLOR_SECOND_BLACK}
+                    placeholder="메시지를 입력해주세요."
+                    placeholderTextColor={COLOR_GRAY}
                   />
                 </View>
               </View>

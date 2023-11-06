@@ -134,7 +134,7 @@ export const useMainViewModel = () => {
         // console.log('#### : ', tikkle_data);
         let sum = 0;
         tikkle_data.map(item => {
-          if (item.state_id != 2) {
+          if (item.state_id === 2 || item.state_id === 1) {
             sum += item.quantity;
           }
         });

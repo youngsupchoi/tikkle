@@ -29,7 +29,7 @@ export default function ProductSearchLandingScreen() {
   };
 
   useEffect(() => {
-    actions.setSelectedCategory('전자제품');
+    actions.setSelectedCategory('디지털/전자');
   }, []);
   useEffect(() => {
     actions.onRefresh();
