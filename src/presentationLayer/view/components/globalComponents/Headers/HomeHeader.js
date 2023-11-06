@@ -32,6 +32,12 @@ export default function HomeHeader(props) {
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <AnimatedButton
+          onPress={() => {
+            navigation.navigate('onboarding');
+          }}>
+          <B15 customStyle={{color: COLOR_PRIMARY}}>온보딩</B15>
+        </AnimatedButton>
+        <AnimatedButton
           style={{
             padding: 12,
             paddingVertical: 8,

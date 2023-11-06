@@ -41,6 +41,7 @@ import {localNotificationService} from 'src/push_noti';
 import {useEffect, useState} from 'react';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import PushNotification from 'react-native-push-notification';
+import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 const ProductDetail = () => (
   <ProductDetailViewStateProvider>
@@ -58,6 +59,12 @@ const StartTikkling = ({route}) => (
   <StartTikklingViewStateProvider>
     <StartTikklingScreen route={route} />
   </StartTikklingViewStateProvider>
+);
+
+const Onboarding_ = () => (
+  <MainViewStateProvider>
+    <Onboarding />
+  </MainViewStateProvider>
 );
 
 const Notification = () => (
@@ -157,7 +164,6 @@ function SignUpNavigator() {
         <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
         <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
         <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
-        <SignUpStack.Screen name="onboarding" component={Onboarding} />
       </SignUpStack.Navigator>
     </StartViewStateProvider>
   );
@@ -326,6 +332,7 @@ export default function MainStackNavigator() {
         <MainStack.Screen name="productDetail" component={ProductDetail} />
         <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen name="tikklingDetail" component={TikklingDetail} />
+        <SignUpStack.Screen name="onboarding" component={Onboarding_} />
         <MainStack.Screen
           name="notificationSetting"
           component={NotificationSetting}

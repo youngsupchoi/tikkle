@@ -33,21 +33,27 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
 
-import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
+import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
 export default function Onboarding({route}) {
-  const {ref, state, actions} = useStartViewModel();
-  useEffect(() => {
-    // const validityMessage = validateUserId(state.userNick);
-    // actions.setValidationMessage(validityMessage);
-  }, [state.userNick]);
-
+  const {ref, state, actions} = useMainViewModel();
+  const navigation = useNavigation();
   return (
     <View style={styles.signupContainer}>
       <View style={styles.signUpHeader}>
         <UNIQUE22>TIKKLE</UNIQUE22>
         <View style={{flex: 1}} />
-        <AnimatedButton onPress={actions.skipOnboarding}>
+        <AnimatedButton
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: 'main',
+                },
+              ],
+            });
+          }}>
           <M15 customStyle={{color: COLOR_PRIMARY}}>건너뛰기</M15>
         </AnimatedButton>
       </View>
