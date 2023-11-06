@@ -41,16 +41,15 @@ const MyTikklingComponent = () => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <B20 customStyle={styles.headerText}>내 티클링</B20>
-        {/* <AnimatedButton
+        <AnimatedButton
           onPress={() => {
             console.log('더보기', state.myTikklingData);
             navigation.navigate('tikklingDetail', {
               tikkling_id: state.myTikklingData.tikkling_id,
             });
           }}>
-          <B15>상세페이지</B15>
-        </AnimatedButton> */}
+          <B20 customStyle={styles.headerText}>내 티클링</B20>
+        </AnimatedButton>
         {state.myTikklingData.state_id == 1 ? (
           <AnimatedButton
             onPress={() => {

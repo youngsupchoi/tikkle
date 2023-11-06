@@ -139,7 +139,14 @@ const FirstHero = props => {
   return (
     <View style={styles.outerContainer}>
       <ViewShot ref={state.backgroundImageRef}>
-        <View style={{backgroundColor: COLOR_WHITE}}>
+        <AnimatedButton
+          style={{backgroundColor: COLOR_WHITE}}
+          onPress={() => {
+            console.log('더보기', state.myTikklingData);
+            navigation.navigate('tikklingDetail', {
+              tikkling_id: state.myTikklingData.tikkling_id,
+            });
+          }}>
           <View style={styles.mainContainer}>
             {Number(state.myTikklingData.tikkle_count) ===
             state.myTikklingData.tikkle_quantity ? (
@@ -327,7 +334,7 @@ const FirstHero = props => {
               />
             </View>
           )}
-        </View>
+        </AnimatedButton>
       </ViewShot>
 
       <BuyTikkleModal
