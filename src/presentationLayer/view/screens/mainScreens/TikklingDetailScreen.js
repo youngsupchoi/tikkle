@@ -663,13 +663,13 @@ export default function TikklingDetailScreen() {
 
                           <View style={styles.listItemTextContainer}>
                             {item.state_id == 3 ? (
-                              <View style={{marginBottom: 5}}>
+                              <View style={{marginBottom: 2}}>
                                 <B15 customStyle={{color: COLOR_ERROR}}>
                                   [환불] {item.NAME}님의 티클
                                 </B15>
                               </View>
                             ) : (
-                              <View style={{marginBottom: 5}}>
+                              <View style={{marginBottom: 2}}>
                                 <B15>{item.NAME}님의 선물</B15>
                               </View>
                             )}
@@ -686,14 +686,12 @@ export default function TikklingDetailScreen() {
                             </M15>
                             <View
                               style={{
+                                flexDirection: 'row',
                                 alignItems: 'center',
-                                justifyContent: 'space-between',
-                                marginLeft: 60,
                               }}>
                               <B12 customStyle={{color: COLOR_GRAY}}>
                                 {item.created_at.split('T')[0]}
-                              </B12>
-                              <B12 customStyle={{color: COLOR_GRAY}}>
+                                {'  '}
                                 {item.created_at.split('T')[1].split('.')[0]}
                               </B12>
                             </View>
