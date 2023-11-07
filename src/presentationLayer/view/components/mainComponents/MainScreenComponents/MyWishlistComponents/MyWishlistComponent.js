@@ -281,7 +281,7 @@ export default function MyWishlistComponent() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <B17>{'받고 싶은 상품을 골라 '}</B17>
+              <B17>{'상품을 골라 '}</B17>
               <B20 customStyle={{color: COLOR_PRIMARY}}>{'티클링'}</B20>
               <B17>{'을 시작해보세요.'}</B17>
               <Tooltip
@@ -312,21 +312,30 @@ export default function MyWishlistComponent() {
                       style={{
                         marginBottom: 3,
                       }}>
-                      <M15>
-                        {
-                          '• 원하는 상품을 티클로 나눠서 받는 크라우드 펀딩식 선물받기 서비스입니다.'
-                        }
-                      </M15>
-                      <M15>
-                        {
-                          '• 5000원 단위의 티클로 선물을 받고 친구들의 선물을 모아보세요.'
-                        }
-                      </M15>
-                      <M15>
-                        {
-                          '• 티클링을 통해서 이번 기념일에는 받고싶은 상품을 받아보세요.'
-                        }
-                      </M15>
+                      <View style={{flexDirection: 'row'}}>
+                        <M15>{'• '}</M15>
+                        <M15 customStyle={{width: 320}}>
+                          {
+                            '원하는 상품을 티클로 나눠서 받는 크라우드 펀딩식 선물 받기 서비스입니다.'
+                          }
+                        </M15>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <M15>{'• '}</M15>
+                        <M15 customStyle={{width: 320}}>
+                          {
+                            '5000원 단위의 티클로 선물을 받고 친구들의 선물을 모아보세요.'
+                          }
+                        </M15>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <M15>{'• '}</M15>
+                        <M15 customStyle={{width: 320}}>
+                          {
+                            '티클링을 통해서 이번 기념일에는 받고싶은 상품을 받아보세요.'
+                          }
+                        </M15>
+                      </View>
                     </View>
                   </View>
                 }

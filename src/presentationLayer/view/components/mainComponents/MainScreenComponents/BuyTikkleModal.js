@@ -229,7 +229,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                   // }
                   isVisible={buttikkletooltip}
                   content={
-                    <View style={{width: 400}}>
+                    <View style={{width: 350}}>
                       <View
                         style={{
                           flexDirection: 'row',
@@ -255,12 +255,19 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                         style={{
                           marginBottom: 3,
                         }}>
-                        <M15>
-                          {'• 티클은 5000원의 가치를 지니는 선물 조각이에요'}
-                        </M15>
-                        <M15>
-                          {'• 친구에게 티클을 선물해서 기념일을 축하해주세요'}
-                        </M15>
+                        <View style={{flexDirection: 'row'}}>
+                          <M15>{'• '}</M15>
+                          <M15 customStyle={{width: 320}}>
+                            {'티클은 5000원의 가치를 지니는 선물 조각이에요'}
+                          </M15>
+                        </View>
+
+                        <View style={{flexDirection: 'row'}}>
+                          <M15>{'• '}</M15>
+                          <M15 customStyle={{width: 320}}>
+                            {'친구에게 티클을 선물해서 기념일을 축하해주세요'}
+                          </M15>
+                        </View>
                       </View>
                     </View>
                   }
@@ -345,11 +352,21 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                       style={{
                         marginBottom: 3,
                       }}>
-                      <M15>{'• 부족한 티클을 구매하고 선물을 받아보세요'}</M15>
-                      <M15>
-                        {'• 구매를 원하지 않으시면 10%의 수수료를 빼고'}
-                      </M15>
-                      <M15>{'    환급해드려요'}</M15>
+                      <View style={{flexDirection: 'row'}}>
+                        <M15>{'• '}</M15>
+                        <M15 customStyle={{width: 280}}>
+                          {'부족한 티클을 구매하고 선물을 받아보세요'}
+                        </M15>
+                      </View>
+
+                      <View style={{flexDirection: 'row'}}>
+                        <M15>{'• '}</M15>
+                        <M15 customStyle={{width: 280}}>
+                          {
+                            '구매를 원하지 않으시면 10%의 수수료를 빼고 환급해드려요.'
+                          }
+                        </M15>
+                      </View>
                     </View>
                   </View>
                 }

@@ -202,7 +202,7 @@ const FirstHero = props => {
                           customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
                           {'상품 교환'}
                         </B15>
-                        <AnimatedButton
+                        {/* <AnimatedButton
                           onPress={() => {
                             //Linking.openURL('https://www.lifoli.co.kr');
                           }}>
@@ -210,27 +210,36 @@ const FirstHero = props => {
                             customStyle={{marginRight: 10, color: COLOR_GRAY}}>
                             {'더보기'}
                           </B12>
-                        </AnimatedButton>
+                        </AnimatedButton> */}
                       </View>
                       <View
                         style={{
                           marginBottom: 3,
                         }}>
-                        <M15>
-                          {
-                            '• 상품 교환을 신청하면 티클링이 종료되고 티클의 청약철회가 불가능해집니다.'
-                          }
-                        </M15>
-                        <M15>
-                          {
-                            '• 상품 교환 이전에 티클 구매자의 환불이 7일동안 가능합니다.'
-                          }
-                        </M15>
-                        <M15>
-                          {
-                            '• 직접 상품을 구매하고 싶으시다면 환급을 신청해주세요.'
-                          }
-                        </M15>
+                        <View style={{flexDirection: 'row'}}>
+                          <M15>{'• '}</M15>
+                          <M15 customStyle={{width: 320}}>
+                            {
+                              '상품 교환을 신청하면 티클링이 종료되고 티클의 청약철회가 불가능해집니다.'
+                            }
+                          </M15>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                          <M15>{'• '}</M15>
+                          <M15 customStyle={{width: 320}}>
+                            {
+                              '상품 교환 이전에 티클 구매자의 환불이 7일동안 가능합니다.'
+                            }
+                          </M15>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                          <M15>{'• '}</M15>
+                          <M15 customStyle={{width: 320}}>
+                            {
+                              '직접 상품을 구매하고 싶으시다면 환급을 신청해주세요.'
+                            }
+                          </M15>
+                        </View>
                       </View>
                     </View>
                   }
