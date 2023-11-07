@@ -1,5 +1,5 @@
 import {View, StyleSheet, Linking} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   COLOR_ERROR,
@@ -17,6 +17,7 @@ import {
   B12,
   UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   HEADER_HEIGHT,
   SPACING_2,
@@ -31,7 +32,7 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
-
+  const [ticket_tooltip, setTicket_tooltip] = useState(false);
   const {isNotice, tikkling_ticket} = props;
   const navigation = useNavigation();
   return (
@@ -53,8 +54,10 @@ export default function HomeHeader(props) {
           }}>
           <Help width={24} height={24} />
         </AnimatedButton> */}
+
         <Tooltip
-          isVisible={state.tikkling_ticket_tooltip}
+          topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+          isVisible={ticket_tooltip}
           content={
             <View style={{width: 300}}>
               <View
@@ -67,14 +70,14 @@ export default function HomeHeader(props) {
                 <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
                   {'티클링 티켓'}
                 </B15>
-                <AnimatedButton
-                  onPress={() => {
-                    Linking.openURL('https://www.lifoli.co.kr');
-                  }}>
-                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
-                    {'더보기'}
-                  </B12>
-                </AnimatedButton>
+                {/* <AnimatedButton
+                onPress={() => {
+                  Linking.openURL('https://www.lifoli.co.kr');
+                }}>
+                <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                  {'더보기'}
+                </B12>
+              </AnimatedButton> */}
               </View>
               <View
                 style={{
@@ -91,11 +94,11 @@ export default function HomeHeader(props) {
           // backgroundColor="transparent"
           disableShadow={true}
           onClose={() => {
-            actions.setTikkling_ticket_tooltip(false);
+            setTicket_tooltip(false);
           }}>
           <AnimatedButton
             onPress={() => {
-              actions.setTikkling_ticket_tooltip(true);
+              setTicket_tooltip(true);
             }}
             style={{
               padding: 12,
@@ -119,6 +122,7 @@ export default function HomeHeader(props) {
             </B15>
           </AnimatedButton>
         </Tooltip>
+
         <AnimatedButton
           onPress={() => {
             navigation.navigate('notification');

@@ -24,7 +24,10 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import DollarCircle from 'src/assets/icons/DollarCircle';
-import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  SPACING_2,
+  StatusBarHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/native';
 import {updatePresentTikkleInitData} from 'src/dataLayer/DataSource/Payment/UpdatePresentTikkleInitData';
@@ -41,7 +44,8 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
   //토큰 가져오기
   const {topActions} = useTopViewModel();
-
+  const [buttikkletooltip, setButtikkletooltip] = useState(false);
+  const [buymytooltip, setBuymytooltip] = useState(false);
   const [receivedMessage, setReceivedMessage] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const {state, actions} = useMainViewModel();
@@ -211,7 +215,72 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         <View style={styles.modalContent}>
           {data.state_id == 1 ? (
             <View>
-              <B22 customStyle={styles.title}>티클을 선물할까요?</B22>
+              <View
+                style={{
+                  margin: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                }}>
+                <B22>티클을 선물할까요?</B22>
+                <Tooltip
+                  // topAdjustment={
+                  //   Platform.OS === 'android' ? -StatusBarHeight : 0
+                  // }
+                  isVisible={buttikkletooltip}
+                  content={
+                    <View style={{width: 400}}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          marginBottom: 3,
+                        }}>
+                        <B15
+                          customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                          {'티클'}
+                        </B15>
+                        {/* <AnimatedButton
+                          onPress={() => {
+                            //Linking.openURL('https://www.lifoli.co.kr');
+                          }}>
+                          <B12
+                            customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                            {'더보기'}
+                          </B12>
+                        </AnimatedButton> */}
+                      </View>
+                      <View
+                        style={{
+                          marginBottom: 3,
+                        }}>
+                        <M15>
+                          {'• 티클은 5000원의 가치를 지니는 선물 조각이에요'}
+                        </M15>
+                        <M15>
+                          {'• 친구에게 티클을 선물해서 기념일을 축하해주세요'}
+                        </M15>
+                      </View>
+                    </View>
+                  }
+                  placement="top"
+                  animated={true}
+                  backgroundColor="rgba(0,0,0,0.1)"
+                  // backgroundColor="transparent"
+                  disableShadow={true}
+                  onClose={() => {
+                    setButtikkletooltip(false);
+                  }}>
+                  <AnimatedButton
+                    style={{marginLeft: 10}}
+                    onPress={() => {
+                      setButtikkletooltip(true);
+                    }}>
+                    <Help width={22} height={22} />
+                  </AnimatedButton>
+                </Tooltip>
+              </View>
               <View style={{marginTop: 10}}>
                 {/* <M11 customStyle={{color: COLOR_GRAY}}>
                   마음을 담은 메시지를 보내보세요.
@@ -249,7 +318,8 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               <B22>남은 티클 구매하고 선물받기</B22>
 
               <Tooltip
-                isVisible={state.buymytooltip}
+                // topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+                isVisible={buymytooltip}
                 content={
                   <View style={{width: 330}}>
                     <View
@@ -289,12 +359,12 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 // backgroundColor="transparent"
                 disableShadow={true}
                 onClose={() => {
-                  actions.setBuymytooltip(false);
+                  setBuymytooltip(false);
                 }}>
                 <AnimatedButton
                   style={{marginLeft: 10}}
                   onPress={() => {
-                    actions.setBuymytooltip(true);
+                    setBuymytooltip(true);
                   }}>
                   <Help width={22} height={22} />
                 </AnimatedButton>

@@ -46,7 +46,7 @@ export async function createPhoneFriendData(phone_list) {
     };
   }
 
-  console.log('DDDD', response);
+  //console.log('DDDD', response);
 
   //------ control result & error of post_friend_phoneCheck-----------------------------------------//
 
@@ -87,7 +87,7 @@ export async function createPhoneFriendData(phone_list) {
     }
   }
 
-  console.log('noti list : ', noti_list);
+  //console.log('noti list : ', noti_list);
 
   //------ update token ---------------------------------------------------//
 

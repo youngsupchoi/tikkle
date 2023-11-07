@@ -14,6 +14,7 @@ import {
   SPACING_2,
   SPACING_3,
   SPACING_6,
+  StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B15,
@@ -55,6 +56,7 @@ import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
 
 export default function StartTikklingScreen({route}) {
+  const [tikkle_tooltip, setTikkle_tooltip] = useState(false);
   const {state, actions} = useStartTikklingViewModel();
   const [time_tooltip, setTime_tooltip] = useState(false);
 
@@ -120,7 +122,8 @@ export default function StartTikklingScreen({route}) {
             }}>
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>상품 정보</B20>
             <Tooltip
-              isVisible={state.tikkle_tooltip}
+              topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+              isVisible={tikkle_tooltip}
               content={
                 <View style={{width: 500}}>
                   <View
@@ -161,11 +164,11 @@ export default function StartTikklingScreen({route}) {
               // backgroundColor="transparent"
               disableShadow={true}
               onClose={() => {
-                actions.setTikkle_tooltip(false);
+                setTikkle_tooltip(false);
               }}>
               <AnimatedButton
                 onPress={() => {
-                  actions.setTikkle_tooltip(true);
+                  setTikkle_tooltip(true);
                 }}>
                 <Help
                   width={20}
@@ -319,6 +322,7 @@ export default function StartTikklingScreen({route}) {
               기념일 선택
             </B20>
             <Tooltip
+              topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
               isVisible={time_tooltip}
               content={
                 <View style={{width: 330}}>
