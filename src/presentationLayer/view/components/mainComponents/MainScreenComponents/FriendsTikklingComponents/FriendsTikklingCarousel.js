@@ -42,7 +42,14 @@ export default function FriendsTikklingCarousel(data) {
   const renderFriendsTikkling = ({item}) => {
     return (
       <View style={styles.renderItemContainer}>
-        <View style={styles.renderItemHeaderContainer}>
+        <AnimatedButton
+          onPress={() => {
+            // console.log('press');
+            navigation.navigate('tikklingDetail', {
+              tikkling_id: item.tikkling_id,
+            });
+          }}
+          style={styles.renderItemHeaderContainer}>
           <View
             style={{
               flexDirection: 'row',
@@ -85,7 +92,7 @@ export default function FriendsTikklingCarousel(data) {
               scale={0.85}
             />
           </AnimatedButton>
-        </View>
+        </AnimatedButton>
 
         <AnimatedButton
           onPress={() => {
@@ -409,6 +416,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   renderItemHeaderContainer: {
+    // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

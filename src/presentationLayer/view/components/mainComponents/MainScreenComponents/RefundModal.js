@@ -88,7 +88,7 @@ export default function RefundModal() {
                     }}>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {
                           '환급 신청을 하면 수수료 10%를 제외한 금액이 환급됩니다.'
                         }
@@ -96,7 +96,7 @@ export default function RefundModal() {
                     </View>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {
                           '환급은 구매자 청약철회 기간 7일 이후 순차적으로 진행됩니다.'
                         }
@@ -104,7 +104,7 @@ export default function RefundModal() {
                     </View>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {
                           '위 청약 철회 기간 중 구매자 청약철회시 환불된 금액을 제외하고 환급이 진행됩니다.'
                         }

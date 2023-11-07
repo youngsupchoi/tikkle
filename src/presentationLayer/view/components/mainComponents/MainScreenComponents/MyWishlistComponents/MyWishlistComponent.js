@@ -314,7 +314,7 @@ export default function MyWishlistComponent() {
                       }}>
                       <View style={{flexDirection: 'row'}}>
                         <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 320}}>
+                        <M15 customStyle={{width: 310}}>
                           {
                             '원하는 상품을 티클로 나눠서 받는 크라우드 펀딩식 선물 받기 서비스입니다.'
                           }
@@ -322,7 +322,7 @@ export default function MyWishlistComponent() {
                       </View>
                       <View style={{flexDirection: 'row'}}>
                         <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 320}}>
+                        <M15 customStyle={{width: 310}}>
                           {
                             '5000원 단위의 티클로 선물을 받고 친구들의 선물을 모아보세요.'
                           }
@@ -330,7 +330,7 @@ export default function MyWishlistComponent() {
                       </View>
                       <View style={{flexDirection: 'row'}}>
                         <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 320}}>
+                        <M15 customStyle={{width: 310}}>
                           {
                             '티클링을 통해서 이번 기념일에는 받고싶은 상품을 받아보세요.'
                           }

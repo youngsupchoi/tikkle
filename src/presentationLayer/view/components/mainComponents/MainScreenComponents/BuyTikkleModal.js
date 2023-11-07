@@ -257,14 +257,14 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                         }}>
                         <View style={{flexDirection: 'row'}}>
                           <M15>{'• '}</M15>
-                          <M15 customStyle={{width: 320}}>
+                          <M15 customStyle={{width: 310}}>
                             {'티클은 5000원의 가치를 지니는 선물 조각이에요'}
                           </M15>
                         </View>
 
                         <View style={{flexDirection: 'row'}}>
                           <M15>{'• '}</M15>
-                          <M15 customStyle={{width: 320}}>
+                          <M15 customStyle={{width: 310}}>
                             {'친구에게 티클을 선물해서 기념일을 축하해주세요'}
                           </M15>
                         </View>
