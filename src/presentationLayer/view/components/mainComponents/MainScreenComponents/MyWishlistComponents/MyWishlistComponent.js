@@ -17,6 +17,7 @@ import {
   B17,
   B20,
   EB,
+  M17,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import LottieView from 'lottie-react-native';
@@ -211,14 +212,25 @@ export default function MyWishlistComponent() {
               marginTop: 24,
               marginBottom: 8,
             }}>
-            <B20>위시리스트가 비었어요!</B20>
+            <B20 customStyle={{marginBottom: 5}}>위시리스트가 비었어요!</B20>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <B17>{'받고 싶은 상품을 골라 '}</B17>
+              <B20 customStyle={{color: COLOR_PRIMARY}}>{'티클링'}</B20>
+              <B17>{'을 시작해보세요.'}</B17>
+            </View>
             <LottieView
-              source={require('src/assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
+              source={require('src/assets/animations/Gift.json')} // replace with your Lottie file path
+              // source={require('src/assets/animations/animation_lludlvpe.json')}
               autoPlay
               loop
               style={{
-                width: 200,
-                height: 200,
+                width: 250,
+                height: 250,
                 alignSelf: 'center',
               }}
             />
@@ -244,7 +256,8 @@ export default function MyWishlistComponent() {
                   marginRight: 8,
                   fontFamily: EB,
                 }}>
-                마음에 드는 상품 담으러 가기
+                {/* 마음에 드는 상품 담으러 가기 */}
+                {'선물 고르고 선물 받으러 가기'}
               </B15>
               <ArrowRight
                 width={16}
