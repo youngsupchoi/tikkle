@@ -51,9 +51,13 @@ import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklin
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import moment from 'moment';
+import Help from 'src/assets/icons/Help';
+import Tooltip from 'react-native-walkthrough-tooltip';
 
 export default function StartTikklingScreen({route}) {
   const {state, actions} = useStartTikklingViewModel();
+  const [time_tooltip, setTime_tooltip] = useState(false);
+
   useEffect(() => {
     actions.loadData();
     console.log(route);
@@ -115,15 +119,63 @@ export default function StartTikklingScreen({route}) {
               alignItems: 'center',
             }}>
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>상품 정보</B20>
-            <AnimatedButton>
-              <Information
-                width={20}
-                height={20}
-                stroke={COLOR_BLACK}
-                strokeWidth={2}
-                scale={0.85}
-              />
-            </AnimatedButton>
+            <Tooltip
+              isVisible={state.tikkle_tooltip}
+              content={
+                <View style={{width: 500}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: 3,
+                    }}>
+                    <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                      {'티클'}
+                    </B15>
+                    {/* <AnimatedButton
+                  onPress={() => {
+                    //Linking.openURL('https://www.lifoli.co.kr');
+                  }}>
+                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                    {'더보기'}
+                  </B12>
+                </AnimatedButton> */}
+                  </View>
+                  <View
+                    style={{
+                      marginBottom: 3,
+                    }}>
+                    <M15>
+                      {'• 티클은 5000원의 가치를 지니는 선물 조각이에요'}
+                    </M15>
+                    <M15>
+                      {'• 티클링에서 상품은 동일한 가치의 티클로 바뀌어요.'}
+                    </M15>
+                  </View>
+                </View>
+              }
+              placement="bottom"
+              animated={true}
+              backgroundColor="rgba(0,0,0,0.1)"
+              // backgroundColor="transparent"
+              disableShadow={true}
+              onClose={() => {
+                actions.setTikkle_tooltip(false);
+              }}>
+              <AnimatedButton
+                onPress={() => {
+                  actions.setTikkle_tooltip(true);
+                }}>
+                <Help
+                  width={20}
+                  height={20}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.85}
+                />
+              </AnimatedButton>
+            </Tooltip>
             <View
               style={{
                 backgroundColor: COLOR_SECONDARY,
@@ -266,15 +318,64 @@ export default function StartTikklingScreen({route}) {
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>
               기념일 선택
             </B20>
-            <AnimatedButton>
-              <Information
-                width={20}
-                height={20}
-                stroke={COLOR_BLACK}
-                strokeWidth={2}
-                scale={0.85}
-              />
-            </AnimatedButton>
+            <Tooltip
+              isVisible={time_tooltip}
+              content={
+                <View style={{width: 330}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: 3,
+                    }}>
+                    <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                      {'티클링의 기간'}
+                    </B15>
+                    {/* <AnimatedButton
+                  onPress={() => {
+                    //Linking.openURL('https://www.lifoli.co.kr');
+                  }}>
+                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                    {'더보기'}
+                  </B12>
+                </AnimatedButton> */}
+                  </View>
+                  <View
+                    style={{
+                      marginBottom: 3,
+                    }}>
+                    <M15>
+                      {'• 기념일을 선택하면 그날 자정까지 티클링이 진행되요.'}
+                    </M15>
+                    <M15>{'• 티클링은 최대 7일 간 진행할 수 있어요!'}</M15>
+                    <M15>
+                      {'• 그래서 7일 이후의 기념일은 선택할 수 없어요.'}
+                    </M15>
+                  </View>
+                </View>
+              }
+              placement="top"
+              animated={true}
+              backgroundColor="rgba(0,0,0,0.1)"
+              // backgroundColor="transparent"
+              disableShadow={true}
+              onClose={() => {
+                setTime_tooltip(false);
+              }}>
+              <AnimatedButton
+                onPress={() => {
+                  setTime_tooltip(true);
+                }}>
+                <Help
+                  width={20}
+                  height={20}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.85}
+                />
+              </AnimatedButton>
+            </Tooltip>
             <View
               style={{
                 backgroundColor: COLOR_SECONDARY,
