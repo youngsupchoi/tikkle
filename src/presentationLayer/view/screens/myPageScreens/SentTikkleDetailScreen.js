@@ -375,7 +375,6 @@ export default function SentTikkleDetailScreen({route}) {
                 marginTop: 20,
                 alignSelf: 'center',
                 paddingHorizontal: 24,
-                backgroundColorcolor: COLOR_BLACK,
               }}>
               <AnimatedButton
                 onPress={() => {

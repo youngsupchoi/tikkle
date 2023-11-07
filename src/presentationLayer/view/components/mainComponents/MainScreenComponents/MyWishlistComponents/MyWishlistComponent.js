@@ -373,21 +373,18 @@ export default function MyWishlistComponent() {
               }}
               style={{
                 backgroundColor: COLOR_PRIMARY,
-                borderColor: COLOR_PRIMARY_OUTLINE,
-                borderWidth: 2,
-                padding: 12,
-                borderRadius: 16,
-                paddingHorizontal: 24,
+                padding: 16,
+                borderRadius: 12,
                 flexDirection: 'row',
                 alignItems: 'center',
                 width: '100%',
                 justifyContent: 'center',
               }}>
-              <B15
+              <B17
                 customStyle={{
-                  color: COLOR_PRIMARY_TEXT,
-                  marginRight: 8,
-                  fontFamily: EB,
+                  color: COLOR_WHITE,
+                  marginRight: 12,
+                  // fontFamily: EB,
                 }}>
                 {/* 마음에 드는 상품 담으러 가기 */}
                 {'선물 고르고 선물 받으러 가기'}
@@ -395,7 +392,7 @@ export default function MyWishlistComponent() {
               <ArrowRight
                 width={16}
                 height={16}
-                stroke={COLOR_PRIMARY_TEXT}
+                stroke={COLOR_WHITE}
                 scale={0.7}
                 strokeWidth={3}
               />
