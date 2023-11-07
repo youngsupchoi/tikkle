@@ -129,7 +129,7 @@ export default function TikklingDetailScreen() {
 
   return (
     <View>
-      {console.log('$$$$$ ', state.route_data)}
+      {/* {console.log('$$$$$ ', state.route_data)} */}
       {state.route_data.created_at ? (
         <View style={{paddingTop: 0, backgroundColor: backgroundColor}}>
           <View style={styles.header}>

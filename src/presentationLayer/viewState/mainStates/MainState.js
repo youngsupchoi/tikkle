@@ -39,6 +39,7 @@ export const MainViewStateProvider = ({children}) => {
   const [account, setAccount] = useState(''); // 계좌 번호
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
+  const [tikkling_ticket_tooltip, setTikkling_ticket_tooltip] = useState(false);
 
   const [bankDropDownVisible_home, setBankDropDownVisible_home] =
     useState(false);
@@ -71,6 +72,8 @@ export const MainViewStateProvider = ({children}) => {
   const [detail_buymodal, setDetail_buymodal] = useState(false);
 
   const [contactsData, setContactsData] = useState([]);
+
+  const [buymytooltip, setBuymytooltip] = useState(false);
 
   // ... 다른 상태들
   const ref = {
@@ -125,6 +128,8 @@ export const MainViewStateProvider = ({children}) => {
     itHasOptions,
     optionPrice,
     selectedWishlistData,
+    tikkling_ticket_tooltip,
+    buymytooltip,
   };
 
   const actions = {
@@ -173,6 +178,8 @@ export const MainViewStateProvider = ({children}) => {
     setItHasOptions,
     setOptionPrice,
     setSelectedWishlistData,
+    setTikkling_ticket_tooltip,
+    setBuymytooltip,
   };
 
   return (

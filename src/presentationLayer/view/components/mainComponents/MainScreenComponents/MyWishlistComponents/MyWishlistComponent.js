@@ -64,7 +64,7 @@ export default function MyWishlistComponent() {
         // shadowOpacity: 0.2, // iOS용 그림자 투명도
         // shadowRadius: 3, // iOS용 그림자 반경
       }}>
-      {console.log('....', state.selectedOptions)}
+      {/* {console.log('....', state.selectedOptions)} */}
       <View
         style={{
           paddingHorizontal: 24,
