@@ -20,6 +20,7 @@ import {
   M17,
   M15,
   M12,
+  M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import LottieView from 'lottie-react-native';
@@ -274,7 +275,7 @@ export default function MyWishlistComponent() {
               marginTop: 24,
               marginBottom: 8,
             }}>
-            <B20 customStyle={{marginBottom: 5}}>위시리스트가 비었어요!</B20>
+            <B20 customStyle={{marginBottom: 8}}>위시리스트가 비었어요!</B20>
             <View
               style={{
                 flexDirection: 'row',
@@ -288,17 +289,9 @@ export default function MyWishlistComponent() {
                 topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
                 isVisible={tikkling_tooltip}
                 content={
-                  <View style={{width: 350}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginBottom: 3,
-                      }}>
-                      <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
-                        {'티클링'}
-                      </B15>
+                  <View style={{padding: 12, paddingVertical: 4}}>
+                    <View style={{}}>
+                      <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링'}</B15>
                       {/* <AnimatedButton
                     onPress={() => {
                       //Linking.openURL('https://www.lifoli.co.kr');
@@ -308,33 +301,20 @@ export default function MyWishlistComponent() {
                     </B12>
                   </AnimatedButton> */}
                     </View>
-                    <View
-                      style={{
-                        marginBottom: 3,
-                      }}>
-                      <View style={{flexDirection: 'row'}}>
-                        <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 310}}>
+                    <View style={{}}>
+                      <View>
+                        <M11>
                           {
                             '원하는 상품을 티클로 나눠서 받는 크라우드 펀딩식 선물 받기 서비스입니다.'
                           }
-                        </M15>
+                        </M11>
                       </View>
-                      <View style={{flexDirection: 'row'}}>
-                        <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 310}}>
+                      <View>
+                        <M11>
                           {
-                            '5000원 단위의 티클로 선물을 받고 친구들의 선물을 모아보세요.'
+                            '5,000원 단위의 티클로 선물을 받고 친구들의 선물을 모아보세요.'
                           }
-                        </M15>
-                      </View>
-                      <View style={{flexDirection: 'row'}}>
-                        <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 310}}>
-                          {
-                            '티클링을 통해서 이번 기념일에는 받고싶은 상품을 받아보세요.'
-                          }
-                        </M15>
+                        </M11>
                       </View>
                     </View>
                   </View>
@@ -373,21 +353,20 @@ export default function MyWishlistComponent() {
               }}
               style={{
                 backgroundColor: COLOR_PRIMARY,
-                padding: 16,
+                padding: 12,
                 borderRadius: 12,
                 flexDirection: 'row',
                 alignItems: 'center',
                 width: '100%',
                 justifyContent: 'center',
               }}>
-              <B17
+              <B15
                 customStyle={{
                   color: COLOR_WHITE,
                   marginRight: 12,
                   // fontFamily: EB,
                 }}>
-                {/* 마음에 드는 상품 담으러 가기 */}
-                {'선물 고르고 선물 받으러 가기'}
+                {'티클링 시작하기'}
               </B15>
               <ArrowRight
                 width={16}

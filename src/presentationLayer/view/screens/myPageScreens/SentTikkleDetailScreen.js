@@ -235,6 +235,7 @@ export default function SentTikkleDetailScreen({route}) {
                     </View>
                   </View>
                 </View>
+                {}
               </View>
 
               {/* tikkling_info */}

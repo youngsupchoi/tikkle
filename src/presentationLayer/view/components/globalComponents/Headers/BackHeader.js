@@ -23,6 +23,7 @@ import {
   B22,
   B17,
   UNIQUE22,
+  M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
@@ -59,17 +60,9 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
         topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
         isVisible={ticket_tooltip}
         content={
-          <View style={{width: 300}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 3,
-              }}>
-              <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
-                {'티클링 티켓'}
-              </B15>
+          <View style={{padding: 12, paddingVertical: 4}}>
+            <View style={{}}>
+              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링 티켓'}</B15>
               {/* <AnimatedButton
                 onPress={() => {
                   Linking.openURL('https://www.lifoli.co.kr');
@@ -79,22 +72,13 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
                 </B12>
               </AnimatedButton> */}
             </View>
-            <View
-              style={{
-                marginBottom: 3,
-              }}>
-              <View style={{flexDirection: 'row'}}>
-                <M15>{'• '}</M15>
-                <M15 customStyle={{width: 280}}>
-                  {'티클링 티켓은 티클링을 시작하는데 사용해요!'}
-                </M15>
+            <View style={{}}>
+              <View>
+                <M11>{'티클링 티켓은 티클링을 시작하는데 사용해요.'}</M11>
               </View>
 
-              <View style={{flexDirection: 'row'}}>
-                <M15>{'• '}</M15>
-                <M15 customStyle={{width: 280}}>
-                  {'티켓을 얻으려면 친구에게 티클을 선물해보세요'}
-                </M15>
+              <View>
+                <M11>{'티켓을 얻으려면 친구에게 티클을 선물해보세요!'}</M11>
               </View>
             </View>
           </View>
