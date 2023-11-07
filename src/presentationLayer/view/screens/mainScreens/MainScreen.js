@@ -133,60 +133,59 @@ export default function HomeScreen({route}) {
 
   return (
     <View>
-      <View style={{}}>
-        <ScrollView
-          stickyHeaderIndices={[0]}
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl
-              refreshing={state.refreshing}
-              onRefresh={actions.onRefresh}
-            />
-          }
-          style={styles.HomeContainer}>
-          <HomeHeader
-            isNotice={state.isNotice}
-            tikkling_ticket={state.userData.tikkling_ticket}
+      <ScrollView
+        stickyHeaderIndices={[0]}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={state.refreshing}
+            onRefresh={actions.onRefresh}
           />
-          {state.loading ? (
-            <GlobalLoader />
-          ) : (
-            <View>
-              {/* {state.isTikkling ? null : (
+        }
+        style={styles.HomeContainer}>
+        <HomeHeader
+          isNotice={state.isNotice}
+          tikkling_ticket={state.userData.tikkling_ticket}
+        />
+
+        {state.loading ? (
+          <GlobalLoader />
+        ) : (
+          <View>
+            {/* {state.isTikkling ? null : (
                 <Animated.View style={[animatedStyleSecondHero]}>
                   <SecondHero />
                 </Animated.View>
               )} */}
-              {state.isTikkling ? (
-                <Animated.View style={[animatedStyleMyTikkling]}>
-                  <MyTikklingComponent />
-                </Animated.View>
-              ) : null}
-              {state.friendTikklingData.length === 0 ? null : (
-                <Animated.View style={[animatedStyleFriendsTikkling]}>
-                  <FriendsTikklingComponent />
-                </Animated.View>
-              )}
-              <Animated.View style={[animatedStyleMyWishlist]}>
-                <MyWishlistComponent />
+            {state.isTikkling ? (
+              <Animated.View style={[animatedStyleMyTikkling]}>
+                <MyTikklingComponent />
               </Animated.View>
-              {state.friendEventData.length === 0 ? null : (
-                <Animated.View style={[animatedStyleFriendsEvent]}>
-                  <FriendsEventComponent />
-                </Animated.View>
-              )}
-            </View>
-          )}
-          <View style={styles.homeFooter}></View>
-          <Footer />
-        </ScrollView>
-        <PostCodeModal
-          setShowPostCodeModal={actions.setShowPostCodeModal}
-          showPostCodeModal={state.showPostCodeModal}
-          setAddress={actions.setAddress}
-          setZoneCode={actions.setZonecode}
-        />
-      </View>
+            ) : null}
+            {state.friendTikklingData.length === 0 ? null : (
+              <Animated.View style={[animatedStyleFriendsTikkling]}>
+                <FriendsTikklingComponent />
+              </Animated.View>
+            )}
+            <Animated.View style={[animatedStyleMyWishlist]}>
+              <MyWishlistComponent />
+            </Animated.View>
+            {state.friendEventData.length === 0 ? null : (
+              <Animated.View style={[animatedStyleFriendsEvent]}>
+                <FriendsEventComponent />
+              </Animated.View>
+            )}
+          </View>
+        )}
+        <View style={styles.homeFooter}></View>
+        <Footer />
+      </ScrollView>
+      <PostCodeModal
+        setShowPostCodeModal={actions.setShowPostCodeModal}
+        showPostCodeModal={state.showPostCodeModal}
+        setAddress={actions.setAddress}
+        setZoneCode={actions.setZonecode}
+      />
     </View>
   );
 }

@@ -4,6 +4,7 @@ import {
   HEADER_HEIGHT,
   SPACING_1,
   SPACING_2,
+  StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   COLOR_BLACK,
@@ -55,6 +56,7 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
       </View>
 
       <Tooltip
+        topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
         isVisible={ticket_tooltip}
         content={
           <View style={{width: 300}}>
