@@ -125,7 +125,7 @@ export default function StartTikklingScreen({route}) {
               topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
               isVisible={tikkle_tooltip}
               content={
-                <View style={{width: 500}}>
+                <View style={{width: 350}}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -149,12 +149,18 @@ export default function StartTikklingScreen({route}) {
                     style={{
                       marginBottom: 3,
                     }}>
-                    <M15>
-                      {'• 티클은 5000원의 가치를 지니는 선물 조각이에요'}
-                    </M15>
-                    <M15>
-                      {'• 티클링에서 상품은 동일한 가치의 티클로 바뀌어요.'}
-                    </M15>
+                    <View style={{flexDirection: 'row'}}>
+                      <M15>{'• '}</M15>
+                      <M15 customStyle={{width: 320}}>
+                        {'티클은 5000원의 가치를 지니는 선물 조각이에요'}
+                      </M15>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <M15>{'• '}</M15>
+                      <M15 customStyle={{width: 320}}>
+                        {'티클링에서 상품은 동일한 가치의 티클로 바뀌어요.'}
+                      </M15>
+                    </View>
                   </View>
                 </View>
               }
@@ -325,7 +331,7 @@ export default function StartTikklingScreen({route}) {
               topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
               isVisible={time_tooltip}
               content={
-                <View style={{width: 330}}>
+                <View style={{width: 350}}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -349,13 +355,24 @@ export default function StartTikklingScreen({route}) {
                     style={{
                       marginBottom: 3,
                     }}>
-                    <M15>
-                      {'• 기념일을 선택하면 그날 자정까지 티클링이 진행되요.'}
-                    </M15>
-                    <M15>{'• 티클링은 최대 7일 간 진행할 수 있어요!'}</M15>
-                    <M15>
-                      {'• 그래서 7일 이후의 기념일은 선택할 수 없어요.'}
-                    </M15>
+                    <View style={{flexDirection: 'row'}}>
+                      <M15>{'• '}</M15>
+                      <M15 customStyle={{width: 320}}>
+                        {'기념일을 선택하면 그날 자정까지 티클링이 진행되요.'}
+                      </M15>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <M15>{'• '}</M15>
+                      <M15 customStyle={{width: 320}}>
+                        {'티클링은 최대 7일간 진행할 수 있어요!'}
+                      </M15>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <M15>{'• '}</M15>
+                      <M15 customStyle={{width: 320}}>
+                        {'그래서 7일 이후의 기념일은 선택할 수 없어요.'}
+                      </M15>
+                    </View>
                   </View>
                 </View>
               }
@@ -557,7 +574,7 @@ export default function StartTikklingScreen({route}) {
           mode="date"
           minimumDate={new Date(Date.now())} // 오늘의 날짜를 최소 날짜로 설정
           maximumDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)}
-          title={'티클링은 최대 7일 간 진행할 수 있어요!'}
+          title={'티클링은 최대 7일간 진행할 수 있어요!'}
           confirmText="확인"
           cancelText="취소"
         />

@@ -83,8 +83,19 @@ export default function BackHeader({children, customStyle, tikkling_ticket}) {
               style={{
                 marginBottom: 3,
               }}>
-              <M15>{'• 티클링 티켓은 티클링을 시작하는데 사용해요!'}</M15>
-              <M15>{'• 티켓을 얻으려면 친구에게 티클을 선물해보세요'}</M15>
+              <View style={{flexDirection: 'row'}}>
+                <M15>{'• '}</M15>
+                <M15 customStyle={{width: 280}}>
+                  {'티클링 티켓은 티클링을 시작하는데 사용해요!'}
+                </M15>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <M15>{'• '}</M15>
+                <M15 customStyle={{width: 280}}>
+                  {'티켓을 얻으려면 친구에게 티클을 선물해보세요'}
+                </M15>
+              </View>
             </View>
           </View>
         }
