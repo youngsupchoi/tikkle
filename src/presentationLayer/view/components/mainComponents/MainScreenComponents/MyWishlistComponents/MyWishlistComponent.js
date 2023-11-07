@@ -18,14 +18,25 @@ import {
   B20,
   EB,
   M17,
+  M15,
+  M12,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import LottieView from 'lottie-react-native';
 import Add from 'src/assets/icons/Add';
 import ProductOptionsModal from 'src/presentationLayer/view/components/productComponents/ProductDetailScreenComponents/ProductOptionsModal';
+import Tooltip from 'react-native-walkthrough-tooltip';
+import Help from 'src/assets/icons/Help';
+import {
+  HEADER_HEIGHT,
+  StatusBarHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 
 export default function MyWishlistComponent() {
   const {state, ref, actions} = useMainViewModel();
+  const [wishlist_tooltip, setWishlist_tooltip] = React.useState(false);
+  const [tikkling_tooltip, setTikkling_tooltip] = React.useState(false);
+
   const startTikklingButtonPress = () => {
     const wishlist = {
       brand_name: state.selectedWishlistData.brand_name,
@@ -75,7 +86,58 @@ export default function MyWishlistComponent() {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <B20 customStyle={{fontFamily: EB}}>내 위시리스트</B20>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+          }}>
+          <B20 customStyle={{fontFamily: EB}}>내 위시리스트</B20>
+
+          {/* <Tooltip
+            topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+            isVisible={wishlist_tooltip}
+            content={
+              <View style={{width: 350}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 3,
+                  }}>
+                  <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                    {'위시리스트'}
+                  </B15>
+                </View>
+                <View
+                  style={{
+                    marginBottom: 3,
+                  }}>
+                  <M15>
+                    {'• 상품을 자장해두고 언제든지 티클링을 시작해 보세요!'}
+                  </M15>
+                </View>
+              </View>
+            }
+            placement="top"
+            animated={true}
+            backgroundColor="rgba(0,0,0,0.1)"
+            // backgroundColor="transparent"
+            disableShadow={true}
+            onClose={() => {
+              setWishlist_tooltip(false);
+            }}>
+            <AnimatedButton
+              style={{marginLeft: 10}}
+              onPress={() => {
+                setWishlist_tooltip(true);
+              }}>
+              <Help width={22} height={22} />
+            </AnimatedButton>
+          </Tooltip> */}
+        </View>
+
         <AnimatedButton
           onPress={() => {
             actions.navigation.navigate('search');
@@ -222,6 +284,68 @@ export default function MyWishlistComponent() {
               <B17>{'받고 싶은 상품을 골라 '}</B17>
               <B20 customStyle={{color: COLOR_PRIMARY}}>{'티클링'}</B20>
               <B17>{'을 시작해보세요.'}</B17>
+              <Tooltip
+                topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+                isVisible={tikkling_tooltip}
+                content={
+                  <View style={{width: 350}}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: 3,
+                      }}>
+                      <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                        {'티클링'}
+                      </B15>
+                      {/* <AnimatedButton
+                    onPress={() => {
+                      //Linking.openURL('https://www.lifoli.co.kr');
+                    }}>
+                    <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                      {'더보기'}
+                    </B12>
+                  </AnimatedButton> */}
+                    </View>
+                    <View
+                      style={{
+                        marginBottom: 3,
+                      }}>
+                      <M15>
+                        {
+                          '• 원하는 상품을 티클로 나눠서 받는 크라우드 펀딩식 선물받기 서비스입니다.'
+                        }
+                      </M15>
+                      <M15>
+                        {
+                          '• 5000원 단위의 티클로 선물을 받고 친구들의 선물을 모아보세요.'
+                        }
+                      </M15>
+                      <M15>
+                        {
+                          '• 티클링을 통해서 이번 기념일에는 받고싶은 상품을 받아보세요.'
+                        }
+                      </M15>
+                    </View>
+                  </View>
+                }
+                placement="bottom"
+                animated={true}
+                backgroundColor="rgba(0,0,0,0.1)"
+                // backgroundColor="transparent"
+                disableShadow={true}
+                onClose={() => {
+                  setTikkling_tooltip(false);
+                }}>
+                <AnimatedButton
+                  style={{marginLeft: 2}}
+                  onPress={() => {
+                    setTikkling_tooltip(true);
+                  }}>
+                  <Help width={20} height={20} />
+                </AnimatedButton>
+              </Tooltip>
             </View>
             <LottieView
               source={require('src/assets/animations/Gift.json')} // replace with your Lottie file path
