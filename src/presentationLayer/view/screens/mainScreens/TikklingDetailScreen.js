@@ -135,7 +135,16 @@ export default function TikklingDetailScreen() {
           <View style={styles.header}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <AnimatedButton
-                onPress={() => navigation.goBack()}
+                onPress={() => {
+                  actions.navigation.reset({
+                    index: 0,
+                    routes: [
+                      {
+                        name: 'main',
+                      },
+                    ],
+                  });
+                }}
                 style={{
                   width: 20,
                   height: 20,
