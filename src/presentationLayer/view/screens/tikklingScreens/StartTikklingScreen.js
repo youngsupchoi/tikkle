@@ -151,13 +151,13 @@ export default function StartTikklingScreen({route}) {
                     }}>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {'티클은 5000원의 가치를 지니는 선물 조각이에요'}
                       </M15>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {'티클링에서 상품은 동일한 가치의 티클로 바뀌어요.'}
                       </M15>
                     </View>
@@ -357,19 +357,19 @@ export default function StartTikklingScreen({route}) {
                     }}>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {'기념일을 선택하면 그날 자정까지 티클링이 진행되요.'}
                       </M15>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {'티클링은 최대 7일간 진행할 수 있어요!'}
                       </M15>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                       <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 320}}>
+                      <M15 customStyle={{width: 310}}>
                         {'그래서 7일 이후의 기념일은 선택할 수 없어요.'}
                       </M15>
                     </View>

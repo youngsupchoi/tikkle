@@ -218,7 +218,7 @@ const FirstHero = props => {
                         }}>
                         <View style={{flexDirection: 'row'}}>
                           <M15>{'• '}</M15>
-                          <M15 customStyle={{width: 320}}>
+                          <M15 customStyle={{width: 310}}>
                             {
                               '상품 교환을 신청하면 티클링이 종료되고 티클의 청약철회가 불가능해집니다.'
                             }
@@ -226,7 +226,7 @@ const FirstHero = props => {
                         </View>
                         <View style={{flexDirection: 'row'}}>
                           <M15>{'• '}</M15>
-                          <M15 customStyle={{width: 320}}>
+                          <M15 customStyle={{width: 310}}>
                             {
                               '상품 교환 이전에 티클 구매자의 환불이 7일동안 가능합니다.'
                             }
@@ -234,7 +234,7 @@ const FirstHero = props => {
                         </View>
                         <View style={{flexDirection: 'row'}}>
                           <M15>{'• '}</M15>
-                          <M15 customStyle={{width: 320}}>
+                          <M15 customStyle={{width: 310}}>
                             {
                               '직접 상품을 구매하고 싶으시다면 환급을 신청해주세요.'
                             }
