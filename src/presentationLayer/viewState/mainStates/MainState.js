@@ -78,6 +78,8 @@ export const MainViewStateProvider = ({children}) => {
 
   const [contactsData, setContactsData] = useState([]);
 
+  const [detial_route, setDetial_route] = useState(false);
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -134,6 +136,7 @@ export const MainViewStateProvider = ({children}) => {
     showWhoParticipatedModal,
     showWhoParticipatedTooltip,
     showMessageTooltip,
+    detial_route,
   };
 
   const actions = {
@@ -185,6 +188,7 @@ export const MainViewStateProvider = ({children}) => {
     setShowWhoParticipatedModal,
     setShowWhoParticipatedTooltip,
     setShowMessageTooltip,
+    setDetial_route,
   };
 
   return (
