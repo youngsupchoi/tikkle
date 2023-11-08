@@ -96,11 +96,11 @@ export default function TikklingDetailScreen() {
 
   useEffect(() => {
     actions.loadDetail();
-    console.log(state.userData);
-    console.log(
-      '🚀 ~ file: TikklingDetailScreen.js:102 ~ useEffect ~ state.userData:',
-      state.userData,
-    );
+    // console.log(state.userData);
+    // console.log(
+    //   '🚀 ~ file: TikklingDetailScreen.js:102 ~ useEffect ~ state.userData:',
+    //   state.userData,
+    // );
   }, []);
 
   useEffect(() => {
@@ -247,7 +247,12 @@ export default function TikklingDetailScreen() {
 
                   <View style={styles.mainContainer}>
                     {/*2*/}
-                    <View
+                    {/* {console.log('fffff : ', state.route_data)} */}
+                    <AnimatedButton
+                      onPress={() => {
+                        const product_id = state.route_data.product_id;
+                        navigation.navigate('productDetail', {product_id});
+                      }}
                       style={{
                         width: windowWidth - 64,
                         height: ((windowWidth - 64) / 3) * 2,
@@ -314,7 +319,7 @@ export default function TikklingDetailScreen() {
                             : state.route_data.product_name}
                         </B22>
                       </View>
-                    </View>
+                    </AnimatedButton>
 
                     {/* 2 */}
 
