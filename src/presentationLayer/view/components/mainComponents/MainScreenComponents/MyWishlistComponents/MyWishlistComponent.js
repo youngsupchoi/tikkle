@@ -32,11 +32,13 @@ import {
   HEADER_HEIGHT,
   StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {useNavigation} from '@react-navigation/native';
 
 export default function MyWishlistComponent() {
   const {state, ref, actions} = useMainViewModel();
   const [wishlist_tooltip, setWishlist_tooltip] = React.useState(false);
   const [tikkling_tooltip, setTikkling_tooltip] = React.useState(false);
+  const navigation = useNavigation();
 
   const startTikklingButtonPress = () => {
     const wishlist = {
@@ -157,8 +159,13 @@ export default function MyWishlistComponent() {
         {state.wishlistData.length !== 0 ? (
           state.wishlistData.map((wishlist, index) => {
             return (
-              <View
+              <AnimatedButton
                 key={actions.keyExtractor(wishlist, index)}
+                onPress={() => {
+                  // console.log('wishlist', wishlist);
+                  const product_id = wishlist.product_id;
+                  navigation.navigate('productDetail', {product_id});
+                }}
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
@@ -264,7 +271,7 @@ export default function MyWishlistComponent() {
                     </B12>
                   </AnimatedButton>
                 )}
-              </View>
+              </AnimatedButton>
             );
           })
         ) : (

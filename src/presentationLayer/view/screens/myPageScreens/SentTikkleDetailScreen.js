@@ -60,7 +60,7 @@ import CalendarFilled from 'src/assets/icons/CalendarFilled';
 
 export default function SentTikkleDetailScreen({route}) {
   const item = route.params.item;
-
+  const navigation = useNavigation();
   const {ref, state, actions} = useMyPageViewModel();
   // actions.getHistoryPaymentData(item.merchant_uid);
   // console.log('state.paymentData : ', state.paymentData);
@@ -142,7 +142,12 @@ export default function SentTikkleDetailScreen({route}) {
                 ) : null}
               </View>
 
-              <View
+              <AnimatedButton
+                onPress={() => {
+                  // console.log('item : ', item.product_id);
+                  const product_id = item.product_id;
+                  navigation.navigate('productDetail', {product_id});
+                }}
                 style={{
                   backgroundColor: COLOR_WHITE,
                   borderRadius: 16,
@@ -236,7 +241,7 @@ export default function SentTikkleDetailScreen({route}) {
                   </View>
                 </View>
                 {}
-              </View>
+              </AnimatedButton>
 
               {/* tikkling_info */}
               <View
