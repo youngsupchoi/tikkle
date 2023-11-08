@@ -703,12 +703,9 @@ export default function StartTikklingScreen({route}) {
         {console.log('라우트', route.params)}
 
         <AnimatedButton
-          onPress={
-            // console.log('end date ', state.endDate);
-            () => {
-              actions.tikklingStartButtonPress(route.params.product_option);
-            }
-          }
+          onPress={() => {
+            actions.tikklingStartButtonPress(route.params.product_option);
+          }}
           style={[
             styles.tikklingStartButton,
             state.createTikklingButtonPressed ? styles.inactiveButton : {},

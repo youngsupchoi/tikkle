@@ -4,6 +4,7 @@ import {
   B15,
   B22,
   EB,
+  M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_PRIMARY,
@@ -24,15 +25,21 @@ export default function TikklingCancleModal({mode}) {
   let button_message = '';
   let message = '';
   let cancel_message = '';
+  let long_1 = '';
+  let long_2 = '';
 
   if (mode == 'cancle') {
     message = '티클링을 취소할까요?';
     button_message = '취소하기';
     cancel_message = '나중에 취소하기';
+    long_1 = '티클링을 취소하면 사용한 티켓은 복구됩니다.';
+    long_2 = '진행중인 티클링을 취소하면 티클링이 종료됩니다.';
   } else if (mode == 'stop') {
     message = '티클링을 종료할까요?';
     button_message = '종료하기';
     cancel_message = '나중에 종료하기';
+    long_1 = '티클링을 종료하면 사용한 티켓은 복구되지 않습니다.';
+    long_2 = '남은 티클을 구매하시거나 모은 티클을 환급받으실 수 있어요.';
   }
   return (
     <View>
@@ -67,6 +74,8 @@ export default function TikklingCancleModal({mode}) {
                 alignSelf: 'center',
               }}
             />
+            <M15>{long_1}</M15>
+            <M15 customStyle={{marginTop: 1}}>{long_2}</M15>
           </View>
 
           <View

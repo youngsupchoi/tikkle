@@ -11,6 +11,7 @@ import {
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
+  M15,
   B15,
   B22,
   M11,
@@ -99,10 +100,13 @@ export default function StopModal() {
               justifyContent: 'space-between',
             }}>
             <View style={{paddingVertical: 24}}>
-              <M11>사용한 티클링 티켓은 다시 받을 수 없어요.</M11>
-              <M11 customStyle={{marginTop: 8}}>
-                지금까지 받은 티클은 티클링 종료 7일 이후 환불이 가능해요.
-              </M11>
+              <M15>사용한 티클링 티켓은 다시 받을 수 없어요.</M15>
+              <M15 customStyle={{marginTop: 1}}>
+                {'남은 티클을 구매해서 상품으로 교환하거나'}
+              </M15>
+              <M15 customStyle={{marginTop: 1}}>
+                {'지금까지 모은 티클의 환급 신청이 가능해요.'}
+              </M15>
             </View>
           </View>
 
