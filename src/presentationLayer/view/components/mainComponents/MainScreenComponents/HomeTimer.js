@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {M20} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  M20,
+  B17,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {COLOR_BLACK} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import moment from 'moment-timezone';
 
@@ -46,7 +49,7 @@ const TimerComponent = ({deadline, timerStyle}) => {
 
   return (
     <View style={styles.container}>
-      <M20 customStyle={[styles.text, timerStyle]}>{display}</M20>
+      <B17 customStyle={[styles.text, timerStyle]}>{display}</B17>
     </View>
   );
 };
