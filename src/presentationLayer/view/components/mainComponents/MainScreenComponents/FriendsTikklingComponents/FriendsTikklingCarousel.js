@@ -47,6 +47,7 @@ export default function FriendsTikklingCarousel(data) {
             // console.log('press');
             navigation.navigate('tikklingDetail', {
               tikkling_id: item.tikkling_id,
+              from: true,
             });
           }}
           style={styles.renderItemHeaderContainer}>
@@ -82,6 +83,7 @@ export default function FriendsTikklingCarousel(data) {
               // console.log('press');
               navigation.navigate('tikklingDetail', {
                 tikkling_id: item.tikkling_id,
+                from: true,
               });
             }}>
             <ArrowRight
@@ -99,6 +101,7 @@ export default function FriendsTikklingCarousel(data) {
             // console.log('press');
             navigation.navigate('tikklingDetail', {
               tikkling_id: item.tikkling_id,
+              from: true,
             });
           }}
           style={{padding: 0, paddingBottom: 0}}>

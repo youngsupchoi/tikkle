@@ -46,6 +46,7 @@ const MyTikklingComponent = () => {
             console.log('더보기', state.myTikklingData);
             navigation.navigate('tikklingDetail', {
               tikkling_id: state.myTikklingData.tikkling_id,
+              from: true,
             });
           }}>
           <B20 customStyle={styles.headerText}>내 티클링</B20>

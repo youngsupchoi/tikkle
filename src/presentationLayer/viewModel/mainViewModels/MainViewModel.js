@@ -41,6 +41,8 @@ export const useMainViewModel = () => {
   //FIXME: 아래 코드 getTikklingData함수 안으로 이동
   const temp_R = useRoute();
   const route_tikkling_id = temp_R.params?.tikkling_id;
+  const route_from = temp_R.params?.from;
+
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
@@ -109,8 +111,10 @@ export const useMainViewModel = () => {
         return topActions.setStateAndError(res);
       })
       .then(async res => {
-        console.log('@@@@@@@ : ', res.DSdata.info[0]);
-
+        //console.log('@@@@@@@ : ', res.DSdata.info[0]);
+        if (route_from) {
+          actions.setDetial_route(route_from);
+        }
         await getTikkleData();
         actions.setRoute_data(res.DSdata.info[0]);
       });

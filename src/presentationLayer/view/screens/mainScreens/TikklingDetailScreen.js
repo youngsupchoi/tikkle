@@ -1004,7 +1004,18 @@ export default function TikklingDetailScreen() {
               }}>
               <AnimatedButton
                 onPress={() => {
-                  actions.navigation.goBack();
+                  if (state.detial_route) {
+                    actions.navigation.goBack();
+                  } else {
+                    actions.navigation.reset({
+                      index: 0,
+                      routes: [
+                        {
+                          name: 'main',
+                        },
+                      ],
+                    });
+                  }
                 }}
                 style={{
                   // width: 40,
@@ -1124,7 +1135,11 @@ export default function TikklingDetailScreen() {
                 상품 정보
               </B20>
               <View style={styles.mainContainer}>
-                <View
+                <AnimatedButton
+                  onPress={() => {
+                    const product_id = state.route_data.product_id;
+                    navigation.navigate('productDetail', {product_id});
+                  }}
                   style={{
                     backgroundColor: COLOR_WHITE,
                     borderRadius: 16,
@@ -1224,10 +1239,9 @@ export default function TikklingDetailScreen() {
                           )}
                         </M11>
                       </View>
-
                     </View>
                   </View>
-                </View>
+                </AnimatedButton>
                 <View style={{}}>
                   <View
                     style={{
@@ -1698,11 +1712,6 @@ const styles = StyleSheet.create({
       },
       dataText: {
         color: COLOR_BLACK,
-      },
-      mainContainer: {
-        width: '100%',
-        justifyContent: 'center',
-        backgroundBottomColor: COLOR_WHITE,
       },
     },
   },
