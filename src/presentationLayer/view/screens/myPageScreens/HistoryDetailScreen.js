@@ -193,7 +193,12 @@ export default function HistoryDetailScreen(route) {
 
               <View style={styles.mainContainer}>
                 {/*2*/}
-                <View
+                <AnimatedButton
+                  onPress={() => {
+                    //console.log('### : ', route_data);
+                    const product_id = route_data.product_id;
+                    navigation.navigate('productDetail', {product_id});
+                  }}
                   style={{
                     width: windowWidth - 64,
                     height: ((windowWidth - 64) / 3) * 2,
@@ -259,7 +264,7 @@ export default function HistoryDetailScreen(route) {
                         : route_data.product_name}
                     </B22>
                   </View>
-                </View>
+                </AnimatedButton>
 
                 {/* 2 */}
 
