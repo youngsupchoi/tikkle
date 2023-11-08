@@ -56,7 +56,7 @@ export default function NotificationScreen() {
           if (item.notification_type_id == 1) {
             navigation.navigate('friendsManagement');
           } else if (item.notification_type_id == 2) {
-            //null
+            navigation.navigate('main');
           } else if (item.notification_type_id == 3) {
             if (item.deep_link) {
               Linking.openURL(item.deep_link);
@@ -66,21 +66,23 @@ export default function NotificationScreen() {
           } else if (item.notification_type_id == 4) {
             navigation.navigate('search');
           } else if (item.notification_type_id == 5) {
-            if (item.deep_link) {
-              Linking.openURL(item.deep_link);
-            } else {
-              navigation.navigate('profile');
-            }
+            navigation.navigate('main');
+            // if (item.deep_link) {
+            //   Linking.openURL(item.deep_link);
+            // } else {
+            //   navigation.navigate('profile');
+            // }
           } else if (item.notification_type_id == 6) {
             navigation.navigate('main');
           } else if (item.notification_type_id == 7) {
             navigation.navigate('main');
           } else if (item.notification_type_id == 8) {
-            if (item.deep_link) {
-              Linking.openURL(item.deep_link);
-            } else {
-              navigation.navigate('profile');
-            }
+            navigation.navigate('main');
+            // if (item.deep_link) {
+            //   Linking.openURL(item.deep_link);
+            // } else {
+            //   navigation.navigate('profile');
+            // }
           }
         }}
         style={{

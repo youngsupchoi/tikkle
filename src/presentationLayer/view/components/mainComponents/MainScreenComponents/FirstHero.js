@@ -149,13 +149,14 @@ const FirstHero = props => {
       <ViewShot ref={state.backgroundImageRef}>
         <AnimatedButton
           style={{backgroundColor: COLOR_WHITE}}
-          onPress={() => {
-            console.log('더보기', state.myTikklingData);
-            navigation.navigate('tikklingDetail', {
-              tikkling_id: state.myTikklingData.tikkling_id,
-              from: true,
-            });
-          }}>
+          // onPress={() => {
+          //   console.log('더보기', state.myTikklingData);
+          //   navigation.navigate('tikklingDetail', {
+          //     tikkling_id: state.myTikklingData.tikkling_id,
+          //     from: true,
+          //   });
+          // }}
+        >
           <View style={styles.mainContainer}>
             {Number(state.myTikklingData.tikkle_count) ===
             state.myTikklingData.tikkle_quantity ? (
