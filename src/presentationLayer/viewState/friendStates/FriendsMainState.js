@@ -36,6 +36,7 @@ export const FriendMainViewStateProvider = ({children}) => {
   const [searchFalse, setSearchFalse] = useState(false);
 
   const opacityValue = useRef(new Animated.Value(1)).current;
+  const dropdownRef = useRef(null);
 
   const ref = {
     opacityValue,
@@ -55,6 +56,7 @@ export const FriendMainViewStateProvider = ({children}) => {
     receivedData,
     refreshing,
     searchFalse,
+    dropdownRef,
   };
 
   const actions = {

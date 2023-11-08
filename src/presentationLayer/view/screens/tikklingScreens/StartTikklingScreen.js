@@ -57,6 +57,7 @@ import Tooltip from 'react-native-walkthrough-tooltip';
 
 export default function StartTikklingScreen({route}) {
   const [tikkle_tooltip, setTikkle_tooltip] = useState(false);
+  const [address_tooltip, setAddress_tooltip] = useState(false);
   const {state, actions} = useStartTikklingViewModel();
   const [time_tooltip, setTime_tooltip] = useState(false);
 
@@ -125,17 +126,9 @@ export default function StartTikklingScreen({route}) {
               topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
               isVisible={tikkle_tooltip}
               content={
-                <View style={{width: 350}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: 3,
-                    }}>
-                    <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
-                      {'티클'}
-                    </B15>
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클'}</B15>
                     {/* <AnimatedButton
                   onPress={() => {
                     //Linking.openURL('https://www.lifoli.co.kr');
@@ -145,21 +138,16 @@ export default function StartTikklingScreen({route}) {
                   </B12>
                 </AnimatedButton> */}
                   </View>
-                  <View
-                    style={{
-                      marginBottom: 3,
-                    }}>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
-                        {'티클은 5000원의 가치를 지니는 선물 조각이에요'}
-                      </M15>
+                  <View style={{}}>
+                    <View>
+                      <M11>
+                        {'티클은 5000원의 가치를 지니는 선물 조각이에요.'}
+                      </M11>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
+                    <View>
+                      <M11>
                         {'티클링에서 상품은 동일한 가치의 티클로 바뀌어요.'}
-                      </M15>
+                      </M11>
                     </View>
                   </View>
                 </View>
@@ -185,18 +173,6 @@ export default function StartTikklingScreen({route}) {
                 />
               </AnimatedButton>
             </Tooltip>
-            <View
-              style={{
-                backgroundColor: COLOR_SECONDARY,
-                padding: 6,
-                paddingHorizontal: 12,
-                marginLeft: 12,
-                borderRadius: 8,
-              }}>
-              <M11 customStyle={{color: COLOR_PRIMARY, fontSize: 10}}>
-                해당 상품이 5,000원의 티클로 바뀌어요.
-              </M11>
-            </View>
           </View>
 
           <View
@@ -331,15 +307,9 @@ export default function StartTikklingScreen({route}) {
               topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
               isVisible={time_tooltip}
               content={
-                <View style={{width: 350}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      margin: 3,
-                    }}>
-                    <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>
                       {'티클링의 기간'}
                     </B15>
                     {/* <AnimatedButton
@@ -351,27 +321,19 @@ export default function StartTikklingScreen({route}) {
                   </B12>
                 </AnimatedButton> */}
                   </View>
-                  <View
-                    style={{
-                      marginBottom: 3,
-                    }}>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
-                        {'기념일을 선택하면 그날 자정까지 티클링이 진행되요.'}
-                      </M15>
+                  <View style={{}}>
+                    <View>
+                      <M11>
+                        {'기념일을 선택하면 그날 자정까지 티클링이 진행되어요.'}
+                      </M11>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
-                        {'티클링은 최대 7일간 진행할 수 있어요!'}
-                      </M15>
+                    <View>
+                      <M11>{'티클링은 최대 7일간 진행할 수 있어요!'}</M11>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
-                        {'그래서 7일 이후의 기념일은 선택할 수 없어요.'}
-                      </M15>
+                    <View>
+                      <M11 customStyle={{color: COLOR_PRIMARY}}>
+                        {'7일 이후의 기념일은 선택할 수 없습니다!'}
+                      </M11>
                     </View>
                   </View>
                 </View>
@@ -397,20 +359,6 @@ export default function StartTikklingScreen({route}) {
                 />
               </AnimatedButton>
             </Tooltip>
-            <View
-              style={{
-                backgroundColor: COLOR_SECONDARY,
-                padding: 6,
-                paddingHorizontal: 12,
-                marginLeft: 12,
-                borderRadius: 8,
-                borderColor: COLOR_SEPARATOR,
-                borderWidth: 1,
-              }}>
-              <M11 customStyle={{color: COLOR_PRIMARY, fontSize: 10}}>
-                다가오는 기념일에 원하는 상품을 받을 수 있어요.
-              </M11>
-            </View>
           </View>
 
           <View
@@ -596,29 +544,57 @@ export default function StartTikklingScreen({route}) {
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>
               배송지 입력
             </B20>
-            <AnimatedButton>
-              <Information
-                width={20}
-                height={20}
-                stroke={COLOR_BLACK}
-                strokeWidth={2}
-                scale={0.85}
-              />
-            </AnimatedButton>
-            <View
-              style={{
-                backgroundColor: COLOR_SECONDARY,
-                padding: 6,
-                paddingHorizontal: 12,
-                marginLeft: 12,
-                borderRadius: 8,
-                borderColor: COLOR_SEPARATOR,
-                borderWidth: 1,
+            <Tooltip
+              topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+              isVisible={address_tooltip}
+              content={
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>{'배송지'}</B15>
+                    {/* <AnimatedButton
+                  onPress={() => {
+                    //Linking.openURL('https://www.lifoli.co.kr');
+                  }}>
+                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                    {'더보기'}
+                  </B12>
+                </AnimatedButton> */}
+                  </View>
+                  <View style={{}}>
+                    <View>
+                      <M11>
+                        {'티클링이 완료되었을 때, 상품을 받을 배송지예요.'}
+                      </M11>
+                    </View>
+                    <View>
+                      <M11>
+                        {'배송지는 프로필 페이지에서 다시 수정할 수 있어요!'}
+                      </M11>
+                    </View>
+                  </View>
+                </View>
+              }
+              placement="top"
+              animated={true}
+              backgroundColor="rgba(0,0,0,0.1)"
+              // backgroundColor="transparent"
+              disableShadow={true}
+              onClose={() => {
+                setAddress_tooltip(false);
               }}>
-              <M11 customStyle={{color: COLOR_PRIMARY, fontSize: 10}}>
-                상품을 받을 배송지를 입력해주세요.
-              </M11>
-            </View>
+              <AnimatedButton
+                onPress={() => {
+                  setAddress_tooltip(true);
+                }}>
+                <Help
+                  width={20}
+                  height={20}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.85}
+                />
+              </AnimatedButton>
+            </Tooltip>
           </View>
 
           <View

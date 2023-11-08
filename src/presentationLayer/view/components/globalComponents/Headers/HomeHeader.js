@@ -59,7 +59,7 @@ export default function HomeHeader(props) {
           topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
           isVisible={ticket_tooltip}
           content={
-            <View style={{width: 300}}>
+            <View style={{padding: 12, paddingVertical: 4}}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -67,7 +67,7 @@ export default function HomeHeader(props) {
                   alignItems: 'center',
                   marginBottom: 3,
                 }}>
-                <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                <B15 customStyle={{marginLeft: 0, color: COLOR_PRIMARY}}>
                   {'티클링 티켓'}
                 </B15>
                 {/* <AnimatedButton
@@ -79,21 +79,14 @@ export default function HomeHeader(props) {
                 </B12>
               </AnimatedButton> */}
               </View>
-              <View
-                style={{
-                  marginBottom: 3,
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  <M15>{'• '}</M15>
-                  <M15 customStyle={{width: 280}}>
-                    {'티클링 티켓은 티클링을 시작하는데 사용해요!'}
-                  </M15>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <M15>{'• '}</M15>
-                  <M15 customStyle={{width: 280}}>
-                    {'티켓을 얻으려면 친구에게 티클을 선물해보세요'}
-                  </M15>
+              <View style={{}}>
+                <View>
+                  <M11 customStyle={{}}>
+                    {'티클링 티켓은 티클링을 시작하는데 사용해요.'}
+                  </M11>
+                  <M11 customStyle={{}}>
+                    {'티켓을 얻으려면 친구에게 티클을 선물해보세요!'}
+                  </M11>
                 </View>
               </View>
             </View>

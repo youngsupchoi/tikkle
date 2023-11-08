@@ -75,7 +75,7 @@ export default function CustomerCenterScreen() {
               actions.contractLink();
             }}
             style={styles.buttonStyle}>
-            <B17 customStyle={styles.buttonText}>서비스 이용 약관</B17>
+            <B15 customStyle={styles.buttonText}>서비스 이용 약관</B15>
           </AnimatedButton>
         </View>
 
@@ -85,7 +85,7 @@ export default function CustomerCenterScreen() {
               actions.privateDataLink();
             }}
             style={styles.buttonStyle}>
-            <B17 customStyle={styles.buttonText}>개인정보 처리 방침</B17>
+            <B15 customStyle={styles.buttonText}>개인정보 처리 방침</B15>
           </AnimatedButton>
         </View>
 
@@ -95,7 +95,7 @@ export default function CustomerCenterScreen() {
               navigation.navigate('Inquire');
             }}
             style={styles.buttonStyle}>
-            <B17 customStyle={styles.buttonText}>문의</B17>
+            <B15 customStyle={styles.buttonText}>문의</B15>
           </AnimatedButton>
         </View>
 
@@ -105,7 +105,7 @@ export default function CustomerCenterScreen() {
               actions.setUserDeleteModal(true);
             }}
             style={styles.buttonStyle}>
-            <B17 customStyle={styles.buttonText}>회원 탈퇴</B17>
+            <B15 customStyle={styles.buttonText}>회원 탈퇴</B15>
           </AnimatedButton>
         </View>
       </View>
@@ -127,6 +127,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     height: HEADER_HEIGHT,
+    backgroundColor: backgroundColor,
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
   },
   small_header: {
     flexDirection: 'row',
@@ -138,19 +141,18 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     padding: 12,
-    borderRadius: 16,
-    backgroundColor: '#E7E7E7',
+    borderRadius: 12,
+    backgroundColor: COLOR_WHITE,
+    borderColor: COLOR_PRIMARY,
+    borderWidth: 1,
     alignItems: 'center',
-    flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',
     width: windowWidth - 32,
-    height: 60,
-    borderColor: 'transparent',
-    borderWidth: 2,
+    paddingVertical: 16,
   },
   buttonText: {
-    color: COLOR_BLACK,
+    color: COLOR_PRIMARY,
     fontFamily: EB,
   },
 });

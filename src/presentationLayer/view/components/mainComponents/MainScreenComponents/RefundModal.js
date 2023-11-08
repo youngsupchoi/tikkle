@@ -62,14 +62,8 @@ export default function RefundModal() {
               // topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
               isVisible={refundTooltip}
               content={
-                <View style={{width: 350}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: 3,
-                    }}>
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
                     <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
                       {'티클링 환급'}
                     </B15>
@@ -82,33 +76,27 @@ export default function RefundModal() {
                       </B12>
                     </AnimatedButton> */}
                   </View>
-                  <View
-                    style={{
-                      marginBottom: 3,
-                    }}>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
+                  <View style={{}}>
+                    <View>
+                      <M11>
                         {
                           '환급 신청을 하면 수수료 10%를 제외한 금액이 환급됩니다.'
                         }
-                      </M15>
+                      </M11>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
+                    <View>
+                      <M11>
                         {
                           '환급은 구매자 청약철회 기간 7일 이후 순차적으로 진행됩니다.'
                         }
-                      </M15>
+                      </M11>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                      <M15>{'• '}</M15>
-                      <M15 customStyle={{width: 310}}>
+                    <View>
+                      <M11>
                         {
                           '위 청약 철회 기간 중 구매자 청약철회시 환불된 금액을 제외하고 환급이 진행됩니다.'
                         }
-                      </M15>
+                      </M11>
                     </View>
                   </View>
                 </View>

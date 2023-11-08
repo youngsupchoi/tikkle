@@ -229,18 +229,9 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                   // }
                   isVisible={buttikkletooltip}
                   content={
-                    <View style={{width: 350}}>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          marginBottom: 3,
-                        }}>
-                        <B15
-                          customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
-                          {'티클'}
-                        </B15>
+                    <View style={{padding: 12, paddingVertical: 4}}>
+                      <View>
+                        <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클'}</B15>
                         {/* <AnimatedButton
                           onPress={() => {
                             //Linking.openURL('https://www.lifoli.co.kr');
@@ -251,22 +242,14 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                           </B12>
                         </AnimatedButton> */}
                       </View>
-                      <View
-                        style={{
-                          marginBottom: 3,
-                        }}>
-                        <View style={{flexDirection: 'row'}}>
-                          <M15>{'• '}</M15>
-                          <M15 customStyle={{width: 310}}>
-                            {'티클은 5000원의 가치를 지니는 선물 조각이에요'}
-                          </M15>
-                        </View>
-
-                        <View style={{flexDirection: 'row'}}>
-                          <M15>{'• '}</M15>
-                          <M15 customStyle={{width: 310}}>
-                            {'친구에게 티클을 선물해서 기념일을 축하해주세요'}
-                          </M15>
+                      <View style={{}}>
+                        <View style={{}}>
+                          <M11 customStyle={{}}>
+                            {'티클은 5000원의 가치를 지니는 선물 조각이에요.'}
+                          </M11>
+                          <M11 customStyle={{}}>
+                            {'친구에게 티클을 선물해서 기념일을 축하해주세요!'}
+                          </M11>
                         </View>
                       </View>
                     </View>
@@ -328,15 +311,9 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 // topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
                 isVisible={buymytooltip}
                 content={
-                  <View style={{width: 330}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginBottom: 3,
-                      }}>
-                      <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
+                  <View style={{padding: 12, paddingVertical: 4}}>
+                    <View>
+                      <B15 customStyle={{color: COLOR_PRIMARY}}>
                         {'남은 티클 구매'}
                       </B15>
                       {/* <AnimatedButton
@@ -348,24 +325,17 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                         </B12>
                       </AnimatedButton> */}
                     </View>
-                    <View
-                      style={{
-                        marginBottom: 3,
-                      }}>
+                    <View style={{}}>
                       <View style={{flexDirection: 'row'}}>
-                        <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 280}}>
-                          {'부족한 티클을 구매하고 선물을 받아보세요'}
-                        </M15>
+                        <M11>{'부족한 티클을 구매하고 선물을 받아보세요'}</M11>
                       </View>
 
                       <View style={{flexDirection: 'row'}}>
-                        <M15>{'• '}</M15>
-                        <M15 customStyle={{width: 280}}>
+                        <M11>
                           {
                             '구매를 원하지 않으시면 10%의 수수료를 빼고 환급해드려요.'
                           }
-                        </M15>
+                        </M11>
                       </View>
                     </View>
                   </View>

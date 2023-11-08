@@ -234,6 +234,13 @@ export const useFriendMainViewModel = () => {
     await get_friend_data(state.mode_friend);
   };
 
+  const onSelectDropdown = (index, value) => {
+    actions.setMode_friend(value === '친구 목록' ? 'unblock' : 'block');
+
+    // 드롭다운의 선택된 아이템을 갱신
+    ref.dropdownRef.current.select(index);
+  };
+
   return {
     ref: {
       ...ref,
@@ -252,6 +259,7 @@ export const useFriendMainViewModel = () => {
       unblock_friend,
       create_friend,
       onRefresh,
+      onSelectDropdown,
     },
   };
 };

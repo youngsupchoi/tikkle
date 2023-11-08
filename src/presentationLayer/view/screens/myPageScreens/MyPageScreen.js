@@ -86,87 +86,76 @@ export default function ProfileScreen() {
             <AnimatedButton
               onPress={() => {
                 actions.navigation.navigate('editProfile');
-              }}
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingHorizontal: 24,
-                marginTop: 5,
-                alignItems: 'center',
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <SecurityUser
-                  width={24}
-                  height={24}
-                  strokeWidth={2}
-                  stroke={COLOR_BLACK}
-                />
-                <B20 customStyle={{marginLeft: 12}}>내 정보</B20>
-              </View>
-
-              <AnimatedButton
-                onPress={() => {
-                  actions.navigation.navigate('editProfile');
-                }}
-                style={{
-                  padding: 10,
-                }}>
-                <ArrowRight
-                  width={24}
-                  height={24}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={1.5}
-                />
-              </AnimatedButton>
-            </AnimatedButton>
-            <View
-              style={{
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
-                margin: 16,
-                marginTop: 5,
-                elevation: 1,
-                borderColor: COLOR_SEPARATOR,
-                borderWidth: 0.5,
-                padding: 16,
-                paddingVertical: 12,
               }}>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
+                  marginTop: 4,
+                  padding: 8,
+                  paddingHorizontal: 24,
+                  // marginTop: 5,
                   alignItems: 'center',
-                  // backgroundColor: 'red',
                 }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image
-                    resizeMode="contain"
-                    source={{
-                      uri:
-                        state.userData_profile.image ||
-                        'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-                    }}
-                    style={{width: 48, height: 48, borderRadius: 60}}
+                  <SecurityUser
+                    width={24}
+                    height={24}
+                    strokeWidth={2}
+                    stroke={COLOR_BLACK}
                   />
+                  <B20 customStyle={{marginLeft: 12}}>내 정보</B20>
+                </View>
+              </View>
+              <View
+                style={{
+                  backgroundColor: COLOR_WHITE,
+                  borderRadius: 16,
+                  margin: 16,
+                  marginTop: 5,
+                  elevation: 1,
+                  borderColor: COLOR_SEPARATOR,
+                  borderWidth: 0.5,
+                  padding: 16,
+                  paddingVertical: 12,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    // backgroundColor: 'red',
+                  }}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Image
+                      resizeMode="contain"
+                      source={{
+                        uri:
+                          state.userData_profile.image ||
+                          'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+                      }}
+                      style={{width: 48, height: 48, borderRadius: 60}}
+                    />
 
-                  <View style={{alignItems: 'flex-start', marginLeft: 16}}>
-                    <B17>{state.userData_profile.name}님</B17>
-                    <M15 customStyle={{color: COLOR_GRAY}}>
-                      {state.userData_profile.nick}
-                    </M15>
-                    {state.timeUnitlNextBirthday == 0 ? (
-                      <M11 customStyle={{color: COLOR_GRAY}}>
-                        생일이 축하해요!
-                      </M11>
-                    ) : (
-                      <M11 customStyle={{color: COLOR_GRAY}}>
-                        생일이 {state.timeUnitlNextBirthday}일 남았어요.
-                      </M11>
-                    )}
+                    <View style={{alignItems: 'flex-start', marginLeft: 16}}>
+                      <B17>{state.userData_profile.name}님</B17>
+                      <M15 customStyle={{color: COLOR_GRAY}}>
+                        {state.userData_profile.nick}
+                      </M15>
+                      {state.timeUnitlNextBirthday == 0 ? (
+                        <M11 customStyle={{color: COLOR_GRAY}}>
+                          생일이 축하해요!
+                        </M11>
+                      ) : (
+                        <M11 customStyle={{color: COLOR_GRAY}}>
+                          생일이 {state.timeUnitlNextBirthday}일 남았어요.
+                        </M11>
+                      )}
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
+            </AnimatedButton>
           </View>
 
           {/**내 티클링 내역 */}
@@ -535,7 +524,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     width: windowWidth - 32,
-    height: 44,
+    paddingVertical: 12,
     borderColor: COLOR_PRIMARY,
     borderWidth: 1,
     marginBottom: 16,

@@ -5,7 +5,6 @@ import {
   FlatList,
   Image,
   Animated,
-  Modal,
   StyleSheet,
   SectionList,
 } from 'react-native';
@@ -54,6 +53,9 @@ import BlockFriend from 'src/assets/icons/BlockFriend';
 import {RefreshControl} from 'react-native-gesture-handler';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import Modal from 'react-native-modal';
+import ModalDropdown from 'react-native-modal-dropdown';
+import ArrowDown from 'src/assets/icons/ArrowDown';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
@@ -73,19 +75,44 @@ export default function FriendsManagementScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View>
+        <ModalDropdown
+          options={['친구 목록', '차단 목록']}
+          defaultIndex={0}
+          defaultValue={'친구 관리'}
+          onSelect={(index, value) => {
+            if (value === '친구 목록') {
+              actions.setMode_friend('unblock');
+            } else if (value === '차단 목록') {
+              actions.setMode_friend('block');
+            }
+          }}
+          style={styles.dropdownButton}
+          textStyle={styles.dropdownButtonText}
+          dropdownStyle={styles.dropdown}
+          dropdownTextStyle={styles.dropdownText}
+          dropdownTextHighlightStyle={styles.dropdownTextHighlight}
+          renderRightComponent={() => (
+            <View style={{marginLeft: 8}}>
+              <ArrowDown
+                width={16}
+                height={16}
+                stroke={COLOR_BLACK}
+                strokeWidth={2}
+                scale={16 / 24}
+              />
+            </View>
+          )}
+        />
+
+        {console.log(state.mode_friend)}
+        {/* <View>
           <B20 customStyle={{fontFamily: EB}}>친구 관리</B20>
         </View>
         <AnimatedButton onPress={toggleDropdown} style={{padding: 10}}>
-          <Detail
-            width={20}
-            height={20}
-            strokeWidth={1.5}
-            stroke={COLOR_BLACK}
-          />
+          <Detail width={20} height={20} strokeWidth={2} stroke={COLOR_BLACK} />
         </AnimatedButton>
 
-        {state.isDropdownVisible_friend && (
+        {/* {state.isDropdownVisible_friend && (
           <View style={styles.dropdown}>
             <AnimatedButton
               onPress={() => {
@@ -101,7 +128,7 @@ export default function FriendsManagementScreen() {
               </M11>
             </AnimatedButton>
           </View>
-        )}
+        )} */}
       </View>
 
       <View style={styles.searchBarContainer}>
@@ -365,8 +392,8 @@ export default function FriendsManagementScreen() {
                             backgroundColor: backgroundColor,
                           }}
                         />
-                        <M15>차단된 친구가 없네요</M15>
                         <B22>좋아요!</B22>
+                        <M15>차단된 친구가 없네요</M15>
                       </View>
                     );
                   }
@@ -436,24 +463,46 @@ export default function FriendsManagementScreen() {
                         onPress={() => {
                           actions.block_friend(item);
                         }}>
-                        <BlockFriend
-                          width={24}
-                          height={24}
-                          stroke={COLOR_ERROR}
-                          strokeWidth={2}
-                        />
+                        <View
+                          style={{
+                            padding: 8,
+                            paddingVertical: 4,
+                            borderColor: COLOR_ERROR,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                          }}>
+                          <M11 customStyle={{color: COLOR_ERROR}}>차단하기</M11>
+                        </View>
                       </AnimatedButton>
                     ) : (
+                      // <AnimatedButton
+                      //   onPress={() => {
+                      //     actions.unblock_friend(item);
+                      //   }}>
+                      //   <UnBlock
+                      //     width={24}
+                      //     height={24}
+                      //     stroke={COLOR_SUCCESS}
+                      //     strokeWidth={2}
+                      //   />
+                      // </AnimatedButton>
+
                       <AnimatedButton
                         onPress={() => {
                           actions.unblock_friend(item);
                         }}>
-                        <UnBlock
-                          width={24}
-                          height={24}
-                          stroke={COLOR_SUCCESS}
-                          strokeWidth={2}
-                        />
+                        <View
+                          style={{
+                            padding: 8,
+                            paddingVertical: 4,
+                            borderColor: COLOR_SUCCESS,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                          }}>
+                          <M11 customStyle={{color: COLOR_SUCCESS}}>
+                            차단 해제
+                          </M11>
+                        </View>
                       </AnimatedButton>
                     )}
                   </View>
@@ -489,16 +538,16 @@ const styles = StyleSheet.create({
     top: 0,
     zIndex: 100,
   },
-  dropdown: {
-    position: 'absolute',
-    top: 8,
-    right: 65,
-    width: 150,
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 12,
-    zIndex: 2,
-  },
+  // dropdown: {
+  //   position: 'absolute',
+  //   top: 8,
+  //   right: 65,
+  //   width: 150,
+  //   backgroundColor: 'white',
+  //   borderRadius: 8,
+  //   padding: 12,
+  //   zIndex: 2,
+  // },
   searchBarContainer: {
     marginTop: 8,
     flexDirection: 'row',
@@ -605,5 +654,33 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 2,
     borderRadius: 60,
+  },
+
+  dropdownButton: {
+    width: '100%',
+    height: 40,
+    justifyContent: 'center',
+  },
+  dropdownButtonText: {
+    fontSize: 20,
+    fontFamily: EB,
+  },
+  dropdown: {
+    padding: 8,
+    paddingVertical: 4,
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    borderRadius: 8,
+    height: 'auto',
+    marginTop: 8,
+  },
+  dropdownText: {
+    marginHorizontal: 6,
+    fontSize: 17,
+    fontFamily: B,
+    color: COLOR_GRAY,
+  },
+  dropdownTextHighlight: {
+    color: COLOR_PRIMARY,
   },
 });
