@@ -17,7 +17,7 @@ export async function CreateTikklingShareLink(user_name, tikkling_id) {
           },
           iosInfo: {
             iosBundleId: 'org.reactjs.native.example.tikkle-revive-ios',
-            iosAppStoreId: '362057947',
+            iosAppStoreId: '6471217574',
           },
           socialMetaTagInfo: {
             socialTitle: `${user_name}님의 티클링!`,
