@@ -12,11 +12,15 @@ import BarComponent from 'src/presentationLayer/view/components/mainComponents/M
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import FlagFilled from 'src/assets/icons/FlagFilled';
+import AnimatedButton from '../../../globalComponents/Buttons/AnimatedButton';
 
 export default function ProgressVisualization({ButtonIcon, ButtonText}) {
   const {state, actions} = useMainViewModel();
   return (
-    <View
+    <AnimatedButton
+      onPress={() => {
+        actions.setShowWhoParticipatedModal(true);
+      }}
       style={{
         alignSelf: 'center',
         width: windowWidth * 0.8,
@@ -60,6 +64,6 @@ export default function ProgressVisualization({ButtonIcon, ButtonText}) {
         totalPieces={state.myTikklingData.tikkle_quantity}
         gatheredPieces={state.myTikklingData.tikkle_count}
       />
-    </View>
+    </AnimatedButton>
   );
 }

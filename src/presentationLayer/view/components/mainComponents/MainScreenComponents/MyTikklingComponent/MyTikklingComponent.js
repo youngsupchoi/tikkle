@@ -56,57 +56,27 @@ const MyTikklingComponent = () => {
           }}>
           <B20 customStyle={styles.headerText}>내 티클링</B20>
 
-          <Tooltip
-            topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
-            isVisible={state.showWhoParticipatedTooltip}
-            content={
-              <View style={{padding: 12, paddingVertical: 4}}>
-                <View style={{}}>
-                  <B15 customStyle={{color: COLOR_PRIMARY}}>
-                    {'누가 티클링에 참여했을까요?'}
-                  </B15>
-                </View>
-                <View style={{}}>
-                  <View>
-                    <M11>{'아직 받은 티클이 없어요!'}</M11>
-                    {/* <M11>{'1개 이상의 티클을 받으면 확인할 수 있어요!'}</M11> */}
-                  </View>
-                </View>
-              </View>
-            }
-            placement="top"
-            animated={true}
-            backgroundColor="rgba(0,0,0,0.1)"
-            disableShadow={true}
-            onClose={() => {
-              actions.setShowWhoParticipatedTooltip(false);
+          <AnimatedButton
+            onPress={() => {
+              actions.setShowWhoParticipatedModal(true);
+            }}
+            style={{
+              borderColor: COLOR_PRIMARY,
+              borderWidth: 1,
+              padding: 1,
+              paddingLeft: 10,
+              paddingRight: 10,
+              borderRadius: 100,
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginHorizontal: 12,
             }}>
-            <AnimatedButton
-              onPress={() => {
-                if (state.tikkle_sum !== 0) {
-                  actions.setShowWhoParticipatedModal(true);
-                } else {
-                  actions.setShowWhoParticipatedTooltip(true);
-                }
-              }}
-              style={{
-                borderColor: COLOR_PRIMARY,
-                borderWidth: 1,
-                padding: 1,
-                paddingLeft: 10,
-                paddingRight: 10,
-                borderRadius: 100,
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginHorizontal: 12,
-              }}>
-              {/* <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} /> */}
-              <Noti_GetTikkle width={16} height={16} fill={COLOR_PRIMARY} />
-              <B15 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
-                {state.tikkle_sum}
-              </B15>
-            </AnimatedButton>
-          </Tooltip>
+            {/* <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} /> */}
+            <Noti_GetTikkle width={16} height={16} fill={COLOR_PRIMARY} />
+            <B15 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
+              {state.tikkle_sum}
+            </B15>
+          </AnimatedButton>
         </View>
 
         {state.myTikklingData.state_id == 1 ? (
