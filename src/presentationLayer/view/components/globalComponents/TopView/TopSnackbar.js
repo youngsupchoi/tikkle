@@ -17,6 +17,7 @@ import Animated, {
 import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import TickSquare from 'src/assets/icons/TickSquare';
 import Information from 'src/assets/icons/Information';
+import AnimatedButton from '../Buttons/AnimatedButton';
 
 const getSnackbarStyles = status => {
   switch (status) {
@@ -117,14 +118,26 @@ const TopSnackbar = () => {
             styles.container,
             animatedStyle,
             {
-              backgroundColor: backgroundColor,
-              opacity: 0.5,
+              backgroundColor: COLOR_WHITE,
+              flex: 1,
             },
           ]}>
-          {icon}
-          <B15 customStyle={{marginLeft: 12, color: textColor}}>
-            {snackbarMessage}
-          </B15>
+          <AnimatedButton
+            onPress={() => {
+              runOnJS(topActions.hideSnackbar)();
+            }}
+            style={{
+              flex: 1,
+              paddingVertical: 16,
+              paddingHorizontal: 20,
+              flexDirection: 'row', // 텍스트를 중앙에 위치시키기 위해 변경
+              alignItems: 'center',
+            }}>
+            {icon}
+            <B15 customStyle={{marginLeft: 12, color: textColor}}>
+              {snackbarMessage}
+            </B15>
+          </AnimatedButton>
         </Animated.View>
       ) : null}
     </View>
@@ -142,8 +155,6 @@ const styles = StyleSheet.create({
     zIndex: 5,
     marginHorizontal: 24,
     borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
