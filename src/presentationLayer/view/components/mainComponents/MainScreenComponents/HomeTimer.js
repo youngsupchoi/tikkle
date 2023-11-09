@@ -23,11 +23,11 @@ const TimerComponent = ({deadline, timerStyle}) => {
       }
 
       if (diff < 60) {
-        setDisplay(`${diff}초`);
+        setDisplay(`${-1 * diff}초`);
       } else if (diff < 3600) {
-        setDisplay(`${moment().add(9, 'hours').diff(d, 'minutes')}분`);
+        setDisplay(`${-1 * moment().add(9, 'hours').diff(d, 'minutes')}분`);
       } else if (diff < 86400) {
-        setDisplay(`${moment().add(9, 'hours').diff(d, 'hours')}시간`);
+        setDisplay(`${-1 * moment().add(9, 'hours').diff(d, 'hours')}시간`);
       } else {
         setDisplay(`D${moment().add(9, 'hours').diff(d, 'days')}`);
       }
