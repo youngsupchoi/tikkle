@@ -26,11 +26,13 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 const onMessageReceived = message => {
   console.log('background message: ', message);
-  // const {link = null} = notification?.data || {}; // <---- 1
-  const pushDeepLink = message?.data?.link;
-  console.log('pushDeepLink : ', pushDeepLink);
-  pushDeepLink && Linking.openURL(pushDeepLink);
-  Platform.OS === 'ios' && Vibration.vibrate([400]);
+  if (Platform.OS === 'ios') {
+    const {link = null} = notification?.data || {}; // <---- 1
+    const pushDeepLink = message?.data?.link;
+    console.log('pushDeepLink : ', pushDeepLink);
+    pushDeepLink && Linking.openURL(pushDeepLink);
+    Vibration.vibrate([400]);
+  }
 };
 
 AppRegistry.registerComponent(appName, () => HeadlessCheck);
