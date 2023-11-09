@@ -59,6 +59,7 @@ import ArrowDown from 'src/assets/icons/ArrowDown';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
+  const [modalText, setModalText] = useState('친구 목록');
 
   useEffect(() => {
     actions.keyboard_friend();
@@ -76,13 +77,15 @@ export default function FriendsManagementScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <ModalDropdown
-          options={['친구 목록', '차단 목록']}
+          options={[modalText]}
           defaultIndex={0}
-          defaultValue={'친구 관리'}
+          defaultValue={modalText}
           onSelect={(index, value) => {
             if (value === '친구 목록') {
+              setModalText('차단 목록');
               actions.setMode_friend('unblock');
             } else if (value === '차단 목록') {
+              setModalText('친구 목록');
               actions.setMode_friend('block');
             }
           }}
@@ -512,16 +515,6 @@ const styles = StyleSheet.create({
     top: 0,
     zIndex: 100,
   },
-  // dropdown: {
-  //   position: 'absolute',
-  //   top: 8,
-  //   right: 65,
-  //   width: 150,
-  //   backgroundColor: 'white',
-  //   borderRadius: 8,
-  //   padding: 12,
-  //   zIndex: 2,
-  // },
   searchBarContainer: {
     marginTop: 8,
     flexDirection: 'row',
@@ -641,7 +634,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     padding: 8,
-    paddingVertical: 4,
+
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     borderRadius: 8,
@@ -655,6 +648,9 @@ const styles = StyleSheet.create({
     color: COLOR_GRAY,
   },
   dropdownTextHighlight: {
+    marginHorizontal: 6,
+    fontSize: 17,
+    fontFamily: B,
     color: COLOR_PRIMARY,
   },
 });
