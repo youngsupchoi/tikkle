@@ -33,6 +33,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 
 export default function App() {
   SystemNavigationBar.navigationShow();
@@ -59,6 +60,12 @@ export default function App() {
       Linking.openURL(appScheme);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000); //스플래시 활성화 시간
+  });
 
   useEffect(() => {
     const unsubscribe = dynamicLinks().onLink(handleDynamicLink);

@@ -68,6 +68,7 @@
     "react-native-send-intent": "^1.3.0",
     "react-native-share": "^9.4.1",
     "react-native-sms-retriever": "^1.1.1",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "^13.10.0",
     "react-native-svg-transformer": "^1.1.0",
