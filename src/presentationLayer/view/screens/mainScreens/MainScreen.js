@@ -40,6 +40,7 @@ import GlobalLoader from 'src/presentationLayer/view/components/globalComponents
 import {fcmService} from 'src/push_fcm';
 import PushNotification from 'react-native-push-notification';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import WhoParticipated from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/WhoParticipated';
 
 export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
@@ -180,6 +181,13 @@ export default function HomeScreen({route}) {
         <View style={styles.homeFooter}></View>
         <Footer />
       </ScrollView>
+
+      <WhoParticipated
+        data={state.list_data}
+        showModal={state.showWhoParticipatedModal}
+        setShowModal={actions.setShowWhoParticipatedModal}
+      />
+
       <PostCodeModal
         setShowPostCodeModal={actions.setShowPostCodeModal}
         showPostCodeModal={state.showPostCodeModal}

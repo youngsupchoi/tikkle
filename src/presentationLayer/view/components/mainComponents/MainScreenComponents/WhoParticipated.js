@@ -105,7 +105,7 @@ export default function WhoParticipated({data, showModal, setShowModal}) {
                       )}
 
                       <View style={styles.listItemTextContainer}>
-                        {console.log(item.message)}
+                        {/* {console.log(item.message)} */}
                         <View style={{marginBottom: 2}}>
                           {item.state_id == 3 ? (
                             <B15 customStyle={{color: COLOR_ERROR}}>

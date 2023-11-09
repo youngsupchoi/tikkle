@@ -9,16 +9,22 @@ import {
   COLOR_ERROR,
   COLOR_SEPARATOR,
   COLOR_WHITE,
+  COLOR_PRIMARY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B15,
   B20,
+  B12,
   EB,
+  M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import FirstHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FirstHero';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {useNavigation} from '@react-navigation/core';
+import Tooltip from 'react-native-walkthrough-tooltip';
+import Profile from 'src/assets/icons/Profile';
 
 const MyTikklingComponent = () => {
   const {ref, state, actions} = useMainViewModel();
@@ -41,17 +47,66 @@ const MyTikklingComponent = () => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <AnimatedButton
-        // onPress={() => {
-        //   console.log('더보기', state.myTikklingData);
-        //   navigation.navigate('tikklingDetail', {
-        //     tikkling_id: state.myTikklingData.tikkling_id,
-        //     from: true,
-        //   });
-        // }}
-        >
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
           <B20 customStyle={styles.headerText}>내 티클링</B20>
-        </AnimatedButton>
+
+          <Tooltip
+            topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+            isVisible={state.showWhoParticipatedTooltip}
+            content={
+              <View style={{padding: 12, paddingVertical: 4}}>
+                <View style={{}}>
+                  <B15 customStyle={{color: COLOR_PRIMARY}}>
+                    {'누가 티클링에 참여했을까요?'}
+                  </B15>
+                </View>
+                <View style={{}}>
+                  <View>
+                    <M11>{'아직 받은 티클이 없어요!'}</M11>
+                    {/* <M11>{'1개 이상의 티클을 받으면 확인할 수 있어요!'}</M11> */}
+                  </View>
+                </View>
+              </View>
+            }
+            placement="top"
+            animated={true}
+            backgroundColor="rgba(0,0,0,0.1)"
+            disableShadow={true}
+            onClose={() => {
+              actions.setShowWhoParticipatedTooltip(false);
+            }}>
+            <AnimatedButton
+              onPress={() => {
+                if (state.tikkle_sum !== 0) {
+                  actions.setShowWhoParticipatedModal(true);
+                } else {
+                  actions.setShowWhoParticipatedTooltip(true);
+                }
+              }}
+              style={{
+                borderColor: COLOR_PRIMARY,
+                borderWidth: 1,
+                padding: 3,
+                paddingLeft: 6,
+                paddingRight: 10,
+                borderRadius: 100,
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginHorizontal: 12,
+              }}>
+              <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} />
+              <B12 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
+                {state.tikkle_sum}
+              </B12>
+            </AnimatedButton>
+          </Tooltip>
+        </View>
+
         {state.myTikklingData.state_id == 1 ? (
           <AnimatedButton
             onPress={() => {

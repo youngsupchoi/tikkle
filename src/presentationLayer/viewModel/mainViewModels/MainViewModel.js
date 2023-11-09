@@ -78,7 +78,7 @@ export const useMainViewModel = () => {
         .then(res => {
           return topActions.setStateAndError(res);
         })
-        .then(res => {
+        .then(async res => {
           actions.setFriendEventData(res.DSdata.friend_event);
           actions.setFriendTikklingData(res.DSdata.friend_tikkling);
           actions.setIsNotice(res.DSdata.is_notification);
@@ -86,6 +86,10 @@ export const useMainViewModel = () => {
           actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
           actions.setWishlistData(res.DSdata.my_wishlist);
           actions.setUserData(res.DSdata.user_info);
+          if (res.DSdata.my_tikkling.info[0] !== undefined) {
+            // console.log('@@@@@@@ : ', res.DSdata.my_tikkling.info[0]);
+            await getTikkleData(res.DSdata.my_tikkling.info[0].tikkling_id);
+          }
         });
     } catch (error) {
       console.error('Error loading data:', error);
@@ -115,7 +119,7 @@ export const useMainViewModel = () => {
         if (route_from) {
           actions.setDetial_route(route_from);
         }
-        await getTikkleData();
+        await getTikkleData(route_tikkling_id);
         actions.setRoute_data(res.DSdata.info[0]);
       });
   }
@@ -124,9 +128,9 @@ export const useMainViewModel = () => {
    *  티클링의 받은 티클 데이터 가져오기
    * @param
    */
-  async function getTikkleData() {
+  async function getTikkleData(tikkling_id) {
     let tikkle_data = [];
-    await getRecivedTikkleData(route_tikkling_id)
+    await getRecivedTikkleData(tikkling_id)
       .then(async res => {
         return topActions.setStateAndError(res);
       })

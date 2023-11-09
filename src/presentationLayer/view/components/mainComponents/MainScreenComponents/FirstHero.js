@@ -47,6 +47,7 @@ import Location from 'src/assets/icons/Location';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Help from 'src/assets/icons/Help.svg';
+
 //-------------------------------------------------------------------------
 
 // Check permission
@@ -147,16 +148,7 @@ const FirstHero = props => {
   return (
     <View style={styles.outerContainer}>
       <ViewShot ref={state.backgroundImageRef}>
-        <AnimatedButton
-          style={{backgroundColor: COLOR_WHITE}}
-          // onPress={() => {
-          //   console.log('더보기', state.myTikklingData);
-          //   navigation.navigate('tikklingDetail', {
-          //     tikkling_id: state.myTikklingData.tikkling_id,
-          //     from: true,
-          //   });
-          // }}
-        >
+        <View style={{backgroundColor: COLOR_WHITE}}>
           <View style={styles.mainContainer}>
             {Number(state.myTikklingData.tikkle_count) ===
             state.myTikklingData.tikkle_quantity ? (
@@ -407,7 +399,7 @@ const FirstHero = props => {
               />
             </View>
           )}
-        </AnimatedButton>
+        </View>
       </ViewShot>
 
       <BuyTikkleModal
