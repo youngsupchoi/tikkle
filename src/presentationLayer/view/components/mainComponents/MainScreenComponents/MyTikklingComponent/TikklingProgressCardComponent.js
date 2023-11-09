@@ -29,7 +29,7 @@ export default function TikklingProgressCard({ButtonIcon, ButtonText}) {
   return (
     <AnimatedButton
       onPress={() => {
-        console.log('##', state.myTikklingData);
+        // console.log('##', state.myTikklingData);
         const product_id = state.myTikklingData.product_id;
         navigation.navigate('productDetail', {product_id});
       }}

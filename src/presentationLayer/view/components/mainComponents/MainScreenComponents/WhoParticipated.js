@@ -9,6 +9,7 @@ import {
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import Modal from 'react-native-modal';
+import LottieView from 'lottie-react-native';
 import {
   COLOR_BLACK,
   COLOR_ERROR,
@@ -57,7 +58,7 @@ export default function WhoParticipated({data, showModal, setShowModal}) {
               justifyContent: 'flex-start',
               alignItems: 'center',
             }}>
-            <B22>티클을 선물한 이용자</B22>
+            <B22>받은 티클</B22>
           </View>
           <FlatList
             data={data}
@@ -179,6 +180,31 @@ export default function WhoParticipated({data, showModal, setShowModal}) {
                     <M15 customStyle={{color: COLOR_BLACK}}>
                       {item.quantity}개
                     </M15>
+                  </View>
+                </View>
+              );
+            }}
+            ListEmptyComponent={() => {
+              return (
+                <View>
+                  <LottieView
+                    source={require('src/assets/animations/EmptyBox.json')} // replace with your Lottie file path
+                    autoPlay
+                    loop
+                    style={{
+                      width: 200,
+                      height: 200,
+                      alignSelf: 'center',
+                    }}
+                  />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      marginBottom: 40,
+                      marginTop: 10,
+                    }}>
+                    <B22>아직 받은 티클이 없어요!</B22>
                   </View>
                 </View>
               );
