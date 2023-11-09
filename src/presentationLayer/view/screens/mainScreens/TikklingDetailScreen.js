@@ -272,265 +272,268 @@ export default function TikklingDetailScreen() {
 
             {/*   */}
 
-            <View
-              style={{
-                marginHorizontal: 15,
-                backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
-                padding: 10,
-                strokeWidth: 1,
-                stroke: COLOR_SEPARATOR,
-              }}>
-              <View style={styles.renderItemHeaderContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Image
-                    resizeMode="contain"
-                    style={{width: 30, height: 30, borderRadius: 12}}
-                    source={{
-                      uri: state.route_data.user_image,
-                    }}
-                  />
-
-                  <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
-                    {state.route_data.user_name}{' '}
-                  </B15>
-                  <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
-                    {state.route_data.user_nick}
-                  </M15>
-                </View>
-              </View>
-
-              {/* title */}
-              {/* 옮기기 */}
-
-              {/*2*/}
-              <AnimatedButton
-                onPress={() => {
-                  const product_id = state.route_data.product_id;
-                  navigation.navigate('productDetail', {product_id});
-                }}
-                style={{
-                  width: windowWidth - 64,
-                  height: ((windowWidth - 64) / 3) * 2,
-                  borderRadius: 16,
-                  borderColor: COLOR_SEPARATOR,
-                  borderWidth: 1,
-                  alignSelf: 'center',
-                  marginBottom: 8,
-                }}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    bottom: 0,
-                    zIndex: -1,
-                  }}>
-                  <Image
-                    resizeMode="cover"
-                    source={{
-                      uri: state.route_data.thumbnail_image,
-                    }}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: 16,
-                    }}
-                  />
-                </View>
-                <LinearGradient
-                  start={{x: 0, y: 0}}
-                  end={{x: 0, y: 0.75}}
-                  colors={[
-                    'rgba(255,255,255,0)',
-                    'rgba(255,255,255,.3)',
-                    'rgba(255,255,255,1)',
-                  ]}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    top: 0,
-                    zIndex: 0,
-                    borderBottomRightRadius: 16,
-                    borderBottomLeftRadius: 16,
-                  }}
-                />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-end',
-                    position: 'absolute',
-                    bottom: 12,
-                    left: 16,
-                    right: 16,
-                  }}>
-                  <B22 customStyle={{fontFamily: H}}>
-                    {state.route_data.product_name.length > 30
-                      ? state.route_data.product_name.substring(0, 30) + '...'
-                      : state.route_data.product_name}
-                  </B22>
-                </View>
-              </AnimatedButton>
-
-              {/* 2 */}
-
+            <ScrollView>
               <View
                 style={{
-                  alignSelf: 'center',
-                  width: windowWidth * 0.8,
-                  marginTop: 16,
-                  marginBottom: 24,
+                  marginHorizontal: 15,
+                  backgroundColor: COLOR_WHITE,
+                  borderRadius: 16,
+                  padding: 10,
+                  strokeWidth: 1,
+                  stroke: COLOR_SEPARATOR,
                 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    marginBottom: 8,
-                  }}>
+                <View style={styles.renderItemHeaderContainer}>
                   <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
                     }}>
-                    <FlagFilled
-                      width={24}
-                      height={24}
-                      fill={COLOR_PRIMARY}
-                      scale={1.3}
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 30, height: 30, borderRadius: 12}}
+                      source={{
+                        uri: state.route_data.user_image,
+                      }}
                     />
-                    <B17
-                      customStyle={{
-                        fontFamily: EB,
-                        color: COLOR_GRAY,
-                        marginLeft: 8,
-                      }}>
-                      달성률
-                    </B17>
-                  </View>
-                  <View
-                    style={{
-                      alignItems: 'flex-end',
-                      marginBottom: 12,
-                    }}>
-                    <B17>
-                      {Math.round(
-                        (state.tikkle_sum / state.route_data.tikkle_quantity) *
-                          1000,
-                      ) / 10}
-                      %
-                    </B17>
+
+                    <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
+                      {state.route_data.user_name}{' '}
+                    </B15>
+                    <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
+                      {state.route_data.user_nick}
+                    </M15>
                   </View>
                 </View>
-                <BarComponent
-                  totalPieces={state.route_data.tikkle_quantity}
-                  gatheredPieces={state.tikkle_sum}
-                />
-              </View>
 
-              {/*3*/}
+                {/* title */}
+                {/* 옮기기 */}
 
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginBottom: 20,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <View
+                {/*2*/}
+                <AnimatedButton
+                  onPress={() => {
+                    const product_id = state.route_data.product_id;
+                    navigation.navigate('productDetail', {product_id});
+                  }}
                   style={{
-                    alignItems: 'center',
+                    width: windowWidth - 64,
+                    height: ((windowWidth - 64) / 3) * 2,
+                    borderRadius: 16,
                     borderColor: COLOR_SEPARATOR,
                     borderWidth: 1,
-                    padding: 12,
-                    paddingVertical: 16,
-                    width: 0.4 * windowWidth,
-                    borderRadius: 12,
+                    alignSelf: 'center',
+                    marginBottom: 8,
                   }}>
                   <View
                     style={{
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: 16,
-                      backgroundColor: COLOR_SECONDARY,
-                      borderRadius: 100,
-                      marginBottom: 12,
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      zIndex: -1,
                     }}>
-                    <BubbleFilled fill={COLOR_PRIMARY} />
+                    <Image
+                      resizeMode="cover"
+                      source={{
+                        uri: state.route_data.thumbnail_image,
+                      }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 16,
+                      }}
+                    />
                   </View>
-                  <B12 customStyle={styles.labelText}>남은 티클</B12>
-                  <B17 customStyle={styles.dataText}>
-                    {state.route_data.tikkle_quantity - state.tikkle_sum} 개
-                  </B17>
-                </View>
-
-                <View
-                  style={{
-                    alignItems: 'center',
-                    borderColor: 'transparent',
-                    width: 10,
-                  }}></View>
-
-                <View
-                  style={{
-                    alignItems: 'center',
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 1,
-                    padding: 12,
-                    paddingVertical: 16,
-                    width: 0.4 * windowWidth,
-                    borderRadius: 12,
-                  }}>
-                  <View
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 0.75}}
+                    colors={[
+                      'rgba(255,255,255,0)',
+                      'rgba(255,255,255,.3)',
+                      'rgba(255,255,255,1)',
+                    ]}
                     style={{
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: 16,
-                      backgroundColor: COLOR_SECONDARY,
-                      borderRadius: 100,
-                      marginBottom: 12,
-                    }}>
-                    <CalendarFilled fill={COLOR_PRIMARY} />
-                  </View>
-                  <B12 customStyle={styles.labelText}>남은 시간</B12>
-                  <View>
-                    {state.route_data.state_id == 1 ? (
-                      <TimerComponent
-                        timerStyle={{
-                          color: COLOR_BLACK,
-                          fontSize: 17,
-                          fontFamily: B,
-                        }}
-                        deadline={state.route_data.funding_limit}
-                      />
-                    ) : (
-                      <B15>종료</B15>
-                    )}
-                  </View>
-                </View>
-              </View>
-
-              <View style={{height: 56}}>
-                {state.route_data.state_id === 1 ? (
-                  <ButtonComponent
-                    ButtonIcon={ButtonIcon}
-                    ButtonText={ButtonText}
-                    FromDetail={true}
-                    Q={state.route_data.tikkle_quantity}
-                    S={state.tikkle_sum}
-                    IsStopped={null}
+                      position: 'absolute',
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      top: 0,
+                      zIndex: 0,
+                      borderBottomRightRadius: 16,
+                      borderBottomLeftRadius: 16,
+                    }}
                   />
-                ) : null}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-end',
+                      position: 'absolute',
+                      bottom: 12,
+                      left: 16,
+                      right: 16,
+                    }}>
+                    <B22 customStyle={{fontFamily: H}}>
+                      {state.route_data.product_name.length > 30
+                        ? state.route_data.product_name.substring(0, 30) + '...'
+                        : state.route_data.product_name}
+                    </B22>
+                  </View>
+                </AnimatedButton>
+
+                {/* 2 */}
+
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    width: windowWidth * 0.8,
+                    marginTop: 16,
+                    marginBottom: 24,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      marginBottom: 8,
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                      <FlagFilled
+                        width={24}
+                        height={24}
+                        fill={COLOR_PRIMARY}
+                        scale={1.3}
+                      />
+                      <B17
+                        customStyle={{
+                          fontFamily: EB,
+                          color: COLOR_GRAY,
+                          marginLeft: 8,
+                        }}>
+                        달성률
+                      </B17>
+                    </View>
+                    <View
+                      style={{
+                        alignItems: 'flex-end',
+                        marginBottom: 12,
+                      }}>
+                      <B17>
+                        {Math.round(
+                          (state.tikkle_sum /
+                            state.route_data.tikkle_quantity) *
+                            1000,
+                        ) / 10}
+                        %
+                      </B17>
+                    </View>
+                  </View>
+                  <BarComponent
+                    totalPieces={state.route_data.tikkle_quantity}
+                    gatheredPieces={state.tikkle_sum}
+                  />
+                </View>
+
+                {/*3*/}
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 20,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      padding: 12,
+                      paddingVertical: 16,
+                      width: 0.4 * windowWidth,
+                      borderRadius: 12,
+                    }}>
+                    <View
+                      style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: 16,
+                        backgroundColor: COLOR_SECONDARY,
+                        borderRadius: 100,
+                        marginBottom: 12,
+                      }}>
+                      <BubbleFilled fill={COLOR_PRIMARY} />
+                    </View>
+                    <B12 customStyle={styles.labelText}>남은 티클</B12>
+                    <B17 customStyle={styles.dataText}>
+                      {state.route_data.tikkle_quantity - state.tikkle_sum} 개
+                    </B17>
+                  </View>
+
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      borderColor: 'transparent',
+                      width: 10,
+                    }}></View>
+
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      padding: 12,
+                      paddingVertical: 16,
+                      width: 0.4 * windowWidth,
+                      borderRadius: 12,
+                    }}>
+                    <View
+                      style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: 16,
+                        backgroundColor: COLOR_SECONDARY,
+                        borderRadius: 100,
+                        marginBottom: 12,
+                      }}>
+                      <CalendarFilled fill={COLOR_PRIMARY} />
+                    </View>
+                    <B12 customStyle={styles.labelText}>남은 시간</B12>
+                    <View>
+                      {state.route_data.state_id == 1 ? (
+                        <TimerComponent
+                          timerStyle={{
+                            color: COLOR_BLACK,
+                            fontSize: 17,
+                            fontFamily: B,
+                          }}
+                          deadline={state.route_data.funding_limit}
+                        />
+                      ) : (
+                        <B15>종료</B15>
+                      )}
+                    </View>
+                  </View>
+                </View>
+
+                <View style={{height: 56}}>
+                  {state.route_data.state_id === 1 ? (
+                    <ButtonComponent
+                      ButtonIcon={ButtonIcon}
+                      ButtonText={ButtonText}
+                      FromDetail={true}
+                      Q={state.route_data.tikkle_quantity}
+                      S={state.tikkle_sum}
+                      IsStopped={null}
+                    />
+                  ) : null}
+                </View>
               </View>
-            </View>
+            </ScrollView>
           </View>
 
           <WhoParticipated

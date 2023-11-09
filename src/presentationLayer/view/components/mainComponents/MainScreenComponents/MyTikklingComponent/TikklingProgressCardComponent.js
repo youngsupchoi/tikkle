@@ -19,12 +19,20 @@ import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import LinearGradient from 'react-native-linear-gradient';
-
+import Animated from 'react-native-reanimated';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {useNavigation} from '@react-navigation/core';
 export default function TikklingProgressCard({ButtonIcon, ButtonText}) {
   const {state, actions} = useMainViewModel();
 
+  const navigation = useNavigation();
   return (
-    <View
+    <AnimatedButton
+      onPress={() => {
+        console.log('##', state.myTikklingData);
+        const product_id = state.myTikklingData.product_id;
+        navigation.navigate('productDetail', {product_id});
+      }}
       style={{
         width: windowWidth - 64,
         height: ((windowWidth - 64) / 3) * 2,
@@ -93,7 +101,7 @@ export default function TikklingProgressCard({ButtonIcon, ButtonText}) {
           {state.myTikklingData.brand_name}
         </B15> */}
       </View>
-    </View>
+    </AnimatedButton>
   );
 }
 
