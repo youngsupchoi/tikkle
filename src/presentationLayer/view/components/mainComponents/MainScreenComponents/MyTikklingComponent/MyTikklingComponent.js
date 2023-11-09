@@ -25,6 +25,7 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 import {useNavigation} from '@react-navigation/core';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Profile from 'src/assets/icons/Profile';
+import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
 
 const MyTikklingComponent = () => {
   const {ref, state, actions} = useMainViewModel();
@@ -91,18 +92,19 @@ const MyTikklingComponent = () => {
               style={{
                 borderColor: COLOR_PRIMARY,
                 borderWidth: 1,
-                padding: 3,
-                paddingLeft: 6,
+                padding: 1,
+                paddingLeft: 10,
                 paddingRight: 10,
                 borderRadius: 100,
                 flexDirection: 'row',
                 alignItems: 'center',
                 marginHorizontal: 12,
               }}>
-              <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} />
-              <B12 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
+              {/* <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} /> */}
+              <Noti_GetTikkle width={16} height={16} fill={COLOR_PRIMARY} />
+              <B15 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
                 {state.tikkle_sum}
-              </B12>
+              </B15>
             </AnimatedButton>
           </Tooltip>
         </View>

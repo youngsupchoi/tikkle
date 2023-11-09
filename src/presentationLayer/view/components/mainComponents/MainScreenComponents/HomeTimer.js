@@ -12,36 +12,25 @@ const TimerComponent = ({deadline, timerStyle}) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const deadlineDate = moment.tz(deadline, 'Asia/Seoul').endOf('day');
-      const now = moment.tz('Asia/Seoul');
-      const duration = moment.duration(deadlineDate.diff(now));
+      const d = moment(deadline).endOf('day').add(9, 'hours');
 
-      if (duration <= 0) {
+      const diff = -1 * moment().add(9, 'hours').diff(d, 'seconds');
+
+      if (diff <= 0) {
         setDisplay('종료');
         clearInterval(interval);
         return;
       }
 
-      const days = Math.floor(duration.asDays());
-      const hours = duration.hours();
-      const minutes = duration.minutes();
-      const seconds = duration.seconds();
-
-      if (minutes <= 1) {
-        setDisplay(`${seconds}초`);
-      } else if (hours <= 1) {
-        setDisplay(`${minutes}분`);
-      } else if (days < 1) {
-        setDisplay(`${hours}시간`);
+      if (diff < 60) {
+        setDisplay(`${diff}초`);
+      } else if (diff < 3600) {
+        setDisplay(`${moment().add(9, 'hours').diff(d, 'minutes')}분`);
+      } else if (diff < 86400) {
+        setDisplay(`${moment().add(9, 'hours').diff(d, 'hours')}시간`);
       } else {
-        setDisplay(`D-${days}`);
+        setDisplay(`D${moment().add(9, 'hours').diff(d, 'days')}`);
       }
-
-      // if (days >= 1) {
-      // setDisplay(`D-${days}`);
-      // } else if (){
-      //   setDisplay(`${hours}시간 ${minutes}분 ${seconds}초`);
-      // }
     }, 1000);
 
     return () => clearInterval(interval);

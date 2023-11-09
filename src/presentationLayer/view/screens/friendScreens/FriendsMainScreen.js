@@ -103,32 +103,6 @@ export default function FriendsManagementScreen() {
             </View>
           )}
         />
-
-        {console.log(state.mode_friend)}
-        {/* <View>
-          <B20 customStyle={{fontFamily: EB}}>친구 관리</B20>
-        </View>
-        <AnimatedButton onPress={toggleDropdown} style={{padding: 10}}>
-          <Detail width={20} height={20} strokeWidth={2} stroke={COLOR_BLACK} />
-        </AnimatedButton>
-
-        {/* {state.isDropdownVisible_friend && (
-          <View style={styles.dropdown}>
-            <AnimatedButton
-              onPress={() => {
-                actions.setMode_friend(
-                  state.mode_friend === 'unblock' ? 'block' : 'unblock',
-                );
-                actions.setDropdownVisible_friend(
-                  !state.isDropdownVisible_friend,
-                );
-              }}>
-              <M11 customStyle={{fontSize: 12}}>
-                {state.mode_friend === 'unblock' ? '차단 목록' : '친구 목록'}
-              </M11>
-            </AnimatedButton>
-          </View>
-        )} */}
       </View>
 
       <View style={styles.searchBarContainer}>
