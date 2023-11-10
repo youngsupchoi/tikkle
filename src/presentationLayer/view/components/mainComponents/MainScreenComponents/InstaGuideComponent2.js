@@ -9,18 +9,22 @@ import {
   StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
+  B12,
   B20,
   B28,
   EB,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AutoHeightImage from 'react-native-auto-height-image';
+import pic2 from 'src/assets/images/instaGuide2.png';
 
-export default function InstaGuideComponent1() {
+export default function InstaGuideComponent2() {
   return (
     <View style={styles.onboardingComponentContainer}>
-      <Image
+      <AutoHeightImage
+        width={windowWidth * 0.8}
         resizeMode="center"
-        source={require('src/assets/images/instaGuide2.png')}
+        source={pic2}
         style={styles.onboardingImage}
       />
     </View>
@@ -46,7 +50,5 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     position: 'absolute',
     bottom: 0,
-    height: windowHeight * 0.45,
-    width: windowWidth * 0.8,
   },
 });

@@ -9,18 +9,22 @@ import {
   StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
+  B12,
   B20,
   B28,
   EB,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AutoHeightImage from 'react-native-auto-height-image';
+import InataGuideForIos from 'src/assets/images/InataGuideForIos.png';
 
 export default function InstaGuideComponentForIos() {
   return (
     <View style={styles.onboardingComponentContainer}>
-      <Image
-        resizeMode="cover"
-        source={require('src/assets/images/InataGuideForIos.png')}
+      <AutoHeightImage
+        width={windowWidth * 0.8}
+        resizeMode="center"
+        source={InataGuideForIos}
         style={styles.onboardingImage}
       />
     </View>
@@ -43,10 +47,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   onboardingImage: {
-    position: 'absolute',
     borderRadius: 20,
+    position: 'absolute',
     bottom: 0,
-    height: windowHeight * 0.45,
-    width: windowWidth * 0.8,
   },
 });
