@@ -254,7 +254,17 @@ export default function NotificationScreen() {
         </View>
 
         <AnimatedButton
-          style={{position: 'absolute', top: 15, right: 15}}
+          style={{
+            padding: 5,
+            // backgroundColor: 'red',
+            position: 'absolute',
+            paddingLeft: 10,
+            top: 15,
+            right: 15,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+          }}
           onPress={() => actions.onDeleteComplete(index)}>
           <Close
             width={20}
