@@ -16,7 +16,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AutoHeightImage from 'react-native-auto-height-image';
 
-export default function OnboardingComponent3() {
+export default function OnboardingComponent5() {
   return (
     <View style={styles.onboardingComponentContainer}>
       {/* <View style={styles.title}>
@@ -32,7 +32,7 @@ export default function OnboardingComponent3() {
       </View> */}
       <AutoHeightImage
         width={windowWidth}
-        source={require('src/assets/images/onboardingVisuals/ios_screen3.png')}
+        source={require('src/assets/images/onboardingVisuals/ios_screen5.png')}
         style={{marginTop: -30}}
       />
       {/* <Image

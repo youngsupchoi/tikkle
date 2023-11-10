@@ -14,11 +14,12 @@ import {
   EB,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 export default function OnboardingComponent1() {
   return (
     <View style={styles.onboardingComponentContainer}>
-      <View style={styles.title}>
+      {/* <View style={styles.title}>
         <B28 customStyle={{fontFamily: EB}}>소원을 포스팅하세요.</B28>
       </View>
       <View style={styles.detail}>
@@ -28,12 +29,17 @@ export default function OnboardingComponent1() {
         <M15 customStyle={{fontSize: 13, marginTop: 12}}>
           매 티클링마다 1개의 티클링 티켓이 사용됩니다.
         </M15>
-      </View>
-      <Image
-        resizeMode="contain"
-        source={require('src/assets/images/onboardingVisuals/visual1.png')}
-        style={styles.onboardingImage}
+      </View> */}
+      <AutoHeightImage
+        width={windowWidth}
+        source={require('src/assets/images/onboardingVisuals/ios_screen1.png')}
+        style={{marginTop: -30}}
       />
+      {/* <Image
+        resizeMode="contain"
+        source={require('src/assets/images/onboardingVisuals/screen1.png')}
+        style={styles.onboardingImage}
+      /> */}
     </View>
   );
 }
@@ -56,6 +62,7 @@ const styles = StyleSheet.create({
   onboardingImage: {
     position: 'absolute',
     bottom: 0,
-    height: (windowHeight / 5) * 3,
+    width: windowWidth,
+    // height: (windowHeight / 5) * 3,
   },
 });
