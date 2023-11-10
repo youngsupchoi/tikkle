@@ -19,6 +19,7 @@ export default function LogoutModal() {
   const {state, actions} = useMyPageViewModel();
   return (
     <Modal
+      avoidKeyboard
       isVisible={state.logoutModal}
       swipeDirection={['up']}
       style={{

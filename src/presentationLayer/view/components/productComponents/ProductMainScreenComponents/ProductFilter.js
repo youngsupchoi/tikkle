@@ -32,6 +32,7 @@ export default function ProductFilter() {
   return (
     <View style={styles.filterContainer}>
       <Modal
+        avoidKeyboard
         onSwipeComplete={() => actions.setShowFilter(false)}
         swipeDirection={'down'}
         onBackdropPress={() => actions.setShowFilter(false)}

@@ -33,6 +33,7 @@ export default function GoodsReceptionModal() {
   return (
     <View>
       <Modal
+        avoidKeyboard
         isVisible={state.showEndModal}
         onSwipeComplete={() => actions.setShowEndModal(false)}
         swipeDirection={'down'}

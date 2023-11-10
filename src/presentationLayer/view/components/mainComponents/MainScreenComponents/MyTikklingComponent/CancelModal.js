@@ -23,6 +23,7 @@ export default function CancelModal() {
   const {state, actions} = useMainViewModel();
   return (
     <Modal
+      avoidKeyboard
       isVisible={state.showCancelModal}
       swipeDirection={['up']}
       style={{

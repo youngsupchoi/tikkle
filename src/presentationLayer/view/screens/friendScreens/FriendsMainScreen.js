@@ -76,7 +76,8 @@ export default function FriendsManagementScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <ModalDropdown
+        <Modal
+          avoidKeyboardDropdown
           options={[modalText]}
           defaultIndex={0}
           defaultValue={modalText}

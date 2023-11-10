@@ -41,6 +41,7 @@ export default function WhoParticipated({data, showModal, setShowModal}) {
   return (
     <View style={styles.tikkleModalContainer}>
       <Modal
+        avoidKeyboard
         onSwipeComplete={() => setShowModal(false)}
         swipeDirection={'down'}
         onBackdropPress={() => setShowModal(false)}

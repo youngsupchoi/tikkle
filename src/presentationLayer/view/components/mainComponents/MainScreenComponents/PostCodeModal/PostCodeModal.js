@@ -11,6 +11,7 @@ export default function PostCodeModal(props) {
     <View>
       {state !== undefined ? (
         <Modal
+          avoidKeyboard
           onBackdropPress={() => actions.setShowPostCodeModal(false)}
           isVisible={state.showPostCodeModal}
           backdropOpacity={0.5}>

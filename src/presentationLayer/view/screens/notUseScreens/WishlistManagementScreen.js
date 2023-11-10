@@ -428,6 +428,7 @@ export default function WishlistManagementScreen() {
       {console.log(isTikkling)}
       {selectedItem && (
         <Modal
+          avoidKeyboard
           animationType="slide"
           transparent={true}
           visible={modalVisible}

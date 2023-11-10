@@ -46,6 +46,7 @@ export default function RefundModal() {
   return (
     <View>
       <Modal
+        avoidKeyboard
         isVisible={state.showRefundModal}
         onSwipeComplete={() => actions.setShowRefundModal(false)}
         swipeDirection={'down'}

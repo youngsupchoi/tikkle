@@ -44,6 +44,7 @@ const TopModal = () => {
   return (
     // <View>
     <Modal
+      avoidKeyboard
       isVisible={isModalVisible}
       swipeDirection={['up']}
       style={styles.modal}
