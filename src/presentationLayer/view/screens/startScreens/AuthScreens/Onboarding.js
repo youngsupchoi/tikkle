@@ -4,6 +4,11 @@ import {HEADER_HEIGHT} from 'src/presentationLayer/view/components/globalCompone
 import OnboardingComponent1 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent1';
 import OnboardingComponent2 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent2';
 import OnboardingComponent3 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent3';
+import OnboardingComponent4 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent4';
+import OnboardingComponent5 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent5';
+import OnboardingComponent6 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent6';
+import OnboardingComponent7 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent7';
+
 import {
   B15,
   UNIQUE22,
@@ -28,7 +33,7 @@ export default function Onboarding() {
   };
   const handleNextPress = () => {
     const nextPage = currentPage + 1;
-    if (nextPage < 3) {
+    if (nextPage < 6) {
       scrollViewRef.current?.scrollTo({
         x: nextPage * windowWidth,
         y: 0,
@@ -42,7 +47,7 @@ export default function Onboarding() {
     <View style={styles.onboardingContainer}>
       <View style={styles.header}>
         <View style={{...styles.headerItems, alignItems: 'flex-start'}}>
-          {currentPage < 2 && ( // 마지막 페이지가 아닐 경우에만 렌더링
+          {currentPage < 6 && ( // 마지막 페이지가 아닐 경우에만 렌더링
             <AnimatedButton
               onPress={() => {
                 navigation.reset({
@@ -63,7 +68,7 @@ export default function Onboarding() {
           <UNIQUE22>TIKKLE</UNIQUE22>
         </View>
         <View style={{...styles.headerItems, alignItems: 'flex-end'}}>
-          {currentPage < 2 ? (
+          {currentPage < 6 ? (
             <AnimatedButton onPress={handleNextPress}>
               <B15 customStyle={{color: COLOR_PRIMARY}}>다음</B15>
             </AnimatedButton>
@@ -72,7 +77,7 @@ export default function Onboarding() {
       </View>
 
       <View style={styles.paginationWrapper}>
-        {[...Array(3).keys()].map(index => (
+        {[...Array(7).keys()].map(index => (
           <View
             key={index}
             style={[
@@ -93,6 +98,10 @@ export default function Onboarding() {
         <OnboardingComponent1 />
         <OnboardingComponent2 />
         <OnboardingComponent3 />
+        <OnboardingComponent4 />
+        <OnboardingComponent5 />
+        <OnboardingComponent6 />
+        <OnboardingComponent7 />
       </ScrollView>
     </View>
   );

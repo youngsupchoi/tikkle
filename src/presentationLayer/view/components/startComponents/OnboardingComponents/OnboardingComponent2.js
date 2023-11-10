@@ -14,26 +14,32 @@ import {
   EB,
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 export default function OnboardingComponent2() {
   return (
     <View style={styles.onboardingComponentContainer}>
-      <View style={styles.title}>
-        <B28 customStyle={{fontFamily: EB}}>티클로 소원을 실현하세요.</B28>
+      {/* <View style={styles.title}>
+        <B28 customStyle={{fontFamily: EB}}>소원을 포스팅하세요.</B28>
       </View>
       <View style={styles.detail}>
         <M15 customStyle={{fontSize: 13}}>
-          친구들과 티클을 나누며, 함께 꿈을 이루어보세요.
+          원하는 아이템을 선택하고, 소원을 공유해 보세요.
         </M15>
         <M15 customStyle={{fontSize: 13, marginTop: 12}}>
-          공유하고 연결하며, 선물의 기쁨을 함께 키워가세요!
+          매 티클링마다 1개의 티클링 티켓이 사용됩니다.
         </M15>
-      </View>
-      <Image
-        resizeMode="contain"
-        source={require('src/assets/images/onboardingVisuals/visual2.png')}
-        style={styles.onboardingImage}
+      </View> */}
+      <AutoHeightImage
+        width={windowWidth}
+        source={require('src/assets/images/onboardingVisuals/ios_screen2.png')}
+        style={{marginTop: -30}}
       />
+      {/* <Image
+        resizeMode="contain"
+        source={require('src/assets/images/onboardingVisuals/screen1.png')}
+        style={styles.onboardingImage}
+      /> */}
     </View>
   );
 }
@@ -56,6 +62,7 @@ const styles = StyleSheet.create({
   onboardingImage: {
     position: 'absolute',
     bottom: 0,
-    height: (windowHeight / 5) * 3,
+    width: windowWidth,
+    // height: (windowHeight / 5) * 3,
   },
 });
