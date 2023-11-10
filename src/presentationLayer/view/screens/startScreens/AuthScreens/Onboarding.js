@@ -25,12 +25,14 @@ import {useNavigation} from '@react-navigation/native';
 export default function Onboarding() {
   const [currentPage, setCurrentPage] = useState(0);
   const scrollViewRef = useRef();
+
   const handleScroll = event => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const pageWidth = event.nativeEvent.layoutMeasurement.width;
     const currentPage = Math.floor(offsetX / pageWidth + 0.5);
     setCurrentPage(currentPage);
   };
+
   const handleNextPress = () => {
     const nextPage = currentPage + 1;
     if (nextPage < 6) {
@@ -42,6 +44,7 @@ export default function Onboarding() {
       setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
     }
   };
+
   const navigation = useNavigation();
   return (
     <View style={styles.onboardingContainer}>
