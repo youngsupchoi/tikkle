@@ -21,6 +21,7 @@ export default function DeleteUserModal() {
   const {state, actions} = useMyPageViewModel();
   return (
     <Modal
+      avoidKeyboard
       isVisible={state.userDeleteModal}
       swipeDirection={['up']}
       style={{

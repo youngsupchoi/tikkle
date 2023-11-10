@@ -103,6 +103,7 @@ const MyTikklingComponent = () => {
         <InstaGuideModal />
         {state.dropdownVisible && (
           <Modal
+            avoidKeyboard
             isVisible={state.dropdownVisible}
             swipeDirection={['up']}
             animationIn={'fadeIn'}

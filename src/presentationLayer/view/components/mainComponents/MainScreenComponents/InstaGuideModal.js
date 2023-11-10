@@ -110,6 +110,7 @@ const InstaGuideModal = () => {
   return (
     // <View>
     <Modal
+      avoidKeyboard
       isVisible={state.isInstagramButtonModalVisible}
       swipeDirection={['up']}
       style={styles.modal}

@@ -37,6 +37,7 @@ const DetailAddressInput = props => {
 
   return (
     <Modal
+      avoidKeyboard
       onBackdropPress={actions.onCloseDetailModal}
       isVisible={state.showDetailModal}
       backdropOpacity={0.5}>

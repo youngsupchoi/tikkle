@@ -203,6 +203,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   return (
     <View style={styles.tikkleModalContainer}>
       <Modal
+        avoidKeyboard
         onSwipeComplete={onCloseModal}
         swipeDirection={'down'}
         onBackdropPress={onCloseModal}
@@ -453,7 +454,8 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
           </View>
         </View>
       </Modal>
-      {/* {errorMessage !== '' ? <Modal></Modal> : null} */}
+      {/* {errorMessage !== '' ? <Modal
+        avoidKeyboard></Modal> : null} */}
     </View>
   );
 }

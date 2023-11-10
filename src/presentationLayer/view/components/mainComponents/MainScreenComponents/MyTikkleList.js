@@ -175,6 +175,7 @@ const MovingCircle = ({size, maxX, maxY, image, name, message, created_at}) => {
         </Animated.View>
       </PanGestureHandler>
       <Modal
+        avoidKeyboard
         animationType="slide"
         transparent={true}
         visible={modalVisible}

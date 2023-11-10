@@ -21,6 +21,7 @@ export default function RefundModal() {
   const {state, actions} = useMyPageViewModel();
   return (
     <Modal
+      avoidKeyboard
       isVisible={state.refundModal}
       swipeDirection={['up']}
       style={{
