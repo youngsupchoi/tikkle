@@ -23,7 +23,7 @@ export default function InstaGuideComponent1() {
     <View style={styles.onboardingComponentContainer}>
       <AutoHeightImage
         width={windowWidth * 0.8}
-        resizeMode="center"
+        resizeMode="contain"
         source={pic1}
         style={styles.onboardingImage}
       />

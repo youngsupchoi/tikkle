@@ -23,7 +23,7 @@ export default function InstaGuideComponentForIos() {
     <View style={styles.onboardingComponentContainer}>
       <AutoHeightImage
         width={windowWidth * 0.8}
-        resizeMode="center"
+        resizeMode="contain"
         source={InataGuideForIos}
         style={styles.onboardingImage}
       />
