@@ -48,6 +48,9 @@ export const MainViewStateProvider = ({children}) => {
 
   const [bankDropDownVisible_home, setBankDropDownVisible_home] =
     useState(false);
+  const [instagramButtonPressed, setInstagramButtonPressed] = useState(false);
+  const [isInstagramButtonModalVisible, setIsInstagramButtonModalVisible] =
+    useState(false);
 
   const [bank, setBank] = useState([]);
 
@@ -137,6 +140,8 @@ export const MainViewStateProvider = ({children}) => {
     showWhoParticipatedTooltip,
     showMessageTooltip,
     detial_route,
+    instagramButtonPressed,
+    isInstagramButtonModalVisible,
   };
 
   const actions = {
@@ -189,6 +194,8 @@ export const MainViewStateProvider = ({children}) => {
     setShowWhoParticipatedTooltip,
     setShowMessageTooltip,
     setDetial_route,
+    setInstagramButtonPressed,
+    setIsInstagramButtonModalVisible,
   };
 
   return (

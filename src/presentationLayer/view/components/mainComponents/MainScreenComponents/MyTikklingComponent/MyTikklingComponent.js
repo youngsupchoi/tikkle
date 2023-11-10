@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import Delete from 'src/assets/icons/Delete';
@@ -26,6 +26,7 @@ import {useNavigation} from '@react-navigation/core';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Profile from 'src/assets/icons/Profile';
 import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
+import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
 
 const MyTikklingComponent = () => {
   const {ref, state, actions} = useMainViewModel();
@@ -44,6 +45,10 @@ const MyTikklingComponent = () => {
       },
     ],
   };
+
+  useState(() => {
+    console.log('hear');
+  }, [state.isInstagramButtonModalVisible]);
 
   return (
     <View style={styles.container}>
@@ -95,7 +100,7 @@ const MyTikklingComponent = () => {
             {/* {console.log('tikklingData', state.myTikklingData)} */}
           </AnimatedButton>
         ) : null}
-        {}
+        <InstaGuideModal />
         {state.dropdownVisible && (
           <Modal
             isVisible={state.dropdownVisible}
