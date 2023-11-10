@@ -9,6 +9,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   COLOR_SUCCESS,
+  COLOR_GRAY,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -52,6 +53,7 @@ const InstaGuideModal = () => {
   const translateY = useSharedValue(0);
   const opacity = useSharedValue(0);
   const numOfPage = Platform.OS === 'ios' ? 5 : 4;
+
   const getDisplayText = value => {
     switch (value) {
       case 0:
@@ -71,6 +73,161 @@ const InstaGuideModal = () => {
     }
   };
 
+  const Buttons = () => {
+    if (currentPage == 0) {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              handleBeforePress();
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_GRAY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>닫기</B15>
+          </TouchableOpacity>
+          <View style={{width: 10}}></View>
+
+          <TouchableOpacity
+            onPress={
+              // console.log(topState, topActions.hideModal)
+              //topActions.hideModal
+              handleNextPress
+            }
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_PRIMARY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>다음</B15>
+          </TouchableOpacity>
+        </View>
+      );
+    } else if (currentPage != numOfPage - 1) {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              handleBeforePress();
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_GRAY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>이전</B15>
+          </TouchableOpacity>
+          <View style={{width: 10}}></View>
+
+          <TouchableOpacity
+            onPress={
+              // console.log(topState, topActions.hideModal)
+              //topActions.hideModal
+              handleNextPress
+            }
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_PRIMARY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>다음</B15>
+          </TouchableOpacity>
+        </View>
+      );
+    } else {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              handleBeforePress();
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_GRAY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>이전</B15>
+          </TouchableOpacity>
+          <View style={{width: 10}}></View>
+
+          <TouchableOpacity
+            onPress={() => {
+              // console.log(topState, topActions.hideModal)
+              //topActions.hideModal
+              actions.setIsInstagramButtonModalVisible(false);
+              actions.onInstagramShareButtonPressed(
+                state.userData.name,
+                state.myTikklingData.tikkling_id,
+              );
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_PRIMARY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>공유하기</B15>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  };
+
   useEffect(() => {
     if (state.isInstagramButtonModalVisible) {
       translateY.value = withSpring(0);
@@ -80,17 +237,21 @@ const InstaGuideModal = () => {
       });
     }
   }, [state.isInstagramButtonModalVisible]);
+
   const scrollViewRef = useRef();
+
   const handleScroll = event => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const pageWidth = event.nativeEvent.layoutMeasurement.width;
     const currentPage = Math.floor(offsetX / pageWidth + 0.5);
     setCurrentPage(currentPage);
   };
+
   useEffect(() => {
     setCurrentPage(0);
     setCurrentDetailText(0);
   }, [state.isInstagramButtonModalVisible]);
+
   const handleNextPress = () => {
     const nextPage = currentPage + 1;
     console.log(
@@ -107,6 +268,25 @@ const InstaGuideModal = () => {
       setCurrentDetailText(currentDetailText + 1);
     }
   };
+
+  const handleBeforePress = () => {
+    const nextPage = currentPage - 1;
+    console.log(
+      '🚀 ~ file: InstaGuideModal.js:60 ~ handleBeforePress ~ currentPage:',
+      currentPage,
+    );
+    if (currentPage == 0) {
+      actions.setIsInstagramButtonModalVisible(false);
+    }
+    scrollViewRef.current?.scrollTo({
+      x: nextPage * windowWidth * 0.8,
+      y: 0,
+      animated: true,
+    });
+    setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
+    setCurrentDetailText(currentDetailText - 1);
+  };
+
   return (
     // <View>
     <Modal
@@ -214,51 +394,9 @@ const InstaGuideModal = () => {
             </B17>
           </View>
 
-          {currentPage < numOfPage - 1 ? (
-            <TouchableOpacity
-              onPress={
-                // console.log(topState, topActions.hideModal)
-                //topActions.hideModal
-                handleNextPress
-              }
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                width: windowWidth * 0.6,
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 10,
-                backgroundColor: COLOR_PRIMARY,
-                borderRadius: 12,
-                marginBottom: 25,
-              }}>
-              <B15 customStyle={{color: 'white'}}>다음</B15>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => {
-                // console.log(topState, topActions.hideModal)
-                //topActions.hideModal
-                actions.setIsInstagramButtonModalVisible(false);
-                actions.onInstagramShareButtonPressed(
-                  state.userData.name,
-                  state.myTikklingData.tikkling_id,
-                );
-              }}
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                width: windowWidth * 0.6,
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 10,
-                backgroundColor: COLOR_PRIMARY,
-                borderRadius: 12,
-                marginBottom: 25,
-              }}>
-              <B15 customStyle={{color: 'white'}}>공유하기</B15>
-            </TouchableOpacity>
-          )}
+          <View style={{marginTop: 20}}>
+            <Buttons />
+          </View>
         </View>
         {/* </BlurView> */}
       </View>
