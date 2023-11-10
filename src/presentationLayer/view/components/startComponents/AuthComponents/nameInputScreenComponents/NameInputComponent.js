@@ -66,14 +66,14 @@ export default function NameInput() {
   const {ref, state, actions} = useStartViewModel();
   return (
     <View style={styles.inputContainer}>
-      <InputBox
+      {/* <InputBox
         value={state.firstName}
         placeholder="성"
         onChange={actions.setFirstName}
         onSubmit={() => ref.lastNameRef.current.focus()}
         refValue={ref.firstNameRef}
         maxLength={4}
-      />
+      /> */}
       <InputBox
         value={state.lastName}
         placeholder="이름"

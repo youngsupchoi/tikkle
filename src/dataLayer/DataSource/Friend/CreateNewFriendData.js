@@ -88,18 +88,19 @@ export async function createNewFriendData(friendId) {
   }
 
   //------ call post_notification_send -------------------------------------------------------//
+  if (response.data.detail_code === '11') {
+    const body3 = {receive_user_id: friendId, notification_type_id: 1};
 
-  const body3 = {receive_user_id: friendId, notification_type_id: 1};
-
-  try {
-    const response3 = apiModel(
-      'post_notification_send',
-      authorization,
-      body3,
-      null,
-    );
-  } catch (error) {
-    console.log('send notification failed');
+    try {
+      const response3 = apiModel(
+        'post_notification_send',
+        authorization,
+        body3,
+        null,
+      );
+    } catch (error) {
+      console.log('send notification failed');
+    }
   }
 
   //------ return response ------------------------------------------------//

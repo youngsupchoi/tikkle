@@ -5,7 +5,6 @@ import {
   FlatList,
   Image,
   Animated,
-  Modal,
   StyleSheet,
   SectionList,
 } from 'react-native';
@@ -54,9 +53,13 @@ import BlockFriend from 'src/assets/icons/BlockFriend';
 import {RefreshControl} from 'react-native-gesture-handler';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import Modal from 'react-native-modal';
+import ModalDropdown from 'react-native-modal-dropdown';
+import ArrowDown from 'src/assets/icons/ArrowDown';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
+  const [modalText, setModalText] = useState('친구 목록');
 
   useEffect(() => {
     actions.keyboard_friend();
@@ -73,35 +76,36 @@ export default function FriendsManagementScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View>
-          <B20 customStyle={{fontFamily: EB}}>친구 관리</B20>
-        </View>
-        <AnimatedButton onPress={toggleDropdown} style={{padding: 10}}>
-          <Detail
-            width={20}
-            height={20}
-            strokeWidth={1.5}
-            stroke={COLOR_BLACK}
-          />
-        </AnimatedButton>
-
-        {state.isDropdownVisible_friend && (
-          <View style={styles.dropdown}>
-            <AnimatedButton
-              onPress={() => {
-                actions.setMode_friend(
-                  state.mode_friend === 'unblock' ? 'block' : 'unblock',
-                );
-                actions.setDropdownVisible_friend(
-                  !state.isDropdownVisible_friend,
-                );
-              }}>
-              <M11 customStyle={{fontSize: 12}}>
-                {state.mode_friend === 'unblock' ? '차단 목록' : '친구 목록'}
-              </M11>
-            </AnimatedButton>
-          </View>
-        )}
+        <ModalDropdown
+          options={[modalText]}
+          defaultIndex={0}
+          defaultValue={modalText}
+          onSelect={(index, value) => {
+            if (value === '친구 목록') {
+              setModalText('차단 목록');
+              actions.setMode_friend('unblock');
+            } else if (value === '차단 목록') {
+              setModalText('친구 목록');
+              actions.setMode_friend('block');
+            }
+          }}
+          style={styles.dropdownButton}
+          textStyle={styles.dropdownButtonText}
+          dropdownStyle={styles.dropdown}
+          dropdownTextStyle={styles.dropdownText}
+          dropdownTextHighlightStyle={styles.dropdownTextHighlight}
+          renderRightComponent={() => (
+            <View style={{marginLeft: 8}}>
+              <ArrowDown
+                width={16}
+                height={16}
+                stroke={COLOR_BLACK}
+                strokeWidth={2}
+                scale={16 / 24}
+              />
+            </View>
+          )}
+        />
       </View>
 
       <View style={styles.searchBarContainer}>
@@ -330,11 +334,19 @@ export default function FriendsManagementScreen() {
                           justifyContent: 'center',
                           height: windowWidth,
                         }}>
+                        <LottieView
+                          source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                          autoPlay
+                          loop
+                          style={{
+                            width: 250,
+                            height: 250,
+                            alignSelf: 'center',
+                            backgroundColor: backgroundColor,
+                          }}
+                        />
                         <M15>아직 사용 중인 친구가 없네요</M15>
-                        <B22>친구를 초대해 보세요!</B22>
-                        <AnimatedButton>
-                          <B15>공유하기</B15>
-                        </AnimatedButton>
+                        <B22>아이디로 친구를 찾아 보세요!</B22>
                       </View>
                     );
                   }
@@ -346,8 +358,19 @@ export default function FriendsManagementScreen() {
                           justifyContent: 'center',
                           height: windowWidth,
                         }}>
-                        <M15>차단된 친구가 없네요.</M15>
+                        <LottieView
+                          source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                          autoPlay
+                          loop
+                          style={{
+                            width: 250,
+                            height: 250,
+                            alignSelf: 'center',
+                            backgroundColor: backgroundColor,
+                          }}
+                        />
                         <B22>좋아요!</B22>
+                        <M15>차단된 친구가 없네요</M15>
                       </View>
                     );
                   }
@@ -417,24 +440,46 @@ export default function FriendsManagementScreen() {
                         onPress={() => {
                           actions.block_friend(item);
                         }}>
-                        <BlockFriend
-                          width={24}
-                          height={24}
-                          stroke={COLOR_ERROR}
-                          strokeWidth={2}
-                        />
+                        <View
+                          style={{
+                            padding: 8,
+                            paddingVertical: 4,
+                            borderColor: COLOR_ERROR,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                          }}>
+                          <M11 customStyle={{color: COLOR_ERROR}}>차단하기</M11>
+                        </View>
                       </AnimatedButton>
                     ) : (
+                      // <AnimatedButton
+                      //   onPress={() => {
+                      //     actions.unblock_friend(item);
+                      //   }}>
+                      //   <UnBlock
+                      //     width={24}
+                      //     height={24}
+                      //     stroke={COLOR_SUCCESS}
+                      //     strokeWidth={2}
+                      //   />
+                      // </AnimatedButton>
+
                       <AnimatedButton
                         onPress={() => {
                           actions.unblock_friend(item);
                         }}>
-                        <UnBlock
-                          width={24}
-                          height={24}
-                          stroke={COLOR_SUCCESS}
-                          strokeWidth={2}
-                        />
+                        <View
+                          style={{
+                            padding: 8,
+                            paddingVertical: 4,
+                            borderColor: COLOR_SUCCESS,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                          }}>
+                          <M11 customStyle={{color: COLOR_SUCCESS}}>
+                            차단 해제
+                          </M11>
+                        </View>
                       </AnimatedButton>
                     )}
                   </View>
@@ -469,16 +514,6 @@ const styles = StyleSheet.create({
     position: 'sticky',
     top: 0,
     zIndex: 100,
-  },
-  dropdown: {
-    position: 'absolute',
-    top: 8,
-    right: 65,
-    width: 150,
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 12,
-    zIndex: 2,
   },
   searchBarContainer: {
     marginTop: 8,
@@ -586,5 +621,36 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 2,
     borderRadius: 60,
+  },
+
+  dropdownButton: {
+    width: '100%',
+    height: 40,
+    justifyContent: 'center',
+  },
+  dropdownButtonText: {
+    fontSize: 20,
+    fontFamily: EB,
+  },
+  dropdown: {
+    padding: 8,
+
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
+    borderRadius: 8,
+    height: 'auto',
+    marginTop: 8,
+  },
+  dropdownText: {
+    marginHorizontal: 6,
+    fontSize: 17,
+    fontFamily: B,
+    color: COLOR_GRAY,
+  },
+  dropdownTextHighlight: {
+    marginHorizontal: 6,
+    fontSize: 17,
+    fontFamily: B,
+    color: COLOR_PRIMARY,
   },
 });

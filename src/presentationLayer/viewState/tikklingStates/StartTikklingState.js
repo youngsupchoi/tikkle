@@ -40,6 +40,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
   const [showPostCodeModal, setShowPostCodeModal] = useState(false);
   const [createTikklingButtonPressed, setCreateTikklingButtonPressed] =
     useState(false);
+
   const events = [
     {
       type: 'birthday',

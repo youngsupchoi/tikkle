@@ -14,6 +14,7 @@ import {
   B15,
   B22,
   M11,
+  M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import LottieView from 'lottie-react-native';
 import Modal from 'react-native-modal';
@@ -99,10 +100,10 @@ export default function CancelModal() {
               justifyContent: 'space-between',
             }}>
             <View style={{paddingVertical: 24}}>
-              <M11>아직 받은 티클이 없네요.</M11>
-              <M11 customStyle={{marginTop: 8}}>
-                티클링 티켓을 다시 받을 수 있어요!
-              </M11>
+              <M15>{'티클링을 취소하면 사용한 티켓은 복구됩니다.'}</M15>
+              <M15 customStyle={{marginTop: 1}}>
+                {'진행중인 티클링을 취소하면 티클링이 종료됩니다.'}
+              </M15>
             </View>
           </View>
 
@@ -121,7 +122,7 @@ export default function CancelModal() {
                 backgroundColor: COLOR_ERROR,
                 borderBottomLeftRadius: 12,
               }}>
-              <B15 customStyle={{color: COLOR_WHITE}}>취소하기</B15>
+              <B15 customStyle={{color: COLOR_WHITE}}>티클링 취소하기</B15>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -135,7 +136,7 @@ export default function CancelModal() {
                 backgroundColor: COLOR_WHITE,
                 borderBottomRightRadius: 12,
               }}>
-              <B15 customStyle={{color: COLOR_ERROR}}>취소</B15>
+              <B15 customStyle={{color: COLOR_ERROR}}>닫기</B15>
             </TouchableOpacity>
           </View>
         </View>

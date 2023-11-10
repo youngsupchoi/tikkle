@@ -29,9 +29,15 @@ export const MainViewStateProvider = ({children}) => {
   const [snackbarMessage, setSnackbarMessage] = useState(null);
   const [showPostCodeModal, setShowPostCodeModal] = useState(false);
   const [showEndTikklingModal, setShowEndTikklingModal] = useState(false);
+  const [showWhoParticipatedTooltip, setShowWhoParticipatedTooltip] =
+    useState(false);
+  const [showMessageTooltip, setShowMessageTooltip] = useState(false);
   const [address, setAddress] = useState(null);
   const [zonecode, setZonecode] = useState(null);
   const [detailAddress, setDetailAddress] = useState(null);
+  const [showWhoParticipatedModal, setShowWhoParticipatedModal] =
+    useState(false);
+
   const [paymentButtonPressed, setPaymentButtonPressed] = useState(false); // 결제 버튼 눌렀는지 여부
   const [showRefundModal, setShowRefundModal] = useState(false);
   const [bankCode, setBankCode] = useState();
@@ -41,6 +47,9 @@ export const MainViewStateProvider = ({children}) => {
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
 
   const [bankDropDownVisible_home, setBankDropDownVisible_home] =
+    useState(false);
+  const [instagramButtonPressed, setInstagramButtonPressed] = useState(false);
+  const [isInstagramButtonModalVisible, setIsInstagramButtonModalVisible] =
     useState(false);
 
   const [bank, setBank] = useState([]);
@@ -71,6 +80,8 @@ export const MainViewStateProvider = ({children}) => {
   const [detail_buymodal, setDetail_buymodal] = useState(false);
 
   const [contactsData, setContactsData] = useState([]);
+
+  const [detial_route, setDetial_route] = useState(false);
 
   // ... 다른 상태들
   const ref = {
@@ -125,6 +136,12 @@ export const MainViewStateProvider = ({children}) => {
     itHasOptions,
     optionPrice,
     selectedWishlistData,
+    showWhoParticipatedModal,
+    showWhoParticipatedTooltip,
+    showMessageTooltip,
+    detial_route,
+    instagramButtonPressed,
+    isInstagramButtonModalVisible,
   };
 
   const actions = {
@@ -173,6 +190,12 @@ export const MainViewStateProvider = ({children}) => {
     setItHasOptions,
     setOptionPrice,
     setSelectedWishlistData,
+    setShowWhoParticipatedModal,
+    setShowWhoParticipatedTooltip,
+    setShowMessageTooltip,
+    setDetial_route,
+    setInstagramButtonPressed,
+    setIsInstagramButtonModalVisible,
   };
 
   return (

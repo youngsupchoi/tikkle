@@ -27,6 +27,8 @@ export const ProductDetailViewStateProvider = ({children}) => {
 
   const [isTikkling, setIsTikkling] = useState(false);
 
+  const [data, setData] = useState();
+
   const [detail_images, setDetail_images] = useState({});
   const [components, setComponents] = useState([]);
 
@@ -45,6 +47,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     selectedOptions,
     itHasOptions,
     optionPrice,
+    data,
   };
 
   const actions = {
@@ -61,6 +64,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     setSelectedOptions,
     setItHasOptions,
     setOptionPrice,
+    setData,
   };
 
   return (

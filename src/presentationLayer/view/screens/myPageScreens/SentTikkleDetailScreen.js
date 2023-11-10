@@ -60,7 +60,7 @@ import CalendarFilled from 'src/assets/icons/CalendarFilled';
 
 export default function SentTikkleDetailScreen({route}) {
   const item = route.params.item;
-
+  const navigation = useNavigation();
   const {ref, state, actions} = useMyPageViewModel();
   // actions.getHistoryPaymentData(item.merchant_uid);
   // console.log('state.paymentData : ', state.paymentData);
@@ -142,7 +142,12 @@ export default function SentTikkleDetailScreen({route}) {
                 ) : null}
               </View>
 
-              <View
+              <AnimatedButton
+                onPress={() => {
+                  // console.log('item : ', item.product_id);
+                  const product_id = item.product_id;
+                  navigation.navigate('productDetail', {product_id});
+                }}
                 style={{
                   backgroundColor: COLOR_WHITE,
                   borderRadius: 16,
@@ -235,7 +240,8 @@ export default function SentTikkleDetailScreen({route}) {
                     </View>
                   </View>
                 </View>
-              </View>
+                {}
+              </AnimatedButton>
 
               {/* tikkling_info */}
               <View
@@ -291,11 +297,11 @@ export default function SentTikkleDetailScreen({route}) {
 
               <View style={styles.detailDataStyle}>
                 <B15>주문 번호</B15>
-                {/* <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15> */}
-                <MarqueeText
+                <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15>
+                {/* <MarqueeText
                   text={item.merchant_uid}
                   style={{fontSize: 15, fontFamily: M, color: COLOR_GRAY}}
-                />
+                /> */}
               </View>
 
               <View style={styles.detailDataStyle}>
@@ -375,7 +381,6 @@ export default function SentTikkleDetailScreen({route}) {
                 marginTop: 20,
                 alignSelf: 'center',
                 paddingHorizontal: 24,
-                backgroundColorcolor: COLOR_BLACK,
               }}>
               <AnimatedButton
                 onPress={() => {

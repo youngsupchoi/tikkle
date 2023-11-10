@@ -14,6 +14,7 @@ import {
   SPACING_2,
   SPACING_3,
   SPACING_6,
+  StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B15,
@@ -51,9 +52,15 @@ import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklin
 import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/PostCodeModal/PostCodeModal';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import moment from 'moment';
+import Help from 'src/assets/icons/Help';
+import Tooltip from 'react-native-walkthrough-tooltip';
 
 export default function StartTikklingScreen({route}) {
+  const [tikkle_tooltip, setTikkle_tooltip] = useState(false);
+  const [address_tooltip, setAddress_tooltip] = useState(false);
   const {state, actions} = useStartTikklingViewModel();
+  const [time_tooltip, setTime_tooltip] = useState(false);
+
   useEffect(() => {
     actions.loadData();
     console.log(route);
@@ -115,27 +122,57 @@ export default function StartTikklingScreen({route}) {
               alignItems: 'center',
             }}>
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>상품 정보</B20>
-            <AnimatedButton>
-              <Information
-                width={20}
-                height={20}
-                stroke={COLOR_BLACK}
-                strokeWidth={2}
-                scale={0.85}
-              />
-            </AnimatedButton>
-            <View
-              style={{
-                backgroundColor: COLOR_SECONDARY,
-                padding: 6,
-                paddingHorizontal: 12,
-                marginLeft: 12,
-                borderRadius: 8,
+            <Tooltip
+              topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+              isVisible={tikkle_tooltip}
+              content={
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클'}</B15>
+                    {/* <AnimatedButton
+                  onPress={() => {
+                    //Linking.openURL('https://www.lifoli.co.kr');
+                  }}>
+                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                    {'더보기'}
+                  </B12>
+                </AnimatedButton> */}
+                  </View>
+                  <View style={{}}>
+                    <View>
+                      <M11>
+                        {'티클은 5000원의 가치를 지니는 선물 조각이에요.'}
+                      </M11>
+                    </View>
+                    <View>
+                      <M11>
+                        {'티클링에서 상품은 동일한 가치의 티클로 바뀌어요.'}
+                      </M11>
+                    </View>
+                  </View>
+                </View>
+              }
+              placement="bottom"
+              animated={true}
+              backgroundColor="rgba(0,0,0,0.1)"
+              // backgroundColor="transparent"
+              disableShadow={true}
+              onClose={() => {
+                setTikkle_tooltip(false);
               }}>
-              <M11 customStyle={{color: COLOR_PRIMARY, fontSize: 10}}>
-                해당 상품이 5,000원의 티클로 바뀌어요.
-              </M11>
-            </View>
+              <AnimatedButton
+                onPress={() => {
+                  setTikkle_tooltip(true);
+                }}>
+                <Help
+                  width={20}
+                  height={20}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.85}
+                />
+              </AnimatedButton>
+            </Tooltip>
           </View>
 
           <View
@@ -266,29 +303,62 @@ export default function StartTikklingScreen({route}) {
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>
               기념일 선택
             </B20>
-            <AnimatedButton>
-              <Information
-                width={20}
-                height={20}
-                stroke={COLOR_BLACK}
-                strokeWidth={2}
-                scale={0.85}
-              />
-            </AnimatedButton>
-            <View
-              style={{
-                backgroundColor: COLOR_SECONDARY,
-                padding: 6,
-                paddingHorizontal: 12,
-                marginLeft: 12,
-                borderRadius: 8,
-                borderColor: COLOR_SEPARATOR,
-                borderWidth: 1,
+            <Tooltip
+              topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+              isVisible={time_tooltip}
+              content={
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>
+                      {'티클링의 기간'}
+                    </B15>
+                    {/* <AnimatedButton
+                  onPress={() => {
+                    //Linking.openURL('https://www.lifoli.co.kr');
+                  }}>
+                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                    {'더보기'}
+                  </B12>
+                </AnimatedButton> */}
+                  </View>
+                  <View style={{}}>
+                    <View>
+                      <M11>
+                        {'기념일을 선택하면 그날 자정까지 티클링이 진행되어요.'}
+                      </M11>
+                    </View>
+                    <View>
+                      <M11>{'티클링은 최대 7일간 진행할 수 있어요!'}</M11>
+                    </View>
+                    <View>
+                      <M11 customStyle={{color: COLOR_PRIMARY}}>
+                        {'7일 이후의 기념일은 선택할 수 없습니다!'}
+                      </M11>
+                    </View>
+                  </View>
+                </View>
+              }
+              placement="top"
+              animated={true}
+              backgroundColor="rgba(0,0,0,0.1)"
+              // backgroundColor="transparent"
+              disableShadow={true}
+              onClose={() => {
+                setTime_tooltip(false);
               }}>
-              <M11 customStyle={{color: COLOR_PRIMARY, fontSize: 10}}>
-                다가오는 기념일에 원하는 상품을 받을 수 있어요.
-              </M11>
-            </View>
+              <AnimatedButton
+                onPress={() => {
+                  setTime_tooltip(true);
+                }}>
+                <Help
+                  width={20}
+                  height={20}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.85}
+                />
+              </AnimatedButton>
+            </Tooltip>
           </View>
 
           <View
@@ -452,7 +522,7 @@ export default function StartTikklingScreen({route}) {
           mode="date"
           minimumDate={new Date(Date.now())} // 오늘의 날짜를 최소 날짜로 설정
           maximumDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)}
-          title={'티클링은 최대 7일 간 진행할 수 있어요!'}
+          title={'티클링은 최대 7일간 진행할 수 있어요!'}
           confirmText="확인"
           cancelText="취소"
         />
@@ -474,29 +544,57 @@ export default function StartTikklingScreen({route}) {
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>
               배송지 입력
             </B20>
-            <AnimatedButton>
-              <Information
-                width={20}
-                height={20}
-                stroke={COLOR_BLACK}
-                strokeWidth={2}
-                scale={0.85}
-              />
-            </AnimatedButton>
-            <View
-              style={{
-                backgroundColor: COLOR_SECONDARY,
-                padding: 6,
-                paddingHorizontal: 12,
-                marginLeft: 12,
-                borderRadius: 8,
-                borderColor: COLOR_SEPARATOR,
-                borderWidth: 1,
+            <Tooltip
+              topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+              isVisible={address_tooltip}
+              content={
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>{'배송지'}</B15>
+                    {/* <AnimatedButton
+                  onPress={() => {
+                    //Linking.openURL('https://www.lifoli.co.kr');
+                  }}>
+                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                    {'더보기'}
+                  </B12>
+                </AnimatedButton> */}
+                  </View>
+                  <View style={{}}>
+                    <View>
+                      <M11>
+                        {'티클링이 완료되었을 때, 상품을 받을 배송지예요.'}
+                      </M11>
+                    </View>
+                    <View>
+                      <M11>
+                        {'배송지는 프로필 페이지에서 다시 수정할 수 있어요!'}
+                      </M11>
+                    </View>
+                  </View>
+                </View>
+              }
+              placement="top"
+              animated={true}
+              backgroundColor="rgba(0,0,0,0.1)"
+              // backgroundColor="transparent"
+              disableShadow={true}
+              onClose={() => {
+                setAddress_tooltip(false);
               }}>
-              <M11 customStyle={{color: COLOR_PRIMARY, fontSize: 10}}>
-                상품을 받을 배송지를 입력해주세요.
-              </M11>
-            </View>
+              <AnimatedButton
+                onPress={() => {
+                  setAddress_tooltip(true);
+                }}>
+                <Help
+                  width={20}
+                  height={20}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={2}
+                  scale={0.85}
+                />
+              </AnimatedButton>
+            </Tooltip>
           </View>
 
           <View
@@ -605,12 +703,9 @@ export default function StartTikklingScreen({route}) {
         {console.log('라우트', route.params)}
 
         <AnimatedButton
-          onPress={
-            // console.log('end date ', state.endDate);
-            () => {
-              actions.tikklingStartButtonPress(route.params.product_option);
-            }
-          }
+          onPress={() => {
+            actions.tikklingStartButtonPress(route.params.product_option);
+          }}
           style={[
             styles.tikklingStartButton,
             state.createTikklingButtonPressed ? styles.inactiveButton : {},

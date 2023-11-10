@@ -41,6 +41,8 @@ export const useMainViewModel = () => {
   //FIXME: 아래 코드 getTikklingData함수 안으로 이동
   const temp_R = useRoute();
   const route_tikkling_id = temp_R.params?.tikkling_id;
+  const route_from = temp_R.params?.from;
+
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
@@ -76,7 +78,7 @@ export const useMainViewModel = () => {
         .then(res => {
           return topActions.setStateAndError(res);
         })
-        .then(res => {
+        .then(async res => {
           actions.setFriendEventData(res.DSdata.friend_event);
           actions.setFriendTikklingData(res.DSdata.friend_tikkling);
           actions.setIsNotice(res.DSdata.is_notification);
@@ -84,6 +86,10 @@ export const useMainViewModel = () => {
           actions.setIsTikkling(res.DSdata.my_tikkling.is_tikkling);
           actions.setWishlistData(res.DSdata.my_wishlist);
           actions.setUserData(res.DSdata.user_info);
+          if (res.DSdata.my_tikkling.info[0] !== undefined) {
+            // console.log('@@@@@@@ : ', res.DSdata.my_tikkling.info[0]);
+            await getTikkleData(res.DSdata.my_tikkling.info[0].tikkling_id);
+          }
         });
     } catch (error) {
       console.error('Error loading data:', error);
@@ -109,9 +115,11 @@ export const useMainViewModel = () => {
         return topActions.setStateAndError(res);
       })
       .then(async res => {
-        console.log('@@@@@@@ : ', res.DSdata.info[0]);
-
-        await getTikkleData();
+        //console.log('@@@@@@@ : ', res.DSdata.info[0]);
+        if (route_from) {
+          actions.setDetial_route(route_from);
+        }
+        await getTikkleData(route_tikkling_id);
         actions.setRoute_data(res.DSdata.info[0]);
       });
   }
@@ -120,9 +128,9 @@ export const useMainViewModel = () => {
    *  티클링의 받은 티클 데이터 가져오기
    * @param
    */
-  async function getTikkleData() {
+  async function getTikkleData(tikkling_id) {
     let tikkle_data = [];
-    await getRecivedTikkleData(route_tikkling_id)
+    await getRecivedTikkleData(tikkling_id)
       .then(async res => {
         return topActions.setStateAndError(res);
       })
@@ -134,7 +142,7 @@ export const useMainViewModel = () => {
         // console.log('#### : ', tikkle_data);
         let sum = 0;
         tikkle_data.map(item => {
-          if (item.state_id != 2) {
+          if (item.state_id === 2 || item.state_id === 1) {
             sum += item.quantity;
           }
         });
@@ -340,7 +348,7 @@ export const useMainViewModel = () => {
           console.log(res);
           return res.DSdata.short_link;
         })
-        .then(async res => {
+        .then(async () => {
           const backgroundBase64 = await convertImageToBase64();
           if (state.hasInstagramInstalled) {
             const res = await Share.shareSingle({

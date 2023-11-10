@@ -158,7 +158,7 @@ export const useStartTikklingViewModel = () => {
         product_option,
       )
         .then(res => {
-          console.log('po', product_option);
+          // console.log('po', product_option);
           return topActions.setStateAndError(res);
         })
         .then(() => {

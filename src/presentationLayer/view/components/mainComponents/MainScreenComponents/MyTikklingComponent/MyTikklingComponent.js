@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import Delete from 'src/assets/icons/Delete';
@@ -9,16 +9,24 @@ import {
   COLOR_ERROR,
   COLOR_SEPARATOR,
   COLOR_WHITE,
+  COLOR_PRIMARY,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
   B15,
   B20,
+  B12,
   EB,
+  M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import FirstHero from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/FirstHero';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {useNavigation} from '@react-navigation/core';
+import Tooltip from 'react-native-walkthrough-tooltip';
+import Profile from 'src/assets/icons/Profile';
+import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
+import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
 
 const MyTikklingComponent = () => {
   const {ref, state, actions} = useMainViewModel();
@@ -38,19 +46,44 @@ const MyTikklingComponent = () => {
     ],
   };
 
+  useState(() => {
+    console.log('hear');
+  }, [state.isInstagramButtonModalVisible]);
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <B20 customStyle={styles.headerText}>내 티클링</B20>
-        {/* <AnimatedButton
-          onPress={() => {
-            console.log('더보기', state.myTikklingData);
-            navigation.navigate('tikklingDetail', {
-              tikkling_id: state.myTikklingData.tikkling_id,
-            });
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
-          <B15>상세페이지</B15>
-        </AnimatedButton> */}
+          <B20 customStyle={styles.headerText}>내 티클링</B20>
+
+          <AnimatedButton
+            onPress={() => {
+              actions.setShowWhoParticipatedModal(true);
+            }}
+            style={{
+              borderColor: COLOR_PRIMARY,
+              borderWidth: 1,
+              padding: 1,
+              paddingLeft: 10,
+              paddingRight: 10,
+              borderRadius: 100,
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginHorizontal: 12,
+            }}>
+            {/* <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} /> */}
+            <Noti_GetTikkle width={16} height={16} fill={COLOR_PRIMARY} />
+            <B15 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
+              {state.tikkle_sum}
+            </B15>
+          </AnimatedButton>
+        </View>
+
         {state.myTikklingData.state_id == 1 ? (
           <AnimatedButton
             onPress={() => {
@@ -67,7 +100,7 @@ const MyTikklingComponent = () => {
             {/* {console.log('tikklingData', state.myTikklingData)} */}
           </AnimatedButton>
         ) : null}
-        {}
+        <InstaGuideModal />
         {state.dropdownVisible && (
           <Modal
             isVisible={state.dropdownVisible}

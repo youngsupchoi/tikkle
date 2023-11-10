@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Platform, TextInput} from 'react-native';
 import {
   EB,
@@ -6,6 +6,8 @@ import {
   B15,
   B,
   M11,
+  B12,
+  M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -16,7 +18,10 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
+  SPACING_2,
+  StatusBarHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import Share from 'react-native-share';
 import {Linking} from 'react-native';
@@ -40,6 +45,8 @@ import Delivery from 'src/assets/icons/Delivery';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import Location from 'src/assets/icons/Location';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import Tooltip from 'react-native-walkthrough-tooltip';
+import Help from 'src/assets/icons/Help.svg';
 
 //-------------------------------------------------------------------------
 
@@ -71,6 +78,8 @@ request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
 });
 
 const FirstHero = props => {
+  const [endTikklingTooltip, setEndTikklingTooltip] = useState(false);
+
   const {state, actions} = useMainViewModel();
   const navigation = useNavigation();
 
@@ -168,6 +177,69 @@ const FirstHero = props => {
                 <B22 customStyle={modalStyles.titleText}>
                   배송지를 수정할까요?
                 </B22>
+
+                <Tooltip
+                  topAdjustment={
+                    Platform.OS === 'android' ? -StatusBarHeight : 0
+                  }
+                  isVisible={endTikklingTooltip}
+                  content={
+                    <View style={{padding: 12, paddingVertical: 4}}>
+                      <View style={{}}>
+                        <B15 customStyle={{color: COLOR_PRIMARY}}>
+                          {'상품 교환'}
+                        </B15>
+                        {/* <AnimatedButton
+                          onPress={() => {
+                            //Linking.openURL('https://www.lifoli.co.kr');
+                          }}>
+                          <B12
+                            customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                            {'더보기'}
+                          </B12>
+                        </AnimatedButton> */}
+                      </View>
+                      <View>
+                        <View>
+                          <M11 customStyle={{}}>
+                            {
+                              '상품 교환을 신청하면 티클링이 종료되고 티클의 청약철회가 불가능해집니다.'
+                            }
+                          </M11>
+                        </View>
+                        <View>
+                          <M11>
+                            {
+                              '상품 교환 이전에 티클 구매자의 환불이 7일동안 가능합니다.'
+                            }
+                          </M11>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                          <M11>
+                            {
+                              '직접 상품을 구매하고 싶으시다면 환급을 신청해주세요.'
+                            }
+                          </M11>
+                        </View>
+                      </View>
+                    </View>
+                  }
+                  placement="top"
+                  animated={true}
+                  backgroundColor="rgba(0,0,0,0.1)"
+                  // backgroundColor="transparent"
+                  disableShadow={true}
+                  onClose={() => {
+                    setEndTikklingTooltip(false);
+                  }}>
+                  <AnimatedButton
+                    style={{marginLeft: 10}}
+                    onPress={() => {
+                      setEndTikklingTooltip(true);
+                    }}>
+                    <Help width={22} height={22} />
+                  </AnimatedButton>
+                </Tooltip>
               </View>
 
               <View style={modalStyles.contentSection}>
@@ -469,6 +541,9 @@ const modalStyles = StyleSheet.create({
   contentSection: {
     paddingHorizontal: 8,
     paddingBottom: 12,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   titleText: {
     fontFamily: EB,

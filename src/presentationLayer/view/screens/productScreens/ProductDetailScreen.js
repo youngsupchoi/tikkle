@@ -61,38 +61,6 @@ import ProductOptionsModal from 'src/presentationLayer/view/components/productCo
 import Warn from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/Warn';
 
 const containerWidth = windowWidth - SPACING_6;
-const Tab = createMaterialTopTabNavigator();
-const ProductInfo = () => {
-  const {state, actions} = useProductDetailViewModel();
-  return (
-    <View>
-      <B15 customStyle={{marginBottom: 4}}>{state.data.notice_info}</B15>
-    </View>
-  );
-};
-
-function TopTab() {
-  return (
-    <Tab.Navigator
-      initialRouteName="DetailView"
-      tabBarOptions={{
-        labelStyle: {fontSize: 12},
-        tabStyle: {width: 100},
-        style: {backgroundColor: 'powderblue'},
-      }}>
-      <Tab.Screen
-        name="DetailView"
-        component={DetailImages}
-        options={{title: '상세보기'}}
-      />
-      <Tab.Screen
-        name="ProductInfo"
-        component={ProductInfo}
-        options={{title: '주의사항'}}
-      />
-    </Tab.Navigator>
-  );
-}
 
 export default function ProductDetailScreen(route) {
   const {state, actions} = useProductDetailViewModel();
@@ -135,11 +103,11 @@ export default function ProductDetailScreen(route) {
 
   return (
     <View style={{paddingTop: 0, backgroundColor: backgroundColor}}>
-      {state.loading == true ? (
+      {state.loading == true || state.data == undefined ? (
         <GlobalLoader />
       ) : (
         <View>
-          {console.log('asdfasdfasd', state.selectedOptions)}
+          {/* {console.log('##', state.data)} */}
           <Animated.ScrollView
             scrollEventThrottle={16} // Ensures onScroll is called every 16ms
             onScroll={Animated.event(
@@ -241,7 +209,7 @@ export default function ProductDetailScreen(route) {
                 <M15
                 // customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}
                 >
-                  {state.data.price.toLocaleString()}
+                  {state.data.price}
                 </M15>
               </View>
 

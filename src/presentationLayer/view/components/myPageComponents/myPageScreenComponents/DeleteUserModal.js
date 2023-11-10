@@ -69,12 +69,13 @@ export default function DeleteUserModal() {
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
+              justifyContent: 'center',
             }}>
             <B22
               customStyle={{
                 color: COLOR_ERROR,
               }}>
-              정말 회원 탈퇴 하시겠어요?
+              정말 탈퇴하시겠어요?
             </B22>
           </View>
           <LottieView
@@ -96,12 +97,13 @@ export default function DeleteUserModal() {
               alignSelf: 'center',
               justifyContent: 'center',
             }}>
-            <View style={{paddingVertical: 0}}>
-              <B15>회원을 탈퇴하시면 Tikkle 서비스를 사용하실 수 없습니다!</B15>
-              <M11 customStyle={{margin: 5}}>
-                #탈퇴 후에도 결제, 상품권 정보 저장을 위해 일정기간 개인정보를
-                보관합니다. 동일한 번호로 재가입을 원하실 경우 Tikkle 운영측으로
-                문의 해주세요
+            <View style={{paddingVertical: 0, alignItems: 'center'}}>
+              <B15>탈퇴하시면 서비스를 사용하실 수 없어요.</B15>
+              <M11 customStyle={{margin: 0, marginTop: 24, lineHeight: 24}}>
+                탈퇴 후, 결제 및 상품권 정보를 일정기간 보관합니다.
+              </M11>
+              <M11 customStyle={{marginBottom: 12, lineHeight: 24}}>
+                동일 번호로 재가입 희망시 티클 운영측으로 문의해주세요.
               </M11>
             </View>
           </View>

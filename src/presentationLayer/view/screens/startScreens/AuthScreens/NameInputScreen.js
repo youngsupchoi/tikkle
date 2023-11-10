@@ -33,7 +33,7 @@ export default function SignUpScreen3() {
   const {ref, state, actions} = useStartViewModel();
 
   useEffect(() => {
-    setTimeout(() => ref.firstNameRef.current.focus(), 100);
+    setTimeout(() => ref.lastNameRef.current.focus(), 100);
   }, []);
 
   return (

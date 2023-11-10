@@ -18,28 +18,42 @@ import WebView from 'react-native-webview';
 export const useProductDetailViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useProductDetailViewState();
-
   const {topActions} = useTopViewModel();
 
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
   //const [exampleData, setExampleData] = useState([]);
 
   const navigation = useNavigation();
-  const route = useRoute();
-  const data = route.params[0];
-  const index = route.params[1];
-  const list = route.params[2];
-  // console.log('*************', list);
+
+  const temp_R = useRoute();
+  const route_product_id = temp_R.params?.product_id;
 
   const loadDetailData = async () => {
     await actions.setLoading(true);
-    await actions.setParse(data.parse);
-    await cutImage();
-    if (data.wishlisted) {
-      await actions.setWishlisted(true);
-    }
-    await isTikkling();
+    await getDetailData();
     await actions.setLoading(false);
+  };
+
+  const getDetailData = async () => {
+    await getProductInfoData(route_product_id)
+      .then(async res => {
+        // console.log('getProductInfoData : ', res);
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        actions.setData(res.DSdata.info);
+        //console.log('res.DSdata.info : ', res.DSdata.info);
+        return res.DSdata.info;
+      })
+      .then(async info => {
+        //console.log('info : ', info.images);
+        await cutImage(info.images);
+        if (info.wishlisted) {
+          await actions.setWishlisted(true);
+        }
+
+        await isTikkling();
+      });
   };
 
   /**
@@ -90,8 +104,6 @@ export const useProductDetailViewModel = () => {
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
       console.log('Delete : ', res);
-      list[index].wishlisted = false;
-      // console.log('$$$$$$$ : ', list[index]);
       return topActions.setStateAndError(res);
     });
   };
@@ -99,15 +111,13 @@ export const useProductDetailViewModel = () => {
   const createMyWishlistData_ = async productId => {
     await createMyWishlistData(productId).then(res => {
       console.log('Add : ', res);
-      list[index].wishlisted = true;
-      // console.log('$$$$$$$ : ', list[index]);
       return topActions.setStateAndError(res);
     });
   };
 
-  const cutImage = async () => {
+  const cutImage = async in_images => {
     // console.log('sdfsdfsdfsdf', data.images);
-    const images = JSON.parse(data.images);
+    const images = JSON.parse(in_images);
 
     /// 이미지 표시하기
     const components = [];
@@ -177,11 +187,9 @@ export const useProductDetailViewModel = () => {
     ref,
     state: {
       ...state,
-      data,
     },
     actions: {
       ...actions,
-
       deleteMyWishlistData_,
       createMyWishlistData_,
       navigation,

@@ -46,7 +46,7 @@ export async function createPhoneFriendData(phone_list) {
     };
   }
 
-  //console.log(response);
+  //console.log('DDDD', response);
 
   //------ control result & error of post_friend_phoneCheck-----------------------------------------//
 
@@ -62,7 +62,9 @@ export async function createPhoneFriendData(phone_list) {
 
   //------ call post_user_friend -------------------------------------------------------//
   let response2;
+  const noti_list = [];
 
+  //      detail_code: "11", 일때만 알림 날리도록 하기
   for (let i = 0; i < ids.length; i++) {
     let body2 = {friendId: ids[i].user_id};
     try {
@@ -77,11 +79,15 @@ export async function createPhoneFriendData(phone_list) {
         //  error
         throw new Error();
       }
+      if (response2.data.detail_code === '11') {
+        noti_list.push(ids[i].user_id);
+      }
     } catch (error) {
       console.log('cannot add friend id : ', ids[i].user_id);
     }
   }
-  //console.log('data : ', response2.data.data[0]);
+
+  //console.log('noti list : ', noti_list);
 
   //------ update token ---------------------------------------------------//
 
@@ -94,17 +100,19 @@ export async function createPhoneFriendData(phone_list) {
 
   //------ call post_notification_send -------------------------------------------------------//
 
-  const body3 = {receive_user_id: null, notification_type_id: 1};
+  for (let i = 0, len = noti_list.length; i < len; i++) {
+    const body3 = {receive_user_id: noti_list[i], notification_type_id: 1};
 
-  try {
-    const response3 = apiModel(
-      'post_notification_send',
-      authorization,
-      body3,
-      null,
-    );
-  } catch (error) {
-    console.log('send notification failed');
+    try {
+      const response3 = apiModel(
+        'post_notification_send',
+        authorization,
+        body3,
+        null,
+      );
+    } catch (error) {
+      console.log('send notification failed');
+    }
   }
 
   //------ return response ------------------------------------------------//

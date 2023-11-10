@@ -48,8 +48,10 @@ export default function SearchedProductItems({productData, category}) {
           {state.searchedData.map((item, index) => (
             <AnimatedButton
               onPress={() => {
-                const ret = [item, index, state.searchedData];
-                navigation.navigate('productDetail', ret);
+                // console.log('item : ', item);
+                // const ret = [item, index, state.searchedData];
+                const product_id = item.id;
+                navigation.navigate('productDetail', {product_id});
               }}
               style={[styles.itemContainer]}
               key={item.id}>

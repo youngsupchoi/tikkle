@@ -121,11 +121,12 @@ export default function ButtonComponent({
                   state.route_data.tikkling_id,
                 );
               } else {
+                actions.setIsInstagramButtonModalVisible(true);
                 //main에서 눌렀을 때
-                await actions.onInstagramShareButtonPressed(
-                  state.userData.name,
-                  state.myTikklingData.tikkling_id,
-                );
+                // await actions.onInstagramShareButtonPressed(
+                //   state.userData.name,
+                //   state.myTikklingData.tikkling_id,
+                // );
               }
             }}
             style={{

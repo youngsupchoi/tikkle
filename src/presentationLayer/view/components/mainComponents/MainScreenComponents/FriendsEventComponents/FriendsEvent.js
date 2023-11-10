@@ -22,7 +22,7 @@ const FriendsEvents = props => {
     내일: [],
   };
 
-  for (let i = 2; i <= 7; i++) {
+  for (let i = 1; i <= 7; i++) {
     const temp = moment().add(9, 'hours').add(i, 'days');
     const date = formatDate(temp);
     sortedData[date] = [];
@@ -52,7 +52,7 @@ const FriendsEvents = props => {
 
   friendsEventData.forEach(friend => {
     const diff = calculateDaysUntilNextBirthday(friend.birthday);
-    console.log('diff of', friend, '\n diff : ', diff);
+    //console.log('diff of', friend, '\n diff : ', diff);
     switch (diff) {
       case 0:
         sortedData['오늘'].push(friend);
@@ -62,12 +62,11 @@ const FriendsEvents = props => {
         break;
       default:
         if (diff < 7) {
-          const date = moment(friend.birthday);
-          const key = formatDate(date);
-          if (sortedData[key]) {
-            sortedData[key].push(friend);
+          const date = formatDate(moment().add(diff, 'days'));
+          if (sortedData[date]) {
+            sortedData[date] = sortedData[date].concat(friend);
           } else {
-            console.warn(`Key ${key} not found in sortedData`);
+            console.warn(`Key ${date} not found in sortedData`);
           }
         }
         break;
@@ -119,7 +118,6 @@ const FriendsEvents = props => {
                   key={fIndex}
                   style={{
                     flexDirection: 'row',
-                    // backgroundColor: 'red',
                     paddingHorizontal: 12,
                     marginLeft: 8,
                     marginBottom: 8,

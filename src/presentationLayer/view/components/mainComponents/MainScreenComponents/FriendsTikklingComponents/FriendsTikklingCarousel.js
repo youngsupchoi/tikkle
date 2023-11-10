@@ -42,7 +42,15 @@ export default function FriendsTikklingCarousel(data) {
   const renderFriendsTikkling = ({item}) => {
     return (
       <View style={styles.renderItemContainer}>
-        <View style={styles.renderItemHeaderContainer}>
+        <AnimatedButton
+          onPress={() => {
+            // console.log('press');
+            navigation.navigate('tikklingDetail', {
+              tikkling_id: item.tikkling_id,
+              from: true,
+            });
+          }}
+          style={styles.renderItemHeaderContainer}>
           <View
             style={{
               flexDirection: 'row',
@@ -57,7 +65,7 @@ export default function FriendsTikklingCarousel(data) {
             />
 
             <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
-              {item.user_name}
+              {item.user_name + '  '}
             </B15>
             <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
               {item.nick}
@@ -75,6 +83,7 @@ export default function FriendsTikklingCarousel(data) {
               // console.log('press');
               navigation.navigate('tikklingDetail', {
                 tikkling_id: item.tikkling_id,
+                from: true,
               });
             }}>
             <ArrowRight
@@ -85,9 +94,17 @@ export default function FriendsTikklingCarousel(data) {
               scale={0.85}
             />
           </AnimatedButton>
-        </View>
+        </AnimatedButton>
 
-        <View style={{padding: 0, paddingBottom: 0}}>
+        <AnimatedButton
+          onPress={() => {
+            // console.log('press');
+            navigation.navigate('tikklingDetail', {
+              tikkling_id: item.tikkling_id,
+              from: true,
+            });
+          }}
+          style={{padding: 0, paddingBottom: 0}}>
           <View
             style={{
               borderRadius: 12,
@@ -302,7 +319,7 @@ export default function FriendsTikklingCarousel(data) {
             showModal={showBuyModal === item.tikkling_id}
             onCloseModal={onCloseModal}
           />
-        </View>
+        </AnimatedButton>
       </View>
     );
   };
@@ -402,6 +419,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   renderItemHeaderContainer: {
+    // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

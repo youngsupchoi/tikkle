@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
 import {
   B15,
@@ -19,10 +19,14 @@ import Modal from 'react-native-modal';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import Location from 'src/assets/icons/Location';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
+import Tooltip from 'react-native-walkthrough-tooltip';
+import Help from 'src/assets/icons/Help.svg';
+
 export default function GoodsReceptionModal() {
   //-------------------------------------------------------------------------
   //토큰 가져오기
   const {state, actions} = useMainViewModel();
+  const [endTikklingTooltip, setEndTikklingTooltip] = useState(false);
 
   //--------------------------------------------------------------
 
@@ -41,6 +45,51 @@ export default function GoodsReceptionModal() {
         <View style={modalStyles.modalContent}>
           <View style={modalStyles.contentSection}>
             <B22 customStyle={modalStyles.titleText}>배송지를 수정할까요?</B22>
+
+            <Tooltip
+              topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
+              isVisible={endTikklingTooltip}
+              content={
+                <View style={{padding: 12, paddingVertical: 4}}>
+                  <View style={{}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>
+                      {'티클링 티켓'}
+                    </B15>
+                    <AnimatedButton
+                      onPress={() => {
+                        //Linking.openURL('https://www.lifoli.co.kr');
+                      }}>
+                      <B12 customStyle={{color: COLOR_GRAY}}>{'더보기'}</B12>
+                    </AnimatedButton>
+                  </View>
+                  <View style={{}}>
+                    <View>
+                      <M11>{'티클링 티켓은 티클링을 시작하는데 사용해요!'}</M11>
+                    </View>
+                    <View>
+                      <M15>
+                        {'티켓을 얻으려면 친구에게 티클을 선물해보세요'}
+                      </M15>
+                    </View>
+                  </View>
+                </View>
+              }
+              placement="bottom"
+              animated={true}
+              backgroundColor="rgba(0,0,0,0.1)"
+              // backgroundColor="transparent"
+              disableShadow={true}
+              onClose={() => {
+                setEndTikklingTooltip(false);
+              }}>
+              <AnimatedButton
+                style={{marginLeft: 10}}
+                onPress={() => {
+                  setEndTikklingTooltip(true);
+                }}>
+                <Help width={22} height={22} />
+              </AnimatedButton>
+            </Tooltip>
           </View>
 
           <View style={modalStyles.contentSection}>

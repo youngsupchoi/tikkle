@@ -56,20 +56,23 @@ class LocalNotificationService {
 
   showNotification = (id, title, message, data = {}, options = {}) => {
     // console.log('TEST : ', id, title, message, data, options);
-    PushNotification.localNotification({
-      // Android only Properties
-      ...this.buildAndroidNotification(id, title, message, data, options),
 
-      // IOS and Android properties
-      ...this.buildIOSNotification(id, title, message, data, options),
+    if (Platform.OS === 'ios') {
+      PushNotification.localNotification({
+        // Android only Properties
+        ...this.buildAndroidNotification(id, title, message, data, options),
 
-      // IOS and Android properties
-      title: title || '',
-      message: message || '',
-      playSound: options.playSound || false,
-      soundName: options.soundName || 'default',
-      userInteraction: false,
-    });
+        // IOS and Android properties
+        ...this.buildIOSNotification(id, title, message, data, options),
+
+        // IOS and Android properties
+        title: title || '',
+        message: message || '',
+        playSound: options.playSound || false,
+        soundName: options.soundName || 'default',
+        userInteraction: false,
+      });
+    }
   };
 
   buildAndroidNotification = (id, title, message, data = {}, options = {}) => {
@@ -78,8 +81,8 @@ class LocalNotificationService {
       channelId: 'fcm_fallback_notification_channel',
       id: id,
       authCancel: true,
-      // largeIcon: options.largeIcon || 'ic_launcher',
-      // smallIcon: '@drawable/ic_noti' || 'ic_notification',
+      // largeIcon: 'ic_launcher',
+      smallIcon: 'ic_launcher',
       bigText: message || '',
       subText: title || '',
       vibrate: options.vibrate || true,
