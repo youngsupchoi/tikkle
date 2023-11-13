@@ -2,7 +2,10 @@ import {Text, StyleSheet, Platform} from 'react-native';
 import React from 'react';
 import {textColor} from '../Colors/Colors';
 
-export const UNIQUE = 'Modak';
+//export const UNIQUE = 'Modak';
+
+export const UNIQUE = Platform.OS === 'ios' ? 'Modak' : 'Modak-Regular';
+
 export const H =
   Platform.OS === 'ios' ? 'AppleSDGothicNeoH00' : 'AppleSDGothicNeoH';
 export const EB =
