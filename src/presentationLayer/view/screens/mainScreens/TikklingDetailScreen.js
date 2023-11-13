@@ -145,16 +145,9 @@ export default function TikklingDetailScreen() {
                 <AnimatedButton
                   onPress={() => {
                     if (state.detial_route) {
-                      actions.navigation.goBack();
+                      navigation.goBack();
                     } else {
-                      actions.navigation.reset({
-                        index: 0,
-                        routes: [
-                          {
-                            name: 'main',
-                          },
-                        ],
-                      });
+                      navigation.navigate('main');
                     }
                   }}
                   style={{
