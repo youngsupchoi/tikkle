@@ -35,7 +35,7 @@ export default function Onboarding() {
 
   const handleNextPress = () => {
     const nextPage = currentPage + 1;
-    if (nextPage < 6) {
+    if (nextPage < 7) {
       scrollViewRef.current?.scrollTo({
         x: nextPage * windowWidth,
         y: 0,
