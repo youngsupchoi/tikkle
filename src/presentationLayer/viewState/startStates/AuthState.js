@@ -46,6 +46,8 @@ export const StartViewStateProvider = ({children}) => {
   const dayRef = useRef(null); // Ref for day input
   const userIdRef = useRef(null);
 
+  const [phoneLoading, setPhoneLoading] = useState(false);
+
   const ref = {
     inputRefs,
     firstNameRef,
@@ -77,6 +79,7 @@ export const StartViewStateProvider = ({children}) => {
     duplicationMessage,
     phoneInputButtonPressed,
     idInputButtonPressed,
+    phoneLoading,
   };
 
   const actions = {
@@ -100,6 +103,7 @@ export const StartViewStateProvider = ({children}) => {
     setDuplicationMessage,
     setPhoneInputButtonPressed,
     setIdInputButtonPressed,
+    setPhoneLoading,
   };
 
   return (
