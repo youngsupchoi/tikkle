@@ -24,8 +24,6 @@ export const FriendMainViewStateProvider = ({children}) => {
   const [getFriendData, setGetFriendData] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
   const [text_search, setText_search] = useState('');
-  const [showDetailModal, setShowDetailModal] = useState(false); //안써서 이상 일단 옮김
-  const [showBlockOption, setShowBlockOption] = useState(false); //안써서 이상 일단 옮김
   const [mode_friend, setMode_friend] = useState('unblock');
   const [isDropdownVisible_friend, setDropdownVisible_friend] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);

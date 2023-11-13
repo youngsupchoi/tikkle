@@ -59,7 +59,7 @@ import ArrowDown from 'src/assets/icons/ArrowDown';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
-  const [modalText, setModalText] = useState('친구 목록');
+  const [modalText, setModalText] = useState('차단 목록');
 
   useEffect(() => {
     actions.keyboard_friend();
@@ -76,11 +76,10 @@ export default function FriendsManagementScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Modal
-          avoidKeyboardDropdown
+        <ModalDropdown
           options={[modalText]}
           defaultIndex={0}
-          defaultValue={modalText}
+          defaultValue={'친구 목록'}
           onSelect={(index, value) => {
             if (value === '친구 목록') {
               setModalText('차단 목록');
