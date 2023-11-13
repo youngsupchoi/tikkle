@@ -89,7 +89,7 @@ const MyTikklingComponent = () => {
             onPress={() => {
               actions.setDropdownVisible(!state.dropdownVisible);
             }}
-            style={styles.animatedButton}>
+            style={styles.detail_button}>
             <Detail
               height={16}
               width={16}
@@ -103,7 +103,6 @@ const MyTikklingComponent = () => {
         <InstaGuideModal />
         {state.dropdownVisible && (
           <Modal
-            avoidKeyboard
             isVisible={state.dropdownVisible}
             swipeDirection={['up']}
             animationIn={'fadeIn'}
@@ -192,7 +191,8 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: EB,
   },
-  animatedButton: {
+  detail_button: {
+    backdropColor: 'red',
     padding: 10,
   },
   detail: {

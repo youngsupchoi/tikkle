@@ -44,7 +44,6 @@ export default function TikklingCancleModal({mode}) {
   return (
     <View>
       <Modal
-        avoidKeyboard
         isVisible={state.showCancelModal}
         backdropOpacity={0.5}
         onBackdropPress={() => actions.setShowEndModal(false)}
