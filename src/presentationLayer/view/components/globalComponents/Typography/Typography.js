@@ -2,7 +2,10 @@ import {Text, StyleSheet, Platform} from 'react-native';
 import React from 'react';
 import {textColor} from '../Colors/Colors';
 
-export const UNIQUE = 'CherryBombOne-Regular';
+//export const UNIQUE = 'Modak';
+
+export const UNIQUE = Platform.OS === 'ios' ? 'Modak' : 'Modak-Regular';
+
 export const H =
   Platform.OS === 'ios' ? 'AppleSDGothicNeoH00' : 'AppleSDGothicNeoH';
 export const EB =
@@ -33,6 +36,21 @@ export const UNIQUE22 = ({
       ellipsizeMode={ellipsizeMode}
       numberOfLines={numberOfLines}
       style={[styles.UNIQUE22, customStyle]}>
+      {children}
+    </Text>
+  );
+};
+export const UNIQUE27 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.UNIQUE27, customStyle]}>
       {children}
     </Text>
   );
@@ -481,6 +499,12 @@ const styles = StyleSheet.create({
     color: textColor,
     fontSize: 34,
     lineHeight: 41,
+  },
+  UNIQUE27: {
+    fontFamily: UNIQUE,
+    color: textColor,
+    fontSize: 27,
+    lineHeight: 32,
   },
   UNIQUE22: {
     fontFamily: UNIQUE,

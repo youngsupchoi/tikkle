@@ -16,6 +16,8 @@ import {
   M15,
   B12,
   UNIQUE22,
+  UNIQUE34,
+  UNIQUE27,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
@@ -38,7 +40,16 @@ export default function HomeHeader(props) {
   return (
     <View style={styles.headerContainer}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <UNIQUE22>TIKKLE</UNIQUE22>
+        <UNIQUE27
+          customStyle={{paddingTop: 13, paddingLeft: 2, color: COLOR_GRAY}}>
+          TIKKLE
+        </UNIQUE27>
+        {/* <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 2}}>T</UNIQUE27>
+        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>I</UNIQUE27>
+        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>K</UNIQUE27>
+        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>K</UNIQUE27>
+        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>L</UNIQUE27>
+        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>E</UNIQUE27> */}
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');

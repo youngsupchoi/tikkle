@@ -89,7 +89,7 @@ const MyTikklingComponent = () => {
             onPress={() => {
               actions.setDropdownVisible(!state.dropdownVisible);
             }}
-            style={styles.animatedButton}>
+            style={styles.detail_button}>
             <Detail
               height={16}
               width={16}
@@ -103,7 +103,6 @@ const MyTikklingComponent = () => {
         <InstaGuideModal />
         {state.dropdownVisible && (
           <Modal
-            avoidKeyboard
             isVisible={state.dropdownVisible}
             swipeDirection={['up']}
             animationIn={'fadeIn'}
@@ -192,7 +191,8 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: EB,
   },
-  animatedButton: {
+  detail_button: {
+    backdropColor: 'red',
     padding: 10,
   },
   detail: {
@@ -207,18 +207,19 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: 48,
     left: 170,
-    // zIndex: 20,
     borderRadius: 12,
     // elevation: 3,
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   // iOS용 그림자 위치
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.2, // iOS용 그림자 투명도
-    // shadowRadius: 3, // iOS용 그림자 반경
+    shadowColor: '#000',
+    shadowOffset: {
+      // iOS용 그림자 위치
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2, // iOS용 그림자 투명도
+    shadowRadius: 3, // iOS용 그림자 반경
     width: 120,
+    strokeWidth: 10,
+    stroke: 'red',
   },
   dropdownButton: {
     flexDirection: 'row',
