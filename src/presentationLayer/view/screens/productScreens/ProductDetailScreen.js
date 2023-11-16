@@ -167,7 +167,8 @@ export default function ProductDetailScreen(route) {
               style={[
                 {
                   width: windowWidth,
-                  height: (windowWidth * 2) / 3,
+                  height: windowWidth,
+                  // height: (windowWidth * 2) / 3,
                 },
                 animatedThumbnailStyle,
               ]}
