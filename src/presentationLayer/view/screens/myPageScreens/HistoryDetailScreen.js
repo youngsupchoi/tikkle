@@ -226,7 +226,7 @@ export default function HistoryDetailScreen(route) {
                   }}
                   style={{
                     width: windowWidth - 64,
-                    height: ((windowWidth - 64) / 3) * 2,
+                    height: windowWidth - 64,
                     borderRadius: 16,
                     borderColor: COLOR_SEPARATOR,
                     borderWidth: 1,
@@ -248,8 +248,7 @@ export default function HistoryDetailScreen(route) {
                         uri: route_data.thumbnail_image,
                       }}
                       style={{
-                        width: '100%',
-                        height: '100%',
+                        flex: 1,
                         borderRadius: 16,
                       }}
                     />
