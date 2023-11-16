@@ -73,6 +73,7 @@ import WhoParticipated from 'src/presentationLayer/view/components/mainComponent
 import Profile from 'src/assets/icons/Profile';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Delivery from 'src/assets/icons/Delivery';
+import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
 
 export default function TikklingDetailScreen() {
   const navigation = useNavigation();
@@ -511,6 +512,11 @@ export default function TikklingDetailScreen() {
             data={state.list_data}
             showModal={state.showWhoParticipatedModal}
             setShowModal={actions.setShowWhoParticipatedModal}
+          />
+
+          <InstaGuideModal
+            name={state.route_data.user_name}
+            tikkling_id={state.route_data.tikkling_id}
           />
         </View>
       ) : (

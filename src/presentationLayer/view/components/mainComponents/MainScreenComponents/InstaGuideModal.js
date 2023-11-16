@@ -46,7 +46,7 @@ import InstaGuideComponent3 from 'src/presentationLayer/view/components/mainComp
 import InstaGuideComponent4 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent4';
 import InstaGuideComponentForIos from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponentForIos';
 
-const InstaGuideModal = () => {
+const InstaGuideModal = ({name, tikkling_id}) => {
   const {state, actions} = useMainViewModel();
   const [currentPage, setCurrentPage] = useState(0);
   const [currentDetailText, setCurrentDetailText] = useState(0);
@@ -205,10 +205,8 @@ const InstaGuideModal = () => {
               // console.log(topState, topActions.hideModal)
               //topActions.hideModal
               actions.setIsInstagramButtonModalVisible(false);
-              actions.onInstagramShareButtonPressed(
-                state.userData.name,
-                state.myTikklingData.tikkling_id,
-              );
+
+              actions.onInstagramShareButtonPressed(name, tikkling_id);
             }}
             style={{
               // position: 'absolute',

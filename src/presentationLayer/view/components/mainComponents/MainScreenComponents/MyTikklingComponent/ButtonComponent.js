@@ -109,25 +109,20 @@ export default function ButtonComponent({
         <View style={{flex: 2, flexDirection: 'row', marginLeft: 8}}>
           <AnimatedButton
             onPress={async () => {
-              if (FromDetail == true) {
-                //detail에서 눌렀을 때
-                console.log(
-                  'detail에서 눌렀을 때',
-                  state.route_data.user_name,
-                  state.route_data.tikkling_id,
-                );
-                await actions.onInstagramShareButtonPressed(
-                  state.route_data.user_name,
-                  state.route_data.tikkling_id,
-                );
-              } else {
-                actions.setIsInstagramButtonModalVisible(true);
-                //main에서 눌렀을 때
-                // await actions.onInstagramShareButtonPressed(
-                //   state.userData.name,
-                //   state.myTikklingData.tikkling_id,
-                // );
-              }
+              // if (FromDetail == true) {
+              //   //detail에서 눌렀을 때
+              //   // console.log(
+              //   //   'detail에서 눌렀을 때',
+              //   //   state.route_data.user_name,
+              //   //   state.route_data.tikkling_id,
+              //   // );
+              //   await actions.onInstagramShareButtonPressed(
+              //     state.route_data.user_name,
+              //     state.route_data.tikkling_id,
+              //   );
+              // } else {
+              actions.setIsInstagramButtonModalVisible(true);
+              // }
             }}
             style={{
               flex: 1,
