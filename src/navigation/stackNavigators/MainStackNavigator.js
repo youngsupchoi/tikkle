@@ -332,6 +332,7 @@ export default function MainStackNavigator() {
           // transitionSpec: customTransitionSpec,
         }}>
         <MainStack.Screen name="splash" component={SplashScreen} />
+
         <MainStack.Screen name="SignUpNavigator" component={SignUpNavigator} />
         <MainStack.Screen
           name="main"
