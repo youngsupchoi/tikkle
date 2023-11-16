@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    // backgroundColor: 'blue',
+    backgroundColor: COLOR_WHITE,
     alignSelf: 'center',
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 1,
