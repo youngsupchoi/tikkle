@@ -33,6 +33,9 @@ export default function StopModal() {
       onBackdropPress={() => {
         actions.toggleStopModal();
       }}
+      onBackButtonPress={() => {
+        actions.toggleStopModal();
+      }}
       transparent={true}>
       <View
         style={[

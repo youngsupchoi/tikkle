@@ -207,6 +207,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         onSwipeComplete={onCloseModal}
         swipeDirection={'down'}
         onBackdropPress={onCloseModal}
+        onBackButtonPress={onCloseModal}
         isVisible={showModal}
         backdropOpacity={0.5}
         style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.

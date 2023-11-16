@@ -33,6 +33,9 @@ export default function CancelModal() {
       onBackdropPress={() => {
         actions.toggleCancelModal();
       }}
+      onBackButtonPress={() => {
+        actions.toggleCancelModal();
+      }}
       transparent={true}>
       <View
         style={[

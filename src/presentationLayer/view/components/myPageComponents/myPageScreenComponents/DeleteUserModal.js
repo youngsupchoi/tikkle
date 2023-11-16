@@ -32,6 +32,9 @@ export default function DeleteUserModal() {
       onBackdropPress={() => {
         actions.setUserDeleteModal(!state.userDeleteModal);
       }}
+      onBackButtonPress={() => {
+        actions.setUserDeleteModal(!state.userDeleteModal);
+      }}
       transparent={true}>
       <View
         style={[

@@ -13,6 +13,7 @@ export default function PostCodeModal(props) {
         <Modal
           avoidKeyboard
           onBackdropPress={() => actions.setShowPostCodeModal(false)}
+          onBackButtonPress={() => actions.setShowPostCodeModal(false)}
           isVisible={state.showPostCodeModal}
           backdropOpacity={0.5}>
           <View

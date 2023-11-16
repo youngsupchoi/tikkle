@@ -37,6 +37,7 @@ export default function ProductFilter() {
         avoidKeyboard
         // onSwipeComplete={() => actions.setShowFilter(false)}
         // swipeDirection={'down'}
+        onBackButtonPress={() => actions.setShowFilter(false)}
         onBackdropPress={() => actions.setShowFilter(false)}
         isVisible={state.showFilter}
         backdropOpacity={0.5}

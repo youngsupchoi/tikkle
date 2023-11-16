@@ -116,6 +116,7 @@ const MyTikklingComponent = () => {
             backdropColor="transparent"
             style={{position: 'absolute', top: 60, right: 20}}
             onBackdropPress={() => actions.hideDropdown()}
+            onBackButtonPress={() => actions.hideDropdown()}
             transparent={true}>
             <View style={styles.dropdown}>
               <AnimatedButton

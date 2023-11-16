@@ -30,6 +30,9 @@ export default function LogoutModal() {
       onBackdropPress={() => {
         actions.setLogoutModal(!state.logoutModal);
       }}
+      onBackButtonPress={() => {
+        actions.setLogoutModal(!state.logoutModal);
+      }}
       transparent={true}>
       <View
         style={[

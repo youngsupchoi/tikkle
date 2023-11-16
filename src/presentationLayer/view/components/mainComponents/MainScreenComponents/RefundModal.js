@@ -51,6 +51,7 @@ export default function RefundModal() {
         // onSwipeComplete={() => actions.setShowRefundModal(false)}
         // swipeDirection={'down'}
         onBackdropPress={() => actions.setShowRefundModal(false)}
+        onBackButtonPress={() => actions.setShowRefundModal(false)}
         backdropOpacity={0.5}
         style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.
         animationIn="slideInUp" // 이 부분이 추가되었습니다.
