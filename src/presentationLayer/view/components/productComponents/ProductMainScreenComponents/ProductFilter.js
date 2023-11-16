@@ -23,10 +23,12 @@ export default function ProductFilter() {
 
   const priceRanges = [
     {label: '전체가격', min: 0, max: null},
-    {label: '5천~5만', min: 5000, max: 50000},
+    {label: '0~5만원', min: 0, max: 50000},
     {label: '5만~10만', min: 50000, max: 100000},
-    {label: '10만~30만', min: 100000, max: 300000},
-    {label: '30만~100만', min: 300000, max: 1000000},
+    {label: '10만~20만', min: 100000, max: 200000},
+    {label: '20만~30만', min: 200000, max: 300000},
+    {label: '30만~50만', min: 300000, max: 500000},
+    {label: '50만~100만', min: 500000, max: 1000000},
     {label: '100만 이상', min: 1000000, max: 999999999},
   ];
   return (
