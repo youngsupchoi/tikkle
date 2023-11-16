@@ -14,6 +14,7 @@ import {
   B20,
   M11,
   M15,
+  M,
   EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -87,16 +88,30 @@ export default function InquireScreen() {
               </View>
             </View>
 
-            <View style={styles.titleBox}>
-              <View style={styles.searchBar}>
-                <TextInput
-                  placeholder="문의 제목을 입력해주세요."
-                  placeholderTextColor={COLOR_GRAY}
-                  onChangeText={value => actions.setTitleText(value)}
-                  value={state.titleText}
-                  style={{lineHeight: 36}}
-                />
-              </View>
+            <View
+              style={{
+                padding: 12,
+                borderRadius: 8,
+                marginTop: 0,
+                backgroundColor: COLOR_WHITE,
+                borderRadius: 12,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
+                width: windowWidth - 32,
+                marginLeft: 16,
+              }}>
+              <TextInput
+                multiline
+                style={{
+                  color: COLOR_BLACK,
+                  fontFamily: M,
+                  fontSize: 15,
+                  // lineHeight: 24,
+                }}
+                onChangeText={value => actions.setTitleText(value)}
+                placeholder="문의 제목을 입력해주세요."
+                placeholderTextColor={COLOR_GRAY}
+              />
             </View>
 
             <View style={styles.small_header}>
@@ -105,21 +120,36 @@ export default function InquireScreen() {
               </View>
             </View>
 
-            <View style={styles.contentBox}>
-              <View style={styles.searchBar}>
-                <TextInput
-                  multiline={true}
-                  placeholder="문의 내용을 입력해주세요."
-                  placeholderTextColor={COLOR_GRAY}
-                  onChangeText={value => actions.setContentText(value)}
-                  value={state.contentText}
-                  style={{lineHeight: 32}}
-                />
-              </View>
+            <View
+              style={{
+                padding: 12,
+                borderRadius: 8,
+                marginTop: 0,
+                backgroundColor: COLOR_WHITE,
+                borderRadius: 12,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
+                width: windowWidth - 32,
+                marginLeft: 16,
+              }}>
+              <TextInput
+                multiline
+                style={{
+                  color: COLOR_BLACK,
+                  fontFamily: M,
+                  fontSize: 15,
+                  // lineHeight: 24,
+                }}
+                onChangeText={value => actions.setContentText(value)}
+                placeholder="문의 내용을 입력해주세요."
+                placeholderTextColor={COLOR_GRAY}
+              />
             </View>
+            <View style={{height: 100}} />
           </View>
         )}
       </ScrollView>
+
       <View style={{position: 'absolute', bottom: 24, left: 16, right: 16}}>
         <AnimatedButton
           onPress={() => {
@@ -159,19 +189,30 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   titleBox: {
+    backgroundColor: COLOR_WHITE,
+    borderRadius: 12,
+    borderColor: COLOR_SEPARATOR,
+    borderWidth: 1,
     marginTop: 0,
     flexDirection: 'row',
     alignSelf: 'center',
     width: windowWidth - 32,
     paddingBottom: 15,
-    justifyContent: 'space-between',
+    height: 300,
   },
   contentBox: {
     marginTop: 0,
     flexDirection: 'row',
     alignSelf: 'center',
-    width: windowWidth - 32,
+    flex: 1,
     justifyContent: 'space-between',
+  },
+  searchBar1: {
+    backgroundColor: COLOR_WHITE,
+    padding: 0,
+    margin: 0,
+    // paddingHorizontal: 12,
+    lineHeight: 20,
   },
   searchBar: {
     backgroundColor: COLOR_WHITE,
