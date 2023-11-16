@@ -37,6 +37,7 @@ export default function GoodsReceptionModal() {
         onSwipeComplete={() => actions.setShowEndModal(false)}
         swipeDirection={'down'}
         onBackdropPress={() => actions.setShowEndModal(false)}
+        onBackButtonPress={() => actions.setShowEndModal(false)}
         backdropOpacity={0.5}
         style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.
         animationIn="slideInUp" // 이 부분이 추가되었습니다.

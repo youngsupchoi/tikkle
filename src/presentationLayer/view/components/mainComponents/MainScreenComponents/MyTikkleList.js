@@ -180,7 +180,8 @@ const MovingCircle = ({size, maxX, maxY, image, name, message, created_at}) => {
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(false);
-        }}>
+        }}
+        onBackButtonPress={() => setModalVisible(false)}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <AnimatedButton

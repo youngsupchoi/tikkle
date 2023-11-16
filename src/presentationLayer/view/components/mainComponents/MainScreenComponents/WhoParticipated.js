@@ -44,6 +44,7 @@ export default function WhoParticipated({data, showModal, setShowModal}) {
         onSwipeComplete={() => setShowModal(false)}
         swipeDirection={'down'}
         onBackdropPress={() => setShowModal(false)}
+        onBackButtonPress={() => setShowModal(false)}
         isVisible={showModal}
         backdropOpacity={0.5}
         style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.

@@ -44,6 +44,7 @@ export default function TikklingCancleModal({mode}) {
   return (
     <View>
       <Modal
+        onBackButtonPress={() => actions.setShowEndModal(false)}
         isVisible={state.showCancelModal}
         backdropOpacity={0.5}
         onBackdropPress={() => actions.setShowEndModal(false)}

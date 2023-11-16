@@ -122,6 +122,7 @@ export default function ProductOptionsModal({
         onSwipeComplete={() => setShowModal(false)}
         swipeDirection={'down'}
         onBackdropPress={() => setShowModal(false)}
+        onBackButtonPress={() => setShowModal(false)}
         isVisible={showModal}
         backdropOpacity={0.5}
         style={{justifyContent: 'flex-end', margin: 0}}

@@ -32,6 +32,9 @@ export default function RefundModal() {
       onBackdropPress={() => {
         actions.setRefundModal(!state.refundModal);
       }}
+      onBackButtonPress={() => {
+        actions.setRefundModal(!state.refundModal);
+      }}
       transparent={true}>
       <View
         style={[
