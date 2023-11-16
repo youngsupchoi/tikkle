@@ -70,6 +70,23 @@ export const UNIQUE34 = ({
     </Text>
   );
 };
+
+export const UNIQUE50 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.UNIQUE50, customStyle]}>
+      {children}
+    </Text>
+  );
+};
+
 export const EB34 = ({
   children,
   customStyle,
@@ -499,6 +516,12 @@ const styles = StyleSheet.create({
     color: textColor,
     fontSize: 34,
     lineHeight: 41,
+  },
+  UNIQUE50: {
+    fontFamily: UNIQUE,
+    color: textColor,
+    fontSize: 50,
+    lineHeight: 60,
   },
   UNIQUE27: {
     fontFamily: UNIQUE,

@@ -107,15 +107,7 @@ export default function App() {
             <TopSnackbar />
           </View>
           {Platform.OS === 'ios' ? (
-            <SafeAreaView
-              style={{
-                width: '100%',
-                height: '100%',
-                //backgroundColor: 'blue',
-                backgroundColor: backgroundColor,
-              }}>
-              <MainStackNavigator />
-            </SafeAreaView>
+            <MainStackNavigator />
           ) : (
             <View
               style={{
