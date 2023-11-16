@@ -202,7 +202,8 @@ const resolveDynamicLink = async shortLink => {
 
 const config = {
   screens: {
-    SignUpNavigator: {screens: {splash: '/tikkling/:tikkling_id'}},
+    splash: '/tikkling/:tikkling_id',
+    // SignUpNavigator: {screens: {splash: '/tikkling/:tikkling_id'}},
     main: '/main', // 매핑되는 URL 경로
     startTikkling: '/start-tikkling/:id/:name', // 매핑되는 URL 경로
     productDetail: '/product-detail', // 매핑되는 URL 경로
