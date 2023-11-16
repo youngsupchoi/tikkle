@@ -26,7 +26,10 @@ import {
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {PaperProvider} from 'react-native-paper';
-import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  COLOR_PRIMARY,
+  backgroundColor,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   B20,
   L,
