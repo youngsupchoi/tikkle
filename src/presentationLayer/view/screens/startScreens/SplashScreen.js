@@ -5,9 +5,10 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 // import {SplashLogo} from '../../components/Splash/SplashLogo';
 import {MainContainer} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {SplashLogo} from 'src/presentationLayer/view/components/startComponents/SplashComponents/SplashLogo';
-
 import {loginTokenData} from 'src/dataLayer/DataSource/Auth/LoginTokenData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import {COLOR_PRIMARY} from '../../components/globalComponents/Colors/Colors';
+import {SafeAreaView} from 'react-native';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
@@ -27,8 +28,16 @@ export default function SplashScreen() {
   }, []);
 
   return (
-    <MainContainer>
-      <SplashLogo />
-    </MainContainer>
+    <SafeAreaView
+      style={{
+        width: '100%',
+        height: '100%',
+        //backgroundColor: 'blue',
+        backgroundColor: COLOR_PRIMARY,
+      }}>
+      <MainContainer>
+        <SplashLogo />
+      </MainContainer>
+    </SafeAreaView>
   );
 }
