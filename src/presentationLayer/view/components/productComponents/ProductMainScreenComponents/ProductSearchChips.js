@@ -61,7 +61,7 @@ export default function ProductSearchChips(props) {
       <B15>정렬 선택</B15>
       <ScrollView
         style={{
-          backgroundColor: backgroundColor,
+          backgroundColor: COLOR_WHITE,
           // paddingBottom: 8,
           // elevation: 1,
         }}

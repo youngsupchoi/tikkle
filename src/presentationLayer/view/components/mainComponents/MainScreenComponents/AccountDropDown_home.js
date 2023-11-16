@@ -67,11 +67,13 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.03,
   },
   dropdownButton: {
-    width: windowWidth * 0.3,
+    flex: 1,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal: 0,
+    marginHorizontal: 10,
     borderColor: COLOR_BLACK,
+    justifyContent: 'center',
   },
   separator: {
     backgroundColor: COLOR_SEPARATOR,
