@@ -100,7 +100,10 @@ const MyTikklingComponent = () => {
             {/* {console.log('tikklingData', state.myTikklingData)} */}
           </AnimatedButton>
         ) : null}
-        <InstaGuideModal />
+        <InstaGuideModal
+          name={state.userData.name}
+          tikkling_id={state.myTikklingData.tikkling_id}
+        />
         {state.dropdownVisible && (
           <Modal
             isVisible={state.dropdownVisible}
