@@ -7,22 +7,29 @@ import {MainContainer} from 'src/presentationLayer/view/components/globalCompone
 import {SplashLogo} from 'src/presentationLayer/view/components/startComponents/SplashComponents/SplashLogo';
 import {loginTokenData} from 'src/dataLayer/DataSource/Auth/LoginTokenData';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-import {COLOR_PRIMARY} from '../../components/globalComponents/Colors/Colors';
+import {
+  COLOR_PRIMARY,
+  backgroundColor,
+} from '../../components/globalComponents/Colors/Colors';
 import {SafeAreaView} from 'react-native';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const {topActions} = useTopViewModel();
+  SystemNavigationBar.setNavigationColor(COLOR_PRIMARY);
 
   useEffect(() => {
     loginTokenData().then(res => {
       if (res.DScode === 0) {
         // console.log('@@@@@@login@@@@@@');
         navigation.reset({routes: [{name: 'main'}]});
+        SystemNavigationBar.setNavigationColor(backgroundColor);
       } else {
         // console.log('@@@@@@signup@@@@@@');
         navigation.reset({routes: [{name: 'signup1'}]});
+        SystemNavigationBar.setNavigationColor(backgroundColor);
       }
     });
   }, []);
