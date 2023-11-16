@@ -34,6 +34,7 @@ import InquireScreen from 'src/presentationLayer/view/screens/myPageScreens/Inqu
 import SentTikkleDetailScreen from 'src/presentationLayer/view/screens/myPageScreens/SentTikkleDetailScreen';
 import EditProfileScreen from 'src/presentationLayer/view/screens/myPageScreens/EditProfileScreen';
 import HistoryDetailScreen from 'src/presentationLayer/view/screens/myPageScreens/HistoryDetailScreen';
+import DeliveryScreen from 'src/presentationLayer/view/screens/myPageScreens/DeliveryScreen';
 import {Safe} from 'src/presentationLayer/view/components/globalComponents/Containers/Safe';
 
 const BottomTab = createBottomTabNavigator();
@@ -81,6 +82,8 @@ function MyPageNavigator() {
             name="HistoryDetail"
             component={HistoryDetailScreen}
           />
+          <MyPageStack.Screen name="Delivery" component={DeliveryScreen} />
+
           <MyPageStack.Screen name="Inquire" component={InquireScreen} />
           <MyPageStack.Screen
             name="SentTikkleDetail"
