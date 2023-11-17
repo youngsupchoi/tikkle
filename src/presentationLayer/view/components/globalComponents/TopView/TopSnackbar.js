@@ -134,9 +134,11 @@ const TopSnackbar = () => {
               alignItems: 'center',
             }}>
             {icon}
-            <B15 customStyle={{marginLeft: 12, color: textColor}}>
-              {snackbarMessage}
-            </B15>
+            <View style={{width: '95%'}}>
+              <B15 customStyle={{marginLeft: 12, color: textColor}}>
+                {snackbarMessage}
+              </B15>
+            </View>
           </AnimatedButton>
         </Animated.View>
       ) : null}
