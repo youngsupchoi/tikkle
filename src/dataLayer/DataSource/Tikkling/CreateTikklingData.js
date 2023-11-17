@@ -82,7 +82,7 @@ export async function createTikklingData(
         DScode: 2,
         DSdata: null,
         DSmessage:
-          '티클링 티켓의 개수가 부족해요. 선물을 보내서 티클링 티켓을 받아보세요',
+          '티클링 티켓의 개수가 부족해요.\n선물을 보내서 티클링 티켓을 받아보세요',
       };
     } else if (response.data.detail_code === '04') {
       return {
