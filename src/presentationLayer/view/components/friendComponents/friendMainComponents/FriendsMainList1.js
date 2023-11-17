@@ -55,7 +55,7 @@ export default function FriendsManagementSearch1() {
             }}
           />
           <View style={{marginLeft: 12}}>
-            <B15>@{nick}</B15>
+            <B15>{'  ' + nick}</B15>
             <M11 customStyle={{color: COLOR_GRAY}}>{name}</M11>
           </View>
         </View>
