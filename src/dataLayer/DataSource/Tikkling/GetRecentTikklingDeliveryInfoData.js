@@ -33,10 +33,6 @@ export async function GetRecentTikklingDeliveryInfoData() {
       '0',
     );
 
-    console.log(
-      '🚀 ~ file: GetRecentTikklingDeliveryInfoData.js:30 ~ GetRecentTikklingDeliveryInfoData ~ response:',
-      response,
-    );
     if (!response) {
       //  error
       throw new Error();

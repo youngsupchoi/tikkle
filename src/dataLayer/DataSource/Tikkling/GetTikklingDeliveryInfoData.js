@@ -32,18 +32,6 @@ export async function GetTikklingDeliveryInfoData(tikkling_id) {
       null,
       tikkling_id,
     );
-    // console.log(
-    //   '🚀 ~ file: GetTikklingDeliveryInfoData.js:70 ~ GetTikklingDeliveryInfoData ~ response.data:',
-    //   response,
-    // );
-    // console.log(
-    //   '🚀 ~ file: GetTikklingDeliveryInfoData.js:70 ~ GetTikklingDeliveryInfoData ~ response.data:',
-    //   response,
-    // );
-    // console.log(
-    //   '🚀 ~ file: GetTikklingDeliveryInfoData.js:70 ~ GetTikklingDeliveryInfoData ~ response.data:',
-    //   response,
-    // );
 
     if (!response) {
       //  error
@@ -96,6 +84,6 @@ export async function GetTikklingDeliveryInfoData(tikkling_id) {
   return {
     DScode: 0,
     DSdata: {info: info},
-    DSmessage: '티클링이 진행중이에요.',
+    DSmessage: '성공적으로 티클링에 대한 배송내역을 불러왔습니다.',
   };
 }
