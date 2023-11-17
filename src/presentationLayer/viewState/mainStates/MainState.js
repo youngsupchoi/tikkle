@@ -28,6 +28,7 @@ export const MainViewStateProvider = ({children}) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(null);
   const [showPostCodeModal, setShowPostCodeModal] = useState(false);
+  //FIXME: 사용처가 없는 state
   const [showEndTikklingModal, setShowEndTikklingModal] = useState(false);
   const [showWhoParticipatedTooltip, setShowWhoParticipatedTooltip] =
     useState(false);
@@ -48,6 +49,7 @@ export const MainViewStateProvider = ({children}) => {
 
   const [bankDropDownVisible_home, setBankDropDownVisible_home] =
     useState(false);
+  //FIXME: 사용처가 없는 state
   const [instagramButtonPressed, setInstagramButtonPressed] = useState(false);
   const [isInstagramButtonModalVisible, setIsInstagramButtonModalVisible] =
     useState(false);
@@ -76,7 +78,7 @@ export const MainViewStateProvider = ({children}) => {
   const [route_data, setRoute_data] = useState([]);
 
   const [detailLoading, setDetailLoading] = useState(false);
-
+  //FIXME: 사용처가 없는 state
   const [detail_buymodal, setDetail_buymodal] = useState(false);
 
   const [contactsData, setContactsData] = useState([]);
