@@ -106,6 +106,12 @@ export default function ProfileScreen() {
                   />
                   <B20 customStyle={{marginLeft: 12}}>내 정보</B20>
                 </View>
+                <ArrowRight
+                  width={24}
+                  height={24}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1.5}
+                />
               </View>
               <View
                 style={{
