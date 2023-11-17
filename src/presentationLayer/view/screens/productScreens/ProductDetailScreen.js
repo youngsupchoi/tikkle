@@ -59,6 +59,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ProductOptionsModal from 'src/presentationLayer/view/components/productComponents/ProductDetailScreenComponents/ProductOptionsModal';
 import Warn from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/Warn';
+import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 
 const containerWidth = windowWidth - SPACING_6;
 
@@ -273,6 +274,7 @@ export default function ProductDetailScreen(route) {
               }}>
               {selected === '상세정보' ? <DetailImages /> : <Warn />}
             </View>
+            <Footer />
           </Animated.ScrollView>
           <View
             style={{
