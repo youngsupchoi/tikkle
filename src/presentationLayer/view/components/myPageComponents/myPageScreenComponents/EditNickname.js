@@ -29,7 +29,7 @@ export default function EditNickname() {
   return (
     <View style={{marginHorizontal: 24, marginTop: 24}}>
       <View style={styles.headerContainer}>
-        <B17>닉네임 변경</B17>
+        <B17>id 변경</B17>
         <AnimatedButton
           style={{paddingRight: 50}}
           onPress={() => actions.changeNick()}>

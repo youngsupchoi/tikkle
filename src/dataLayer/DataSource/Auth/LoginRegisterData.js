@@ -42,7 +42,7 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
     } else if (response.data.detail_code === '02') {
       message = '생일의 형식이 올바르지 않아요.';
     } else if (response.data.detail_code === '04') {
-      message = '닉네임의 형식이 올바르지 않아요.';
+      message = 'id의 형식이 올바르지 않아요.';
     } else if (response.data.detail_code === '05') {
       message = '전화 번호의 형식이 올바르지 않아요.';
     } else if (response.data.detail_code === '06') {

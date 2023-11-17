@@ -58,7 +58,7 @@ export async function updateMyNickData(nick) {
       DScode: 1,
       DSdata: null,
       DSmessage:
-        '입력하신 닉네임의 형식이 올바르지 않아요. 형식에 맞추어 다시 시도해주세요.',
+        '입력하신 id의 형식이 올바르지 않아요. 형식에 맞추어 다시 시도해주세요.',
     };
   } else if (response_duplication.status !== 200) {
     return {
@@ -75,7 +75,7 @@ export async function updateMyNickData(nick) {
 
   if (response_duplication.data.detail_code === '11') {
     nick_valid = false;
-    returnMessage = '입력하신 닉네임은 이미 사용 중이에요.';
+    returnMessage = '입력하신 id는 이미 사용 중이에요.';
     return {
       DScode: 1,
       DSdata: {
@@ -118,7 +118,7 @@ export async function updateMyNickData(nick) {
     return {
       DScode: 1,
       DSdata: null,
-      DSmessage: '닉네임의 형식이 올바르지 않아요.',
+      DSmessage: 'id의 형식이 올바르지 않아요.',
     };
   } else if (response.status !== 200) {
     return {
@@ -142,6 +142,6 @@ export async function updateMyNickData(nick) {
   return {
     DScode: 0,
     DSdata: {success: true},
-    DSmessage: '닉네임의 변경에 성공했어요.',
+    DSmessage: 'id의 변경에 성공했어요.',
   };
 }

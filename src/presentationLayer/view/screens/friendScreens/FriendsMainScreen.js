@@ -114,7 +114,7 @@ export default function FriendsManagementScreen() {
             onSubmitEditing={() => {
               actions.get_friend_search();
             }}
-            placeholder="닉네임으로 친구 추가"
+            placeholder="id로 친구 추가"
             placeholderTextColor={COLOR_GRAY}
             onChangeText={value => actions.setText_search(value)}
             value={state.text_search}
@@ -174,7 +174,7 @@ export default function FriendsManagementScreen() {
           </View>
           <B17>{state.searchedData[0].name}</B17>
           <M15 customStyle={{color: COLOR_GRAY, marginTop: 8}}>
-            @{state.searchedData[0].nick}
+            {'  ' + state.searchedData[0].nick}
           </M15>
 
           <View style={{marginTop: 24}}>
@@ -294,7 +294,7 @@ export default function FriendsManagementScreen() {
               </AnimatedButton>
               <View>
                 <B15 customStyle={{color: COLOR_BLACK}}>
-                  존재하지 않는 닉네임이에요
+                  존재하지 않는 id에요
                 </B15>
               </View>
             </View>
@@ -431,7 +431,10 @@ export default function FriendsManagementScreen() {
                     />
                     <View style={styles.listItemTextContainer}>
                       <B15>{item.name}</B15>
-                      <B15 customStyle={{color: COLOR_GRAY}}> @{item.nick}</B15>
+                      <B15 customStyle={{color: COLOR_GRAY}}>
+                        {' '}
+                        {' ' + item.nick}
+                      </B15>
                     </View>
                   </View>
                   <View style={{position: 'absolute', right: 20, top: 25}}>

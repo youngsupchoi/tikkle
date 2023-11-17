@@ -77,6 +77,6 @@ export async function getSearchFriendData(nick) {
   return {
     DScode: 0,
     DSdata: {info: info},
-    DSmessage: '닉네임으로 친구 검색에 성공했어요.',
+    DSmessage: 'id으로 친구 검색에 성공했어요.',
   };
 }
