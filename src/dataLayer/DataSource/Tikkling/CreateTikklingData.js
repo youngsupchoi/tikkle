@@ -39,7 +39,6 @@ export async function createTikklingData(
     type: '기념일',
     product_option: product_option,
   };
-  console.log('🚀 ~ file: CreateTikklingData.js:42 ~ body:', body);
 
   try {
     response = await apiModel(
@@ -75,12 +74,6 @@ export async function createTikklingData(
       return {
         DScode: 2,
         DSdata: null,
-        DSmessage: '상품의 재고가 남아있지 않아요. 다른 상품을 선택해 주세요',
-      };
-    } else if (response.data.detail_code === '03') {
-      return {
-        DScode: 2,
-        DSdata: null,
         DSmessage:
           '티클링 티켓의 개수가 부족해요. 선물을 보내서 티클링 티켓을 받아보세요',
       };
@@ -92,6 +85,31 @@ export async function createTikklingData(
       };
     }
     throw new Error();
+  } else if (response.status === 400) {
+    // 존재하지 않는 옵션을 선택
+    if (response.data.detail_code === '01') {
+      return {
+        DScode: 2,
+        DSdata: null,
+        DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      };
+    }
+    // 재고가 없는 옵션을 선택
+    else if (response.data.detail_code === '02') {
+      return {
+        DScode: 2,
+        DSdata: null,
+        DSmessage: '상품의 재고가 남아있지 않아요. 다른 상품을 선택해 주세요',
+      };
+    }
+    // 상품의 가격이 티클링 갯수와 일치하지 않을때
+    else if (response.data.detail_code === '03') {
+      return {
+        DScode: 2,
+        DSdata: null,
+        DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      };
+    }
   } else if (response.status !== 200) {
     return {
       DScode: 2,
