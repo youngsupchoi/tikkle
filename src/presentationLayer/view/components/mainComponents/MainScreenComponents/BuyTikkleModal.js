@@ -200,6 +200,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   useEffect(() => {
     setShowSuccessModal(true);
   }, [receivedMessage]);
+
   return (
     <View style={styles.tikkleModalContainer}>
       <Modal
@@ -360,9 +361,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               </Tooltip>
             </View>
           )}
+
           <View style={styles.amountContainer}>
             <View>
-              {selectedValue > 1 ? (
+              {selectedValue > 1 && data.state_id == 1 ? (
                 <AnimatedButton
                   onPress={() => {
                     if (selectedValue > 1) {
@@ -407,27 +409,35 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 개
               </M20>
             </View>
-            <AnimatedButton
-              onPress={() => {
-                if (selectedValue < totalPieces - gatheredPieces) {
-                  setSelectedValue(selectedValue + 1);
-                }
-              }}
-              style={{
-                borderColor: COLOR_PRIMARY,
-                borderWidth: 1,
-                padding: 12,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 12,
-              }}>
-              <Add
-                width={24}
-                height={24}
-                stroke={COLOR_PRIMARY}
-                strokeWidth={2}
-              />
-            </AnimatedButton>
+
+            <View>
+              {selectedValue < totalPieces - gatheredPieces &&
+              data.state_id == 1 ? (
+                <AnimatedButton
+                  onPress={() => {
+                    if (selectedValue < totalPieces - gatheredPieces) {
+                      setSelectedValue(selectedValue + 1);
+                    }
+                  }}
+                  style={{
+                    borderColor: COLOR_PRIMARY,
+                    borderWidth: 1,
+                    padding: 12,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 12,
+                  }}>
+                  <Add
+                    width={24}
+                    height={24}
+                    stroke={COLOR_PRIMARY}
+                    strokeWidth={2}
+                  />
+                </AnimatedButton>
+              ) : (
+                <View style={{width: 50}} />
+              )}
+            </View>
           </View>
           <View style={styles.buttonsContainer}>
             <AnimatedButton
