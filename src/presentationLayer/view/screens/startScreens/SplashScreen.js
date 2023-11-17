@@ -28,7 +28,7 @@ export default function SplashScreen() {
         SystemNavigationBar.setNavigationColor(backgroundColor);
       } else {
         // console.log('@@@@@@signup@@@@@@');
-        navigation.reset({routes: [{name: 'signup1'}]});
+        navigation.reset({routes: [{name: 'SignUpNavigator'}]});
         SystemNavigationBar.setNavigationColor(backgroundColor);
       }
     });
