@@ -493,7 +493,8 @@ export default function HistoryDetailScreen(route) {
                   </View>
                 </View>
 
-                {route_data.state_id === 3 || route_data.state_id === 4 ? (
+                {(route_data.state_id === 3 || route_data.state_id === 4) &&
+                route_data.terminated_at ? (
                   <View
                     style={{
                       flexDirection: 'row',
