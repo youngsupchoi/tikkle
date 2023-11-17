@@ -114,7 +114,7 @@ export default function FriendsManagementScreen() {
             onSubmitEditing={() => {
               actions.get_friend_search();
             }}
-            placeholder="닉네임으로 친구 추가"
+            placeholder="id로 친구 추가"
             placeholderTextColor={COLOR_GRAY}
             onChangeText={value => actions.setText_search(value)}
             value={state.text_search}
@@ -294,7 +294,7 @@ export default function FriendsManagementScreen() {
               </AnimatedButton>
               <View>
                 <B15 customStyle={{color: COLOR_BLACK}}>
-                  존재하지 않는 닉네임이에요
+                  존재하지 않는 id에요
                 </B15>
               </View>
             </View>
