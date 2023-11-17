@@ -99,6 +99,7 @@ export default function NotificationScreen() {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
+        {console.log('item', item)}
         <View
           style={{
             display: 'flex',
