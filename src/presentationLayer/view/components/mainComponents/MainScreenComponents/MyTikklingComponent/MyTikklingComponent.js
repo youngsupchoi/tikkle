@@ -46,9 +46,9 @@ const MyTikklingComponent = () => {
     ],
   };
 
-  useState(() => {
-    console.log('hear');
-  }, [state.isInstagramButtonModalVisible]);
+  // useState(() => {
+  //   console.log('hear');
+  // }, [state.isInstagramButtonModalVisible]);
 
   return (
     <View style={styles.container}>

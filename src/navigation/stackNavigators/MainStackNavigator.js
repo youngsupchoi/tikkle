@@ -355,7 +355,7 @@ export default function MainStackNavigator() {
           name="notificationSetting"
           component={NotificationSetting}
         />
-        <MainStack.Screen
+        {/* <MainStack.Screen
           name="searchAddress"
           component={SearchAddressScreen}
           options={() => ({
@@ -371,17 +371,17 @@ export default function MainStackNavigator() {
             //   };
             // },
           })}
-        />
-        <MainStack.Screen
+        /> */}
+        {/* <MainStack.Screen
           name="wishlistManagement"
           component={WishlistManagementScreen}
-        />
-        <MainStack.Screen name="payment" component={PaymentScreen} />
+        /> */}
+        {/* <MainStack.Screen name="payment" component={PaymentScreen} /> */}
         <MainStack.Screen name="hectoPayment" component={HectoPaymentScreen} />
-        <MainStack.Screen
+        {/* <MainStack.Screen
           name="paymentSuccess"
           component={PaymentSuccessScreen}
-        />
+        /> */}
         {/* <MainStack.Screen name="editProfile" component={EditProfileScreen} /> */}
       </MainStack.Navigator>
     </NavigationContainer>

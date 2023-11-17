@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {
   B15,
   B28,
+  B17,
   EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
@@ -24,10 +25,10 @@ export default function TikklingCompleteCard({ButtonIcon, ButtonText}) {
 
   return (
     <View style={styles.centeredContainer}>
-      <B28 customStyle={styles.congratulationsText}>축하해요!</B28>
-      <B15 customStyle={styles.infoText}>
+      <B28 customStyle={styles.congratulationsText}>티클 수집 완료!</B28>
+      <B17 customStyle={styles.infoText}>
         이제 티클을 상품으로 바꿀 수 있어요.
-      </B15>
+      </B17>
       <LottieView
         source={require('src/assets/animations/PLPjYPq7Vm.json')}
         autoPlay
@@ -99,10 +100,12 @@ const styles = StyleSheet.create({
   },
   centeredContainer: {
     alignItems: 'center',
+    marginTop: 20,
   },
   congratulationsText: {
     fontFamily: EB,
     marginBottom: 12,
+    color: COLOR_PRIMARY,
   },
   infoText: {
     color: COLOR_SECOND_BLACK,
