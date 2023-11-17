@@ -71,6 +71,22 @@ export const useMainViewModel = () => {
   //     });
   // };
 
+  const resetButtonAndModalState = async () => {
+    actions.setPaymentButtonPressed(false);
+    actions.setInstagramButtonPressed(false);
+    actions.setIsInstagramButtonModalVisible(false);
+    actions.setShowPostCodeModal(false);
+    actions.setShowEndTikklingModal(false);
+    actions.setShowWhoParticipatedModal(false);
+    actions.setShowRefundModal(false);
+    actions.setIsInstagramButtonModalVisible(false);
+    actions.setShowEndModal(false);
+    actions.setShowBuyModal(false);
+    actions.setShowStopModal(false);
+    actions.setShowDetailModal(false);
+    actions.setShowProductOptionsModal(false);
+  };
+
   const loadData = async () => {
     try {
       await actions.setLoading(true);
@@ -173,6 +189,7 @@ export const useMainViewModel = () => {
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const onRefresh = async () => {
     //await actions.setRefreshing(true);
+    await resetButtonAndModalState();
     await loadData();
     //await actions.setRefreshing(false);
   };

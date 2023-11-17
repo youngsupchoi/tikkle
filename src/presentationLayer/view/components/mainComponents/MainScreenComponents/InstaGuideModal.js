@@ -269,10 +269,6 @@ const InstaGuideModal = ({name, tikkling_id}) => {
 
   const handleBeforePress = () => {
     const nextPage = currentPage - 1;
-    console.log(
-      '🚀 ~ file: InstaGuideModal.js:60 ~ handleBeforePress ~ currentPage:',
-      currentPage,
-    );
     if (currentPage == 0) {
       actions.setIsInstagramButtonModalVisible(false);
     }
