@@ -283,15 +283,25 @@ const FirstHero = props => {
                           strokeWidth={1.5}
                         />
                       </View>
-                      <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                        {
-                          state.address && state.zonecode // state.address와 state.zonecode가 존재하는 경우
-                            ? `${state.address} (${state.zonecode})`
-                            : state.userData.address && state.userData.zonecode // state.userData.address와 state.userData.zonecode가 존재하는 경우
-                            ? `${state.userData.address} (${state.userData.zonecode})`
-                            : '도로명주소 검색' // 둘 다 존재하지 않는 경우
-                        }
-                      </B15>
+                      <View
+                        style={{
+                          fontFamily: B,
+                          fontSize: 15,
+                          marginLeft: 12,
+                          width: '85%',
+                          color: COLOR_GRAY,
+                        }}>
+                        <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
+                          {
+                            state.address && state.zonecode // state.address와 state.zonecode가 존재하는 경우
+                              ? `${state.address} (${state.zonecode})`
+                              : state.userData.address &&
+                                state.userData.zonecode // state.userData.address와 state.userData.zonecode가 존재하는 경우
+                              ? `${state.userData.address} (${state.userData.zonecode})`
+                              : '도로명주소 검색' // 둘 다 존재하지 않는 경우
+                          }
+                        </B15>
+                      </View>
                     </View>
                   </AnimatedButton>
                   <B15 customStyle={{marginTop: 16}}>상세주소</B15>

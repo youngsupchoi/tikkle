@@ -74,11 +74,13 @@ export default function EditAddress() {
                 strokeWidth={1.5}
               />
             </View>
-            <B15 customStyle={{color: COLOR_GRAY, marginLeft: 8}}>
-              {state.zonecode !== null && state.address !== null
-                ? `${state.address} (${state.zonecode})`
-                : '도로명주소 검색'}
-            </B15>
+            <View style={{width: '90%'}}>
+              <B15 customStyle={{color: COLOR_GRAY, marginLeft: 8}}>
+                {state.zonecode !== null && state.address !== null
+                  ? `${state.address} (${state.zonecode})`
+                  : '도로명주소 검색'}
+              </B15>
+            </View>
           </View>
         </AnimatedButton>
 
@@ -128,8 +130,9 @@ export default function EditAddress() {
                 fontFamily: B,
                 fontSize: 15,
                 marginLeft: 8,
+                width: '90%',
                 color: COLOR_BLACK,
-                width: windowWidth - 60,
+                // width: windowWidth - 60,
               }}
               onChangeText={value => actions.setDetailAddress(value)}
               value={state.detailAddress}
