@@ -47,7 +47,6 @@ export async function createTikklingData(
       body,
       null,
     );
-    console.log('🚀 ~ file: CreateTikklingData.js:53 ~ response:', response);
     if (!response) {
       //  error
       throw new Error();
@@ -72,7 +71,7 @@ export async function createTikklingData(
       };
     } else if (response.data.detail_code === '02') {
       return {
-        DScode: 2,
+        DScode: 1,
         DSdata: null,
         DSmessage:
           '티클링 티켓의 개수가 부족해요. 선물을 보내서 티클링 티켓을 받아보세요',
