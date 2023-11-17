@@ -721,7 +721,7 @@ export default function StartTikklingScreen({route}) {
             </View>
           </View>
         </View>
-        {console.log('라우트', route.params)}
+        {/* {console.log('라우트', route.params)} */}
 
         <AnimatedButton
           onPress={() => {

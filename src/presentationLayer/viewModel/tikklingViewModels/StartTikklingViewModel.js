@@ -35,8 +35,17 @@ export const useStartTikklingViewModel = () => {
       .then(res => {
         return topActions.setStateAndError(res);
       })
-      .then(res => {
-        actions.setUserData(res.DSdata.info);
+      .then(async res => {
+        console.log('$$ :', res);
+        if (res.DSdata.info.tikkling_ticket == 0) {
+          topActions.showSnackbar(
+            '티클링 티켓이 부족합니다!\n티클링 티켓을 얻으려면 티클을 선물하세요.',
+            0,
+          );
+          navigation.goBack();
+        } else {
+          actions.setUserData(res.DSdata.info);
+        }
       });
     actions.setLoading(false);
   };
