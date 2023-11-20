@@ -201,7 +201,7 @@ export default function HomeScreen({route}) {
 const styles = StyleSheet.create({
   HomeContainer: {
     width: windowWidth,
-    height: windowHeight,
+    // height: windowHeight + 300,
     backgroundColor: backgroundColor,
   },
   homeFooter: {
