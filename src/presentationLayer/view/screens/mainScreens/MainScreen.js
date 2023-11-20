@@ -133,7 +133,7 @@ export default function HomeScreen({route}) {
   }, []);
 
   return (
-    <View>
+    <View style={{backgroundColor: backgroundColor, flex: 1}}>
       <ScrollView
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
@@ -201,7 +201,7 @@ export default function HomeScreen({route}) {
 const styles = StyleSheet.create({
   HomeContainer: {
     width: windowWidth,
-    height: windowHeight,
+    // height: windowHeight + 300,
     backgroundColor: backgroundColor,
   },
   homeFooter: {
