@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
+
 // import {MainContainer} from '../../components/Global/Containers/MainContainer';
 // import {useTokenHandler} from '../../components/Splash/useTokenHandler';
 // import {SplashLogo} from '../../components/Splash/SplashLogo';
@@ -11,7 +12,7 @@ import {
   COLOR_PRIMARY,
   backgroundColor,
 } from '../../components/globalComponents/Colors/Colors';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 export default function SplashScreen() {
@@ -42,6 +43,7 @@ export default function SplashScreen() {
         //backgroundColor: 'blue',
         backgroundColor: COLOR_PRIMARY,
       }}>
+      <StatusBar backgroundColor={COLOR_PRIMARY} />
       <MainContainer>
         <SplashLogo />
       </MainContainer>
