@@ -600,10 +600,16 @@ PODS:
   - RNScreens (3.25.0):
     - React-Core
     - React-RCTImage
+  - RNSentry (5.13.0):
+    - React-Core
+    - Sentry/HybridSDK (= 8.15.2)
   - RNShare (9.4.1):
     - React-Core
   - RNSVG (13.13.0):
     - React-Core
+  - Sentry/HybridSDK (8.15.2):
+    - SentryPrivate (= 8.15.2)
+  - SentryPrivate (8.15.2)
   - SocketRocket (0.6.1)
   - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
@@ -677,6 +683,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -697,6 +704,8 @@ SPEC REPOS:
     - lottie-ios
     - nanopb
     - PromisesObjC
+    - Sentry
+    - SentryPrivate
     - SocketRocket
     - TOCropViewController
 
@@ -832,6 +841,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   RNShare:
     :path: "../node_modules/react-native-share"
   RNSVG:
@@ -919,8 +930,11 @@ SPEC CHECKSUMS:
   RNPermissions: aeebb8edb7759fe56b007bb7bae3604e608bf160
   RNReanimated: 726395a2fa2f04cea340274ba57a4e659bc0d9c1
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
+  RNSentry: 82667e9889782365bf801645ef4d2a731dcf60df
   RNShare: 32e97adc8d8c97d4a26bcdd3c45516882184f8b6
   RNSVG: ed492aaf3af9ca01bc945f7a149d76d62e73ec82
+  Sentry: 6f5742b4c47c17c9adcf265f6f328cf4a0ed1923
+  SentryPrivate: b2f7996f37781080f04a946eb4e377ff63c64195
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
