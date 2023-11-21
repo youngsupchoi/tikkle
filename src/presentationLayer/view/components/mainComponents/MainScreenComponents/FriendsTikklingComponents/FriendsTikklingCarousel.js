@@ -292,7 +292,7 @@ export default function FriendsTikklingCarousel(data) {
                   }}
                   style={{
                     padding: 6,
-                    paddingVertical: 16,
+                    paddingVertical: 10,
                     borderRadius: 8,
                     backgroundColor: COLOR_PRIMARY,
                     borderColor: COLOR_PRIMARY,
