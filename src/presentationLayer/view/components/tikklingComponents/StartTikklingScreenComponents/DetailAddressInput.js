@@ -49,7 +49,7 @@ const DetailAddressInput = props => {
           // height: windowWidth,
           alignItems: 'center',
           backgroundColor: backgroundColor,
-          elevation: 4,
+          // elevation: 4,
           borderRadius: 12,
           padding: 16,
         }}>
@@ -85,7 +85,7 @@ const DetailAddressInput = props => {
             style={{
               backgroundColor: COLOR_SEPARATOR,
               borderRadius: 12,
-              elevation: 4,
+              // elevation: 4,
               padding: 8,
               paddingHorizontal: 12,
               width: '100%',
@@ -132,7 +132,7 @@ const DetailAddressInput = props => {
             style={{
               backgroundColor: COLOR_WHITE,
               borderRadius: 12,
-              elevation: 4,
+              // elevation: 4,
               padding: 8,
               paddingHorizontal: 12,
               width: '100%',
@@ -204,7 +204,7 @@ const DetailAddressInput = props => {
               backgroundColor: COLOR_PRIMARY,
               borderColor: COLOR_PRIMARY_OUTLINE,
               borderWidth: 2,
-              elevation: 4,
+              // elevation: 4,
               alignItems: 'center',
             }}>
             <B15 customStyle={{color: COLOR_WHITE}}>입력 완료</B15>

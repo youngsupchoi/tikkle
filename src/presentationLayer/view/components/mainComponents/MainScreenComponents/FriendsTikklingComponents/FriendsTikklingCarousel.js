@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 0.5,
     borderRadius: 12,
-    elevation: 3,
+    // elevation: 3,
   },
   cardContainer: {
     // marginTop: 16,
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     borderRadius: 12,
     backgroundColor: COLOR_WHITE,
-    elevation: 4,
+    // elevation: 4,
     marginLeft: 24,
     marginHorizontal: 8,
     marginBottom: 8,

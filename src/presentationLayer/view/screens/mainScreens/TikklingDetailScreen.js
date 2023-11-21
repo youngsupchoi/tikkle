@@ -571,13 +571,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
     detailsContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',

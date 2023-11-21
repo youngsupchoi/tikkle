@@ -26,14 +26,14 @@ const BuySheet = () => {
         backgroundColor: backgroundColor,
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        elevation: 10,
+        // elevation: 10,
         borderColor: COLOR_SEPARATOR,
         borderWidth: 1,
       }}
       style={{
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        elevation: 10,
+        // elevation: 10,
         borderColor: COLOR_SEPARATOR,
         borderWidth: 1,
       }}>

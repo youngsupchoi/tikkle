@@ -152,7 +152,7 @@ export default function SentTikkleDetailScreen({route}) {
                   backgroundColor: COLOR_WHITE,
                   borderRadius: 16,
                   marginBottom: 16,
-                  elevation: 1,
+                  // elevation: 1,
                   borderColor: COLOR_SEPARATOR,
                   borderWidth: 1,
                   justifyContent: 'space-between',

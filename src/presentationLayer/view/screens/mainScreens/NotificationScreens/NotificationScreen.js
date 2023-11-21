@@ -319,7 +319,7 @@ export default function NotificationScreen() {
           borderBottomColor: COLOR_SEPARATOR,
           backgroundColor: backgroundColor,
           borderBottomWidth: 0.5,
-          elevation: 1,
+          // elevation: 1,
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <AnimatedButton onPress={() => navigation.goBack()}>

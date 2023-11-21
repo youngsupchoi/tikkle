@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     width: 44,
     height: 44,
-    elevation: 1,
+    // elevation: 1,
   },
   searchBar: {
     paddingHorizontal: SPACING_2,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     alignItems: 'center',
     width: windowWidth - 82,
-    elevation: 1,
+    // elevation: 1,
     height: 44,
   },
   searchIconContainer: {

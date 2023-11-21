@@ -144,7 +144,7 @@ export default function HistoryDetailScreen(route) {
               height: 20,
               alignItems: 'center',
               justifyContent: 'center',
-              elevation: 1,
+              // elevation: 1,
             }}>
             <ArrowLeft
               stroke={COLOR_BLACK}
@@ -751,7 +751,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 3,
+    // elevation: 3,
     // shadowColor: '#000',
     // shadowOffset: {
     //   // iOS용 그림자 위치

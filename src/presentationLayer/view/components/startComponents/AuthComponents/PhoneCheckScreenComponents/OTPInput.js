@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: COLOR_WHITE,
-    elevation: 1,
+    // elevation: 1,
   },
   authCodeInput: {
     color: COLOR_BLACK,
