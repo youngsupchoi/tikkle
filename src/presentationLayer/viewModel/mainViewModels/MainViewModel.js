@@ -322,9 +322,8 @@ export const useMainViewModel = () => {
   };
 
   async function convertImageToBase64() {
-    const imageUri = Image.resolveAssetSource(
-      require('src/assets/images/instagram_background.png'),
-    ).uri;
+    const imageUri =
+      'https://d2da4yi19up8sp.cloudfront.net/instagram_background.png';
 
     try {
       const response = await fetch(imageUri);
@@ -619,6 +618,7 @@ export const useMainViewModel = () => {
       requestUserPermission,
       findContacts,
       hasOptions,
+      convertImageToBase64,
     },
   };
 };

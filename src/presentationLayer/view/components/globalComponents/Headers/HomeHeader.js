@@ -71,7 +71,7 @@ export default function HomeHeader(props) {
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {/* <AnimatedButton
           onPress={() => {
-            navigation.navigate('onboarding');
+            actions.convertImageToBase64();
           }}>
           <Help width={24} height={24} />
         </AnimatedButton> */}
