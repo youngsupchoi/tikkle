@@ -428,7 +428,6 @@ const MyBottomTab = () => {
           alignSelf: 'center',
           borderColor: COLOR_SEPARATOR,
           borderWidth: 2,
-          elevation: 3,
         },
         tabBarShowLabel: false,
         tabBarLabelStyle: {

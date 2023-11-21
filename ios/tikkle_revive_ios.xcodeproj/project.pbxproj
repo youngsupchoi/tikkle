@@ -41,6 +41,7 @@
 		96B82BA96C9A4F1D8F1CD851 /* AppleSDGothicNeoEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAD8163DCE224509A207431F /* AppleSDGothicNeoEB.ttf */; };
 		AF4198B54BD746EBA15609B1 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 705A869C88B648F780E6EE44 /* AppleSDGothicNeoR.ttf */; };
 		B2E8A5BE441949148D361989 /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */; };
+		D01D81B52C4C4DD09393903E /* Modak-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1853E86C71334EE6B50A2478 /* Modak-Regular.ttf */; };
 		E349ECDD69244341A9037E53 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 686FD629E15E468AAD926982 /* AppleSDGothicNeoL.ttf */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tikkle_revive_ios/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = tikkle_revive_ios/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tikkle_revive_ios/main.m; sourceTree = "<group>"; };
+		1853E86C71334EE6B50A2478 /* Modak-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Modak-Regular.ttf"; path = "../src/assets/fonts/Modak-Regular.ttf"; sourceTree = "<group>"; };
 		1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoSB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoSB.ttf; sourceTree = "<group>"; };
 		36CF22802AE280AA008FA6DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		390BFB439B29463EA6D6E6A3 /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoM.ttf; path = ../src/assets/fonts/AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				6DB68188F921465BBB46A15B /* AppleSDGothicNeoUL.ttf */,
 				CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */,
 				6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */,
+				1853E86C71334EE6B50A2478 /* Modak-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				8325D4F4B4E44C0D8E2FC2DB /* CherryBombOne-Regular.ttf in Resources */,
 				036EACA7AB4046A8A525AFC1 /* BMHANNA_11yrs_otf.otf in Resources */,
 				36CF22812AE280AA008FA6DE /* GoogleService-Info.plist in Resources */,
+				D01D81B52C4C4DD09393903E /* Modak-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,7 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -704,7 +708,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

@@ -25,14 +25,14 @@ import FilterAndSelectedState from 'src/presentationLayer/view/components/produc
 export default function ProductSearch() {
   const {state, actions} = useProductMainViewModel();
 
-  const priceRanges = [
-    {label: '전체가격', min: 0, max: null},
-    {label: '5천~5만', min: 5000, max: 50000},
-    {label: '5만~10만', min: 50000, max: 100000},
-    {label: '10만~30만', min: 100000, max: 300000},
-    {label: '30만~100만', min: 300000, max: 1000000},
-    {label: '100만 이상', min: 1000000, max: 999999999},
-  ];
+  // const priceRanges = [
+  //   {label: '전체가격', min: 0, max: null},
+  //   {label: '5천~5만', min: 5000, max: 50000},
+  //   {label: '5만~10만', min: 50000, max: 100000},
+  //   {label: '10만~30만', min: 100000, max: 300000},
+  //   {label: '30만~100만', min: 300000, max: 1000000},
+  //   {label: '100만 이상', min: 1000000, max: 999999999},
+  // ];
 
   return (
     <View

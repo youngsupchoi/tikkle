@@ -200,12 +200,15 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   useEffect(() => {
     setShowSuccessModal(true);
   }, [receivedMessage]);
+
   return (
     <View style={styles.tikkleModalContainer}>
       <Modal
+        avoidKeyboard
         onSwipeComplete={onCloseModal}
         swipeDirection={'down'}
         onBackdropPress={onCloseModal}
+        onBackButtonPress={onCloseModal}
         isVisible={showModal}
         backdropOpacity={0.5}
         style={{justifyContent: 'flex-end', margin: 0}} // 이 부분이 추가되었습니다.
@@ -358,9 +361,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               </Tooltip>
             </View>
           )}
+
           <View style={styles.amountContainer}>
             <View>
-              {selectedValue > 1 ? (
+              {selectedValue > 1 && data.state_id == 1 ? (
                 <AnimatedButton
                   onPress={() => {
                     if (selectedValue > 1) {
@@ -383,7 +387,22 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                   />
                 </AnimatedButton>
               ) : (
-                <View style={{width: 50}} />
+                <AnimatedButton
+                  style={{
+                    borderColor: COLOR_GRAY,
+                    borderWidth: 1,
+                    padding: 12,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 12,
+                  }}>
+                  <Minus
+                    width={24}
+                    height={24}
+                    stroke={COLOR_GRAY}
+                    strokeWidth={2}
+                  />
+                </AnimatedButton>
               )}
             </View>
             <View style={styles.amountItem}>
@@ -405,27 +424,55 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                 개
               </M20>
             </View>
-            <AnimatedButton
-              onPress={() => {
-                if (selectedValue < totalPieces - gatheredPieces) {
-                  setSelectedValue(selectedValue + 1);
-                }
-              }}
-              style={{
-                borderColor: COLOR_PRIMARY,
-                borderWidth: 1,
-                padding: 12,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 12,
-              }}>
-              <Add
-                width={24}
-                height={24}
-                stroke={COLOR_PRIMARY}
-                strokeWidth={2}
-              />
-            </AnimatedButton>
+
+            <View>
+              {selectedValue < totalPieces - gatheredPieces &&
+              data.state_id == 1 ? (
+                <AnimatedButton
+                  onPress={() => {
+                    if (selectedValue < totalPieces - gatheredPieces) {
+                      setSelectedValue(selectedValue + 1);
+                    }
+                  }}
+                  style={{
+                    borderColor: COLOR_PRIMARY,
+                    borderWidth: 1,
+                    padding: 12,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 12,
+                  }}>
+                  <Add
+                    width={24}
+                    height={24}
+                    stroke={COLOR_PRIMARY}
+                    strokeWidth={2}
+                  />
+                </AnimatedButton>
+              ) : (
+                <AnimatedButton
+                  onPress={() => {
+                    if (selectedValue < totalPieces - gatheredPieces) {
+                      setSelectedValue(selectedValue + 1);
+                    }
+                  }}
+                  style={{
+                    borderColor: COLOR_GRAY,
+                    borderWidth: 1,
+                    padding: 12,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 12,
+                  }}>
+                  <Add
+                    width={24}
+                    height={24}
+                    stroke={COLOR_GRAY}
+                    strokeWidth={2}
+                  />
+                </AnimatedButton>
+              )}
+            </View>
           </View>
           <View style={styles.buttonsContainer}>
             <AnimatedButton
@@ -453,7 +500,8 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
           </View>
         </View>
       </Modal>
-      {/* {errorMessage !== '' ? <Modal></Modal> : null} */}
+      {/* {errorMessage !== '' ? <Modal
+        avoidKeyboard></Modal> : null} */}
     </View>
   );
 }

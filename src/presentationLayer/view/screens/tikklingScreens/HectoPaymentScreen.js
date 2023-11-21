@@ -8,6 +8,7 @@ import {
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useNavigation} from '@react-navigation/native';
 import {updatePaymentFailData} from 'src/dataLayer/DataSource/Payment/UpdatePaymentFailData';
+import {Safe} from 'src/presentationLayer/view/components/globalComponents/Containers/Safe';
 
 /* 아임포트 결제모듈을 불러옵니다. */
 import IMP from 'iamport-react-native';
@@ -57,27 +58,31 @@ export function HectoPaymentScreen(route) {
 
   if (Platform.OS === 'ios') {
     return (
-      <IMP.Payment
-        userCode={'imp11626661'} // 가맹점 식별코드
-        loading={<GlobalLoader />} // 로딩 컴포넌트
-        data={data} // 결제 데이터
-        callback={callback} // 결제 종료 후 콜백
-      />
-    );
-  } else {
-    return (
-      <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior="padding"
-        enabled
-        keyboardVerticalOffset={0}>
+      <Safe>
         <IMP.Payment
           userCode={'imp11626661'} // 가맹점 식별코드
           loading={<GlobalLoader />} // 로딩 컴포넌트
           data={data} // 결제 데이터
           callback={callback} // 결제 종료 후 콜백
         />
-      </KeyboardAvoidingView>
+      </Safe>
+    );
+  } else {
+    return (
+      <Safe>
+        <KeyboardAvoidingView
+          style={{flex: 1}}
+          behavior="padding"
+          enabled
+          keyboardVerticalOffset={0}>
+          <IMP.Payment
+            userCode={'imp11626661'} // 가맹점 식별코드
+            loading={<GlobalLoader />} // 로딩 컴포넌트
+            data={data} // 결제 데이터
+            callback={callback} // 결제 종료 후 콜백
+          />
+        </KeyboardAvoidingView>
+      </Safe>
     );
   }
 }

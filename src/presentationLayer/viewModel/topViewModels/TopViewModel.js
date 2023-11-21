@@ -8,8 +8,18 @@ import {localNotificationService} from 'src/push_noti';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useTopViewState} from 'src/presentationLayer/viewState/topStates/TopViewState';
 
+import * as Sentry from '@sentry/react-native';
+import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
+
 // 2. 데이터 소스 또는 API 가져오기
 //import {fetchExampleData} from '../dataLayer/dataSource';
+
+class TopError extends Error {
+  constructor(message, name) {
+    super(message);
+    this.name = name; // Set the error name to "MyError"
+  }
+}
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useTopViewModel = () => {
@@ -17,19 +27,63 @@ export const useTopViewModel = () => {
   const {topState, topActions} = useTopViewState();
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
-  const setStateAndError = res => {
+  const setStateAndError = async res => {
     // const navigation = actions.navigation;
     if (res.DScode === 0) {
       return res;
     } else if (res.DScode === 1) {
       showSnackbar(res.DSmessage, 0);
+
+      const temp = await getMyUserInfoData();
+      const userdata = temp.DSdata.info;
+
+      Sentry.withScope(scope => {
+        scope.setContext('user_info', {
+          id: userdata.id,
+        });
+        scope.setContext('DS', {
+          DScode: res.DScode,
+          DSmessage: res.DSmessage,
+          DSdata: res.DSdata,
+        });
+        scope.setLevel('warning');
+        scope.setTag('DScode', res.DScode);
+        scope.setTag('DSmessage', res.DSmessage);
+        scope.setTag('DSdata', res.DSdata);
+        scope.setTag('when', 'running');
+        scope.setTag('where', 'TopViewModel');
+        Sentry.captureException(new TopError(res, res.DSmessage));
+      });
       throw new Error(JSON.stringify(res));
     } else if (res.DScode === 2) {
       showModal(res.DSmessage, 0);
+
+      const temp = await getMyUserInfoData();
+      const userdata = temp.DSdata.info;
+
+      Sentry.withScope(scope => {
+        scope.setContext('user_info', {
+          id: userdata.id,
+        });
+
+        scope.setContext('DS', {
+          DScode: res.DScode,
+          DSmessage: res.DSmessage,
+          DSdata: res.DSdata,
+        });
+        scope.setLevel('error');
+        scope.setTag('DScode', res.DScode);
+        scope.setTag('DSmessage', res.DSmessage);
+        scope.setTag('DSdata', res.DSdata);
+        scope.setTag('when', 'running');
+        scope.setTag('where', 'TopViewModel');
+        Sentry.captureException(new TopError(res, res.DSmessage));
+      });
       throw new Error(JSON.stringify(res));
     } else if (res.DScode === 3) {
       showModal(res.DSmessage, 0);
       reset({routes: [{name: 'splash'}]});
+
       throw new Error(JSON.stringify(res));
     }
     return res;

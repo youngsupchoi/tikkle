@@ -9,6 +9,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
   COLOR_SUCCESS,
+  COLOR_GRAY,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -45,13 +46,14 @@ import InstaGuideComponent3 from 'src/presentationLayer/view/components/mainComp
 import InstaGuideComponent4 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent4';
 import InstaGuideComponentForIos from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponentForIos';
 
-const InstaGuideModal = () => {
+const InstaGuideModal = ({name, tikkling_id}) => {
   const {state, actions} = useMainViewModel();
   const [currentPage, setCurrentPage] = useState(0);
   const [currentDetailText, setCurrentDetailText] = useState(0);
   const translateY = useSharedValue(0);
   const opacity = useSharedValue(0);
   const numOfPage = Platform.OS === 'ios' ? 5 : 4;
+
   const getDisplayText = value => {
     switch (value) {
       case 0:
@@ -71,6 +73,159 @@ const InstaGuideModal = () => {
     }
   };
 
+  const Buttons = () => {
+    if (currentPage == 0) {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              handleBeforePress();
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_GRAY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>닫기</B15>
+          </TouchableOpacity>
+          <View style={{width: 10}}></View>
+
+          <TouchableOpacity
+            onPress={
+              // console.log(topState, topActions.hideModal)
+              //topActions.hideModal
+              handleNextPress
+            }
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_PRIMARY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>다음</B15>
+          </TouchableOpacity>
+        </View>
+      );
+    } else if (currentPage != numOfPage - 1) {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              handleBeforePress();
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_GRAY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>이전</B15>
+          </TouchableOpacity>
+          <View style={{width: 10}}></View>
+
+          <TouchableOpacity
+            onPress={
+              // console.log(topState, topActions.hideModal)
+              //topActions.hideModal
+              handleNextPress
+            }
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_PRIMARY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>다음</B15>
+          </TouchableOpacity>
+        </View>
+      );
+    } else {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              handleBeforePress();
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_GRAY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>이전</B15>
+          </TouchableOpacity>
+          <View style={{width: 10}}></View>
+
+          <TouchableOpacity
+            onPress={() => {
+              // console.log(topState, topActions.hideModal)
+              //topActions.hideModal
+              actions.setIsInstagramButtonModalVisible(false);
+
+              actions.onInstagramShareButtonPressed(name, tikkling_id);
+            }}
+            style={{
+              // position: 'absolute',
+              // bottom: 0,
+              width: windowWidth * 0.375,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              backgroundColor: COLOR_PRIMARY,
+              borderRadius: 12,
+              marginBottom: 25,
+            }}>
+            <B15 customStyle={{color: 'white'}}>공유하기</B15>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  };
+
   useEffect(() => {
     if (state.isInstagramButtonModalVisible) {
       translateY.value = withSpring(0);
@@ -80,17 +235,21 @@ const InstaGuideModal = () => {
       });
     }
   }, [state.isInstagramButtonModalVisible]);
+
   const scrollViewRef = useRef();
+
   const handleScroll = event => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const pageWidth = event.nativeEvent.layoutMeasurement.width;
     const currentPage = Math.floor(offsetX / pageWidth + 0.5);
     setCurrentPage(currentPage);
   };
+
   useEffect(() => {
     setCurrentPage(0);
     setCurrentDetailText(0);
   }, [state.isInstagramButtonModalVisible]);
+
   const handleNextPress = () => {
     const nextPage = currentPage + 1;
     console.log(
@@ -107,6 +266,21 @@ const InstaGuideModal = () => {
       setCurrentDetailText(currentDetailText + 1);
     }
   };
+
+  const handleBeforePress = () => {
+    const nextPage = currentPage - 1;
+    if (currentPage == 0) {
+      actions.setIsInstagramButtonModalVisible(false);
+    }
+    scrollViewRef.current?.scrollTo({
+      x: nextPage * windowWidth * 0.8,
+      y: 0,
+      animated: true,
+    });
+    setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
+    setCurrentDetailText(currentDetailText - 1);
+  };
+
   return (
     // <View>
     <Modal
@@ -127,22 +301,21 @@ const InstaGuideModal = () => {
             backgroundColor: backgroundColor,
             borderRadius: 30,
             margin: 12,
-            height: windowHeight * 0.8,
             width: windowWidth - 35,
             alignItems: 'center',
             justifyContent: 'center',
             position: 'absolute',
-            bottom: windowHeight / 11,
+            // bottom: windowHeight / 11,
             alignSelf: 'center',
-            elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: {
-              // iOS용 그림자 위치
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.2, // iOS용 그림자 투명도
-            shadowRadius: 3, // iOS용 그림자 반경
+            // elevation: 3,
+            // shadowColor: '#000',
+            // shadowOffset: {
+            //   // iOS용 그림자 위치
+            //   width: 0,
+            //   height: 2,
+            // },
+            // shadowOpacity: 0.2, // iOS용 그림자 투명도
+            // shadowRadius: 3, // iOS용 그림자 반경
           },
         ]}>
         <View
@@ -151,14 +324,13 @@ const InstaGuideModal = () => {
             // justifyContent: 'center',
             borderRadius: 12,
             margin: 12,
-            height: windowHeight * 0.8,
           }}>
           <View
             style={{
               paddingTop: 24,
               paddingBottom: 8,
               width: windowWidth - 48,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'flex-end',
@@ -185,15 +357,13 @@ const InstaGuideModal = () => {
               }
             </View> */}
           </View>
-
-          <View
-            style={{
-              backgroundColor: COLOR_WHITE,
-              width: windowWidth * 0.8,
-              height: windowHeight * 0.45,
-              borderRadius: 30,
-            }}>
+          <View style={{height: windowWidth * 0.8}}>
             <ScrollView
+              style={{
+                // backgroundColor: 'red',
+                width: windowWidth * 0.8,
+                borderRadius: 30,
+              }}
               horizontal
               pagingEnabled
               onScroll={handleScroll}
@@ -213,51 +383,9 @@ const InstaGuideModal = () => {
             </B17>
           </View>
 
-          {currentPage < numOfPage - 1 ? (
-            <TouchableOpacity
-              onPress={
-                // console.log(topState, topActions.hideModal)
-                //topActions.hideModal
-                handleNextPress
-              }
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                width: windowWidth * 0.6,
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 10,
-                backgroundColor: COLOR_PRIMARY,
-                borderRadius: 12,
-                marginBottom: 25,
-              }}>
-              <B15 customStyle={{color: 'white'}}>다음</B15>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => {
-                // console.log(topState, topActions.hideModal)
-                //topActions.hideModal
-                actions.setIsInstagramButtonModalVisible(false);
-                actions.onInstagramShareButtonPressed(
-                  state.userData.name,
-                  state.myTikklingData.tikkling_id,
-                );
-              }}
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                width: windowWidth * 0.6,
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 10,
-                backgroundColor: COLOR_PRIMARY,
-                borderRadius: 12,
-                marginBottom: 25,
-              }}>
-              <B15 customStyle={{color: 'white'}}>공유하기</B15>
-            </TouchableOpacity>
-          )}
+          <View style={{marginTop: 20}}>
+            <Buttons />
+          </View>
         </View>
         {/* </BlurView> */}
       </View>
@@ -278,11 +406,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    elevation: 2, // this is for android shadow
-    shadowColor: '#000', // this is for ios shadow
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    // elevation: 2, // this is for android shadow
+    // shadowColor: '#000', // this is for ios shadow
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
   },
   buttonGradient: {
     flexDirection: 'row',
@@ -299,15 +427,15 @@ const styles = StyleSheet.create({
     zIndex: 2,
     marginHorizontal: 24,
     borderRadius: 12,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // iOS용 그림자 투명도
-    shadowRadius: 3, // iOS용 그림자 반경
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
     flexDirection: 'row',
   },
   closeText: {

@@ -21,8 +21,12 @@ import WishlistManagementScreen from 'src/presentationLayer/view/screens/notUseS
 import PaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleScreen';
 import PaymentSuccessScreen from 'src/presentationLayer/view/screens/tikklingScreens/SendTikkleSuccessScreen';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {COLOR_WHITE} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {Easing, Linking, Platform} from 'react-native';
+import {
+  COLOR_WHITE,
+  COLOR_PRIMARY,
+  backgroundColor,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {Easing, Linking, Platform, SafeAreaView} from 'react-native';
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
@@ -31,7 +35,7 @@ import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mai
 import {MainViewStateProvider} from 'src/presentationLayer/viewState/mainStates/MainState';
 import {NotificationSettingViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationSettingState';
 import HectoPaymentScreen from 'src/presentationLayer/view/screens/tikklingScreens/HectoPaymentScreen';
-
+import {Safe} from 'src/presentationLayer/view/components/globalComponents/Containers/Safe';
 import TikklingDetailScreen from 'src/presentationLayer/view/screens/mainScreens/TikklingDetailScreen';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
@@ -44,39 +48,51 @@ import PushNotification from 'react-native-push-notification';
 import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 const ProductDetail = () => (
-  <ProductDetailViewStateProvider>
-    <ProductDetailScreen />
-  </ProductDetailViewStateProvider>
+  <Safe>
+    <ProductDetailViewStateProvider>
+      <ProductDetailScreen />
+    </ProductDetailViewStateProvider>
+  </Safe>
 );
 
 const TikklingDetail = () => (
-  <MainViewStateProvider>
-    <TikklingDetailScreen />
-  </MainViewStateProvider>
+  <Safe>
+    <MainViewStateProvider>
+      <TikklingDetailScreen />
+    </MainViewStateProvider>
+  </Safe>
 );
 
 const StartTikkling = ({route}) => (
-  <StartTikklingViewStateProvider>
-    <StartTikklingScreen route={route} />
-  </StartTikklingViewStateProvider>
+  <Safe>
+    <StartTikklingViewStateProvider>
+      <StartTikklingScreen route={route} />
+    </StartTikklingViewStateProvider>
+  </Safe>
 );
 
 const Onboarding_ = () => (
-  <MainViewStateProvider>
-    <Onboarding />
-  </MainViewStateProvider>
+  <Safe>
+    <MainViewStateProvider>
+      <Onboarding />
+    </MainViewStateProvider>
+  </Safe>
 );
 
 const Notification = () => (
-  <NotificationViewStateProvider>
-    <NotificationScreen />
-  </NotificationViewStateProvider>
+  <Safe>
+    <NotificationViewStateProvider>
+      <NotificationScreen />
+    </NotificationViewStateProvider>
+  </Safe>
 );
 
 const NotificationSetting = () => (
-  <NotificationSettingViewStateProvider>
-    <NotificationSettingScreen />
-  </NotificationSettingViewStateProvider>
+  <Safe>
+    <NotificationSettingViewStateProvider>
+      <NotificationSettingScreen />
+    </NotificationSettingViewStateProvider>
+  </Safe>
 );
 
 const MainStack = createStackNavigator();
@@ -147,25 +163,26 @@ export function reset(routes) {
 
 function SignUpNavigator() {
   return (
-    <StartViewStateProvider>
-      <SignUpStack.Navigator
-        initialRouteName="onboarding"
-        screenOptions={{
-          headerShown: false,
-          // gestureEnabled: true,
-          // cardOverlayEnabled: true,
-          // cardStyleInterpolator: customCardStyleInterpolator,
-          // transitionSpec: customTransitionSpec,
-        }}>
-        <SignUpStack.Screen name="splash" component={SplashScreen} />
-        <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
-        <SignUpStack.Screen name="signup2" component={SignUpScreen2} />
-        <SignUpStack.Screen name="signup3" component={SignUpScreen3} />
-        <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
-        <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
-        <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
-      </SignUpStack.Navigator>
-    </StartViewStateProvider>
+    <Safe>
+      <StartViewStateProvider>
+        <SignUpStack.Navigator
+          initialRouteName="onboarding"
+          screenOptions={{
+            headerShown: false,
+            // gestureEnabled: true,
+            // cardOverlayEnabled: true,
+            // cardStyleInterpolator: customCardStyleInterpolator,
+            // transitionSpec: customTransitionSpec,
+          }}>
+          <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
+          <SignUpStack.Screen name="signup2" component={SignUpScreen2} />
+          <SignUpStack.Screen name="signup3" component={SignUpScreen3} />
+          <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
+          <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
+          <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
+        </SignUpStack.Navigator>
+      </StartViewStateProvider>
+    </Safe>
   );
 }
 
@@ -185,7 +202,8 @@ const resolveDynamicLink = async shortLink => {
 
 const config = {
   screens: {
-    SignUpNavigator: {screens: {splash: '/tikkling/:tikkling_id'}},
+    splash: '/tikkling/:tikkling_id',
+    // SignUpNavigator: {screens: {splash: '/tikkling/:tikkling_id'}},
     main: '/main', // 매핑되는 URL 경로
     startTikkling: '/start-tikkling/:id/:name', // 매핑되는 URL 경로
     productDetail: '/product-detail', // 매핑되는 URL 경로
@@ -306,7 +324,7 @@ export default function MainStackNavigator() {
   return (
     <NavigationContainer theme={MyTheme} ref={navigationRef} linking={linking}>
       <MainStack.Navigator
-        initialRouteName="SignUpNavigator"
+        initialRouteName="splash"
         screenOptions={{
           headerShown: false,
           // gestureEnabled: true,
@@ -314,7 +332,7 @@ export default function MainStackNavigator() {
           // cardStyleInterpolator: customCardStyleInterpolator,
           // transitionSpec: customTransitionSpec,
         }}>
-        {/*  <MainStack.Screen name="splash" component={SplashScreen} /> */}
+        <MainStack.Screen name="splash" component={SplashScreen} />
 
         <MainStack.Screen name="SignUpNavigator" component={SignUpNavigator} />
         <MainStack.Screen
@@ -337,7 +355,7 @@ export default function MainStackNavigator() {
           name="notificationSetting"
           component={NotificationSetting}
         />
-        <MainStack.Screen
+        {/* <MainStack.Screen
           name="searchAddress"
           component={SearchAddressScreen}
           options={() => ({
@@ -353,17 +371,17 @@ export default function MainStackNavigator() {
             //   };
             // },
           })}
-        />
-        <MainStack.Screen
+        /> */}
+        {/* <MainStack.Screen
           name="wishlistManagement"
           component={WishlistManagementScreen}
-        />
-        <MainStack.Screen name="payment" component={PaymentScreen} />
+        /> */}
+        {/* <MainStack.Screen name="payment" component={PaymentScreen} /> */}
         <MainStack.Screen name="hectoPayment" component={HectoPaymentScreen} />
-        <MainStack.Screen
+        {/* <MainStack.Screen
           name="paymentSuccess"
           component={PaymentSuccessScreen}
-        />
+        /> */}
         {/* <MainStack.Screen name="editProfile" component={EditProfileScreen} /> */}
       </MainStack.Navigator>
     </NavigationContainer>

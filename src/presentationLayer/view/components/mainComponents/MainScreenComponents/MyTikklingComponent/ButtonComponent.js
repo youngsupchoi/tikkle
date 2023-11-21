@@ -19,6 +19,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import Refund from 'src/assets/icons/Refund';
 import Clipboard from 'src/assets/icons/Clipboard';
+import Share from 'src/assets/icons/Share';
 export default function ButtonComponent({
   ButtonIcon,
   ButtonText,
@@ -109,28 +110,24 @@ export default function ButtonComponent({
         <View style={{flex: 2, flexDirection: 'row', marginLeft: 8}}>
           <AnimatedButton
             onPress={async () => {
-              if (FromDetail == true) {
-                //detail에서 눌렀을 때
-                console.log(
-                  'detail에서 눌렀을 때',
-                  state.route_data.user_name,
-                  state.route_data.tikkling_id,
-                );
-                await actions.onInstagramShareButtonPressed(
-                  state.route_data.user_name,
-                  state.route_data.tikkling_id,
-                );
-              } else {
-                actions.setIsInstagramButtonModalVisible(true);
-                //main에서 눌렀을 때
-                // await actions.onInstagramShareButtonPressed(
-                //   state.userData.name,
-                //   state.myTikklingData.tikkling_id,
-                // );
-              }
+              // if (FromDetail == true) {
+              //   //detail에서 눌렀을 때
+              //   // console.log(
+              //   //   'detail에서 눌렀을 때',
+              //   //   state.route_data.user_name,
+              //   //   state.route_data.tikkling_id,
+              //   // );
+              //   await actions.onInstagramShareButtonPressed(
+              //     state.route_data.user_name,
+              //     state.route_data.tikkling_id,
+              //   );
+              // } else {
+              actions.setIsInstagramButtonModalVisible(true);
+              // }
             }}
             style={{
-              flex: 1,
+              // backgroundColor: 'pink',
+              padding: 8,
               alignItems: 'center',
               justifyContent: 'center',
             }}>
@@ -156,7 +153,10 @@ export default function ButtonComponent({
               }
             }}
             style={{
-              flex: 1,
+              // backgroundColor: 'blue',
+              padding: 8,
+              paddingHorizontal: 12,
+
               borderRadius: 12,
               alignItems: 'center',
               justifyContent: 'center',
@@ -164,8 +164,8 @@ export default function ButtonComponent({
             <Clipboard
               width={24}
               height={24}
-              stroke={COLOR_BLACK}
-              strokeWidth={1.5}
+              stroke={COLOR_PRIMARY}
+              strokeWidth={2.5}
             />
           </AnimatedButton>
         </View>

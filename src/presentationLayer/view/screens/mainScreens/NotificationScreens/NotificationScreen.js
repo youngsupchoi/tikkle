@@ -38,6 +38,7 @@ import {useNotificationViewModel} from 'src/presentationLayer/viewModel/mainView
 import Close from 'src/assets/icons/Close';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import Restart from 'src/assets/icons/Restart';
 
 export default function NotificationScreen() {
   const {ref, state, actions} = useNotificationViewModel();
@@ -52,7 +53,7 @@ export default function NotificationScreen() {
     return (
       <AnimatedButton
         onPress={() => {
-          console.log('item', item);
+          // console.log('item', item);
           if (item.notification_type_id == 1) {
             navigation.navigate('friendsManagement');
           } else if (item.notification_type_id == 2) {
@@ -83,6 +84,8 @@ export default function NotificationScreen() {
             // } else {
             //   navigation.navigate('profile');
             // }
+          } else if (item.notification_type_id == 10) {
+            navigation.navigate('main');
           }
         }}
         style={{
@@ -99,6 +102,7 @@ export default function NotificationScreen() {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
+        {/* {console.log('item', item)} */}
         <View
           style={{
             display: 'flex',
@@ -234,6 +238,22 @@ export default function NotificationScreen() {
                   scale={1}
                 />
               </View>
+            ) : item.notification_type_id === 10 ? (
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Restart
+                  width={30}
+                  height={30}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={1}
+                  scale={1}
+                />
+              </View>
             ) : null}
           </View>
 
@@ -254,7 +274,17 @@ export default function NotificationScreen() {
         </View>
 
         <AnimatedButton
-          style={{position: 'absolute', top: 15, right: 15}}
+          style={{
+            padding: 5,
+            // backgroundColor: 'red',
+            position: 'absolute',
+            paddingLeft: 10,
+            top: 15,
+            right: 15,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+          }}
           onPress={() => actions.onDeleteComplete(index)}>
           <Close
             width={20}
@@ -289,7 +319,7 @@ export default function NotificationScreen() {
           borderBottomColor: COLOR_SEPARATOR,
           backgroundColor: backgroundColor,
           borderBottomWidth: 0.5,
-          elevation: 1,
+          // elevation: 1,
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <AnimatedButton onPress={() => navigation.goBack()}>
@@ -304,7 +334,7 @@ export default function NotificationScreen() {
           <B20 customStyle={{marginLeft: 12}}>알림</B20>
         </View>
       </View>
-
+      {/* {console.log('state', state.notificationData)} */}
       {state.loading ? (
         <GlobalLoader />
       ) : (

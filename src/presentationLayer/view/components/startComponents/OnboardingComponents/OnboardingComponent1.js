@@ -31,7 +31,7 @@ export default function OnboardingComponent1() {
         </M15>
       </View> */}
       <AutoHeightImage
-        width={windowWidth}
+        width={windowWidth * 0.85}
         source={require('src/assets/images/onboardingVisuals/ios_screen1.png')}
         style={{marginTop: -30}}
       />

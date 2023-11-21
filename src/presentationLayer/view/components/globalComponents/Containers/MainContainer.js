@@ -1,6 +1,6 @@
 import {View} from 'react-native';
-import {Dimensions} from 'react-native';
-import {backgroundColor} from '../Colors/Colors';
+import {Dimensions, StatusBar} from 'react-native';
+import {backgroundColor, COLOR_PRIMARY} from '../Colors/Colors';
 
 export const windowWidth = Dimensions.get('window').width;
 export const windowHeight = Dimensions.get('window').height;
@@ -13,7 +13,7 @@ export const MainContainer = ({children}) => {
         height: windowHeight,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: backgroundColor,
+        backgroundColor: COLOR_PRIMARY,
       }}>
       {children}
     </View>

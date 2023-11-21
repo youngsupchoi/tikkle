@@ -25,6 +25,7 @@ import {
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import moment from 'moment';
 
 export default function BirthSubmit() {
   const {ref, state, actions} = useStartViewModel();
@@ -44,7 +45,19 @@ export default function BirthSubmit() {
       topActions.showSnackbar('올바른 생일 형식을 입력해주세요!', 0);
       return;
     }
-    console.log(state.firstName, state.lastName, state.gender, birthday);
+
+    //만 14세 이상인지 검사
+
+    const birth = moment(birthday).add(9, 'hours');
+    const now = moment().add(9, 'hours');
+    const diff = now.diff(birth, 'years');
+
+    if (diff < 14) {
+      topActions.showSnackbar('티클은 만 14세 이상만 이용하실 수 있습니다!', 0);
+      return;
+    }
+
+    // console.log(state.firstName, state.lastName, state.gender, birthday);
     actions.navigation.navigate('signup6', {
       firstName: state.firstName,
       lastName: state.lastName,

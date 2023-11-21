@@ -56,7 +56,7 @@ export async function updateProductViewData(productId) {
     return {
       DScode: 1,
       DSdata: null,
-      DSmessage: '닉네임의 형식이 올바르지 않아요.',
+      DSmessage: 'id의 형식이 올바르지 않아요.',
     };
   } else if (response.status !== 200) {
     return {

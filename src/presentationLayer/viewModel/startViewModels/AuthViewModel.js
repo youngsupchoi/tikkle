@@ -31,7 +31,9 @@ export const useStartViewModel = () => {
 
   const phoneInputbuttonPress = async () => {
     // const res = await post_auth_phoneCheck(state.phoneNumber);
-    actions.setPhoneInputButtonPressed(true);
+    await actions.setPhoneInputButtonPressed(true);
+    await actions.setPhoneLoading(true);
+
     const hash = Platform.OS === 'android' ? await getHash() : '000000';
     const res = await checkPhoneNumberData(state.phoneNumber, hash).then(
       res => {
@@ -46,7 +48,10 @@ export const useStartViewModel = () => {
     }
     await actions.setMessage(res.DSdata.login_or_signup);
     await actions.setEncryptedOTP(res.DSdata.encrypted_otp);
+
     navigation.navigate('signup2');
+
+    await actions.setPhoneLoading(false);
     await actions.setPhoneInputButtonPressed(false);
   };
 

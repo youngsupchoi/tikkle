@@ -2,7 +2,10 @@ import {Text, StyleSheet, Platform} from 'react-native';
 import React from 'react';
 import {textColor} from '../Colors/Colors';
 
-export const UNIQUE = 'CherryBombOne-Regular';
+//export const UNIQUE = 'Modak';
+
+export const UNIQUE = Platform.OS === 'ios' ? 'Modak' : 'Modak-Regular';
+
 export const H =
   Platform.OS === 'ios' ? 'AppleSDGothicNeoH00' : 'AppleSDGothicNeoH';
 export const EB =
@@ -37,6 +40,21 @@ export const UNIQUE22 = ({
     </Text>
   );
 };
+export const UNIQUE27 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.UNIQUE27, customStyle]}>
+      {children}
+    </Text>
+  );
+};
 export const UNIQUE34 = ({
   children,
   customStyle,
@@ -52,6 +70,23 @@ export const UNIQUE34 = ({
     </Text>
   );
 };
+
+export const UNIQUE50 = ({
+  children,
+  customStyle,
+  ellipsizeMode = 'tail',
+  numberOfLines,
+}) => {
+  return (
+    <Text
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={numberOfLines}
+      style={[styles.UNIQUE50, customStyle]}>
+      {children}
+    </Text>
+  );
+};
+
 export const EB34 = ({
   children,
   customStyle,
@@ -481,6 +516,17 @@ const styles = StyleSheet.create({
     color: textColor,
     fontSize: 34,
     lineHeight: 41,
+  },
+  UNIQUE50: {
+    fontFamily: UNIQUE,
+    color: textColor,
+    fontSize: 50,
+    lineHeight: 60,
+  },
+  UNIQUE27: {
+    fontFamily: UNIQUE,
+    color: textColor,
+    fontSize: 27,
   },
   UNIQUE22: {
     fontFamily: UNIQUE,

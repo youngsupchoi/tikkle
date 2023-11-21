@@ -54,12 +54,14 @@ import Footer from 'src/presentationLayer/view/components/globalComponents/Heade
 import moment from 'moment';
 import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function StartTikklingScreen({route}) {
   const [tikkle_tooltip, setTikkle_tooltip] = useState(false);
   const [address_tooltip, setAddress_tooltip] = useState(false);
   const {state, actions} = useStartTikklingViewModel();
   const [time_tooltip, setTime_tooltip] = useState(false);
+  const {topState, topActions} = useTopViewModel();
 
   useEffect(() => {
     actions.loadData();
@@ -371,15 +373,34 @@ export default function StartTikklingScreen({route}) {
             {state.events.map(item => (
               <AnimatedButton
                 onPress={() => {
-                  actions.setEventType(item.type);
+                  console.log(
+                    actions.calculateDaysUntilNextBirthday(
+                      state.userData.birthday,
+                    ),
+                  );
+
                   if (item.type === 'none') {
+                    actions.setEventType(item.type);
                     actions.setOpen(true);
+                    actions.setEvent(item);
                   } else if (item.type === 'birthday') {
-                    actions.setEndDate(
-                      actions.getNextBirthday(state.userData.birthday),
-                    );
+                    if (
+                      actions.calculateDaysUntilNextBirthday(
+                        state.userData.birthday,
+                      ) <= 7
+                    ) {
+                      actions.setEventType(item.type);
+                      actions.setEndDate(
+                        actions.getNextBirthday(state.userData.birthday),
+                      );
+                      actions.setEvent(item);
+                    } else {
+                      topActions.showSnackbar(
+                        '7일 전부터 생일로 티클링 개시가 가능해요!',
+                        0,
+                      );
+                    }
                   }
-                  actions.setEvent(item);
                 }}
                 key={item.label}
                 style={{
@@ -638,11 +659,13 @@ export default function StartTikklingScreen({route}) {
                     strokeWidth={1.5}
                   />
                 </View>
-                <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-                  {state.zonecode !== null && state.address !== null
-                    ? `${state.address}(${state.zonecode})`
-                    : '도로명주소 검색'}
-                </B15>
+                <View style={{width: '90%'}}>
+                  <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
+                    {state.zonecode !== null && state.address !== null
+                      ? `${state.address}(${state.zonecode})`
+                      : '도로명주소 검색'}
+                  </B15>
+                </View>
               </View>
             </AnimatedButton>
             <View
@@ -700,7 +723,7 @@ export default function StartTikklingScreen({route}) {
             </View>
           </View>
         </View>
-        {console.log('라우트', route.params)}
+        {/* {console.log('라우트', route.params)} */}
 
         <AnimatedButton
           onPress={() => {

@@ -59,7 +59,7 @@ import ArrowDown from 'src/assets/icons/ArrowDown';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
-  const [modalText, setModalText] = useState('친구 목록');
+  const [modalText, setModalText] = useState('차단 목록');
 
   useEffect(() => {
     actions.keyboard_friend();
@@ -79,7 +79,7 @@ export default function FriendsManagementScreen() {
         <ModalDropdown
           options={[modalText]}
           defaultIndex={0}
-          defaultValue={modalText}
+          defaultValue={'친구 목록'}
           onSelect={(index, value) => {
             if (value === '친구 목록') {
               setModalText('차단 목록');
@@ -114,7 +114,7 @@ export default function FriendsManagementScreen() {
             onSubmitEditing={() => {
               actions.get_friend_search();
             }}
-            placeholder="닉네임으로 친구 추가"
+            placeholder="id로 친구 추가"
             placeholderTextColor={COLOR_GRAY}
             onChangeText={value => actions.setText_search(value)}
             value={state.text_search}
@@ -174,7 +174,7 @@ export default function FriendsManagementScreen() {
           </View>
           <B17>{state.searchedData[0].name}</B17>
           <M15 customStyle={{color: COLOR_GRAY, marginTop: 8}}>
-            @{state.searchedData[0].nick}
+            {'  ' + state.searchedData[0].nick}
           </M15>
 
           <View style={{marginTop: 24}}>
@@ -294,7 +294,7 @@ export default function FriendsManagementScreen() {
               </AnimatedButton>
               <View>
                 <B15 customStyle={{color: COLOR_BLACK}}>
-                  존재하지 않는 닉네임이에요
+                  존재하지 않는 id에요
                 </B15>
               </View>
             </View>
@@ -431,7 +431,10 @@ export default function FriendsManagementScreen() {
                     />
                     <View style={styles.listItemTextContainer}>
                       <B15>{item.name}</B15>
-                      <B15 customStyle={{color: COLOR_GRAY}}> @{item.nick}</B15>
+                      <B15 customStyle={{color: COLOR_GRAY}}>
+                        {' '}
+                        {' ' + item.nick}
+                      </B15>
                     </View>
                   </View>
                   <View style={{position: 'absolute', right: 20, top: 25}}>
@@ -504,7 +507,7 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 1,
-    elevation: 1,
+    // elevation: 1,
     // paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
@@ -630,7 +633,8 @@ const styles = StyleSheet.create({
   },
   dropdownButtonText: {
     fontSize: 20,
-    fontFamily: EB,
+    fontFamily: B,
+    color: COLOR_GRAY,
   },
   dropdown: {
     padding: 8,

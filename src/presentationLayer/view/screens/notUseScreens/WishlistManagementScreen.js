@@ -287,7 +287,11 @@ export default function WishlistManagementScreen() {
     };
 
     return (
-      <Svg width={size} height={size} style={{elevation: 4}}>
+      <Svg
+        width={size}
+        height={size}
+        // style={{elevation: 4}}
+      >
         <Defs>
           <LinearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <Stop offset="0%" stopColor="rgba(155,93,229,1)" />
@@ -367,7 +371,7 @@ export default function WishlistManagementScreen() {
                   paddingVertical: 20,
                   backgroundColor: COLOR_WHITE,
                   borderRadius: 12,
-                  elevation: 4,
+                  // elevation: 4,
                   margin: 12,
                   borderColor: COLOR_SEPARATOR,
                   borderWidth: 0.5,
@@ -428,6 +432,7 @@ export default function WishlistManagementScreen() {
       {console.log(isTikkling)}
       {selectedItem && (
         <Modal
+          avoidKeyboard
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -529,7 +534,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    // elevation: 5,
     width: windowWidth * 0.8,
   },
   modalText: {

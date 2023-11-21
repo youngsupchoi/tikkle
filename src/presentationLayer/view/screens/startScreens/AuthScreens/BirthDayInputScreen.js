@@ -11,6 +11,7 @@ import {
 import {
   B12,
   B15,
+  B17,
   B28,
   M,
   M15,
@@ -49,6 +50,8 @@ export default function SignUpScreen5() {
       <SignUpHeader />
       <View style={styles.instructionContainer}>
         <B28>당신의 생일을 알려주세요.</B28>
+        <View style={{height: 5}} />
+        <M15>티클은 만 14세 이상의 회원만 가입 가능합니다.</M15>
       </View>
       <BirthInput />
       <View style={{marginTop: 12, alignItems: 'center'}}>

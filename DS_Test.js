@@ -67,7 +67,9 @@ import {updateBuyMyTikkleInitData} from 'src/dataLayer/DataSource/Payment/Update
 import {getTikkleDetailData} from 'src/dataLayer/DataSource/Tikkling/GetTikkleDetailData';
 import {updateDeviceTokenData} from 'src/dataLayer/DataSource/User/UpdateDeviceTokenData';
 import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
+import {GetTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingDeliveryInfoData';
 
+import {GetRecentTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetRecentTikklingDeliveryInfoData';
 import moment from 'moment';
 
 export default function TestScreen() {
@@ -77,7 +79,7 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await createPhoneFriendData(list);
+    const axiosResponse = await GetRecentTikklingDeliveryInfoData();
     const str = JSON.stringify(axiosResponse);
     console.log(str);
     setRet(str);

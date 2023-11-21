@@ -36,7 +36,7 @@ export default function EditProfileHeader() {
               height: 20,
               alignItems: 'center',
               justifyContent: 'center',
-              elevation: 1,
+              // elevation: 1,
             }}>
             <ArrowLeft
               stroke={COLOR_BLACK}
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 1,
-    elevation: 1,
+    // elevation: 1,
     // paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
     // backgroundColor: 'red',

@@ -47,7 +47,7 @@ export default function SendTikkle({item}) {
           borderRadius: 16,
           margin: 16,
           marginTop: 5,
-          elevation: 1,
+          // elevation: 1,
           borderColor: COLOR_SEPARATOR,
           // height: 100,
           borderWidth: 0.5,

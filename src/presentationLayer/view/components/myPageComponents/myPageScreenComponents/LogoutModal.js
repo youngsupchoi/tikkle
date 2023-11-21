@@ -19,6 +19,7 @@ export default function LogoutModal() {
   const {state, actions} = useMyPageViewModel();
   return (
     <Modal
+      avoidKeyboard
       isVisible={state.logoutModal}
       swipeDirection={['up']}
       style={{
@@ -27,6 +28,9 @@ export default function LogoutModal() {
       }}
       useNativeDriver={false}
       onBackdropPress={() => {
+        actions.setLogoutModal(!state.logoutModal);
+      }}
+      onBackButtonPress={() => {
         actions.setLogoutModal(!state.logoutModal);
       }}
       transparent={true}>
@@ -42,15 +46,15 @@ export default function LogoutModal() {
             justifyContent: 'center',
             position: 'absolute',
             alignSelf: 'center',
-            elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: {
-              // iOS용 그림자 위치
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.2, // iOS용 그림자 투명도
-            shadowRadius: 3, // iOS용 그림자 반경
+            // elevation: 3,
+            // shadowColor: '#000',
+            // shadowOffset: {
+            //   // iOS용 그림자 위치
+            //   width: 0,
+            //   height: 2,
+            // },
+            // shadowOpacity: 0.2, // iOS용 그림자 투명도
+            // shadowRadius: 3, // iOS용 그림자 반경
           },
         ]}>
         <View

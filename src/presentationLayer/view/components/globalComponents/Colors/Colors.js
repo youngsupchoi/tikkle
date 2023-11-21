@@ -13,7 +13,8 @@ export const COLOR_GRAY = '#888888';
 export const COLOR_PRIMARY_TEXT = '#F0FFFF';
 
 export const textColor = COLOR_BLACK;
-export const backgroundColor = COLOR_BACKGROUND_WHITE;
+// export const backgroundColor = COLOR_BACKGROUND_WHITE;
+export const backgroundColor = '#F5F3F6';
 
 // let prim = '';
 // let sec = '';

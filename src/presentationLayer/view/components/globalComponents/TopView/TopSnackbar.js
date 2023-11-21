@@ -2,6 +2,10 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {
+  HEADER_HEIGHT,
+  StatusBarHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {
   COLOR_BLACK,
   backgroundColor,
   COLOR_WHITE,
@@ -32,7 +36,8 @@ const getSnackbarStyles = status => {
           />
         ),
         backgroundColor: backgroundColor,
-        textColor: 'red',
+        //textColor: 'red',
+        borderColor: 'red',
       };
     case 1:
       return {
@@ -46,7 +51,8 @@ const getSnackbarStyles = status => {
         ),
         // backgroundColor: COLOR_SUCCESS,
         backgroundColor: backgroundColor,
-        textColor: 'green',
+        //textColor: 'green',
+        borderColor: 'green',
       };
     case 2:
       return {
@@ -59,7 +65,8 @@ const getSnackbarStyles = status => {
           />
         ),
         backgroundColor: COLOR_WHITE,
-        textColor: COLOR_BLACK,
+        //textColor: COLOR_BLACK,
+        borderColor: COLOR_BLACK,
       };
 
     default:
@@ -74,7 +81,8 @@ const getSnackbarStyles = status => {
 const TopSnackbar = () => {
   const {topState, topActions} = useTopViewModel();
   const {isSnackbarVisible, snackbarMessage, snackbarStatus} = topState;
-  const {icon, backgroundColor, textColor} = getSnackbarStyles(snackbarStatus);
+  const {icon, backgroundColor, textColor, borderColor} =
+    getSnackbarStyles(snackbarStatus);
 
   const translateY = useSharedValue(0);
   const opacity = useSharedValue(0);
@@ -127,6 +135,9 @@ const TopSnackbar = () => {
               runOnJS(topActions.hideSnackbar)();
             }}
             style={{
+              borderColor: borderColor,
+              borderWidth: 1,
+              borderRadius: 12,
               flex: 1,
               paddingVertical: 16,
               paddingHorizontal: 20,
@@ -134,9 +145,11 @@ const TopSnackbar = () => {
               alignItems: 'center',
             }}>
             {icon}
-            <B15 customStyle={{marginLeft: 12, color: textColor}}>
-              {snackbarMessage}
-            </B15>
+            <View style={{width: '95%'}}>
+              <B15 customStyle={{marginLeft: 12, color: textColor}}>
+                {snackbarMessage}
+              </B15>
+            </View>
           </AnimatedButton>
         </Animated.View>
       ) : null}
@@ -147,7 +160,7 @@ const TopSnackbar = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 50,
+    top: 60,
     left: 0,
     right: 0,
     flexDirection: 'row', // 텍스트를 중앙에 위치시키기 위해 변경

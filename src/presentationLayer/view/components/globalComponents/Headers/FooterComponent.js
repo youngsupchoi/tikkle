@@ -21,9 +21,12 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {CONTRACT_URL, PRIVATECONTRACT_URL} from '@env';
+import {CONTRACT_URL, PRIVATECONTRACT_URL, INQ_URL} from '@env';
+import {navigate} from 'src/navigation/stackNavigators/MainStackNavigator';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 export default function Footer({style}) {
+  const navigation = useNavigation();
   return (
     <View
       style={[
@@ -35,7 +38,7 @@ export default function Footer({style}) {
           borderTopWidth: 0.5,
           borderTopColor: COLOR_GRAY,
           margin: windowWidth * 0.03,
-          marginBottom: 100,
+          marginBottom: 50,
           width: windowWidth * 0.94,
         },
         style, // 외부에서 전달된 스타일
@@ -112,6 +115,19 @@ export default function Footer({style}) {
               Linking.openURL(PRIVATECONTRACT_URL);
             }}>
             <M11 customStyle={{color: COLOR_GRAY}}>개인정보처리방침</M11>
+          </AnimatedButton>
+        </View>
+
+        <View>
+          <M11 customStyle={{color: COLOR_GRAY}}> | </M11>
+        </View>
+
+        <View>
+          <AnimatedButton
+            onPress={() => {
+              Linking.openURL(INQ_URL);
+            }}>
+            <M11 customStyle={{color: COLOR_GRAY}}>문의하기</M11>
           </AnimatedButton>
         </View>
       </View>

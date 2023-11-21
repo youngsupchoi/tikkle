@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: windowWidth / 2 - SPACING_4 * 2,
+    height: windowWidth / 2 - SPACING_4,
+    // height: windowWidth / 2 - SPACING_4*2,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: COLOR_SEPARATOR,

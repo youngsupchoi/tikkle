@@ -44,6 +44,10 @@
     {
       "path": "src/assets/fonts/CherryBombOne-Regular.ttf",
       "sha1": "3cff461d1184264a261d62abce5d017d445411e8"
+    },
+    {
+      "path": "src/assets/fonts/Modak-Regular.ttf",
+      "sha1": "46b8d9e4dedd90b6d81199c676a371996c662ee3"
     }
   ]
 }

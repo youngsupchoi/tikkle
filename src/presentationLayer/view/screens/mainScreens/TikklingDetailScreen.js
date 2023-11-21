@@ -45,6 +45,7 @@ import {
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
 import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
 import {
   windowHeight,
@@ -72,6 +73,7 @@ import WhoParticipated from 'src/presentationLayer/view/components/mainComponent
 import Profile from 'src/assets/icons/Profile';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Delivery from 'src/assets/icons/Delivery';
+import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
 
 export default function TikklingDetailScreen() {
   const navigation = useNavigation();
@@ -145,16 +147,9 @@ export default function TikklingDetailScreen() {
                 <AnimatedButton
                   onPress={() => {
                     if (state.detial_route) {
-                      actions.navigation.goBack();
+                      navigation.goBack();
                     } else {
-                      actions.navigation.reset({
-                        index: 0,
-                        routes: [
-                          {
-                            name: 'main',
-                          },
-                        ],
-                      });
+                      navigation.navigate('main');
                     }
                   }}
                   style={{
@@ -208,64 +203,29 @@ export default function TikklingDetailScreen() {
               </View>
               <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
                 {state.route_data.is_mine === true ? (
-                  <Tooltip
-                    topAdjustment={
-                      Platform.OS === 'android' ? -StatusBarHeight : 0
-                    }
-                    isVisible={state.showWhoParticipatedTooltip}
-                    content={
-                      <View style={{padding: 12, paddingVertical: 4}}>
-                        <View style={{}}>
-                          <B15 customStyle={{color: COLOR_PRIMARY}}>
-                            {'누가 티클링에 참여했을까요?'}
-                          </B15>
-                        </View>
-                        <View style={{}}>
-                          <View>
-                            <M11>
-                              {'1개 이상의 티클을 받으면 확인할 수 있어요!'}
-                            </M11>
-                          </View>
-                        </View>
-                      </View>
-                    }
-                    placement="bottom"
-                    animated={true}
-                    backgroundColor="rgba(0,0,0,0.1)"
-                    disableShadow={true}
-                    onClose={() => {
-                      actions.setShowWhoParticipatedTooltip(false);
+                  <AnimatedButton
+                    onPress={() => {
+                      actions.setShowWhoParticipatedModal(true);
+                    }}
+                    style={{
+                      borderColor: COLOR_PRIMARY,
+                      borderWidth: 1,
+                      padding: 4,
+                      paddingLeft: 6,
+                      paddingRight: 10,
+                      borderRadius: 100,
+                      flexDirection: 'row',
+                      alignItems: 'center',
                     }}>
-                    <AnimatedButton
-                      onPress={() => {
-                        if (state.tikkle_sum !== 0) {
-                          actions.setShowWhoParticipatedModal(true);
-                        } else {
-                          actions.setShowWhoParticipatedTooltip(true);
-                        }
-                      }}
-                      style={{
-                        borderColor: COLOR_PRIMARY,
-                        borderWidth: 1,
-                        padding: 4,
-                        paddingLeft: 6,
-                        paddingRight: 10,
-                        borderRadius: 100,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                      }}>
-                      <Profile
-                        width={16}
-                        height={16}
-                        stroke={COLOR_PRIMARY}
-                        strokeWidth={2}
-                        scale={16 / 24}
-                      />
-                      <B12 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
-                        {state.tikkle_sum}
-                      </B12>
-                    </AnimatedButton>
-                  </Tooltip>
+                    <Noti_GetTikkle
+                      width={16}
+                      height={16}
+                      fill={COLOR_PRIMARY}
+                    />
+                    <B12 customStyle={{marginLeft: 4, color: COLOR_PRIMARY}}>
+                      {state.tikkle_sum}
+                    </B12>
+                  </AnimatedButton>
                 ) : null}
               </View>
             </View>
@@ -548,30 +508,16 @@ export default function TikklingDetailScreen() {
             onCloseModal={onCloseModal}
           />
 
-          {/* <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              backgroundColor: COLOR_WHITE,
-              borderTopColor: COLOR_SEPARATOR,
-              borderTopWidth: 0.5,
-              elevation: 1,
-            }}>
-            <View style={{height: 56}}>
-              {state.route_data.state_id === 1 ? (
-                <ButtonComponent
-                  ButtonIcon={ButtonIcon}
-                  ButtonText={ButtonText}
-                  FromDetail={true}
-                  Q={state.route_data.tikkle_quantity}
-                  S={state.tikkle_sum}
-                  IsStopped={null}
-                />
-              ) : null}
-            </View>
-          </View> */}
+          <WhoParticipated
+            data={state.list_data}
+            showModal={state.showWhoParticipatedModal}
+            setShowModal={actions.setShowWhoParticipatedModal}
+          />
+
+          <InstaGuideModal
+            name={state.route_data.user_name}
+            tikkling_id={state.route_data.tikkling_id}
+          />
         </View>
       ) : (
         <GlobalLoader />
@@ -625,13 +571,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
     detailsContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',

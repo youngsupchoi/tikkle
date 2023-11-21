@@ -15,7 +15,10 @@ import {
   M11,
   M15,
   B12,
+  B22,
   UNIQUE22,
+  UNIQUE34,
+  UNIQUE27,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {StatusBarHeight} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
@@ -30,15 +33,33 @@ import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
   const [ticket_tooltip, setTicket_tooltip] = useState(false);
   const {isNotice, tikkling_ticket} = props;
   const navigation = useNavigation();
+
+  const {topActions} = useTopViewModel();
+
   return (
     <View style={styles.headerContainer}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <UNIQUE22>TIKKLE</UNIQUE22>
+      <View
+        style={{
+          // backgroundColor: 'blue',
+          flexDirection: 'row',
+          alignItems: 'center',
+          flex: 1,
+        }}>
+        <UNIQUE27
+          customStyle={{
+            paddingLeft: 2,
+            color: COLOR_GRAY,
+          }}>
+          TIKKLE
+        </UNIQUE27>
+
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
@@ -50,7 +71,7 @@ export default function HomeHeader(props) {
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {/* <AnimatedButton
           onPress={() => {
-            navigation.navigate('onboarding');
+            actions.convertImageToBase64();
           }}>
           <Help width={24} height={24} />
         </AnimatedButton> */}

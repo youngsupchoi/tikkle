@@ -60,6 +60,7 @@ import GlobalLoader from 'src/presentationLayer/view/components/globalComponents
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
 import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
+import {GetTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingDeliveryInfoData';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import Noti_Refund from 'src/assets/icons/Noti_Refund';
 import LinearGradient from 'react-native-linear-gradient';
@@ -73,6 +74,10 @@ export default function HistoryDetailScreen(route) {
   const navigation = useNavigation();
   const [tikkle_sum, setTikkle_sum] = useState(0);
   const [list_data, setList_data] = useState([]);
+  const [d, setD] = useState(null);
+  const [delivery_check_link, setDelivery_check_link] = useState({});
+  const [invoice_number, setInvoice_number] = useState('');
+  const [company_name, setCompany_name] = useState(' ');
 
   let tikkle_data = [];
 
@@ -84,7 +89,25 @@ export default function HistoryDetailScreen(route) {
    * @param {int} tikkling_id
    */
   async function getTikkleData(tikkling_id) {
-    // console.log('###$#$#$#$ : ', route_data);
+    //console.log('###$#$#$#$ : ', route_data);
+    if (route_data.state_id === 4) {
+      await GetTikklingDeliveryInfoData(route_data.tikkling_id).then(
+        async res => {
+          console.log('### : ', res.DSdata);
+          if (res.DSdata) {
+            setD(true);
+            if (res.DSdata.info.delivery_info.invoice_number) {
+              setDelivery_check_link(res.DSdata.info.delivery_check_link);
+              setInvoice_number(res.DSdata.info.delivery_info.invoice_number);
+              setCompany_name(
+                res.DSdata.info.delivery_info.courier_company_name,
+              );
+            }
+          }
+        },
+      );
+    }
+
     await getRecivedTikkleData(tikkling_id)
       .then(async res => {
         return topActions.setStateAndError(res);
@@ -102,7 +125,7 @@ export default function HistoryDetailScreen(route) {
           }
         });
         setTikkle_sum(sum);
-        console.log(tikkle_sum);
+        //console.log(tikkle_sum);
       });
   }
 
@@ -121,7 +144,7 @@ export default function HistoryDetailScreen(route) {
               height: 20,
               alignItems: 'center',
               justifyContent: 'center',
-              elevation: 1,
+              // elevation: 1,
             }}>
             <ArrowLeft
               stroke={COLOR_BLACK}
@@ -139,7 +162,9 @@ export default function HistoryDetailScreen(route) {
           </View>
         </View>
       </View>
-
+      {/* {console.log('### : ', delivery_check_link)}
+      {console.log('### : ', invoice_number)}
+      {console.log('### : ', courier_company_code)} */}
       <FlatList
         data={list_data}
         keyExtractor={(item, index) => String(item.created_at)}
@@ -201,7 +226,7 @@ export default function HistoryDetailScreen(route) {
                   }}
                   style={{
                     width: windowWidth - 64,
-                    height: ((windowWidth - 64) / 3) * 2,
+                    height: windowWidth - 64,
                     borderRadius: 16,
                     borderColor: COLOR_SEPARATOR,
                     borderWidth: 1,
@@ -223,8 +248,7 @@ export default function HistoryDetailScreen(route) {
                         uri: route_data.thumbnail_image,
                       }}
                       style={{
-                        width: '100%',
-                        height: '100%',
+                        flex: 1,
                         borderRadius: 16,
                       }}
                     />
@@ -400,6 +424,50 @@ export default function HistoryDetailScreen(route) {
                 style={{
                   paddingHorizontal: 7,
                 }}>
+                {d ? (
+                  <AnimatedButton
+                    onPress={() => {
+                      if (invoice_number) {
+                        navigation.navigate('Delivery', delivery_check_link);
+                      }
+                    }}
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <B15 customStyle={{marginBottom: 10}}>운송장 번호</B15>
+                    {invoice_number === '' ? (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'left',
+                          alignItems: 'center',
+                          marginLeft: 8,
+                        }}>
+                        <M15
+                          customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
+                          {'운송장번호가 발급되지 않았습니다'}
+                        </M15>
+                      </View>
+                    ) : (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'left',
+                          alignItems: 'center',
+                          marginLeft: 8,
+                        }}>
+                        <M15 customStyle={{color: '#0645AD', marginBottom: 10}}>
+                          {company_name + '  '}
+                        </M15>
+                        <M17 customStyle={{color: '#0645AD', marginBottom: 10}}>
+                          {invoice_number}
+                        </M17>
+                      </View>
+                    )}
+                  </AnimatedButton>
+                ) : null}
+
                 <View
                   style={{
                     flexDirection: 'row',
@@ -425,7 +493,8 @@ export default function HistoryDetailScreen(route) {
                   </View>
                 </View>
 
-                {route_data.state_id === 3 || route_data.state_id === 4 ? (
+                {(route_data.state_id === 3 || route_data.state_id === 4) &&
+                route_data.terminated_at ? (
                   <View
                     style={{
                       flexDirection: 'row',
@@ -682,7 +751,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 3,
+    // elevation: 3,
     // shadowColor: '#000',
     // shadowOffset: {
     //   // iOS용 그림자 위치

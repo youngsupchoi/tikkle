@@ -49,7 +49,7 @@ export default function CustomerCenterScreen() {
               height: 20,
               alignItems: 'center',
               justifyContent: 'center',
-              elevation: 1,
+              // elevation: 1,
             }}>
             <ArrowLeft
               stroke={COLOR_BLACK}

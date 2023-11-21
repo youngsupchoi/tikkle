@@ -556,7 +556,8 @@
 //         showModal={showModal}
 //         onCloseModal={onCloseModal}
 //       />
-//       <Modal isVisible={showCancelModal}>
+//       <Modal
+        avoidKeyboard isVisible={showCancelModal}>
 //         <View
 //           style={{
 //             backgroundColor: COLOR_WHITE,

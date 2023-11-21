@@ -21,6 +21,7 @@ export default function DeleteUserModal() {
   const {state, actions} = useMyPageViewModel();
   return (
     <Modal
+      avoidKeyboard
       isVisible={state.userDeleteModal}
       swipeDirection={['up']}
       style={{
@@ -29,6 +30,9 @@ export default function DeleteUserModal() {
       }}
       useNativeDriver={false}
       onBackdropPress={() => {
+        actions.setUserDeleteModal(!state.userDeleteModal);
+      }}
+      onBackButtonPress={() => {
         actions.setUserDeleteModal(!state.userDeleteModal);
       }}
       transparent={true}>
@@ -44,15 +48,15 @@ export default function DeleteUserModal() {
             justifyContent: 'center',
             position: 'absolute',
             alignSelf: 'center',
-            elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: {
-              // iOS용 그림자 위치
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.2, // iOS용 그림자 투명도
-            shadowRadius: 3, // iOS용 그림자 반경
+            // elevation: 3,
+            // shadowColor: '#000',
+            // shadowOffset: {
+            //   // iOS용 그림자 위치
+            //   width: 0,
+            //   height: 2,
+            // },
+            // shadowOpacity: 0.2, // iOS용 그림자 투명도
+            // shadowRadius: 3, // iOS용 그림자 반경
           },
         ]}>
         <View
