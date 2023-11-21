@@ -45,26 +45,21 @@ export default function HomeHeader(props) {
 
   return (
     <View style={styles.headerContainer}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View
+        style={{
+          // backgroundColor: 'blue',
+          flexDirection: 'row',
+          alignItems: 'center',
+          flex: 1,
+        }}>
         <UNIQUE27
-          customStyle={{paddingTop: 13, paddingLeft: 2, color: COLOR_GRAY}}>
+          customStyle={{
+            paddingLeft: 2,
+            color: COLOR_GRAY,
+          }}>
           TIKKLE
         </UNIQUE27>
-        {/* <AnimatedButton
-          onPress={() => {
-            const ret = {DScode: 1, DSmessage: '# error', DSdata: null};
-            topActions.setStateAndError(ret).then(res => {
-              console.log('not print');
-            });
-          }}>
-          <B22 customStyle={{color: COLOR_PRIMARY}}>@@@@</B22>
-        </AnimatedButton> */}
-        {/* <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 2}}>T</UNIQUE27>
-        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>I</UNIQUE27>
-        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>K</UNIQUE27>
-        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>K</UNIQUE27>
-        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>L</UNIQUE27>
-        <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>E</UNIQUE27> */}
+
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
