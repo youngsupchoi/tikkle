@@ -50,7 +50,7 @@ export default function HomeHeader(props) {
           customStyle={{paddingTop: 13, paddingLeft: 2, color: COLOR_GRAY}}>
           TIKKLE
         </UNIQUE27>
-        <AnimatedButton
+        {/* <AnimatedButton
           onPress={() => {
             const ret = {DScode: 1, DSmessage: '# error', DSdata: null};
             topActions.setStateAndError(ret).then(res => {
@@ -58,7 +58,7 @@ export default function HomeHeader(props) {
             });
           }}>
           <B22 customStyle={{color: COLOR_PRIMARY}}>@@@@</B22>
-        </AnimatedButton>
+        </AnimatedButton> */}
         {/* <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 2}}>T</UNIQUE27>
         <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>I</UNIQUE27>
         <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>K</UNIQUE27>
