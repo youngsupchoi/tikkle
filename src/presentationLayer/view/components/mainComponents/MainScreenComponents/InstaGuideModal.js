@@ -301,12 +301,11 @@ const InstaGuideModal = ({name, tikkling_id}) => {
             backgroundColor: backgroundColor,
             borderRadius: 30,
             margin: 12,
-            height: windowHeight * 0.8,
             width: windowWidth - 35,
             alignItems: 'center',
             justifyContent: 'center',
             position: 'absolute',
-            bottom: windowHeight / 11,
+            // bottom: windowHeight / 11,
             alignSelf: 'center',
             // elevation: 3,
             // shadowColor: '#000',
@@ -325,14 +324,13 @@ const InstaGuideModal = ({name, tikkling_id}) => {
             // justifyContent: 'center',
             borderRadius: 12,
             margin: 12,
-            height: windowHeight * 0.8,
           }}>
           <View
             style={{
               paddingTop: 24,
               paddingBottom: 8,
               width: windowWidth - 48,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'flex-end',
@@ -359,15 +357,13 @@ const InstaGuideModal = ({name, tikkling_id}) => {
               }
             </View> */}
           </View>
-
-          <View
-            style={{
-              backgroundColor: COLOR_WHITE,
-              width: windowWidth * 0.8,
-              height: windowHeight * 0.45,
-              borderRadius: 30,
-            }}>
+          <View style={{height: windowWidth * 0.8}}>
             <ScrollView
+              style={{
+                // backgroundColor: 'red',
+                width: windowWidth * 0.8,
+                borderRadius: 30,
+              }}
               horizontal
               pagingEnabled
               onScroll={handleScroll}
