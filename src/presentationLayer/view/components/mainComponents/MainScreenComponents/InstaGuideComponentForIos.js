@@ -16,39 +16,21 @@ import {
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AutoHeightImage from 'react-native-auto-height-image';
-import InataGuideForIos from 'src/assets/images/InataGuideForIos.png';
+// import InataGuideForIos from 'src/assets/images/InataGuideForIos.png';
 
 export default function InstaGuideComponentForIos() {
+  const InataGuideForIos =
+    'https://d2da4yi19up8sp.cloudfront.net/InataGuideForIos.png';
   return (
-    <View style={styles.onboardingComponentContainer}>
-      <AutoHeightImage
-        width={windowWidth * 0.8}
-        resizeMode="contain"
-        source={InataGuideForIos}
-        style={styles.onboardingImage}
-      />
-    </View>
+    <AutoHeightImage
+      width={windowWidth * 0.8}
+      resizeMode="contain"
+      source={{
+        uri: InataGuideForIos,
+      }}
+      style={{borderRadius: 20}}
+    />
   );
 }
 
-const styles = StyleSheet.create({
-  onboardingComponentContainer: {
-    borderRadius: 30,
-    width: windowWidth * 0.8,
-    height: windowHeight * 0.45,
-    alignItems: 'center',
-  },
-  title: {
-    marginTop: 32,
-    alignItems: 'center',
-  },
-  detail: {
-    marginTop: 16,
-    alignItems: 'center',
-  },
-  onboardingImage: {
-    borderRadius: 20,
-    position: 'absolute',
-    bottom: 0,
-  },
-});
+const styles = StyleSheet.create({});

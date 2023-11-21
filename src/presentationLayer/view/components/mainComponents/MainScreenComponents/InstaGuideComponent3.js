@@ -16,39 +16,19 @@ import {
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AutoHeightImage from 'react-native-auto-height-image';
-import pic3 from 'src/assets/images/instaGuide3.png';
+const pic3 = 'https://d2da4yi19up8sp.cloudfront.net/instaGuide3.png';
 
 export default function InstaGuideComponent3() {
   return (
-    <View style={styles.onboardingComponentContainer}>
-      <AutoHeightImage
-        width={windowWidth * 0.8}
-        resizeMode="contain"
-        source={pic3}
-        style={styles.onboardingImage}
-      />
-    </View>
+    <AutoHeightImage
+      width={windowWidth * 0.8}
+      resizeMode="contain"
+      source={{
+        uri: pic3,
+      }}
+      style={{borderRadius: 20}}
+    />
   );
 }
 
-const styles = StyleSheet.create({
-  onboardingComponentContainer: {
-    borderRadius: 30,
-    width: windowWidth * 0.8,
-    height: windowHeight * 0.45,
-    alignItems: 'center',
-  },
-  title: {
-    marginTop: 32,
-    alignItems: 'center',
-  },
-  detail: {
-    marginTop: 16,
-    alignItems: 'center',
-  },
-  onboardingImage: {
-    borderRadius: 20,
-    position: 'absolute',
-    bottom: 0,
-  },
-});
+const styles = StyleSheet.create({});
