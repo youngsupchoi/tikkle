@@ -14,6 +14,13 @@ import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData
 // 2. 데이터 소스 또는 API 가져오기
 //import {fetchExampleData} from '../dataLayer/dataSource';
 
+class TopError extends Error {
+  constructor(message, name) {
+    super(message);
+    this.name = name; // Set the error name to "MyError"
+  }
+}
+
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useTopViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -32,15 +39,7 @@ export const useTopViewModel = () => {
 
       Sentry.withScope(scope => {
         scope.setContext('user_info', {
-          birthday: userdata.birthday,
-          gender: userdata.gender,
           id: userdata.id,
-          is_deleted: userdata.is_deleted,
-          is_tikkling: userdata.is_tikkling,
-          name: userdata.name,
-          nick: userdata.nick,
-          phone: userdata.phone,
-          tikkling_ticket: userdata.tikkling_ticket,
         });
         scope.setContext('DS', {
           DScode: res.DScode,
@@ -48,10 +47,14 @@ export const useTopViewModel = () => {
           DSdata: res.DSdata,
         });
         scope.setLevel('warning');
+        scope.setTag('DScode', res.DScode);
+        scope.setTag('DSmessage', res.DSmessage);
+        scope.setTag('DSdata', res.DSdata);
         scope.setTag('when', 'running');
         scope.setTag('where', 'TopViewModel');
-        Sentry.captureException(new Error(JSON.stringify(res)));
+        Sentry.captureException(new TopError(res, res.DSmessage));
       });
+      throw new Error(JSON.stringify(res));
     } else if (res.DScode === 2) {
       showModal(res.DSmessage, 0);
 
@@ -60,26 +63,23 @@ export const useTopViewModel = () => {
 
       Sentry.withScope(scope => {
         scope.setContext('user_info', {
-          birthday: userdata.birthday,
-          gender: userdata.gender,
           id: userdata.id,
-          is_deleted: userdata.is_deleted,
-          is_tikkling: userdata.is_tikkling,
-          name: userdata.name,
-          nick: userdata.nick,
-          phone: userdata.phone,
-          tikkling_ticket: userdata.tikkling_ticket,
         });
+
         scope.setContext('DS', {
           DScode: res.DScode,
           DSmessage: res.DSmessage,
           DSdata: res.DSdata,
         });
         scope.setLevel('error');
+        scope.setTag('DScode', res.DScode);
+        scope.setTag('DSmessage', res.DSmessage);
+        scope.setTag('DSdata', res.DSdata);
         scope.setTag('when', 'running');
         scope.setTag('where', 'TopViewModel');
-        Sentry.captureException(new Error(JSON.stringify(res)));
+        Sentry.captureException(new TopError(res, res.DSmessage));
       });
+      throw new Error(JSON.stringify(res));
     } else if (res.DScode === 3) {
       showModal(res.DSmessage, 0);
       reset({routes: [{name: 'splash'}]});

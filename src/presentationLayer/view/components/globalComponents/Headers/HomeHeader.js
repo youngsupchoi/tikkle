@@ -15,6 +15,7 @@ import {
   M11,
   M15,
   B12,
+  B22,
   UNIQUE22,
   UNIQUE34,
   UNIQUE27,
@@ -32,11 +33,16 @@ import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
   const [ticket_tooltip, setTicket_tooltip] = useState(false);
   const {isNotice, tikkling_ticket} = props;
   const navigation = useNavigation();
+
+  const {topActions} = useTopViewModel();
+
   return (
     <View style={styles.headerContainer}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -44,6 +50,15 @@ export default function HomeHeader(props) {
           customStyle={{paddingTop: 13, paddingLeft: 2, color: COLOR_GRAY}}>
           TIKKLE
         </UNIQUE27>
+        <AnimatedButton
+          onPress={() => {
+            const ret = {DScode: 1, DSmessage: '# error', DSdata: null};
+            topActions.setStateAndError(ret).then(res => {
+              console.log('not print');
+            });
+          }}>
+          <B22 customStyle={{color: COLOR_PRIMARY}}>@@@@</B22>
+        </AnimatedButton>
         {/* <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 2}}>T</UNIQUE27>
         <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>I</UNIQUE27>
         <UNIQUE27 customStyle={{paddingTop: 13, paddingLeft: 1}}>K</UNIQUE27>
