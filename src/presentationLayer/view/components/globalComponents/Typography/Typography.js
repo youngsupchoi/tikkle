@@ -527,7 +527,6 @@ const styles = StyleSheet.create({
     fontFamily: UNIQUE,
     color: textColor,
     fontSize: 27,
-    lineHeight: 32,
   },
   UNIQUE22: {
     fontFamily: UNIQUE,

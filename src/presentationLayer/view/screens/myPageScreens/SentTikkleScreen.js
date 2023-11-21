@@ -91,7 +91,7 @@ export default function SendTikkleScreen() {
                       borderRadius: 16,
                       margin: 16,
                       marginTop: 0,
-                      elevation: 1,
+                      // elevation: 1,
                       borderColor: COLOR_SEPARATOR,
                       // height: 100,
                       borderWidth: 0.5,

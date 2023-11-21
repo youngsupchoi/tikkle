@@ -308,15 +308,15 @@ const InstaGuideModal = ({name, tikkling_id}) => {
             position: 'absolute',
             bottom: windowHeight / 11,
             alignSelf: 'center',
-            elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: {
-              // iOS용 그림자 위치
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.2, // iOS용 그림자 투명도
-            shadowRadius: 3, // iOS용 그림자 반경
+            // elevation: 3,
+            // shadowColor: '#000',
+            // shadowOffset: {
+            //   // iOS용 그림자 위치
+            //   width: 0,
+            //   height: 2,
+            // },
+            // shadowOpacity: 0.2, // iOS용 그림자 투명도
+            // shadowRadius: 3, // iOS용 그림자 반경
           },
         ]}>
         <View
@@ -410,11 +410,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    elevation: 2, // this is for android shadow
-    shadowColor: '#000', // this is for ios shadow
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    // elevation: 2, // this is for android shadow
+    // shadowColor: '#000', // this is for ios shadow
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
   },
   buttonGradient: {
     flexDirection: 'row',
@@ -431,15 +431,15 @@ const styles = StyleSheet.create({
     zIndex: 2,
     marginHorizontal: 24,
     borderRadius: 12,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      // iOS용 그림자 위치
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // iOS용 그림자 투명도
-    shadowRadius: 3, // iOS용 그림자 반경
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   // iOS용 그림자 위치
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.2, // iOS용 그림자 투명도
+    // shadowRadius: 3, // iOS용 그림자 반경
     flexDirection: 'row',
   },
   closeText: {

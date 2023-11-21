@@ -22,6 +22,7 @@ import {
   B15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import {INQ_URL} from '@env';
 
 export default function SignUpScreen1() {
   const {state, actions} = useStartViewModel();
@@ -46,7 +47,7 @@ export default function SignUpScreen1() {
             <B12 customStyle={{color: COLOR_GRAY}}>문제가 있으신가요? </B12>
             <AnimatedButton
               onPress={() => {
-                Linking.openURL('https://open.kakao.com/o/sJA8ctQf');
+                Linking.openURL(INQ_URL);
               }}>
               <B12>문의하기</B12>
             </AnimatedButton>

@@ -46,7 +46,7 @@ export default function CategoryCarousel() {
               borderColor: COLOR_PRIMARY,
               borderWidth: 1,
               borderRadius: 8,
-              elevation: 1,
+              // elevation: 1,
               // marginBottom: 4,
               alignItems: 'center',
               marginLeft: 8,

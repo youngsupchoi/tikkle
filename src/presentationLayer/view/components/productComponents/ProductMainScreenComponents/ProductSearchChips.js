@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 0.5,
     borderColor: COLOR_SEPARATOR,
-    elevation: 0,
+    // elevation: 0,
     backgroundColor: COLOR_WHITE,
     marginRight: 8,
     position: 'relative',

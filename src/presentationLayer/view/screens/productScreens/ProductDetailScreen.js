@@ -285,7 +285,7 @@ export default function ProductDetailScreen(route) {
               backgroundColor: COLOR_WHITE,
               borderTopColor: COLOR_SEPARATOR,
               borderTopWidth: 0.5,
-              elevation: 1,
+              // elevation: 1,
             }}>
             <View
               style={{
@@ -543,7 +543,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    // elevation: 5,
     width: windowWidth * 0.8,
   },
   modalText: {
@@ -621,7 +621,7 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     borderColor: COLOR_SEPARATOR,
     borderWidth: 0.5,
-    elevation: 1,
+    // elevation: 1,
     borderRadius: 5,
   },
   undoText: {

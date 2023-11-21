@@ -292,9 +292,10 @@ export default function FriendsTikklingCarousel(data) {
                   }}
                   style={{
                     padding: 6,
+                    paddingVertical: 10,
                     borderRadius: 8,
                     backgroundColor: COLOR_PRIMARY,
-                    borderColor: COLOR_PRIMARY_OUTLINE,
+                    borderColor: COLOR_PRIMARY,
                     borderWidth: 2,
                     alignItems: 'center',
                     flexDirection: 'row',
@@ -304,7 +305,7 @@ export default function FriendsTikklingCarousel(data) {
                     // new Date(item.funding_limit) < new Date()
                     moment().isAfter(moment(item.funding_limit).endOf('day'))
                   }>
-                  <B15 customStyle={{color: COLOR_PRIMARY_TEXT}}>
+                  <B15 customStyle={{color: COLOR_WHITE}}>
                     {'티클 선물하기'}
                   </B15>
                 </AnimatedButton>
@@ -383,7 +384,7 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 0.5,
     borderRadius: 12,
-    elevation: 3,
+    // elevation: 3,
   },
   cardContainer: {
     // marginTop: 16,
@@ -413,7 +414,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     borderRadius: 12,
     backgroundColor: COLOR_WHITE,
-    elevation: 4,
+    // elevation: 4,
     marginLeft: 24,
     marginHorizontal: 8,
     marginBottom: 8,

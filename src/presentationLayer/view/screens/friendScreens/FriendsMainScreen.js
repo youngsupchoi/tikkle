@@ -507,7 +507,7 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     borderBottomColor: COLOR_SEPARATOR,
     borderBottomWidth: 1,
-    elevation: 1,
+    // elevation: 1,
     // paddingTop: StatusBarHeight,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
@@ -633,7 +633,8 @@ const styles = StyleSheet.create({
   },
   dropdownButtonText: {
     fontSize: 20,
-    fontFamily: EB,
+    fontFamily: B,
+    color: COLOR_GRAY,
   },
   dropdown: {
     padding: 8,
