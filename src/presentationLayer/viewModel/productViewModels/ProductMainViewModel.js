@@ -24,12 +24,13 @@ export const useProductMainViewModel = () => {
       state.sortAttribute,
       state.sortWay,
       state.search,
-      state.getNum,
+      1,
     )
       .then(res => {
         return topActions.setStateAndError(res);
       })
       .then(async res => {
+        actions.setGetNum(1);
         actions.setSearchedData(res.DSdata.info);
       });
     await actions.setLoading(false);
@@ -41,6 +42,36 @@ export const useProductMainViewModel = () => {
     //actions.setRefreshing(false);
   };
 
+  const getNewData = async page => {
+    // if (page == state.getNum) {
+    //   return;
+    // }
+    // console.log('getNewData');
+    await actions.setItemLoading(true);
+    const temp = [];
+    temp.push(...state.searchedData);
+    await getProductListData(
+      state.categoryId,
+      state.priceMin,
+      state.priceMax,
+      state.sortAttribute,
+      state.sortWay,
+      state.search,
+      page + 1,
+    )
+      .then(res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        temp.push(...res.DSdata.info);
+        // console.log('[append]\n', temp);
+        actions.setSearchedData(temp);
+        actions.setGetNum(page + 1);
+      });
+
+    await actions.setItemLoading(false);
+  };
+
   return {
     ref,
     state: {
@@ -50,6 +81,7 @@ export const useProductMainViewModel = () => {
       ...actions,
       loadData,
       onRefresh,
+      getNewData,
     },
   };
 };

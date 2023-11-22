@@ -40,7 +40,10 @@ export const ProductMainViewStateProvider = ({children}) => {
   //페이징 관련(페이징)
   const [getNum, setGetNum] = useState(1);
 
+  const [itemLoading, setItemLoading] = useState(false);
+
   const [showFilter, setShowFilter] = useState(false);
+  const [parentHeight, setParentHeight] = useState(0);
 
   const categories = [
     {
@@ -87,6 +90,8 @@ export const ProductMainViewStateProvider = ({children}) => {
     showFilter,
     categories,
     loading,
+    itemLoading,
+    parentHeight,
   };
 
   const actions = {
@@ -104,6 +109,8 @@ export const ProductMainViewStateProvider = ({children}) => {
     setGetNum,
     setShowFilter,
     setLoading,
+    setItemLoading,
+    setParentHeight,
   };
 
   return (

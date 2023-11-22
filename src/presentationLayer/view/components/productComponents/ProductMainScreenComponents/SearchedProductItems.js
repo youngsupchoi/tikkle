@@ -1,5 +1,5 @@
 import {View, Image, StyleSheet, Animated} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   SPACING_1,
@@ -44,32 +44,67 @@ export default function SearchedProductItems({productData, category}) {
   return (
     <View>
       {state.searchedData.length > 0 ? (
-        <View style={styles.container}>
-          {state.searchedData.map((item, index) => (
-            <AnimatedButton
-              onPress={() => {
-                // console.log('item : ', item);
-                // const ret = [item, index, state.searchedData];
-                const product_id = item.id;
-                navigation.navigate('productDetail', {product_id});
-              }}
-              style={[styles.itemContainer]}
-              key={item.id}>
-              <Image
-                source={{uri: item.thumbnail_image}}
-                style={styles.imageContainer}
+        <View>
+          <View style={styles.container}>
+            {state.searchedData.map((item, index) => (
+              <AnimatedButton
+                onPress={() => {
+                  // console.log('item : ', item);
+                  // const ret = [item, index, state.searchedData];
+                  const product_id = item.id;
+                  navigation.navigate('productDetail', {product_id});
+                }}
+                style={[styles.itemContainer]}
+                key={item.id}>
+                <Image
+                  source={{uri: item.thumbnail_image}}
+                  style={styles.imageContainer}
+                />
+                <View style={styles.textContainer}>
+                  <B15 numberOfLines={2} customStyle={{lineHeight: 20}}>
+                    {item.name}
+                  </B15>
+                  <B12 customStyle={styles.brand}>{item.brand_name}</B12>
+                  <B12 customStyle={{lineHeight: 17}}>
+                    ￦{item.price.toLocaleString()}
+                  </B12>
+                </View>
+              </AnimatedButton>
+            ))}
+          </View>
+
+          {state.itemLoading ? (
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <LottieView
+                pointerEvents="none"
+                source={require('src/assets/animations/loading2.json')} // replace with your Lottie file path
+                autoPlay
+                style={{
+                  width: 120,
+                  height: 120,
+                }}
               />
-              <View style={styles.textContainer}>
-                <B15 numberOfLines={2} customStyle={{lineHeight: 20}}>
-                  {item.name}
-                </B15>
-                <B12 customStyle={styles.brand}>{item.brand_name}</B12>
-                <B12 customStyle={{lineHeight: 17}}>
-                  ￦{item.price.toLocaleString()}
-                </B12>
-              </View>
-            </AnimatedButton>
-          ))}
+            </View>
+          ) : null}
+
+          {/* <AnimatedButton
+            onPress={() => {
+              console.log(state.parentHeight);
+            }}>
+            <B15>height</B15>
+          </AnimatedButton> */}
+          {/* <AnimatedButton
+            onPress={() => {
+              actions.getNewData(state.getNum);
+            }}>
+            <B15>#####</B15>
+          </AnimatedButton> */}
         </View>
       ) : (
         <View
