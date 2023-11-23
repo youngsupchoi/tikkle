@@ -23,10 +23,13 @@ export const TopViewProvider = ({children}) => {
   const [modalMessage, setModalMessage] = useState('');
   const [modalStatus, setModalStatus] = useState(null);
 
+  const [justStart, setJustStart] = useState(false);
+
   const [test, setTest] = useState('');
   // ... 다른 상태들 (필요하면 추가하세요)
 
   const topState = {
+    justStart,
     isSnackbarVisible,
     snackbarMessage,
     snackbarStatus,
@@ -39,6 +42,7 @@ export const TopViewProvider = ({children}) => {
 
   const topActions = {
     setIsSnackbarVisible,
+    setJustStart,
     setSnackbarMessage,
     setSnackbarStatus,
     setIsModalVisible,
