@@ -180,7 +180,7 @@ function SignUpNavigator() {
             headerShown: false,
             // gestureEnabled: true,
             // cardOverlayEnabled: true,
-            // cardStyleInterpolator: customCardStyleInterpolator,
+            cardStyleInterpolator: customCardStyleInterpolator,
             // transitionSpec: customTransitionSpec,
           }}>
           <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
@@ -339,7 +339,7 @@ export default function MainStackNavigator() {
           headerShown: false,
           // gestureEnabled: true,
           // cardOverlayEnabled: true,
-          // cardStyleInterpolator: customCardStyleInterpolator,
+          cardStyleInterpolator: customCardStyleInterpolator,
           // transitionSpec: customTransitionSpec,
         }}>
         <MainStack.Screen name="splash" component={SplashScreen} />

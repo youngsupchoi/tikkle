@@ -37,6 +37,35 @@ import HistoryDetailScreen from 'src/presentationLayer/view/screens/myPageScreen
 import DeliveryScreen from 'src/presentationLayer/view/screens/myPageScreens/DeliveryScreen';
 import {Safe} from 'src/presentationLayer/view/components/globalComponents/Containers/Safe';
 
+const customCardStyleInterpolator = ({current, next, layouts}) => {
+  return {
+    cardStyle: {
+      transform: [
+        {
+          translateX: current.progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [layouts.screen.width, 0], // transition from right to left
+          }),
+        },
+        {
+          scale: next
+            ? next.progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, 0.9],
+              })
+            : 1,
+        },
+      ],
+    },
+    overlayStyle: {
+      opacity: current.progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+      }),
+    },
+  };
+};
+
 const BottomTab = createBottomTabNavigator();
 const Home = () => (
   <MainViewStateProvider>
@@ -71,6 +100,7 @@ function MyPageNavigator() {
             // gestureEnabled: true,
             // cardOverlayEnabled: true,
             // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            cardStyleInterpolator: customCardStyleInterpolator,
           }}>
           <MyPageStack.Screen name="MyPage" component={MyPage} />
           <MyPageStack.Screen name="SendTikkle" component={SendTikkleScreen} />
