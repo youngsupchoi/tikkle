@@ -40,7 +40,16 @@ export const ProductMainViewStateProvider = ({children}) => {
   //페이징 관련(페이징)
   const [getNum, setGetNum] = useState(1);
 
+  const [itemLoading, setItemLoading] = useState(false);
+
   const [showFilter, setShowFilter] = useState(false);
+  const [parentHeight, setParentHeight] = useState(0);
+
+  const [noitems, setNoitems] = useState(false);
+
+  const [inquireLoading, setInquireLoading] = useState(false);
+  const [titleText, setTitleText] = useState('');
+  const [contentText, setContentText] = useState('');
 
   const categories = [
     {
@@ -87,6 +96,12 @@ export const ProductMainViewStateProvider = ({children}) => {
     showFilter,
     categories,
     loading,
+    itemLoading,
+    parentHeight,
+    noitems,
+    inquireLoading,
+    titleText,
+    contentText,
   };
 
   const actions = {
@@ -104,6 +119,12 @@ export const ProductMainViewStateProvider = ({children}) => {
     setGetNum,
     setShowFilter,
     setLoading,
+    setItemLoading,
+    setParentHeight,
+    setNoitems,
+    setInquireLoading,
+    setTitleText,
+    setContentText,
   };
 
   return (

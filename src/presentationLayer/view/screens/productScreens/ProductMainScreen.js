@@ -24,6 +24,11 @@ export default function ProductSearchLandingScreen() {
   const scrollY = useRef(new Animated.Value(0)).current; // Animated value for scroll position
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지를 상태로 저장
 
+  const onLayout = async event => {
+    const {height} = event.nativeEvent.layout;
+    actions.setParentHeight(height);
+  };
+
   const scrollToTop = () => {
     scrollViewRef.current?.scrollTo({y: 0, animated: true}); // 상단으로 스크롤
   };
@@ -41,18 +46,28 @@ export default function ProductSearchLandingScreen() {
     state.sortAttribute,
     state.sortWay,
   ]);
+
+  let prevScrollY = new Animated.Value(0);
+
   useEffect(() => {
     const listener = scrollY.addListener(({value}) => {
-      const pageNumber = Math.floor(value / 2000);
-      if (currentPage < pageNumber) {
-        setCurrentPage(pageNumber);
-        console.log('Current Page:', pageNumber);
+      // console.log('scroll value:', value);
+      // console.log('state.parentHeight: ', state.parentHeight);
+      if (
+        value > prevScrollY &&
+        state.parentHeight > 0 &&
+        value > state.parentHeight - 1000 &&
+        !state.itemLoading
+      ) {
+        actions.getNewData(state.getNum);
       }
+
+      prevScrollY = value;
     });
     return () => {
       scrollY.removeListener(listener);
     };
-  }, [currentPage]);
+  }, [state.parentHeight]);
 
   return (
     <View style={styles.totalContainer}>
@@ -82,7 +97,7 @@ export default function ProductSearchLandingScreen() {
         {state.loading ? (
           <GlobalLoader />
         ) : (
-          <View style={styles.itemContainer}>
+          <View style={styles.itemContainer} onLayout={onLayout}>
             <SearchedProductItems />
           </View>
         )}

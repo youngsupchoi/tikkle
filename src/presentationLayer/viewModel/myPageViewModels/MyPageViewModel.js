@@ -169,7 +169,7 @@ export const useMyPageViewModel = () => {
 
     await createMyInquireData(state.titleText, state.contentText)
       .then(res => {
-        //console.log(res);
+        // console.log(res);
         return topActions.setStateAndError(res);
       })
       .then(res => {
@@ -180,7 +180,7 @@ export const useMyPageViewModel = () => {
         // console.log('res : ', res);
         topActions.showSnackbar(res.DSmessage, 1);
       });
-
+    navigation.goBack();
     await actions.setInquireLoading(false);
   }
 

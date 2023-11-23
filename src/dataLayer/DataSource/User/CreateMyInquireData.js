@@ -33,6 +33,7 @@ export async function createMyInquireData(title, content) {
 
   try {
     response = await apiModel('post_user_email', authorization, body, null);
+    console.log('response : ', response);
     if (!response) {
       //  error
       throw new Error();

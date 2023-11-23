@@ -30,6 +30,8 @@ export async function getProductOptionData(productId) {
       null,
     );
 
+    response.data.data = JSON.parse(response.data.data);
+
     if (!response) {
       //  error
       throw new Error();
