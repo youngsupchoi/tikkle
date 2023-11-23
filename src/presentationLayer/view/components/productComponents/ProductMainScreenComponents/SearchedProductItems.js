@@ -120,10 +120,22 @@ export default function SearchedProductItems({productData, category}) {
                 onPress={() => {
                   navigation.navigate('ProductInqire');
                 }}
-                style={{marginTop: 3}}>
-                <B20 customStyle={{color: COLOR_PRIMARY}}>
+                style={{
+                  padding: 6,
+                  // paddingVertical: 10,
+                  paddingHorizontal: 10,
+                  borderRadius: 8,
+                  backgroundColor: COLOR_WHITE,
+                  borderColor: COLOR_PRIMARY,
+                  borderWidth: 1,
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginTop: 10,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>
                   상품 등록 신청하기
-                </B20>
+                </B15>
               </AnimatedButton>
             </View>
           ) : null}
@@ -152,8 +164,20 @@ export default function SearchedProductItems({productData, category}) {
             onPress={() => {
               navigation.navigate('ProductInqire');
             }}
-            style={{marginTop: 3}}>
-            <B20 customStyle={{color: COLOR_PRIMARY}}>상품 등록 신청하기</B20>
+            style={{
+              padding: 6,
+              // paddingVertical: 10,
+              paddingHorizontal: 10,
+              borderRadius: 8,
+              backgroundColor: COLOR_WHITE,
+              borderColor: COLOR_PRIMARY,
+              borderWidth: 1,
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
+            <B15 customStyle={{color: COLOR_PRIMARY}}>상품 등록 신청하기</B15>
           </AnimatedButton>
         </View>
       )}
