@@ -29,6 +29,7 @@ import {
 import {Easing, Linking, Platform, SafeAreaView} from 'react-native';
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
+import ProductInqireScreen from 'src/presentationLayer/view/screens/productScreens/ProductInqireScreen';
 import {ProductDetailViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductDetailState';
 import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 import {NotificationViewStateProvider} from 'src/presentationLayer/viewState/mainStates/NotificationState';
@@ -39,7 +40,7 @@ import {Safe} from 'src/presentationLayer/view/components/globalComponents/Conta
 import TikklingDetailScreen from 'src/presentationLayer/view/screens/mainScreens/TikklingDetailScreen';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
-
+import {ProductMainViewStateProvider} from 'src/presentationLayer/viewState/productStates/ProductMainState';
 import {fcmService} from 'src/push_fcm';
 import {localNotificationService} from 'src/push_noti';
 import {useEffect, useState} from 'react';
@@ -52,6 +53,14 @@ const ProductDetail = () => (
     <ProductDetailViewStateProvider>
       <ProductDetailScreen />
     </ProductDetailViewStateProvider>
+  </Safe>
+);
+
+const ProductInqire = () => (
+  <Safe>
+    <ProductMainViewStateProvider>
+      <ProductInqireScreen />
+    </ProductMainViewStateProvider>
   </Safe>
 );
 
@@ -207,6 +216,7 @@ const config = {
     main: '/main', // 매핑되는 URL 경로
     startTikkling: '/start-tikkling/:id/:name', // 매핑되는 URL 경로
     productDetail: '/product-detail', // 매핑되는 URL 경로
+    ProductInqire: '/product-inqire',
     notification: '/notification', // 매핑되는 URL 경로
     notificationSetting: '/notification-setting', // 매핑되는 URL 경로
     tikklingDetail: '/tikklingDetail/:tikkling_id', // 매핑되는 URL 경로
@@ -348,6 +358,7 @@ export default function MainStackNavigator() {
         />
         <MainStack.Screen name="startTikkling" component={StartTikkling} />
         <MainStack.Screen name="productDetail" component={ProductDetail} />
+        <MainStack.Screen name="ProductInqire" component={ProductInqire} />
         <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen name="tikklingDetail" component={TikklingDetail} />
         <SignUpStack.Screen name="onboarding" component={Onboarding_} />

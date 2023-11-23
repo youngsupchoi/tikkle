@@ -45,6 +45,12 @@ export const ProductMainViewStateProvider = ({children}) => {
   const [showFilter, setShowFilter] = useState(false);
   const [parentHeight, setParentHeight] = useState(0);
 
+  const [noitems, setNoitems] = useState(false);
+
+  const [inquireLoading, setInquireLoading] = useState(false);
+  const [titleText, setTitleText] = useState('');
+  const [contentText, setContentText] = useState('');
+
   const categories = [
     {
       id: 1,
@@ -92,6 +98,10 @@ export const ProductMainViewStateProvider = ({children}) => {
     loading,
     itemLoading,
     parentHeight,
+    noitems,
+    inquireLoading,
+    titleText,
+    contentText,
   };
 
   const actions = {
@@ -111,6 +121,10 @@ export const ProductMainViewStateProvider = ({children}) => {
     setLoading,
     setItemLoading,
     setParentHeight,
+    setNoitems,
+    setInquireLoading,
+    setTitleText,
+    setContentText,
   };
 
   return (

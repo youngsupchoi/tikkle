@@ -55,7 +55,7 @@ export default function ProductSearchLandingScreen() {
       // console.log('state.parentHeight: ', state.parentHeight);
       if (
         value > prevScrollY &&
-        state.parentHeight > 1000 &&
+        state.parentHeight > 0 &&
         value > state.parentHeight - 1000 &&
         !state.itemLoading
       ) {
