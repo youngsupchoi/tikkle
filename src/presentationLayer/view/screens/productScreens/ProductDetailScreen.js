@@ -17,6 +17,7 @@ import {
   HEADER_HEIGHT,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
+  B17,
   B,
   B15,
   EB,
@@ -144,23 +145,40 @@ export default function ProductDetailScreen(route) {
                   zIndex: -1,
                 }}
               />
-              <AnimatedButton
-                onPress={() => actions.navigation.goBack()}
+              <View
                 style={{
-                  width: 40,
-                  height: 40,
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 16,
                 }}>
-                <ArrowLeft
-                  stroke={COLOR_BLACK}
-                  width={20}
-                  height={20}
-                  strokeWidth={1.5}
-                  scale={0.85}
-                />
-              </AnimatedButton>
+                <AnimatedButton
+                  onPress={() => actions.navigation.goBack()}
+                  style={{
+                    // backgroundColor: 'red',
+                    width: 40,
+                    height: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: 10,
+                  }}>
+                  <ArrowLeft
+                    stroke={COLOR_BLACK}
+                    width={20}
+                    height={20}
+                    strokeWidth={1.5}
+                    scale={0.85}
+                  />
+                </AnimatedButton>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                  }}>
+                  <B17>{'상품 상세'}</B17>
+                </View>
+              </View>
             </View>
 
             <Animated.Image
@@ -169,6 +187,7 @@ export default function ProductDetailScreen(route) {
                 {
                   width: windowWidth,
                   height: windowWidth,
+                  marginTop: 15,
                   // height: (windowWidth * 2) / 3,
                 },
                 animatedThumbnailStyle,
@@ -261,7 +280,7 @@ export default function ProductDetailScreen(route) {
                   customStyle={{
                     color: COLOR_BLACK,
                   }}>
-                  주의사항
+                  고시정보 / 주의사항
                 </M15>
               </AnimatedButton>
             </View>

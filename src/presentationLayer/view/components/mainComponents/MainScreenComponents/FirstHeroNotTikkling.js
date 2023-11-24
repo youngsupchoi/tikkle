@@ -70,7 +70,7 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
     );
   };
 
-  const FooterComponent = () => {
+  const Component = () => {
     const scale =
       wishlistData.length > 2
         ? scrollX.interpolate({
@@ -306,8 +306,8 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
           pagingEnabled
           snapToAlignment="center"
           decelerationRate="fast"
-          ListFooterComponent={FooterComponent}
-          ListFooterComponentStyle={{
+          ListComponent={Component}
+          ListComponentStyle={{
             paddingHorizontal: (windowWidth - itemWidth + peekSize * 2) / 2, // Adjusted padding
           }}
           contentContainerStyle={
@@ -686,8 +686,8 @@ const FirstHeroNotWishlist = ({myWishlistData, navigation}) => {
               // </Animated.View>
             );
           }}
-          ListFooterComponent={FooterComponent}
-          ListFooterComponentStyle={{
+          ListComponent={Component}
+          ListComponentStyle={{
             paddingHorizontal: (windowWidth - itemWidth + peekSize * 2) / 2, // Adjusted padding
           }}
         />
