@@ -61,7 +61,7 @@ export async function getProductInfoData(productId) {
     };
   }
   const info = response.data.data;
-  const info2 = response.data.data2;
+  const info2 = response.data.data_2;
 
   //------ update token ---------------------------------------------------//
 

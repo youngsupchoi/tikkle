@@ -242,7 +242,7 @@ export const useMyPageViewModel = () => {
       return selectedImage.path;
     } catch (error) {
       if (error.message !== 'User cancelled image picker') {
-        console.warn('ImagePicker Error:', error);
+        console.log('ImagePicker Error:', error);
       }
     }
   };

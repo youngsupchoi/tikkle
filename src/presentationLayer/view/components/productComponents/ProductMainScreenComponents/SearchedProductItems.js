@@ -26,6 +26,7 @@ import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 import LottieView from 'lottie-react-native';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 export default function SearchedProductItems({productData, category}) {
   const {state, actions} = useProductMainViewModel();
@@ -76,25 +77,7 @@ export default function SearchedProductItems({productData, category}) {
             ))}
           </View>
 
-          {state.itemLoading ? (
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <LottieView
-                pointerEvents="none"
-                source={require('src/assets/animations/loading2.json')} // replace with your Lottie file path
-                autoPlay
-                style={{
-                  width: 120,
-                  height: 120,
-                }}
-              />
-            </View>
-          ) : null}
+          {state.itemLoading ? <GlobalLoader /> : null}
 
           {state.noitems ? (
             <View
@@ -115,15 +98,16 @@ export default function SearchedProductItems({productData, category}) {
                   backgroundColor: backgroundColor,
                 }}
               />
-              <M15>받고 싶은 상품이 있다면 추가해 드릴게요!</M15>
+              <View style={{marginTop: 40}}>
+                <M15>받고 싶은 상품이 있다면 말씀해주시겠어요?</M15>
+              </View>
               <AnimatedButton
                 onPress={() => {
                   navigation.navigate('ProductInqire');
                 }}
                 style={{
                   padding: 6,
-                  // paddingVertical: 10,
-                  paddingHorizontal: 10,
+                  paddingHorizontal: 24,
                   borderRadius: 8,
                   backgroundColor: COLOR_WHITE,
                   borderColor: COLOR_PRIMARY,
@@ -131,7 +115,7 @@ export default function SearchedProductItems({productData, category}) {
                   alignItems: 'center',
                   flexDirection: 'row',
                   justifyContent: 'center',
-                  marginTop: 10,
+                  marginTop: 16,
                 }}>
                 <B15 customStyle={{color: COLOR_PRIMARY}}>
                   상품 등록 신청하기
@@ -153,21 +137,22 @@ export default function SearchedProductItems({productData, category}) {
             autoPlay
             loop
             style={{
-              width: 250,
-              height: 200,
+              width: 150,
+              height: 150,
               alignSelf: 'center',
               backgroundColor: backgroundColor,
             }}
           />
-          <M15>받고 싶은 상품이 있다면 추가해 드릴게요!</M15>
+          <View style={{marginTop: 40}}>
+            <M15>받고 싶은 상품이 있다면 말씀해주시겠어요?</M15>
+          </View>
           <AnimatedButton
             onPress={() => {
               navigation.navigate('ProductInqire');
             }}
             style={{
               padding: 6,
-              // paddingVertical: 10,
-              paddingHorizontal: 10,
+              paddingHorizontal: 24,
               borderRadius: 8,
               backgroundColor: COLOR_WHITE,
               borderColor: COLOR_PRIMARY,
@@ -175,7 +160,7 @@ export default function SearchedProductItems({productData, category}) {
               alignItems: 'center',
               flexDirection: 'row',
               justifyContent: 'center',
-              marginTop: 10,
+              marginTop: 24,
             }}>
             <B15 customStyle={{color: COLOR_PRIMARY}}>상품 등록 신청하기</B15>
           </AnimatedButton>

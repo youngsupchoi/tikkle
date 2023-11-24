@@ -66,7 +66,7 @@ const FriendsEvents = props => {
           if (sortedData[date]) {
             sortedData[date] = sortedData[date].concat(friend);
           } else {
-            console.warn(`Key ${date} not found in sortedData`);
+            console.log(`Key ${date} not found in sortedData`);
           }
         }
         break;

@@ -55,7 +55,7 @@ export default function HomeHeader(props) {
         <UNIQUE27
           customStyle={{
             paddingLeft: 2,
-            color: COLOR_GRAY,
+            color: COLOR_PRIMARY,
           }}>
           TIKKLE
         </UNIQUE27>

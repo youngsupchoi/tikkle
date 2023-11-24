@@ -120,6 +120,6 @@ const styles = StyleSheet.create({
   },
   selectedItem: {
     borderColor: COLOR_SEPARATOR,
-    borderWidth: 3, // Increased border width for selected item
+    borderWidth: 1, // Increased border width for selected item
   },
 });

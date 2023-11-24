@@ -41,8 +41,6 @@ export default function FriendsManagementSearch1() {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            // marginHorizontal: 24,
-            // alignItems: 'flex-start',
           }}>
           <TextInput
             onSubmitEditing={actions.onSearchButtonPressed}
@@ -56,6 +54,7 @@ export default function FriendsManagementSearch1() {
               padding: 0,
               fontFamily: B,
               fontSize: 15,
+              width: '90%',
             }}
           />
           <AnimatedButton
@@ -73,9 +72,6 @@ export default function FriendsManagementSearch1() {
               strokeWidth={1.5}
             />
           </AnimatedButton>
-          {/* <B15 customStyle={{color: COLOR_GRAY, marginLeft: 12}}>
-            아이디로 이용자 검색
-          </B15> */}
         </View>
       </View>
       {/* <View style={styles.searchBar}>

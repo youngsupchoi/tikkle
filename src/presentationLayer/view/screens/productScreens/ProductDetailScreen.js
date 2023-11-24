@@ -125,6 +125,8 @@ export default function ProductDetailScreen(route) {
                 right: 0,
                 zIndex: 10,
                 backgroundColor: 'transparent',
+                borderBottomColor: COLOR_SEPARATOR,
+                borderBottomWidth: 1,
                 // padding: 16,
                 // backgroundColor: 'red',
               }}>
@@ -133,8 +135,9 @@ export default function ProductDetailScreen(route) {
                 end={{x: 0, y: 1}}
                 colors={[
                   'rgba(255,255,255,1)',
-                  'rgba(255,255,255,0.3)',
-                  'rgba(255,255,255,0)',
+                  'rgba(255,255,255,1)',
+                  // 'rgba(255,255,255,0.8)',
+                  // 'rgba(255,255,255,0)',
                 ]}
                 style={{
                   position: 'absolute',
@@ -226,12 +229,7 @@ export default function ProductDetailScreen(route) {
                   alignItems: 'center',
                   marginTop: 8,
                 }}>
-                <M15>￦</M15>
-                <M15
-                // customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}
-                >
-                  {state.data.price.toLocaleString()}
-                </M15>
+                <M15>￦{state.data.price.toLocaleString()}</M15>
               </View>
 
               {/* <B15 customStyle={{marginBottom: 4, marginTop: 24}}>

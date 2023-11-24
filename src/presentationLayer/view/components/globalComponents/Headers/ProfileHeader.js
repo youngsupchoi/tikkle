@@ -44,7 +44,7 @@ export default function ProfileHeader() {
         <NotificationFilled
           width={24}
           height={24}
-          fill={COLOR_PRIMARY}
+          fill={COLOR_GRAY}
           scale={1}
         />
       </AnimatedButton>

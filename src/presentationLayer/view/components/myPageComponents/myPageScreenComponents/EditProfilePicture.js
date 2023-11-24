@@ -24,7 +24,7 @@ async function requestAndroidPermission() {
       console.log('Permissions denied');
     }
   } catch (err) {
-    console.warn(err);
+    console.log(err);
   }
 }
 

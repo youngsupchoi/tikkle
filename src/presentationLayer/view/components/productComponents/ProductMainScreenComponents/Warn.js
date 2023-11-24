@@ -16,6 +16,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_GRAY,
+  COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import AnimatedButton from '../../globalComponents/Buttons/AnimatedButton';
@@ -25,22 +26,30 @@ export default function Warn() {
 
   return (
     <View style={{padding: 16, backgroundColor: COLOR_WHITE}}>
-      {/* {state.data.brand_name === '오송' ? ( */}
       <View>
-        <View style={{marginBottom: 50}}>
+        <View style={{marginBottom: 24}}>
           <B20 customStyle={{marginTop: 24, marginBottom: 10}}>
-            상품 고시정보
+            필수 표기 정보
           </B20>
           <View>
             {Object.entries(state.infoData).map(([key, value]) => (
               <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingTop: 12,
+                  borderBottomColor: COLOR_SEPARATOR,
+                  paddingBottom: 12,
+                  borderBottomWidth: 0.5,
+                  borderTopColor: COLOR_SEPARATOR,
+                  borderTopWidth: 0.5,
+                }}
                 key={key}>
-                <View style={{flex: 2, marginRight: 10}}>
-                  <B15>{key}</B15>
+                <View style={{flex: 1, marginRight: 10}}>
+                  <B12>{key}</B12>
                 </View>
-                <View style={{flex: 3}}>
-                  <M15>{value}</M15>
+                <View style={{flex: 2}}>
+                  <M11 customStyle={{color: COLOR_GRAY}}>{value}</M11>
                 </View>
               </View>
             ))}

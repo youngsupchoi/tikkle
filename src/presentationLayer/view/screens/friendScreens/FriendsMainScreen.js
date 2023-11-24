@@ -565,6 +565,7 @@ const styles = StyleSheet.create({
     padding: 0,
     fontFamily: B,
     fontSize: 15,
+    width: '80%',
   },
   searchButton: {
     width: 40,
