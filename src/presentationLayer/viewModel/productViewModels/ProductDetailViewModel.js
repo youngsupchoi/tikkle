@@ -42,6 +42,7 @@ export const useProductDetailViewModel = () => {
       })
       .then(async res => {
         actions.setData(res.DSdata.info);
+        // actions.setInfoData(res.DSdata.info.);
         //console.log('res.DSdata.info : ', res.DSdata.info);
         return res.DSdata.info;
       })

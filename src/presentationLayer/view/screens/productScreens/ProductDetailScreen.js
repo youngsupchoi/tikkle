@@ -261,7 +261,7 @@ export default function ProductDetailScreen(route) {
                   customStyle={{
                     color: COLOR_BLACK,
                   }}>
-                  주의사항
+                  고시정보 / 주의사항
                 </M15>
               </AnimatedButton>
             </View>
