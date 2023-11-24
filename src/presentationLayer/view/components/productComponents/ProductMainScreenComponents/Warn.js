@@ -20,6 +20,7 @@ import {
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import AnimatedButton from '../../globalComponents/Buttons/AnimatedButton';
+import {INQ_URL} from '@env';
 
 export default function Warn() {
   const {ref, state, actions} = useProductDetailViewModel();
