@@ -168,23 +168,24 @@ export const useStartTikklingViewModel = () => {
       )
         .then(res => {
           // console.log('po', product_option);
+          topActions.setJustStart(true);
           return topActions.setStateAndError(res);
         })
         .then(() => {
           topActions.showSnackbar('티클링이 시작되었습니다!.', 1);
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'main',
+              },
+            ],
+          });
         });
     } catch (err) {
       console.log(err);
     } finally {
       actions.setCreateTikklingButtonPressed(false);
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'main',
-          },
-        ],
-      });
     }
   };
 

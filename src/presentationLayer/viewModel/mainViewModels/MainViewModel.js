@@ -112,6 +112,10 @@ export const useMainViewModel = () => {
     } finally {
       await actions.setLoading(false);
       checkDynamicLink();
+      if (topState.justStart == true) {
+        actions.setIsInstagramButtonModalVisible(true);
+        topActions.setJustStart(false);
+      }
     }
   };
 

@@ -57,19 +57,19 @@ const InstaGuideModal = ({name, tikkling_id}) => {
   const getDisplayText = value => {
     switch (value) {
       case 0:
-        return '화면 상단의 이모지 버튼을 클릭';
+        return '스티커 버튼 클릭';
       case 1:
-        return '링크를 클릭 후';
+        return '링크 공유 스티커 선택';
       case 2:
         return Platform.OS === 'ios'
-          ? '티클앱에 돌아와 복사 누르고'
-          : '복사된 링크를 붙여넣기!';
+          ? '티클앱에 돌아와 링크를 복사'
+          : '자동으로 복사된 링크를 붙여넣기!';
       case 3:
         return Platform.OS === 'ios'
           ? '복사된 링크를 붙여넣기!'
-          : '티클링 준비 끝~!';
+          : '자유롭게 꾸며서 티클링을 공유해보세요!';
       default:
-        return '티클링 준비 끝~!';
+        return '자유롭게 꾸며서 티클링을 공유해보세요!';
     }
   };
 
@@ -323,7 +323,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
             alignItems: 'center',
             // justifyContent: 'center',
             borderRadius: 12,
-            margin: 12,
+            margin: 0,
           }}>
           <View
             style={{
@@ -334,14 +334,14 @@ const InstaGuideModal = ({name, tikkling_id}) => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'flex-end',
-              marginTop: 15,
+              marginTop: 10,
               marginBottom: 10,
             }}>
             <B20
               customStyle={{
                 color: COLOR_BLACK,
               }}>
-              스토리에 추가하는 법
+              인스타에 티클링 공유하기
             </B20>
             {/* <View style={{position: 'absolute', right: 20, top: -5}}>
               {
