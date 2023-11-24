@@ -5,6 +5,8 @@ import {textColor} from '../Colors/Colors';
 //export const UNIQUE = 'Modak';
 
 export const UNIQUE = Platform.OS === 'ios' ? 'Modak' : 'Modak-Regular';
+export const NUMBERFONT =
+  Platform.OS === 'ios' ? 'BebasNeue-Regular' : 'BebasNeue-Regular';
 
 export const H =
   Platform.OS === 'ios' ? 'AppleSDGothicNeoH00' : 'AppleSDGothicNeoH';

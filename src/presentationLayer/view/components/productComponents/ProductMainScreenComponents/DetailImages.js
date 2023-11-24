@@ -3,14 +3,20 @@ import {View, Button, StyleSheet} from 'react-native';
 import {useProductDetailViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductDetailViewModel';
 import {
   B12,
+  B15,
   B20,
   M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
+  COLOR_BLACK,
   COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import ArrowDown from 'src/assets/icons/ArrowDown';
+import ArrowUpFilled from 'src/assets/icons/ArrowUpFilled';
+import ArrowUp from 'src/assets/icons/ArrowUp';
 
 export default function DetailImages() {
   const {state} = useProductDetailViewModel();
@@ -24,7 +30,7 @@ export default function DetailImages() {
   // 현재 상태에 따라 보여줄 아이템 결정
   const itemsToShow = expanded
     ? Object.entries(state.infoData)
-    : Object.entries(state.infoData).slice(0, 5);
+    : Object.entries(state.infoData).slice(0, 4);
 
   return (
     <View>
@@ -42,11 +48,37 @@ export default function DetailImages() {
             </View>
           ))}
         </View>
-        {Object.entries(state.infoData).length > 5 && (
-          <Button
-            onPress={toggleExpanded}
-            title={expanded ? '접기' : '더보기'}
-          />
+        {Object.entries(state.infoData).length > 4 && (
+          <AnimatedButton
+            style={{
+              alignItems: expanded ? 'center' : 'center',
+              justifyContent: 'center',
+              paddingVertical: 12,
+              // backgroundColor: 'red',
+              flexDirection: 'row',
+            }}
+            onPress={toggleExpanded}>
+            <B15 customStyle={{paddingHorizontal: 12, color: COLOR_GRAY}}>
+              {expanded ? '접기' : '더보기'}
+            </B15>
+            {expanded ? (
+              <ArrowUp
+                width={16}
+                height={16}
+                stroke={COLOR_GRAY}
+                scale={16 / 24}
+                strokeWidth={3}
+              />
+            ) : (
+              <ArrowDown
+                width={16}
+                height={16}
+                stroke={COLOR_GRAY}
+                scale={16 / 24}
+                strokeWidth={3}
+              />
+            )}
+          </AnimatedButton>
         )}
       </View>
       {state.components}
@@ -56,6 +88,7 @@ export default function DetailImages() {
 
 const styles = StyleSheet.create({
   infoContainer: {
+    paddingTop: 12,
     paddingBottom: 24,
     paddingHorizontal: 16,
     backgroundColor: COLOR_WHITE,

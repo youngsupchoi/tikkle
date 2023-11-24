@@ -27,7 +27,7 @@ export default function Warn() {
   return (
     <View style={{padding: 16, backgroundColor: COLOR_WHITE}}>
       <View>
-        <View style={{marginBottom: 24}}>
+        {/* <View style={{marginBottom: 24}}>
           <B20 customStyle={{marginTop: 24, marginBottom: 10}}>
             필수 표기 정보
           </B20>
@@ -54,7 +54,7 @@ export default function Warn() {
               </View>
             ))}
           </View>
-        </View>
+        </View> */}
 
         <View>
           <View>

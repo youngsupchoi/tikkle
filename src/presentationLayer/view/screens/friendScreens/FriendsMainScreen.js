@@ -612,7 +612,7 @@ const styles = StyleSheet.create({
   dropdownButtonText: {
     fontSize: 20,
     fontFamily: B,
-    color: COLOR_GRAY,
+    color: COLOR_BLACK,
   },
   dropdown: {
     padding: 8,

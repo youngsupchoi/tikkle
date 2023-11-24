@@ -43,6 +43,7 @@
 		B2E8A5BE441949148D361989 /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F995D01E87344979D34A46D /* AppleSDGothicNeoSB.ttf */; };
 		D01D81B52C4C4DD09393903E /* Modak-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1853E86C71334EE6B50A2478 /* Modak-Regular.ttf */; };
 		E349ECDD69244341A9037E53 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 686FD629E15E468AAD926982 /* AppleSDGothicNeoL.ttf */; };
+		660020F45D9A40869B02604B /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3102EB13904E4C6DA6349879 /* BebasNeue-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CherryBombOne-Regular.ttf"; path = "../src/assets/fonts/CherryBombOne-Regular.ttf"; sourceTree = "<group>"; };
 		D108FFBB4A6D052E318DAC57 /* Pods-tikkle_revive_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		3102EB13904E4C6DA6349879 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; name = "BebasNeue-Regular.ttf"; path = "../src/assets/fonts/BebasNeue-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 				CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */,
 				6490EB5802EC499DB5408BBB /* BMHANNA_11yrs_otf.otf */,
 				1853E86C71334EE6B50A2478 /* Modak-Regular.ttf */,
+				3102EB13904E4C6DA6349879 /* BebasNeue-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				036EACA7AB4046A8A525AFC1 /* BMHANNA_11yrs_otf.otf in Resources */,
 				36CF22812AE280AA008FA6DE /* GoogleService-Info.plist in Resources */,
 				D01D81B52C4C4DD09393903E /* Modak-Regular.ttf in Resources */,
+				660020F45D9A40869B02604B /* BebasNeue-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
