@@ -409,7 +409,7 @@ export default function SentTikkleDetailScreen({route}) {
             </View>
           </View>
 
-          <Footer />
+          {/* <Footer /> */}
           <RefundModal />
         </ScrollView>
       )}

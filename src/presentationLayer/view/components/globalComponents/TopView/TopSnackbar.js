@@ -36,7 +36,7 @@ const getSnackbarStyles = status => {
           />
         ),
         backgroundColor: backgroundColor,
-        //textColor: 'red',
+        textColor: COLOR_BLACK,
         borderColor: 'red',
       };
     case 1:
@@ -51,7 +51,7 @@ const getSnackbarStyles = status => {
         ),
         // backgroundColor: COLOR_SUCCESS,
         backgroundColor: backgroundColor,
-        //textColor: 'green',
+        textColor: COLOR_BLACK,
         borderColor: 'green',
       };
     case 2:
@@ -65,7 +65,7 @@ const getSnackbarStyles = status => {
           />
         ),
         backgroundColor: COLOR_WHITE,
-        //textColor: COLOR_BLACK,
+        textColor: COLOR_BLACK,
         borderColor: COLOR_BLACK,
       };
 

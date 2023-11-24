@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     paddingHorizontal: 16,
-    paddingVertical: 0,
+    paddingVertical: 8,
     borderRadius: 8,
     backgroundColor: COLOR_WHITE, // Light gray background for chip
     marginRight: 8,
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
+    alignSelf: 'center',
   },
   chipText: {color: COLOR_BLACK},
   filterIconContainer: {

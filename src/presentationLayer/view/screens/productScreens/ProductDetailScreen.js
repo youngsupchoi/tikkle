@@ -230,7 +230,7 @@ export default function ProductDetailScreen(route) {
                 <M15
                 // customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}
                 >
-                  {state.data.price}
+                  {state.data.price.toLocaleString()}
                 </M15>
               </View>
 
@@ -264,7 +264,7 @@ export default function ProductDetailScreen(route) {
                 <M15 customStyle={{color: COLOR_BLACK}}>상세정보</M15>
               </AnimatedButton>
               <AnimatedButton
-                onPress={() => setSelected('주의사항')}
+                onPress={() => setSelected('고시 사항')}
                 style={{
                   padding: 8,
                   paddingHorizontal: 24,
@@ -274,7 +274,7 @@ export default function ProductDetailScreen(route) {
                   borderColor: COLOR_SEPARATOR,
                   borderWidth: 1,
                   backgroundColor:
-                    selected === '주의사항' ? COLOR_SECONDARY : COLOR_WHITE,
+                    selected === '고시 사항' ? COLOR_SECONDARY : COLOR_WHITE,
                 }}>
                 <M15
                   customStyle={{

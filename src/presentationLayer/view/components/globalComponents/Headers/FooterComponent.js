@@ -31,24 +31,19 @@ export default function Footer({style}) {
     <View
       style={[
         {
-          height: 250,
+          paddingVertical: 16,
+          paddingHorizontal: 16,
           alignItems: 'center',
           justifyContent: 'center',
-          flexDirection: 'column',
-          borderTopWidth: 0.5,
-          borderTopColor: COLOR_GRAY,
-          margin: windowWidth * 0.03,
+          borderTopWidth: 1,
+          borderTopColor: COLOR_SEPARATOR,
           marginBottom: 50,
-          width: windowWidth * 0.94,
         },
-        style, // 외부에서 전달된 스타일
+        style,
       ]}>
       <View
         style={{
           width: '100%',
-          height: 30,
-          flexDirection: 'row',
-          alignItems: 'center',
           justifyContent: 'flex-start',
         }}>
         <UNIQUE22 customStyle={{color: COLOR_GRAY}}>TIKKLE</UNIQUE22>
@@ -56,11 +51,7 @@ export default function Footer({style}) {
       <View
         style={{
           width: '100%',
-          height: 50,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          marginBottom: 10,
+          marginBottom: 24,
         }}>
         <M11 customStyle={{color: COLOR_GRAY}}>
           (주)라이폴리는 통신판매중개업자로서 통신판매의 당사자가 아니며{'\n'}
@@ -71,14 +62,47 @@ export default function Footer({style}) {
       <View
         style={{
           width: '100%',
+          justifyContent: 'space-between',
           flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
+          marginBottom: 16,
         }}>
-        <View>
-          <View></View>
+        <View style={{width: '50%'}}>
+          <View style={{marginBottom: 8}}>
+            <M11>상호명 </M11>
+            <M11 customStyle={{marginLeft: 8, color: COLOR_GRAY}}>
+              (주)라이폴리
+            </M11>
+          </View>
+          <View style={{marginBottom: 8}}>
+            <M11>대표이사 </M11>
+            <M11 customStyle={{marginLeft: 8, color: COLOR_GRAY}}>이흥규</M11>
+          </View>
+          <View style={{marginBottom: 8}}>
+            <M11>사업자등록번호</M11>
+            <M11 customStyle={{marginLeft: 8, color: COLOR_GRAY}}>
+              363-86-03182
+            </M11>
+          </View>
         </View>
-        <M11 customStyle={{color: COLOR_GRAY}}>
+        <View style={{width: '50%'}}>
+          <View style={{marginBottom: 8}}>
+            <M11>통신판매업신고번호</M11>
+            <M11 customStyle={{marginLeft: 8, color: COLOR_GRAY}}>
+              2023-서울서초-3241
+            </M11>
+          </View>
+          <View style={{marginBottom: 8}}>
+            <M11>개인정보관리책임자</M11>
+            <M11 customStyle={{marginLeft: 8, color: COLOR_GRAY}}>이흥규</M11>
+          </View>
+          <View style={{marginBottom: 8}}>
+            <M11>주소</M11>
+            <M11 customStyle={{marginLeft: 8, color: COLOR_GRAY}}>
+              서울특별시 서초구 사임당로 8길 13, 4층 402호-a593
+            </M11>
+          </View>
+        </View>
+        {/* <M11 customStyle={{color: COLOR_GRAY}}>
           상호명: (주)라이폴리
           {'\n'}
           대표이사: 이흥규
@@ -91,7 +115,7 @@ export default function Footer({style}) {
           {'\n'}
           주소: 서울특별시 서초구 사임당로 8길 13, 4층 402호-a593
           {'\n'}
-        </M11>
+        </M11> */}
       </View>
 
       <View

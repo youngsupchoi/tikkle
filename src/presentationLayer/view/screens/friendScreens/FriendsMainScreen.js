@@ -56,9 +56,11 @@ import GlobalLoader from 'src/presentationLayer/view/components/globalComponents
 import Modal from 'react-native-modal';
 import ModalDropdown from 'react-native-modal-dropdown';
 import ArrowDown from 'src/assets/icons/ArrowDown';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
+  const {topActions} = useTopViewModel();
   const [modalText, setModalText] = useState('차단 목록');
 
   useEffect(() => {
@@ -72,6 +74,14 @@ export default function FriendsManagementScreen() {
   useEffect(() => {
     actions.get_friend_data(state.mode_friend);
   }, [state.mode_friend]);
+  useEffect(() => {
+    if (
+      state.searchedData[0] === undefined &&
+      state.searchedData.length !== 0
+    ) {
+      topActions.showSnackbar('존재하지 않는 아이디예요.', 0);
+    }
+  }, [state.searchedData]);
 
   return (
     <View style={styles.container}>
@@ -114,7 +124,7 @@ export default function FriendsManagementScreen() {
             onSubmitEditing={() => {
               actions.get_friend_search();
             }}
-            placeholder="id로 친구 추가"
+            placeholder="아이디로 친구 추가"
             placeholderTextColor={COLOR_GRAY}
             onChangeText={value => actions.setText_search(value)}
             value={state.text_search}
@@ -136,7 +146,8 @@ export default function FriendsManagementScreen() {
         </View>
       </View>
 
-      {state.searchedData.length !== 0 ? (
+      {console.log('서치데이터', state.searchedData)}
+      {state.searchedData[0] !== undefined ? (
         <View
           style={{
             height: windowWidth,
@@ -178,7 +189,6 @@ export default function FriendsManagementScreen() {
           </M15>
 
           <View style={{marginTop: 24}}>
-            {/* {console.log(state.searchedData[0])} */}
             {state.searchedData[0].relation_state_id === null &&
             state.searchedData.central_user_id != state.searchedData[0].id ? (
               <AnimatedButton
@@ -201,7 +211,8 @@ export default function FriendsManagementScreen() {
               </AnimatedButton>
             ) : null}
 
-            {state.searchedData[0].relation_state_id === 1 ? (
+            {state.searchedData[0] !== undefined &&
+            state.searchedData[0].relation_state_id === 1 ? (
               <AnimatedButton
                 onPress={() => {
                   actions.setText_search('');
@@ -222,7 +233,8 @@ export default function FriendsManagementScreen() {
               </AnimatedButton>
             ) : null}
 
-            {state.searchedData[0].relation_state_id === 2 ? (
+            {state.searchedData[0] !== undefined &&
+            state.searchedData[0].relation_state_id === 2 ? (
               <AnimatedButton
                 onPress={() => {
                   actions.setText_search('');
@@ -243,7 +255,8 @@ export default function FriendsManagementScreen() {
               </AnimatedButton>
             ) : null}
 
-            {state.searchedData[0].relation_state_id === 3 ? (
+            {state.searchedData[0] !== undefined &&
+            state.searchedData[0].relation_state_id === 3 ? (
               <AnimatedButton
                 onPress={() => {
                   actions.setText_search('');
@@ -265,43 +278,7 @@ export default function FriendsManagementScreen() {
             ) : null}
           </View>
         </View>
-      ) : (
-        <View>
-          {state.searchFalse === true ? (
-            <View
-              style={{
-                height: windowWidth / 6,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: COLOR_WHITE,
-                margin: 24,
-                borderRadius: 16,
-              }}>
-              <AnimatedButton
-                onPress={() => {
-                  actions.setSearchedData([]);
-                  actions.setText_search('');
-                  actions.setSearchFalse(false);
-                }}
-                style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
-                <Close
-                  width={24}
-                  height={24}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={2}
-                  scale={0.8}
-                />
-              </AnimatedButton>
-              <View>
-                <B15 customStyle={{color: COLOR_BLACK}}>
-                  존재하지 않는 id에요
-                </B15>
-              </View>
-            </View>
-          ) : null}
-        </View>
-      )}
-      {/* {console.log(state.getFriendData)} */}
+      ) : null}
 
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>

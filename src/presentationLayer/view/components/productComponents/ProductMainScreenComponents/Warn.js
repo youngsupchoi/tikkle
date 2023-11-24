@@ -112,6 +112,7 @@ export default function Warn() {
         {/* <View>
           <B20 customStyle={{marginTop: 24}}>A/S 책임자와 전화번호</B20>
           <B12 customStyle={{color: COLOR_GRAY, marginTop: 12}}>
+            {console.log(state.data.brand)}
             오송유통 / 070-4416-5101
           </B12>
         </View> */}

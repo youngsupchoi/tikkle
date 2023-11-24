@@ -40,8 +40,7 @@ export default function CategoryCarousel() {
             style={{
               backgroundColor:
                 state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
-              paddingLeft: 20,
-              paddingRight: 18,
+              paddingHorizontal: 16,
               paddingVertical: 8,
               borderColor: COLOR_PRIMARY,
               borderWidth: 1,
