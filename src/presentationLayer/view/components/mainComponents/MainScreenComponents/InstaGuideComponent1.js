@@ -26,7 +26,7 @@ export default function InstaGuideComponent1() {
       source={{
         uri: pic1,
       }}
-      style={{borderRadius: 20}}
+      style={{borderRadius: 12}}
     />
   );
 }

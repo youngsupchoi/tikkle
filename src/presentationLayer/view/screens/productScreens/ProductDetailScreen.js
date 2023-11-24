@@ -227,6 +227,7 @@ export default function ProductDetailScreen(route) {
                 customStyle={{
                   marginBottom: 24,
                   fontFamily: EB,
+                  lineHeight: 32,
                 }}>
                 {state.data.name}
               </M20>

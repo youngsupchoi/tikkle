@@ -150,7 +150,7 @@ export default function ProfileScreen() {
                       </M15>
                       {state.timeUnitlNextBirthday == 0 ? (
                         <M11 customStyle={{color: COLOR_GRAY}}>
-                          생일이 축하해요!
+                          생일을 축하해요!
                         </M11>
                       ) : (
                         <M11 customStyle={{color: COLOR_GRAY}}>

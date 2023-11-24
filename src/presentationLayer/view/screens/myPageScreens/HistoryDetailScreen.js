@@ -169,24 +169,24 @@ export default function HistoryDetailScreen(route) {
         data={list_data}
         keyExtractor={(item, index) => String(item.created_at)}
         ListHeaderComponent={
-          <View style={{marginHorizontal: 15}}>
+          <View style={{}}>
             <View
               style={{
                 padding: 24,
-                marginVertical: 8,
                 borderBottomColor: COLOR_SEPARATOR,
                 borderBottomWidth: 1,
                 backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                borderRadius: 12,
               }}>
               {/* title */}
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
+                  marginBottom: 4,
                 }}>
                 <M20 customStyle={{marginBottom: 16, fontFamily: EB}}>
-                  {route_data.created_at.split('-')[0]}{' '}
+                  {route_data.created_at.split('-')[0]}년{' '}
                   {/* {route_data.tikkling_type}{' '} */}
                   티클링
                 </M20>
@@ -225,9 +225,9 @@ export default function HistoryDetailScreen(route) {
                     navigation.navigate('productDetail', {product_id});
                   }}
                   style={{
-                    width: windowWidth - 64,
-                    height: windowWidth - 64,
-                    borderRadius: 16,
+                    width: windowWidth - 32,
+                    height: windowWidth - 32,
+                    borderRadius: 20,
                     borderColor: COLOR_SEPARATOR,
                     borderWidth: 1,
                     alignSelf: 'center',
@@ -605,7 +605,7 @@ export default function HistoryDetailScreen(route) {
                       marginBottom: 0,
                       marginLeft: 8,
                     }}>
-                    {route_data.price.toLocaleString()}₩
+                    {route_data.price.toLocaleString()}원
                   </M15>
                 </View>
 
@@ -622,7 +622,7 @@ export default function HistoryDetailScreen(route) {
                       marginBottom: 0,
                       marginLeft: 8,
                     }}>
-                    {route_data.price / 5000}개
+                    {(route_data.price / 5000).toLocaleString()}개
                   </M15>
                 </View>
               </View>
@@ -631,8 +631,8 @@ export default function HistoryDetailScreen(route) {
         }
         ListFooterComponent={
           <View>
-            <View style={{height: 20}}></View>
-            <Footer />
+            <View style={{height: 120}}></View>
+            {/* <Footer /> */}
           </View>
         }
         renderItem={({item, index}) => {
@@ -668,33 +668,40 @@ export default function HistoryDetailScreen(route) {
                   <View style={styles.listItemTextContainer}>
                     {item.state_id == 3 ? (
                       <View style={{marginBottom: 2}}>
-                        <B15 customStyle={{color: COLOR_ERROR}}>
+                        <B15 customStyle={{color: COLOR_ERROR, fontFamily: EB}}>
                           [환불] {item.NAME}님의 티클
                         </B15>
                       </View>
                     ) : (
                       <View style={{marginBottom: 2}}>
-                        <B15>{item.NAME}님의 선물</B15>
+                        <B15 customStyle={{fontFamily: EB}}>
+                          {item.NAME}님의 선물
+                        </B15>
                       </View>
                     )}
 
-                    <M15 customStyle={{color: COLOR_BLACK, width: 270}}>
+                    <B12
+                      customStyle={{
+                        color: COLOR_BLACK,
+                        width: windowWidth - 120,
+                        marginTop: 12,
+                      }}>
                       [
                       {route_data.product_name.length > 30
                         ? route_data.product_name.substring(0, 30) + '...'
                         : route_data.product_name}
                       ]의 조각 {item.quantity}개
-                    </M15>
+                    </B12>
                     <View
                       style={{
                         flexDirection: 'row',
                         alignItems: 'center',
                       }}>
-                      <B12 customStyle={{color: COLOR_GRAY}}>
+                      <M11 customStyle={{color: COLOR_GRAY}}>
                         {item.created_at.split('T')[0]}
                         {'  '}
                         {item.created_at.split('T')[1].split('.')[0]}
-                      </B12>
+                      </M11>
                     </View>
                   </View>
                 </View>
@@ -722,6 +729,7 @@ const styles = StyleSheet.create({
   },
   listItemTextContainer: {
     marginLeft: 12,
+    width: '100%',
   },
   header: {
     flexDirection: 'row',
@@ -747,8 +755,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     backgroundColor: COLOR_WHITE,
     borderRadius: 16,
-    marginVertical: 5,
-    marginHorizontal: 15,
+    marginVertical: 8,
+    marginHorizontal: 12,
     alignItems: 'center',
     justifyContent: 'space-between',
     // elevation: 3,

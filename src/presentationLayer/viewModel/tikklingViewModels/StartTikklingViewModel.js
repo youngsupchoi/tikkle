@@ -36,7 +36,7 @@ export const useStartTikklingViewModel = () => {
         return topActions.setStateAndError(res);
       })
       .then(async res => {
-        console.log('$$ :', res);
+        // console.log('$$ :', res);
         if (res.DSdata.info.tikkling_ticket == 0) {
           topActions.showSnackbar(
             '티클링 티켓이 부족합니다!\n티클링 티켓을 얻으려면 티클을 선물하세요.',
@@ -154,11 +154,19 @@ export const useStartTikklingViewModel = () => {
       actions.setCreateTikklingButtonPressed(true);
 
       put_user_address();
-
+      // console.log('opt', product_option);
       //TODO: product_option
       if (product_option == null || product_option == undefined) {
         product_option = {default: 'default'};
       }
+      console.log(
+        'hihihi',
+        state.endDate,
+        state.selectedItem.price / 5000,
+        state.selectedItem.product_id,
+        state.eventType,
+        product_option,
+      );
       createTikklingData(
         state.endDate,
         state.selectedItem.price / 5000,
@@ -167,7 +175,7 @@ export const useStartTikklingViewModel = () => {
         product_option,
       )
         .then(res => {
-          // console.log('po', product_option);
+          // console.log('res', res);
           topActions.setJustStart(true);
           return topActions.setStateAndError(res);
         })

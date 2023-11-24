@@ -289,9 +289,30 @@ export default function MyWishlistComponent() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <B17>{'상품을 골라 '}</B17>
-              <B20 customStyle={{color: COLOR_PRIMARY}}>{'티클링'}</B20>
-              <B17>{'을 시작해보세요.'}</B17>
+              {state.isTikkling ? (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <B20 customStyle={{color: COLOR_PRIMARY}}>
+                    {'다음 티클링'}
+                  </B20>
+                  <B17>{'엔 무엇을 받으실래요?'}</B17>
+                </View>
+              ) : (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <B17>{'상품을 골라 '}</B17>
+                  <B20 customStyle={{color: COLOR_PRIMARY}}>{'티클링'}</B20>
+                  <B17>{'을 시작해보세요.'}</B17>
+                </View>
+              )}
               <Tooltip
                 topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
                 isVisible={tikkling_tooltip}
@@ -373,7 +394,7 @@ export default function MyWishlistComponent() {
                   marginRight: 12,
                   // fontFamily: EB,
                 }}>
-                {'티클링 시작하기'}
+                {state.isTikkling ? '다음 선물 고르러 가기' : '티클링 시작하기'}
               </B15>
               <ArrowRight
                 width={16}

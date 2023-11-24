@@ -291,12 +291,11 @@ export default function FriendsTikklingCarousel(data) {
                       : setShowBuyModal(item.tikkling_id);
                   }}
                   style={{
-                    padding: 6,
+                    padding: 4,
                     paddingVertical: 10,
-                    borderRadius: 8,
+                    borderRadius: 12,
                     backgroundColor: COLOR_PRIMARY,
                     borderColor: COLOR_PRIMARY,
-                    borderWidth: 2,
                     alignItems: 'center',
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -412,7 +411,7 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     paddingTop: 8,
-    borderRadius: 12,
+    borderRadius: 20,
     backgroundColor: COLOR_WHITE,
     // elevation: 4,
     marginLeft: 24,

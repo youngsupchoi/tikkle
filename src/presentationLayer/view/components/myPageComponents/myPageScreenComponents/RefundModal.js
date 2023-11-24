@@ -4,6 +4,7 @@ import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewMode
 import {
   COLOR_BLACK,
   COLOR_ERROR,
+  COLOR_GRAY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -14,6 +15,9 @@ import {
   B22,
   B17,
   M15,
+  B20,
+  B12,
+  EB,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import Modal from 'react-native-modal';
 
@@ -77,37 +81,24 @@ export default function RefundModal() {
             <B22
               customStyle={{
                 color: COLOR_ERROR,
+                fontFamily: EB,
               }}>
               티클 환불 신청
             </B22>
           </View>
-          {/* <LottieView
-            source={require('src/assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
-            autoPlay
-            loop
-            style={{
-              width: 200,
-              height: 200,
-              alignSelf: 'center',
-            }}
-          /> */}
           <View
             style={{
               paddingHorizontal: 24,
-              alignItems: 'center',
               width: windowWidth * 0.8,
               alignSelf: 'center',
-              justifyContent: 'center',
             }}>
             <View style={{marginTop: 20}}>
-              <B17>정말 선물한 티클을 환불 하시겠어요?</B17>
+              <B20>정말 환불 하시겠어요?</B20>
             </View>
-            <View style={{marginBottom: 20, marginTop: 10}}>
-              <M15>
-                {
-                  '티클링의 완성도가 변경됨을 알리기 위해서\n         받은 유저에게 알림이 전송되요'
-                }
-              </M15>
+            <View style={{marginBottom: 24, marginTop: 16}}>
+              <B12 customStyle={{color: COLOR_GRAY}}>
+                {'받은 유저에게 알림이 전송돼요.'}
+              </B12>
             </View>
           </View>
 
