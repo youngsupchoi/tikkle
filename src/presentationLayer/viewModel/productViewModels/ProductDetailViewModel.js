@@ -135,45 +135,45 @@ export const useProductDetailViewModel = () => {
       }
       let temp;
 
-      // if (Platform.OS === 'ios') {
-      //   temp = (
-      //     <View key={i}>
-      //       <AutoHeightImage
-      //         width={windowWidth}
-      //         source={{
-      //           uri: images[i.toString()],
-      //         }}
-      //       />
-      //     </View>
-      //   );
+      if (Platform.OS === 'ios') {
+        temp = (
+          <View key={i}>
+            <AutoHeightImage
+              width={windowWidth}
+              source={{
+                uri: images[i.toString()],
+              }}
+            />
+          </View>
+        );
 
-      //   components.push(temp);
+        components.push(temp);
 
-      //   //
-      // } else {
-      await Image.getSize(
-        images[i.toString()],
-        (width, height) => {
-          const ratio = height / width;
-          const height_im = windowWidth * ratio;
-          let temp_2 = (
-            <View key={i}>
-              <WebView
-                style={{flex: 1, width: windowWidth, height: height_im}}
-                source={{
-                  uri: images[i.toString()],
-                }}
-              />
-            </View>
-          );
+        //
+      } else {
+        await Image.getSize(
+          images[i.toString()],
+          (width, height) => {
+            const ratio = height / width;
+            const height_im = windowWidth * ratio;
+            let temp_2 = (
+              <View key={i}>
+                <WebView
+                  style={{flex: 1, width: windowWidth, height: height_im}}
+                  source={{
+                    uri: images[i.toString()],
+                  }}
+                />
+              </View>
+            );
 
-          components.push(temp_2);
-        },
-        error => {
-          console.error(`Error getting image size: ${error}`);
-        },
-      );
-      // }
+            components.push(temp_2);
+          },
+          error => {
+            console.error(`Error getting image size: ${error}`);
+          },
+        );
+      }
     }
 
     await actions.setComponents(components);
