@@ -17,6 +17,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import ArrowDown from 'src/assets/icons/ArrowDown';
 import ArrowUpFilled from 'src/assets/icons/ArrowUpFilled';
 import ArrowUp from 'src/assets/icons/ArrowUp';
+import GlobalLoader from '../../globalComponents/globalLoader/globalLoader';
 
 export default function DetailImages() {
   const {state} = useProductDetailViewModel();
@@ -82,7 +83,8 @@ export default function DetailImages() {
         )}
       </View>
 
-      {state.components}
+      {state.picLoading == false ? state.components : <GlobalLoader />}
+      {/* {state.components} */}
     </View>
   );
 }

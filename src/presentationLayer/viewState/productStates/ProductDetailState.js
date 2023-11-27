@@ -34,6 +34,8 @@ export const ProductDetailViewStateProvider = ({children}) => {
 
   const [infoData, setInfoData] = useState({});
 
+  const [picLoading, setPicLoading] = useState(false);
+
   const ref = {};
   const state = {
     selected,
@@ -51,6 +53,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     optionPrice,
     data,
     infoData,
+    picLoading,
   };
 
   const actions = {
@@ -69,6 +72,7 @@ export const ProductDetailViewStateProvider = ({children}) => {
     setOptionPrice,
     setData,
     setInfoData,
+    setPicLoading,
   };
 
   return (
