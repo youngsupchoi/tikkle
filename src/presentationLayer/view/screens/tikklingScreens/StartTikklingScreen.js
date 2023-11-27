@@ -27,6 +27,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
@@ -304,7 +305,7 @@ export default function StartTikklingScreen({route}) {
               alignItems: 'center',
             }}>
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>
-              기념일 선택
+              티클링 종료일 선택
             </B20>
             <Tooltip
               topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
@@ -374,11 +375,11 @@ export default function StartTikklingScreen({route}) {
             {state.events.map(item => (
               <AnimatedButton
                 onPress={() => {
-                  console.log(
-                    actions.calculateDaysUntilNextBirthday(
-                      state.userData.birthday,
-                    ),
-                  );
+                  // console.log(
+                  //   actions.calculateDaysUntilNextBirthday(
+                  //     state.userData.birthday,
+                  //   ),
+                  // );
 
                   if (item.type === 'none') {
                     actions.setEventType(item.type);
@@ -408,6 +409,9 @@ export default function StartTikklingScreen({route}) {
                   backgroundColor:
                     item.type === state.eventType
                       ? COLOR_SECONDARY
+                      : item.type === 'birthday' &&
+                        state.birthdayAvailable === false
+                      ? COLOR_SEPARATOR
                       : COLOR_WHITE,
                   padding: 12,
                   paddingTop: 40,
@@ -431,13 +435,17 @@ export default function StartTikklingScreen({route}) {
                     color:
                       item.type === state.eventType
                         ? COLOR_PRIMARY
+                        : item.type === 'birthday' &&
+                          state.birthdayAvailable === false
+                        ? COLOR_GRAY
                         : COLOR_BLACK,
                     marginBottom: 12,
                   }}>
                   {item.label}
                 </B20>
 
-                {item.type === 'birthday' ? (
+                {item.type === 'birthday' &&
+                state.birthdayAvailable === true ? (
                   <View
                     style={{
                       position: 'absolute',
@@ -446,7 +454,7 @@ export default function StartTikklingScreen({route}) {
                       borderRadius: 12,
                       padding: 4,
                       paddingHorizontal: 8,
-                      borderColor: COLOR_SEPARATOR,
+                      borderColor: COLOR_GRAY,
                       borderWidth: 1,
                     }}>
                     <B12
@@ -456,6 +464,30 @@ export default function StartTikklingScreen({route}) {
                           item.type === state.eventType
                             ? COLOR_PRIMARY
                             : COLOR_GRAY,
+                      }}>
+                      D-
+                      {actions.calculateDaysUntilNextBirthday(
+                        state.userData.birthday,
+                      )}
+                    </B12>
+                  </View>
+                ) : item.type === 'birthday' &&
+                  state.birthdayAvailable === false ? (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      right: 16,
+                      top: 12,
+                      borderRadius: 12,
+                      padding: 4,
+                      paddingHorizontal: 8,
+                      borderColor: COLOR_GRAY,
+                      borderWidth: 1,
+                    }}>
+                    <B12
+                      customStyle={{
+                        alignSelf: 'flex-end',
+                        color: COLOR_GRAY,
                       }}>
                       D-
                       {actions.calculateDaysUntilNextBirthday(
@@ -493,7 +525,8 @@ export default function StartTikklingScreen({route}) {
                     </B12>
                   </View>
                 )}
-                {item.type === 'birthday' ? (
+                {item.type === 'birthday' &&
+                state.birthdayAvailable === true ? (
                   <View>
                     <M15
                       customStyle={{
@@ -501,6 +534,20 @@ export default function StartTikklingScreen({route}) {
                           item.type === state.eventType
                             ? COLOR_PRIMARY
                             : COLOR_BLACK,
+                      }}>
+                      {
+                        actions.formatDate(
+                          actions.setToEndOfDay(state.userData.birthday),
+                        ).label
+                      }
+                    </M15>
+                  </View>
+                ) : item.type === 'birthday' &&
+                  state.birthdayAvailable === false ? (
+                  <View>
+                    <M15
+                      customStyle={{
+                        color: COLOR_GRAY,
                       }}>
                       {
                         actions.formatDate(
@@ -726,7 +773,6 @@ export default function StartTikklingScreen({route}) {
         </View>
         {/* {console.log('라우트', route.params)} */}
 
-        {/* <Footer /> */}
         <AnimatedButton
           onPress={() => {
             actions.tikklingStartButtonPress(route.params.product_option);
@@ -739,8 +785,10 @@ export default function StartTikklingScreen({route}) {
         >
           <B15 customStyle={{color: COLOR_WHITE}}>티클링 시작하기</B15>
         </AnimatedButton>
-      </ScrollView>
 
+        <Footer />
+        <View style={{height: StatusBarHeight + 20}}></View>
+      </ScrollView>
       <PostCodeModal state={state} actions={actions} />
       <DetailAddressInput state={state} actions={actions} />
     </View>
@@ -789,7 +837,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: windowWidth - 32,
     marginTop: 0,
-    marginBottom: 15,
+    marginBottom: 0,
     alignSelf: 'center',
     marginBottom: 40,
     marginTop: 12,

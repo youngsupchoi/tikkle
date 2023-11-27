@@ -81,6 +81,7 @@ export default function DetailImages() {
           </AnimatedButton>
         )}
       </View>
+
       {state.components}
     </View>
   );

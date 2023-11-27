@@ -45,6 +45,9 @@ export const useStartTikklingViewModel = () => {
           navigation.goBack();
         } else {
           actions.setUserData(res.DSdata.info);
+          if (calculateDaysUntilNextBirthday(res.DSdata.info.birthday) <= 7) {
+            actions.setBirthdayAvailable(true);
+          }
         }
       });
     actions.setLoading(false);
