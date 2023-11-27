@@ -41,6 +41,8 @@ export const StartTikklingViewStateProvider = ({children}) => {
   const [createTikklingButtonPressed, setCreateTikklingButtonPressed] =
     useState(false);
 
+  const [birthdayAvailable, setBirthdayAvailable] = useState(false);
+
   const events = [
     {
       type: 'birthday',
@@ -49,7 +51,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     },
     {
       type: 'none',
-      label: '기타',
+      label: '직접 설정',
       value: 'none',
     },
   ];
@@ -75,6 +77,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     loading,
     showPostCodeModal,
     createTikklingButtonPressed,
+    birthdayAvailable,
   };
   const actions = {
     setUserData,
@@ -95,6 +98,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     setLoading,
     setShowPostCodeModal,
     setCreateTikklingButtonPressed,
+    setBirthdayAvailable,
   };
 
   return (
