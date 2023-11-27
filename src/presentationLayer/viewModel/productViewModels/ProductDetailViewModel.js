@@ -171,7 +171,7 @@ export const useProductDetailViewModel = () => {
       }
     }
 
-    actions.setComponents(components);
+    await actions.setComponents(components);
   };
 
   return {
