@@ -4,7 +4,7 @@ import {getHash, startOtpListener} from 'react-native-otp-verify';
 import {verifyOTP} from 'src/components/Axios/OTPVerification';
 // 1. 필요한 뷰 스테이트 가져오기 (작명규칙: use + view이름 + State)
 import {useStartViewState} from 'src/presentationLayer/viewState/startStates/AuthState';
-
+import moment from 'moment';
 // 2. 데이터 소스 또는 API 가져오기
 import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumberData';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
@@ -200,6 +200,44 @@ export const useStartViewModel = () => {
     });
   };
 
+  const buttonPress = () => {
+    let birthday = `${state.year}-${state.month.padStart(
+      2,
+      '0',
+    )}-${state.day.padStart(2, '0')}`; // Format the birthday
+    //공백 제거
+    birthday = birthday.replace(/\s+/g, '');
+    //생일 유효성 검사
+    const birthdayValidation = new RegExp(
+      /^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])$|^(?:19(?:[13579][26]|[2468][048]|0[48])|20(?:0[48]|[2468][048]|[13579][26]))-02-29$|^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[13-9]|1[0-2])-(?:29|30)$|^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[13578]|1[02])-31$/,
+    );
+    if (!birthdayValidation.test(birthday)) {
+      topActions.showSnackbar('올바른 생일 형식을 입력해주세요!', 0);
+      return;
+    }
+
+    //만 14세 이상인지 검사
+
+    const birth = moment(birthday).add(9, 'hours');
+    const now = moment().add(9, 'hours');
+    const diff = now.diff(birth, 'years');
+
+    if (diff < 14) {
+      topActions.showSnackbar('티클은 만 14세 이상만 이용하실 수 있습니다!', 0);
+      return;
+    }
+
+    // console.log(state.firstName, state.lastName, state.gender, birthday);
+    navigation.navigate('signup6', {
+      firstName: state.firstName,
+      lastName: state.lastName,
+      name: state.firstName + state.lastName,
+      gender: state.gender,
+      birthday: birthday,
+      phoneNumber: state.phoneNumber,
+    });
+  };
+
   //TODO : 기존 verifyOTP함수 삭제한 뒤 이 함수 이름 verifyOTP로 바꿀것
   const checkOTPEqual = () => {
     const fullCode = state.inputCode.join('');
@@ -244,6 +282,7 @@ export const useStartViewModel = () => {
       formatPhoneNumber,
       splitNumberToDigits,
       skipOnboarding,
+      buttonPress,
     },
   };
 };

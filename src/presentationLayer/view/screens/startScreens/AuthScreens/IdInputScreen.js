@@ -84,7 +84,7 @@ export default function SignUpScreen6({route}) {
       <SignUpHeader />
 
       <View style={styles.instructionContainer}>
-        <M15 customStyle={{color: COLOR_GRAY, marginBottom: 8}}>
+        <M15 customStyle={{color: COLOR_GRAY, marginBottom: 0}}>
           마지막 단계예요!
         </M15>
         <B28>당신의 아이디를 알려주세요.</B28>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   instructionContainer: {
-    marginBottom: SPACING_6,
+    marginBottom: 10,
     alignItems: 'center',
   },
   inputContainer: {

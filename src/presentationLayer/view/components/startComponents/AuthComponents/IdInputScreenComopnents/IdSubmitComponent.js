@@ -51,7 +51,7 @@ export default function IdSubmit() {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: SPACING_6,
+    marginTop: 15,
     width: '100%',
   },
   button: {

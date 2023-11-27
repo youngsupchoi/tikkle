@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   instructionContainer: {
-    marginBottom: SPACING_6,
+    marginBottom: 10,
     alignItems: 'center',
   },
   inputContainer: {
