@@ -49,11 +49,10 @@ export const useProductDetailViewModel = () => {
       })
       .then(async info => {
         //console.log('info : ', info.images);
-        await cutImage(info.images);
+        cut_set(info.images);
         if (info.wishlisted) {
           await actions.setWishlisted(true);
         }
-
         await isTikkling();
       });
   };
@@ -117,10 +116,16 @@ export const useProductDetailViewModel = () => {
     });
   };
 
+  const cut_set = async images => {
+    await actions.setPicLoading(true);
+    await cutImage(images);
+    await actions.setPicLoading(false);
+  };
+
   const cutImage = async in_images => {
     // console.log('sdfsdfsdfsdf', data.images);
     const images = JSON.parse(in_images);
-
+    console.log('images : ', images);
     /// 이미지 표시하기
     const components = [];
 
@@ -130,48 +135,48 @@ export const useProductDetailViewModel = () => {
       }
       let temp;
 
-      if (Platform.OS === 'ios') {
-        temp = (
-          <View key={i}>
-            <AutoHeightImage
-              width={windowWidth}
-              source={{
-                uri: images[i.toString()],
-              }}
-            />
-          </View>
-        );
+      // if (Platform.OS === 'ios') {
+      //   temp = (
+      //     <View key={i}>
+      //       <AutoHeightImage
+      //         width={windowWidth}
+      //         source={{
+      //           uri: images[i.toString()],
+      //         }}
+      //       />
+      //     </View>
+      //   );
 
-        components.push(temp);
+      //   components.push(temp);
 
-        //
-      } else {
-        await Image.getSize(
-          images[i.toString()],
-          (width, height) => {
-            const ratio = height / width;
-            const height_im = windowWidth * ratio;
-            let temp_2 = (
-              <View key={i}>
-                <WebView
-                  style={{flex: 1, width: windowWidth, height: height_im}}
-                  source={{
-                    uri: images[i.toString()],
-                  }}
-                />
-              </View>
-            );
+      //   //
+      // } else {
+      await Image.getSize(
+        images[i.toString()],
+        (width, height) => {
+          const ratio = height / width;
+          const height_im = windowWidth * ratio;
+          let temp_2 = (
+            <View key={i}>
+              <WebView
+                style={{flex: 1, width: windowWidth, height: height_im}}
+                source={{
+                  uri: images[i.toString()],
+                }}
+              />
+            </View>
+          );
 
-            components.push(temp_2);
-          },
-          error => {
-            console.error(`Error getting image size: ${error}`);
-          },
-        );
-      }
+          components.push(temp_2);
+        },
+        error => {
+          console.error(`Error getting image size: ${error}`);
+        },
+      );
+      // }
     }
 
-    actions.setComponents(components);
+    await actions.setComponents(components);
   };
 
   return {
