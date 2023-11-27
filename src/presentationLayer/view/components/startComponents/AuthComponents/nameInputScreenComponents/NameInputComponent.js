@@ -21,16 +21,10 @@ import {
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 
-function InputBox({
-  value,
-  placeholder,
-  onChange,
-  onSubmit,
-  refValue,
-  maxLength,
-}) {
+function InputBox({value, placeholder, onChange, refValue, maxLength}) {
   // Define a state variable to track the current input value
   const [inputValue, setInputValue] = useState(value);
+  const {ref, state, actions} = useStartViewModel();
   const {topActions} = useTopViewModel();
   // Define a function to handle text input changes
   const handleTextChange = text => {
@@ -57,7 +51,12 @@ function InputBox({
       underlineColorAndroid="transparent"
       value={inputValue}
       onChangeText={handleTextChange} // Use the handleTextChange function
-      onSubmitEditing={onSubmit}
+      onSubmitEditing={() => {
+        if (!state.lastName) {
+          return;
+        }
+        actions.handleButtonPress();
+      }}
     />
   );
 }
@@ -78,7 +77,6 @@ export default function NameInput() {
         value={state.lastName}
         placeholder="이름"
         onChange={actions.setLastName}
-        onSubmit={actions.handleButtonPress}
         refValue={ref.lastNameRef}
         maxLength={5}
       />

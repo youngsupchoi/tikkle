@@ -24,6 +24,12 @@ export const PhoneNumberInput = () => {
         underlineColorAndroid="transparent"
         clearButtonMode="while-editing"
         value={state.phoneNumber}
+        onSubmitEditing={() => {
+          if (!state.isValidPhoneNumber || state.phoneInputButtonPressed) {
+            return;
+          }
+          actions.phoneInputbuttonPress();
+        }}
         onChangeText={text => {
           /* actions.setPhoneNumber(text); */
           console.log(text);
@@ -39,7 +45,7 @@ const styles = StyleSheet.create({
   phoneNumberInputContainer: {
     // ... style properties
     alignItems: 'center',
-    marginVertical: SPACING_6,
+    marginVertical: 20,
   },
   nativeInput: {
     color: COLOR_GRAY,
