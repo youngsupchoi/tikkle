@@ -14,6 +14,7 @@ import {useState} from 'react';
 import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
 import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 import WebView from 'react-native-webview';
+import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useProductDetailViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -145,7 +146,7 @@ export const useProductDetailViewModel = () => {
 
         //
       } else {
-        Image.getSize(
+        await Image.getSize(
           images[i.toString()],
           (width, height) => {
             const ratio = height / width;
@@ -166,17 +167,6 @@ export const useProductDetailViewModel = () => {
           error => {
             console.error(`Error getting image size: ${error}`);
           },
-        );
-
-        temp = (
-          <View key={i}>
-            <WebView
-              style={{flex: 1, width: windowWidth, height: 1000}}
-              source={{
-                uri: images[i.toString()],
-              }}
-            />
-          </View>
         );
       }
     }
