@@ -50,7 +50,7 @@ export const useProductMainViewModel = () => {
   };
 
   const changeCategory = async (new_id, new_catname) => {
-    await actions.loading(true);
+    await actions.setLoading(true);
 
     await actions.setSearchedData([]);
     await actions.setSelectedCategory(new_catname);
@@ -78,7 +78,7 @@ export const useProductMainViewModel = () => {
         }
       });
 
-    await actions.loading(false);
+    await actions.setLoading(false);
   };
 
   const getNewData = async page => {
