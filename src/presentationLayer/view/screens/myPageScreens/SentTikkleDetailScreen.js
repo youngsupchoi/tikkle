@@ -94,7 +94,7 @@ export default function SentTikkleDetailScreen({route}) {
                 paddingBottom: 10,
                 marginVertical: 8,
                 backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                borderRadius: 0,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 1,
               }}>
@@ -285,7 +285,7 @@ export default function SentTikkleDetailScreen({route}) {
                 paddingBottom: 10,
                 marginVertical: 8,
                 backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                borderRadius: 0,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 1,
               }}>
