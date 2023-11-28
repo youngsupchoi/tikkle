@@ -4,7 +4,8 @@ import {Keyboard, Animated, Platform} from 'react-native';
 import {useFriendMainViewState} from '../../viewState/friendStates/FriendsMainState';
 
 // 2. 데이터 소스 또는 API 가져오기
-
+import {PermissionsAndroid} from 'react-native';
+import Contacts from 'react-native-contacts';
 import {getMyFriendData} from 'src/dataLayer/DataSource/Friend/GetMyFriendData';
 import {getBlockedFriendData} from 'src/dataLayer/DataSource/Friend/GetBlockedFriendData';
 import {getSearchFriendData} from 'src/dataLayer/DataSource/Friend/GetSearchFriendData';
@@ -12,7 +13,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {updateFriendBlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendBlockData';
 import {createNewFriendData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendData';
 import {updateFriendUnlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendUnblockData';
-
+import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
 /**
  * FriendsMainScreen의 뷰 스테이트와 액션을 정의하는 ViewModel Hook
  * @returns {object} ref, state, actions
@@ -241,6 +242,81 @@ export const useFriendMainViewModel = () => {
     ref.dropdownRef.current.select(index);
   };
 
+  async function transformContactsData(contactsData) {
+    return {
+      phone_list: contactsData.map(contact => contact.phoneNumber),
+    };
+  }
+
+  /**
+   * 기기에서 전화번호부 긁어오는 함수
+   */
+  const findContacts = async () => {
+    await actions.setRefreshing(true);
+
+    try {
+      let granted;
+      if (Platform.OS === 'android') {
+        granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: '연락처 권한 요청',
+            message:
+              '연락처 상 가입된 친구가 있다면 자동으로 친구가 추가됩니다. 그 외의 용도로는 절대 저장 또는 사용하지 않습니다.',
+            buttonPositive: '허용',
+          },
+        );
+      }
+
+      if (
+        granted === PermissionsAndroid.RESULTS.GRANTED ||
+        Platform.OS === 'ios'
+      ) {
+        const result = await Contacts.getAll();
+        let phoneNumbersProcessed = [];
+        const formattedData = result.reduce((acc, contact) => {
+          const {phoneNumbers, givenName, familyName} = contact;
+          phoneNumbers.forEach(phoneNumber => {
+            const numberWithoutDashes = phoneNumber.number.replace(/-/g, ''); // Remove dashes
+            if (
+              numberWithoutDashes.length === 11 &&
+              numberWithoutDashes.startsWith('010') &&
+              !phoneNumbersProcessed.includes(numberWithoutDashes)
+            ) {
+              phoneNumbersProcessed.push(numberWithoutDashes);
+              const formattedPhoneNumber =
+                numberWithoutDashes.slice(0, 3) +
+                '-' +
+                numberWithoutDashes.slice(3, 7) +
+                '-' +
+                numberWithoutDashes.slice(7);
+              acc.push({
+                name: `${familyName}${givenName}`,
+                phoneNumber: numberWithoutDashes, // For server
+                formattedPhoneNumber: formattedPhoneNumber, // For display
+              });
+            }
+          });
+          return acc;
+        }, []);
+        const temp = await transformContactsData(formattedData);
+        await createPhoneFriendData(temp.phone_list)
+          .then(res => {
+            return topActions.setStateAndError(res);
+          })
+          .then(res => {
+            topActions.showSnackbar(res.DSmessage, 1);
+          });
+      } else {
+        console.log('Contacts permission denied');
+      }
+    } catch (error) {
+      console.log('Error fetching contacts:', error);
+    } finally {
+      await actions.setRefreshing(false);
+    }
+  };
+
   return {
     ref: {
       ...ref,
@@ -260,6 +336,7 @@ export const useFriendMainViewModel = () => {
       create_friend,
       onRefresh,
       onSelectDropdown,
+      findContacts,
     },
   };
 };

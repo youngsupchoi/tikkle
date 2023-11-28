@@ -120,6 +120,6 @@ export async function createPhoneFriendData(phone_list) {
   return {
     DScode: 0,
     DSdata: {success: true},
-    DSmessage: '친구 추가가 완료되었어요',
+    DSmessage: '연락처의 친구들이 추가 되었어요',
   };
 }

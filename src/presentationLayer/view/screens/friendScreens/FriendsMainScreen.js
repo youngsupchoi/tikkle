@@ -49,7 +49,7 @@ import LottieView from 'lottie-react-native';
 import Close from 'src/assets/icons/Close';
 import UnBlock from 'src/assets/icons/UnBlock';
 import BlockFriend from 'src/assets/icons/BlockFriend';
-
+import Contract from 'src/assets/icons/Contract';
 import {RefreshControl} from 'react-native-gesture-handler';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
@@ -116,6 +116,20 @@ export default function FriendsManagementScreen() {
             </View>
           )}
         />
+        <AnimatedButton
+          onPress={() => {
+            console.log('연락처 동기화');
+            actions.findContacts();
+          }}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 60,
+            height: 40,
+          }}>
+          <Contract width={30} height={30} />
+          <M11>연락처 동기화</M11>
+        </AnimatedButton>
       </View>
 
       <View style={styles.searchBarContainer}>
@@ -489,6 +503,7 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     paddingHorizontal: 16,
+    paddingRight: 80,
     alignItems: 'center',
     justifyContent: 'space-between',
     position: 'sticky',
