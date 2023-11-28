@@ -36,16 +36,12 @@ export default function ProductSearchLandingScreen() {
   useEffect(() => {
     actions.setSelectedCategory('디지털/전자');
   }, []);
+
   useEffect(() => {
+    actions.setSearchedData([]);
     actions.onRefresh();
     setCurrentPage(0);
-  }, [
-    state.categoryId,
-    state.priceMin,
-    state.priceMax,
-    state.sortAttribute,
-    state.sortWay,
-  ]);
+  }, [state.priceMin, state.priceMax, state.sortAttribute, state.sortWay]);
 
   let prevScrollY = new Animated.Value(0);
 

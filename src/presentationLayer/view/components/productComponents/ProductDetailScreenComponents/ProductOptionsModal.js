@@ -119,8 +119,8 @@ export default function ProductOptionsModal({
       {console.log(selectedOptions, productOptions, additionalAmountTotal)}
       <Modal
         avoidKeyboard
-        onSwipeComplete={() => setShowModal(false)}
-        swipeDirection={'down'}
+        // onSwipeComplete={() => setShowModal(false)}
+        // swipeDirection={'down'}
         onBackdropPress={() => setShowModal(false)}
         onBackButtonPress={() => setShowModal(false)}
         isVisible={showModal}

@@ -18,6 +18,7 @@ export const useProductMainViewModel = () => {
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
   const loadData = async () => {
     await actions.setLoading(true);
+
     await getProductListData(
       state.categoryId,
       state.priceMin,
@@ -48,11 +49,44 @@ export const useProductMainViewModel = () => {
     //actions.setRefreshing(false);
   };
 
+  const changeCategory = async (new_id, new_catname) => {
+    await actions.setLoading(true);
+
+    await actions.setSearchedData([]);
+    await actions.setSelectedCategory(new_catname);
+    await actions.setCategoryId(new_id);
+
+    await getProductListData(
+      new_id,
+      state.priceMin,
+      state.priceMax,
+      state.sortAttribute,
+      state.sortWay,
+      state.search,
+      1,
+    )
+      .then(res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        actions.setGetNum(1);
+        actions.setSearchedData(res.DSdata.info);
+        if (res.DSdata.info.length == 0) {
+          actions.setNoitems(true);
+        } else {
+          actions.setNoitems(false);
+        }
+      });
+
+    await actions.setLoading(false);
+  };
+
   const getNewData = async page => {
     if (state.noitems == true) {
       return;
     }
-    console.log('getNewData');
+    console.log('getNewData ');
+    console.log('cat  : ', state.categoryId);
     await actions.setItemLoading(true);
     const temp = [];
     temp.push(...state.searchedData);
@@ -119,6 +153,7 @@ export const useProductMainViewModel = () => {
       loadData,
       onRefresh,
       getNewData,
+      changeCategory,
       sendMail,
     },
   };
