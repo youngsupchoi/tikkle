@@ -125,45 +125,53 @@ export default function SearchedProductItems({productData, category}) {
           ) : null}
         </View>
       ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: windowWidth,
-          }}>
-          <B22>조건에 맞는 상품이 없어요</B22>
-          <LottieView
-            source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
-            autoPlay
-            loop
-            style={{
-              width: 150,
-              height: 150,
-              alignSelf: 'center',
-              backgroundColor: backgroundColor,
-            }}
-          />
-          <View style={{marginTop: 40}}>
-            <M15>받고 싶은 상품이 있다면 말씀해주시겠어요?</M15>
-          </View>
-          <AnimatedButton
-            onPress={() => {
-              navigation.navigate('ProductInqire');
-            }}
-            style={{
-              padding: 6,
-              paddingHorizontal: 24,
-              borderRadius: 8,
-              backgroundColor: COLOR_WHITE,
-              borderColor: COLOR_PRIMARY,
-              borderWidth: 1,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop: 24,
-            }}>
-            <B15 customStyle={{color: COLOR_PRIMARY}}>상품 등록 신청하기</B15>
-          </AnimatedButton>
+        <View>
+          {state.itemLoading ? (
+            <GlobalLoader />
+          ) : (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: windowWidth,
+              }}>
+              <B22>조건에 맞는 상품이 없어요</B22>
+              <LottieView
+                source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                autoPlay
+                loop
+                style={{
+                  width: 150,
+                  height: 150,
+                  alignSelf: 'center',
+                  backgroundColor: backgroundColor,
+                }}
+              />
+              <View style={{marginTop: 40}}>
+                <M15>받고 싶은 상품이 있다면 말씀해주시겠어요?</M15>
+              </View>
+              <AnimatedButton
+                onPress={() => {
+                  navigation.navigate('ProductInqire');
+                }}
+                style={{
+                  padding: 6,
+                  paddingHorizontal: 24,
+                  borderRadius: 8,
+                  backgroundColor: COLOR_WHITE,
+                  borderColor: COLOR_PRIMARY,
+                  borderWidth: 1,
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginTop: 24,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>
+                  상품 등록 신청하기
+                </B15>
+              </AnimatedButton>
+            </View>
+          )}
         </View>
       )}
     </View>
