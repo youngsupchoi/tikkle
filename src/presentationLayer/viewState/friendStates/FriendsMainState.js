@@ -36,6 +36,8 @@ export const FriendMainViewStateProvider = ({children}) => {
   const opacityValue = useRef(new Animated.Value(1)).current;
   const dropdownRef = useRef(null);
 
+  const [permissionModalVisible, setPermissionModalVisible] = useState(false);
+
   const ref = {
     opacityValue,
   };
@@ -55,6 +57,7 @@ export const FriendMainViewStateProvider = ({children}) => {
     refreshing,
     searchFalse,
     dropdownRef,
+    permissionModalVisible,
   };
 
   const actions = {
@@ -71,6 +74,7 @@ export const FriendMainViewStateProvider = ({children}) => {
     setReceivedData,
     setRefreshing,
     setSearchFalse,
+    setPermissionModalVisible,
   };
 
   return (

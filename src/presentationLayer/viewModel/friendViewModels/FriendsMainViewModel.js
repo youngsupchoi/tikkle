@@ -309,9 +309,27 @@ export const useFriendMainViewModel = () => {
           });
       } else {
         console.log('Contacts permission denied');
+        if (Platform.OS === 'android') {
+          topActions.showSnackbar('연락처 권한이 설정에 실패했어요', 0);
+        } else {
+          topActions.showSnackbar(
+            '연락처 권한이 없어요!\n환경설정에서 권한을 설정해 주세요!',
+            0,
+          );
+        }
       }
     } catch (error) {
       console.log('Error fetching contacts:', error);
+      if (Platform.OS === 'android') {
+        topActions.showSnackbar('연락처 권한이 설정에 실패했어요', 0);
+      } else {
+        //ios
+        actions.setPermissionModalVisible(true);
+        // topActions.showSnackbar(
+        //   '연락처 권한이 없어요!\n환경설정에서 권한을 설정해 주세요!',
+        //   0,
+        // );
+      }
     } finally {
       await actions.setRefreshing(false);
     }
