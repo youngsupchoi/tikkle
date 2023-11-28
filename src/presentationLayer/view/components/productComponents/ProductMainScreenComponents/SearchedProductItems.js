@@ -127,7 +127,15 @@ export default function SearchedProductItems({productData, category}) {
       ) : (
         <View>
           {state.itemLoading ? (
-            <GlobalLoader />
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: windowWidth,
+              }}>
+              <View style={{marginTop: 200}} />
+              <GlobalLoader />
+            </View>
           ) : (
             <View
               style={{
