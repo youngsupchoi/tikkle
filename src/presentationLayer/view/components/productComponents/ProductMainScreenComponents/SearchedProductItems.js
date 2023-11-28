@@ -60,10 +60,21 @@ export default function SearchedProductItems({productData, category}) {
                 }}
                 style={[styles.itemContainer]}
                 key={item.id}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    width: '100%',
+                    height: windowWidth / 2 - SPACING_4,
+                    backgroundColor: COLOR_WHITE,
+                    borderRadius: 10,
+                  }}
+                />
                 <Image
                   source={{uri: item.thumbnail_image}}
                   style={styles.imageContainer}
                 />
+
                 <View style={styles.textContainer}>
                   <B15 numberOfLines={2} customStyle={{lineHeight: 20}}>
                     {item.name}
