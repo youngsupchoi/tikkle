@@ -32,10 +32,8 @@ export default function CategoryCarousel() {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {state.categories.map(category => (
           <AnimatedButton
-            onPress={() => {
-              actions.setSearchedData([]);
-              actions.setSelectedCategory(category.name);
-              actions.setCategoryId(category.id);
+            onPress={async () => {
+              await actions.changeCategory(category.id, category.name);
             }}
             key={category.id}
             style={{
