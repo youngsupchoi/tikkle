@@ -18,6 +18,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import Modal from 'react-native-modal';
+
 export default function ProductFilter() {
   const {state, actions} = useProductMainViewModel();
 
@@ -46,7 +47,7 @@ export default function ProductFilter() {
         animationOut="slideOutDown" // 이 부분이 추가되었습니다.
       >
         <View style={styles.modalContent}>
-          <B15>가격대 선택</B15>
+          <B15>가격</B15>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {priceRanges.map((range, index) => (
               <AnimatedButton
