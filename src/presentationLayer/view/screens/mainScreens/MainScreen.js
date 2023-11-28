@@ -179,7 +179,7 @@ export default function HomeScreen({route}) {
           </View>
         )}
         <View style={styles.homeFooter}></View>
-        <Footer />
+        {/* <Footer /> */}
       </ScrollView>
 
       <WhoParticipated
