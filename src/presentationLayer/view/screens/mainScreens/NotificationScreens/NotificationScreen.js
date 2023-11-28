@@ -319,6 +319,7 @@ export default function NotificationScreen() {
       <View
         style={{
           marginTop: 20,
+          marginBottom: 10,
           padding: 24,
           paddingVertical: 16,
           flexDirection: 'row',
