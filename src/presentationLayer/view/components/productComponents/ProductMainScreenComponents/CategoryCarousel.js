@@ -27,12 +27,13 @@ export default function CategoryCarousel() {
   return (
     <View>
       <B20 customStyle={{paddingHorizontal: 16, marginBottom: 12}}>
-        전체 카테고리
+        카테고리
       </B20>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {state.categories.map(category => (
           <AnimatedButton
             onPress={() => {
+              actions.setSearchedData([]);
               actions.setSelectedCategory(category.name);
               actions.setCategoryId(category.id);
             }}

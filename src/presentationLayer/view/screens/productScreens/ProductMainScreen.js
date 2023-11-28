@@ -36,7 +36,9 @@ export default function ProductSearchLandingScreen() {
   useEffect(() => {
     actions.setSelectedCategory('디지털/전자');
   }, []);
+
   useEffect(() => {
+    actions.setSearchedData([]);
     actions.onRefresh();
     setCurrentPage(0);
   }, [

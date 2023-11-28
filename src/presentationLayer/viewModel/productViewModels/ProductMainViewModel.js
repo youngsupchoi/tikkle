@@ -52,7 +52,7 @@ export const useProductMainViewModel = () => {
     if (state.noitems == true) {
       return;
     }
-    console.log('getNewData');
+    console.log('getNewData :', state.searchedData);
     await actions.setItemLoading(true);
     const temp = [];
     temp.push(...state.searchedData);
