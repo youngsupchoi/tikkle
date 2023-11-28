@@ -146,7 +146,7 @@ export default function FriendsManagementScreen() {
         </View>
       </View>
 
-      {console.log('서치데이터', state.searchedData)}
+      {/* {console.log('서치데이터', state.searchedData)} */}
       {state.searchedData[0] !== undefined ? (
         <View
           style={{
@@ -377,17 +377,17 @@ export default function FriendsManagementScreen() {
                 </View>
               );
             }}
-            ItemSeparatorComponent={() => {
-              return (
-                <View
-                  style={{
-                    width: '100%',
-                    height: 1,
-                    backgroundColor: COLOR_SEPARATOR,
-                  }}
-                />
-              );
-            }}
+            // ItemSeparatorComponent={() => {
+            //   return (
+            //     <View
+            //       style={{
+            //         width: '100%',
+            //         height: 1,
+            //         backgroundColor: COLOR_SEPARATOR,
+            //       }}
+            //     />
+            //   );
+            // }}
             renderItem={({item, index}) => {
               return (
                 <View key={item.id} style={styles.flatListItemContainer}>
