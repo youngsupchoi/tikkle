@@ -57,6 +57,7 @@ import Modal from 'react-native-modal';
 import ModalDropdown from 'react-native-modal-dropdown';
 import ArrowDown from 'src/assets/icons/ArrowDown';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import PermissionModal from 'src/presentationLayer/view/components/friendComponents/friendMainComponents/PermissionModal';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
@@ -483,6 +484,8 @@ export default function FriendsManagementScreen() {
           />
         )}
       </Animated.View>
+
+      <PermissionModal />
     </View>
   );
 }
