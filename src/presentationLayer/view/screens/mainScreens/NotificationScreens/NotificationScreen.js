@@ -313,11 +313,12 @@ export default function NotificationScreen() {
     <View
       style={{
         backgroundColor: backgroundColor,
-        paddingTop: 0,
+        paddingTop: 20,
         justifyContent: 'center',
       }}>
       <View
         style={{
+          marginTop: 20,
           padding: 24,
           paddingVertical: 16,
           flexDirection: 'row',
@@ -347,6 +348,7 @@ export default function NotificationScreen() {
           <GlobalLoader />
         ) : (
           <FlatList
+            showsVerticalScrollIndicator={false}
             refreshControl={
               <RefreshControl
                 refreshing={state.refreshing}
