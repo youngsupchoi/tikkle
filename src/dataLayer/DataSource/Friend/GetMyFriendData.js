@@ -46,7 +46,7 @@ export async function getMyFriendData() {
     };
   }
 
-  console.log(response);
+  //console.log(response);
 
   //------ control result & error of get_friend_data-----------------------------------------//
 

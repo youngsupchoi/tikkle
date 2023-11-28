@@ -125,7 +125,7 @@ export default function FriendsManagementScreen() {
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            width: 60,
+            // width: 60,
             height: 40,
           }}>
           <Contract width={30} height={30} />
@@ -386,7 +386,7 @@ export default function FriendsManagementScreen() {
             )}
             ListFooterComponent={() => {
               return (
-                <View style={{height: 500}}>
+                <View style={{height: 100}}>
                   {/* <View style={{height: 100}} />
                   <Footer /> */}
                 </View>

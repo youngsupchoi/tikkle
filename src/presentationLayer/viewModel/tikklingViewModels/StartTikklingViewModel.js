@@ -183,7 +183,7 @@ export const useStartTikklingViewModel = () => {
           return topActions.setStateAndError(res);
         })
         .then(() => {
-          topActions.showSnackbar('티클링이 시작되었습니다!.', 1);
+          topActions.showSnackbar('티클링이 시작되었습니다!', 1);
           navigation.reset({
             index: 0,
             routes: [
