@@ -43,6 +43,33 @@ export const useProductMainViewModel = () => {
     await actions.setLoading(false);
   };
 
+  const loadData_reset = async () => {
+    await actions.setLoading(true);
+
+    await getProductListData(
+      state.categoryId,
+      0,
+      999999999,
+      sales_volume,
+      DESC,
+      '',
+      1,
+    )
+      .then(res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(async res => {
+        actions.setGetNum(1);
+        actions.setSearchedData(res.DSdata.info);
+        if (res.DSdata.info.length == 0) {
+          actions.setNoitems(true);
+        } else {
+          actions.setNoitems(false);
+        }
+      });
+    await actions.setLoading(false);
+  };
+
   const onRefresh = async () => {
     //actions.setRefreshing(true);
     await loadData();
@@ -156,6 +183,7 @@ export const useProductMainViewModel = () => {
       getNewData,
       changeCategory,
       sendMail,
+      loadData_reset,
     },
   };
 };
