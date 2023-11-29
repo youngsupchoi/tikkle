@@ -20,6 +20,7 @@ import {
 import {
   B17,
   B,
+  M11,
   B15,
   EB,
   B20,
@@ -44,6 +45,7 @@ import {
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import Tooltip from 'react-native-walkthrough-tooltip';
 import {
   windowHeight,
   windowWidth,
@@ -76,6 +78,8 @@ export default function ProductDetailScreen(route) {
   const {topActions} = useTopViewModel();
 
   const [selected, setSelected] = useState('상세정보');
+  const [buttikkletooltip, setButtikkletooltip] = useState(false);
+
   const scrollY = new Animated.Value(0);
   const imageScale = scrollY.interpolate({
     inputRange: [0, 200], // These numbers might need tweaking based on your requirements
@@ -235,11 +239,12 @@ export default function ProductDetailScreen(route) {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'flex-end',
+                  // backgroundColor: 'red',
                 }}>
                 <M15
                   customStyle={{
                     color: COLOR_GRAY,
-                    marginBottom: 4,
+                    marginBottom: 0,
                   }}>
                   {state.data.brand_name}
                 </M15>
@@ -277,13 +282,59 @@ export default function ProductDetailScreen(route) {
                 </View>
               </View> */}
 
-                <View
-                  style={{
-                    marginTop: 8,
-                    flexDirection: 'row-reverse',
-                    justifyContent: 'space-between',
+                <Tooltip
+                  // topAdjustment={
+                  //   Platform.OS === 'android' ? -StatusBarHeight : 0
+                  // }
+                  isVisible={buttikkletooltip}
+                  content={
+                    <View style={{padding: 12, paddingVertical: 4}}>
+                      <View>
+                        <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클'}</B15>
+                        {/* <AnimatedButton
+                          onPress={() => {
+                            //Linking.openURL('https://www.lifoli.co.kr');
+                          }}>
+                          <B12
+                            customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                            {'더보기'}
+                          </B12>
+                        </AnimatedButton> */}
+                      </View>
+                      <View style={{}}>
+                        <View style={{}}>
+                          <M11 customStyle={{}}>
+                            {'티클은 5000원의 가치를 지니는 선물 조각이에요.'}
+                          </M11>
+                          <M11 customStyle={{}}>
+                            {'친구에게 티클을 선물해서 기념일을 축하해주세요!'}
+                          </M11>
+                        </View>
+                      </View>
+                    </View>
+                  }
+                  placement="left"
+                  animated={true}
+                  backgroundColor="rgba(0,0,0,0.1)"
+                  // backgroundColor="transparent"
+                  disableShadow={true}
+                  onClose={() => {
+                    setButtikkletooltip(false);
                   }}>
-                  {/* <View
+                  <AnimatedButton
+                    onPress={() => {
+                      setButtikkletooltip(true);
+                    }}
+                    style={{
+                      // marginTop: 8,
+                      padding: 8,
+                      paddingBottom: 4,
+                      borderRadius: 8,
+                      backgroundColor: COLOR_WHITE,
+                      flexDirection: 'row-reverse',
+                      justifyContent: 'space-between',
+                    }}>
+                    {/* <View
                   style={{
                     flexDirection: 'row',
                     alignItems: 'flex-start',
@@ -291,38 +342,39 @@ export default function ProductDetailScreen(route) {
                   <View style={{marginRight: 8}}>
                     <KRW width={24} height={24} />
                   </View>
-                  <M28
-                    customStyle={{
-                      fontFamily: NUMBERFONT,
-                      fontSize: 32,
-                      lineHeight: 32,
-                    }}>
-                    {state.data.price.toLocaleString()}
-                  </M28>
-                </View> */}
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'flex-start',
-                    }}>
-                    <View style={{marginRight: 8}}>
-                      <BubbleFilled
-                        fill={COLOR_PRIMARY}
-                        width={20}
-                        height={20}
-                      />
-                    </View>
                     <M28
                       customStyle={{
-                        fontFamily: B,
-                        fontSize: 24,
-                        lineHeight: 24,
+                        fontFamily: NUMBERFONT,
+                        fontSize: 32,
+                        lineHeight: 32,
                       }}>
-                      {(state.data.price / 5000).toLocaleString()}
+                      {state.data.price.toLocaleString()}
                     </M28>
-                  </View>
-                </View>
+                  </View> */}
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'flex-start',
+                      }}>
+                      <View style={{marginRight: 8}}>
+                        <BubbleFilled
+                          fill={COLOR_PRIMARY}
+                          width={20}
+                          height={20}
+                        />
+                      </View>
+                      <M28
+                        customStyle={{
+                          fontFamily: B,
+                          fontSize: 24,
+                          lineHeight: 24,
+                        }}>
+                        {(state.data.price / 5000).toLocaleString()}
+                      </M28>
+                    </View>
+                  </AnimatedButton>
+                </Tooltip>
               </View>
             </View>
 
