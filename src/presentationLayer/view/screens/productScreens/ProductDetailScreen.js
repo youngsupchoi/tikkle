@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   Animated,
+  StatusBar,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -115,6 +116,11 @@ export default function ProductDetailScreen(route) {
         <GlobalLoader />
       ) : (
         <View>
+          <StatusBar
+            translucent
+            barStyle={'dark-content'}
+            backgroundColor={COLOR_WHITE}
+          />
           {/* {console.log('##', state.data)} */}
           <Animated.ScrollView
             scrollEventThrottle={16} // Ensures onScroll is called every 16ms
