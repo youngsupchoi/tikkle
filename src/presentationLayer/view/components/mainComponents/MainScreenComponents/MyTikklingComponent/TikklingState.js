@@ -49,14 +49,14 @@ export default function TikklingState({state_id}) {
         alignItems: 'center',
         flex: 1,
       }}>
-      {console.log('state', state_id)}
+      {/* {console.log('state', state_id)} */}
       <Tooltip
         topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
         isVisible={tooltip_1}
         content={
           <View style={{padding: 12, paddingVertical: 4}}>
             <View style={{}}>
-              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링 티켓'}</B15>
+              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링 시작'}</B15>
               {/* <AnimatedButton
                 onPress={() => {
                   Linking.openURL('https://www.lifoli.co.kr');
@@ -68,11 +68,29 @@ export default function TikklingState({state_id}) {
             </View>
             <View style={{}}>
               <View>
-                <M11>{'티클링 티켓은 티클링을 시작하는데 사용해요.'}</M11>
+                <M11>
+                  {'티클링은 티클을 선물받기 위해 진행하는 펀딩 이벤트에요.'}
+                </M11>
               </View>
 
               <View>
-                <M11>{'티켓을 얻으려면 친구에게 티클을 선물해보세요!'}</M11>
+                <M11>
+                  {'티클링은 최대 7일 동안 진행되며 종료일을 설정할 수 있어요.'}
+                </M11>
+              </View>
+
+              <View>
+                <M11>
+                  {
+                    '상품은 5000원의 가치를 지니는 티클로 쪼개지며 친구들은 이 티클을 여러개 선물할 수 있어요.'
+                  }
+                </M11>
+              </View>
+
+              <View>
+                <M11>
+                  {'티클링을 시작하기 위해서는 티클링 티켓이 한장 소모해요.'}
+                </M11>
               </View>
             </View>
           </View>
@@ -91,7 +109,7 @@ export default function TikklingState({state_id}) {
               setTooltip_1(true);
             }}
             style={{...styles.buttonStyle_selec}}>
-            <B15 customStyle={styles.buttonText_selec}>{'준비'}</B15>
+            <B15 customStyle={styles.buttonText_selec}>{'시작'}</B15>
           </AnimatedButton>
         ) : (
           <AnimatedButton
@@ -99,7 +117,7 @@ export default function TikklingState({state_id}) {
               setTooltip_1(true);
             }}
             style={{...styles.buttonStyle}}>
-            <B15 customStyle={styles.buttonText}>{'준비'}</B15>
+            <B15 customStyle={styles.buttonText}>{'시작'}</B15>
           </AnimatedButton>
         )}
       </Tooltip>
@@ -120,7 +138,7 @@ export default function TikklingState({state_id}) {
         content={
           <View style={{padding: 12, paddingVertical: 4}}>
             <View style={{}}>
-              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링 티켓'}</B15>
+              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링의 진행'}</B15>
               {/* <AnimatedButton
                 onPress={() => {
                   Linking.openURL('https://www.lifoli.co.kr');
@@ -132,11 +150,37 @@ export default function TikklingState({state_id}) {
             </View>
             <View style={{}}>
               <View>
-                <M11>{'티클링 티켓은 티클링을 시작하는데 사용해요.'}</M11>
+                <M11>
+                  {'티클링 진행중에는 친구들이 티클을 선물해줄 수 있어요.'}
+                </M11>
               </View>
 
               <View>
-                <M11>{'티켓을 얻으려면 친구에게 티클을 선물해보세요!'}</M11>
+                <M11>
+                  {
+                    '티클링을 인스타그램 스토리, 링크로 친구들에게 공유해 보세요.'
+                  }
+                </M11>
+              </View>
+
+              <View>
+                <M11>{'\n티클링 진행 도중 티클링을 중단할 수 있어요.'}</M11>
+              </View>
+
+              <View>
+                <M11>
+                  {
+                    '티클을 하나도 받지 않은 상태에서 티클링 중단시, 티클링 티켓을 돌려받아요.'
+                  }
+                </M11>
+              </View>
+
+              <View>
+                <M11>
+                  {
+                    '티클이 하나 이상 모인 상태에서 티클링을 중료하면, 남은 티클을 구매해서 상품으로 교환하거나 모은 티클을 환급 받을 수 있어요.'
+                  }
+                </M11>
               </View>
             </View>
           </View>
@@ -187,7 +231,7 @@ export default function TikklingState({state_id}) {
         content={
           <View style={{padding: 12, paddingVertical: 4}}>
             <View style={{}}>
-              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링 티켓'}</B15>
+              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링 종료'}</B15>
               {/* <AnimatedButton
                 onPress={() => {
                   Linking.openURL('https://www.lifoli.co.kr');
@@ -199,11 +243,27 @@ export default function TikklingState({state_id}) {
             </View>
             <View style={{}}>
               <View>
-                <M11>{'티클링 티켓은 티클링을 시작하는데 사용해요.'}</M11>
+                <M11>
+                  {
+                    '티클링이 종료되면 티클을 상품으로 교환하거나 환급받을 수 있어요.'
+                  }
+                </M11>
               </View>
 
               <View>
-                <M11>{'티켓을 얻으려면 친구에게 티클을 선물해보세요!'}</M11>
+                <M11>
+                  {
+                    '티클이 완성되지 못한 경우 남은 티클을 구매하고 상품으로 교환 받거나, 모은 티클만 환급 받을 수 있어요.'
+                  }
+                </M11>
+              </View>
+
+              <View>
+                <M11>
+                  {
+                    '티클의 환급시 환급 수수료 10%가 부과되며, 티클의 부분 환급은 불가능해요.'
+                  }
+                </M11>
               </View>
             </View>
           </View>
@@ -254,7 +314,7 @@ export default function TikklingState({state_id}) {
         content={
           <View style={{padding: 12, paddingVertical: 4}}>
             <View style={{}}>
-              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클링 티켓'}</B15>
+              <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클 교환/환급'}</B15>
               {/* <AnimatedButton
                 onPress={() => {
                   Linking.openURL('https://www.lifoli.co.kr');
@@ -266,11 +326,27 @@ export default function TikklingState({state_id}) {
             </View>
             <View style={{}}>
               <View>
-                <M11>{'티클링 티켓은 티클링을 시작하는데 사용해요.'}</M11>
+                <M11>
+                  {
+                    '티클링이 종료되면 티클을 상품으로 교환하거나 환급받을 수 있어요.'
+                  }
+                </M11>
               </View>
 
               <View>
-                <M11>{'티켓을 얻으려면 친구에게 티클을 선물해보세요!'}</M11>
+                <M11>
+                  {
+                    '티클이 완성되지 못한 경우 남은 티클을 구매하고 상품으로 교환 받거나, 모은 티클만 환급 받을 수 있어요.'
+                  }
+                </M11>
+              </View>
+
+              <View>
+                <M11>
+                  {
+                    '티클의 환급시 환급 수수료 10%가 부과되며, 티클의 부분 환급은 불가능해요.'
+                  }
+                </M11>
               </View>
             </View>
           </View>
