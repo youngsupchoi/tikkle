@@ -206,14 +206,14 @@ export default function ProductDetailScreen(route) {
             <View
               style={{
                 paddingHorizontal: 24,
-                paddingTop: 16,
-                backgroundColor: backgroundColor,
+                paddingVertical: 16,
+                backgroundColor: COLOR_WHITE,
                 borderBottomColor: backgroundColor,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 1,
                 borderTopRightRadius: 16,
                 borderTopLeftRadius: 16,
-                top: -20,
+                // top: -20,
               }}>
               <M15
                 customStyle={{
@@ -312,7 +312,6 @@ export default function ProductDetailScreen(route) {
             <View
               style={{
                 flexDirection: 'row',
-                // marginBottom: 8,
                 justifyContent: 'center',
               }}>
               <AnimatedButton

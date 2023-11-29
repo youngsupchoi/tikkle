@@ -49,7 +49,7 @@ import PushNotification from 'react-native-push-notification';
 import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
 const ProductDetail = () => (
-  <Safe>
+  <Safe color={COLOR_WHITE}>
     <ProductDetailViewStateProvider>
       <ProductDetailScreen />
     </ProductDetailViewStateProvider>
