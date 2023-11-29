@@ -35,15 +35,7 @@ export default function TikklingState({state_id}) {
   return (
     <View
       style={{
-        marginTop: 0,
-        padding: 0,
-        borderRadius: 24,
-        borderEndEndRadius: 0,
-        borderEndStartRadius: 0,
-        // backgroundColor: COLOR_GRAY,
         borderBottomColor: COLOR_SEPARATOR,
-        // borderBottomWidth: 1,
-        paddingVertical: 0,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
