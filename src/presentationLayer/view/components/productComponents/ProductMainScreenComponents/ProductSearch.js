@@ -58,6 +58,9 @@ export default function ProductSearch() {
               placeholderTextColor={COLOR_GRAY}
               value={state.search} // Bind the value prop to the search prop
               onChangeText={text => actions.setSearch(text)} // Update the search value using setSearch
+              onSubmitEditing={() => {
+                actions.onRefresh();
+              }}
             />
           </View>
           <AnimatedButton
