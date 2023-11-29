@@ -58,6 +58,7 @@ import moment from 'moment';
 import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import TikklingState from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingState';
 
 export default function StartTikklingScreen({route}) {
   const [tikkle_tooltip, setTikkle_tooltip] = useState(false);
@@ -117,6 +118,9 @@ export default function StartTikklingScreen({route}) {
           tikkling_ticket={state.userData.tikkling_ticket}>
           {/* Let's TIKKLE! */}
         </BackHeader>
+        <View style={{backgroundColor: COLOR_WHITE, paddingTop: 15}}>
+          <TikklingState state_id={0} />
+        </View>
         <View
           style={{
             backgroundColor: COLOR_WHITE,
@@ -126,7 +130,7 @@ export default function StartTikklingScreen({route}) {
           <View
             style={{
               paddingHorizontal: 24,
-              paddingTop: 12,
+              paddingTop: 0,
               paddingBottom: 0,
               flexDirection: 'row',
               alignItems: 'center',
@@ -189,7 +193,7 @@ export default function StartTikklingScreen({route}) {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-evenly',
-              marginTop: 16,
+              marginTop: 0,
               backgroundColor: COLOR_WHITE,
               padding: 12,
               marginHorizontal: 16,
