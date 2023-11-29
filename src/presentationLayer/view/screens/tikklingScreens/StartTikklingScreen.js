@@ -767,6 +767,7 @@ export default function StartTikklingScreen({route}) {
                       ? `${state.userData.detail_address}`
                       : '상세주소 입력'
                   }
+                  placeholderTextColor={COLOR_SEPARATOR}
                   style={{
                     fontFamily: B,
                     fontSize: 15,
