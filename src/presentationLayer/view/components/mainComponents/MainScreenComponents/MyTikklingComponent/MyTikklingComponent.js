@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   dropdown: {
     backgroundColor: COLOR_WHITE,
     position: 'relative',
-    top: 48,
+    top: 105,
     left: 170,
     borderRadius: 12,
     // elevation: 3,
