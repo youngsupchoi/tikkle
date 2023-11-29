@@ -245,7 +245,7 @@ export default function TikklingState({state_id}) {
               <View>
                 <M11>
                   {
-                    '티클링이 종료되면 티클을 상품으로 교환하거나 환급받을 수 있어요.'
+                    '티클링이 종료되면 티클을 상품으로 교환하거나 환급받지 선택해요.'
                   }
                 </M11>
               </View>
@@ -254,14 +254,6 @@ export default function TikklingState({state_id}) {
                 <M11>
                   {
                     '티클이 완성되지 못한 경우 남은 티클을 구매하고 상품으로 교환 받거나, 모은 티클만 환급 받을 수 있어요.'
-                  }
-                </M11>
-              </View>
-
-              <View>
-                <M11>
-                  {
-                    '티클의 환급시 환급 수수료 10%가 부과되며, 티클의 부분 환급은 불가능해요.'
                   }
                 </M11>
               </View>
@@ -327,8 +319,14 @@ export default function TikklingState({state_id}) {
             <View style={{}}>
               <View>
                 <M11>
+                  {'티클링을 종료하면 상품의 배송, 티클의 환급이 진행돼요.'}
+                </M11>
+              </View>
+
+              <View>
+                <M11>
                   {
-                    '티클링이 종료되면 티클을 상품으로 교환하거나 환급받을 수 있어요.'
+                    '상품의 배송은 티클에서 상품 배송을 요청하는 기간 + 판매자 측의 배송기간이 소요돼요.'
                   }
                 </M11>
               </View>
@@ -336,7 +334,7 @@ export default function TikklingState({state_id}) {
               <View>
                 <M11>
                   {
-                    '티클이 완성되지 못한 경우 남은 티클을 구매하고 상품으로 교환 받거나, 모은 티클만 환급 받을 수 있어요.'
+                    '상품의 배송 과정은 운송장 번호 발급 후 프로필 페이지의 티클링 내역에서 확인 가능해요!'
                   }
                 </M11>
               </View>
@@ -347,6 +345,10 @@ export default function TikklingState({state_id}) {
                     '티클의 환급시 환급 수수료 10%가 부과되며, 티클의 부분 환급은 불가능해요.'
                   }
                 </M11>
+              </View>
+
+              <View>
+                <M11>{'티클의 환급은 신청순으로 3영업일 정도 소요돼요.'}</M11>
               </View>
             </View>
           </View>
