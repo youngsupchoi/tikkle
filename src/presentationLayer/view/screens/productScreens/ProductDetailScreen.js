@@ -221,23 +221,29 @@ export default function ProductDetailScreen(route) {
                 borderTopLeftRadius: 16,
                 // top: -20,
               }}>
-              <M15
-                customStyle={{
-                  color: COLOR_GRAY,
-                  marginBottom: 4,
-                }}>
-                {state.data.brand_name}
-              </M15>
               <M20
                 numberOfLines={2}
                 customStyle={{
-                  marginBottom: 24,
+                  marginBottom: 0,
                   fontFamily: EB,
                   lineHeight: 32,
                 }}>
                 {state.data.name}
               </M20>
               <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end',
+                }}>
+                <M15
+                  customStyle={{
+                    color: COLOR_GRAY,
+                    marginBottom: 4,
+                  }}>
+                  {state.data.brand_name}
+                </M15>
+                {/* <View
                 style={{
                   marginBottom: 16,
                   flexDirection: 'row',
@@ -269,15 +275,15 @@ export default function ProductDetailScreen(route) {
                   }}>
                   <B12 customStyle={{color: COLOR_GRAY}}>익일 배송</B12>
                 </View>
-              </View>
+              </View> */}
 
-              <View
-                style={{
-                  marginTop: 8,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
                 <View
+                  style={{
+                    marginTop: 8,
+                    flexDirection: 'row-reverse',
+                    justifyContent: 'space-between',
+                  }}>
+                  {/* <View
                   style={{
                     flexDirection: 'row',
                     alignItems: 'flex-start',
@@ -293,24 +299,29 @@ export default function ProductDetailScreen(route) {
                     }}>
                     {state.data.price.toLocaleString()}
                   </M28>
-                </View>
+                </View> */}
 
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'flex-start',
-                  }}>
-                  <View style={{marginRight: 8}}>
-                    <BubbleFilled width={24} height={24} />
-                  </View>
-                  <M28
-                    customStyle={{
-                      fontFamily: NUMBERFONT,
-                      fontSize: 32,
-                      lineHeight: 32,
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'flex-start',
                     }}>
-                    {(state.data.price / 5000).toLocaleString()}
-                  </M28>
+                    <View style={{marginRight: 8}}>
+                      <BubbleFilled
+                        fill={COLOR_PRIMARY}
+                        width={20}
+                        height={20}
+                      />
+                    </View>
+                    <M28
+                      customStyle={{
+                        fontFamily: B,
+                        fontSize: 24,
+                        lineHeight: 24,
+                      }}>
+                      {(state.data.price / 5000).toLocaleString()}
+                    </M28>
+                  </View>
                 </View>
               </View>
             </View>

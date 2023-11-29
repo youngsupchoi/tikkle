@@ -9,6 +9,7 @@ import {
 import {
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -27,6 +28,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 import LottieView from 'lottie-react-native';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
 
 export default function SearchedProductItems({productData, category}) {
   const {state, actions} = useProductMainViewModel();
@@ -70,19 +72,46 @@ export default function SearchedProductItems({productData, category}) {
                     borderRadius: 10,
                   }}
                 />
-                <Image
-                  source={{uri: item.thumbnail_image}}
-                  style={styles.imageContainer}
-                />
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={{uri: item.thumbnail_image}}
+                    style={styles.imageContainer}
+                  />
+                  <View
+                    style={{
+                      position: 'absolute',
+                      bottom: 12,
+                      right: 12,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      borderRadius: 24,
+                      backgroundColor: COLOR_WHITE,
+                      borderColor: COLOR_PRIMARY,
+                      borderWidth: 1,
+                      padding: 2,
+                      paddingHorizontal: 6,
+                    }}>
+                    <BubbleFilled fill={COLOR_PRIMARY} width={14} height={14} />
+
+                    <View style={{marginLeft: 4}}>
+                      <B15>{item.price / 5000}</B15>
+                    </View>
+                  </View>
+                </View>
 
                 <View style={styles.textContainer}>
                   <B15 numberOfLines={2} customStyle={{lineHeight: 20}}>
                     {item.name}
                   </B15>
-                  <B12 customStyle={styles.brand}>{item.brand_name}</B12>
-                  <B12 customStyle={{lineHeight: 17}}>
+                  <View style={{}}>
+                    <B12 customStyle={styles.brand}>{item.brand_name}</B12>
+                    {/* <B12 customStyle={{lineHeight: 17}}>
                     ￦{item.price.toLocaleString()}
-                  </B12>
+                  </B12> */}
+                  </View>
+                  {/* <B12 customStyle={{lineHeight: 17}}>
+                    ￦{item.price.toLocaleString()}
+                  </B12> */}
                 </View>
               </AnimatedButton>
             ))}
