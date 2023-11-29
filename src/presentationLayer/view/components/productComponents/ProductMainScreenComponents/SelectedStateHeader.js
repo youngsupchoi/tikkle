@@ -40,13 +40,6 @@ const SelectedStateHeader = ({scrollY}) => {
         <AnimatedButton
           style={styles.filterIconContainer}
           onPress={() => {
-            actions.setSelectedRange('전체가격');
-            actions.setPriceMax(999999999);
-            actions.setPriceMin(0);
-            actions.setSearch('');
-            actions.setSortAttribute('sales_volume');
-            actions.setSortWay('DESC');
-            actions.setSelectedSort('많은 판매');
             actions.loadData_reset();
           }}>
           <Refresh
