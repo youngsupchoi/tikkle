@@ -73,7 +73,7 @@ const TikklingDetail = () => (
 );
 
 const StartTikkling = ({route}) => (
-  <Safe>
+  <Safe color={COLOR_WHITE}>
     <StartTikklingViewStateProvider>
       <StartTikklingScreen route={route} />
     </StartTikklingViewStateProvider>
