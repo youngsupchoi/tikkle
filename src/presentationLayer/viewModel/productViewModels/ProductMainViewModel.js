@@ -45,13 +45,19 @@ export const useProductMainViewModel = () => {
 
   const loadData_reset = async () => {
     await actions.setLoading(true);
-
+    await actions.setSelectedRange('전체가격');
+    await actions.setPriceMax(999999999);
+    await actions.setPriceMin(0);
+    await actions.setSearch('');
+    await actions.setSortAttribute('sales_volume');
+    await actions.setSortWay('DESC');
+    await actions.setSelectedSort('많은 판매');
     await getProductListData(
       state.categoryId,
       0,
       999999999,
-      sales_volume,
-      DESC,
+      'sales_volume',
+      'DESC',
       '',
       1,
     )
