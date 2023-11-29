@@ -47,6 +47,7 @@ const SelectedStateHeader = ({scrollY}) => {
             actions.setSortAttribute('sales_volume');
             actions.setSortWay('DESC');
             actions.setSelectedSort('많은 판매');
+            actions.loadData_reset();
           }}>
           <Refresh
             width={20}
