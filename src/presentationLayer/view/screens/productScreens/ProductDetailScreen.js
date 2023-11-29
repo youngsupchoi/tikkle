@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   Animated,
+  StatusBar,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -115,6 +116,11 @@ export default function ProductDetailScreen(route) {
         <GlobalLoader />
       ) : (
         <View>
+          <StatusBar
+            translucent
+            barStyle={'dark-content'}
+            backgroundColor={COLOR_WHITE}
+          />
           {/* {console.log('##', state.data)} */}
           <Animated.ScrollView
             scrollEventThrottle={16} // Ensures onScroll is called every 16ms
@@ -206,14 +212,14 @@ export default function ProductDetailScreen(route) {
             <View
               style={{
                 paddingHorizontal: 24,
-                paddingTop: 16,
-                backgroundColor: backgroundColor,
+                paddingVertical: 16,
+                backgroundColor: COLOR_WHITE,
                 borderBottomColor: backgroundColor,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 1,
                 borderTopRightRadius: 16,
                 borderTopLeftRadius: 16,
-                top: -20,
+                // top: -20,
               }}>
               <M15
                 customStyle={{
@@ -312,7 +318,6 @@ export default function ProductDetailScreen(route) {
             <View
               style={{
                 flexDirection: 'row',
-                // marginBottom: 8,
                 justifyContent: 'center',
               }}>
               <AnimatedButton

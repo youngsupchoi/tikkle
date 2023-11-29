@@ -5,6 +5,7 @@ import {
   Image,
   Button,
   TextInput,
+  StatusBar,
 } from 'react-native';
 // import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
 import Postcode from '@actbase/react-daum-postcode';
@@ -102,6 +103,11 @@ export default function StartTikklingScreen({route}) {
   }, []);
   return (
     <View style={{}}>
+      <StatusBar
+        translucent
+        barStyle={'dark-content'}
+        backgroundColor={COLOR_WHITE}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[0]}
