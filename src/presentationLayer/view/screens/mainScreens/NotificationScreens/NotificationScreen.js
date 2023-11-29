@@ -20,7 +20,10 @@ import {
   COLOR_SECONDARY,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {
+  windowHeight,
+  windowWidth,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
 import {RefreshControl} from 'react-native-gesture-handler';
 import Setting2 from 'src/assets/icons/Setting2';
@@ -313,12 +316,13 @@ export default function NotificationScreen() {
     <View
       style={{
         backgroundColor: backgroundColor,
-        paddingTop: 20,
-        justifyContent: 'center',
+        paddingTop: 0,
+        justifyContent: 'flex-start',
+        height: windowHeight,
       }}>
       <View
         style={{
-          marginTop: 20,
+          marginTop: 0,
           marginBottom: 10,
           padding: 24,
           paddingVertical: 16,
