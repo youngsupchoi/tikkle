@@ -7,6 +7,7 @@ import {
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
+  COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
   COLOR_WHITE,
@@ -33,7 +34,7 @@ export default function TikklingCancleModal({mode}) {
     button_message = '취소하기';
     cancel_message = '나중에 취소하기';
     long_1 = '티클링을 취소하면 사용한 티켓은 복구됩니다.';
-    long_2 = '진행중인 티클링을 취소하면 티클링이 종료됩니다.';
+    long_2 = '';
   } else if (mode == 'stop') {
     message = '티클링을 종료할까요?';
     button_message = '종료하기';
@@ -44,10 +45,16 @@ export default function TikklingCancleModal({mode}) {
   return (
     <View>
       <Modal
-        onBackButtonPress={() => actions.setShowEndModal(false)}
+        onBackButtonPress={() => {
+          actions.setShowEndModal(false);
+          actions.setShowCancelModal(false);
+        }}
         isVisible={state.showCancelModal}
         backdropOpacity={0.5}
-        onBackdropPress={() => actions.setShowEndModal(false)}
+        onBackdropPress={() => {
+          actions.setShowEndModal(false);
+          actions.setShowCancelModal(false);
+        }}
         // onBackButtonPress={actions.setShowEndModal(false)}
       >
         <View
@@ -64,7 +71,11 @@ export default function TikklingCancleModal({mode}) {
             </B22>
           </View>
 
-          <View style={{paddingHorizontal: 8, paddingBottom: 12}}>
+          <View
+            style={{
+              paddingHorizontal: 8,
+              alignItems: 'center',
+            }}>
             <LottieView
               source={require('src/assets/animations/animation_lludlvpe.json')} // replace with your Lottie file path
               autoPlay
@@ -75,8 +86,8 @@ export default function TikklingCancleModal({mode}) {
                 alignSelf: 'center',
               }}
             />
-            <M15>{long_1}</M15>
-            <M15 customStyle={{marginTop: 1}}>{long_2}</M15>
+            <M15 customStyle={{marginTop: 16, color: COLOR_GRAY}}>{long_1}</M15>
+            <M15 customStyle={{marginTop: 8, color: COLOR_GRAY}}>{long_2}</M15>
           </View>
 
           <View
@@ -87,7 +98,7 @@ export default function TikklingCancleModal({mode}) {
               onPress={actions.cancel_action}
               style={{
                 padding: 12,
-                borderRadius: 8,
+                borderRadius: 12,
                 backgroundColor: COLOR_PRIMARY,
                 borderColor: COLOR_PRIMARY_OUTLINE,
                 borderWidth: 2,

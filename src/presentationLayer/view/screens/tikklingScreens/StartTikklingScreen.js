@@ -109,16 +109,23 @@ export default function StartTikklingScreen({route}) {
         barStyle={'dark-content'}
         backgroundColor={COLOR_WHITE}
       />
+      <BackHeader
+        style={{backgroundColor: COLOR_WHITE}}
+        tikkling_ticket={state.userData.tikkling_ticket}>
+        {/* Let's TIKKLE! */}
+      </BackHeader>
       <ScrollView
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[0]}
+        stickyHeaderHiddenOnScroll
         style={styles.container}>
-        <BackHeader
-          style={{backgroundColor: COLOR_WHITE}}
-          tikkling_ticket={state.userData.tikkling_ticket}>
-          {/* Let's TIKKLE! */}
-        </BackHeader>
-        <View style={{backgroundColor: COLOR_WHITE, paddingTop: 15}}>
+        <View
+          style={{
+            backgroundColor: backgroundColor,
+            paddingVertical: 8,
+            borderBottomColor: COLOR_SEPARATOR,
+            borderBottomWidth: 1,
+          }}>
           <TikklingState state_id={0} />
         </View>
         <View
@@ -326,14 +333,6 @@ export default function StartTikklingScreen({route}) {
                     <B15 customStyle={{color: COLOR_PRIMARY}}>
                       {'티클링의 기간'}
                     </B15>
-                    {/* <AnimatedButton
-                  onPress={() => {
-                    //Linking.openURL('https://www.lifoli.co.kr');
-                  }}>
-                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
-                    {'더보기'}
-                  </B12>
-                </AnimatedButton> */}
                   </View>
                   <View style={{}}>
                     <View>
@@ -385,12 +384,6 @@ export default function StartTikklingScreen({route}) {
             {state.events.map(item => (
               <AnimatedButton
                 onPress={() => {
-                  // console.log(
-                  //   actions.calculateDaysUntilNextBirthday(
-                  //     state.userData.birthday,
-                  //   ),
-                  // );
-
                   if (item.type === 'none') {
                     actions.setEventType(item.type);
                     actions.setOpen(true);
@@ -431,7 +424,6 @@ export default function StartTikklingScreen({route}) {
                   marginLeft: 0,
                   marginBottom: 8,
                   marginRight: 8,
-                  // width: '40%',
                   alignItems: 'center',
                 }}>
                 <View>
