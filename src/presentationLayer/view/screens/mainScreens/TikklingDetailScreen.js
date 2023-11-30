@@ -32,6 +32,7 @@ import {
   M11,
   M,
   H,
+  UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -74,6 +75,7 @@ import Profile from 'src/assets/icons/Profile';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Delivery from 'src/assets/icons/Delivery';
 import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
+import ViewShot from 'react-native-view-shot';
 
 export default function TikklingDetailScreen() {
   const navigation = useNavigation();
@@ -130,6 +132,91 @@ export default function TikklingDetailScreen() {
 
   return (
     <View>
+      <ViewShot
+        style={{
+          position: 'absolute',
+          top: 1000,
+          zIndex: -100,
+          marginBottom: 500,
+        }}
+        ref={state.viewShotRef}>
+        <UNIQUE22
+          customStyle={{
+            color: COLOR_WHITE,
+            width: windowWidth - 48,
+            textAlign: 'center',
+            fontSize: 36,
+            lineHeight: 44,
+          }}>
+          TIKKLE
+        </UNIQUE22>
+        <View
+          style={{
+            padding: 24,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: windowWidth - 48,
+          }}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.75}}
+            colors={['rgba(135,134,218,100)', 'rgba(53,51,143,100)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 23,
+            }}
+          />
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            colors={['rgba(100,98,231,100)', 'rgba(100,98,231,88)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 20,
+              borderWidth: 3,
+              borderColor: 'transparent',
+            }}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              width: '100%',
+              justifyContent: 'center',
+            }}>
+            <B20
+              customStyle={{
+                color: COLOR_WHITE,
+                fontFamily: EB,
+                fontSize: 32,
+                lineHeight: 48,
+              }}>
+              {console.log(state.route_data.user_name)}
+              {state.route_data.user_name}님에게
+            </B20>
+            <B20
+              customStyle={{
+                color: COLOR_WHITE,
+                fontFamily: EB,
+                fontSize: 32,
+                lineHeight: 48,
+              }}>
+              축하 선물 보내러 가기
+            </B20>
+            <M15
+              customStyle={{color: COLOR_WHITE, fontSize: 20, lineHeight: 44}}>
+              잊을 수 없는 경험을 선물해보세요.
+            </M15>
+          </View>
+        </View>
+      </ViewShot>
       {state.route_data.created_at ? (
         <View>
           <View
