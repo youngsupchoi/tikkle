@@ -116,7 +116,8 @@ export default function App() {
               style={{
                 marginTop: StatusBarHeight,
                 width: windowWidth,
-                height: windowHeight - StatusBarHeight,
+                // height: windowHeight - StatusBarHeight,
+                height: windowHeight - 0,
                 backgroundColor: backgroundColor,
                 // backgroundColor: backgroundColor,
               }}>
