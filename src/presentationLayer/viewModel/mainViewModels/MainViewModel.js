@@ -510,6 +510,16 @@ export const useMainViewModel = () => {
    * 기기에서 전화번호부 긁어오는 함수
    */
   const findContacts = async () => {
+    console.log('from: ', topState.from);
+    if (
+      topState.from == undefined ||
+      topState.from == null ||
+      topState.from != 'login'
+    ) {
+      return;
+    }
+    topActions.setFrom('');
+
     try {
       let granted;
       if (Platform.OS === 'android') {

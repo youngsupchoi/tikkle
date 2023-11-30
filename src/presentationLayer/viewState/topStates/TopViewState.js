@@ -24,6 +24,7 @@ export const TopViewProvider = ({children}) => {
   const [modalStatus, setModalStatus] = useState(null);
 
   const [justStart, setJustStart] = useState(false);
+  const [from, setFrom] = useState('');
 
   const [test, setTest] = useState('');
   // ... 다른 상태들 (필요하면 추가하세요)
@@ -37,6 +38,7 @@ export const TopViewProvider = ({children}) => {
     modalMessage,
     modalStatus,
     test,
+    from,
     // ... 다른 상태들
   };
 
@@ -49,6 +51,7 @@ export const TopViewProvider = ({children}) => {
     setModalMessage,
     setModalStatus,
     setTest,
+    setFrom,
     // ... 다른 상태 설정 함수들
   };
 

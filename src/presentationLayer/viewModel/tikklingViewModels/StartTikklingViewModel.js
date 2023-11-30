@@ -162,14 +162,14 @@ export const useStartTikklingViewModel = () => {
       if (product_option == null || product_option == undefined) {
         product_option = {default: 'default'};
       }
-      console.log(
-        'hihihi',
-        state.endDate,
-        state.selectedItem.price / 5000,
-        state.selectedItem.product_id,
-        state.eventType,
-        product_option,
-      );
+      // console.log(
+      //   'hihihi',
+      //   state.endDate,
+      //   state.selectedItem.price / 5000,
+      //   state.selectedItem.product_id,
+      //   state.eventType,
+      //   product_option,
+      // );
       createTikklingData(
         state.endDate,
         state.selectedItem.price / 5000,
