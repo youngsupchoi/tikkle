@@ -322,12 +322,12 @@ export default function TikklingDetailScreen() {
             <ScrollView>
               <View
                 style={{
-                  marginHorizontal: 15,
+                  marginHorizontal: 16,
                   backgroundColor: COLOR_WHITE,
                   borderRadius: 16,
-                  padding: 10,
-                  strokeWidth: 1,
-                  stroke: COLOR_SEPARATOR,
+                  padding: 12,
+                  borderWidth: 1,
+                  borderColor: COLOR_SEPARATOR,
                 }}>
                 <View style={styles.renderItemHeaderContainer}>
                   <View
@@ -337,16 +337,23 @@ export default function TikklingDetailScreen() {
                     }}>
                     <Image
                       resizeMode="contain"
-                      style={{width: 30, height: 30, borderRadius: 12}}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 12,
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                      }}
                       source={{
                         uri: state.route_data.user_image,
                       }}
                     />
 
-                    <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
-                      {state.route_data.user_name}{' '}
+                    <B15 customStyle={{marginLeft: 8, fontSize: 15}}>
+                      {state.route_data.user_name}
+                      {'  '}
                     </B15>
-                    <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
+                    <M15 customStyle={{color: COLOR_GRAY, fontSize: 15}}>
                       {state.route_data.user_nick}
                     </M15>
                   </View>
@@ -490,7 +497,7 @@ export default function TikklingDetailScreen() {
                 <View
                   style={{
                     flexDirection: 'row',
-                    marginBottom: 20,
+                    marginBottom: 8,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
@@ -619,8 +626,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 0,
-    paddingTop: 4,
-    marginBottom: 10,
+    marginLeft: 4,
+    // paddingTop: 4,
+    marginBottom: 12,
   },
   listItemImage: {
     width: 60,
