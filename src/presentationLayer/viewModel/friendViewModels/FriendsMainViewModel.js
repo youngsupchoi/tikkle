@@ -254,8 +254,8 @@ export const useFriendMainViewModel = () => {
   const findContacts = async () => {
     await actions.setRefreshing(true);
 
+    let granted;
     try {
-      let granted;
       if (Platform.OS === 'android') {
         granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
@@ -275,7 +275,7 @@ export const useFriendMainViewModel = () => {
         const result = await Contacts.getAll();
         let phoneNumbersProcessed = [];
         if (result.length === 0) {
-          topActions.showSnackbar('기기에 연락처가 없어요!', 1);
+          topActions.showSnackbar('기기에 유효한 연락처가 없어요!', 1);
           return;
         }
         const formattedData = result.reduce((acc, contact) => {
@@ -332,7 +332,20 @@ export const useFriendMainViewModel = () => {
       }
     } catch (error) {
       console.log('Error fetching contacts:', error);
-      if (Platform.OS === 'android') {
+
+      if (
+        (await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: '연락처 권한 요청',
+            message:
+              '연락처 상 가입된 친구가 있다면 자동으로 친구가 추가됩니다. 그 외의 용도로는 절대 저장 또는 사용하지 않습니다.',
+            buttonPositive: '허용',
+          },
+        )) === PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        topActions.showSnackbar('기기에 유효한 연락처가 없어요!', 1);
+      } else if (Platform.OS === 'android') {
         topActions.showSnackbar('연락처 권한이 설정에 실패했어요', 0);
       } else {
         //ios
