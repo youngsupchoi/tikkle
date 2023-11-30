@@ -5,7 +5,6 @@ import {
   Platform,
   StatusBar,
   View,
-  SafeAreaView,
   TouchableOpacity,
   Alert,
   Linking,
@@ -24,6 +23,7 @@ import {
 import {
   windowHeight,
   windowWidth,
+  screenHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {PaperProvider} from 'react-native-paper';
 import {
@@ -37,6 +37,7 @@ import {
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export default function App() {
   SystemNavigationBar.navigationShow();
@@ -112,17 +113,9 @@ export default function App() {
           {Platform.OS === 'ios' ? (
             <MainStackNavigator />
           ) : (
-            <View
-              style={{
-                marginTop: StatusBarHeight,
-                width: windowWidth,
-                // height: windowHeight - StatusBarHeight,
-                height: windowHeight - 0,
-                backgroundColor: backgroundColor,
-                // backgroundColor: backgroundColor,
-              }}>
+            <SafeAreaProvider style={{marginTop: StatusBarHeight}}>
               <MainStackNavigator />
-            </View>
+            </SafeAreaProvider>
           )}
           <StatusBar
             translucent
