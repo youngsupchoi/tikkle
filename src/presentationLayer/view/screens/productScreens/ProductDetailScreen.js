@@ -313,7 +313,7 @@ export default function ProductDetailScreen(route) {
                       </View>
                     </View>
                   }
-                  placement="left"
+                  placement="top"
                   animated={true}
                   backgroundColor="rgba(0,0,0,0.1)"
                   // backgroundColor="transparent"
