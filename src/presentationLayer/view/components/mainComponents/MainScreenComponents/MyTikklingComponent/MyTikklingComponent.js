@@ -146,8 +146,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     paddingHorizontal: 24,
-    paddingTop: 10,
-    // backgroundColor: 'red',
+    paddingTop: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
   dropdownButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    // padding: 10,
   },
   iconContainer: {},
   delete: {
