@@ -386,7 +386,7 @@ export default function FriendsManagementScreen() {
             )}
             ListFooterComponent={() => {
               return (
-                <View style={{height: 100}}>
+                <View style={{marginBottom: 200}}>
                   {/* <View style={{height: 100}} />
                   <Footer /> */}
                 </View>
