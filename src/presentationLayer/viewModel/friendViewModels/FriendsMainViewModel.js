@@ -274,6 +274,10 @@ export const useFriendMainViewModel = () => {
       ) {
         const result = await Contacts.getAll();
         let phoneNumbersProcessed = [];
+        if (result.length === 0) {
+          topActions.showSnackbar('기기에 연락처가 없어요!', 1);
+          return;
+        }
         const formattedData = result.reduce((acc, contact) => {
           const {phoneNumbers, givenName, familyName} = contact;
           phoneNumbers.forEach(phoneNumber => {
