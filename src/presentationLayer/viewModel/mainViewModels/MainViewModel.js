@@ -327,7 +327,7 @@ export const useMainViewModel = () => {
 
   async function convertBackgroundImageToBase64() {
     const imageUri =
-      'https://d2da4yi19up8sp.cloudfront.net/instagram_background.png';
+      'https://d2da4yi19up8sp.cloudfront.net/instagram_background_2.png';
 
     try {
       const response = await fetch(imageUri);
