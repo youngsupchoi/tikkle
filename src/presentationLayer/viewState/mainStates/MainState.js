@@ -46,6 +46,7 @@ export const MainViewStateProvider = ({children}) => {
   const [account, setAccount] = useState(''); // 계좌 번호
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
+  const viewShotRef = useRef();
 
   const [bankDropDownVisible_home, setBankDropDownVisible_home] =
     useState(false);
@@ -144,6 +145,7 @@ export const MainViewStateProvider = ({children}) => {
     detial_route,
     instagramButtonPressed,
     isInstagramButtonModalVisible,
+    viewShotRef,
   };
 
   const actions = {

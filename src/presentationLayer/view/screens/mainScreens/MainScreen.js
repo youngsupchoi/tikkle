@@ -7,7 +7,11 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import HomeHeader from 'src/presentationLayer/view/components/globalComponents/Headers/HomeHeader';
-import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  COLOR_PRIMARY,
+  COLOR_WHITE,
+  backgroundColor,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
@@ -15,6 +19,10 @@ import {
 import {
   B12,
   B15,
+  B20,
+  EB,
+  M15,
+  UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {HomeLoader} from 'src/presentationLayer/view/components/globalComponents/Skeletons/Skeletons';
 import {RefreshControl} from 'react-native-gesture-handler';
@@ -41,6 +49,9 @@ import {fcmService} from 'src/push_fcm';
 import PushNotification from 'react-native-push-notification';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import WhoParticipated from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/WhoParticipated';
+import ViewShot from 'react-native-view-shot';
+import {useRef} from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
@@ -50,6 +61,10 @@ export default function HomeScreen({route}) {
   const translateYFriendsTikkling = useSharedValue(20);
   const translateYMyWishlist = useSharedValue(20);
   const translateYFriendsEvent = useSharedValue(20);
+
+  //============================================================
+
+  //============================================================
 
   const animatedStyleSecondHero = useAnimatedStyle(() => {
     return {
@@ -134,6 +149,90 @@ export default function HomeScreen({route}) {
 
   return (
     <View style={{backgroundColor: backgroundColor, flex: 1}}>
+      <ViewShot
+        style={{
+          position: 'absolute',
+          top: 1000,
+          zIndex: -100,
+          marginBottom: 500,
+        }}
+        ref={state.viewShotRef}>
+        <UNIQUE22
+          customStyle={{
+            color: COLOR_WHITE,
+            width: windowWidth - 48,
+            textAlign: 'center',
+            fontSize: 36,
+            lineHeight: 44,
+          }}>
+          TIKKLE
+        </UNIQUE22>
+        <View
+          style={{
+            padding: 24,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: windowWidth - 48,
+          }}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.75}}
+            colors={['rgba(135,134,218,100)', 'rgba(53,51,143,100)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 23,
+            }}
+          />
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            colors={['rgba(100,98,231,100)', 'rgba(100,98,231,88)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 20,
+              borderWidth: 3,
+              borderColor: 'transparent',
+            }}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              width: '100%',
+              justifyContent: 'center',
+            }}>
+            <B20
+              customStyle={{
+                color: COLOR_WHITE,
+                fontFamily: EB,
+                fontSize: 32,
+                lineHeight: 48,
+              }}>
+              {state.userData.name}님에게
+            </B20>
+            <B20
+              customStyle={{
+                color: COLOR_WHITE,
+                fontFamily: EB,
+                fontSize: 32,
+                lineHeight: 48,
+              }}>
+              축하 선물 보내러 가기
+            </B20>
+            <M15
+              customStyle={{color: COLOR_WHITE, fontSize: 20, lineHeight: 44}}>
+              잊을 수 없는 경험을 선물해보세요.
+            </M15>
+          </View>
+        </View>
+      </ViewShot>
       <ScrollView
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}

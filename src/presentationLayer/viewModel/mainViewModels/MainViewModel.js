@@ -325,7 +325,7 @@ export const useMainViewModel = () => {
     actions.setShowStopModal(!state.showStopModal);
   };
 
-  async function convertImageToBase64() {
+  async function convertBackgroundImageToBase64() {
     const imageUri =
       'https://d2da4yi19up8sp.cloudfront.net/instagram_background.png';
 
@@ -359,22 +359,59 @@ export const useMainViewModel = () => {
     }
   }
 
+  async function convertStickerImageToBase64(uri) {
+    const imageUri = uri;
+    try {
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+          let base64data = reader.result;
+
+          // 올바른 MIME 타입으로 접두사 변경
+          base64data = base64data.replace(
+            /^data:application\/octet-stream;base64,/,
+            'data:image/png;base64,',
+          );
+          // 이후 접두사 제거
+          base64data = base64data.replace(/^data:image\/png;base64,/, '');
+          resolve(base64data);
+        };
+
+        reader.onerror = function (error) {
+          reject('Failed to read blob data: ', error);
+        };
+      });
+    } catch (error) {
+      console.error('Failed to convert image to base64', error);
+      throw error;
+    }
+  }
+
   const onInstagramShareButtonPressed = async (name, tikkling_id) => {
     await actions.setLoading(true);
     try {
+      let uri;
       console.log('인스타그램 버튼 눌림', name, tikkling_id);
+
       await CreateTikklingShareLink(name, tikkling_id)
         .then(async res => {
+          uri = await state.viewShotRef.current?.capture?.();
+          console.log(uri);
           Clipboard.setString(res.DSdata.short_link);
           console.log(res);
           return res.DSdata.short_link;
         })
         .then(async () => {
-          const backgroundBase64 = await convertImageToBase64();
+          const backgroundBase64 = await convertBackgroundImageToBase64();
+          const stickerBase64 = await convertStickerImageToBase64(uri);
           if (state.hasInstagramInstalled) {
             const res = await Share.shareSingle({
               appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)
-              // stickerImage: `data:image/png;base64,${stickerBase64}`,
+              stickerImage: `data:image/png;base64,${stickerBase64}`,
               backgroundImage: `data:image/png;base64,${backgroundBase64}`,
               method: Share.Social.INSTAGRAM_STORIES.SHARE_STICKER_IMAGE,
               social: Share.Social.INSTAGRAM_STORIES,
@@ -635,7 +672,7 @@ export const useMainViewModel = () => {
       requestUserPermission,
       findContacts,
       hasOptions,
-      convertImageToBase64,
+      convertBackgroundImageToBase64,
     },
   };
 };
