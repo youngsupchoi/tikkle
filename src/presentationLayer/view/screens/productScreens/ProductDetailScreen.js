@@ -283,9 +283,9 @@ export default function ProductDetailScreen(route) {
               </View> */}
 
                 <Tooltip
-                  // topAdjustment={
-                  //   Platform.OS === 'android' ? -StatusBarHeight : 0
-                  // }
+                  topAdjustment={
+                    Platform.OS === 'android' ? -StatusBarHeight : 0
+                  }
                   isVisible={buttikkletooltip}
                   content={
                     <View style={{padding: 12, paddingVertical: 4}}>
