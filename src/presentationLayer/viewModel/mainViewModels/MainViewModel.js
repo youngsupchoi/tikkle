@@ -360,6 +360,7 @@ export const useMainViewModel = () => {
   }
 
   const onInstagramShareButtonPressed = async (name, tikkling_id) => {
+    await actions.setLoading(true);
     try {
       console.log('인스타그램 버튼 눌림', name, tikkling_id);
       await CreateTikklingShareLink(name, tikkling_id)
@@ -390,7 +391,9 @@ export const useMainViewModel = () => {
       } else {
         console.log('Error sharing:', error);
       }
+      await actions.setLoading(false);
     }
+    await actions.setLoading(false);
   };
 
   const onClipboardButtonPressed = async (name, tikkling_id) => {
