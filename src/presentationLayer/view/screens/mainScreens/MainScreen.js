@@ -52,6 +52,17 @@ import WhoParticipated from 'src/presentationLayer/view/components/mainComponent
 import ViewShot from 'react-native-view-shot';
 import {useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import {Dimensions} from 'react-native';
+
+// Get the screen width
+const {width} = Dimensions.get('window');
+
+// Function to scale the font size
+const scaleText = size => {
+  const scale = width / 500; // 320 is an example base width
+  const newSize = size * scale;
+  return Math.round(newSize);
+};
 
 export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
@@ -154,7 +165,7 @@ export default function HomeScreen({route}) {
           position: 'absolute',
           top: 1000,
           zIndex: -100,
-          marginBottom: 500,
+          // marginBottom: 500,
         }}
         ref={state.viewShotRef}>
         <UNIQUE22
@@ -208,30 +219,16 @@ export default function HomeScreen({route}) {
               width: '100%',
               justifyContent: 'center',
             }}>
-            <B20
-              customStyle={{
-                color: COLOR_WHITE,
-                fontFamily: EB,
-                fontSize: 32,
-                lineHeight: 48,
-              }}>
+            <B20 customStyle={styles.B20_screen}>
               {state.userData.name}님에게
             </B20>
-            <B20
-              customStyle={{
-                color: COLOR_WHITE,
-                fontFamily: EB,
-                fontSize: 32,
-                lineHeight: 48,
-              }}>
-              축하 선물 보내러 가기
-            </B20>
-            <M15
-              customStyle={{color: COLOR_WHITE, fontSize: 20, lineHeight: 44}}>
+            <B20 customStyle={styles.B20_screen}>축하 선물 보내러 가기</B20>
+            <M15 customStyle={styles.M15_screen}>
               잊을 수 없는 경험을 선물해보세요.
             </M15>
           </View>
         </View>
+        <View style={{height: 400}} />
       </ViewShot>
       <ScrollView
         stickyHeaderIndices={[0]}
@@ -305,5 +302,18 @@ const styles = StyleSheet.create({
   },
   homeFooter: {
     height: 50,
+  },
+
+  B20_screen: {
+    color: COLOR_WHITE,
+    fontFamily: EB,
+    fontSize: scaleText(32), // Scaled font size
+    lineHeight: 48,
+  },
+  M15_screen: {
+    color: COLOR_WHITE,
+    fontFamily: EB, // Assuming you want the same font family
+    fontSize: scaleText(20), // Scaled font size
+    lineHeight: 44,
   },
 });
