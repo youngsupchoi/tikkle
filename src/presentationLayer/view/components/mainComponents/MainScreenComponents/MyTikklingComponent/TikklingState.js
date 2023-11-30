@@ -16,7 +16,6 @@ import {
   COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {SPACING_2} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
@@ -25,6 +24,12 @@ import Clipboard from 'src/assets/icons/Clipboard';
 import Share from 'src/assets/icons/Share';
 import ArrowRight from 'src/assets/icons/ArrowRight';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import {
+  SPACING_2,
+  SPACING_3,
+  SPACING_6,
+  StatusBarHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 
 export default function TikklingState({state_id}) {
   const [tooltip_1, setTooltip_1] = React.useState(false);
