@@ -307,6 +307,14 @@ export const useFriendMainViewModel = () => {
           .then(res => {
             topActions.showSnackbar(res.DSmessage, 1);
           });
+      } else if (
+        Platform.OS === 'android' &&
+        granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN
+      ) {
+        topActions.showSnackbar(
+          '연락처 권한이 없어요!\n환경설정에서 권한을 설정해 주세요!',
+          0,
+        );
       } else {
         console.log('Contacts permission denied');
         if (Platform.OS === 'android') {

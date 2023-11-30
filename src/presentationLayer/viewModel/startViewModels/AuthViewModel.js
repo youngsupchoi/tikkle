@@ -110,6 +110,7 @@ export const useStartViewModel = () => {
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
           if (message === 'login') {
+            topActions.setFrom('login');
             loginPhoneData(state.userId)
               .then(() => {
                 topActions.setStateAndError(res);
@@ -169,7 +170,9 @@ export const useStartViewModel = () => {
         state.formattedGender,
       ).then(res => {
         topActions.setStateAndError(res, actions.setFriendTikklingData);
+        topActions.setFrom('login');
       });
+
       navigation.reset({
         index: 0,
         routes: [
