@@ -39,7 +39,10 @@ export const useProductDetailViewModel = () => {
     await getProductInfoData(route_product_id)
       .then(async res => {
         // console.log('getProductInfoData : ', res);
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductDetailViewModel.js] getDetailData - getProductInfoData',
+        );
       })
       .then(async res => {
         actions.setData(res.DSdata.info);
@@ -63,7 +66,10 @@ export const useProductDetailViewModel = () => {
   const isTikkling = async () => {
     await getMyUserInfoData()
       .then(async res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductDetailViewModel.js] isTikkling - getMyUserInfoData',
+        );
       })
       .then(async res => {
         if (res.DSdata.info.is_tikkling == 0) {
@@ -89,7 +95,10 @@ export const useProductDetailViewModel = () => {
       }
 
       actions.setItHasOptions(optionStatus);
-      topActions.setStateAndError(res);
+      topActions.setStateAndError(
+        res,
+        '[ProductDetailViewModel.js] hasOptions - getProductOptionData',
+      );
       return optionStatus; // 옵션 상태 반환
     } catch (error) {
       console.error('Error fetching product options:', error);
@@ -105,14 +114,20 @@ export const useProductDetailViewModel = () => {
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
       console.log('Delete : ', res);
-      return topActions.setStateAndError(res);
+      return topActions.setStateAndError(
+        res,
+        '[ProductDetailViewModel.js] deleteMyWishlistData_ - deleteMyWishlistData',
+      );
     });
   };
 
   const createMyWishlistData_ = async productId => {
     await createMyWishlistData(productId).then(res => {
       console.log('Add : ', res);
-      return topActions.setStateAndError(res);
+      return topActions.setStateAndError(
+        res,
+        '[ProductDetailViewModel.js] createMyWishlistData_ - createMyWishlistData',
+      );
     });
   };
 

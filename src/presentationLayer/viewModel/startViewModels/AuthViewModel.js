@@ -37,7 +37,10 @@ export const useStartViewModel = () => {
     const hash = Platform.OS === 'android' ? await getHash() : '000000';
     const res = await checkPhoneNumberData(state.phoneNumber, hash).then(
       res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[AuthViewModel.js] phoneInputbuttonPress - checkPhoneNumberData',
+        );
       },
     );
 
@@ -113,7 +116,10 @@ export const useStartViewModel = () => {
             topActions.setFrom('login');
             loginPhoneData(state.userId)
               .then(() => {
-                topActions.setStateAndError(res);
+                topActions.setStateAndError(
+                  res,
+                  '[AuthViewModel.js] handleTextChange - loginPhoneData',
+                );
               })
               .then(() => {
                 navigation.reset({
@@ -156,7 +162,10 @@ export const useStartViewModel = () => {
       console.log(state.userNick);
       await checkNickDuplicationData(state.userNick).then(res => {
         actions.setIdInputButtonPressed(true);
-        topActions.setStateAndError(res);
+        topActions.setStateAndError(
+          res,
+          '[AuthViewModel.js] completeSignUp - checkNickDuplicationData',
+        );
       });
 
       await loginRegisterData(
@@ -169,7 +178,11 @@ export const useStartViewModel = () => {
         state.phoneNumber,
         state.formattedGender,
       ).then(res => {
-        topActions.setStateAndError(res, actions.setFriendTikklingData);
+        // topActions.setStateAndError(res, actions.setFriendTikklingData);
+        topActions.setStateAndError(
+          res,
+          '[AuthViewModel.js] completeSignUp - loginRegisterData',
+        );
         topActions.setFrom('login');
       });
 

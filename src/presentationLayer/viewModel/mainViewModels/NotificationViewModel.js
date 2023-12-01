@@ -24,7 +24,10 @@ export const useNotificationViewModel = () => {
     await actions.setLoading(true);
     await getNoticeListData()
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[NotificationViewModel.js] loadData - getNoticeListData',
+        );
       })
       .then(res => {
         actions.setNotificationData(res.DSdata.info);
@@ -41,7 +44,10 @@ export const useNotificationViewModel = () => {
       // console.log(state.notificationData[index].id);
       await deleteNoticeData(state.notificationData[index].id)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[NotificationViewModel.js] noti_delete - deleteNoticeData',
+          );
         })
         .then(res => {
           console.log('Deleted');

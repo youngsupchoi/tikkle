@@ -29,7 +29,10 @@ export const useProductMainViewModel = () => {
       1,
     )
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductMainViewModel.js] loadData - getProductListData',
+        );
       })
       .then(async res => {
         actions.setGetNum(1);
@@ -62,7 +65,10 @@ export const useProductMainViewModel = () => {
       1,
     )
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductMainViewModel.js] loadData_reset - getProductListData',
+        );
       })
       .then(async res => {
         actions.setGetNum(1);
@@ -99,7 +105,10 @@ export const useProductMainViewModel = () => {
       1,
     )
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductMainViewModel.js] changeCategory - getProductListData',
+        );
       })
       .then(async res => {
         actions.setGetNum(1);
@@ -134,7 +143,10 @@ export const useProductMainViewModel = () => {
       page + 1,
     )
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductMainViewModel.js] getNewData - getProductListData',
+        );
       })
       .then(async res => {
         if (res.DSdata.info.length == 0) {
@@ -163,7 +175,10 @@ export const useProductMainViewModel = () => {
     )
       .then(res => {
         //console.log(res);
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductMainViewModel.js] sendMail - createMyInquireData',
+        );
       })
       .then(res => {
         //actions로

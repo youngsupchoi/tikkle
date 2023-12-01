@@ -85,7 +85,10 @@ export default function SignUpScreen2() {
             console.log('no');
           }
 
-          topActions.setStateAndError(res);
+          topActions.setStateAndError(
+            res,
+            '[PhoneCheckScreen.js] useEffect - checkOtpData',
+          );
         })
         .catch(err => {
           console.log('Error during OTP check:', err);
