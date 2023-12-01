@@ -248,10 +248,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
 
   const handleNextPress = () => {
     const nextPage = currentPage + 1;
-    console.log(
-      '🚀 ~ file: InstaGuideModal.js:60 ~ handleNextPress ~ currentPage:',
-      currentPage,
-    );
+
     if (nextPage < numOfPage) {
       scrollViewRef.current?.scrollTo({
         x: nextPage * windowWidth * 0.8,

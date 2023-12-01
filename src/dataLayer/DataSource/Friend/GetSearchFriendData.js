@@ -58,10 +58,6 @@ export async function getSearchFriendData(nick) {
     };
   }
   const info = response.data.data;
-  console.log(
-    '🚀 ~ file: GetSearchFriendData.js:61 ~ getSearchFriendData ~ info:',
-    info,
-  );
 
   //------ update token ---------------------------------------------------//
 

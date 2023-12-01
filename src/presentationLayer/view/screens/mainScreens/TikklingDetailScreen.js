@@ -109,11 +109,6 @@ export default function TikklingDetailScreen() {
 
   useEffect(() => {
     actions.loadDetail();
-    // console.log(state.userData);
-    // console.log(
-    //   '🚀 ~ file: TikklingDetailScreen.js:102 ~ useEffect ~ state.userData:',
-    //   state.userData,
-    // );
   }, []);
 
   useEffect(() => {
