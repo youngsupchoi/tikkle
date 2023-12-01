@@ -58,7 +58,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         message,
       )
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[BuyTikklingModal.js] post_tikkling_sendtikkle - updatePresentTikkleInitData',
+          );
         })
         .then(res => {
           // console.log('$$$', res);
@@ -82,7 +85,10 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         item.tikkle_quantity - item.tikkle_count,
       )
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[BuyTikklingModal.js] post_tikkling_buymytikkle - updateBuyMyTikkleInitData',
+          );
         })
         .then(res => {
           // console.log('$$$', res);

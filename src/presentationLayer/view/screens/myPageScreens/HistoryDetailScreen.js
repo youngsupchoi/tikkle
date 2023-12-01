@@ -110,7 +110,10 @@ export default function HistoryDetailScreen(route) {
 
     await getRecivedTikkleData(tikkling_id)
       .then(async res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[HistoryDetailScreen.js] getTikkleData - getRecivedTikkleData',
+        );
       })
       .then(async res => {
         tikkle_data = res.DSdata.info;

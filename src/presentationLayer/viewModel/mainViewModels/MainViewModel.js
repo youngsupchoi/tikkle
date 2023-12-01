@@ -92,7 +92,10 @@ export const useMainViewModel = () => {
       await actions.setLoading(true);
       await getHomeScreenData()
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MainViewModel.js] loadData - getHomeScreenData',
+          );
         })
         .then(async res => {
           actions.setFriendEventData(res.DSdata.friend_event);
@@ -132,7 +135,10 @@ export const useMainViewModel = () => {
   async function getTikklingData() {
     await getTikkleDetailData(route_tikkling_id)
       .then(async res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] getTikklingData - getTikkleDetailData',
+        );
       })
       .then(async res => {
         //console.log('@@@@@@@ : ', res.DSdata.info[0]);
@@ -152,7 +158,10 @@ export const useMainViewModel = () => {
     let tikkle_data = [];
     await getRecivedTikkleData(tikkling_id)
       .then(async res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] getTikkleData - getRecivedTikkleData',
+        );
       })
       .then(async res => {
         tikkle_data = res.DSdata.info;
@@ -176,7 +185,10 @@ export const useMainViewModel = () => {
       await actions.setLoading(true);
       await getMyTikklingData()
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MainViewModel.js] loadTikklingData - getMyTikklingData',
+          );
         })
         .then(res => {
           console.log(res.DSdata);
@@ -205,7 +217,12 @@ export const useMainViewModel = () => {
       state.detailAddress !== null
         ? state.detailAddress
         : state.userData.detail_address,
-    ).then(res => topActions.setStateAndError(res));
+    ).then(res =>
+      topActions.setStateAndError(
+        res,
+        '[MainViewModel.js] endTikklingGoods - updateMyAddressData',
+      ),
+    );
 
     updateEndTikklingBuyData(
       state.myTikklingData.tikkling_id,
@@ -233,7 +250,10 @@ export const useMainViewModel = () => {
     )
       .then(async res => {
         // console.log('###', res);
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] refundTikkling - updateEndTikklingRefundData',
+        );
       })
       .then(async res => {
         topActions.showSnackbar('환급 신청이 완료되었습니다.', 1);
@@ -274,13 +294,19 @@ export const useMainViewModel = () => {
   const buttonPress = () => {
     if (state.myTikklingData.tikkle_count === '0') {
       updateCancelTikklingData(state.myTikklingData.tikkling_id).then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] buttonPress - updateCancelTikklingData',
+        );
       });
       actions.setDropdownVisible(false);
     } else {
       console.log(state.myTikklingData.tikkling_id);
       updateEndTikklingData(state.myTikklingData.tikkling_id).then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] buttonPress - updateEndTikklingData',
+        );
       });
       actions.setDropdownVisible(false);
     }
@@ -293,7 +319,10 @@ export const useMainViewModel = () => {
   const cancelTikkling = () => {
     updateCancelTikklingData(state.myTikklingData.tikkling_id)
       .then(res => {
-        topActions.setStateAndError(res);
+        topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] cancelTikkling - updateCancelTikklingData',
+        );
       })
       .then(res => {
         loadData();
@@ -303,7 +332,10 @@ export const useMainViewModel = () => {
   const stopTikkling = async () => {
     try {
       updateStopTikklingData(state.myTikklingData.tikkling_id).then(res =>
-        topActions.setStateAndError(res),
+        topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] stopTikkling - updateStopTikklingData',
+        ),
       );
     } catch (err) {
       console.log(err);
@@ -471,7 +503,10 @@ export const useMainViewModel = () => {
     try {
       updateCancelTikklingData(state.myTikklingData.tikkling_id)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MainViewModel.js] cancel_action - updateCancelTikklingData',
+          );
         })
         .then(() => {
           topActions.showSnackbar('티클링이 취소되었습니다.', 1);
@@ -505,7 +540,10 @@ export const useMainViewModel = () => {
       await getBankListData()
         .then(async res => {
           //console.log(res);
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MainViewModel.js] bankList - getBankListData',
+          );
         })
         .then(async res => {
           actions.setBank(res.DSdata);
@@ -523,7 +561,10 @@ export const useMainViewModel = () => {
 
   async function changeBank() {
     await updateMyAccountData(state.account, state.bankCode).then(res => {
-      topActions.setStateAndError(res);
+      topActions.setStateAndError(
+        res,
+        '[MainViewModel.js] changeBank - updateMyAccountData',
+      );
     });
   }
 
@@ -627,7 +668,10 @@ export const useMainViewModel = () => {
       }
 
       actions.setItHasOptions(optionStatus);
-      topActions.setStateAndError(res);
+      topActions.setStateAndError(
+        res,
+        '[MainViewModel.js] hasOptions - getProductOptionData',
+      );
       return optionStatus; // 옵션 상태 반환
     } catch (error) {
       console.error('Error fetching product options:', error);

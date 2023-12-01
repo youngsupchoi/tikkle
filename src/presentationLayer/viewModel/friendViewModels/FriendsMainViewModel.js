@@ -33,7 +33,10 @@ export const useFriendMainViewModel = () => {
       if (mode_friend === 'unblock') {
         await getMyFriendData()
           .then(res => {
-            return topActions.setStateAndError(res);
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] get_friend_data - getMyFriendData',
+            );
           })
           .then(res => {
             console.log('getFriendDataSetStateError', res);
@@ -42,7 +45,10 @@ export const useFriendMainViewModel = () => {
       } else if (mode_friend === 'block') {
         await getBlockedFriendData()
           .then(res => {
-            return topActions.setStateAndError(res);
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] get_friend_data - getBlockedFriendData',
+            );
           })
           .then(res => {
             actions.setGetFriendData(res.DSdata.info);
@@ -59,7 +65,10 @@ export const useFriendMainViewModel = () => {
     try {
       await createNewFriendData(friendId)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[FriendsMainViewModel.js] create_friend - createNewFriendData',
+          );
         })
         .then(res => {
           if (res.DScode === 0) {
@@ -84,7 +93,10 @@ export const useFriendMainViewModel = () => {
       try {
         await getSearchFriendData(state.text_search)
           .then(res => {
-            return topActions.setStateAndError(res);
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] get_friend_search - getSearchFriendData',
+            );
           })
           .then(res => {
             actions.setSearchedData(res.DSdata.info);
@@ -108,7 +120,10 @@ export const useFriendMainViewModel = () => {
       // console.log(item.id);
       await updateFriendBlockData(item.id)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[FriendsMainViewModel.js] block_friend - updateFriendBlockData',
+          );
         })
         .then(res => {
           console.log(res);
@@ -126,7 +141,10 @@ export const useFriendMainViewModel = () => {
       // console.log(item.id);
       await updateFriendUnlockData(item.id)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[FriendsMainViewModel.js] unblock_friend - updateFriendUnlockData',
+          );
         })
         .then(res => {
           console.log(res);
@@ -306,7 +324,10 @@ export const useFriendMainViewModel = () => {
         const temp = await transformContactsData(formattedData);
         await createPhoneFriendData(temp.phone_list)
           .then(res => {
-            return topActions.setStateAndError(res);
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] findContacts - createPhoneFriendData',
+            );
           })
           .then(res => {
             topActions.showSnackbar(res.DSmessage, 1);

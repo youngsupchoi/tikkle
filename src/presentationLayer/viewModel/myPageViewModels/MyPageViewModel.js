@@ -42,7 +42,10 @@ export const useMyPageViewModel = () => {
     try {
       await getMyPageScreenData()
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] MyPageData - getMyPageScreenData',
+          );
         })
         .then(async res => {
           actions.setUserData_profile(res.DSdata.user_info);
@@ -92,7 +95,10 @@ export const useMyPageViewModel = () => {
       await actions.setLoading_profile(true);
       await getMyPageScreenData()
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] loadData - getMyPageScreenData',
+          );
         })
         .then(async res => {
           // console.log('res : ', res.DSdata.user_info);
@@ -170,7 +176,10 @@ export const useMyPageViewModel = () => {
     await createMyInquireData(state.titleText, state.contentText)
       .then(res => {
         // console.log(res);
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[MyPageViewModel.js] sendMail - createMyInquireData',
+        );
       })
       .then(res => {
         //actions로
@@ -198,7 +207,10 @@ export const useMyPageViewModel = () => {
 
       await updateMyNickData(state.newNick)
         .then(async res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] changeNick - updateMyNickData',
+          );
         })
         .then(async res => {
           await MyPageData();
@@ -253,7 +265,10 @@ export const useMyPageViewModel = () => {
    */
   async function getProfileUrl() {
     const res = await getProfileUpdataUrlData().then(res => {
-      return topActions.setStateAndError(res);
+      return topActions.setStateAndError(
+        res,
+        '[MyPageViewModel.js] getProfileUrl - getProfileUpdataUrlData',
+      );
     });
     return res.DSdata.url;
   }
@@ -370,7 +385,10 @@ export const useMyPageViewModel = () => {
 
       await updateMyAccountData(state.newAccount, state.selectedBankCode)
         .then(async res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] storeAccountData - updateMyAccountData',
+          );
         })
         .then(async res => {
           await MyPageData();
@@ -411,7 +429,10 @@ export const useMyPageViewModel = () => {
 
       await updateMyAddressData(zonecode, address, detailAddress)
         .then(async res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] storeAddress - updateMyAddressData',
+          );
         })
         .then(async res => {
           await MyPageData();
@@ -455,7 +476,10 @@ export const useMyPageViewModel = () => {
     try {
       await deleteUserData()
         .then(async res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] deleteUser_logeout - deleteUserData',
+          );
         })
         .then(async res => {
           navigation.reset({
@@ -500,7 +524,10 @@ export const useMyPageViewModel = () => {
     try {
       await getImportPaymentData(merchant_uid)
         .then(async res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] getHistoryPaymentData - getImportPaymentData',
+          );
         })
         .then(async res => {
           // console.log('&&&: ', res);
@@ -523,7 +550,10 @@ export const useMyPageViewModel = () => {
     try {
       await updateRefundMyPaymentData(tikkling_id, merchant_uid, '단순 변심')
         .then(async res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] refundPayment - updateRefundMyPaymentData',
+          );
         })
         .then(async res => {
           console.log('&&&: ', res);

@@ -33,7 +33,10 @@ export const useStartTikklingViewModel = () => {
     actions.setLoading(true);
     getMyUserInfoData()
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[StartTikklingViewModel.js] loadData - getMyUserInfoData',
+        );
       })
       .then(async res => {
         // console.log('$$ :', res);
@@ -68,7 +71,10 @@ export const useStartTikklingViewModel = () => {
     }
 
     updateMyAddressData(state.zonecode, state.address, newdetail).then(res => {
-      return topActions.setStateAndError(res);
+      return topActions.setStateAndError(
+        res,
+        '[StartTikklingViewModel.js] put_user_address - updateMyAddressData',
+      );
     });
   };
 
@@ -180,7 +186,10 @@ export const useStartTikklingViewModel = () => {
         .then(res => {
           // console.log('res', res);
           topActions.setJustStart(true);
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[StartTikklingViewModel.js] tikklingStartButtonPress - createTikklingData',
+          );
         })
         .then(() => {
           topActions.showSnackbar('티클링이 시작되었습니다!', 1);
