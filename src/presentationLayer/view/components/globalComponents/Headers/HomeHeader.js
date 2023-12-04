@@ -63,12 +63,12 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
-        <AnimatedButton
+        {/* <AnimatedButton
           onPress={async () => {
             console.log('@@@ ', firebase.apps);
           }}>
           <UNIQUE27>@@@@@</UNIQUE27>
-        </AnimatedButton>
+        </AnimatedButton> */}
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');

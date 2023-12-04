@@ -1,0 +1,5 @@
+{
+  "react-native": {
+    "analytics_auto_init_enabled": false
+  }
+}

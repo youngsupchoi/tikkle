@@ -74,16 +74,16 @@ export default function App() {
     }, 1000); //스플래시 활성화 시간
   });
 
-  // const analyticsSetUserProperties = async () => {
-  //   // ...
-  //   await firebase.analytics().setAnalyticsCollectionEnabled(true);
-  // };
+  const analyticsSetUserProperties = async () => {
+    // ...
+    await firebase.analytics().setAnalyticsCollectionEnabled(true);
+  };
 
   useEffect(() => {
     const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
 
     // firebase analytics
-    // analyticsSetUserProperties();
+    analyticsSetUserProperties();
 
     // When the component is unmounted, remove the listener
     return () => unsubscribe();
