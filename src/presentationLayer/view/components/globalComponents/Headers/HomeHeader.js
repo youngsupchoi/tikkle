@@ -62,7 +62,7 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
-        <AnimatedButton
+        {/* <AnimatedButton
           onPress={async () => {
             const a = await analytics().logEvent('your_custom_event', {
               param1: 'value1',
@@ -70,7 +70,7 @@ export default function HomeHeader(props) {
             });
           }}>
           <UNIQUE27>@@@@@</UNIQUE27>
-        </AnimatedButton>
+        </AnimatedButton> */}
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
