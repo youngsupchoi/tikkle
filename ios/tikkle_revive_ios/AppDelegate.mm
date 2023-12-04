@@ -40,12 +40,14 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FIRApp configure];
+  
   #ifdef FB_SONARKIT_ENABLED
     InitializeFlipper(application);
   #endif
 
   // if ([FIRApp defaultApp] == nil) { // 추가 (line:35)
-    [FIRApp configure];
+    // [FIRApp configure];
   // }
 
   self.moduleName = @"tikkle_revive_ios";
