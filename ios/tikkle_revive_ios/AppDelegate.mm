@@ -40,8 +40,14 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  // Firebase 설정 23.10.20
-  [FIRApp configure];
+  #ifdef FB_SONARKIT_ENABLED
+    InitializeFlipper(application);
+  #endif
+
+  // if ([FIRApp defaultApp] == nil) { // 추가 (line:35)
+    [FIRApp configure];
+  // }
+
   self.moduleName = @"tikkle_revive_ios";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
