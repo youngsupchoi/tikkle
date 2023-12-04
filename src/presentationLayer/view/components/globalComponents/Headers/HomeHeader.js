@@ -36,7 +36,8 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
-import analytics from '@react-native-firebase/analytics';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/analytics';
 
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
@@ -62,15 +63,12 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
-        {/* <AnimatedButton
+        <AnimatedButton
           onPress={async () => {
-            const a = await analytics().logEvent('your_custom_event', {
-              param1: 'value1',
-              param2: 'value2',
-            });
+            console.log('@@@ ', firebase.apps);
           }}>
           <UNIQUE27>@@@@@</UNIQUE27>
-        </AnimatedButton> */}
+        </AnimatedButton>
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');

@@ -15,7 +15,8 @@ prepare_react_native_project!
 
 #firebase 연동 관련 설정 23.10.24
 $RNFirebaseAsStaticFramework = true
-$RNFirebaseAnalyticsWithoutAdIdSupport = true
+# $RNFirebaseAnalyticsWithoutAdIdSupport = true
+
 # ⬇️ uncomment wanted permissions (don't forget to remove the last comma)
 setup_permissions([
  # 'AppTrackingTransparency',

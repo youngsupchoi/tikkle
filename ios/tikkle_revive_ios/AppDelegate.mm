@@ -43,7 +43,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   [FIRApp configure];
   
   #ifdef FB_SONARKIT_ENABLED
-    InitializeFlipper(application);
+    InitializeFlipper(application);  
   #endif
 
   // if ([FIRApp defaultApp] == nil) { // 추가 (line:35)
