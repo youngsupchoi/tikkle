@@ -158,5 +158,7 @@
 	<true/>
 	<key>GADApplicationIdentifier</key>
   <string>ca-app-pub-7987914246691031~8295071692</string>
+	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
+<false/>
 </dict>
 </plist>

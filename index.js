@@ -25,7 +25,6 @@ function HeadlessCheck({isHeadless}) {
   if (isHeadless) {
     return null;
   }
-
   Sentry.wrap(App);
 
   return <App />;

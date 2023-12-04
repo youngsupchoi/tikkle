@@ -38,6 +38,7 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import analytics from '@react-native-firebase/analytics';
 
 export default function App() {
   SystemNavigationBar.navigationShow();
@@ -71,8 +72,15 @@ export default function App() {
     }, 1000); //스플래시 활성화 시간
   });
 
+  const analyticsSetUserProperties = async () => {
+    await analytics().setAnalyticsCollectionEnabled(true);
+  };
+
   useEffect(() => {
     const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
+
+    // firebase analytics
+    analyticsSetUserProperties();
 
     // When the component is unmounted, remove the listener
     return () => unsubscribe();
