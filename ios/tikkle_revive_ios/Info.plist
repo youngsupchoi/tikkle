@@ -2,6 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>953488629555-487jkaoul2p3jdagunn2hnoni6gom9bk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.953488629555-487jkaoul2p3jdagunn2hnoni6gom9bk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDWauBL9bLXkc2OLxdKCkwHdQtIz4Y6oUg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>953488629555</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.tikkle-revive-ios</string>
+	<key>PROJECT_ID</key>
+	<string>tikkle-c9666</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tikkle-c9666.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:953488629555:ios:1937c9de1d8812840c2846</string>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>https://tikkle.lifoli.co.kr</string>
