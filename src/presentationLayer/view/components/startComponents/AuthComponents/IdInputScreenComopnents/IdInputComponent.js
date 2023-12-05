@@ -32,7 +32,7 @@ export default function IdInput() {
             ref={ref.userIdRef}
             maxLength={12}
             keyboardType="default"
-            placeholder="lifoli1234"
+            placeholder="아이디를 입력해주세요."
             placeholderTextColor={COLOR_GRAY}
             style={styles.nativeInput}
             value={state.userNick}
