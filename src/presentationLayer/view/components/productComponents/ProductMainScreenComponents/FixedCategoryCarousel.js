@@ -33,10 +33,10 @@ export default function FixedCategoryCarousel() {
         {state.categories.map(category => (
           <AnimatedButton
             onPress={() => {
-              console.log(
-                '🚀 ~ file: FixedCategoryCarousel.js:37 ~ FixedCategoryCarousel ~ state.searchOption.categoryId:',
-                state.searchOption.categoryId,
-              );
+              // console.log(
+              //   '🚀 ~ file: FixedCategoryCarousel.js:37 ~ FixedCategoryCarousel ~ state.searchOption.categoryId:',
+              //   state.searchOption.categoryId,
+              // );
               actions.dispatchSearchOption({
                 type: 'SET_CATEGORY',
                 payload: {

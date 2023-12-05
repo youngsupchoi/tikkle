@@ -6,7 +6,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {useNavigation} from '@react-navigation/native';
-// 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
+// 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)categoryId
 export const useProductMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useProductMainViewState();
@@ -141,7 +141,7 @@ export const useProductMainViewModel = () => {
     await actions.setItemLoading(true);
     const temp = [];
     temp.push(...state.searchedData);
-    console.log('여기?', state.searchOption);
+    console.log('@@@ getNewdata : ', state.searchOption.categoryId);
     await getProductListData(
       state.searchOption.categoryId,
       state.searchOption.priceMin,

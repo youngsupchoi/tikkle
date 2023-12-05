@@ -14,7 +14,10 @@ import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productVi
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import ProductFilter from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductFilter';
-import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  B,
+  B15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowUpFilled from 'src/assets/icons/ArrowUpFilled';
 
@@ -44,10 +47,10 @@ export default function ProductSearchLandingScreen() {
     actions.setSearchedData([]);
     actions.onRefresh();
 
-    console.log(
-      '🚀 ~ file: ProductMainScreen.js:47 ~ useEffect ~ state.searchOption:',
-      state.searchOption,
-    );
+    // console.log(
+    //   '🚀 ~ file: ProductMainScreen.js:47 ~ useEffect ~ state.searchOption:',
+    //   state.searchOption,
+    // );
     setCurrentPage(0);
   }, [state.searchOption]);
 
@@ -69,11 +72,8 @@ export default function ProductSearchLandingScreen() {
         value > state.parentHeight - 1000 &&
         !state.itemLoading
       ) {
-        console.log(
-          '🚀 ~ file: ProductMainScreen.js:68 ~ listener ~ state.searchOption:',
-          state.searchOption,
-        );
-        console.log('스크롤 실행');
+        console.log('🚀:', state.searchOption.categoryId);
+
         actions.getNewData(state.getNum);
       }
       prevScrollY = value;
@@ -81,7 +81,7 @@ export default function ProductSearchLandingScreen() {
     return () => {
       scrollY.removeListener(listener);
     };
-  }, [state.parentHeight]);
+  }, [state.parentHeight, state.searchOption]);
 
   return (
     <View style={styles.totalContainer}>
