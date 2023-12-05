@@ -36,6 +36,9 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
+import analytics from '@react-native-firebase/analytics';
+import {firebase} from '@react-native-firebase/app';
+
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
   const [ticket_tooltip, setTicket_tooltip] = useState(false);
@@ -60,7 +63,18 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
+        {/* <AnimatedButton
+          onPress={async () => {
+            console.log('@@@ ');
+            const b = await analytics().logScreenView({
+              screen_name: 'currentScreenName',
+              screen_class: 'currentRoute',
+            });
 
+            console.log('@@@ ', b);
+          }}>
+          <UNIQUE27>@@@@@</UNIQUE27>
+        </AnimatedButton> */}
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');

@@ -154,5 +154,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- <key>FIREBASE_ANALYTICS_COLLECTION_DEACTIVATE</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<true/> -->
 </dict>
 </plist>
