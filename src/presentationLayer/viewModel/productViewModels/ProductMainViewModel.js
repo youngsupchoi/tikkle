@@ -27,14 +27,6 @@ export const useProductMainViewModel = () => {
       state.searchOption.sortWay,
       state.searchOption.search,
       1,
-      //TODO: 주석 삭제
-      // state.categoryId,
-      // state.priceMin,
-      // state.priceMax,
-      // state.sortAttribute,
-      // state.sortWay,
-      // state.search,
-      // 1,
     )
       .then(res => {
         return topActions.setStateAndError(

@@ -42,23 +42,11 @@ export default function ProductSearchLandingScreen() {
     });
   }, []);
 
-  //FIXME: 이 위치에 통합된 state 추가
   useEffect(() => {
     actions.setSearchedData([]);
     actions.onRefresh();
-
-    // console.log(
-    //   '🚀 ~ file: ProductMainScreen.js:47 ~ useEffect ~ state.searchOption:',
-    //   state.searchOption,
-    // );
     setCurrentPage(0);
   }, [state.searchOption]);
-
-  // useEffect(() => {
-  //   actions.setSearchedData([]);
-  //   actions.onRefresh();
-  //   setCurrentPage(0);
-  // }, [state.priceMin, state.priceMax, state.sortAttribute, state.sortWay]);
 
   let prevScrollY = new Animated.Value(0);
 
@@ -72,8 +60,7 @@ export default function ProductSearchLandingScreen() {
         value > state.parentHeight - 1000 &&
         !state.itemLoading
       ) {
-        console.log('🚀:', state.searchOption.categoryId);
-
+        console.log('스크롤 실행');
         actions.getNewData(state.getNum);
       }
       prevScrollY = value;

@@ -33,10 +33,6 @@ export default function FixedCategoryCarousel() {
         {state.categories.map(category => (
           <AnimatedButton
             onPress={() => {
-              // console.log(
-              //   '🚀 ~ file: FixedCategoryCarousel.js:37 ~ FixedCategoryCarousel ~ state.searchOption.categoryId:',
-              //   state.searchOption.categoryId,
-              // );
               actions.dispatchSearchOption({
                 type: 'SET_CATEGORY',
                 payload: {
@@ -45,8 +41,6 @@ export default function FixedCategoryCarousel() {
                   reset: 0,
                 },
               });
-              //TODO: 주석 삭제
-              // await actions.changeCategory(category.id, category.name);
             }}
             key={category.id}
             style={{
@@ -54,8 +48,7 @@ export default function FixedCategoryCarousel() {
                 state.searchOption.categoryId === category.id
                   ? COLOR_PRIMARY
                   : COLOR_WHITE,
-              // TODO: 주석 삭제
-              // state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
+
               paddingHorizontal: 16,
               paddingVertical: 8,
               borderColor: COLOR_PRIMARY,
@@ -79,10 +72,6 @@ export default function FixedCategoryCarousel() {
                   state.searchOption.categoryId === category.id
                     ? COLOR_WHITE
                     : COLOR_PRIMARY,
-                // TODO: 주석 삭제
-                // state.categoryId === category.id
-                //   ? COLOR_WHITE
-                //   : COLOR_PRIMARY,
               }}>
               {category.name}
             </B12>
