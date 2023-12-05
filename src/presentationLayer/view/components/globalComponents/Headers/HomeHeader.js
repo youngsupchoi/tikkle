@@ -36,7 +36,8 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
-// import analytics from '@react-native-firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
+import {firebase} from '@react-native-firebase/app';
 
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
@@ -65,14 +66,18 @@ export default function HomeHeader(props) {
         <AnimatedButton
           onPress={async () => {
             console.log('@@@ ');
-            const a = await analytics().logEvent('TESTSEND', {
-              id: 3745092,
-              item: 'mens grey t-shirt',
-              description: ['round neck', 'long sleeved'],
-              size: 'L',
+            // const a = await analytics().logEvent('TESTSEND', {
+            //   id: 3745092,
+            //   item: 'mens grey t-shirt',
+            //   description: ['round neck', 'long sleeved'],
+            //   size: 'L',
+            // });
+            const b = await analytics().logScreenView({
+              screen_name: 'currentScreenName',
+              screen_class: 'currentRoute',
             });
 
-            console.log('@@@ a', a);
+            console.log('@@@ ', b);
           }}>
           <UNIQUE27>@@@@@</UNIQUE27>
         </AnimatedButton>

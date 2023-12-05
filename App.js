@@ -74,28 +74,20 @@ export default function App() {
     }, 1000); //스플래시 활성화 시간
   });
 
-  const analyticsSetUserProperties = async () => {
-    // ...
-    await firebase.analytics().setAnalyticsCollectionEnabled(true);
-  };
-
   useEffect(() => {
     const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
-
-    // firebase analytics
-    analyticsSetUserProperties();
 
     // When the component is unmounted, remove the listener
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    const a = analytics().logEvent('TESTSEND', {
-      id: 3745092,
-      item: 'mens grey t-shirt',
-      description: ['round neck', 'long sleeved'],
-      size: 'L',
-    });
+    if (Platform.OS === 'ios') {
+      const a = analytics().logScreenView({
+        screen_name: 'ios_open_screen',
+        screen_class: 'test',
+      });
+    }
   }, []);
 
   useEffect(() => {
