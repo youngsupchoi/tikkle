@@ -11,6 +11,8 @@ export async function getProductListData(
   search,
   getNum,
 ) {
+  console.log('🚀 ~ file: GetProductListData.js:14 ~ getNum:', getNum);
+  console.log('🚀 ~ file: GetProductListData.js:14 ~ categoryId:', categoryId);
   //------ get token ------------------------------------------------------//
   let authorization = null;
 

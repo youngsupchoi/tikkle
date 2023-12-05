@@ -20,13 +20,21 @@ export const useProductMainViewModel = () => {
     await actions.setLoading(true);
 
     await getProductListData(
-      state.categoryId,
-      state.priceMin,
-      state.priceMax,
-      state.sortAttribute,
-      state.sortWay,
-      state.search,
+      state.searchOption.categoryId,
+      state.searchOption.priceMin,
+      state.searchOption.priceMax,
+      state.searchOption.sortAttribute,
+      state.searchOption.sortWay,
+      state.searchOption.search,
       1,
+      //TODO: 주석 삭제
+      // state.categoryId,
+      // state.priceMin,
+      // state.priceMax,
+      // state.sortAttribute,
+      // state.sortWay,
+      // state.search,
+      // 1,
     )
       .then(res => {
         return topActions.setStateAndError(
@@ -56,7 +64,7 @@ export const useProductMainViewModel = () => {
     await actions.setSortWay('DESC');
     await actions.setSelectedSort('많은 판매');
     await getProductListData(
-      state.categoryId,
+      state.searchOption.categoryId,
       0,
       999999999,
       'sales_volume',
@@ -83,6 +91,7 @@ export const useProductMainViewModel = () => {
   };
 
   const onRefresh = async () => {
+    console.log('onRefresh');
     //actions.setRefreshing(true);
     await loadData();
     //actions.setRefreshing(false);
@@ -125,21 +134,21 @@ export const useProductMainViewModel = () => {
   };
 
   const getNewData = async page => {
+    state.searchOption;
     if (state.noitems == true) {
       return;
     }
-    console.log('getNewData ');
-    console.log('cat  : ', state.categoryId);
     await actions.setItemLoading(true);
     const temp = [];
     temp.push(...state.searchedData);
+    console.log('여기?', state.searchOption);
     await getProductListData(
-      state.categoryId,
-      state.priceMin,
-      state.priceMax,
-      state.sortAttribute,
-      state.sortWay,
-      state.search,
+      state.searchOption.categoryId,
+      state.searchOption.priceMin,
+      state.searchOption.priceMax,
+      state.searchOption.sortAttribute,
+      state.searchOption.sortWay,
+      state.searchOption.search,
       page + 1,
     )
       .then(res => {

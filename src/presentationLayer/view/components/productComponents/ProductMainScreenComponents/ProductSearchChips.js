@@ -13,6 +13,7 @@ import {
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 const categories = [
   {
     id: 1,
@@ -46,15 +47,8 @@ const categories = [
   },
 ];
 
-export default function ProductSearchChips(props) {
-  const {
-    sortAttribute,
-    setSortAttribute,
-    sortWay,
-    setSortWay,
-    selectedSort,
-    setSelectedSort,
-  } = props;
+export default function ProductSearchChips() {
+  const {state, actions} = useProductMainViewModel();
 
   return (
     <View>
@@ -72,22 +66,38 @@ export default function ProductSearchChips(props) {
             key={category.id}
             style={[
               styles.itemContainer,
-              sortAttribute === category.sortAttribute &&
-              sortWay === category.sortWay
-                ? styles.selectedItem
+              state.searchOption.sortAttribute === category.sortAttribute &&
+              state.searchOption.sortWay === category.sortWay
+                ? //TODO: 주석 삭제
+                  // sortAttribute === category.sortAttribute &&
+                  // sortWay === category.sortWay
+                  styles.selectedItem
                 : {}, // Apply selected style if this category is selected
             ]}
             onPress={() => {
-              setSortAttribute(category.sortAttribute);
-              setSortWay(category.sortWay);
-              setSelectedSort(category.name);
+              actions.dispatchSearchOption({
+                type: 'SET_SORT',
+                payload: {
+                  reset: 0,
+                  selectedSort: category.name,
+                  sortAttribute: category.sortAttribute,
+                  sortWay: category.sortWay,
+                },
+              });
+              //TODO: 주석 삭제
+              // setSortAttribute(category.sortAttribute);
+              // setSortWay(category.sortWay);
+              // setSelectedSort(category.name);
             }}>
             <B12
               customStyle={[
                 styles.text,
-                sortAttribute === category.sortAttribute &&
-                sortWay === category.sortWay
-                  ? styles.selectedText
+                state.searchOption.sortAttribute === category.sortAttribute &&
+                state.searchOption.sortWay === category.sortWay
+                  ? //TODO: 주석 삭제
+                    // sortAttribute === category.sortAttribute &&
+                    // sortWay === category.sortWay
+                    styles.selectedText
                   : {}, // Apply selected text style if this category is selected
               ]}>
               {category.name}

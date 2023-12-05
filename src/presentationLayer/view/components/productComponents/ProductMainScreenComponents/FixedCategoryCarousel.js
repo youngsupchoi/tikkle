@@ -1,38 +1,42 @@
-import {ScrollView, View, StyleSheet} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
-import {
-  B,
-  B12,
-  B15,
-  B20,
-} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import SelectedStateHeader from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/SelectedStateHeader';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
+import FilterSearch from 'src/assets/icons/FilterSearch';
 import {
   COLOR_BLACK,
   COLOR_PRIMARY,
-  COLOR_PRIMARY_TEXT,
-  COLOR_SEPARATOR,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
-import Image2 from 'src/assets/icons/undraw_gaming_re_cma2.svg';
-import Image3 from 'src/assets/icons/undraw_jewelry_iima.svg';
-import Image4 from 'src/assets/icons/undraw_studying_re_deca.svg';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
-import {opacity} from 'react-native-reanimated';
+import {
+  B12,
+  B15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 
-export default function CategoryCarousel() {
+export default function FixedCategoryCarousel() {
   const {state, actions} = useProductMainViewModel();
 
   return (
-    <View>
-      <B20 customStyle={{paddingHorizontal: 16, marginBottom: 12}}>
-        카테고리
-      </B20>
+    <View
+      style={{
+        // paddingHorizontal: 16,
+        marginBottom: 8,
+        marginTop: 4,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: windowWidth - 32,
+      }}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {state.categories.map(category => (
           <AnimatedButton
-            onPress={async () => {
+            onPress={() => {
+              console.log(
+                '🚀 ~ file: FixedCategoryCarousel.js:37 ~ FixedCategoryCarousel ~ state.searchOption.categoryId:',
+                state.searchOption.categoryId,
+              );
               actions.dispatchSearchOption({
                 type: 'SET_CATEGORY',
                 payload: {
@@ -41,6 +45,7 @@ export default function CategoryCarousel() {
                   reset: 0,
                 },
               });
+              //TODO: 주석 삭제
               // await actions.changeCategory(category.id, category.name);
             }}
             key={category.id}
@@ -49,6 +54,8 @@ export default function CategoryCarousel() {
                 state.searchOption.categoryId === category.id
                   ? COLOR_PRIMARY
                   : COLOR_WHITE,
+              // TODO: 주석 삭제
+              // state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
               paddingHorizontal: 16,
               paddingVertical: 8,
               borderColor: COLOR_PRIMARY,
@@ -72,6 +79,10 @@ export default function CategoryCarousel() {
                   state.searchOption.categoryId === category.id
                     ? COLOR_WHITE
                     : COLOR_PRIMARY,
+                // TODO: 주석 삭제
+                // state.categoryId === category.id
+                //   ? COLOR_WHITE
+                //   : COLOR_PRIMARY,
               }}>
               {category.name}
             </B12>
@@ -81,54 +92,3 @@ export default function CategoryCarousel() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    borderColor: 'rgba(255,255,255,0.5)',
-    marginLeft: 12,
-    position: 'relative',
-    alignItems: 'center',
-    justifyContent: 'center',
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.2,
-    // shadowRadius: 4,
-    // elevation: 2,
-  },
-  image: {
-    position: 'absolute',
-    borderRadius: 8,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderRadius: 8,
-  },
-  selectedOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.2)', // Reduced opacity for selected item
-    borderRadius: 8,
-  },
-  text: {
-    color: COLOR_WHITE,
-    textAlign: 'center',
-    fontFamily: B,
-  },
-  selectedText: {
-    color: COLOR_WHITE, // Change text color for selected item
-    textAlign: 'center',
-    fontFamily: B,
-  },
-  selectedItem: {
-    borderColor: COLOR_SEPARATOR,
-    borderWidth: 1, // Increased border width for selected item
-  },
-});

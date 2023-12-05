@@ -32,16 +32,30 @@ export default function ProductSearchLandingScreen() {
   const scrollToTop = () => {
     scrollViewRef.current?.scrollTo({y: 0, animated: true}); // 상단으로 스크롤
   };
-
+  //FIXME: 이코드가 필요한가?
   useEffect(() => {
-    actions.setSelectedCategory('디지털/전자');
+    actions.dispatchSearchOption({
+      type: 'RESET_ALL',
+    });
   }, []);
 
+  //FIXME: 이 위치에 통합된 state 추가
   useEffect(() => {
     actions.setSearchedData([]);
     actions.onRefresh();
+
+    console.log(
+      '🚀 ~ file: ProductMainScreen.js:47 ~ useEffect ~ state.searchOption:',
+      state.searchOption,
+    );
     setCurrentPage(0);
-  }, [state.priceMin, state.priceMax, state.sortAttribute, state.sortWay]);
+  }, [state.searchOption]);
+
+  // useEffect(() => {
+  //   actions.setSearchedData([]);
+  //   actions.onRefresh();
+  //   setCurrentPage(0);
+  // }, [state.priceMin, state.priceMax, state.sortAttribute, state.sortWay]);
 
   let prevScrollY = new Animated.Value(0);
 
@@ -55,9 +69,13 @@ export default function ProductSearchLandingScreen() {
         value > state.parentHeight - 1000 &&
         !state.itemLoading
       ) {
+        console.log(
+          '🚀 ~ file: ProductMainScreen.js:68 ~ listener ~ state.searchOption:',
+          state.searchOption,
+        );
+        console.log('스크롤 실행');
         actions.getNewData(state.getNum);
       }
-
       prevScrollY = value;
     });
     return () => {
@@ -85,10 +103,9 @@ export default function ProductSearchLandingScreen() {
           <ProductSearch />
         </View>
 
-        <View style={styles.categoryCarouselContainer}>
+        {/* <View style={styles.categoryCarouselContainer}>
           <CategoryCarousel />
-        </View>
-        <ProductFilter />
+        </View> */}
 
         {state.loading ? (
           <GlobalLoader />
@@ -106,6 +123,7 @@ export default function ProductSearchLandingScreen() {
           <ArrowUpFilled width={50} height={50} fill={COLOR_PRIMARY} />
         </AnimatedButton>
       </View>
+      <ProductFilter />
     </View>
   );
 }
