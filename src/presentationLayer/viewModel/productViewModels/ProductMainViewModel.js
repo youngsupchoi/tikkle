@@ -6,7 +6,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {useNavigation} from '@react-navigation/native';
-// 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
+// 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)categoryId
 export const useProductMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
   const {ref, state, actions} = useProductMainViewState();
@@ -20,12 +20,12 @@ export const useProductMainViewModel = () => {
     await actions.setLoading(true);
 
     await getProductListData(
-      state.categoryId,
-      state.priceMin,
-      state.priceMax,
-      state.sortAttribute,
-      state.sortWay,
-      state.search,
+      state.searchOption.categoryId,
+      state.searchOption.priceMin,
+      state.searchOption.priceMax,
+      state.searchOption.sortAttribute,
+      state.searchOption.sortWay,
+      state.searchOption.search,
       1,
     )
       .then(res => {
@@ -56,7 +56,7 @@ export const useProductMainViewModel = () => {
     await actions.setSortWay('DESC');
     await actions.setSelectedSort('많은 판매');
     await getProductListData(
-      state.categoryId,
+      state.searchOption.categoryId,
       0,
       999999999,
       'sales_volume',
@@ -83,6 +83,7 @@ export const useProductMainViewModel = () => {
   };
 
   const onRefresh = async () => {
+    console.log('onRefresh');
     //actions.setRefreshing(true);
     await loadData();
     //actions.setRefreshing(false);
@@ -125,21 +126,21 @@ export const useProductMainViewModel = () => {
   };
 
   const getNewData = async page => {
+    state.searchOption;
     if (state.noitems == true) {
       return;
     }
-    console.log('getNewData ');
-    console.log('cat  : ', state.categoryId);
     await actions.setItemLoading(true);
     const temp = [];
     temp.push(...state.searchedData);
+    console.log('@@@ getNewdata : ', state.searchOption.categoryId);
     await getProductListData(
-      state.categoryId,
-      state.priceMin,
-      state.priceMax,
-      state.sortAttribute,
-      state.sortWay,
-      state.search,
+      state.searchOption.categoryId,
+      state.searchOption.priceMin,
+      state.searchOption.priceMax,
+      state.searchOption.sortAttribute,
+      state.searchOption.sortWay,
+      state.searchOption.search,
       page + 1,
     )
       .then(res => {

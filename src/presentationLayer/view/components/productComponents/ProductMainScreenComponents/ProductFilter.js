@@ -46,6 +46,7 @@ export default function ProductFilter() {
         animationIn="slideInUp" // 이 부분이 추가되었습니다.
         animationOut="slideOutDown" // 이 부분이 추가되었습니다.
       >
+        {/* //TODO: component로 분리 */}
         <View style={styles.modalContent}>
           <B15>가격</B15>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -54,20 +55,35 @@ export default function ProductFilter() {
                 key={index}
                 style={[
                   styles.chip,
-                  state.selectedRange === range.label && styles.selectedChip,
+                  state.searchOption.selectedRange === range.label &&
+                    styles.selectedChip,
+                  //TODO: 주석 삭제
+                  // state.selectedRange === range.label && styles.selectedChip,
                 ]}
                 onPress={() => {
-                  actions.setSelectedRange(range.label);
-                  actions.setPriceMin(range.min);
-                  if (range.max !== 'Infinity') {
-                    actions.setPriceMax(range.max);
-                  } else {
-                    actions.setPriceMax(''); // or set to a very large number if you prefer
-                  }
+                  actions.dispatchSearchOption({
+                    type: 'SET_SELECTED_RANGE',
+                    payload: {
+                      reset: 0,
+                      selectedRange: range.label,
+                      priceMin: range.min,
+                      priceMax: range.max,
+                    },
+                  });
+                  //TODO: 주석 삭제
+                  // actions.setSelectedRange(range.label);
+                  // actions.setPriceMin(range.min);
+                  // if (range.max !== 'Infinity') {
+                  //   actions.setPriceMax(range.max);
+                  // } else {
+                  //   actions.setPriceMax(''); // or set to a very large number if you prefer
+                  // }
                 }}>
                 <B12
                   customStyle={
-                    state.selectedRange === range.label &&
+                    state.searchOption.selectedRange === range.label &&
+                    //TODO: 주석 삭제
+                    // state.selectedRange === range.label &&
                     styles.selectedChipText
                   }>
                   {range.label}
@@ -77,14 +93,7 @@ export default function ProductFilter() {
           </ScrollView>
 
           <View>
-            <ProductSearchChips
-              sortAttribute={state.sortAttribute}
-              setSortAttribute={actions.setSortAttribute}
-              sortWay={state.sortWay}
-              setSortWay={actions.setSortWay}
-              selectedSort={state.selectedSort}
-              setSelectedSort={actions.setSelectedSort}
-            />
+            <ProductSearchChips />
           </View>
         </View>
       </Modal>

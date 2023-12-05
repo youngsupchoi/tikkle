@@ -33,12 +33,22 @@ export default function CategoryCarousel() {
         {state.categories.map(category => (
           <AnimatedButton
             onPress={async () => {
-              await actions.changeCategory(category.id, category.name);
+              actions.dispatchSearchOption({
+                type: 'SET_CATEGORY',
+                payload: {
+                  categoryId: category.id,
+                  selectedCategory: category.name,
+                  reset: 0,
+                },
+              });
+              // await actions.changeCategory(category.id, category.name);
             }}
             key={category.id}
             style={{
               backgroundColor:
-                state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
+                state.searchOption.categoryId === category.id
+                  ? COLOR_PRIMARY
+                  : COLOR_WHITE,
               paddingHorizontal: 16,
               paddingVertical: 8,
               borderColor: COLOR_PRIMARY,
@@ -59,7 +69,7 @@ export default function CategoryCarousel() {
               customStyle={{
                 // marginTop: 8,
                 color:
-                  state.categoryId === category.id
+                  state.searchOption.categoryId === category.id
                     ? COLOR_WHITE
                     : COLOR_PRIMARY,
               }}>

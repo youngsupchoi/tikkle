@@ -1,4 +1,4 @@
-import {createContext, useContext, useState, useRef} from 'react';
+import {createContext, useContext, useState, useRef, useReducer} from 'react';
 import {Animated} from 'react-native';
 const ProductMainViewContext = createContext();
 
@@ -14,17 +14,123 @@ export const useProductMainViewState = () => {
 
 export const ProductMainViewStateProvider = ({children}) => {
   //TODO: 에러 상태 추가 요함
-
   const scrollY = new Animated.Value(0); // Animated value for scroll position
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchedData, setSearchedData] = useState([]);
+
+  //코드 사용 예시
+  //dispatchSearchOption({type: 'SET_SELECTED_RANGE', payload: '전체가격'});
+  //dispatchSearchOption({type: 'SET_SELECTED_SORT', payload: '많은 판매'});
+  //dispatchSearchOption({type: 'SET_SELECTED_CATEGORY', payload: '전체'});
+  //dispatchSearchOption({type: 'SET_CATEGORY_ID', payload: 0});
+  //dispatchSearchOption({type: 'SET_PRICE_MIN', payload: 0});
+  //dispatchSearchOption({type: 'SET_PRICE_MAX', payload: 999999999});
+  //dispatchSearchOption({type: 'SET_SORT_ATTRIBUTE', payload: 'sales_volume'});
+  //dispatchSearchOption({type: 'SET_SORT_WAY', payload: 'DESC'});
+  //dispatchSearchOption({type: 'SET_SEARCH', payload: null});
+  //dispatchSearchOption({type: 'SET_GET_NUM', payload: 1});
+
+  const searchOptionReducer = (state, action) => {
+    switch (action.type) {
+      case 'RESET_ALL':
+        return {
+          ...state,
+          selectedRange: '전체가격',
+          selectedSort: '많은 판매',
+          selectedCategory: '전체',
+          categoryId: 0,
+          priceMin: 0,
+          priceMax: 999999999,
+          sortAttribute: 'sales_volume',
+          sortWay: 'DESC',
+          search: null,
+          getNum: 1,
+        };
+
+      case 'SET_SELECTED_RANGE':
+        if (action.payload.reset == 1) {
+          return {
+            ...state,
+            selectedRange: '전체가격',
+            priceMin: 0,
+            priceMax: 999999999,
+            getNum: 1,
+          };
+        }
+        if (action.payload.reset != 1) {
+          return {
+            ...state,
+            selectedRange: action.payload.selectedRange,
+            priceMin: action.payload.priceMin,
+            priceMax: action.payload.priceMax,
+            getNum: 1,
+          };
+        }
+      case 'SET_CATEGORY':
+        if (action.payload.reset == 1) {
+          return {
+            ...state,
+            selectedCategory: '전체',
+            categoryId: 0,
+            getNum: 1,
+          };
+        }
+        return {
+          ...state,
+          categoryId: action.payload.categoryId,
+          selectedCategory: action.payload.selectedCategory,
+          getNum: 1,
+        };
+      case 'SET_SORT':
+        if (action.payload.reset == 1) {
+          return {
+            ...state,
+            selectedSort: '많은 판매',
+            sortAttribute: 'sales_volume',
+            sortWay: 'DESC',
+            getNum: 1,
+          };
+        }
+        return {
+          ...state,
+          selectedSort: action.payload.selectedSort,
+          sortAttribute: action.payload.sortAttribute,
+          sortWay: action.payload.sortWay,
+          getNum: 1,
+        };
+      case 'SET_SEARCH':
+        if (action.payload.reset == 1) {
+          return {
+            ...state,
+            search: null,
+          };
+        }
+        return {...state, search: action.payload.search, getNum: 1};
+      default:
+        return state;
+    }
+  };
+
+  const [searchOption, dispatchSearchOption] = useReducer(searchOptionReducer, {
+    selectedRange: '전체가격',
+    selectedSort: '많은 판매',
+    selectedCategory: '전체',
+    categoryId: 0,
+    priceMin: 0,
+    priceMax: 999999999,
+    sortAttribute: 'sales_volume',
+    sortWay: 'DESC',
+    search: null,
+    getNum: 1,
+    reset: 0,
+  });
   const [selectedRange, setSelectedRange] = useState('전체가격'); // State to track selected chip
   const [selectedSort, setSelectedSort] = useState('많은 판매'); // State to track selected chip
   //---------------------------------------------------------------------
   //카테고리 관련(카테고리 칩)
-  const [selectedCategory, setSelectedCategory] = useState('디지털/전자');
-  const [categoryId, setCategoryId] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState('전체');
+  const [categoryId, setCategoryId] = useState(0);
   //---------------------------------------------------------------------
   //가격 관련(필터)
   const [priceMin, setPriceMin] = useState(0);
@@ -81,6 +187,7 @@ export const ProductMainViewStateProvider = ({children}) => {
   // ... 다른 상태들
   const ref = {};
   const state = {
+    searchOption,
     refreshing,
     searchedData,
     selectedRange,
@@ -105,6 +212,7 @@ export const ProductMainViewStateProvider = ({children}) => {
   };
 
   const actions = {
+    dispatchSearchOption,
     setRefreshing,
     setSearchedData,
     setSelectedRange,
