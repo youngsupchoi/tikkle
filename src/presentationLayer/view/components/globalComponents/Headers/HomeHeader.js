@@ -36,9 +36,7 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
-// import firebase from '@react-native-firebase/app';
-// import '@react-native-firebase/analytics';
-import analytics from '@react-native-firebase/analytics';
+// import analytics from '@react-native-firebase/analytics';
 
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();

@@ -38,8 +38,8 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-// import analytics from '@react-native-firebase/analytics';
 
+import analytics from '@react-native-firebase/analytics';
 import {firebase} from '@react-native-firebase/analytics';
 
 export default function App() {
@@ -87,6 +87,15 @@ export default function App() {
 
     // When the component is unmounted, remove the listener
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const a = analytics().logEvent('TESTSEND', {
+      id: 3745092,
+      item: 'mens grey t-shirt',
+      description: ['round neck', 'long sleeved'],
+      size: 'L',
+    });
   }, []);
 
   useEffect(() => {
