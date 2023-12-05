@@ -166,6 +166,9 @@ export const useStartViewModel = () => {
           res,
           '[AuthViewModel.js] completeSignUp - checkNickDuplicationData',
         );
+        if (res.DScode !== 0) {
+          throw new Error(JSON.stringify(res));
+        }
       });
 
       await loginRegisterData(
