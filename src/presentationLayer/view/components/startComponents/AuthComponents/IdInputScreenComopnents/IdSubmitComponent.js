@@ -32,7 +32,9 @@ export default function IdSubmit() {
   return (
     <View style={styles.buttonContainer}>
       <AnimatedButton
-        onPress={actions.completeSignUp}
+        onPress={() => {
+          actions.completeSignUp();
+        }}
         style={[
           styles.button,
           state.validationMessage !== 'Valid' || state.idInputButtonPressed
