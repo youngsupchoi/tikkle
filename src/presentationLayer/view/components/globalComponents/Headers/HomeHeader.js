@@ -63,15 +63,9 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
-        <AnimatedButton
+        {/* <AnimatedButton
           onPress={async () => {
             console.log('@@@ ');
-            // const a = await analytics().logEvent('TESTSEND', {
-            //   id: 3745092,
-            //   item: 'mens grey t-shirt',
-            //   description: ['round neck', 'long sleeved'],
-            //   size: 'L',
-            // });
             const b = await analytics().logScreenView({
               screen_name: 'currentScreenName',
               screen_class: 'currentRoute',
@@ -80,7 +74,7 @@ export default function HomeHeader(props) {
             console.log('@@@ ', b);
           }}>
           <UNIQUE27>@@@@@</UNIQUE27>
-        </AnimatedButton>
+        </AnimatedButton> */}
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
