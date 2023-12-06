@@ -136,6 +136,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)' // facebook sdk
 }
 
 apply plugin: 'com.google.gms.google-services'
