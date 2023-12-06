@@ -167,26 +167,34 @@ const SelectedStateHeader = ({scrollY}) => {
             </View>
           </AnimatedButton>
         )}
-        <AnimatedButton
-          style={styles.filterIconContainer}
-          onPress={() => {
-            actions.dispatchSearchOption({
-              type: 'RESET_ALL',
-              payload: {
-                reset: 1,
-              },
-            });
+        {(state.searchOption.selectedCategory &&
+          state.searchOption.categoryId != 0) ||
+        (state.searchOption.selectedRange !== null &&
+          state.searchOption.selectedRange != '전체가격') ||
+        (state.searchOption.selectedSort &&
+          state.searchOption.selectedSort != '많은 판매') ||
+        state.searchOption.search ? (
+          <AnimatedButton
+            style={styles.filterIconContainer}
+            onPress={() => {
+              actions.dispatchSearchOption({
+                type: 'RESET_ALL',
+                payload: {
+                  reset: 1,
+                },
+              });
 
-            // actions.loadData_reset();
-          }}>
-          <Refresh
-            width={20}
-            height={20}
-            stroke={COLOR_BLACK}
-            strokeWidth={1.2}
-            scale={1.1}
-          />
-        </AnimatedButton>
+              // actions.loadData_reset();
+            }}>
+            <Refresh
+              width={20}
+              height={20}
+              stroke={COLOR_BLACK}
+              strokeWidth={1.2}
+              scale={1.1}
+            />
+          </AnimatedButton>
+        ) : null}
       </ScrollView>
     </View>
   );
@@ -223,8 +231,8 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 0.5,
     borderRadius: 40,
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 8,

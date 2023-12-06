@@ -22,7 +22,7 @@ export default function FixedCategoryCarousel() {
     <View
       style={{
         // paddingHorizontal: 16,
-        marginBottom: 8,
+        marginBottom: 4,
         marginTop: 4,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -78,6 +78,22 @@ export default function FixedCategoryCarousel() {
           </AnimatedButton>
         ))}
       </ScrollView>
+      <AnimatedButton
+        onPress={() => actions.setShowFilter(!state.showFilter)}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginRight: 8,
+        }}>
+        <FilterSearch
+          width={20}
+          height={20}
+          stroke={COLOR_BLACK}
+          strokeWidth={2}
+          scale={1}
+        />
+        {/* <B15 customStyle={{marginLeft: 4}}>필터</B15> */}
+      </AnimatedButton>
     </View>
   );
 }
