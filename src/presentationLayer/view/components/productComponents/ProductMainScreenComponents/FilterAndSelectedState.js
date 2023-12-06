@@ -22,10 +22,10 @@ export default function FilterAndSelectedState() {
         alignItems: 'center',
         width: windowWidth - 32,
       }}>
-      <View style={{width: windowWidth * 0.7}}>
+      <View style={{width: windowWidth}}>
         <SelectedStateHeader />
       </View>
-      <AnimatedButton
+      {/* <AnimatedButton
         onPress={() => actions.setShowFilter(!state.showFilter)}
         style={{
           flexDirection: 'row',
@@ -39,7 +39,7 @@ export default function FilterAndSelectedState() {
           scale={0.8}
         />
         <B15 customStyle={{marginLeft: 4}}>필터</B15>
-      </AnimatedButton>
+      </AnimatedButton> */}
     </View>
   );
 }

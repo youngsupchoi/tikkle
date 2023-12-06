@@ -14,6 +14,7 @@ import FilterSearch from 'src/assets/icons/FilterSearch';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   B,
+  B15,
   B12,
   M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
