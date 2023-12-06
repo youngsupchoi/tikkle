@@ -39,6 +39,8 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import analytics from '@react-native-firebase/analytics';
 import {firebase} from '@react-native-firebase/app';
 
+import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
+
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
   const [ticket_tooltip, setTicket_tooltip] = useState(false);
@@ -49,6 +51,22 @@ export default function HomeHeader(props) {
 
   return (
     <View style={styles.headerContainer}>
+      <View>
+        <LoginButton
+          onLoginFinished={(error, result) => {
+            if (error) {
+              console.log('login has error: ' + result.error);
+            } else if (result.isCancelled) {
+              console.log('login is cancelled.');
+            } else {
+              AccessToken.getCurrentAccessToken().then(data => {
+                console.log(data.accessToken.toString());
+              });
+            }
+          }}
+          onLogoutFinished={() => console.log('logout.')}
+        />
+      </View>
       <View
         style={{
           // backgroundColor: 'blue',
