@@ -39,9 +39,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import analytics from '@react-native-firebase/analytics';
-import {firebase} from '@react-native-firebase/analytics';
-
 export default function App() {
   SystemNavigationBar.navigationShow();
   SystemNavigationBar.setNavigationColor(backgroundColor);
@@ -81,14 +78,14 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (Platform.OS === 'ios') {
-      const a = analytics().logScreenView({
-        screen_name: 'ios_open_screen',
-        screen_class: 'test',
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Platform.OS === 'ios') {
+  //     const a = analytics().logScreenView({
+  //       screen_name: 'ios_open_screen',
+  //       screen_class: 'test',
+  //     });
+  //   }
+  // }, []);
 
   useEffect(() => {
     dynamicLinks()
