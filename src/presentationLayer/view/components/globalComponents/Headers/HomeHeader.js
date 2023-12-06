@@ -40,6 +40,7 @@ import analytics from '@react-native-firebase/analytics';
 import {firebase} from '@react-native-firebase/app';
 
 import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
+import {AppEventsLogger} from 'react-native-fbsdk-next';
 
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
@@ -81,18 +82,24 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
-        {/* <AnimatedButton
+        <AnimatedButton
           onPress={async () => {
             console.log('@@@ ');
-            const b = await analytics().logScreenView({
-              screen_name: 'currentScreenName',
-              screen_class: 'currentRoute',
-            });
 
-            console.log('@@@ ', b);
+            AppEventsLogger.logEvent('TEST_event', {
+              param1: 'value1',
+              param2: 'value2',
+              // ... other parameters
+            });
+            // const b = await analytics().logScreenView({
+            //   screen_name: 'currentScreenName',
+            //   screen_class: 'currentRoute',
+            // });
+
+            // console.log('@@@ ', b);
           }}>
           <UNIQUE27>@@@@@</UNIQUE27>
-        </AnimatedButton> */}
+        </AnimatedButton>
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
