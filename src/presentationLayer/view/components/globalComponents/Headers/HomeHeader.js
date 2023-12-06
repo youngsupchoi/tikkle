@@ -56,7 +56,7 @@ export default function HomeHeader(props) {
         onPress={async () => {
           console.log('@@@ ');
 
-          AppEventsLogger.logEvent('test_ios', {
+          AppEventsLogger.logEvent('ios_button', {
             param1: 'value12',
             param2: 'value22',
             // ... other parameters
