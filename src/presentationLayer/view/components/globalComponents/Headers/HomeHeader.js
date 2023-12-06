@@ -51,7 +51,7 @@ export default function HomeHeader(props) {
 
   return (
     <View style={styles.headerContainer}>
-      <View>
+      {/* <View>
         <LoginButton
           onLoginFinished={(error, result) => {
             if (error) {
@@ -66,7 +66,7 @@ export default function HomeHeader(props) {
           }}
           onLogoutFinished={() => console.log('logout.')}
         />
-      </View>
+      </View> */}
       <View
         style={{
           // backgroundColor: 'blue',
