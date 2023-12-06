@@ -52,6 +52,24 @@ export default function HomeHeader(props) {
 
   return (
     <View style={styles.headerContainer}>
+      {/* <AnimatedButton
+        onPress={async () => {
+          console.log('@@@ ');
+
+          AppEventsLogger.logEvent('test_ios', {
+            param1: 'value12',
+            param2: 'value22',
+            // ... other parameters
+          });
+          // const b = await analytics().logScreenView({
+          //   screen_name: 'currentScreenName',
+          //   screen_class: 'currentRoute',
+          // });
+
+          // console.log('@@@ ', b);
+        }}>
+        <UNIQUE27>@@@@@</UNIQUE27>
+      </AnimatedButton> */}
       {/* <View>
         <LoginButton
           onLoginFinished={(error, result) => {
@@ -82,24 +100,7 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
-        <AnimatedButton
-          onPress={async () => {
-            console.log('@@@ ');
 
-            AppEventsLogger.logEvent('TEST_event', {
-              param1: 'value1',
-              param2: 'value2',
-              // ... other parameters
-            });
-            // const b = await analytics().logScreenView({
-            //   screen_name: 'currentScreenName',
-            //   screen_class: 'currentRoute',
-            // });
-
-            // console.log('@@@ ', b);
-          }}>
-          <UNIQUE27>@@@@@</UNIQUE27>
-        </AnimatedButton>
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
