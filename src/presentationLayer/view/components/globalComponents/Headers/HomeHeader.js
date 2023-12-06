@@ -39,6 +39,9 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import analytics from '@react-native-firebase/analytics';
 import {firebase} from '@react-native-firebase/app';
 
+import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
+import {AppEventsLogger} from 'react-native-fbsdk-next';
+
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
   const [ticket_tooltip, setTicket_tooltip] = useState(false);
@@ -49,6 +52,40 @@ export default function HomeHeader(props) {
 
   return (
     <View style={styles.headerContainer}>
+      {/* <AnimatedButton
+        onPress={async () => {
+          console.log('@@@ ');
+
+          AppEventsLogger.logEvent('ios_button', {
+            param1: 'value12',
+            param2: 'value22',
+            // ... other parameters
+          });
+          // const b = await analytics().logScreenView({
+          //   screen_name: 'currentScreenName',
+          //   screen_class: 'currentRoute',
+          // });
+
+          // console.log('@@@ ', b);
+        }}>
+        <UNIQUE27>@@@@@</UNIQUE27>
+      </AnimatedButton> */}
+      {/* <View>
+        <LoginButton
+          onLoginFinished={(error, result) => {
+            if (error) {
+              console.log('login has error: ' + result.error);
+            } else if (result.isCancelled) {
+              console.log('login is cancelled.');
+            } else {
+              AccessToken.getCurrentAccessToken().then(data => {
+                console.log(data.accessToken.toString());
+              });
+            }
+          }}
+          onLogoutFinished={() => console.log('logout.')}
+        />
+      </View> */}
       <View
         style={{
           // backgroundColor: 'blue',
@@ -63,18 +100,7 @@ export default function HomeHeader(props) {
           }}>
           TIKKLE
         </UNIQUE27>
-        {/* <AnimatedButton
-          onPress={async () => {
-            console.log('@@@ ');
-            const b = await analytics().logScreenView({
-              screen_name: 'currentScreenName',
-              screen_class: 'currentRoute',
-            });
 
-            console.log('@@@ ', b);
-          }}>
-          <UNIQUE27>@@@@@</UNIQUE27>
-        </AnimatedButton> */}
         <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');

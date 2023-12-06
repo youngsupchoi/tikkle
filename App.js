@@ -115,7 +115,7 @@ export default function App() {
 
       <PaperProvider>
         <TopViewProvider>
-          <View style={{zIndex: 10, backgroundColor: 'red'}}>
+          <View style={{zIndex: 10, backgroundColor: backgroundColor}}>
             <TopModal />
             <TopSnackbar />
           </View>

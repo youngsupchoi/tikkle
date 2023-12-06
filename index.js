@@ -5,9 +5,14 @@ import {Platform, Vibration, AppRegistry, Linking} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
-
+import {Settings} from 'react-native-fbsdk-next';
 import * as Sentry from '@sentry/react-native';
-import {SENTRY_DSN} from '@env';
+import {SENTRY_DSN, META_APP_ID} from '@env';
+
+// Setting the facebook app id using setAppID
+// Remember to set CFBundleURLSchemes in Info.plist on iOS if needed
+Settings.setAppID(META_APP_ID);
+Settings.initializeSDK();
 
 Sentry.init({
   dsn: SENTRY_DSN,
