@@ -55,18 +55,14 @@ export default function HomeHeader(props) {
       {/* <AnimatedButton
         onPress={async () => {
           console.log('@@@ ');
-
-          AppEventsLogger.logEvent('ios_button', {
-            param1: 'value12',
-            param2: 'value22',
-            // ... other parameters
-          });
-          // const b = await analytics().logScreenView({
-          //   screen_name: 'currentScreenName',
-          //   screen_class: 'currentRoute',
-          // });
-
-          // console.log('@@@ ', b);
+          const params = {
+            fb_registration_method: 'TEST',
+          };
+          AppEventsLogger.logEvent(
+            'fb_mobile_complete_registration',
+            1,
+            params,
+          );
         }}>
         <UNIQUE27>@@@@@</UNIQUE27>
       </AnimatedButton> */}
