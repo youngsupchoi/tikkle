@@ -63,18 +63,6 @@ export default function HomeHeader(props) {
             1,
             params,
           );
-          // AppEventsLogger.logPurchase(15, 'USD', {param: 'value'});
-          // AppEventsLogger.logEvent('AddToCart', {
-          //   param1: '22',
-          //   param2: '22',
-          //   // ... other parameters
-          // });
-          // const b = await analytics().logScreenView({
-          //   screen_name: 'currentScreenName',
-          //   screen_class: 'currentRoute',
-          // });
-
-          // console.log('@@@ ', b);
         }}>
         <UNIQUE27>@@@@@</UNIQUE27>
       </AnimatedButton> */}
