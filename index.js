@@ -13,6 +13,7 @@ import {SENTRY_DSN, META_APP_ID} from '@env';
 // Remember to set CFBundleURLSchemes in Info.plist on iOS if needed
 Settings.setAppID(META_APP_ID);
 Settings.initializeSDK();
+Settings.setAdvertiserTrackingEnabled(true);
 
 Sentry.init({
   dsn: SENTRY_DSN,
