@@ -23,7 +23,7 @@ export async function CreateTikklingShareLink(user_name, tikkling_id) {
             socialTitle: `${user_name}님의 티클링!`,
             socialDescription: `${user_name}님의 티클링을 확인해보세요!`,
             socialImageLink:
-              'https://img.freepik.com/premium-psd/3d-cartoon-icon-gift-box-isolated-on-pink-background-3d-illustration_68971-1793.jpg',
+              'https://d2da4yi19up8sp.cloudfront.net/share_link_image.jpg',
           },
         },
         suffix: {
