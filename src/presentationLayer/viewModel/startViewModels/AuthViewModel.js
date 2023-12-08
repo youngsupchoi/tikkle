@@ -14,6 +14,8 @@ import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickD
 import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 import {Platform} from 'react-native';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
@@ -45,6 +47,7 @@ export const useStartViewModel = () => {
       },
     );
 
+
     if (res.DSdata.userId === undefined) {
       await actions.setUserId(0);
     } else {
@@ -58,6 +61,16 @@ export const useStartViewModel = () => {
     await actions.setPhoneLoading(false);
     await actions.setPhoneInputButtonPressed(false);
   };
+
+  async function checkDynamicLink() {
+      
+    const dynamic_link = await AsyncStorage.getItem('dynamic_link');
+    if (dynamic_link == 'true') {
+      const tikkling_id = await AsyncStorage.getItem('tikkling_detail');
+      return tikkling_id;
+    }
+    return null;
+  }
 
   const decreaseTime = () => {
     actions.setTimeLeft(prevTime => prevTime - 1);
@@ -171,7 +184,10 @@ export const useStartViewModel = () => {
           throw new Error(JSON.stringify(res));
         }
       });
-
+      console.log("hihi")
+      const source_tikkling_id = await checkDynamicLink();
+      
+        
       await loginRegisterData(
         state.firstName + state.lastName,
         `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
@@ -181,6 +197,7 @@ export const useStartViewModel = () => {
         state.userNick,
         state.phoneNumber,
         state.formattedGender,
+        source_tikkling_id
       ).then(res => {
         // topActions.setStateAndError(res, actions.setFriendTikklingData);
         topActions.setStateAndError(

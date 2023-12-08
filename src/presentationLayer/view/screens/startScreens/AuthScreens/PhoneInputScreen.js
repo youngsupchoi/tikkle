@@ -24,6 +24,7 @@ import {
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import {INQ_URL} from '@env';
 
+
 export default function SignUpScreen1() {
   const {state, actions} = useStartViewModel();
 
@@ -31,6 +32,7 @@ export default function SignUpScreen1() {
     actions.setPhoneInputButtonPressed(false);
     actions.setPhoneInputButtonPressed(false);
   }, []);
+
 
   return (
     <View>
