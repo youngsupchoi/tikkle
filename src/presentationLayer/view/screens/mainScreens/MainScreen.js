@@ -53,6 +53,7 @@ import ViewShot from 'react-native-view-shot';
 import {useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
+import CompleteTikklingBackground from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CompleteTikklingBackground';
 
 // Get the screen width
 const {width} = Dimensions.get('window');
@@ -160,6 +161,18 @@ export default function HomeScreen({route}) {
 
   return (
     <View style={{backgroundColor: backgroundColor, flex: 1}}>
+      <View
+        style={{
+          // position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 10,
+        }}>
+        <CompleteTikklingBackground
+          list_data={state.list_data}
+          itemImage={state.myTikklingData.thumbnail_image}
+        />
+      </View>
       <ViewShot
         style={{
           position: 'absolute',
