@@ -168,10 +168,10 @@ export default function HomeScreen({route}) {
           left: 0,
           zIndex: 10,
         }}>
-        <CompleteTikklingBackground
+        {/* <CompleteTikklingBackground
           list_data={state.list_data}
           itemImage={state.myTikklingData.thumbnail_image}
-        />
+        /> */}
       </View>
       <ViewShot
         style={{
