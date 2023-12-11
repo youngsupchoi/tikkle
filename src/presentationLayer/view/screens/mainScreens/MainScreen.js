@@ -54,6 +54,7 @@ import {useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
 import CompleteTikklingBackground from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CompleteTikklingBackground';
+import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
 
 // Get the screen width
 const {width} = Dimensions.get('window');
@@ -141,11 +142,9 @@ export default function HomeScreen({route}) {
     }, 5 * delay); // 다섯 번째 컴포넌트
   }, []);
 
-  // useEffect(() => {
-  //   if (route.params?.updated) {
-  //     actions.loadData();
-  //   }
-  // }, [route.params?.updated]);
+  useEffect(() => {
+    actions.open_evnet_modal();
+  }, []);
 
   useEffect(() => {
     PushNotification.popInitialNotification(notification => {
@@ -296,6 +295,8 @@ export default function HomeScreen({route}) {
         showModal={state.showWhoParticipatedModal}
         setShowModal={actions.setShowWhoParticipatedModal}
       />
+
+      <EventModal />
 
       <PostCodeModal
         setShowPostCodeModal={actions.setShowPostCodeModal}

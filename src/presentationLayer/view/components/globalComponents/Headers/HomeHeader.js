@@ -41,7 +41,7 @@ import {firebase} from '@react-native-firebase/app';
 
 import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import VersionCheck from 'react-native-version-check';
 
 export default function HomeHeader(props) {
@@ -57,10 +57,7 @@ export default function HomeHeader(props) {
       {/* <AnimatedButton
         onPress={async () => {
           console.log('@@@ ');
-          let CurrentVersion = await VersionCheck.getCurrentVersion();
-          console.log('@@@ CurrentVersion ', CurrentVersion);
-          let LatestVersion = await VersionCheck.getLatestVersion();
-          console.log('@@@ LatestVersion ', LatestVersion);
+          AsyncStorage.setItem('event_modal', 'false');
         }}>
         <UNIQUE27>@@@@@</UNIQUE27>
       </AnimatedButton> */}

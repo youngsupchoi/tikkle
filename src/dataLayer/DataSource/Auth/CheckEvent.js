@@ -2,20 +2,15 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function CheckVersion() {
+export async function CheckEvent() {
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
   //------ call api -------------------------------------------------------//
   let response;
-  let os = 'ios';
-
-  if (Platform.OS === 'android') {
-    os = 'android';
-  }
 
   try {
-    response = await apiModel('get_auth_version', null, null, os);
+    response = await apiModel('get_auth_event', null, null, null);
     //console.log('##response : ', response);
     if (!response) {
       //  error
@@ -29,7 +24,9 @@ export async function CheckVersion() {
     };
   }
 
-  const version = response.data.data;
+  //console.log('##response : ', response);
+  const event = response.data.data.event;
+  const image_url = response.data.data.image_url;
 
   //------ control result & error -----------------------------------------//
 
@@ -46,7 +43,7 @@ export async function CheckVersion() {
 
   return {
     DScode: 0,
-    DSdata: {version: version},
-    DSmessage: '버전을 가져오는데에 성공했어요.',
+    DSdata: {event: event, image_url: image_url},
+    DSmessage: '이벤트를 가져오는데에 성공했어요.',
   };
 }
