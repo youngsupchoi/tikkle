@@ -42,6 +42,8 @@ import {firebase} from '@react-native-firebase/app';
 import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
 
+// import VersionCheck from 'react-native-version-check';
+
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
   const [ticket_tooltip, setTicket_tooltip] = useState(false);
@@ -55,14 +57,10 @@ export default function HomeHeader(props) {
       {/* <AnimatedButton
         onPress={async () => {
           console.log('@@@ ');
-          const params = {
-            fb_registration_method: 'TEST',
-          };
-          AppEventsLogger.logEvent(
-            'fb_mobile_complete_registration',
-            1,
-            params,
-          );
+          let CurrentVersion = await VersionCheck.getCurrentVersion();
+          console.log('@@@ CurrentVersion ', CurrentVersion);
+          let LatestVersion = await VersionCheck.getLatestVersion();
+          console.log('@@@ LatestVersion ', LatestVersion);
         }}>
         <UNIQUE27>@@@@@</UNIQUE27>
       </AnimatedButton> */}
