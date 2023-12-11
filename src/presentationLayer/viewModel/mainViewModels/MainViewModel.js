@@ -27,11 +27,11 @@ import Contacts from 'react-native-contacts';
 import {PermissionsAndroid} from 'react-native';
 import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
 import {fcmService} from 'src/push_fcm';
-
 import RNFS from 'react-native-fs';
 import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingShareLink';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
+import {CheckEvent} from 'src/dataLayer/DataSource/Auth/CheckEvent';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -679,6 +679,30 @@ export const useMainViewModel = () => {
     }
   };
 
+  const open_evnet_modal = async () => {
+    //get_event_name
+    const a = await CheckEvent().then(async res => {
+      console.log(res);
+      const event_name = res.DSdata.event;
+      const image_url = res.DSdata.image_url;
+
+      const event_modal = await AsyncStorage.getItem(event_name);
+      actions.setEvent_name(event_name);
+      actions.setEvent_image(image_url);
+      if (
+        event_modal == undefined ||
+        event_modal == null ||
+        event_modal == 'false'
+      ) {
+        actions.setEventModalVisible(true);
+      }
+    });
+  };
+
+  const async_notShowEvent = async () => {
+    AsyncStorage.setItem(state.event_name, 'true');
+  };
+
   return {
     ref: {
       ...ref,
@@ -717,6 +741,8 @@ export const useMainViewModel = () => {
       findContacts,
       hasOptions,
       convertBackgroundImageToBase64,
+      open_evnet_modal,
+      async_notShowEvent,
     },
   };
 };

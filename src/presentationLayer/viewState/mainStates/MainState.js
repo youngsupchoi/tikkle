@@ -55,6 +55,9 @@ export const MainViewStateProvider = ({children}) => {
   const [isInstagramButtonModalVisible, setIsInstagramButtonModalVisible] =
     useState(false);
 
+  const [eventModalVisible, setEventModalVisible] = useState(false);
+  const [notShowEvent, setNotShowEvent] = useState(false);
+
   const [bank, setBank] = useState([]);
 
   const [capturedImage, setCapturedImage] = useState(null);
@@ -85,6 +88,9 @@ export const MainViewStateProvider = ({children}) => {
   const [contactsData, setContactsData] = useState([]);
 
   const [detial_route, setDetial_route] = useState(false);
+
+  const [event_image, setEvent_image] = useState(null);
+  const [event_name, setEvent_name] = useState(null);
 
   // ... 다른 상태들
   const ref = {
@@ -146,6 +152,10 @@ export const MainViewStateProvider = ({children}) => {
     instagramButtonPressed,
     isInstagramButtonModalVisible,
     viewShotRef,
+    eventModalVisible,
+    notShowEvent,
+    event_image,
+    event_name,
   };
 
   const actions = {
@@ -200,6 +210,10 @@ export const MainViewStateProvider = ({children}) => {
     setDetial_route,
     setInstagramButtonPressed,
     setIsInstagramButtonModalVisible,
+    setEventModalVisible,
+    setNotShowEvent,
+    setEvent_image,
+    setEvent_name,
   };
 
   return (
