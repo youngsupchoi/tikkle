@@ -160,7 +160,7 @@ export default function HistoryDetailScreen(route) {
 
           <View style={styles.small_header}>
             <View>
-              <B17>티클링 상세 정보</B17>
+              <B17>티클링 상세</B17>
             </View>
           </View>
         </View>
@@ -190,8 +190,7 @@ export default function HistoryDetailScreen(route) {
                 }}>
                 <M20 customStyle={{marginBottom: 16, fontFamily: EB}}>
                   {route_data.created_at.split('-')[0]}년{' '}
-                  {/* {route_data.tikkling_type}{' '} */}
-                  티클링
+                  {route_data.tikkling_type} 티클링
                 </M20>
                 {route_data.state_id === 1 ? (
                   <M15 customStyle={{color: COLOR_PRIMARY, marginBottom: 10}}>
