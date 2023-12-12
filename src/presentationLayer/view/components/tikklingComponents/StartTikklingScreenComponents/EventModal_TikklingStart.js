@@ -40,15 +40,15 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import AutoHeightImage from 'react-native-auto-height-image';
 import CheckBox from '@react-native-community/checkbox';
+import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
 
-const EventModal = () => {
-  const {state, actions} = useMainViewModel();
+export default function EventModal_TikklingStart() {
+  const {state, actions} = useStartTikklingViewModel();
 
-  // useEffect(() => {}, [state.eventModalVisible]);
+  useEffect(() => {}, []);
 
   return (
     // <View>
@@ -80,53 +80,24 @@ const EventModal = () => {
             // Linking.openURL(
             //   'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
             // );
-          }}>
+          }}
+          style={{borderRadius: 24}}>
           <AutoHeightImage
             style={{borderRadius: 24}}
             width={windowWidth - 32}
             resizeMode="contain"
             source={{
-              uri: state.event_image,
+              uri: 'https://d2da4yi19up8sp.cloudfront.net/share_link_image.jpg',
             }}
           />
         </AnimatedButton>
 
         <AnimatedButton
-          onPress={() => actions.setNotShowEvent(!state.notShowEvent)}
-          style={{
-            position: 'absolute',
-            bottom: -44,
-            left: 10,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <CheckBox
-            value={state.notShowEvent}
-            style={{transform: [{scale: 0.8}]}}
-            onValueChange={actions.setNotShowEvent}
-            tintColors={{true: '#f00', false: COLOR_GRAY}} // Optional color customization
-          />
-          <M15
-            customStyle={{
-              color: COLOR_GRAY,
-              fontFamily: EB,
-              marginBottom: 5,
-            }}>
-            다시 보지 않기
-          </M15>
-        </AnimatedButton>
-
-        <AnimatedButton
           onPress={() => {
-            console.log('@@', state.notShowEvent);
             actions.setEventModalVisible(false);
-            //단계가 on 이면 저장하는 함수
-            if (state.notShowEvent) {
-              actions.async_notShowEvent();
-            }
           }}
           style={styles.dropdownButton}>
-          <View>
+          <View style={styles.iconContainer}>
             <Close
               width={20}
               height={20}
@@ -139,7 +110,7 @@ const EventModal = () => {
       </View>
     </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
   modal: {
@@ -201,6 +172,12 @@ const styles = StyleSheet.create({
     top: 0,
     // padding: 10,
   },
+  iconContainer: {},
+  delete: {
+    width: 24,
+    height: 24,
+    stroke: COLOR_ERROR,
+    strokeWidth: 1.5,
+    scale: 1,
+  },
 });
-
-export default EventModal;

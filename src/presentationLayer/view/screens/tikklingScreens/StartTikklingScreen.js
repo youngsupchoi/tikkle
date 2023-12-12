@@ -59,6 +59,7 @@ import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import TikklingState from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingState';
+import EventModal_TikklingStart from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/EventModal_TikklingStart';
 
 export default function StartTikklingScreen({route}) {
   const [tikkle_tooltip, setTikkle_tooltip] = useState(false);
@@ -70,6 +71,11 @@ export default function StartTikklingScreen({route}) {
   useEffect(() => {
     actions.loadData();
     console.log(route);
+  }, []);
+
+  //이벤트 모달 띄우기
+  useEffect(() => {
+    actions.setEventModalVisible(true);
   }, []);
 
   useEffect(() => {
@@ -794,6 +800,7 @@ export default function StartTikklingScreen({route}) {
       </ScrollView>
       <PostCodeModal state={state} actions={actions} />
       <DetailAddressInput state={state} actions={actions} />
+      <EventModal_TikklingStart />
     </View>
   );
 }

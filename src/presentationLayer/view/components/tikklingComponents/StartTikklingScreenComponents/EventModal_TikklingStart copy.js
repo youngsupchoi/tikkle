@@ -40,15 +40,15 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
-import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import AutoHeightImage from 'react-native-auto-height-image';
 import CheckBox from '@react-native-community/checkbox';
+import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
 
-const EventModal = () => {
-  const {state, actions} = useMainViewModel();
+export default function EventModal_TikklingStart() {
+  const {state, actions} = useStartTikklingViewModel();
 
-  // useEffect(() => {}, [state.eventModalVisible]);
+  useEffect(() => {}, []);
 
   return (
     // <View>
@@ -75,71 +75,84 @@ const EventModal = () => {
             alignSelf: 'center',
           },
         ]}>
-        <AnimatedButton
-          onPress={() => {
-            // Linking.openURL(
-            //   'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
-            // );
-          }}>
-          <AutoHeightImage
-            style={{borderRadius: 24}}
-            width={windowWidth - 32}
-            resizeMode="contain"
-            source={{
-              uri: state.event_image,
-            }}
-          />
-        </AnimatedButton>
-
-        <AnimatedButton
-          onPress={() => actions.setNotShowEvent(!state.notShowEvent)}
+        <View
           style={{
-            position: 'absolute',
-            bottom: -44,
-            left: 10,
-            flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <CheckBox
-            value={state.notShowEvent}
-            style={{transform: [{scale: 0.8}]}}
-            onValueChange={actions.setNotShowEvent}
-            tintColors={{true: '#f00', false: COLOR_GRAY}} // Optional color customization
-          />
+          <View
+            style={{
+              marginTop: 32,
+              marginBottom: 16,
+              alignItems: 'center',
+            }}>
+            <B20
+              customStyle={{
+                color: COLOR_BLACK,
+                fontFamily: EB,
+              }}>
+              EVENT
+            </B20>
+          </View>
+
+          <AnimatedButton
+            onPress={() => {
+              // Linking.openURL(
+              //   'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
+              // );
+            }}>
+            <AutoHeightImage
+              width={windowWidth * 0.8}
+              resizeMode="contain"
+              source={{
+                uri: 'https://d2da4yi19up8sp.cloudfront.net/profile/26-1702275217998.JPG',
+              }}
+            />
+          </AnimatedButton>
+        </View>
+
+        <View
+          style={{
+            width: windowWidth * 0.8,
+            marginTop: 16,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            marginBottom: 80,
+            flexDirection: 'row',
+            paddingHorizontal: 16,
+          }}>
           <M15
             customStyle={{
               color: COLOR_GRAY,
               fontFamily: EB,
               marginBottom: 5,
             }}>
-            다시 보지 않기
+            더 알아보기
           </M15>
-        </AnimatedButton>
+        </View>
 
+        {/* </BlurView> */}
         <AnimatedButton
           onPress={() => {
-            console.log('@@', state.notShowEvent);
             actions.setEventModalVisible(false);
-            //단계가 on 이면 저장하는 함수
-            if (state.notShowEvent) {
-              actions.async_notShowEvent();
-            }
           }}
-          style={styles.dropdownButton}>
-          <View>
-            <Close
-              width={20}
-              height={20}
-              stroke={COLOR_GRAY}
-              strokeWidth={2}
-              scale={20 / 24}
-            />
-          </View>
+          style={{
+            width: windowWidth - 32,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10,
+            backgroundColor: COLOR_PRIMARY,
+            borderBottomLeftRadius: 24,
+            borderBottomRightRadius: 24,
+            height: 60,
+            position: 'absolute',
+            bottom: -1,
+          }}>
+          <B20 customStyle={{color: COLOR_WHITE}}>닫기</B20>
         </AnimatedButton>
       </View>
     </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
   modal: {
@@ -191,16 +204,4 @@ const styles = StyleSheet.create({
   checkbox: {
     alignSelf: 'center',
   },
-  dropdownButton: {
-    // backgroundColor: COLOR_WHITE,
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'absolute',
-    padding: 16,
-    right: 0,
-    top: 0,
-    // padding: 10,
-  },
 });
-
-export default EventModal;

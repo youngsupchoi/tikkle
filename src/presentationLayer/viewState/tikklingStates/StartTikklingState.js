@@ -43,6 +43,8 @@ export const StartTikklingViewStateProvider = ({children}) => {
 
   const [birthdayAvailable, setBirthdayAvailable] = useState(false);
 
+  const [eventModalVisible, setEventModalVisible] = useState(false);
+
   const events = [
     {
       type: 'birthday',
@@ -78,6 +80,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     showPostCodeModal,
     createTikklingButtonPressed,
     birthdayAvailable,
+    eventModalVisible,
   };
   const actions = {
     setUserData,
@@ -99,6 +102,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     setShowPostCodeModal,
     setCreateTikklingButtonPressed,
     setBirthdayAvailable,
+    setEventModalVisible,
   };
 
   return (
