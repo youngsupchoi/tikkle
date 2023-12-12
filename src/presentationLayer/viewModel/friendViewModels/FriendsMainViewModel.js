@@ -83,7 +83,7 @@ export const useFriendMainViewModel = () => {
   }
 
   /**
-   * FriendsMainScreen에서 아이디로 친구 검색 데이터 가져오는 함수
+   * FriendsMainScreen에서 전화번호로 친구 검색 데이터 가져오는 함수
    * @todo state.text_search = "검색할 친구 닉네임" 설정 필요
    */
   async function get_friend_search() {

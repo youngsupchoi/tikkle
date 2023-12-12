@@ -80,7 +80,7 @@ export default function FriendsManagementScreen() {
       state.searchedData[0] === undefined &&
       state.searchedData.length !== 0
     ) {
-      topActions.showSnackbar('존재하지 않는 아이디예요.', 0);
+      topActions.showSnackbar('입력하신 전화번호를 가진 유저가 없어요!', 0);
     }
   }, [state.searchedData]);
 
@@ -139,7 +139,7 @@ export default function FriendsManagementScreen() {
             onSubmitEditing={() => {
               actions.get_friend_search();
             }}
-            placeholder="아이디로 친구 추가"
+            placeholder="전화번호로 친구 추가"
             placeholderTextColor={COLOR_GRAY}
             onChangeText={value => actions.setText_search(value)}
             value={state.text_search}
@@ -338,7 +338,7 @@ export default function FriendsManagementScreen() {
                           }}
                         />
                         <M15>아직 사용 중인 친구가 없네요</M15>
-                        <B22>아이디로 친구를 찾아 보세요!</B22>
+                        <B22>전화번호로 친구를 찾아 보세요!</B22>
                       </View>
                     );
                   }
