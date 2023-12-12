@@ -679,7 +679,7 @@ export const useMainViewModel = () => {
     }
   };
 
-  const open_evnet_modal = async () => {
+  const open_event_modal = async () => {
     //get_event_name
     const a = await CheckEvent().then(async res => {
       console.log(res);
@@ -741,7 +741,7 @@ export const useMainViewModel = () => {
       findContacts,
       hasOptions,
       convertBackgroundImageToBase64,
-      open_evnet_modal,
+      open_event_modal,
       async_notShowEvent,
     },
   };

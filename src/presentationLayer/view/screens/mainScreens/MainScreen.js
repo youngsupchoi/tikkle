@@ -143,7 +143,7 @@ export default function HomeScreen({route}) {
   }, []);
 
   useEffect(() => {
-    actions.open_evnet_modal();
+    actions.open_event_modal();
   }, []);
 
   useEffect(() => {
