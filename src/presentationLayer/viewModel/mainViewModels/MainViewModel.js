@@ -702,7 +702,7 @@ export const useMainViewModel = () => {
             event_modal == 'true'
           ) {
             AsyncStorage.setItem(res.DSdata.event, 'true');
-            AsyncStorage.setItem('event', res.DSdata.event);
+            AsyncStorage.setItem('event', image_url);
             actions.setEvent_name(res.DSdata.event);
             actions.setEventModalVisible(true);
           }

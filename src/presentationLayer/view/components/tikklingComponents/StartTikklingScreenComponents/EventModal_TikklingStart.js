@@ -87,7 +87,7 @@ export default function EventModal_TikklingStart() {
             width={windowWidth - 32}
             resizeMode="contain"
             source={{
-              uri: 'https://d2da4yi19up8sp.cloudfront.net/share_link_image.jpg',
+              uri: state.eventModalImage,
             }}
           />
         </AnimatedButton>

@@ -75,7 +75,7 @@ export default function StartTikklingScreen({route}) {
 
   //이벤트 모달 띄우기
   useEffect(() => {
-    actions.setEventModalVisible(true);
+    actions.checkEventModal();
   }, []);
 
   useEffect(() => {
