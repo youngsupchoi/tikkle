@@ -15,7 +15,6 @@ import {
 import {SafeAreaView, StatusBar} from 'react-native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import {CheckVersion} from 'src/dataLayer/DataSource/Auth/CheckVersion';
-import VersionCheck from 'react-native-version-check';
 import Modal from 'react-native-modal';
 import {
   B,
@@ -37,11 +36,8 @@ export default function SplashScreen() {
     // 앱이 최신버전인지 확인
 
     CheckVersion().then(async res => {
-      let CurrentVersion = await VersionCheck.getCurrentVersion();
-      if (res.DScode !== 0 || res.DSdata.version !== CurrentVersion) {
-        console.log('@@@@@@version@@@@@@');
-        console.log(res.DSdata.version);
-        console.log(CurrentVersion);
+      if (res.DSdata.updata) {
+        // console.log('@@@@@@version@@@@@@');
         setVersion_modal(true);
       } else {
         loginTokenData().then(res => {

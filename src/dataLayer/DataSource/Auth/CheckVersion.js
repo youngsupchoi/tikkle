@@ -1,6 +1,7 @@
 import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
+import VersionCheck from 'react-native-version-check';
 
 export async function CheckVersion() {
   //------ collect data ---------------------------------------------------//
@@ -14,8 +15,15 @@ export async function CheckVersion() {
     os = 'android';
   }
 
+  let CurrentVersion = await VersionCheck.getCurrentVersion();
+
+  const body = {
+    os: os,
+    version: CurrentVersion,
+  };
+
   try {
-    response = await apiModel('get_auth_version', null, null, os);
+    response = await apiModel('post_auth_version', null, body, null);
     //console.log('##response : ', response);
     if (!response) {
       //  error
@@ -29,16 +37,14 @@ export async function CheckVersion() {
     };
   }
 
-  const version = response.data.data;
-
   //------ control result & error -----------------------------------------//
 
   // token error
-  if (response.status !== 200) {
+  if (response.status != 200) {
     return {
-      DScode: 2,
-      DSdata: null,
-      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+      DScode: 0,
+      DSdata: {updata: true},
+      DSmessage: '업데이트가 필요해요.',
     };
   }
 
@@ -46,7 +52,7 @@ export async function CheckVersion() {
 
   return {
     DScode: 0,
-    DSdata: {version: version},
-    DSmessage: '버전을 가져오는데에 성공했어요.',
+    DSdata: {updata: false},
+    DSmessage: '업데이트가 필요하지 않아요.',
   };
 }
