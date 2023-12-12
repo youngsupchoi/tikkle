@@ -31,6 +31,7 @@ export default function SplashScreen() {
   const navigation = useNavigation();
   SystemNavigationBar.setNavigationColor(COLOR_PRIMARY);
   const [version_modal, setVersion_modal] = useState(false);
+  const {topState, topActions} = useTopViewModel();
 
   useEffect(() => {
     // 앱이 최신버전인지 확인
@@ -40,6 +41,7 @@ export default function SplashScreen() {
         // console.log('@@@@@@version@@@@@@');
         setVersion_modal(true);
       } else {
+        topActions.setOpenApp(true);
         loginTokenData().then(res => {
           if (res.DScode === 0) {
             // console.log('@@@@@@login@@@@@@');
