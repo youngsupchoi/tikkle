@@ -682,25 +682,37 @@ export const useMainViewModel = () => {
   const open_event_modal = async () => {
     //get_event_name
     const a = await CheckEvent().then(async res => {
-      console.log(res);
-      const event_name = res.DSdata.event;
-      const image_url = res.DSdata.image_url;
+      //console.log('sdfsfsdfds', res);
 
-      const event_modal = await AsyncStorage.getItem(event_name);
-      actions.setEvent_name(event_name);
-      actions.setEvent_image(image_url);
       if (
-        event_modal == undefined ||
-        event_modal == null ||
-        event_modal == 'false'
+        res.DSdata.event != undefined &&
+        res.DSdata.event != null &&
+        res.DSdata.event != ''
       ) {
-        actions.setEventModalVisible(true);
+        if (res.DSdata.event == 'none') {
+          AsyncStorage.setItem('event', 'none');
+        } else {
+          const image_url = res.DSdata.image_url;
+          const event_modal = await AsyncStorage.getItem(res.DSdata.event);
+          actions.setEvent_image(image_url);
+
+          if (
+            event_modal == undefined ||
+            event_modal == null ||
+            event_modal == 'true'
+          ) {
+            AsyncStorage.setItem(res.DSdata.event, 'true');
+            AsyncStorage.setItem('event', image_url);
+            actions.setEvent_name(res.DSdata.event);
+            actions.setEventModalVisible(true);
+          }
+        }
       }
     });
   };
 
   const async_notShowEvent = async () => {
-    AsyncStorage.setItem(state.event_name, 'true');
+    AsyncStorage.setItem(state.event_name, 'false');
   };
 
   return {

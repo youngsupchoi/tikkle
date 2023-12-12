@@ -10,6 +10,7 @@ import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData
 import {createTikklingData} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartTikklingViewModel = () => {
@@ -227,6 +228,16 @@ export const useStartTikklingViewModel = () => {
   const onCloseDetailModal = () => {
     actions.setShowDetailModal(false);
   };
+
+  const checkEventModal = async () => {
+    const event_is = await AsyncStorage.getItem('event');
+    console.log('event_is', event_is);
+    if (event_is != undefined && event_is != null && event_is != 'none') {
+      actions.setEventModalImage(event_is);
+      actions.setEventModalVisible(true);
+    }
+  };
+
   return {
     ref,
     state: {
@@ -245,6 +256,7 @@ export const useStartTikklingViewModel = () => {
       formatDate,
       tikklingStartButtonPress,
       setToEndOfDay,
+      checkEventModal,
     },
   };
 };
