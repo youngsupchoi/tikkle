@@ -48,7 +48,7 @@ import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklin
 export default function EventModal_TikklingStart() {
   const {state, actions} = useStartTikklingViewModel();
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   return (
     // <View>
@@ -66,7 +66,7 @@ export default function EventModal_TikklingStart() {
       <View
         style={[
           {
-            backgroundColor: backgroundColor,
+            // backgroundColor: backgroundColor,
             borderRadius: 24,
             width: windowWidth - 32,
             alignItems: 'center',
@@ -77,9 +77,9 @@ export default function EventModal_TikklingStart() {
         ]}>
         <AnimatedButton
           onPress={() => {
-            // Linking.openURL(
-            //   'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
-            // );
+            Linking.openURL(
+              'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
+            );
           }}
           style={{borderRadius: 24}}>
           <AutoHeightImage

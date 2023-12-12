@@ -70,12 +70,15 @@ export default function StartTikklingScreen({route}) {
 
   useEffect(() => {
     actions.loadData();
-    console.log(route);
+    // console.log(route);
   }, []);
 
   //이벤트 모달 띄우기
   useEffect(() => {
-    actions.checkEventModal();
+    setTimeout(() => {
+      // Code to execute after 0.5 seconds
+      actions.checkEventModal();
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -87,10 +90,10 @@ export default function StartTikklingScreen({route}) {
     );
   }, [state.zonecode, state.address, state.detailAddress, state.event]);
 
-  useEffect(() => {
-    console.log('Route : ', route.params);
-    console.log('userDAta : ', state.userData);
-  }, []);
+  // useEffect(() => {
+  //   console.log('Route : ', route.params);
+  //   console.log('userData : ', state.userData);
+  // }, []);
 
   useEffect(() => {
     state.userData.birthday !== undefined
