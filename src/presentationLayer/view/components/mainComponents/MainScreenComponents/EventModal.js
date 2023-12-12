@@ -66,7 +66,7 @@ const EventModal = () => {
       <View
         style={[
           {
-            backgroundColor: backgroundColor,
+            // backgroundColor: backgroundColor,
             borderRadius: 24,
             width: windowWidth - 32,
             alignItems: 'center',
@@ -77,9 +77,9 @@ const EventModal = () => {
         ]}>
         <AnimatedButton
           onPress={() => {
-            // Linking.openURL(
-            //   'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
-            // );
+            Linking.openURL(
+              'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
+            );
           }}>
           <AutoHeightImage
             style={{borderRadius: 24}}

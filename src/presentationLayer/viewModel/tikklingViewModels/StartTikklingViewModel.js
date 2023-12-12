@@ -231,7 +231,7 @@ export const useStartTikklingViewModel = () => {
 
   const checkEventModal = async () => {
     const event_is = await AsyncStorage.getItem('event');
-    console.log('event_is', event_is);
+    // console.log('event_is', event_is);
     if (event_is != undefined && event_is != null && event_is != 'none') {
       actions.setEventModalImage(event_is);
       actions.setEventModalVisible(true);
