@@ -104,7 +104,7 @@ const EventModal = () => {
             value={state.notShowEvent}
             style={{transform: [{scale: 0.8}]}}
             onValueChange={actions.setNotShowEvent}
-            tintColors={{true: '#f00', false: COLOR_GRAY}} // Optional color customization
+            tintColors={{true: 'blue', false: COLOR_GRAY}} // Optional color customization
           />
           <M15
             customStyle={{
