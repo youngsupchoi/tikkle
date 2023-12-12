@@ -68,7 +68,7 @@ const scaleText = size => {
 
 export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
-  const {topState, topViewModel} = useTopViewModel();
+  const {topState, topActions} = useTopViewModel();
   const translateYSecondHero = useSharedValue(20);
   const translateYMyTikkling = useSharedValue(20);
   const translateYFriendsTikkling = useSharedValue(20);
@@ -143,7 +143,10 @@ export default function HomeScreen({route}) {
   }, []);
 
   useEffect(() => {
-    actions.open_event_modal();
+    if (topState.openApp == true) {
+      topActions.setOpenApp(false);
+      actions.open_event_modal();
+    }
   }, []);
 
   useEffect(() => {

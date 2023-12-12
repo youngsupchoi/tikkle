@@ -118,7 +118,7 @@ const EventModal = () => {
 
         <AnimatedButton
           onPress={() => {
-            console.log('@@', state.notShowEvent);
+            //console.log('@@', state.notShowEvent);
             actions.setEventModalVisible(false);
             //단계가 on 이면 저장하는 함수
             if (state.notShowEvent) {

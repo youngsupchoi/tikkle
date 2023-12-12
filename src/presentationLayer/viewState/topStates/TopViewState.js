@@ -27,6 +27,8 @@ export const TopViewProvider = ({children}) => {
   const [from, setFrom] = useState('');
 
   const [test, setTest] = useState('');
+
+  const [openApp, setOpenApp] = useState(false);
   // ... 다른 상태들 (필요하면 추가하세요)
 
   const topState = {
@@ -39,6 +41,7 @@ export const TopViewProvider = ({children}) => {
     modalStatus,
     test,
     from,
+    openApp,
     // ... 다른 상태들
   };
 
@@ -52,6 +55,7 @@ export const TopViewProvider = ({children}) => {
     setModalStatus,
     setTest,
     setFrom,
+    setOpenApp,
     // ... 다른 상태 설정 함수들
   };
 
