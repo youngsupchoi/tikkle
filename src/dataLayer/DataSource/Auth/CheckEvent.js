@@ -24,7 +24,7 @@ export async function CheckEvent() {
     };
   }
 
-  //console.log('##response : ', response);
+  // console.log('##response : ', response);
   const event = response.data.data.event;
   const image_url = response.data.data.image_url;
 

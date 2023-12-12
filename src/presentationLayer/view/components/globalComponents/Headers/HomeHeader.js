@@ -56,8 +56,10 @@ export default function HomeHeader(props) {
     <View style={styles.headerContainer}>
       {/* <AnimatedButton
         onPress={async () => {
-          console.log('@@@ ');
-          AsyncStorage.setItem('event_modal', 'false');
+          // console.log('@@@ ');
+          const event_modal = await AsyncStorage.getItem('1+1');
+          console.log('@@@', event_modal);
+          // AsyncStorage.setItem('event_modal', 'false');
         }}>
         <UNIQUE27>@@@@@</UNIQUE27>
       </AnimatedButton> */}

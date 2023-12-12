@@ -1,5 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  Linking,
+} from 'react-native';
 import Modal from 'react-native-modal'; // 추가
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import LinearGradient from 'react-native-linear-gradient';
@@ -99,7 +105,12 @@ const EventModal = () => {
             </B20>
           </View>
 
-          <View>
+          <AnimatedButton
+            onPress={() => {
+              // Linking.openURL(
+              //   'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
+              // );
+            }}>
             <AutoHeightImage
               width={windowWidth * 0.8}
               resizeMode="contain"
@@ -107,7 +118,7 @@ const EventModal = () => {
                 uri: state.event_image,
               }}
             />
-          </View>
+          </AnimatedButton>
 
           <View
             style={{
