@@ -691,6 +691,7 @@ export const useMainViewModel = () => {
       ) {
         if (res.DSdata.event == 'none') {
           AsyncStorage.setItem('event', 'none');
+          actions.setEvent_image('none');
         } else {
           const image_url = res.DSdata.image_url;
           const event_modal = await AsyncStorage.getItem(res.DSdata.event);
