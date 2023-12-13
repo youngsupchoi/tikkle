@@ -218,7 +218,7 @@ export default function FriendsTikklingCarousel(data) {
                       backgroundColor: COLOR_WHITE,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      borderRadius: 16,
+                      borderRadius: 30,
                       paddingRight: 12,
                     }}>
                     <View
@@ -248,7 +248,7 @@ export default function FriendsTikklingCarousel(data) {
                       backgroundColor: COLOR_WHITE,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      borderRadius: 16,
+                      borderRadius: 30,
                       paddingRight: 12,
                     }}>
                     <View
