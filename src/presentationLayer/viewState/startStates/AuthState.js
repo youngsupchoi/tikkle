@@ -34,7 +34,7 @@ export const StartViewStateProvider = ({children}) => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
-  const [userNick, setUserNick] = useState('');
+  // const [userNick, setUserNick] = useState('');
   const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
   const [duplicationMessage, setDuplicationMessage] = useState(''); // State to hold the validation message
   const [phoneInputButtonPressed, setPhoneInputButtonPressed] = useState(false);
@@ -74,7 +74,7 @@ export const StartViewStateProvider = ({children}) => {
     year,
     month,
     day,
-    userNick,
+    // userNick,
     validationMessage,
     duplicationMessage,
     phoneInputButtonPressed,
@@ -98,7 +98,7 @@ export const StartViewStateProvider = ({children}) => {
     setYear,
     setMonth,
     setDay,
-    setUserNick,
+    // setUserNick,
     setValidationMessage,
     setDuplicationMessage,
     setPhoneInputButtonPressed,

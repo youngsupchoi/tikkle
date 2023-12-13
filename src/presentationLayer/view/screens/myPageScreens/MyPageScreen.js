@@ -145,9 +145,7 @@ export default function ProfileScreen() {
 
                     <View style={{alignItems: 'flex-start', marginLeft: 16}}>
                       <B17>{state.userData_profile.name}님</B17>
-                      <M15 customStyle={{color: COLOR_GRAY}}>
-                        {state.userData_profile.nick}
-                      </M15>
+                      <View style={{height: 5}} />
                       {state.timeUnitlNextBirthday == 0 ? (
                         <M11 customStyle={{color: COLOR_GRAY}}>
                           생일을 축하해요!

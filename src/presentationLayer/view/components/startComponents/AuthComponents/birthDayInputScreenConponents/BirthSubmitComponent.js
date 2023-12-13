@@ -34,7 +34,9 @@ export default function BirthSubmit() {
   return (
     <View style={styles.buttonContainer}>
       <AnimatedButton
-        onPress={() => actions.buttonPress()}
+        onPress={() => {
+          actions.completeSignUp();
+        }}
         style={[
           styles.button,
           state.year.length !== 4 ||

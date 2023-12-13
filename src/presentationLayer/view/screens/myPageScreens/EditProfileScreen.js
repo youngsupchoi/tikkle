@@ -8,7 +8,6 @@ import PostCodeModal from 'src/presentationLayer/view/components/mainComponents/
 import {useMyPageViewModel} from 'src/presentationLayer/viewModel/myPageViewModels/MyPageViewModel';
 import DetailAddressInput from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/DetailAddressInput';
 import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import EditNickname from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/EditNickname';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import {B12} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AccountDropDown from 'src/presentationLayer/view/components/myPageComponents/myPageScreenComponents/AccountDropDown';
@@ -31,7 +30,6 @@ export default function EditProfileScreen() {
         ) : (
           <View>
             <EditProfilePicture />
-            <EditNickname />
             <EditRefundAccount />
             {state.bankDropDownVisible ? (
               <View>

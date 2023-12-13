@@ -199,9 +199,6 @@ export default function FriendsManagementScreen() {
             />
           </View>
           <B17>{state.searchedData[0].name}</B17>
-          <M15 customStyle={{color: COLOR_GRAY, marginTop: 8}}>
-            {'  ' + state.searchedData[0].nick}
-          </M15>
 
           <View style={{marginTop: 24}}>
             {state.searchedData[0].relation_state_id === null &&
@@ -423,10 +420,7 @@ export default function FriendsManagementScreen() {
                     />
                     <View style={styles.listItemTextContainer}>
                       <B15>{item.name}</B15>
-                      <B15 customStyle={{color: COLOR_GRAY}}>
-                        {' '}
-                        {' ' + item.nick}
-                      </B15>
+                      {/* <B15 customStyle={{color: COLOR_GRAY}}> {' ' + item}</B15> */}
                     </View>
                   </View>
                   <View style={{position: 'absolute', right: 20, top: 25}}>
