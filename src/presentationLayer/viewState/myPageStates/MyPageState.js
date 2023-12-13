@@ -24,7 +24,7 @@ export const MyPageViewStateProvider = ({children}) => {
     image:
       'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
     name: '',
-    nick: '',
+    // nick: '',
   });
 
   const [bank, setBank] = useState([]);
@@ -44,7 +44,7 @@ export const MyPageViewStateProvider = ({children}) => {
 
   const [bankDropDownVisible, setBankDropDownVisible] = useState(false);
   const [inquireLoading, setInquireLoading] = useState(false);
-  const [newNick, setNewNick] = useState('');
+  // const [newNick, setNewNick] = useState('');
 
   const [image, setImage] = useState(null);
   const [loading_profileEdit, setLoading_profileEdit] = useState(false);
@@ -82,7 +82,7 @@ export const MyPageViewStateProvider = ({children}) => {
     profileUrl,
     bankDropDownVisible,
     inquireLoading,
-    newNick,
+    // newNick,
     image,
     loading_profileEdit,
     newBankName,
@@ -116,7 +116,7 @@ export const MyPageViewStateProvider = ({children}) => {
     setProfileUrl,
     setBankDropDownVisible,
     setInquireLoading,
-    setNewNick,
+    // setNewNick,
     setImage,
     setLoading_profileEdit,
     setNewBankName,

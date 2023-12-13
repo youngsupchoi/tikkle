@@ -67,9 +67,6 @@ export default function FriendsTikklingCarousel(data) {
             <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
               {item.user_name + '  '}
             </B15>
-            <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
-              {item.nick}
-            </M15>
           </View>
 
           <AnimatedButton

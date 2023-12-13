@@ -45,7 +45,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import AutoHeightImage from 'react-native-auto-height-image';
 import CheckBox from '@react-native-community/checkbox';
 
-const EventModal = () => {
+const EventModal = ({visible, setVisible}) => {
   const {state, actions} = useMainViewModel();
 
   // useEffect(() => {}, [state.eventModalVisible]);
@@ -53,14 +53,14 @@ const EventModal = () => {
   return (
     // <View>
     <Modal
-      isVisible={state.eventModalVisible}
+      isVisible={visible}
       style={styles.modal}
       useNativeDriver={false}
       onBackdropPress={() => {
-        actions.setEventModalVisible(false);
+        setVisible(false);
       }}
       onBackButtonPress={() => {
-        actions.setEventModalVisible(false);
+        setVisible(false);
       }}
       transparent={true}>
       <View
@@ -119,7 +119,7 @@ const EventModal = () => {
         <AnimatedButton
           onPress={() => {
             //console.log('@@', state.notShowEvent);
-            actions.setEventModalVisible(false);
+            setVisible(false);
             //단계가 on 이면 저장하는 함수
             if (state.notShowEvent) {
               actions.async_notShowEvent();

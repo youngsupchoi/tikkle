@@ -56,28 +56,28 @@ export default function SignUpScreen6({route}) {
   //   }
   // }, [state.userNick]);
 
-  function validateUserId(inputNick) {
-    const MIN_LENGTH = 5;
-    const MAX_LENGTH = 12;
+  // function validateUserId(inputNick) {
+  //   const MIN_LENGTH = 5;
+  //   const MAX_LENGTH = 12;
 
-    if (!inputNick) {
-      return '아이디를 입력해주세요';
-    }
+  //   if (!inputNick) {
+  //     return '아이디를 입력해주세요';
+  //   }
 
-    if (!/^[a-zA-Z0-9_.-]+$/.test(inputNick)) {
-      return "아이디는 영문, 숫자, '_', '-', '.'만 포함할 수 있어요.";
-    }
+  //   if (!/^[a-zA-Z0-9_.-]+$/.test(inputNick)) {
+  //     return "아이디는 영문, 숫자, '_', '-', '.'만 포함할 수 있어요.";
+  //   }
 
-    if (inputNick.length < MIN_LENGTH) {
-      return `아이디는 ${MIN_LENGTH}자를 넘겨야 해요.`;
-    }
+  //   if (inputNick.length < MIN_LENGTH) {
+  //     return `아이디는 ${MIN_LENGTH}자를 넘겨야 해요.`;
+  //   }
 
-    if (inputNick.length > MAX_LENGTH) {
-      return `아이디는 ${MAX_LENGTH}자를 넘길 수 없어요.`;
-    }
+  //   if (inputNick.length > MAX_LENGTH) {
+  //     return `아이디는 ${MAX_LENGTH}자를 넘길 수 없어요.`;
+  //   }
 
-    return 'Valid';
-  }
+  //   return 'Valid';
+  // }
 
   return (
     <View style={styles.signupContainer}>

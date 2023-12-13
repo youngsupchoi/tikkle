@@ -679,7 +679,7 @@ export const useMainViewModel = () => {
     }
   };
 
-  const open_event_modal = async () => {
+  const open_event_modal = async modalSet => {
     //get_event_name
     const a = await CheckEvent().then(async res => {
       //console.log('sdfsfsdfds', res);
@@ -705,7 +705,7 @@ export const useMainViewModel = () => {
             AsyncStorage.setItem(res.DSdata.event, 'true');
             AsyncStorage.setItem('event', image_url);
             actions.setEvent_name(res.DSdata.event);
-            actions.setEventModalVisible(true);
+            modalSet(true);
           }
         }
       }
