@@ -55,25 +55,59 @@ export default function SignUpScreen0() {
     });
   }, []); // passing in an empty array as the second argument ensures this is only ran once when component mounts initially.
 
+  useEffect(() => {
+    console.log(
+      state.phoneNumber,
+      state.name,
+      state.formattedGender,
+      state.birthday,
+      state.year,
+      state.userNick,
+      state.kakaoEmail,
+      state.profileImageUrl,
+    );
+    if (
+      state.phoneNumber &&
+      state.name &&
+      state.formattedGender &&
+      state.birthday &&
+      state.userNick &&
+      state.kakaoEmail &&
+      state.profileImageUrl
+    ) {
+      actions.completeSignUp();
+    }
+  }, [
+    state.phoneNumber,
+    state.name,
+    state.formattedGender,
+    state.birthday,
+    state.yaer,
+    state.userNick,
+    state.kakaoEmail,
+    state.profileImageUrl,
+  ]);
   return (
     <SafeAreaView
       style={{
         width: '100%',
         height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
         //backgroundColor: 'blue',
-        backgroundColor: backgroundColor,
+        backgroundColor: COLOR_WHITE,
       }}>
-      <StatusBar backgroundColor={backgroundColor} />
-      <MainContainer>
+      <StatusBar backgroundColor={COLOR_WHITE} />
+      <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
         <SplashLogo />
-        <View style={{height: 80}} />
-      </MainContainer>
+      </View>
       <View
         style={{
-          position: 'absolute',
-          bottom: 80,
-          left: 48,
-          right: 48,
+          flex: 1,
+          // position: 'absolute',
+          // bottom: 80,
+          // left: 48,
+          // right: 48,
         }}>
         <View
           style={{
@@ -92,7 +126,7 @@ export default function SignUpScreen0() {
           <View
             style={{
               position: 'absolute',
-              backgroundColor: backgroundColor,
+              backgroundColor: COLOR_WHITE,
               paddingHorizontal: 12,
             }}>
             <B15 customStyle={{color: COLOR_GRAY}}>소셜 로그인</B15>
@@ -149,7 +183,7 @@ const styles = StyleSheet.create({
   signupContainer: {
     paddingTop: StatusBarHeight,
     paddingHorizontal: 24,
-    backgroundColor: backgroundColor,
+    backgroundColor: COLOR_WHITE,
     width: windowWidth,
     height: windowHeight,
     alignItems: 'center',
