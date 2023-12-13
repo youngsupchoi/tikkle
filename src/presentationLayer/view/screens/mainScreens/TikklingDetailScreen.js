@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   FlatList,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RefreshControl} from 'react-native-gesture-handler';
@@ -76,10 +77,13 @@ import Tooltip from 'react-native-walkthrough-tooltip';
 import Delivery from 'src/assets/icons/Delivery';
 import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
 import ViewShot from 'react-native-view-shot';
+import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function TikklingDetailScreen() {
   const navigation = useNavigation();
   const {state, actions} = useMainViewModel();
+  const {topState, topActions} = useTopViewModel();
 
   let ButtonIcon = null;
   let ButtonText = '';
@@ -109,6 +113,17 @@ export default function TikklingDetailScreen() {
 
   useEffect(() => {
     actions.loadDetail();
+  }, []);
+
+  useEffect(() => {
+    if (topState.openDeepLink == true) {
+      // console.log('openDeepLink');
+      topActions.setOpenDeepLink(false);
+      actions.open_event_modal(actions.setEventModalVisible_detail);
+    }
+    // if (Platform.OS === 'android') {
+    //   actions.open_event_modal();
+    // }
   }, []);
 
   useEffect(() => {
@@ -606,6 +621,11 @@ export default function TikklingDetailScreen() {
           <InstaGuideModal
             name={state.route_data.user_name}
             tikkling_id={state.route_data.tikkling_id}
+          />
+
+          <EventModal
+            visible={state.eventModalVisible_detail}
+            setVisible={actions.setEventModalVisible_detail}
           />
         </View>
       ) : (
