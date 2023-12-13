@@ -16,7 +16,7 @@ export async function CheckVersion() {
   }
 
   let CurrentVersion = await VersionCheck.getCurrentVersion();
-
+  // console.log('##CurrentVersion : ', CurrentVersion);
   const body = {
     os: os,
     version: CurrentVersion,
