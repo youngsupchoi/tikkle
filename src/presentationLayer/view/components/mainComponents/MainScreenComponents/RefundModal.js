@@ -15,6 +15,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import Help from 'src/assets/icons/Help.svg';
 import {
+  COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
@@ -27,6 +28,7 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 import {TextInput} from 'react-native-gesture-handler';
 import AccountDropDown_home from './AccountDropDown_home';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import Error from 'src/assets/icons/Error.svg';
 
 export default function RefundModal() {
   //-------------------------------------------------------------------------
@@ -120,6 +122,27 @@ export default function RefundModal() {
               </AnimatedButton>
             </Tooltip>
           </View>
+
+          {/* none으로 수정 요함 */}
+          {state.event_image != 'none' ? (
+            <View
+              style={{
+                marginLeft: 5,
+                marginBottom: 10,
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+              }}>
+              <View style={{justifyContent: 'center'}}>
+                <Error width={15} height={15} />
+              </View>
+              <View style={{justifyContent: 'center'}}>
+                <B15 customStyle={{color: COLOR_ERROR}}>
+                  {' 이벤트 티클은 환급되지 않아요!'}
+                </B15>
+              </View>
+            </View>
+          ) : null}
 
           <View
             style={{
