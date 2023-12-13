@@ -143,9 +143,9 @@ export default function HomeScreen({route}) {
   }, []);
 
   useEffect(() => {
-    if (topState.openApp == true) {
+    if (topState.openDeepLink == false && topState.openApp == true) {
       topActions.setOpenApp(false);
-      actions.open_event_modal();
+      actions.open_event_modal(actions.setEventModalVisible);
     }
   }, []);
 
@@ -299,7 +299,10 @@ export default function HomeScreen({route}) {
         setShowModal={actions.setShowWhoParticipatedModal}
       />
 
-      <EventModal />
+      <EventModal
+        visible={state.eventModalVisible}
+        setVisible={actions.setEventModalVisible}
+      />
 
       <PostCodeModal
         setShowPostCodeModal={actions.setShowPostCodeModal}

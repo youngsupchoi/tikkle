@@ -92,6 +92,9 @@ export const MainViewStateProvider = ({children}) => {
   const [event_image, setEvent_image] = useState(null);
   const [event_name, setEvent_name] = useState(null);
 
+  const [eventModalVisible_detail, setEventModalVisible_detail] =
+    useState(false);
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -156,6 +159,7 @@ export const MainViewStateProvider = ({children}) => {
     notShowEvent,
     event_image,
     event_name,
+    eventModalVisible_detail,
   };
 
   const actions = {
@@ -214,6 +218,7 @@ export const MainViewStateProvider = ({children}) => {
     setNotShowEvent,
     setEvent_image,
     setEvent_name,
+    setEventModalVisible_detail,
   };
 
   return (

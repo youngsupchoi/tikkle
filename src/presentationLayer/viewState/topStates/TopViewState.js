@@ -29,6 +29,7 @@ export const TopViewProvider = ({children}) => {
   const [test, setTest] = useState('');
 
   const [openApp, setOpenApp] = useState(false);
+  const [openDeepLink, setOpenDeepLink] = useState(false);
   // ... 다른 상태들 (필요하면 추가하세요)
 
   const topState = {
@@ -42,6 +43,7 @@ export const TopViewProvider = ({children}) => {
     test,
     from,
     openApp,
+    openDeepLink,
     // ... 다른 상태들
   };
 
@@ -56,6 +58,7 @@ export const TopViewProvider = ({children}) => {
     setTest,
     setFrom,
     setOpenApp,
+    setOpenDeepLink,
     // ... 다른 상태 설정 함수들
   };
 

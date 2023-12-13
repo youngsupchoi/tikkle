@@ -237,8 +237,13 @@ const linking = {
   ],
 
   async getInitialURL() {
+    const {topState, topActions} = useTopViewModel();
     const url = await Linking.getInitialURL();
     if (url != null) {
+      console.log('##############\n################');
+
+      topActions.setOpenDeepLink(true);
+
       if (url.startsWith('https://tikkle.lifoli.co.kr')) {
         const originalLink = await resolveDynamicLink(url);
         return originalLink;
