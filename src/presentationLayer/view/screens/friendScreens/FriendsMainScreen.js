@@ -138,6 +138,7 @@ export default function FriendsManagementScreen() {
         <View style={styles.searchBar}>
           <TextInput
             onSubmitEditing={() => {
+              actions.setSearched_phone(state.text_search);
               actions.get_friend_search();
             }}
             keyboardType="numeric"
