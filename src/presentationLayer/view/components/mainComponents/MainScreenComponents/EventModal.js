@@ -78,7 +78,7 @@ const EventModal = () => {
         <AnimatedButton
           onPress={() => {
             Linking.openURL(
-              'https://eumseungju.notion.site/event-baaa8492c4c84a84b8ada86b15773399?pvs=4',
+              'https://scratch-vise-a04.notion.site/1-1-1ec9d72b2d5c4c61b758e97476dc6fc4',
             );
           }}>
           <AutoHeightImage
