@@ -72,6 +72,8 @@ import {GetTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/Get
 import {GetRecentTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetRecentTikklingDeliveryInfoData';
 import moment from 'moment';
 
+import {LoginKakaoData} from 'src/dataLayer/DataSource/Auth/LoginKakaoData';
+
 export default function TestScreen() {
   const [ret, setRet] = useState('test');
 
@@ -79,7 +81,15 @@ export default function TestScreen() {
   const handleButtonPress = async () => {
     const list = ['01034567890', '1234567890', '0109999999', '01046328480'];
 
-    const axiosResponse = await GetRecentTikklingDeliveryInfoData();
+    const axiosResponse = await LoginKakaoData(
+      '12eff',
+      '2007-08-22',
+      '01012121212',
+      'male',
+      '34',
+      'Ddddd@dddd',
+      'https://asdasdasdasd',
+    );
     const str = JSON.stringify(axiosResponse);
     console.log(str);
     setRet(str);

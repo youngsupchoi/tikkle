@@ -25,6 +25,7 @@ import {
   unlink,
   getProfile,
 } from '@react-native-seoul/kakao-login';
+import {LoginKakaoData} from 'src/dataLayer/DataSource/Auth/LoginKakaoData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
@@ -100,26 +101,41 @@ export const useStartViewModel = () => {
     return parts[0];
   }
 
-  const onKakaoButtonPress = () => {
-    signIn().then(res => {
-      // console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber));
-      // console.log('name: ', res.nickname);
-      // console.log('gender: ', res.gender);
-      // console.log('birthYear: ', res.birthyear);
-      // console.log('birthday: ', res.birthday);
-      // console.log('userNick: ', extractUsername(res.email));
-      // console.log('email: ', res.email);
-      // console.log('profileImageUrl: ', res.profileImageUrl);
-      // console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
+  const onKakaoButtonPress = async () => {
+    await signIn()
+      .then(async res => {
+        // console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber));//
+        // console.log('name: ', res.nickname);
+        // console.log('gender: ', res.gender);
+        // console.log('birthYear: ', res.birthyear);
+        // console.log('birthday: ', res.birthday);
+        // console.log('userNick: ', extractUsername(res.email));
+        // console.log('email: ', res.email);
+        // console.log('profileImageUrl: ', res.profileImageUrl);
+        // console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
 
-      actions.setPhoneNumber(formatKakaoPhoneNumber(res.phoneNumber));
-      actions.setName(res.nickname);
-      actions.setFormattedGender(res.gender);
-      actions.setYear(res.birthyear);
-      actions.setBirthday(res.birthday);
-      actions.setUserNick(extractUsername(res.email));
-      actions.setKakaoEmail(res.email);
-      actions.setProfileImageUrl(res.profileImageUrl);
+        const source_tikkling_id = await checkDynamicLink();
+        return await LoginKakaoData(
+          res.nickname,
+          res.birthday,
+          formatKakaoPhoneNumber(res.phoneNumber),
+          res.gender,
+          source_tikkling_id,
+          res.email,
+          res.profileImageUrl,
+        );
+      })
+      .then(res => {
+        return topActions.setStateAndError(res);
+      });
+
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'onboarding',
+        },
+      ],
     });
     // .then(res => getKakaoFriends());
   };
