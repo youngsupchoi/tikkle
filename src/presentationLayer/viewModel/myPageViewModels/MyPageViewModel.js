@@ -11,7 +11,7 @@ import {getMyPageScreenData} from 'src/dataLayer/DataSource/User/GetMyPageScreen
 import {useNavigation, useRoute} from '@react-navigation/native'; // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {getProfileUpdataUrlData} from 'src/dataLayer/DataSource/User/GetProfileUpdataUrlData';
-import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
+// import {updateMyNickData} from 'src/dataLayer/DataSource/User/UpdateMyNickData';
 import {updateMyAccountData} from 'src/dataLayer/DataSource/User/UpdateMyAccountData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import {deleteUserData} from 'src/dataLayer/DataSource/User/DeleteUserData';
@@ -197,42 +197,42 @@ export const useMyPageViewModel = () => {
     actions.setShowDetailModal(false);
   };
 
-  async function changeNick() {
-    try {
-      if (state.newNick.length < 5) {
-        topActions.showSnackbar('id는 5자 이상이어야 해요', 0);
-        return;
-      }
-      await actions.setLoading_profileEdit(true);
+  // async function changeNick() {
+  //   try {
+  //     if (state.newNick.length < 5) {
+  //       topActions.showSnackbar('id는 5자 이상이어야 해요', 0);
+  //       return;
+  //     }
+  //     await actions.setLoading_profileEdit(true);
 
-      await updateMyNickData(state.newNick)
-        .then(async res => {
-          return topActions.setStateAndError(
-            res,
-            '[MyPageViewModel.js] changeNick - updateMyNickData',
-          );
-        })
-        .then(async res => {
-          await MyPageData();
-          await actions.setLoading_profileEdit(false);
-          if (res.DSdata.success === true) {
-            topActions.showSnackbar(res.DSmessage, 1);
-          } else {
-            topActions.showSnackbar('id 업데이트에 실패했어요', 0);
-          }
-        });
-      actions.setNewNick('');
-    } catch (err) {
-      await actions.setLoading_profileEdit(false);
-      const error = JSON.parse(err.message);
-      if (error.DScode) {
-        return;
-      } else {
-        await topActions.showSnackbar('서버오류로 id 업데이트에 실패했어요', 0);
-        return;
-      }
-    }
-  }
+  //     await updateMyNickData(state.newNick)
+  //       .then(async res => {
+  //         return topActions.setStateAndError(
+  //           res,
+  //           '[MyPageViewModel.js] changeNick - updateMyNickData',
+  //         );
+  //       })
+  //       .then(async res => {
+  //         await MyPageData();
+  //         await actions.setLoading_profileEdit(false);
+  //         if (res.DSdata.success === true) {
+  //           topActions.showSnackbar(res.DSmessage, 1);
+  //         } else {
+  //           topActions.showSnackbar('id 업데이트에 실패했어요', 0);
+  //         }
+  //       });
+  //     actions.setNewNick('');
+  //   } catch (err) {
+  //     await actions.setLoading_profileEdit(false);
+  //     const error = JSON.parse(err.message);
+  //     if (error.DScode) {
+  //       return;
+  //     } else {
+  //       await topActions.showSnackbar('서버오류로 id 업데이트에 실패했어요', 0);
+  //       return;
+  //     }
+  //   }
+  // }
 
   /**
    *  프로필 사진 갤러리에서 가져와 크롭 하는 함수
@@ -460,7 +460,7 @@ export const useMyPageViewModel = () => {
     await actions.setAddress('');
     await actions.setZonecode('');
     await actions.setDetailAddress('');
-    await actions.setNewNick('');
+    // await actions.setNewNick('');
     await actions.setNewBankName(null);
     await actions.setNewAccount(null);
     await actions.setSelectedBankCode(null);
@@ -592,7 +592,7 @@ export const useMyPageViewModel = () => {
       loadData,
       onCloseDetailModal,
       getProfileUrl,
-      changeNick,
+      // changeNick,
       selectAndCropImage,
       NewImage,
       changeBankDropDownVisible,

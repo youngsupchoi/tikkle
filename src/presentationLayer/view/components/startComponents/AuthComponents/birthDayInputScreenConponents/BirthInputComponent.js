@@ -72,7 +72,7 @@ export default function BirthInput() {
               return;
             }
 
-            actions.buttonPress();
+            actions.completeSignUp();
           }}
           value={state.day}
           onChangeText={actions.setDay}

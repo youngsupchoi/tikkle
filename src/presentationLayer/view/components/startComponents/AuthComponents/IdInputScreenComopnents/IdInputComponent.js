@@ -35,7 +35,7 @@ export default function IdInput() {
             placeholder="아이디를 입력해주세요."
             placeholderTextColor={COLOR_GRAY}
             style={styles.nativeInput}
-            value={state.userNick}
+            // value={state.userNick}
             onChangeText={handleUserIdChange} // Use the new handler here
             onSubmitEditing={() => {
               if (

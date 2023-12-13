@@ -9,13 +9,12 @@ import moment from 'moment';
 import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumberData';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
-import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
+// import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
+// import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 import {Platform} from 'react-native';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
@@ -47,7 +46,6 @@ export const useStartViewModel = () => {
       },
     );
 
-
     if (res.DSdata.userId === undefined) {
       await actions.setUserId(0);
     } else {
@@ -63,7 +61,6 @@ export const useStartViewModel = () => {
   };
 
   async function checkDynamicLink() {
-      
     const dynamic_link = await AsyncStorage.getItem('dynamic_link');
     if (dynamic_link == 'true') {
       const tikkling_id = await AsyncStorage.getItem('tikkling_detail');
@@ -173,31 +170,18 @@ export const useStartViewModel = () => {
    */
   const completeSignUp = async () => {
     try {
-      console.log(state.userNick);
-      await checkNickDuplicationData(state.userNick).then(res => {
-        actions.setIdInputButtonPressed(true);
-        topActions.setStateAndError(
-          res,
-          '[AuthViewModel.js] completeSignUp - checkNickDuplicationData',
-        );
-        if (res.DScode !== 0) {
-          throw new Error(JSON.stringify(res));
-        }
-      });
-      console.log("hihi")
       const source_tikkling_id = await checkDynamicLink();
-      
-        
+
       await loginRegisterData(
         state.firstName + state.lastName,
         `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
           2,
           '0',
         )}`,
-        state.userNick,
+        ' ',
         state.phoneNumber,
         state.formattedGender,
-        source_tikkling_id
+        source_tikkling_id,
       ).then(res => {
         // topActions.setStateAndError(res, actions.setFriendTikklingData);
         topActions.setStateAndError(

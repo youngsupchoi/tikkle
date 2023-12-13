@@ -363,9 +363,9 @@ export default function TikklingDetailScreen() {
                       {state.route_data.user_name}
                       {'  '}
                     </B15>
-                    <M15 customStyle={{color: COLOR_GRAY, fontSize: 15}}>
+                    {/* <M15 customStyle={{color: COLOR_GRAY, fontSize: 15}}>
                       {state.route_data.user_nick}
-                    </M15>
+                    </M15> */}
                   </View>
                 </View>
 
