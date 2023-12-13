@@ -105,6 +105,42 @@ const NotificationSetting = () => (
   </Safe>
 );
 
+const SignUp0 = () => (
+  <Safe color={COLOR_WHITE}>
+    <SignUpScreen0 />
+  </Safe>
+);
+
+const SignUp1 = () => (
+  <Safe>
+    <SignUpScreen1 />
+  </Safe>
+);
+
+const SignUp2 = () => (
+  <Safe>
+    <SignUpScreen2 />
+  </Safe>
+);
+
+const SignUp3 = () => (
+  <Safe>
+    <SignUpScreen3 />
+  </Safe>
+);
+
+const SignUp4 = () => (
+  <Safe>
+    <SignUpScreen4 />
+  </Safe>
+);
+
+const SignUp5 = () => (
+  <Safe>
+    <SignUpScreen5 />
+  </Safe>
+);
+
 const MainStack = createStackNavigator();
 const SignUpStack = createStackNavigator();
 const MyTheme = {
@@ -173,27 +209,25 @@ export function reset(routes) {
 
 function SignUpNavigator() {
   return (
-    <Safe>
-      <StartViewStateProvider>
-        <SignUpStack.Navigator
-          initialRouteName="onboarding"
-          screenOptions={{
-            headerShown: false,
-            // gestureEnabled: true,
-            // cardOverlayEnabled: true,
-            cardStyleInterpolator: customCardStyleInterpolator,
-            // transitionSpec: customTransitionSpec,
-          }}>
-          <SignUpStack.Screen name="signup0" component={SignUpScreen0} />
-          <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
-          <SignUpStack.Screen name="signup2" component={SignUpScreen2} />
-          <SignUpStack.Screen name="signup3" component={SignUpScreen3} />
-          <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
-          <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
-          <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
-        </SignUpStack.Navigator>
-      </StartViewStateProvider>
-    </Safe>
+    <StartViewStateProvider>
+      <SignUpStack.Navigator
+        initialRouteName="onboarding"
+        screenOptions={{
+          headerShown: false,
+          // gestureEnabled: true,
+          // cardOverlayEnabled: true,
+          cardStyleInterpolator: customCardStyleInterpolator,
+          // transitionSpec: customTransitionSpec,
+        }}>
+        <SignUpStack.Screen name="signup0" component={SignUp0} />
+        <SignUpStack.Screen name="signup1" component={SignUp1} />
+        <SignUpStack.Screen name="signup2" component={SignUp2} />
+        <SignUpStack.Screen name="signup3" component={SignUp3} />
+        <SignUpStack.Screen name="signup4" component={SignUp4} />
+        <SignUpStack.Screen name="signup5" component={SignUp5} />
+        {/* <SignUpStack.Screen name="signup6" component={SignUpScreen6} /> */}
+      </SignUpStack.Navigator>
+    </StartViewStateProvider>
   );
 }
 
@@ -242,7 +276,7 @@ const linking = {
     const {topState, topActions} = useTopViewModel();
     const url = await Linking.getInitialURL();
     if (url != null) {
-      console.log('##############\n################');
+      // console.log('##############\n################');
 
       topActions.setOpenDeepLink(true);
 

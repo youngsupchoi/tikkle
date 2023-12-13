@@ -88,7 +88,7 @@ export default function SignUpScreen0() {
     state.profileImageUrl,
   ]);
   return (
-    <SafeAreaView
+    <View
       style={{
         width: '100%',
         height: '100%',
@@ -175,7 +175,7 @@ export default function SignUpScreen0() {
           onPress={() => onAppleButtonPress()}
         /> */}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
