@@ -48,6 +48,7 @@ export const useStartViewModel = () => {
     );
     if (credentialState === appleAuth.State.AUTHORIZED) {
       actions.setAppleEmail(appleAuthRequestResponse);
+      actions.setAppleId(appleAuthRequestResponse.user);
       navigation.navigate('signup1');
     }
   };

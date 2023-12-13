@@ -29,6 +29,7 @@ export const StartViewStateProvider = ({children}) => {
   const [name, setName] = useState('');
 
   const [kakaoId, setKakaoId] = useState('');
+  const [appleId, setAppleId] = useState('');
   const [kakaoAccessToken, setKakaoAccessToken] = useState('');
 
   const inputRefs = useRef([]);
@@ -96,6 +97,7 @@ export const StartViewStateProvider = ({children}) => {
     idInputButtonPressed,
     phoneLoading,
     kakaoId,
+    appleId,
     kakaoAccessToken,
   };
 
@@ -127,6 +129,7 @@ export const StartViewStateProvider = ({children}) => {
     setIdInputButtonPressed,
     setPhoneLoading,
     setKakaoId,
+    setAppleId,
     setKakaoAccessToken,
   };
 
