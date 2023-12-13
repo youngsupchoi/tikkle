@@ -123,27 +123,6 @@ export default function RefundModal() {
             </Tooltip>
           </View>
 
-          {/* none으로 수정 요함 */}
-          {state.event_image != 'none' ? (
-            <View
-              style={{
-                marginLeft: 5,
-                marginBottom: 10,
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-              }}>
-              <View style={{justifyContent: 'center'}}>
-                <Error width={15} height={15} />
-              </View>
-              <View style={{justifyContent: 'center'}}>
-                <B15 customStyle={{color: COLOR_ERROR}}>
-                  {' 이벤트 티클은 환급되지 않아요!'}
-                </B15>
-              </View>
-            </View>
-          ) : null}
-
           <View
             style={{
               borderRadius: 4,
@@ -216,6 +195,12 @@ export default function RefundModal() {
               style={modalStyles.laterButton}>
               <B15 customStyle={modalStyles.primaryText}>나중에 환급 요청</B15>
             </AnimatedButton>
+
+            {state.event_image == 'none' ? (
+              <M11 customStyle={{color: COLOR_ERROR}}>
+                {'이벤트 티클은 환급되지 않아요!'}
+              </M11>
+            ) : null}
             <M11 customStyle={{color: COLOR_GRAY}}>
               티클링 종료일 기준 7일 이후부터 환급받을 수 있어요.
             </M11>
@@ -248,15 +233,18 @@ const modalStyles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: COLOR_PRIMARY,
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 8,
     borderColor: COLOR_PRIMARY_OUTLINE,
     borderWidth: 2,
   },
   laterButton: {
+    // backgroundColor: 'red',
     padding: 12,
     borderRadius: 12,
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: COLOR_SEPARATOR,
   },
   primaryText: {
     color: COLOR_PRIMARY,
