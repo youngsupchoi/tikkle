@@ -24,7 +24,6 @@ import {
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import {INQ_URL} from '@env';
 
-
 export default function SignUpScreen1() {
   const {state, actions} = useStartViewModel();
 
@@ -33,7 +32,6 @@ export default function SignUpScreen1() {
     actions.setPhoneInputButtonPressed(false);
   }, []);
 
-
   return (
     <View>
       {state.phoneLoading ? (
@@ -41,6 +39,18 @@ export default function SignUpScreen1() {
       ) : (
         <View style={styles.signupContainer}>
           <View style={styles.signUpHeader}></View>
+          <View style={{backgroundColor: 'red'}}>
+            <B12>user: {state.appleEmail.user}</B12>
+            <B12>email: {state.appleEmail.email}</B12>
+            <B12>authorizationScope: {state.appleEmail.authorizedScopes}</B12>
+            <B12>familyName: {state.appleEmail.fullName.familyName}</B12>
+            <B12>givenName: {state.appleEmail.fullName.givenName}</B12>
+            <B12>identityToken: {state.appleEmail.identityToken}</B12>
+            <B12>authorizationCode: {state.appleEmail.authorizationCode}</B12>
+            <B12>realUserStatus: {state.appleEmail.realUserStatus}</B12>
+            <B12>state: {state.appleEmail.state}</B12>
+            <B12>nonce: {state.appleEmail.nonce}</B12>
+          </View>
           <InstructionText />
           <PhoneNumberInput />
           <SubmitButton />

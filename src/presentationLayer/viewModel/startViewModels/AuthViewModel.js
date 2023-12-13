@@ -15,6 +15,16 @@ import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 import {Platform} from 'react-native';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
+import {
+  KakaoAccessTokenInfo,
+  KakaoProfile,
+  getProfile as getKakaoProfile,
+  login,
+  logout,
+  unlink,
+  getProfile,
+} from '@react-native-seoul/kakao-login';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
@@ -25,6 +35,98 @@ export const useStartViewModel = () => {
   // 4. 뷰 모델에서만 사용되는 상태 선언하기 (예: products)
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
+
+  const onAppleButtonPress = async () => {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      // performs login request
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
+    //get user auth
+    const credentialState = await appleAuth.getCredentialStateForUser(
+      appleAuthRequestResponse.user,
+    );
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      actions.setAppleEmail(appleAuthRequestResponse);
+      navigation.navigate('signup1');
+    }
+  };
+
+  const signIn = async () => {
+    const KakaoOAuthToken = await login();
+    actions.setKakaoAccessToken(KakaoOAuthToken.accessToken);
+    const profile = await getProfile(KakaoOAuthToken);
+    return profile;
+  };
+
+  const getKakaoFriends = async accessToken => {
+    try {
+      const response = await fetch(
+        'https://kapi.kakao.com/v1/api/talk/friends',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      const jsonResponse = await response.json();
+      console.warn(jsonResponse);
+      // return jsonResponse;
+    } catch (err) {
+      console.warn(err);
+      return null;
+    }
+  };
+
+  function formatKakaoPhoneNumber(phoneNumber) {
+    // 하이픈 제거
+    let cleaned = phoneNumber.replace(/-/g, '');
+
+    // 국가 코드가 '+82'로 시작하는 경우, '010'으로 대체
+    if (cleaned.startsWith('+82')) {
+      cleaned = '010' + cleaned.substring(6);
+    }
+
+    return cleaned;
+  }
+  function extractUsername(email) {
+    // '@' 기호를 기준으로 이메일 주소 분할
+    const parts = email.split('@');
+
+    // 첫 번째 부분 (사용자 이름) 반환
+    return parts[0];
+  }
+
+  const onKakaoButtonPress = () => {
+    signIn().then(res => {
+      // console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber));
+      // console.log('name: ', res.nickname);
+      // console.log('gender: ', res.gender);
+      // console.log('birthYear: ', res.birthyear);
+      // console.log('birthday: ', res.birthday);
+      // console.log('userNick: ', extractUsername(res.email));
+      // console.log('email: ', res.email);
+      // console.log('profileImageUrl: ', res.profileImageUrl);
+      // console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
+
+      actions.setPhoneNumber(formatKakaoPhoneNumber(res.phoneNumber));
+      actions.setName(res.nickname);
+      actions.setFormattedGender(res.gender);
+      actions.setYear(res.birthyear);
+      actions.setBirthday(res.birthday);
+      actions.setUserNick(extractUsername(res.email));
+      actions.setKakaoEmail(res.email);
+      actions.setProfileImageUrl(res.profileImageUrl);
+    });
+    // .then(res => getKakaoFriends());
+  };
+
+  const onPhoneButtonPress = () => {
+    navigation.navigate('signup1');
+  };
+
   const onPhoneNumberChange = (number, isValid) => {
     actions.setPhoneNumber(number);
     actions.setIsValidPhoneNumber(isValid);
@@ -39,10 +141,7 @@ export const useStartViewModel = () => {
     const hash = Platform.OS === 'android' ? await getHash() : '000000';
     const res = await checkPhoneNumberData(state.phoneNumber, hash).then(
       res => {
-        return topActions.setStateAndError(
-          res,
-          '[AuthViewModel.js] phoneInputbuttonPress - checkPhoneNumberData',
-        );
+        return topActions.setStateAndError(res);
       },
     );
 
@@ -124,13 +223,9 @@ export const useStartViewModel = () => {
         if (isOTPValid === true || fullCode === '135600') {
           console.log('OTP is valid.');
           if (message === 'login') {
-            topActions.setFrom('login');
             loginPhoneData(state.userId)
               .then(() => {
-                topActions.setStateAndError(
-                  res,
-                  '[AuthViewModel.js] handleTextChange - loginPhoneData',
-                );
+                topActions.setStateAndError(res);
               })
               .then(() => {
                 navigation.reset({
@@ -170,36 +265,52 @@ export const useStartViewModel = () => {
    */
   const completeSignUp = async () => {
     try {
+      // console.log('유저닉', state.userNick, state.birthday, state.name);
+      await checkNickDuplicationData(state.userNick).then(res => {
+        actions.setIdInputButtonPressed(true);
+        topActions.setStateAndError(
+          res,
+          '[AuthViewModel.js] completeSignUp - checkNickDuplicationData',
+        );
+        if (res.DScode !== 0) {
+          throw new Error(JSON.stringify(res));
+        }
+      });
+      console.log('hihi');
       const source_tikkling_id = await checkDynamicLink();
 
-      await loginRegisterData(
-        state.firstName + state.lastName,
-        `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
+      // 이름과 생일 데이터 처리
+      const fullName =
+        state.firstName && state.lastName
+          ? state.firstName + state.lastName
+          : state.name;
+      console.log(
+        `${state.year}-${state.birthday.substring(
+          0,
           2,
-          '0',
-        )}`,
-        ' ',
+        )}-${state.birthday.substring(2, 4)}`,
+      );
+      const birthDate =
+        state.month && state.day
+          ? `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
+              2,
+              '0',
+            )}`
+          : `${state.year}-${state.birthday.substring(
+              0,
+              2,
+            )}-${state.birthday.substring(2, 4)}`;
+
+      await loginRegisterData(
+        fullName,
+        birthDate,
+        state.userNick,
         state.phoneNumber,
         state.formattedGender,
         source_tikkling_id,
       ).then(res => {
-        // topActions.setStateAndError(res, actions.setFriendTikklingData);
-        topActions.setStateAndError(
-          res,
-          '[AuthViewModel.js] completeSignUp - loginRegisterData',
-        );
-        topActions.setFrom('login');
+        topActions.setStateAndError(res, actions.setFriendTikklingData);
       });
-
-      const log_params = {
-        fb_registration_method: 'sign_up',
-      };
-      AppEventsLogger.logEvent(
-        'fb_mobile_complete_registration',
-        1,
-        log_params,
-      );
-
       navigation.reset({
         index: 0,
         routes: [
@@ -300,6 +411,9 @@ export const useStartViewModel = () => {
     },
     actions: {
       ...actions,
+      onAppleButtonPress,
+      onKakaoButtonPress,
+      onPhoneButtonPress,
       phoneInputbuttonPress,
       onPhoneNumberChange,
       handleTextChange,

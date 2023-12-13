@@ -26,6 +26,10 @@ export const StartViewStateProvider = ({children}) => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [name, setName] = useState('');
+
+  const [kakaoId, setKakaoId] = useState('');
+  const [kakaoAccessToken, setKakaoAccessToken] = useState('');
 
   const inputRefs = useRef([]);
   const [timeLeft, setTimeLeft] = useState(180);
@@ -34,7 +38,13 @@ export const StartViewStateProvider = ({children}) => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
-  // const [userNick, setUserNick] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [userNick, setUserNick] = useState('');
+
+  const [kakaoEmail, setKakaoEmail] = useState('');
+  const [appleEmail, setAppleEmail] = useState('');
+
+  const [profileImageUrl, setProfileImageUrl] = useState('');
   const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
   const [duplicationMessage, setDuplicationMessage] = useState(''); // State to hold the validation message
   const [phoneInputButtonPressed, setPhoneInputButtonPressed] = useState(false);
@@ -68,18 +78,25 @@ export const StartViewStateProvider = ({children}) => {
     done1,
     firstName,
     lastName,
+    name,
     timeLeft,
     gender,
     formattedGender,
     year,
     month,
     day,
-    // userNick,
+    birthday,
+    userNick,
+    kakaoEmail,
+    appleEmail,
+    profileImageUrl,
     validationMessage,
     duplicationMessage,
     phoneInputButtonPressed,
     idInputButtonPressed,
     phoneLoading,
+    kakaoId,
+    kakaoAccessToken,
   };
 
   const actions = {
@@ -92,18 +109,25 @@ export const StartViewStateProvider = ({children}) => {
     setDone1,
     setFirstName,
     setLastName,
+    setName,
     setTimeLeft,
     setGender,
     setFormattedGender,
     setYear,
     setMonth,
     setDay,
-    // setUserNick,
+    setBirthday,
+    setUserNick,
+    setKakaoEmail,
+    setAppleEmail,
+    setProfileImageUrl,
     setValidationMessage,
     setDuplicationMessage,
     setPhoneInputButtonPressed,
     setIdInputButtonPressed,
     setPhoneLoading,
+    setKakaoId,
+    setKakaoAccessToken,
   };
 
   return (
