@@ -47,6 +47,7 @@ import {useEffect, useState} from 'react';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import PushNotification from 'react-native-push-notification';
 import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import SignUpScreen0 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/SignUpScreen0';
 
 const ProductDetail = () => (
   <Safe color={COLOR_WHITE}>
@@ -183,6 +184,7 @@ function SignUpNavigator() {
             cardStyleInterpolator: customCardStyleInterpolator,
             // transitionSpec: customTransitionSpec,
           }}>
+          <SignUpStack.Screen name="signup0" component={SignUpScreen0} />
           <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
           <SignUpStack.Screen name="signup2" component={SignUpScreen2} />
           <SignUpStack.Screen name="signup3" component={SignUpScreen3} />

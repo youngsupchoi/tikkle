@@ -13,7 +13,7 @@ export const MainContainer = ({children}) => {
         height: windowHeight,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: COLOR_PRIMARY,
+        backgroundColor: backgroundColor,
       }}>
       {children}
     </View>

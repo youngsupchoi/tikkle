@@ -8,6 +8,7 @@ import {
   StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {
+  COLOR_BLACK,
   COLOR_GRAY,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
@@ -23,9 +24,12 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import {INQ_URL} from '@env';
+import {useNavigation} from '@react-navigation/native';
+import ArrowLeft2 from 'src/assets/icons/ArrowLeft2';
 
 export default function SignUpScreen1() {
   const {state, actions} = useStartViewModel();
+  const navigation = useNavigation();
 
   useEffect(() => {
     actions.setPhoneInputButtonPressed(false);
@@ -38,7 +42,23 @@ export default function SignUpScreen1() {
         <GlobalLoader />
       ) : (
         <View style={styles.signupContainer}>
-          <View style={styles.signUpHeader}></View>
+          <View style={styles.signUpHeader}>
+            <AnimatedButton
+              onPress={() => navigation.goBack()}
+              style={{
+                width: 40,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <ArrowLeft2
+                width={24}
+                height={24}
+                stroke={COLOR_BLACK}
+                strokeWidth={1.5}
+              />
+            </AnimatedButton>
+          </View>
           <InstructionText />
           <PhoneNumberInput />
           <SubmitButton />

@@ -26,6 +26,7 @@ export const StartViewStateProvider = ({children}) => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [name, setName] = useState('');
 
   const inputRefs = useRef([]);
   const [timeLeft, setTimeLeft] = useState(180);
@@ -34,7 +35,10 @@ export const StartViewStateProvider = ({children}) => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
+  const [birthday, setBirthday] = useState('');
   const [userNick, setUserNick] = useState('');
+  const [email, setEmail] = useState('');
+  const [profileImageUrl, setProfileImageUrl] = useState('');
   const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
   const [duplicationMessage, setDuplicationMessage] = useState(''); // State to hold the validation message
   const [phoneInputButtonPressed, setPhoneInputButtonPressed] = useState(false);
@@ -68,13 +72,17 @@ export const StartViewStateProvider = ({children}) => {
     done1,
     firstName,
     lastName,
+    name,
     timeLeft,
     gender,
     formattedGender,
     year,
     month,
     day,
+    birthday,
     userNick,
+    email,
+    profileImageUrl,
     validationMessage,
     duplicationMessage,
     phoneInputButtonPressed,
@@ -92,13 +100,17 @@ export const StartViewStateProvider = ({children}) => {
     setDone1,
     setFirstName,
     setLastName,
+    setName,
     setTimeLeft,
     setGender,
     setFormattedGender,
     setYear,
     setMonth,
     setDay,
+    setBirthday,
     setUserNick,
+    setEmail,
+    setProfileImageUrl,
     setValidationMessage,
     setDuplicationMessage,
     setPhoneInputButtonPressed,
