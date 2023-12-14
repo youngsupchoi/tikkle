@@ -151,8 +151,8 @@ export default function RefundModal() {
               </B15>
             </AnimatedButton>
             <TextInput
-            maxLength={20}
-            inputMode='numeric'
+              maxLength={20}
+              inputMode="numeric"
               placeholder={
                 state.userData.account !== null &&
                 state.userData.account !== null &&
@@ -185,7 +185,11 @@ export default function RefundModal() {
               marginTop: 12,
             }}>
             <AnimatedButton
-            disabled={state.refundButtonPressed||state.bankName==''||state.account.length==''}
+              disabled={
+                state.refundButtonPressed ||
+                state.bankName == '' ||
+                state.account == ''
+              }
               onPress={async () => {
                 // console.log(state.myTikklingData.tikkling_id);
                 actions.setRefundButtonPressed(true);
@@ -193,8 +197,8 @@ export default function RefundModal() {
                   actions.refundTikkling(),
                   actions.changeBank(),
                   actions.setShowEndModal(false),
-                ])
-                actions.setRefundButtonPressed(false)
+                ]);
+                actions.setRefundButtonPressed(false);
               }}
               style={modalStyles.confirmButton}>
               <B15 customStyle={modalStyles.whiteText}>이 계좌로 환급 요청</B15>
