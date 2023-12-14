@@ -17,6 +17,10 @@
 #import <SafariServices/SafariServices.h>
 #import <FBSDKCoreKit/FBSDKCoreKit-Swift.h>
 
+//kakao sdk
+#import <RNKakaoLogins.h>
+
+
 @implementation AppDelegate
 
 // Required for the register event.
@@ -99,16 +103,25 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-  if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
-    return YES;
-  }
+  // 카카오 로그인 URL 처리
+    if ([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
+      return [RNKakaoLogins handleOpenUrl:url];
+    }
 
-  if ([RCTLinkingManager application:app openURL:url options:options]) {
-    return YES;
-  }
+    // Facebook SDK 처리
+    if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
+      return YES;
+    }
 
-  return NO;
+    // Deep Link 처리
+    if ([RCTLinkingManager application:app openURL:url options:options]) {
+      return YES;
+    }
+
+    return NO;
 }
+
+
 
 // // deeplink 관련 설정 23.10.16
 // - (BOOL)application:(UIApplication *)application
