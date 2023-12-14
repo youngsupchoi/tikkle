@@ -66,12 +66,13 @@
 		<!-- <string>{카카오 앱 스킴을 적어주세요}</string> // 선택 사항  -->
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
+			<string>fbapi</string>
+			<string>fb-messenger-api</string>
+			<string>fbauth2</string>
+			<string>fbshareextension</string>
 			<string>kakaokompassauth</string>
 			<string>storykompassauth</string>
 			<string>kakaolink</string>
-		</array>
-		<key>LSApplicationQueriesSchemes</key>
-		<array>
 			<string>instagram</string>
 			<string>instagram-stories</string>
 			<string>kftc-bankpay</string>
@@ -190,12 +191,5 @@
 		<string>25c815ce2800e99dd7dbb228d49e9a59</string>
 		<key>FacebookDisplayName</key>
 		<string>TIKKLE</string>
-		<key>LSApplicationQueriesSchemes</key>
-		<array>
-			<string>fbapi</string>
-			<string>fb-messenger-api</string>
-			<string>fbauth2</string>
-			<string>fbshareextension</string>
-		</array>
 	</dict>
 </plist>
