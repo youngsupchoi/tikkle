@@ -94,9 +94,15 @@ export async function LoginKakaoData(
 
   //------ return response ------------------------------------------------//
 
+  let goOnboarding = false;
+
+  if (response.data.detail_code === '01') {
+    goOnboarding = true;
+  }
+
   return {
     DScode: 0,
-    DSdata: {success: true},
+    DSdata: {success: true, goOnboarding: goOnboarding},
     DSmessage: '로그인에 성공했어요.',
   };
 }

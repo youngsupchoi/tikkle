@@ -38,6 +38,7 @@ export const useStartViewModel = () => {
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
   const onAppleButtonPress = async () => {
+    //애플에서 로그인 넘겨 받기
     const appleAuthRequestResponse = await appleAuth.performRequest({
       // performs login request
       requestedOperation: appleAuth.Operation.LOGIN,
@@ -47,11 +48,14 @@ export const useStartViewModel = () => {
     const credentialState = await appleAuth.getCredentialStateForUser(
       appleAuthRequestResponse.user,
     );
-    if (credentialState === appleAuth.State.AUTHORIZED) {
-      actions.setAppleEmail(appleAuthRequestResponse);
-      actions.setAppleId(appleAuthRequestResponse.user);
-      navigation.navigate('signup1');
+
+    //안 왔을시
+    if (credentialState !== appleAuth.State.AUTHORIZED) {
+      topActions.showSnackbar('apple id를 가져오는데 실패 했어요.', 1);
+      return;
     }
+    // console.log(appleAuthRequestResponse.user);
+    actions.setAppleId(appleAuthRequestResponse.user);
   };
 
   const signIn = async () => {
@@ -102,7 +106,7 @@ export const useStartViewModel = () => {
   }
 
   const onKakaoButtonPress = async () => {
-    await signIn()
+    const ret = await signIn()
       .then(async res => {
         // console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber));//
         // console.log('name: ', res.nickname);
@@ -129,14 +133,26 @@ export const useStartViewModel = () => {
         return topActions.setStateAndError(res);
       });
 
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'onboarding',
-        },
-      ],
-    });
+    if (ret.DSdata.goOnboarding) {
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'onboarding',
+          },
+        ],
+      });
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'main',
+          },
+        ],
+      });
+    }
+
     // .then(res => getKakaoFriends());
   };
 
