@@ -26,6 +26,7 @@ import {
   getProfile,
 } from '@react-native-seoul/kakao-login';
 import {LoginKakaoData} from 'src/dataLayer/DataSource/Auth/LoginKakaoData';
+import {LoginAppleData} from 'src/dataLayer/DataSource/Auth/LoginAppleData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
@@ -37,6 +38,7 @@ export const useStartViewModel = () => {
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
+  //
   const onAppleButtonPress = async () => {
     //애플에서 로그인 넘겨 받기
     const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -56,8 +58,28 @@ export const useStartViewModel = () => {
     }
     // console.log(appleAuthRequestResponse.user);
     actions.setAppleId(appleAuthRequestResponse.user);
+
+    await LoginAppleData(appleAuthRequestResponse.user)
+      .then(res => {
+        return topActions.setStateAndError(res);
+      })
+      .then(res => {
+        if (res.DSdata.login === false) {
+          navigation.navigate('signup1');
+        } else {
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'main',
+              },
+            ],
+          });
+        }
+      });
   };
 
+  //
   const signIn = async () => {
     const KakaoOAuthToken = await login();
     actions.setKakaoAccessToken(KakaoOAuthToken.accessToken);

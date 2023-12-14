@@ -67,6 +67,12 @@ export async function LoginKakaoData(
       DSdata: null,
       DSmessage: message,
     };
+  } else if (response.status === 404) {
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '삭제된 유저에요, 고객센터에 문의해주세요.',
+    };
   } else if (response.status !== 200) {
     return {
       DScode: 2,
