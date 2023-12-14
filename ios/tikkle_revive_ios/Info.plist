@@ -33,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao	d887c85791eefc06f749efec74c22acd</string>
+				<string>kakaod887c85791eefc06f749efec74c22acd</string>
 			</array>
 		</dict>
 	</array>
@@ -53,6 +53,7 @@
 	<string>d887c85791eefc06f749efec74c22acd</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>kakao0123456789</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
