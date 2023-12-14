@@ -20,30 +20,22 @@
 
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
-    <provider android:authorities="com.facebook.app.FacebookContentProvider1661497471012290"
-          android:name="com.facebook.FacebookContentProvider"
-          android:exported="true" />
+    <provider android:authorities="com.facebook.app.FacebookContentProvider1661497471012290" android:name="com.facebook.FacebookContentProvider" android:exported="true" />
 
 
-    <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_noti" />
+    <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_noti" />
 
-    <meta-data
-        android:name="com.google.firebase.messaging.default_notification_color"
-        android:resource="@color/white" />
+    <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/white" />
 
     <!-- Change the value to true to enable pop-up for in foreground on receiving remote notifications (for prevent duplicating while showing local notifications set this to false) -->
-    <meta-data  android:name="com.dieam.reactnativepushnotification.notification_foreground"
-        android:value="false"/>
+    <meta-data android:name="com.dieam.reactnativepushnotification.notification_foreground" android:value="false"/>
     <!-- Change the resource name to your App's accent color - or any other color you want -->
-    <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
-        android:resource="@color/white"/> <!-- or @android:color/{name} to use a standard color -->
+    <meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@color/white"/>
+    <!-- or @android:color/{name} to use a standard color -->
 
     <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions" />
     <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
-    <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver"
-        android:exported="true">
+    <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />
         <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -51,9 +43,7 @@
       </intent-filter>
     </receiver>
 
-    <service
-        android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
-        android:exported="false" >
+    <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService" android:exported="false">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT" />
       </intent-filter>
@@ -72,14 +62,25 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:host="tikkle.lifoli.co.kr" android:scheme="https"/>
       </intent-filter>
-      
+
       <!-- deep link 관련설정 23.10.16 -->
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
         <data android:scheme="tikkle" />
-      </intent-filter>  
+      </intent-filter>
+    </activity>
+
+    <!-- 카카오 로그인을 위한 액티비티 추가 -->
+    <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- Redirect URI: "kakaoYOUR_KAKAO_APP_KEY://oauth“ -->
+        <data android:host="oauth" android:scheme="kakaod887c85791eefc06f749efec74c22acd" />
+      </intent-filter>
     </activity>
   </application>
 </manifest>

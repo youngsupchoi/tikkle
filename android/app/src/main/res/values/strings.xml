@@ -2,4 +2,5 @@
     <string name="app_name">TIKKLE</string>
     <string name="facebook_app_id">1661497471012290</string>
     <string name="facebook_client_token">25c815ce2800e99dd7dbb228d49e9a59</string>
+    <string name="kakao_app_key">d887c85791eefc06f749efec74c22acd</string>
 </resources>
