@@ -43,7 +43,6 @@ export const StartViewStateProvider = ({children}) => {
   const [userNick, setUserNick] = useState('');
 
   const [kakaoEmail, setKakaoEmail] = useState('');
-  const [appleEmail, setAppleEmail] = useState('');
 
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const [validationMessage, setValidationMessage] = useState(''); // State to hold the validation message
@@ -89,7 +88,6 @@ export const StartViewStateProvider = ({children}) => {
     birthday,
     userNick,
     kakaoEmail,
-    appleEmail,
     profileImageUrl,
     validationMessage,
     duplicationMessage,
@@ -121,7 +119,6 @@ export const StartViewStateProvider = ({children}) => {
     setBirthday,
     setUserNick,
     setKakaoEmail,
-    setAppleEmail,
     setProfileImageUrl,
     setValidationMessage,
     setDuplicationMessage,

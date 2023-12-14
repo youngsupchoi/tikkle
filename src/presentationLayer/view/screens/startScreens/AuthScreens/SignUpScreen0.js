@@ -150,7 +150,9 @@ export default function SignUpScreen0() {
           {Platform.OS === 'ios' ? (
             <AnimatedButton
               style={{marginHorizontal: 24}}
-              onPress={actions.onAppleButtonPress}>
+              onPress={() => {
+                actions.onAppleButtonPress();
+              }}>
               <Image
                 source={require('src/assets/images/Apple_Login.png')}
                 style={{width: iconSize, height: iconSize}}

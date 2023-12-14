@@ -21,7 +21,7 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import OTPInput from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/OTPInput';
 import {InstructionText} from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/InstructionText';
 import TimerComponent from 'src/presentationLayer/view/components/startComponents/AuthComponents/PhoneCheckScreenComponents/TimerComponent';
-
+import {LoginAppleRegister} from 'src/dataLayer/DataSource/Auth/LoginAppleRegister';
 import {post_auth_tokenGenerate} from 'src/components/Axios/post_auth_tokenGenerate';
 import {useStartViewModel} from 'src/presentationLayer/viewModel/startViewModels/AuthViewModel';
 import {checkOtpData} from 'src/dataLayer/DataSource/Auth/CheckOtpData';
@@ -57,6 +57,16 @@ export default function SignUpScreen2() {
           if (res.DSdata.verified === true) {
             if (state.message === 'login') {
               console.log('login');
+
+              //애플아이디 저장
+              if (state.appleId && state.appleId !== '') {
+                try {
+                  LoginAppleRegister(state.appleId, state.phoneNumber);
+                } catch (err) {
+                  console.log(err);
+                }
+              }
+
               post_auth_tokenGenerate(state.userId)
                 .then(() => {
                   topActions.setFrom('login');
