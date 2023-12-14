@@ -124,6 +124,109 @@ export default function SplashScreen() {
           onPress={() => onAppleButtonPress()}
         /> */}
       </View>
+
+      <Modal
+        isVisible={version_modal}
+        swipeDirection={['up']}
+        style={{
+          margin: 0,
+          zIndex: 1,
+        }}
+        useNativeDriver={false}
+        transparent={true}>
+        <View
+          style={[
+            {
+              backgroundColor: backgroundColor,
+              borderRadius: 12,
+              margin: 12,
+              width: windowWidth - 48,
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignSelf: 'center',
+            },
+          ]}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View
+              style={{
+                paddingTop: 24,
+                paddingBottom: 8,
+                width: windowWidth - 48,
+                paddingHorizontal: 24,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+              }}>
+              <B22
+                customStyle={{
+                  color: COLOR_PRIMARY,
+                }}>
+                앱이 이전 버전이에요!
+              </B22>
+            </View>
+            <View>
+              <LottieView
+                pointerEvents="none"
+                source={require('src/assets/animations/new_version.json')} // replace with your Lottie file path
+                autoPlay
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingHorizontal: 24,
+                alignItems: 'center',
+                width: windowWidth - 48,
+                alignSelf: 'center',
+                justifyContent: 'center',
+              }}>
+              <View style={{paddingVertical: 24}}>
+                <B15>{'앱이 최신버전으로 업데이트 되었습니다!'}</B15>
+              </View>
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                bottom: 0,
+                width: windowWidth - 48,
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (Platform.OS === 'ios') {
+                    Linking.openURL(
+                      'itms-apps://itunes.apple.com/app/id6471217574',
+                    );
+                  } else if (Platform.OS === 'android') {
+                    Linking.openURL(
+                      'https://play.google.com/store/apps/details?id=com.tikkle_revive_ios',
+                    );
+                  }
+                }}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 10,
+                  backgroundColor: COLOR_PRIMARY,
+                  borderBottomLeftRadius: 12,
+                  borderBottomRightRadius: 12,
+                  height: 60,
+                }}>
+                <B20 customStyle={{color: COLOR_WHITE}}>업데이트 하러 가기</B20>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
