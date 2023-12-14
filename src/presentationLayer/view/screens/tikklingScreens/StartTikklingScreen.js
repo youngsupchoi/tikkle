@@ -786,8 +786,9 @@ export default function StartTikklingScreen({route}) {
         {/* {console.log('라우트', route.params)} */}
 
         <AnimatedButton
-          onPress={() => {
-            actions.tikklingStartButtonPress(route.params.product_option);
+          onPress={async () => {
+            // actions.setCreateTikklingButtonPressed(true);
+            await actions.tikklingStartButtonPress(route.params.product_option);
           }}
           style={[
             styles.tikklingStartButton,

@@ -95,6 +95,8 @@ export const MainViewStateProvider = ({children}) => {
   const [eventModalVisible_detail, setEventModalVisible_detail] =
     useState(false);
 
+  const [refundButtonPressed, setRefundButtonPressed] = useState(false);
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -160,6 +162,7 @@ export const MainViewStateProvider = ({children}) => {
     event_image,
     event_name,
     eventModalVisible_detail,
+    refundButtonPressed
   };
 
   const actions = {
@@ -219,6 +222,7 @@ export const MainViewStateProvider = ({children}) => {
     setEvent_image,
     setEvent_name,
     setEventModalVisible_detail,
+    setRefundButtonPressed
   };
 
   return (

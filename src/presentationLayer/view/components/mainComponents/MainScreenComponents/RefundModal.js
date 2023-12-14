@@ -15,6 +15,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import Help from 'src/assets/icons/Help.svg';
 import {
+  COLOR_BLACK,
   COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
@@ -150,6 +151,8 @@ export default function RefundModal() {
               </B15>
             </AnimatedButton>
             <TextInput
+            maxLength={20}
+            inputMode='numeric'
               placeholder={
                 state.userData.account !== null &&
                 state.userData.account !== null &&
@@ -165,6 +168,7 @@ export default function RefundModal() {
                 // width: '80%',
                 paddingVertical: 12,
                 paddingHorizontal: 0,
+                color: COLOR_BLACK,
                 // backgroundColor: 'red',
               }}
             />
@@ -181,11 +185,16 @@ export default function RefundModal() {
               marginTop: 12,
             }}>
             <AnimatedButton
+            disabled={state.refundButtonPressed||state.bankName==''||state.account.length==''}
               onPress={async () => {
                 // console.log(state.myTikklingData.tikkling_id);
-                actions.refundTikkling();
-                actions.changeBank();
-                actions.setShowEndModal(false);
+                actions.setRefundButtonPressed(true);
+                await Promise.all([
+                  actions.refundTikkling(),
+                  actions.changeBank(),
+                  actions.setShowEndModal(false),
+                ])
+                actions.setRefundButtonPressed(false)
               }}
               style={modalStyles.confirmButton}>
               <B15 customStyle={modalStyles.whiteText}>이 계좌로 환급 요청</B15>

@@ -85,7 +85,9 @@ export const useMainViewModel = () => {
     actions.setShowStopModal(false);
     actions.setShowDetailModal(false);
     actions.setShowProductOptionsModal(false);
+    actions.setRefundButtonPressed(false);
   };
+
 
   const loadData = async () => {
     try {

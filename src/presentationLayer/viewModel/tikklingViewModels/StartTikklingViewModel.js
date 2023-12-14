@@ -159,7 +159,7 @@ export const useStartTikklingViewModel = () => {
   }
 
   //-------------------------------------------------------------------
-  const tikklingStartButtonPress = product_option => {
+  const tikklingStartButtonPress = async product_option => {
     try {
       actions.setCreateTikklingButtonPressed(true);
 
@@ -177,7 +177,7 @@ export const useStartTikklingViewModel = () => {
       //   state.eventType,
       //   product_option,
       // );
-      createTikklingData(
+      await createTikklingData(
         state.endDate,
         state.selectedItem.price / 5000,
         state.selectedItem.product_id,
