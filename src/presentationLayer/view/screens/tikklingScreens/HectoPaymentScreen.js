@@ -73,18 +73,12 @@ export function HectoPaymentScreen(route) {
   } else {
     return (
       <Safe>
-        <KeyboardAvoidingView
-          style={{flex: 1}}
-          behavior="padding"
-          enabled
-          keyboardVerticalOffset={0}>
-          <IMP.Payment
-            userCode={'imp11626661'} // 가맹점 식별코드
-            loading={<GlobalLoader />} // 로딩 컴포넌트
-            data={data} // 결제 데이터
-            callback={callback} // 결제 종료 후 콜백
-          />
-        </KeyboardAvoidingView>
+        <IMP.Payment
+          userCode={'imp11626661'} // 가맹점 식별코드
+          loading={<GlobalLoader />} // 로딩 컴포넌트
+          data={data} // 결제 데이터
+          callback={callback} // 결제 종료 후 콜백
+        />
       </Safe>
     );
   }
