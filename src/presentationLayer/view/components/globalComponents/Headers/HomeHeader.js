@@ -30,10 +30,19 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import TicketFilled from 'src/assets/icons/TicketFilled';
 import NotificationFilled from 'src/assets/icons/NotificationFilled';
 import Help from 'src/assets/icons/Help';
+import HelpGray from 'src/assets/icons/HelpGray';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+
+import analytics from '@react-native-firebase/analytics';
+import {firebase} from '@react-native-firebase/app';
+
+import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
+import {AppEventsLogger} from 'react-native-fbsdk-next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import VersionCheck from 'react-native-version-check';
 
 export default function HomeHeader(props) {
   const {ref, state, actions} = useMainViewModel();
@@ -45,6 +54,31 @@ export default function HomeHeader(props) {
 
   return (
     <View style={styles.headerContainer}>
+      {/* <AnimatedButton
+        onPress={async () => {
+          // console.log('@@@ ');
+          const event_modal = await AsyncStorage.getItem('1+1');
+          console.log('@@@', event_modal);
+          // AsyncStorage.setItem('event_modal', 'false');
+        }}>
+        <UNIQUE27>@@@@@</UNIQUE27>
+      </AnimatedButton> */}
+      {/* <View>
+        <LoginButton
+          onLoginFinished={(error, result) => {
+            if (error) {
+              console.log('login has error: ' + result.error);
+            } else if (result.isCancelled) {
+              console.log('login is cancelled.');
+            } else {
+              AccessToken.getCurrentAccessToken().then(data => {
+                console.log(data.accessToken.toString());
+              });
+            }
+          }}
+          onLogoutFinished={() => console.log('logout.')}
+        />
+      </View> */}
       <View
         style={{
           // backgroundColor: 'blue',
@@ -64,7 +98,7 @@ export default function HomeHeader(props) {
           onPress={() => {
             navigation.navigate('onboarding');
           }}
-          style={{marginLeft: 10}}>
+          style={{marginLeft: 10, marginBottom: 3, width: 20, height: 20}}>
           <Help width={20} height={20} />
         </AnimatedButton>
       </View>

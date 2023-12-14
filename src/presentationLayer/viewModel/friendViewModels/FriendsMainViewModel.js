@@ -4,7 +4,8 @@ import {Keyboard, Animated, Platform} from 'react-native';
 import {useFriendMainViewState} from '../../viewState/friendStates/FriendsMainState';
 
 // 2. 데이터 소스 또는 API 가져오기
-
+import {PermissionsAndroid} from 'react-native';
+import Contacts from 'react-native-contacts';
 import {getMyFriendData} from 'src/dataLayer/DataSource/Friend/GetMyFriendData';
 import {getBlockedFriendData} from 'src/dataLayer/DataSource/Friend/GetBlockedFriendData';
 import {getSearchFriendData} from 'src/dataLayer/DataSource/Friend/GetSearchFriendData';
@@ -12,7 +13,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {updateFriendBlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendBlockData';
 import {createNewFriendData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendData';
 import {updateFriendUnlockData} from 'src/dataLayer/DataSource/Friend/UpdateFriendUnblockData';
-
+import {createPhoneFriendData} from 'src/dataLayer/DataSource/Friend/CreatePhoneFriendData';
 /**
  * FriendsMainScreen의 뷰 스테이트와 액션을 정의하는 ViewModel Hook
  * @returns {object} ref, state, actions
@@ -32,7 +33,10 @@ export const useFriendMainViewModel = () => {
       if (mode_friend === 'unblock') {
         await getMyFriendData()
           .then(res => {
-            return topActions.setStateAndError(res);
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] get_friend_data - getMyFriendData',
+            );
           })
           .then(res => {
             console.log('getFriendDataSetStateError', res);
@@ -41,7 +45,10 @@ export const useFriendMainViewModel = () => {
       } else if (mode_friend === 'block') {
         await getBlockedFriendData()
           .then(res => {
-            return topActions.setStateAndError(res);
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] get_friend_data - getBlockedFriendData',
+            );
           })
           .then(res => {
             actions.setGetFriendData(res.DSdata.info);
@@ -58,7 +65,10 @@ export const useFriendMainViewModel = () => {
     try {
       await createNewFriendData(friendId)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[FriendsMainViewModel.js] create_friend - createNewFriendData',
+          );
         })
         .then(res => {
           if (res.DScode === 0) {
@@ -73,7 +83,7 @@ export const useFriendMainViewModel = () => {
   }
 
   /**
-   * FriendsMainScreen에서 아이디로 친구 검색 데이터 가져오는 함수
+   * FriendsMainScreen에서 전화번호로 친구 검색 데이터 가져오는 함수
    * @todo state.text_search = "검색할 친구 닉네임" 설정 필요
    */
   async function get_friend_search() {
@@ -83,7 +93,10 @@ export const useFriendMainViewModel = () => {
       try {
         await getSearchFriendData(state.text_search)
           .then(res => {
-            return topActions.setStateAndError(res);
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] get_friend_search - getSearchFriendData',
+            );
           })
           .then(res => {
             actions.setSearchedData(res.DSdata.info);
@@ -107,7 +120,10 @@ export const useFriendMainViewModel = () => {
       // console.log(item.id);
       await updateFriendBlockData(item.id)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[FriendsMainViewModel.js] block_friend - updateFriendBlockData',
+          );
         })
         .then(res => {
           console.log(res);
@@ -125,7 +141,10 @@ export const useFriendMainViewModel = () => {
       // console.log(item.id);
       await updateFriendUnlockData(item.id)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[FriendsMainViewModel.js] unblock_friend - updateFriendUnlockData',
+          );
         })
         .then(res => {
           console.log(res);
@@ -241,6 +260,127 @@ export const useFriendMainViewModel = () => {
     ref.dropdownRef.current.select(index);
   };
 
+  async function transformContactsData(contactsData) {
+    return {
+      phone_list: contactsData.map(contact => contact.phoneNumber),
+    };
+  }
+
+  /**
+   * 기기에서 전화번호부 긁어오는 함수
+   */
+  const findContacts = async () => {
+    await actions.setRefreshing(true);
+
+    let granted;
+    try {
+      if (Platform.OS === 'android') {
+        granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: '연락처 권한 요청',
+            message:
+              '연락처 상 가입된 친구가 있다면 자동으로 친구가 추가됩니다. 그 외의 용도로는 절대 저장 또는 사용하지 않습니다.',
+            buttonPositive: '허용',
+          },
+        );
+      }
+
+      if (
+        granted === PermissionsAndroid.RESULTS.GRANTED ||
+        Platform.OS === 'ios'
+      ) {
+        const result = await Contacts.getAll();
+        let phoneNumbersProcessed = [];
+        if (result.length === 0) {
+          topActions.showSnackbar('기기에 유효한 연락처가 없어요!', 1);
+          return;
+        }
+        const formattedData = result.reduce((acc, contact) => {
+          const {phoneNumbers, givenName, familyName} = contact;
+          phoneNumbers.forEach(phoneNumber => {
+            const numberWithoutDashes = phoneNumber.number.replace(/-/g, ''); // Remove dashes
+            if (
+              numberWithoutDashes.length === 11 &&
+              numberWithoutDashes.startsWith('010') &&
+              !phoneNumbersProcessed.includes(numberWithoutDashes)
+            ) {
+              phoneNumbersProcessed.push(numberWithoutDashes);
+              const formattedPhoneNumber =
+                numberWithoutDashes.slice(0, 3) +
+                '-' +
+                numberWithoutDashes.slice(3, 7) +
+                '-' +
+                numberWithoutDashes.slice(7);
+              acc.push({
+                name: `${familyName}${givenName}`,
+                phoneNumber: numberWithoutDashes, // For server
+                formattedPhoneNumber: formattedPhoneNumber, // For display
+              });
+            }
+          });
+          return acc;
+        }, []);
+        const temp = await transformContactsData(formattedData);
+        await createPhoneFriendData(temp.phone_list)
+          .then(res => {
+            return topActions.setStateAndError(
+              res,
+              '[FriendsMainViewModel.js] findContacts - createPhoneFriendData',
+            );
+          })
+          .then(res => {
+            topActions.showSnackbar(res.DSmessage, 1);
+          });
+      } else if (
+        Platform.OS === 'android' &&
+        granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN
+      ) {
+        topActions.showSnackbar(
+          '연락처 권한이 없어요!\n환경설정에서 권한을 설정해 주세요!',
+          0,
+        );
+      } else {
+        console.log('Contacts permission denied');
+        if (Platform.OS === 'android') {
+          topActions.showSnackbar('연락처 권한이 설정에 실패했어요', 0);
+        } else {
+          topActions.showSnackbar(
+            '연락처 권한이 없어요!\n환경설정에서 권한을 설정해 주세요!',
+            0,
+          );
+        }
+      }
+    } catch (error) {
+      console.log('Error fetching contacts:', error);
+
+      if (
+        (await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          {
+            title: '연락처 권한 요청',
+            message:
+              '연락처 상 가입된 친구가 있다면 자동으로 친구가 추가됩니다. 그 외의 용도로는 절대 저장 또는 사용하지 않습니다.',
+            buttonPositive: '허용',
+          },
+        )) === PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        topActions.showSnackbar('기기에 유효한 연락처가 없어요!', 1);
+      } else if (Platform.OS === 'android') {
+        topActions.showSnackbar('연락처 권한이 설정에 실패했어요', 0);
+      } else {
+        //ios
+        actions.setPermissionModalVisible(true);
+        // topActions.showSnackbar(
+        //   '연락처 권한이 없어요!\n환경설정에서 권한을 설정해 주세요!',
+        //   0,
+        // );
+      }
+    } finally {
+      await actions.setRefreshing(false);
+    }
+  };
+
   return {
     ref: {
       ...ref,
@@ -260,6 +400,7 @@ export const useFriendMainViewModel = () => {
       create_friend,
       onRefresh,
       onSelectDropdown,
+      findContacts,
     },
   };
 };

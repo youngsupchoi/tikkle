@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   FlatList,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RefreshControl} from 'react-native-gesture-handler';
@@ -32,6 +33,7 @@ import {
   M11,
   M,
   H,
+  UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -74,10 +76,14 @@ import Profile from 'src/assets/icons/Profile';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Delivery from 'src/assets/icons/Delivery';
 import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
+import ViewShot from 'react-native-view-shot';
+import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 
 export default function TikklingDetailScreen() {
   const navigation = useNavigation();
   const {state, actions} = useMainViewModel();
+  const {topState, topActions} = useTopViewModel();
 
   let ButtonIcon = null;
   let ButtonText = '';
@@ -107,11 +113,17 @@ export default function TikklingDetailScreen() {
 
   useEffect(() => {
     actions.loadDetail();
-    // console.log(state.userData);
-    // console.log(
-    //   '🚀 ~ file: TikklingDetailScreen.js:102 ~ useEffect ~ state.userData:',
-    //   state.userData,
-    // );
+  }, []);
+
+  useEffect(() => {
+    if (topState.openDeepLink == true) {
+      // console.log('openDeepLink');
+      topActions.setOpenDeepLink(false);
+      actions.open_event_modal(actions.setEventModalVisible_detail);
+    }
+    // if (Platform.OS === 'android') {
+    //   actions.open_event_modal();
+    // }
   }, []);
 
   useEffect(() => {
@@ -130,6 +142,91 @@ export default function TikklingDetailScreen() {
 
   return (
     <View>
+      <ViewShot
+        style={{
+          position: 'absolute',
+          top: 1000,
+          zIndex: -100,
+          marginBottom: 500,
+        }}
+        ref={state.viewShotRef}>
+        <UNIQUE22
+          customStyle={{
+            color: COLOR_WHITE,
+            width: windowWidth - 48,
+            textAlign: 'center',
+            fontSize: 36,
+            lineHeight: 44,
+          }}>
+          TIKKLE
+        </UNIQUE22>
+        <View
+          style={{
+            padding: 24,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: windowWidth - 48,
+          }}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.75}}
+            colors={['rgba(135,134,218,100)', 'rgba(53,51,143,100)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 23,
+            }}
+          />
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            colors={['rgba(100,98,231,100)', 'rgba(100,98,231,88)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 20,
+              borderWidth: 3,
+              borderColor: 'transparent',
+            }}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              width: '100%',
+              justifyContent: 'center',
+            }}>
+            <B20
+              customStyle={{
+                color: COLOR_WHITE,
+                fontFamily: EB,
+                fontSize: 32,
+                lineHeight: 48,
+              }}>
+              {console.log(state.route_data.user_name)}
+              {state.route_data.user_name}님에게
+            </B20>
+            <B20
+              customStyle={{
+                color: COLOR_WHITE,
+                fontFamily: EB,
+                fontSize: 32,
+                lineHeight: 48,
+              }}>
+              축하 선물 보내러 가기
+            </B20>
+            <M15
+              customStyle={{color: COLOR_WHITE, fontSize: 20, lineHeight: 44}}>
+              잊을 수 없는 경험을 선물해보세요.
+            </M15>
+          </View>
+        </View>
+      </ViewShot>
       {state.route_data.created_at ? (
         <View>
           <View
@@ -235,12 +332,12 @@ export default function TikklingDetailScreen() {
             <ScrollView>
               <View
                 style={{
-                  marginHorizontal: 15,
+                  marginHorizontal: 16,
                   backgroundColor: COLOR_WHITE,
                   borderRadius: 16,
-                  padding: 10,
-                  strokeWidth: 1,
-                  stroke: COLOR_SEPARATOR,
+                  padding: 12,
+                  borderWidth: 1,
+                  borderColor: COLOR_SEPARATOR,
                 }}>
                 <View style={styles.renderItemHeaderContainer}>
                   <View
@@ -250,18 +347,25 @@ export default function TikklingDetailScreen() {
                     }}>
                     <Image
                       resizeMode="contain"
-                      style={{width: 30, height: 30, borderRadius: 12}}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 12,
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                      }}
                       source={{
                         uri: state.route_data.user_image,
                       }}
                     />
 
-                    <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
-                      {state.route_data.user_name}{' '}
+                    <B15 customStyle={{marginLeft: 8, fontSize: 15}}>
+                      {state.route_data.user_name}
+                      {'  '}
                     </B15>
-                    <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
+                    {/* <M15 customStyle={{color: COLOR_GRAY, fontSize: 15}}>
                       {state.route_data.user_nick}
-                    </M15>
+                    </M15> */}
                   </View>
                 </View>
 
@@ -403,7 +507,7 @@ export default function TikklingDetailScreen() {
                 <View
                   style={{
                     flexDirection: 'row',
-                    marginBottom: 20,
+                    marginBottom: 8,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
@@ -518,6 +622,11 @@ export default function TikklingDetailScreen() {
             name={state.route_data.user_name}
             tikkling_id={state.route_data.tikkling_id}
           />
+
+          <EventModal
+            visible={state.eventModalVisible_detail}
+            setVisible={actions.setEventModalVisible_detail}
+          />
         </View>
       ) : (
         <GlobalLoader />
@@ -532,8 +641,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 0,
-    paddingTop: 4,
-    marginBottom: 10,
+    marginLeft: 4,
+    // paddingTop: 4,
+    marginBottom: 12,
   },
   listItemImage: {
     width: 60,

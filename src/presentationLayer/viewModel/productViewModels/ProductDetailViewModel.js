@@ -14,6 +14,7 @@ import {useState} from 'react';
 import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
 import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 import WebView from 'react-native-webview';
+import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useProductDetailViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -38,21 +39,23 @@ export const useProductDetailViewModel = () => {
     await getProductInfoData(route_product_id)
       .then(async res => {
         // console.log('getProductInfoData : ', res);
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductDetailViewModel.js] getDetailData - getProductInfoData',
+        );
       })
       .then(async res => {
         actions.setData(res.DSdata.info);
-        // actions.setInfoData(res.DSdata.info.);
+        actions.setInfoData(res.DSdata.info2);
         //console.log('res.DSdata.info : ', res.DSdata.info);
         return res.DSdata.info;
       })
       .then(async info => {
         //console.log('info : ', info.images);
-        await cutImage(info.images);
+        cut_set(info.images);
         if (info.wishlisted) {
           await actions.setWishlisted(true);
         }
-
         await isTikkling();
       });
   };
@@ -63,7 +66,10 @@ export const useProductDetailViewModel = () => {
   const isTikkling = async () => {
     await getMyUserInfoData()
       .then(async res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[ProductDetailViewModel.js] isTikkling - getMyUserInfoData',
+        );
       })
       .then(async res => {
         if (res.DSdata.info.is_tikkling == 0) {
@@ -89,7 +95,10 @@ export const useProductDetailViewModel = () => {
       }
 
       actions.setItHasOptions(optionStatus);
-      topActions.setStateAndError(res);
+      topActions.setStateAndError(
+        res,
+        '[ProductDetailViewModel.js] hasOptions - getProductOptionData',
+      );
       return optionStatus; // 옵션 상태 반환
     } catch (error) {
       console.error('Error fetching product options:', error);
@@ -105,21 +114,33 @@ export const useProductDetailViewModel = () => {
   const deleteMyWishlistData_ = async productId => {
     await deleteMyWishlistData(productId).then(res => {
       console.log('Delete : ', res);
-      return topActions.setStateAndError(res);
+      return topActions.setStateAndError(
+        res,
+        '[ProductDetailViewModel.js] deleteMyWishlistData_ - deleteMyWishlistData',
+      );
     });
   };
 
   const createMyWishlistData_ = async productId => {
     await createMyWishlistData(productId).then(res => {
       console.log('Add : ', res);
-      return topActions.setStateAndError(res);
+      return topActions.setStateAndError(
+        res,
+        '[ProductDetailViewModel.js] createMyWishlistData_ - createMyWishlistData',
+      );
     });
+  };
+
+  const cut_set = async images => {
+    await actions.setPicLoading(true);
+    await cutImage(images);
+    await actions.setPicLoading(false);
   };
 
   const cutImage = async in_images => {
     // console.log('sdfsdfsdfsdf', data.images);
     const images = JSON.parse(in_images);
-
+    console.log('images : ', images);
     /// 이미지 표시하기
     const components = [];
 
@@ -145,7 +166,7 @@ export const useProductDetailViewModel = () => {
 
         //
       } else {
-        Image.getSize(
+        await Image.getSize(
           images[i.toString()],
           (width, height) => {
             const ratio = height / width;
@@ -167,21 +188,10 @@ export const useProductDetailViewModel = () => {
             console.error(`Error getting image size: ${error}`);
           },
         );
-
-        temp = (
-          <View key={i}>
-            <WebView
-              style={{flex: 1, width: windowWidth, height: 1000}}
-              source={{
-                uri: images[i.toString()],
-              }}
-            />
-          </View>
-        );
       }
     }
 
-    actions.setComponents(components);
+    await actions.setComponents(components);
   };
 
   return {

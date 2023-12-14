@@ -7,7 +7,11 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import HomeHeader from 'src/presentationLayer/view/components/globalComponents/Headers/HomeHeader';
-import {backgroundColor} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  COLOR_PRIMARY,
+  COLOR_WHITE,
+  backgroundColor,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   windowHeight,
   windowWidth,
@@ -15,6 +19,10 @@ import {
 import {
   B12,
   B15,
+  B20,
+  EB,
+  M15,
+  UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {HomeLoader} from 'src/presentationLayer/view/components/globalComponents/Skeletons/Skeletons';
 import {RefreshControl} from 'react-native-gesture-handler';
@@ -41,15 +49,35 @@ import {fcmService} from 'src/push_fcm';
 import PushNotification from 'react-native-push-notification';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import WhoParticipated from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/WhoParticipated';
+import ViewShot from 'react-native-view-shot';
+import {useRef} from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+import {Dimensions} from 'react-native';
+import CompleteTikklingBackground from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CompleteTikklingBackground';
+import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
+
+// Get the screen width
+const {width} = Dimensions.get('window');
+
+// Function to scale the font size
+const scaleText = size => {
+  const scale = width / 500; // 320 is an example base width
+  const newSize = size * scale;
+  return Math.round(newSize);
+};
 
 export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
-  const {topState, topViewModel} = useTopViewModel();
+  const {topState, topActions} = useTopViewModel();
   const translateYSecondHero = useSharedValue(20);
   const translateYMyTikkling = useSharedValue(20);
   const translateYFriendsTikkling = useSharedValue(20);
   const translateYMyWishlist = useSharedValue(20);
   const translateYFriendsEvent = useSharedValue(20);
+
+  //============================================================
+
+  //============================================================
 
   const animatedStyleSecondHero = useAnimatedStyle(() => {
     return {
@@ -114,11 +142,12 @@ export default function HomeScreen({route}) {
     }, 5 * delay); // 다섯 번째 컴포넌트
   }, []);
 
-  // useEffect(() => {
-  //   if (route.params?.updated) {
-  //     actions.loadData();
-  //   }
-  // }, [route.params?.updated]);
+  useEffect(() => {
+    if (topState.openDeepLink == false && topState.openApp == true) {
+      topActions.setOpenApp(false);
+      actions.open_event_modal(actions.setEventModalVisible);
+    }
+  }, []);
 
   useEffect(() => {
     PushNotification.popInitialNotification(notification => {
@@ -134,6 +163,88 @@ export default function HomeScreen({route}) {
 
   return (
     <View style={{backgroundColor: backgroundColor, flex: 1}}>
+      <View
+        style={{
+          // position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 10,
+        }}>
+        {/* <CompleteTikklingBackground
+          list_data={state.list_data}
+          itemImage={state.myTikklingData.thumbnail_image}
+        /> */}
+      </View>
+      <ViewShot
+        style={{
+          position: 'absolute',
+          top: 1000,
+          zIndex: -100,
+          // marginBottom: 500,
+        }}
+        ref={state.viewShotRef}>
+        <UNIQUE22
+          customStyle={{
+            color: COLOR_WHITE,
+            width: windowWidth - 48,
+            textAlign: 'center',
+            fontSize: 36,
+            lineHeight: 44,
+          }}>
+          TIKKLE
+        </UNIQUE22>
+        <View
+          style={{
+            padding: 24,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: windowWidth - 48,
+          }}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.75}}
+            colors={['rgba(135,134,218,100)', 'rgba(53,51,143,100)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 23,
+            }}
+          />
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            colors={['rgba(100,98,231,100)', 'rgba(100,98,231,88)']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              borderRadius: 20,
+              borderWidth: 3,
+              borderColor: 'transparent',
+            }}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              width: '100%',
+              justifyContent: 'center',
+            }}>
+            <B20 customStyle={styles.B20_screen}>
+              {state.userData.name}님에게
+            </B20>
+            <B20 customStyle={styles.B20_screen}>축하 선물 보내러 가기</B20>
+            <M15 customStyle={styles.M15_screen}>
+              잊을 수 없는 경험을 선물해보세요.
+            </M15>
+          </View>
+        </View>
+        <View style={{height: 400}} />
+      </ViewShot>
       <ScrollView
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
@@ -179,13 +290,18 @@ export default function HomeScreen({route}) {
           </View>
         )}
         <View style={styles.homeFooter}></View>
-        <Footer />
+        {/* <Footer /> */}
       </ScrollView>
 
       <WhoParticipated
         data={state.list_data}
         showModal={state.showWhoParticipatedModal}
         setShowModal={actions.setShowWhoParticipatedModal}
+      />
+
+      <EventModal
+        visible={state.eventModalVisible}
+        setVisible={actions.setEventModalVisible}
       />
 
       <PostCodeModal
@@ -206,5 +322,18 @@ const styles = StyleSheet.create({
   },
   homeFooter: {
     height: 50,
+  },
+
+  B20_screen: {
+    color: COLOR_WHITE,
+    fontFamily: EB,
+    fontSize: scaleText(32), // Scaled font size
+    lineHeight: 48,
+  },
+  M15_screen: {
+    color: COLOR_WHITE,
+    fontFamily: EB, // Assuming you want the same font family
+    fontSize: scaleText(20), // Scaled font size
+    lineHeight: 44,
   },
 });

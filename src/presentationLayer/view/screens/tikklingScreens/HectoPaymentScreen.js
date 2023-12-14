@@ -35,7 +35,10 @@ export function HectoPaymentScreen(route) {
       try {
         await updatePaymentFailData(response.merchant_uid)
           .then(async res => {
-            return await topActions.setStateAndError(res);
+            return await topActions.setStateAndError(
+              res,
+              '[HectoPaymentScreen.js] callback - updatePaymentFailData',
+            );
           })
           .then(async res => {
             if (res.DSdata.success === true) {

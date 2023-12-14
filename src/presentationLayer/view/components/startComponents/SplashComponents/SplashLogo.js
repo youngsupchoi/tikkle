@@ -6,6 +6,7 @@ import {
   HEADER_HEIGHT,
   StatusBarHeight,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
+import {COLOR_PRIMARY} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 export const SplashLogo = () => {
   let s = StatusBarHeight;
@@ -15,7 +16,7 @@ export const SplashLogo = () => {
 
   return (
     <View style={{marginBottom: s}}>
-      <UNIQUE50 customStyle={{color: '#FFFFFF'}}>TIKKLE</UNIQUE50>
+      <UNIQUE50 customStyle={{color: COLOR_PRIMARY}}>TIKKLE</UNIQUE50>
     </View>
   );
 };

@@ -36,6 +36,10 @@ export const FriendMainViewStateProvider = ({children}) => {
   const opacityValue = useRef(new Animated.Value(1)).current;
   const dropdownRef = useRef(null);
 
+  const [searched_phone, setSearched_phone] = useState('');
+
+  const [permissionModalVisible, setPermissionModalVisible] = useState(false);
+
   const ref = {
     opacityValue,
   };
@@ -55,6 +59,8 @@ export const FriendMainViewStateProvider = ({children}) => {
     refreshing,
     searchFalse,
     dropdownRef,
+    permissionModalVisible,
+    searched_phone,
   };
 
   const actions = {
@@ -71,6 +77,8 @@ export const FriendMainViewStateProvider = ({children}) => {
     setReceivedData,
     setRefreshing,
     setSearchFalse,
+    setPermissionModalVisible,
+    setSearched_phone,
   };
 
   return (

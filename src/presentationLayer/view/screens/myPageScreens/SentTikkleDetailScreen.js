@@ -94,7 +94,7 @@ export default function SentTikkleDetailScreen({route}) {
                 paddingBottom: 10,
                 marginVertical: 8,
                 backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                borderRadius: 0,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 1,
               }}>
@@ -285,7 +285,7 @@ export default function SentTikkleDetailScreen({route}) {
                 paddingBottom: 10,
                 marginVertical: 8,
                 backgroundColor: COLOR_WHITE,
-                borderRadius: 16,
+                borderRadius: 0,
                 borderColor: COLOR_SEPARATOR,
                 borderWidth: 1,
               }}>
@@ -409,7 +409,7 @@ export default function SentTikkleDetailScreen({route}) {
             </View>
           </View>
 
-          <Footer />
+          {/* <Footer /> */}
           <RefundModal />
         </ScrollView>
       )}
@@ -426,15 +426,14 @@ const styles = StyleSheet.create({
     paddingTop: StatusBarHeight,
   },
   buttonStyle: {
-    padding: 5,
-    borderRadius: 14,
+    padding: 12,
+    borderRadius: 12,
     backgroundColor: COLOR_WHITE,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',
     width: windowWidth - 32,
-    height: 44,
     borderColor: COLOR_PRIMARY,
     borderWidth: 1,
     marginBottom: 16,
@@ -443,18 +442,19 @@ const styles = StyleSheet.create({
     color: COLOR_PRIMARY,
   },
   detailDataStyle: {
-    paddingHorizontal: 7,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'left',
     marginHorizontal: 5,
     marginVertical: 3,
     marginLeft: 0,
+    flex: 1,
   },
   detailDataStyle_2: {
     alignItems: 'flex-end',
     marginHorizontal: 5,
     marginVertical: 3,
     marginLeft: 0,
+    flex: 2,
   },
 });

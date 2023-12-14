@@ -14,7 +14,10 @@ import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productVi
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import ProductFilter from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductFilter';
-import {B15} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import {
+  B,
+  B15,
+} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowUpFilled from 'src/assets/icons/ArrowUpFilled';
 
@@ -32,20 +35,18 @@ export default function ProductSearchLandingScreen() {
   const scrollToTop = () => {
     scrollViewRef.current?.scrollTo({y: 0, animated: true}); // 상단으로 스크롤
   };
+  //FIXME: 이코드가 필요한가?
+  useEffect(() => {
+    actions.dispatchSearchOption({
+      type: 'RESET_ALL',
+    });
+  }, []);
 
   useEffect(() => {
-    actions.setSelectedCategory('디지털/전자');
-  }, []);
-  useEffect(() => {
+    actions.setSearchedData([]);
     actions.onRefresh();
     setCurrentPage(0);
-  }, [
-    state.categoryId,
-    state.priceMin,
-    state.priceMax,
-    state.sortAttribute,
-    state.sortWay,
-  ]);
+  }, [state.searchOption]);
 
   let prevScrollY = new Animated.Value(0);
 
@@ -59,15 +60,15 @@ export default function ProductSearchLandingScreen() {
         value > state.parentHeight - 1000 &&
         !state.itemLoading
       ) {
+        console.log('스크롤 실행');
         actions.getNewData(state.getNum);
       }
-
       prevScrollY = value;
     });
     return () => {
       scrollY.removeListener(listener);
     };
-  }, [state.parentHeight]);
+  }, [state.parentHeight, state.searchOption]);
 
   return (
     <View style={styles.totalContainer}>
@@ -89,10 +90,9 @@ export default function ProductSearchLandingScreen() {
           <ProductSearch />
         </View>
 
-        <View style={styles.categoryCarouselContainer}>
+        {/* <View style={styles.categoryCarouselContainer}>
           <CategoryCarousel />
-        </View>
-        <ProductFilter />
+        </View> */}
 
         {state.loading ? (
           <GlobalLoader />
@@ -110,6 +110,7 @@ export default function ProductSearchLandingScreen() {
           <ArrowUpFilled width={50} height={50} fill={COLOR_PRIMARY} />
         </AnimatedButton>
       </View>
+      <ProductFilter />
     </View>
   );
 }

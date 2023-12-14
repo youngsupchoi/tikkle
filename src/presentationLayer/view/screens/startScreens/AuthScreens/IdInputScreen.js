@@ -56,35 +56,35 @@ export default function SignUpScreen6({route}) {
   //   }
   // }, [state.userNick]);
 
-  function validateUserId(inputNick) {
-    const MIN_LENGTH = 5;
-    const MAX_LENGTH = 12;
+  // function validateUserId(inputNick) {
+  //   const MIN_LENGTH = 5;
+  //   const MAX_LENGTH = 12;
 
-    if (!inputNick) {
-      return '아이디를 입력해주세요';
-    }
+  //   if (!inputNick) {
+  //     return '아이디를 입력해주세요';
+  //   }
 
-    if (!/^[a-zA-Z0-9_.-]+$/.test(inputNick)) {
-      return "아이디는 영문, 숫자, '_', '-', '.'만 포함할 수 있어요.";
-    }
+  //   if (!/^[a-zA-Z0-9_.-]+$/.test(inputNick)) {
+  //     return "아이디는 영문, 숫자, '_', '-', '.'만 포함할 수 있어요.";
+  //   }
 
-    if (inputNick.length < MIN_LENGTH) {
-      return `아이디는 ${MIN_LENGTH}자를 넘겨야 해요.`;
-    }
+  //   if (inputNick.length < MIN_LENGTH) {
+  //     return `아이디는 ${MIN_LENGTH}자를 넘겨야 해요.`;
+  //   }
 
-    if (inputNick.length > MAX_LENGTH) {
-      return `아이디는 ${MAX_LENGTH}자를 넘길 수 없어요.`;
-    }
+  //   if (inputNick.length > MAX_LENGTH) {
+  //     return `아이디는 ${MAX_LENGTH}자를 넘길 수 없어요.`;
+  //   }
 
-    return 'Valid';
-  }
+  //   return 'Valid';
+  // }
 
   return (
     <View style={styles.signupContainer}>
       <SignUpHeader />
 
       <View style={styles.instructionContainer}>
-        <M15 customStyle={{color: COLOR_GRAY, marginBottom: 8}}>
+        <M15 customStyle={{color: COLOR_GRAY, marginBottom: 0}}>
           마지막 단계예요!
         </M15>
         <B28>당신의 아이디를 알려주세요.</B28>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   instructionContainer: {
-    marginBottom: SPACING_6,
+    marginBottom: 10,
     alignItems: 'center',
   },
   inputContainer: {

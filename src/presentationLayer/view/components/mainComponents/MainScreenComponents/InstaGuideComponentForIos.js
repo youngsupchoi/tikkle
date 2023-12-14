@@ -28,7 +28,7 @@ export default function InstaGuideComponentForIos() {
       source={{
         uri: InataGuideForIos,
       }}
-      style={{borderRadius: 20}}
+      style={{borderRadius: 12}}
     />
   );
 }

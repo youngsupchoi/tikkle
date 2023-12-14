@@ -57,12 +57,16 @@ export default function SignUpScreen2() {
           if (res.DSdata.verified === true) {
             if (state.message === 'login') {
               console.log('login');
-              post_auth_tokenGenerate(state.userId).then(() => {
-                actions.navigation.reset({
-                  index: 0,
-                  routes: [{name: 'main'}],
+              post_auth_tokenGenerate(state.userId)
+                .then(() => {
+                  topActions.setFrom('login');
+                })
+                .then(() => {
+                  actions.navigation.reset({
+                    index: 0,
+                    routes: [{name: 'main'}],
+                  });
                 });
-              });
             } else if (state.message === 'sign up') {
               actions.navigation.reset({
                 index: 0,
@@ -81,7 +85,10 @@ export default function SignUpScreen2() {
             console.log('no');
           }
 
-          topActions.setStateAndError(res);
+          topActions.setStateAndError(
+            res,
+            '[PhoneCheckScreen.js] useEffect - checkOtpData',
+          );
         })
         .catch(err => {
           console.log('Error during OTP check:', err);

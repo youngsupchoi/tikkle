@@ -25,6 +25,7 @@ import {
   B17,
   B20,
   B22,
+  EB,
   M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import LottieView from 'lottie-react-native';
@@ -79,24 +80,22 @@ const InstaGuideModal = ({name, tikkling_id}) => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'space-evenly',
             alignItems: 'center',
             marginTop: 20,
+            marginBottom: 20,
           }}>
           <TouchableOpacity
             onPress={() => {
               handleBeforePress();
             }}
             style={{
-              // position: 'absolute',
-              // bottom: 0,
               width: windowWidth * 0.375,
               alignItems: 'center',
               justifyContent: 'center',
               padding: 10,
               backgroundColor: COLOR_GRAY,
               borderRadius: 12,
-              marginBottom: 25,
             }}>
             <B15 customStyle={{color: 'white'}}>닫기</B15>
           </TouchableOpacity>
@@ -109,15 +108,12 @@ const InstaGuideModal = ({name, tikkling_id}) => {
               handleNextPress
             }
             style={{
-              // position: 'absolute',
-              // bottom: 0,
               width: windowWidth * 0.375,
               alignItems: 'center',
               justifyContent: 'center',
               padding: 10,
               backgroundColor: COLOR_PRIMARY,
               borderRadius: 12,
-              marginBottom: 25,
             }}>
             <B15 customStyle={{color: 'white'}}>다음</B15>
           </TouchableOpacity>
@@ -252,10 +248,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
 
   const handleNextPress = () => {
     const nextPage = currentPage + 1;
-    console.log(
-      '🚀 ~ file: InstaGuideModal.js:60 ~ handleNextPress ~ currentPage:',
-      currentPage,
-    );
+
     if (nextPage < numOfPage) {
       scrollViewRef.current?.scrollTo({
         x: nextPage * windowWidth * 0.8,
@@ -285,7 +278,6 @@ const InstaGuideModal = ({name, tikkling_id}) => {
     // <View>
     <Modal
       isVisible={state.isInstagramButtonModalVisible}
-      swipeDirection={['up']}
       style={styles.modal}
       useNativeDriver={false}
       onBackdropPress={() => {
@@ -299,68 +291,42 @@ const InstaGuideModal = ({name, tikkling_id}) => {
         style={[
           {
             backgroundColor: backgroundColor,
-            borderRadius: 30,
-            margin: 12,
-            width: windowWidth - 35,
+            borderRadius: 24,
+            width: windowWidth - 32,
             alignItems: 'center',
             justifyContent: 'center',
             position: 'absolute',
-            // bottom: windowHeight / 11,
             alignSelf: 'center',
-            // elevation: 3,
-            // shadowColor: '#000',
-            // shadowOffset: {
-            //   // iOS용 그림자 위치
-            //   width: 0,
-            //   height: 2,
-            // },
-            // shadowOpacity: 0.2, // iOS용 그림자 투명도
-            // shadowRadius: 3, // iOS용 그림자 반경
           },
         ]}>
         <View
           style={{
             alignItems: 'center',
-            // justifyContent: 'center',
-            borderRadius: 12,
-            margin: 0,
           }}>
           <View
             style={{
-              paddingTop: 24,
-              paddingBottom: 8,
-              width: windowWidth - 48,
-              // paddingHorizontal: 24,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-              marginTop: 10,
-              marginBottom: 10,
+              marginTop: 32,
+              marginBottom: 16,
+              alignItems: 'center',
             }}>
             <B20
               customStyle={{
                 color: COLOR_BLACK,
+                fontFamily: EB,
               }}>
-              인스타에 티클링 공유하기
+              티클링 공유하기
             </B20>
-            {/* <View style={{position: 'absolute', right: 20, top: -5}}>
-              {
-                <LottieView
-                  pointerEvents="none"
-                  source={require('src/assets/animations/successAnimation.json')} // replace with your Lottie file path
-                  autoPlay❓
-                  style={{
-                    width: 80,
-                    height: 80,
-                  }}
-                />
-              }
-            </View> */}
+            <B15
+              customStyle={{
+                color: COLOR_GRAY,
+                marginTop: 8,
+              }}>
+              with Instagram
+            </B15>
           </View>
           <View style={{height: windowWidth * 0.8}}>
             <ScrollView
               style={{
-                // backgroundColor: 'red',
                 width: windowWidth * 0.8,
                 borderRadius: 30,
               }}
@@ -377,13 +343,16 @@ const InstaGuideModal = ({name, tikkling_id}) => {
               <InstaGuideComponent4 />
             </ScrollView>
           </View>
-          <View style={{marginTop: 20}}>
-            <B17>
-              {currentDetailText + 1}. {getDisplayText(currentDetailText)}
+          <View style={{marginTop: 20, alignItems: 'center'}}>
+            <B17 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+              {currentDetailText + 1}단계
             </B17>
+            <B15 customStyle={{marginTop: 12}}>
+              {getDisplayText(currentDetailText)}
+            </B15>
           </View>
 
-          <View style={{marginTop: 20}}>
+          <View style={{marginTop: 12}}>
             <Buttons />
           </View>
         </View>

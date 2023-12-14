@@ -40,7 +40,7 @@ export const SubmitButton = () => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: SPACING_6,
+    marginTop: 20,
     width: '100%',
   },
   button: {

@@ -67,9 +67,6 @@ export default function FriendsTikklingCarousel(data) {
             <B15 customStyle={{marginLeft: 8, fontSize: 13}}>
               {item.user_name + '  '}
             </B15>
-            <M15 customStyle={{color: COLOR_GRAY, fontSize: 13}}>
-              {item.nick}
-            </M15>
           </View>
 
           <AnimatedButton
@@ -218,7 +215,7 @@ export default function FriendsTikklingCarousel(data) {
                       backgroundColor: COLOR_WHITE,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      borderRadius: 16,
+                      borderRadius: 30,
                       paddingRight: 12,
                     }}>
                     <View
@@ -248,7 +245,7 @@ export default function FriendsTikklingCarousel(data) {
                       backgroundColor: COLOR_WHITE,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      borderRadius: 16,
+                      borderRadius: 30,
                       paddingRight: 12,
                     }}>
                     <View
@@ -291,12 +288,11 @@ export default function FriendsTikklingCarousel(data) {
                       : setShowBuyModal(item.tikkling_id);
                   }}
                   style={{
-                    padding: 6,
+                    padding: 4,
                     paddingVertical: 10,
-                    borderRadius: 8,
+                    borderRadius: 12,
                     backgroundColor: COLOR_PRIMARY,
                     borderColor: COLOR_PRIMARY,
-                    borderWidth: 2,
                     alignItems: 'center',
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -412,7 +408,7 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     paddingTop: 8,
-    borderRadius: 12,
+    borderRadius: 20,
     backgroundColor: COLOR_WHITE,
     // elevation: 4,
     marginLeft: 24,

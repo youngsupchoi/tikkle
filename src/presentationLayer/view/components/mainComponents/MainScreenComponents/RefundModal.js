@@ -15,6 +15,7 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import Help from 'src/assets/icons/Help.svg';
 import {
+  COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
@@ -27,6 +28,7 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 import {TextInput} from 'react-native-gesture-handler';
 import AccountDropDown_home from './AccountDropDown_home';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import Error from 'src/assets/icons/Error.svg';
 
 export default function RefundModal() {
   //-------------------------------------------------------------------------
@@ -193,6 +195,12 @@ export default function RefundModal() {
               style={modalStyles.laterButton}>
               <B15 customStyle={modalStyles.primaryText}>나중에 환급 요청</B15>
             </AnimatedButton>
+
+            {state.event_image == 'none' ? (
+              <M11 customStyle={{color: COLOR_ERROR}}>
+                {'이벤트 티클은 환급되지 않아요!'}
+              </M11>
+            ) : null}
             <M11 customStyle={{color: COLOR_GRAY}}>
               티클링 종료일 기준 7일 이후부터 환급받을 수 있어요.
             </M11>
@@ -225,15 +233,18 @@ const modalStyles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: COLOR_PRIMARY,
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 8,
     borderColor: COLOR_PRIMARY_OUTLINE,
     borderWidth: 2,
   },
   laterButton: {
+    // backgroundColor: 'red',
     padding: 12,
     borderRadius: 12,
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: COLOR_SEPARATOR,
   },
   primaryText: {
     color: COLOR_PRIMARY,

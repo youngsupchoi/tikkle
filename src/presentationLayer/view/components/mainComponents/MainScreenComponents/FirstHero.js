@@ -133,7 +133,7 @@ const FirstHero = props => {
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
-      // If platform is IOS then check if instagram is installed on the user's device using the `Linking.canOpenURL` API
+      // If platform is IOS then check if instagram is installed on the user's device using the `Linking.canOpenURL` APInx
       Linking.canOpenURL('instagram://').then(val =>
         actions.setHasInstagramInstalled(val),
       );

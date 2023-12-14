@@ -10,6 +10,7 @@ import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData
 import {createTikklingData} from 'src/dataLayer/DataSource/Tikkling/CreateTikklingData';
 import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddressData';
 import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartTikklingViewModel = () => {
@@ -33,10 +34,13 @@ export const useStartTikklingViewModel = () => {
     actions.setLoading(true);
     getMyUserInfoData()
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[StartTikklingViewModel.js] loadData - getMyUserInfoData',
+        );
       })
       .then(async res => {
-        console.log('$$ :', res);
+        // console.log('$$ :', res);
         if (res.DSdata.info.tikkling_ticket == 0) {
           topActions.showSnackbar(
             '티클링 티켓이 부족합니다!\n티클링 티켓을 얻으려면 티클을 선물하세요.',
@@ -45,6 +49,9 @@ export const useStartTikklingViewModel = () => {
           navigation.goBack();
         } else {
           actions.setUserData(res.DSdata.info);
+          if (calculateDaysUntilNextBirthday(res.DSdata.info.birthday) <= 7) {
+            actions.setBirthdayAvailable(true);
+          }
         }
       });
     actions.setLoading(false);
@@ -65,7 +72,10 @@ export const useStartTikklingViewModel = () => {
     }
 
     updateMyAddressData(state.zonecode, state.address, newdetail).then(res => {
-      return topActions.setStateAndError(res);
+      return topActions.setStateAndError(
+        res,
+        '[StartTikklingViewModel.js] put_user_address - updateMyAddressData',
+      );
     });
   };
 
@@ -154,11 +164,19 @@ export const useStartTikklingViewModel = () => {
       actions.setCreateTikklingButtonPressed(true);
 
       put_user_address();
-
+      // console.log('opt', product_option);
       //TODO: product_option
       if (product_option == null || product_option == undefined) {
         product_option = {default: 'default'};
       }
+      // console.log(
+      //   'hihihi',
+      //   state.endDate,
+      //   state.selectedItem.price / 5000,
+      //   state.selectedItem.product_id,
+      //   state.eventType,
+      //   product_option,
+      // );
       createTikklingData(
         state.endDate,
         state.selectedItem.price / 5000,
@@ -167,12 +185,15 @@ export const useStartTikklingViewModel = () => {
         product_option,
       )
         .then(res => {
-          // console.log('po', product_option);
+          // console.log('res', res);
           topActions.setJustStart(true);
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[StartTikklingViewModel.js] tikklingStartButtonPress - createTikklingData',
+          );
         })
         .then(() => {
-          topActions.showSnackbar('티클링이 시작되었습니다!.', 1);
+          topActions.showSnackbar('티클링이 시작되었습니다!', 1);
           navigation.reset({
             index: 0,
             routes: [
@@ -207,6 +228,16 @@ export const useStartTikklingViewModel = () => {
   const onCloseDetailModal = () => {
     actions.setShowDetailModal(false);
   };
+
+  const checkEventModal = async () => {
+    const event_is = await AsyncStorage.getItem('event');
+    // console.log('event_is', event_is);
+    if (event_is != undefined && event_is != null && event_is != 'none') {
+      actions.setEventModalImage(event_is);
+      actions.setEventModalVisible(true);
+    }
+  };
+
   return {
     ref,
     state: {
@@ -225,6 +256,7 @@ export const useStartTikklingViewModel = () => {
       formatDate,
       tikklingStartButtonPress,
       setToEndOfDay,
+      checkEventModal,
     },
   };
 };

@@ -46,6 +46,7 @@ export const MainViewStateProvider = ({children}) => {
   const [account, setAccount] = useState(''); // 계좌 번호
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
+  const viewShotRef = useRef();
 
   const [bankDropDownVisible_home, setBankDropDownVisible_home] =
     useState(false);
@@ -53,6 +54,9 @@ export const MainViewStateProvider = ({children}) => {
   const [instagramButtonPressed, setInstagramButtonPressed] = useState(false);
   const [isInstagramButtonModalVisible, setIsInstagramButtonModalVisible] =
     useState(false);
+
+  const [eventModalVisible, setEventModalVisible] = useState(false);
+  const [notShowEvent, setNotShowEvent] = useState(false);
 
   const [bank, setBank] = useState([]);
 
@@ -84,6 +88,12 @@ export const MainViewStateProvider = ({children}) => {
   const [contactsData, setContactsData] = useState([]);
 
   const [detial_route, setDetial_route] = useState(false);
+
+  const [event_image, setEvent_image] = useState(null);
+  const [event_name, setEvent_name] = useState(null);
+
+  const [eventModalVisible_detail, setEventModalVisible_detail] =
+    useState(false);
 
   // ... 다른 상태들
   const ref = {
@@ -144,6 +154,12 @@ export const MainViewStateProvider = ({children}) => {
     detial_route,
     instagramButtonPressed,
     isInstagramButtonModalVisible,
+    viewShotRef,
+    eventModalVisible,
+    notShowEvent,
+    event_image,
+    event_name,
+    eventModalVisible_detail,
   };
 
   const actions = {
@@ -198,6 +214,11 @@ export const MainViewStateProvider = ({children}) => {
     setDetial_route,
     setInstagramButtonPressed,
     setIsInstagramButtonModalVisible,
+    setEventModalVisible,
+    setNotShowEvent,
+    setEvent_image,
+    setEvent_name,
+    setEventModalVisible_detail,
   };
 
   return (

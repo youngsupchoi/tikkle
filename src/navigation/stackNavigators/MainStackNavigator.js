@@ -47,9 +47,10 @@ import {useEffect, useState} from 'react';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import PushNotification from 'react-native-push-notification';
 import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
+import SignUpScreen0 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/SignUpScreen0';
 
 const ProductDetail = () => (
-  <Safe>
+  <Safe color={COLOR_WHITE}>
     <ProductDetailViewStateProvider>
       <ProductDetailScreen />
     </ProductDetailViewStateProvider>
@@ -73,7 +74,7 @@ const TikklingDetail = () => (
 );
 
 const StartTikkling = ({route}) => (
-  <Safe>
+  <Safe color={COLOR_WHITE}>
     <StartTikklingViewStateProvider>
       <StartTikklingScreen route={route} />
     </StartTikklingViewStateProvider>
@@ -101,6 +102,42 @@ const NotificationSetting = () => (
     <NotificationSettingViewStateProvider>
       <NotificationSettingScreen />
     </NotificationSettingViewStateProvider>
+  </Safe>
+);
+
+const SignUp0 = () => (
+  <Safe color={COLOR_WHITE}>
+    <SignUpScreen0 />
+  </Safe>
+);
+
+const SignUp1 = () => (
+  <Safe>
+    <SignUpScreen1 />
+  </Safe>
+);
+
+const SignUp2 = () => (
+  <Safe>
+    <SignUpScreen2 />
+  </Safe>
+);
+
+const SignUp3 = () => (
+  <Safe>
+    <SignUpScreen3 />
+  </Safe>
+);
+
+const SignUp4 = () => (
+  <Safe>
+    <SignUpScreen4 />
+  </Safe>
+);
+
+const SignUp5 = () => (
+  <Safe>
+    <SignUpScreen5 />
   </Safe>
 );
 
@@ -172,26 +209,25 @@ export function reset(routes) {
 
 function SignUpNavigator() {
   return (
-    <Safe>
-      <StartViewStateProvider>
-        <SignUpStack.Navigator
-          initialRouteName="onboarding"
-          screenOptions={{
-            headerShown: false,
-            // gestureEnabled: true,
-            // cardOverlayEnabled: true,
-            cardStyleInterpolator: customCardStyleInterpolator,
-            // transitionSpec: customTransitionSpec,
-          }}>
-          <SignUpStack.Screen name="signup1" component={SignUpScreen1} />
-          <SignUpStack.Screen name="signup2" component={SignUpScreen2} />
-          <SignUpStack.Screen name="signup3" component={SignUpScreen3} />
-          <SignUpStack.Screen name="signup4" component={SignUpScreen4} />
-          <SignUpStack.Screen name="signup5" component={SignUpScreen5} />
-          <SignUpStack.Screen name="signup6" component={SignUpScreen6} />
-        </SignUpStack.Navigator>
-      </StartViewStateProvider>
-    </Safe>
+    <StartViewStateProvider>
+      <SignUpStack.Navigator
+        initialRouteName="onboarding"
+        screenOptions={{
+          headerShown: false,
+          // gestureEnabled: true,
+          // cardOverlayEnabled: true,
+          cardStyleInterpolator: customCardStyleInterpolator,
+          // transitionSpec: customTransitionSpec,
+        }}>
+        <SignUpStack.Screen name="signup0" component={SignUp0} />
+        <SignUpStack.Screen name="signup1" component={SignUp1} />
+        <SignUpStack.Screen name="signup2" component={SignUp2} />
+        <SignUpStack.Screen name="signup3" component={SignUp3} />
+        <SignUpStack.Screen name="signup4" component={SignUp4} />
+        <SignUpStack.Screen name="signup5" component={SignUp5} />
+        {/* <SignUpStack.Screen name="signup6" component={SignUpScreen6} /> */}
+      </SignUpStack.Navigator>
+    </StartViewStateProvider>
   );
 }
 
@@ -237,8 +273,13 @@ const linking = {
   ],
 
   async getInitialURL() {
+    const {topState, topActions} = useTopViewModel();
     const url = await Linking.getInitialURL();
     if (url != null) {
+      // console.log('##############\n################');
+
+      topActions.setOpenDeepLink(true);
+
       if (url.startsWith('https://tikkle.lifoli.co.kr')) {
         const originalLink = await resolveDynamicLink(url);
         return originalLink;

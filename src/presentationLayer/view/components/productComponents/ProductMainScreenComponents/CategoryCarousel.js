@@ -27,21 +27,29 @@ export default function CategoryCarousel() {
   return (
     <View>
       <B20 customStyle={{paddingHorizontal: 16, marginBottom: 12}}>
-        전체 카테고리
+        카테고리
       </B20>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {state.categories.map(category => (
           <AnimatedButton
-            onPress={() => {
-              actions.setSelectedCategory(category.name);
-              actions.setCategoryId(category.id);
+            onPress={async () => {
+              actions.dispatchSearchOption({
+                type: 'SET_CATEGORY',
+                payload: {
+                  categoryId: category.id,
+                  selectedCategory: category.name,
+                  reset: 0,
+                },
+              });
+              // await actions.changeCategory(category.id, category.name);
             }}
             key={category.id}
             style={{
               backgroundColor:
-                state.categoryId === category.id ? COLOR_PRIMARY : COLOR_WHITE,
-              paddingLeft: 20,
-              paddingRight: 18,
+                state.searchOption.categoryId === category.id
+                  ? COLOR_PRIMARY
+                  : COLOR_WHITE,
+              paddingHorizontal: 16,
               paddingVertical: 8,
               borderColor: COLOR_PRIMARY,
               borderWidth: 1,
@@ -61,7 +69,7 @@ export default function CategoryCarousel() {
               customStyle={{
                 // marginTop: 8,
                 color:
-                  state.categoryId === category.id
+                  state.searchOption.categoryId === category.id
                     ? COLOR_WHITE
                     : COLOR_PRIMARY,
               }}>
@@ -121,6 +129,6 @@ const styles = StyleSheet.create({
   },
   selectedItem: {
     borderColor: COLOR_SEPARATOR,
-    borderWidth: 3, // Increased border width for selected item
+    borderWidth: 1, // Increased border width for selected item
   },
 });

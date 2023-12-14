@@ -63,6 +63,17 @@ export default function BirthInput() {
           placeholderTextColor={COLOR_GRAY}
           style={styles.nativeInput}
           // underlineColorAndroid="transparent" // Remove underline for Android
+          onSubmitEditing={() => {
+            if (
+              state.year.length !== 4 ||
+              state.month.length == 0 ||
+              state.day.length == 0
+            ) {
+              return;
+            }
+
+            actions.completeSignUp();
+          }}
           value={state.day}
           onChangeText={actions.setDay}
         />

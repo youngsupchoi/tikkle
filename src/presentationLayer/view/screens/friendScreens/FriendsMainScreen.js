@@ -7,6 +7,7 @@ import {
   Animated,
   StyleSheet,
   SectionList,
+  Keyboard,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -49,16 +50,19 @@ import LottieView from 'lottie-react-native';
 import Close from 'src/assets/icons/Close';
 import UnBlock from 'src/assets/icons/UnBlock';
 import BlockFriend from 'src/assets/icons/BlockFriend';
-
+import Contract from 'src/assets/icons/Contract';
 import {RefreshControl} from 'react-native-gesture-handler';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import Modal from 'react-native-modal';
 import ModalDropdown from 'react-native-modal-dropdown';
 import ArrowDown from 'src/assets/icons/ArrowDown';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import PermissionModal from 'src/presentationLayer/view/components/friendComponents/friendMainComponents/PermissionModal';
 
 export default function FriendsManagementScreen() {
   const {ref, state, actions} = useFriendMainViewModel();
+  const {topActions} = useTopViewModel();
   const [modalText, setModalText] = useState('차단 목록');
 
   useEffect(() => {
@@ -72,6 +76,14 @@ export default function FriendsManagementScreen() {
   useEffect(() => {
     actions.get_friend_data(state.mode_friend);
   }, [state.mode_friend]);
+  useEffect(() => {
+    if (
+      state.searchedData[0] === undefined &&
+      state.searchedData.length !== 0
+    ) {
+      topActions.showSnackbar('입력하신 전화번호를 가진 유저가 없어요!', 0);
+    }
+  }, [state.searchedData]);
 
   return (
     <View style={styles.container}>
@@ -106,15 +118,31 @@ export default function FriendsManagementScreen() {
             </View>
           )}
         />
+        <AnimatedButton
+          onPress={() => {
+            console.log('연락처 동기화');
+            actions.findContacts();
+          }}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            // width: 60,
+            height: 40,
+          }}>
+          <Contract width={30} height={30} />
+          <M11>연락처 동기화</M11>
+        </AnimatedButton>
       </View>
 
       <View style={styles.searchBarContainer}>
         <View style={styles.searchBar}>
           <TextInput
             onSubmitEditing={() => {
+              actions.setSearched_phone(state.text_search);
               actions.get_friend_search();
             }}
-            placeholder="id로 친구 추가"
+            keyboardType="numeric"
+            placeholder="전화번호로 친구 추가"
             placeholderTextColor={COLOR_GRAY}
             onChangeText={value => actions.setText_search(value)}
             value={state.text_search}
@@ -122,7 +150,9 @@ export default function FriendsManagementScreen() {
           />
           <AnimatedButton
             onPress={() => {
+              Keyboard.dismiss();
               actions.get_friend_search();
+              actions.setSearched_phone(state.text_search);
             }}
             style={styles.searchButton}>
             <SearchNormal1
@@ -136,49 +166,47 @@ export default function FriendsManagementScreen() {
         </View>
       </View>
 
-      {state.searchedData.length !== 0 ? (
-        <View
+      {/* {console.log('서치데이터', state.searchedData)} */}
+      {state.searchedData[0] !== undefined ? (
+        <AnimatedButton
+          onPress={() => {
+            Keyboard.dismiss();
+          }}
           style={{
-            height: windowWidth,
-            alignItems: 'center',
-            justifyContent: 'center',
             backgroundColor: COLOR_WHITE,
-            margin: 24,
-            borderRadius: 16,
+            borderRadius: 12,
+            margin: 16,
+            marginTop: 5,
+            borderColor: COLOR_SEPARATOR,
+            borderWidth: 0.5,
+            padding: 16,
+            paddingVertical: 12,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
-          <AnimatedButton
-            onPress={() => {
-              actions.setSearchedData([]);
-              actions.setText_search('');
-              actions.setSearchFalse(false);
-            }}
-            style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
-            <Close
-              width={24}
-              height={24}
-              stroke={COLOR_BLACK}
-              strokeWidth={2}
-              scale={0.8}
-            />
-          </AnimatedButton>
-          <View style={{marginBottom: 48}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
+              resizeMode="contain"
               source={{
                 uri:
                   state.searchedData[0].image !== null
                     ? state.searchedData[0].image
                     : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
               }}
-              style={styles.searchedDataImage}
+              style={{width: 48, height: 48, borderRadius: 60}}
             />
-          </View>
-          <B17>{state.searchedData[0].name}</B17>
-          <M15 customStyle={{color: COLOR_GRAY, marginTop: 8}}>
-            {'  ' + state.searchedData[0].nick}
-          </M15>
 
-          <View style={{marginTop: 24}}>
-            {/* {console.log(state.searchedData[0])} */}
+            <View style={{alignItems: 'flex-start', marginLeft: 16}}>
+              <B17>{state.searchedData[0].name}님</B17>
+              <View style={{height: 5}} />
+              <M11 customStyle={{color: COLOR_GRAY}}>
+                {state.searched_phone}
+              </M11>
+            </View>
+          </View>
+
+          <View>
             {state.searchedData[0].relation_state_id === null &&
             state.searchedData.central_user_id != state.searchedData[0].id ? (
               <AnimatedButton
@@ -186,43 +214,42 @@ export default function FriendsManagementScreen() {
                   actions.create_friend(state.searchedData[0].id);
                 }}
                 style={{
-                  padding: 12,
-                  paddingHorizontal: 24,
+                  padding: 8,
+                  paddingHorizontal: 15,
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: COLOR_PRIMARY,
-                  borderRadius: 12,
+                  borderRadius: 10,
                   borderColor: COLOR_PRIMARY_OUTLINE,
-                  borderWidth: 2,
+                  borderWidth: 1,
                 }}>
-                <B15 customStyle={{color: COLOR_WHITE, fontFamily: EB}}>
+                <B12 customStyle={{color: COLOR_WHITE, fontFamily: EB}}>
                   친구 추가
-                </B15>
+                </B12>
               </AnimatedButton>
-            ) : null}
-
-            {state.searchedData[0].relation_state_id === 1 ? (
+            ) : state.searchedData[0].relation_state_id === null &&
+              state.searchedData.central_user_id == state.searchedData[0].id ? (
               <AnimatedButton
                 onPress={() => {
-                  actions.setText_search('');
-                  actions.setSearchedData([]);
-                  actions.setSearchFalse(false);
+                  actions.create_friend(state.searchedData[0].id);
                 }}
                 style={{
-                  padding: 12,
-                  paddingHorizontal: 24,
+                  padding: 8,
+                  paddingHorizontal: 15,
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: COLOR_SEPARATOR,
-                  borderRadius: 12,
-                  borderColor: COLOR_PRIMARY_OUTLINE,
-                  borderWidth: 2,
+                  borderRadius: 10,
+                  borderColor: COLOR_GRAY,
+                  borderWidth: 1,
                 }}>
-                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+                <B12 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
+                  회원님의 전화번호
+                </B12>
               </AnimatedButton>
-            ) : null}
-
-            {state.searchedData[0].relation_state_id === 2 ? (
+            ) : state.searchedData[0] !== undefined &&
+              (state.searchedData[0].relation_state_id === 1 ||
+                state.searchedData[0].relation_state_id === 2) ? (
               <AnimatedButton
                 onPress={() => {
                   actions.setText_search('');
@@ -230,20 +257,19 @@ export default function FriendsManagementScreen() {
                   actions.setSearchFalse(false);
                 }}
                 style={{
-                  padding: 12,
-                  paddingHorizontal: 24,
+                  padding: 8,
+                  paddingHorizontal: 15,
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: COLOR_SEPARATOR,
-                  borderRadius: 12,
-                  borderColor: COLOR_PRIMARY_OUTLINE,
-                  borderWidth: 2,
+                  borderRadius: 10,
+                  borderColor: COLOR_GRAY,
+                  borderWidth: 1,
                 }}>
-                <B15 customStyle={{color: COLOR_PRIMARY}}>이미 친구 입니다</B15>
+                <B12 customStyle={{color: COLOR_PRIMARY}}>등록된 친구</B12>
               </AnimatedButton>
-            ) : null}
-
-            {state.searchedData[0].relation_state_id === 3 ? (
+            ) : state.searchedData[0] !== undefined &&
+              state.searchedData[0].relation_state_id === 3 ? (
               <AnimatedButton
                 onPress={() => {
                   actions.setText_search('');
@@ -251,57 +277,21 @@ export default function FriendsManagementScreen() {
                   actions.setSearchFalse(false);
                 }}
                 style={{
-                  padding: 12,
-                  paddingHorizontal: 24,
+                  padding: 8,
+                  paddingHorizontal: 15,
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: COLOR_ERROR,
-                  borderRadius: 12,
+                  borderRadius: 10,
                   borderColor: COLOR_ERROR,
-                  borderWidth: 2,
+                  borderWidth: 1,
                 }}>
-                <B15 customStyle={{color: COLOR_WHITE}}>차단된 이용자</B15>
+                <B12 customStyle={{color: COLOR_WHITE}}>차단된 이용자</B12>
               </AnimatedButton>
             ) : null}
           </View>
-        </View>
-      ) : (
-        <View>
-          {state.searchFalse === true ? (
-            <View
-              style={{
-                height: windowWidth / 6,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: COLOR_WHITE,
-                margin: 24,
-                borderRadius: 16,
-              }}>
-              <AnimatedButton
-                onPress={() => {
-                  actions.setSearchedData([]);
-                  actions.setText_search('');
-                  actions.setSearchFalse(false);
-                }}
-                style={{position: 'absolute', top: 8, left: 8, padding: 10}}>
-                <Close
-                  width={24}
-                  height={24}
-                  stroke={COLOR_BLACK}
-                  strokeWidth={2}
-                  scale={0.8}
-                />
-              </AnimatedButton>
-              <View>
-                <B15 customStyle={{color: COLOR_BLACK}}>
-                  존재하지 않는 id에요
-                </B15>
-              </View>
-            </View>
-          ) : null}
-        </View>
-      )}
-      {/* {console.log(state.getFriendData)} */}
+        </AnimatedButton>
+      ) : null}
 
       <Animated.View
         style={[styles.animatedViewContainer, {opacity: ref.opacityValue}]}>
@@ -346,7 +336,7 @@ export default function FriendsManagementScreen() {
                           }}
                         />
                         <M15>아직 사용 중인 친구가 없네요</M15>
-                        <B22>아이디로 친구를 찾아 보세요!</B22>
+                        <B22>전화번호로 친구를 찾아 보세요!</B22>
                       </View>
                     );
                   }
@@ -394,23 +384,23 @@ export default function FriendsManagementScreen() {
             )}
             ListFooterComponent={() => {
               return (
-                <View style={{height: 500}}>
+                <View style={{marginBottom: 200}}>
                   {/* <View style={{height: 100}} />
                   <Footer /> */}
                 </View>
               );
             }}
-            ItemSeparatorComponent={() => {
-              return (
-                <View
-                  style={{
-                    width: '100%',
-                    height: 1,
-                    backgroundColor: COLOR_SEPARATOR,
-                  }}
-                />
-              );
-            }}
+            // ItemSeparatorComponent={() => {
+            //   return (
+            //     <View
+            //       style={{
+            //         width: '100%',
+            //         height: 1,
+            //         backgroundColor: COLOR_SEPARATOR,
+            //       }}
+            //     />
+            //   );
+            // }}
             renderItem={({item, index}) => {
               return (
                 <View key={item.id} style={styles.flatListItemContainer}>
@@ -431,10 +421,7 @@ export default function FriendsManagementScreen() {
                     />
                     <View style={styles.listItemTextContainer}>
                       <B15>{item.name}</B15>
-                      <B15 customStyle={{color: COLOR_GRAY}}>
-                        {' '}
-                        {' ' + item.nick}
-                      </B15>
+                      {/* <B15 customStyle={{color: COLOR_GRAY}}> {' ' + item}</B15> */}
                     </View>
                   </View>
                   <View style={{position: 'absolute', right: 20, top: 25}}>
@@ -492,6 +479,8 @@ export default function FriendsManagementScreen() {
           />
         )}
       </Animated.View>
+
+      <PermissionModal />
     </View>
   );
 }
@@ -512,6 +501,7 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     paddingHorizontal: 16,
+    paddingRight: 80,
     alignItems: 'center',
     justifyContent: 'space-between',
     position: 'sticky',
@@ -588,6 +578,7 @@ const styles = StyleSheet.create({
     padding: 0,
     fontFamily: B,
     fontSize: 15,
+    width: '80%',
   },
   searchButton: {
     width: 40,
@@ -634,7 +625,7 @@ const styles = StyleSheet.create({
   dropdownButtonText: {
     fontSize: 20,
     fontFamily: B,
-    color: COLOR_GRAY,
+    color: COLOR_BLACK,
   },
   dropdown: {
     padding: 8,

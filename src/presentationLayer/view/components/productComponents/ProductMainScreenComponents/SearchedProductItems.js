@@ -9,6 +9,7 @@ import {
 import {
   COLOR_GRAY,
   COLOR_PRIMARY,
+  COLOR_SECONDARY,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
@@ -26,6 +27,8 @@ import {useNavigation} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 import LottieView from 'lottie-react-native';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
 
 export default function SearchedProductItems({productData, category}) {
   const {state, actions} = useProductMainViewModel();
@@ -59,42 +62,62 @@ export default function SearchedProductItems({productData, category}) {
                 }}
                 style={[styles.itemContainer]}
                 key={item.id}>
-                <Image
-                  source={{uri: item.thumbnail_image}}
-                  style={styles.imageContainer}
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    width: '100%',
+                    height: windowWidth / 2 - SPACING_4,
+                    backgroundColor: COLOR_WHITE,
+                    borderRadius: 10,
+                  }}
                 />
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={{uri: item.thumbnail_image}}
+                    style={styles.imageContainer}
+                  />
+                  <View
+                    style={{
+                      position: 'absolute',
+                      bottom: 12,
+                      right: 12,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      borderRadius: 24,
+                      backgroundColor: COLOR_WHITE,
+                      borderColor: COLOR_PRIMARY,
+                      borderWidth: 1,
+                      padding: 2,
+                      paddingHorizontal: 6,
+                    }}>
+                    <BubbleFilled fill={COLOR_PRIMARY} width={14} height={14} />
+
+                    <View style={{marginLeft: 4}}>
+                      <B15>{item.price / 5000}</B15>
+                    </View>
+                  </View>
+                </View>
+
                 <View style={styles.textContainer}>
                   <B15 numberOfLines={2} customStyle={{lineHeight: 20}}>
                     {item.name}
                   </B15>
-                  <B12 customStyle={styles.brand}>{item.brand_name}</B12>
-                  <B12 customStyle={{lineHeight: 17}}>
+                  <View style={{}}>
+                    <B12 customStyle={styles.brand}>{item.brand_name}</B12>
+                    {/* <B12 customStyle={{lineHeight: 17}}>
                     ￦{item.price.toLocaleString()}
-                  </B12>
+                  </B12> */}
+                  </View>
+                  {/* <B12 customStyle={{lineHeight: 17}}>
+                    ￦{item.price.toLocaleString()}
+                  </B12> */}
                 </View>
               </AnimatedButton>
             ))}
           </View>
 
-          {state.itemLoading ? (
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <LottieView
-                pointerEvents="none"
-                source={require('src/assets/animations/loading2.json')} // replace with your Lottie file path
-                autoPlay
-                style={{
-                  width: 120,
-                  height: 120,
-                }}
-              />
-            </View>
-          ) : null}
+          {state.itemLoading ? <GlobalLoader /> : null}
 
           {state.noitems ? (
             <View
@@ -115,15 +138,16 @@ export default function SearchedProductItems({productData, category}) {
                   backgroundColor: backgroundColor,
                 }}
               />
-              <M15>받고 싶은 상품이 있다면 추가해 드릴게요!</M15>
+              <View style={{marginTop: 40}}>
+                <M15>받고 싶은 상품이 있다면 말씀해주시겠어요?</M15>
+              </View>
               <AnimatedButton
                 onPress={() => {
                   navigation.navigate('ProductInqire');
                 }}
                 style={{
                   padding: 6,
-                  // paddingVertical: 10,
-                  paddingHorizontal: 10,
+                  paddingHorizontal: 24,
                   borderRadius: 8,
                   backgroundColor: COLOR_WHITE,
                   borderColor: COLOR_PRIMARY,
@@ -131,7 +155,7 @@ export default function SearchedProductItems({productData, category}) {
                   alignItems: 'center',
                   flexDirection: 'row',
                   justifyContent: 'center',
-                  marginTop: 10,
+                  marginTop: 16,
                 }}>
                 <B15 customStyle={{color: COLOR_PRIMARY}}>
                   상품 등록 신청하기
@@ -141,44 +165,61 @@ export default function SearchedProductItems({productData, category}) {
           ) : null}
         </View>
       ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: windowWidth,
-          }}>
-          <B22>조건에 맞는 상품이 없어요</B22>
-          <LottieView
-            source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
-            autoPlay
-            loop
-            style={{
-              width: 250,
-              height: 200,
-              alignSelf: 'center',
-              backgroundColor: backgroundColor,
-            }}
-          />
-          <M15>받고 싶은 상품이 있다면 추가해 드릴게요!</M15>
-          <AnimatedButton
-            onPress={() => {
-              navigation.navigate('ProductInqire');
-            }}
-            style={{
-              padding: 6,
-              // paddingVertical: 10,
-              paddingHorizontal: 10,
-              borderRadius: 8,
-              backgroundColor: COLOR_WHITE,
-              borderColor: COLOR_PRIMARY,
-              borderWidth: 1,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop: 10,
-            }}>
-            <B15 customStyle={{color: COLOR_PRIMARY}}>상품 등록 신청하기</B15>
-          </AnimatedButton>
+        <View>
+          {state.itemLoading ? (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: windowWidth,
+              }}>
+              <View style={{marginTop: 200}} />
+              <GlobalLoader />
+            </View>
+          ) : (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: windowWidth,
+              }}>
+              <B22>조건에 맞는 상품이 없어요</B22>
+              <LottieView
+                source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                autoPlay
+                loop
+                style={{
+                  width: 150,
+                  height: 150,
+                  alignSelf: 'center',
+                  backgroundColor: backgroundColor,
+                }}
+              />
+              <View style={{marginTop: 40}}>
+                <M15>받고 싶은 상품이 있다면 말씀해주시겠어요?</M15>
+              </View>
+              <AnimatedButton
+                onPress={() => {
+                  navigation.navigate('ProductInqire');
+                }}
+                style={{
+                  padding: 6,
+                  paddingHorizontal: 24,
+                  borderRadius: 8,
+                  backgroundColor: COLOR_WHITE,
+                  borderColor: COLOR_PRIMARY,
+                  borderWidth: 1,
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginTop: 24,
+                }}>
+                <B15 customStyle={{color: COLOR_PRIMARY}}>
+                  상품 등록 신청하기
+                </B15>
+              </AnimatedButton>
+            </View>
+          )}
         </View>
       )}
     </View>

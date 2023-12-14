@@ -14,6 +14,7 @@ import FilterSearch from 'src/assets/icons/FilterSearch';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
   B,
+  B15,
   B12,
   M,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
@@ -21,6 +22,8 @@ import AnimatedButton from 'src/presentationLayer/view/components/globalComponen
 import ProductSearchChips from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/ProductSearchChips';
 import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productViewModels/ProductMainViewModel';
 import FilterAndSelectedState from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/FilterAndSelectedState';
+import CategoryCarousel from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/CategoryCarousel';
+import FixedCategoryCarousel from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/FixedCategoryCarousel';
 
 export default function ProductSearch() {
   const {state, actions} = useProductMainViewModel();
@@ -58,12 +61,24 @@ export default function ProductSearch() {
               placeholderTextColor={COLOR_GRAY}
               value={state.search} // Bind the value prop to the search prop
               onChangeText={text => actions.setSearch(text)} // Update the search value using setSearch
+              onSubmitEditing={() => {
+                actions.onRefresh();
+              }}
             />
           </View>
           <AnimatedButton
             style={styles.searchIconContainer}
             onPress={() => {
-              actions.onRefresh();
+              actions.dispatchSearchOption({
+                type: 'SET_SEARCH',
+                payload: {
+                  search: state.search,
+                  reset: 0,
+                },
+              });
+
+              //TODO: 여기서 state 방식으로 수정요함
+              // actions.onRefresh();
             }}>
             <SearchNormal1
               width={20}
@@ -75,7 +90,8 @@ export default function ProductSearch() {
           </AnimatedButton>
         </View>
       </View>
-
+      <FixedCategoryCarousel />
+      {/* <FilterAndSelectedState /> */}
       <FilterAndSelectedState />
     </View>
   );

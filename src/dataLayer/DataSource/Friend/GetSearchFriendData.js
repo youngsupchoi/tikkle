@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function getSearchFriendData(nick) {
+export async function getSearchFriendData(phone) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -28,7 +28,12 @@ export async function getSearchFriendData(nick) {
   let response;
 
   try {
-    response = await apiModel('get_friend_search', authorization, null, nick);
+    response = await apiModel(
+      'get_friend_searchPhone',
+      authorization,
+      null,
+      phone,
+    );
     if (!response) {
       //  error
       throw new Error();
@@ -58,10 +63,6 @@ export async function getSearchFriendData(nick) {
     };
   }
   const info = response.data.data;
-  console.log(
-    '🚀 ~ file: GetSearchFriendData.js:61 ~ getSearchFriendData ~ info:',
-    info,
-  );
 
   //------ update token ---------------------------------------------------//
 
@@ -77,6 +78,6 @@ export async function getSearchFriendData(nick) {
   return {
     DScode: 0,
     DSdata: {info: info},
-    DSmessage: 'id으로 친구 검색에 성공했어요.',
+    DSmessage: '전화번호로 친구 검색에 성공했어요.',
   };
 }

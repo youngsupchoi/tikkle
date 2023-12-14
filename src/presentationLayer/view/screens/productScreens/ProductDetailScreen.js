@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   Animated,
+  StatusBar,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -19,6 +20,7 @@ import {
 import {
   B17,
   B,
+  M11,
   B15,
   EB,
   B20,
@@ -28,6 +30,8 @@ import {
   M28,
   M22,
   B12,
+  M,
+  NUMBERFONT,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -41,6 +45,7 @@ import {
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import Tooltip from 'react-native-walkthrough-tooltip';
 import {
   windowHeight,
   windowWidth,
@@ -61,6 +66,10 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import ProductOptionsModal from 'src/presentationLayer/view/components/productComponents/ProductDetailScreenComponents/ProductOptionsModal';
 import Warn from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/Warn';
 import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
+import KRW from 'src/assets/icons/KRW';
+import BubbleFilled from 'src/assets/icons/BubbleFilled';
+import Refresh from 'src/assets/icons/Refresh';
+import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 const containerWidth = windowWidth - SPACING_6;
 
@@ -69,10 +78,12 @@ export default function ProductDetailScreen(route) {
   const {topActions} = useTopViewModel();
 
   const [selected, setSelected] = useState('상세정보');
+  const [buttikkletooltip, setButtikkletooltip] = useState(false);
+
   const scrollY = new Animated.Value(0);
   const imageScale = scrollY.interpolate({
     inputRange: [0, 200], // These numbers might need tweaking based on your requirements
-    outputRange: [1.1, 0.8], // Scaling from full size to 80%
+    outputRange: [1.1, 1], // Scaling from full size to 80%
     extrapolate: 'clamp', // This ensures the scale doesn't go beyond our outputRange
   });
   const animatedThumbnailStyle = {
@@ -109,6 +120,11 @@ export default function ProductDetailScreen(route) {
         <GlobalLoader />
       ) : (
         <View>
+          <StatusBar
+            translucent
+            barStyle={'dark-content'}
+            backgroundColor={COLOR_WHITE}
+          />
           {/* {console.log('##', state.data)} */}
           <Animated.ScrollView
             scrollEventThrottle={16} // Ensures onScroll is called every 16ms
@@ -125,6 +141,8 @@ export default function ProductDetailScreen(route) {
                 right: 0,
                 zIndex: 10,
                 backgroundColor: 'transparent',
+                borderBottomColor: COLOR_SEPARATOR,
+                borderBottomWidth: 1,
                 // padding: 16,
                 // backgroundColor: 'red',
               }}>
@@ -133,8 +151,9 @@ export default function ProductDetailScreen(route) {
                 end={{x: 0, y: 1}}
                 colors={[
                   'rgba(255,255,255,1)',
-                  'rgba(255,255,255,0.3)',
-                  'rgba(255,255,255,0)',
+                  'rgba(255,255,255,1)',
+                  // 'rgba(255,255,255,0.8)',
+                  // 'rgba(255,255,255,0)',
                 ]}
                 style={{
                   position: 'absolute',
@@ -197,55 +216,171 @@ export default function ProductDetailScreen(route) {
             <View
               style={{
                 paddingHorizontal: 24,
-                // paddingVertical: 24,
-                paddingTop: 16,
-                // marginVertical: 8,
-                backgroundColor: backgroundColor,
-                borderTopColor: COLOR_SEPARATOR,
-                borderTopWidth: 1,
+                paddingVertical: 16,
+                backgroundColor: COLOR_WHITE,
+                borderBottomColor: backgroundColor,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
                 borderTopRightRadius: 16,
                 borderTopLeftRadius: 16,
-                top: -20,
+                // top: -20,
               }}>
-              <M15
-                customStyle={{
-                  color: COLOR_GRAY,
-                  marginBottom: 4,
-                }}>
-                {state.data.brand_name}
-              </M15>
               <M20
                 numberOfLines={2}
-                customStyle={{marginBottom: 5, fontFamily: EB, lineHeight: 32}}>
+                customStyle={{
+                  marginBottom: 0,
+                  fontFamily: EB,
+                  lineHeight: 32,
+                }}>
                 {state.data.name}
               </M20>
-
               <View
                 style={{
                   flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 8,
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end',
+                  // backgroundColor: 'red',
                 }}>
-                <M15>￦</M15>
                 <M15
-                // customStyle={{fontFamily: 'BMHANNA11yrsoldOTF'}}
-                >
-                  {state.data.price}
+                  customStyle={{
+                    color: COLOR_GRAY,
+                    marginBottom: 0,
+                  }}>
+                  {state.data.brand_name}
                 </M15>
-              </View>
+                {/* <View
+                style={{
+                  marginBottom: 16,
+                  flexDirection: 'row',
+                }}>
+                <View
+                  style={{
+                    padding: 6,
+                    paddingHorizontal: 12,
+                    borderRadius: 4,
+                    borderColor: COLOR_PRIMARY,
+                    borderWidth: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    alignSelf: 'flex-start',
+                  }}>
+                  <B12 customStyle={{color: COLOR_PRIMARY}}>무료 배송</B12>
+                </View>
+                <View
+                  style={{
+                    padding: 6,
+                    paddingHorizontal: 12,
+                    borderRadius: 4,
+                    borderColor: COLOR_GRAY,
+                    borderWidth: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    alignSelf: 'flex-start',
+                    marginLeft: 8,
+                  }}>
+                  <B12 customStyle={{color: COLOR_GRAY}}>익일 배송</B12>
+                </View>
+              </View> */}
 
-              {/* <B15 customStyle={{marginBottom: 4, marginTop: 24}}>
-                상품 설명
-              </B15> */}
-              <M15 customStyle={{color: COLOR_GRAY, marginBottom: 0}}>
-                {state.data.description}
-              </M15>
+                <Tooltip
+                  topAdjustment={
+                    Platform.OS === 'android' ? -StatusBarHeight : 0
+                  }
+                  isVisible={buttikkletooltip}
+                  content={
+                    <View style={{padding: 12, paddingVertical: 4}}>
+                      <View>
+                        <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클'}</B15>
+                        {/* <AnimatedButton
+                          onPress={() => {
+                            //Linking.openURL('https://www.lifoli.co.kr');
+                          }}>
+                          <B12
+                            customStyle={{marginRight: 10, color: COLOR_GRAY}}>
+                            {'더보기'}
+                          </B12>
+                        </AnimatedButton> */}
+                      </View>
+                      <View style={{}}>
+                        <View style={{}}>
+                          <M11 customStyle={{}}>
+                            {'티클은 5000원의 가치를 지니는 선물 조각이에요.'}
+                          </M11>
+                          <M11 customStyle={{}}>
+                            {'친구에게 티클을 선물해서 기념일을 축하해주세요!'}
+                          </M11>
+                        </View>
+                      </View>
+                    </View>
+                  }
+                  placement="top"
+                  animated={true}
+                  backgroundColor="rgba(0,0,0,0.1)"
+                  // backgroundColor="transparent"
+                  disableShadow={true}
+                  onClose={() => {
+                    setButtikkletooltip(false);
+                  }}>
+                  <AnimatedButton
+                    onPress={() => {
+                      setButtikkletooltip(true);
+                    }}
+                    style={{
+                      // marginTop: 8,
+                      padding: 8,
+                      paddingBottom: 4,
+                      borderRadius: 8,
+                      backgroundColor: COLOR_WHITE,
+                      flexDirection: 'row-reverse',
+                      justifyContent: 'space-between',
+                    }}>
+                    {/* <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'flex-start',
+                  }}>
+                  <View style={{marginRight: 8}}>
+                    <KRW width={24} height={24} />
+                  </View>
+                    <M28
+                      customStyle={{
+                        fontFamily: NUMBERFONT,
+                        fontSize: 32,
+                        lineHeight: 32,
+                      }}>
+                      {state.data.price.toLocaleString()}
+                    </M28>
+                  </View> */}
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'flex-start',
+                      }}>
+                      <View style={{marginRight: 8}}>
+                        <BubbleFilled
+                          fill={COLOR_PRIMARY}
+                          width={20}
+                          height={20}
+                        />
+                      </View>
+                      <M28
+                        customStyle={{
+                          fontFamily: B,
+                          fontSize: 24,
+                          lineHeight: 24,
+                        }}>
+                        {(state.data.price / 5000).toLocaleString()}
+                      </M28>
+                    </View>
+                  </AnimatedButton>
+                </Tooltip>
+              </View>
             </View>
 
             <View
               style={{
                 flexDirection: 'row',
-                marginBottom: 8,
                 justifyContent: 'center',
               }}>
               <AnimatedButton
@@ -256,32 +391,37 @@ export default function ProductDetailScreen(route) {
                   width: '50%',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderColor: COLOR_SEPARATOR,
+                  borderColor: COLOR_GRAY,
                   borderWidth: 1,
                   backgroundColor:
-                    selected === '상세정보' ? COLOR_SECONDARY : COLOR_WHITE,
+                    selected === '상세정보' ? COLOR_GRAY : COLOR_WHITE,
                 }}>
-                <M15 customStyle={{color: COLOR_BLACK}}>상세정보</M15>
+                <B15
+                  customStyle={{
+                    color: selected === '상세정보' ? COLOR_WHITE : COLOR_GRAY,
+                  }}>
+                  상세정보
+                </B15>
               </AnimatedButton>
               <AnimatedButton
-                onPress={() => setSelected('주의사항')}
+                onPress={() => setSelected('고시 사항')}
                 style={{
                   padding: 8,
                   paddingHorizontal: 24,
                   width: '50%',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderColor: COLOR_SEPARATOR,
+                  borderColor: COLOR_GRAY,
                   borderWidth: 1,
                   backgroundColor:
-                    selected === '주의사항' ? COLOR_SECONDARY : COLOR_WHITE,
+                    selected === '고시 사항' ? COLOR_GRAY : COLOR_WHITE,
                 }}>
-                <M15
+                <B15
                   customStyle={{
-                    color: COLOR_BLACK,
+                    color: selected === '고시 사항' ? COLOR_WHITE : COLOR_GRAY,
                   }}>
-                  고시정보 / 주의사항
-                </M15>
+                  주의사항
+                </B15>
               </AnimatedButton>
             </View>
 
@@ -289,7 +429,7 @@ export default function ProductDetailScreen(route) {
               style={{
                 borderBottomColor: COLOR_SEPARATOR,
                 borderBottomWidth: 1,
-                marginBottom: 200,
+                // marginBottom: 200,
               }}>
               {selected === '상세정보' ? <DetailImages /> : <Warn />}
             </View>

@@ -5,6 +5,7 @@ import {
   Image,
   Button,
   TextInput,
+  StatusBar,
 } from 'react-native';
 // import Image1 from 'src/assets/icons/undraw_watch_application_uhc9.svg';
 import Postcode from '@actbase/react-daum-postcode';
@@ -23,9 +24,11 @@ import {
   B,
   M11,
   M15,
+  B12,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
+  COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
@@ -55,6 +58,8 @@ import moment from 'moment';
 import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import TikklingState from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingState';
+import EventModal_TikklingStart from 'src/presentationLayer/view/components/tikklingComponents/StartTikklingScreenComponents/EventModal_TikklingStart';
 
 export default function StartTikklingScreen({route}) {
   const [tikkle_tooltip, setTikkle_tooltip] = useState(false);
@@ -65,7 +70,15 @@ export default function StartTikklingScreen({route}) {
 
   useEffect(() => {
     actions.loadData();
-    console.log(route);
+    // console.log(route);
+  }, []);
+
+  //이벤트 모달 띄우기
+  useEffect(() => {
+    setTimeout(() => {
+      // Code to execute after 0.5 seconds
+      actions.checkEventModal();
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -77,10 +90,10 @@ export default function StartTikklingScreen({route}) {
     );
   }, [state.zonecode, state.address, state.detailAddress, state.event]);
 
-  useEffect(() => {
-    console.log('Route : ', route.params);
-    console.log('userDAta : ', state.userData);
-  }, []);
+  // useEffect(() => {
+  //   console.log('Route : ', route.params);
+  //   console.log('userData : ', state.userData);
+  // }, []);
 
   useEffect(() => {
     state.userData.birthday !== undefined
@@ -100,15 +113,30 @@ export default function StartTikklingScreen({route}) {
   }, []);
   return (
     <View style={{}}>
+      <StatusBar
+        translucent
+        barStyle={'dark-content'}
+        backgroundColor={COLOR_WHITE}
+      />
+      <BackHeader
+        style={{backgroundColor: COLOR_WHITE}}
+        tikkling_ticket={state.userData.tikkling_ticket}>
+        {/* Let's TIKKLE! */}
+      </BackHeader>
       <ScrollView
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[0]}
+        stickyHeaderHiddenOnScroll
         style={styles.container}>
-        <BackHeader
-          style={{backgroundColor: COLOR_WHITE}}
-          tikkling_ticket={state.userData.tikkling_ticket}>
-          {/* Let's TIKKLE! */}
-        </BackHeader>
+        <View
+          style={{
+            backgroundColor: backgroundColor,
+            paddingVertical: 8,
+            borderBottomColor: COLOR_SEPARATOR,
+            borderBottomWidth: 1,
+          }}>
+          <TikklingState state_id={0} />
+        </View>
         <View
           style={{
             backgroundColor: COLOR_WHITE,
@@ -118,7 +146,7 @@ export default function StartTikklingScreen({route}) {
           <View
             style={{
               paddingHorizontal: 24,
-              paddingTop: 12,
+              paddingTop: 0,
               paddingBottom: 0,
               flexDirection: 'row',
               alignItems: 'center',
@@ -181,7 +209,7 @@ export default function StartTikklingScreen({route}) {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-evenly',
-              marginTop: 16,
+              marginTop: 0,
               backgroundColor: COLOR_WHITE,
               padding: 12,
               marginHorizontal: 16,
@@ -303,7 +331,7 @@ export default function StartTikklingScreen({route}) {
               alignItems: 'center',
             }}>
             <B20 customStyle={{marginRight: 8, fontFamily: EB}}>
-              기념일 선택
+              티클링 종료일 선택
             </B20>
             <Tooltip
               topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
@@ -314,14 +342,6 @@ export default function StartTikklingScreen({route}) {
                     <B15 customStyle={{color: COLOR_PRIMARY}}>
                       {'티클링의 기간'}
                     </B15>
-                    {/* <AnimatedButton
-                  onPress={() => {
-                    //Linking.openURL('https://www.lifoli.co.kr');
-                  }}>
-                  <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
-                    {'더보기'}
-                  </B12>
-                </AnimatedButton> */}
                   </View>
                   <View style={{}}>
                     <View>
@@ -373,12 +393,6 @@ export default function StartTikklingScreen({route}) {
             {state.events.map(item => (
               <AnimatedButton
                 onPress={() => {
-                  console.log(
-                    actions.calculateDaysUntilNextBirthday(
-                      state.userData.birthday,
-                    ),
-                  );
-
                   if (item.type === 'none') {
                     actions.setEventType(item.type);
                     actions.setOpen(true);
@@ -407,16 +421,18 @@ export default function StartTikklingScreen({route}) {
                   backgroundColor:
                     item.type === state.eventType
                       ? COLOR_SECONDARY
+                      : item.type === 'birthday' &&
+                        state.birthdayAvailable === false
+                      ? COLOR_SEPARATOR
                       : COLOR_WHITE,
                   padding: 12,
                   paddingTop: 40,
                   borderColor: COLOR_SEPARATOR,
                   borderWidth: 1,
-                  borderRadius: 20,
+                  borderRadius: 12,
                   marginLeft: 0,
                   marginBottom: 8,
                   marginRight: 8,
-                  width: '40%',
                   alignItems: 'center',
                 }}>
                 <View>
@@ -430,37 +446,65 @@ export default function StartTikklingScreen({route}) {
                     color:
                       item.type === state.eventType
                         ? COLOR_PRIMARY
+                        : item.type === 'birthday' &&
+                          state.birthdayAvailable === false
+                        ? COLOR_GRAY
                         : COLOR_BLACK,
                     marginBottom: 12,
                   }}>
                   {item.label}
                 </B20>
 
-                {item.type === 'birthday' ? (
+                {item.type === 'birthday' &&
+                state.birthdayAvailable === true ? (
                   <View
                     style={{
                       position: 'absolute',
                       right: 16,
                       top: 12,
-                      borderRadius: 20,
+                      borderRadius: 12,
                       padding: 4,
-                      paddingHorizontal: 10,
-                      borderColor: COLOR_SEPARATOR,
-                      borderWidth: 2,
+                      paddingHorizontal: 8,
+                      borderColor: COLOR_GRAY,
+                      borderWidth: 1,
                     }}>
-                    <B15
+                    <B12
                       customStyle={{
                         alignSelf: 'flex-end',
                         color:
                           item.type === state.eventType
                             ? COLOR_PRIMARY
-                            : COLOR_BLACK,
+                            : COLOR_GRAY,
                       }}>
                       D-
                       {actions.calculateDaysUntilNextBirthday(
                         state.userData.birthday,
                       )}
-                    </B15>
+                    </B12>
+                  </View>
+                ) : item.type === 'birthday' &&
+                  state.birthdayAvailable === false ? (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      right: 16,
+                      top: 12,
+                      borderRadius: 12,
+                      padding: 4,
+                      paddingHorizontal: 8,
+                      borderColor: COLOR_GRAY,
+                      borderWidth: 1,
+                    }}>
+                    <B12
+                      customStyle={{
+                        alignSelf: 'flex-end',
+                        color: COLOR_GRAY,
+                      }}>
+                      D-
+                      {actions.calculateDaysUntilNextBirthday(
+                        state.userData.birthday,
+                      )}
+                    </B12>
                   </View>
                 ) : (
                   <View
@@ -468,28 +512,32 @@ export default function StartTikklingScreen({route}) {
                       position: 'absolute',
                       right: 16,
                       top: 12,
-                      borderRadius: 20,
+                      borderRadius: 12,
                       padding: 4,
-                      paddingHorizontal: 10,
-                      borderColor: COLOR_SEPARATOR,
-                      borderWidth: 2,
+                      paddingHorizontal: 8,
+                      borderColor:
+                        item.type === state.eventType
+                          ? COLOR_PRIMARY
+                          : COLOR_GRAY,
+                      borderWidth: 1,
                     }}>
-                    <B15
+                    <B12
                       customStyle={{
                         alignSelf: 'flex-end',
                         color:
                           item.type === state.eventType
                             ? COLOR_PRIMARY
-                            : COLOR_BLACK,
+                            : COLOR_GRAY,
                       }}>
                       D-
                       {state.date
                         ? actions.calculateDaysUntilNextBirthday(state.date)
                         : null}
-                    </B15>
+                    </B12>
                   </View>
                 )}
-                {item.type === 'birthday' ? (
+                {item.type === 'birthday' &&
+                state.birthdayAvailable === true ? (
                   <View>
                     <M15
                       customStyle={{
@@ -497,6 +545,20 @@ export default function StartTikklingScreen({route}) {
                           item.type === state.eventType
                             ? COLOR_PRIMARY
                             : COLOR_BLACK,
+                      }}>
+                      {
+                        actions.formatDate(
+                          actions.setToEndOfDay(state.userData.birthday),
+                        ).label
+                      }
+                    </M15>
+                  </View>
+                ) : item.type === 'birthday' &&
+                  state.birthdayAvailable === false ? (
+                  <View>
+                    <M15
+                      customStyle={{
+                        color: COLOR_GRAY,
                       }}>
                       {
                         actions.formatDate(
@@ -552,7 +614,7 @@ export default function StartTikklingScreen({route}) {
           style={{
             backgroundColor: COLOR_WHITE,
             paddingVertical: 16,
-            marginBottom: 12,
+            // marginBottom: 140,
           }}>
           <View
             style={{
@@ -618,10 +680,7 @@ export default function StartTikklingScreen({route}) {
             </Tooltip>
           </View>
 
-          <View
-            style={{
-              marginTop: 12,
-            }}>
+          <View>
             <AnimatedButton
               onPress={() => {
                 actions.setShowPostCodeModal(true);
@@ -630,7 +689,7 @@ export default function StartTikklingScreen({route}) {
                 marginTop: 16,
                 flexDirection: 'row',
                 alignSelf: 'center',
-                width: windowWidth - 32,
+                width: windowWidth - 48,
                 justifyContent: 'space-between',
               }}>
               <View
@@ -674,7 +733,7 @@ export default function StartTikklingScreen({route}) {
                 flexDirection: 'row',
                 // marginHorizontal: 24,
                 alignSelf: 'center',
-                width: windowWidth - 32,
+                width: windowWidth - 48,
                 justifyContent: 'space-between',
               }}>
               <View
@@ -709,6 +768,7 @@ export default function StartTikklingScreen({route}) {
                       ? `${state.userData.detail_address}`
                       : '상세주소 입력'
                   }
+                  placeholderTextColor={COLOR_SEPARATOR}
                   style={{
                     fontFamily: B,
                     fontSize: 15,
@@ -735,14 +795,15 @@ export default function StartTikklingScreen({route}) {
           ]}
           disabled={!state.isButtonEnabled || state.createTikklingButtonPressed} // 버튼이 활성화되어야 할 때만 onPress이 작동하도록 합니다.
         >
-          <B15 customStyle={{color: backgroundColor}}>티클링 시작하기</B15>
-          {console.log()}
+          <B15 customStyle={{color: COLOR_WHITE}}>티클링 시작하기</B15>
         </AnimatedButton>
-        <Footer />
-      </ScrollView>
 
+        <Footer />
+        <View style={{height: StatusBarHeight + 20}}></View>
+      </ScrollView>
       <PostCodeModal state={state} actions={actions} />
       <DetailAddressInput state={state} actions={actions} />
+      <EventModal_TikklingStart />
     </View>
   );
 }
@@ -753,6 +814,7 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight,
     backgroundColor: backgroundColor,
+    paddingBottom: 40,
   },
   firstHero: {
     paddingHorizontal: SPACING_2,
@@ -788,7 +850,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: windowWidth - 32,
     marginTop: 0,
-    marginBottom: 15,
+    marginBottom: 0,
     alignSelf: 'center',
+    marginBottom: 40,
+    marginTop: 12,
   },
 });

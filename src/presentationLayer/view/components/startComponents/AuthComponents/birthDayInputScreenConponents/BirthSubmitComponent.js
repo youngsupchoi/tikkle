@@ -30,47 +30,13 @@ import moment from 'moment';
 export default function BirthSubmit() {
   const {ref, state, actions} = useStartViewModel();
   const {topActions} = useTopViewModel();
-  const buttonPress = () => {
-    let birthday = `${state.year}-${state.month.padStart(
-      2,
-      '0',
-    )}-${state.day.padStart(2, '0')}`; // Format the birthday
-    //공백 제거
-    birthday = birthday.replace(/\s+/g, '');
-    //생일 유효성 검사
-    const birthdayValidation = new RegExp(
-      /^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])$|^(?:19(?:[13579][26]|[2468][048]|0[48])|20(?:0[48]|[2468][048]|[13579][26]))-02-29$|^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[13-9]|1[0-2])-(?:29|30)$|^(?:19[0-9][0-9]|20[0-9][0-9])-(?:0[13578]|1[02])-31$/,
-    );
-    if (!birthdayValidation.test(birthday)) {
-      topActions.showSnackbar('올바른 생일 형식을 입력해주세요!', 0);
-      return;
-    }
 
-    //만 14세 이상인지 검사
-
-    const birth = moment(birthday).add(9, 'hours');
-    const now = moment().add(9, 'hours');
-    const diff = now.diff(birth, 'years');
-
-    if (diff < 14) {
-      topActions.showSnackbar('티클은 만 14세 이상만 이용하실 수 있습니다!', 0);
-      return;
-    }
-
-    // console.log(state.firstName, state.lastName, state.gender, birthday);
-    actions.navigation.navigate('signup6', {
-      firstName: state.firstName,
-      lastName: state.lastName,
-      name: state.firstName + state.lastName,
-      gender: state.gender,
-      birthday: birthday,
-      phoneNumber: state.phoneNumber,
-    });
-  };
   return (
     <View style={styles.buttonContainer}>
       <AnimatedButton
-        onPress={() => buttonPress()}
+        onPress={() => {
+          actions.completeSignUp();
+        }}
         style={[
           styles.button,
           state.year.length !== 4 ||
@@ -150,7 +116,7 @@ const styles = StyleSheet.create({
     // width: '100%',
   },
   buttonContainer: {
-    marginTop: SPACING_6,
+    marginTop: 20,
     width: '100%',
   },
   button: {

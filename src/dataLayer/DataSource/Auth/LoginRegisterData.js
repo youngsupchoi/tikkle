@@ -1,7 +1,6 @@
 import {apiModel} from '../../APIModel/ApiModel';
 import {resetToken} from '../../APIModel/ResetToken';
-
-export async function loginRegisterData(name, birthday, nick, phone, gender) {
+export async function loginRegisterData(name, birthday, nick, phone, gender, source_tikkling_id) {
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
@@ -13,6 +12,7 @@ export async function loginRegisterData(name, birthday, nick, phone, gender) {
     nick: nick,
     phone: phone,
     gender: gender,
+    source_tikkling_id: source_tikkling_id,
   };
 
   try {

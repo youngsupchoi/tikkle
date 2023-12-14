@@ -2,6 +2,7 @@ import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
+  COLOR_BLACK,
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
@@ -33,7 +34,7 @@ export default function ProfileHeader() {
         />
       </AnimatedButton> */}
       <View style={{marginLeft: 0}}>
-        <B20 customStyle={{color: COLOR_GRAY}}>프로필</B20>
+        <B20 customStyle={{color: COLOR_BLACK}}>프로필</B20>
       </View>
 
       <AnimatedButton

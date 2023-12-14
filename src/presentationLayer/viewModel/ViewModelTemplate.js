@@ -21,11 +21,6 @@ export const useCustomViewModel = () => {
 
   //6. 뷰 모델에서 사용할 함수 선언하기
   // 예시 :
-  // const process = ()=>{
-  //   getFriendTikklingData().then(res => {
-  //     topActions.setStateAndError(res, actions.setFriendTikklingData);
-  //   })
-  // }
 
   return {
     state: {

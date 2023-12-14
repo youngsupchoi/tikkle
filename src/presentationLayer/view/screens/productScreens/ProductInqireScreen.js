@@ -91,6 +91,7 @@ export default function ProductInqireScreen() {
             <View
               style={{
                 padding: 12,
+                paddingHorizontal: 16,
                 borderRadius: 8,
                 marginTop: 0,
                 backgroundColor: COLOR_WHITE,
@@ -123,6 +124,7 @@ export default function ProductInqireScreen() {
             <View
               style={{
                 padding: 12,
+                paddingHorizontal: 16,
                 borderRadius: 8,
                 marginTop: 0,
                 backgroundColor: COLOR_WHITE,
@@ -141,7 +143,7 @@ export default function ProductInqireScreen() {
                   // lineHeight: 24,
                 }}
                 onChangeText={value => actions.setContentText(value)}
-                placeholder="상품 설명과 상품을 확인할 수 있는 링크를 입력해주세요."
+                placeholder="상품의 링크를 입력해주세요."
                 placeholderTextColor={COLOR_GRAY}
               />
             </View>
@@ -157,7 +159,19 @@ export default function ProductInqireScreen() {
             console.log('Content : ', state.contentText);
             actions.sendMail();
           }}
-          style={styles.buttonStyle}>
+          style={[
+            styles.buttonStyle,
+            {
+              backgroundColor:
+                state.titleText == '' && state.contentText == ''
+                  ? COLOR_GRAY
+                  : COLOR_PRIMARY,
+              borderColor:
+                state.titleText == '' && state.contentText == ''
+                  ? COLOR_GRAY
+                  : COLOR_PRIMARY,
+            },
+          ]}>
           <B15 customStyle={styles.buttonText}>상품 등록 신청하기</B15>
         </AnimatedButton>
       </View>

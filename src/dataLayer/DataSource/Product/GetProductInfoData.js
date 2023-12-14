@@ -61,6 +61,7 @@ export async function getProductInfoData(productId) {
     };
   }
   const info = response.data.data;
+  const info2 = response.data.data_2;
 
   //------ update token ---------------------------------------------------//
 
@@ -93,7 +94,7 @@ export async function getProductInfoData(productId) {
 
   return {
     DScode: 0,
-    DSdata: {info: info},
+    DSdata: {info: info, info2: info2},
     DSmessage: '상품정보 로드에 성공했어요.',
   };
 }

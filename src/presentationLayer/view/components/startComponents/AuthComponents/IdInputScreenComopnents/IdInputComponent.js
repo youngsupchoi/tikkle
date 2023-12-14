@@ -32,12 +32,20 @@ export default function IdInput() {
             ref={ref.userIdRef}
             maxLength={12}
             keyboardType="default"
-            placeholder="lifoli1234"
+            placeholder="아이디를 입력해주세요."
             placeholderTextColor={COLOR_GRAY}
             style={styles.nativeInput}
-            value={state.userNick}
+            // value={state.userNick}
             onChangeText={handleUserIdChange} // Use the new handler here
-            onSubmitEditing={() => ref.userIdRef.current.focus()}
+            onSubmitEditing={() => {
+              if (
+                state.validationMessage !== 'Valid' ||
+                state.idInputButtonPressed
+              ) {
+                return;
+              }
+              actions.completeSignUp();
+            }}
           />
         </View>
       </View>
@@ -71,7 +79,7 @@ const styles = StyleSheet.create({
   },
   nativeInput: {
     color: COLOR_GRAY,
-    fontSize: 36,
+    fontSize: 25,
     fontFamily: M,
     padding: 10,
     justifyContent: 'center',
@@ -79,6 +87,6 @@ const styles = StyleSheet.create({
   },
   validationMessage: {
     color: COLOR_ERROR,
-    marginTop: 12,
+    marginTop: 10,
   },
 });

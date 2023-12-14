@@ -27,7 +27,7 @@ export const useTopViewModel = () => {
   const {topState, topActions} = useTopViewState();
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
-  const setStateAndError = async res => {
+  const setStateAndError = async (res, from) => {
     // const navigation = actions.navigation;
     if (res.DScode === 0) {
       return res;
@@ -52,7 +52,7 @@ export const useTopViewModel = () => {
         scope.setTag('DSdata', res.DSdata);
         scope.setTag('when', 'running');
         scope.setTag('where', 'TopViewModel');
-        Sentry.captureException(new TopError(res, res.DSmessage));
+        Sentry.captureException(new TopError(res, from));
       });
       throw new Error(JSON.stringify(res));
     } else if (res.DScode === 2) {
@@ -77,7 +77,7 @@ export const useTopViewModel = () => {
         scope.setTag('DSdata', res.DSdata);
         scope.setTag('when', 'running');
         scope.setTag('where', 'TopViewModel');
-        Sentry.captureException(new TopError(res, res.DSmessage));
+        Sentry.captureException(new TopError(res, from));
       });
       throw new Error(JSON.stringify(res));
     } else if (res.DScode === 3) {

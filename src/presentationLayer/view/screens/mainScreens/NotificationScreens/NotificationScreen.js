@@ -20,7 +20,10 @@ import {
   COLOR_SECONDARY,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {
+  windowHeight,
+  windowWidth,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useNavigation} from '@react-navigation/native';
 import {RefreshControl} from 'react-native-gesture-handler';
 import Setting2 from 'src/assets/icons/Setting2';
@@ -89,6 +92,8 @@ export default function NotificationScreen() {
           }
         }}
         style={{
+          width: windowWidth - 20,
+          borderRadius: 10,
           paddingVertical: 12,
           paddingHorizontal: 0,
           paddingHorizontal: 16,
@@ -308,9 +313,17 @@ export default function NotificationScreen() {
   };
 
   return (
-    <View style={{backgroundColor: backgroundColor, paddingTop: 0}}>
+    <View
+      style={{
+        backgroundColor: backgroundColor,
+        paddingTop: 0,
+        justifyContent: 'flex-start',
+        height: windowHeight,
+      }}>
       <View
         style={{
+          marginTop: 0,
+          marginBottom: 10,
           padding: 24,
           paddingVertical: 16,
           flexDirection: 'row',
@@ -334,46 +347,49 @@ export default function NotificationScreen() {
           <B20 customStyle={{marginLeft: 12}}>알림</B20>
         </View>
       </View>
-      {/* {console.log('state', state.notificationData)} */}
-      {state.loading ? (
-        <GlobalLoader />
-      ) : (
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={state.refreshing}
-              onRefresh={actions.onRefresh}
-            />
-          }
-          data={state.notificationData}
-          renderItem={renderItem}
-          ListFooterComponent={
-            // <Footer />
-            <View style={{height: 400}} />
-          }
-          ListEmptyComponent={
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: windowWidth,
-              }}>
-              <LottieView
-                source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
-                autoPlay
-                loop
-                style={{
-                  width: 250,
-                  height: 250,
-                  alignSelf: 'center',
-                  backgroundColor: backgroundColor,
-                }}
+
+      <View style={{alignItems: 'center'}}>
+        {state.loading ? (
+          <GlobalLoader />
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={state.refreshing}
+                onRefresh={actions.onRefresh}
               />
-              <EB20>알림함이 텅 비었어요!</EB20>
-            </View>
-          }
-        />
-      )}
+            }
+            data={state.notificationData}
+            renderItem={renderItem}
+            ListFooterComponent={
+              // <Footer />
+              <View style={{height: 400}} />
+            }
+            ListEmptyComponent={
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: windowWidth,
+                }}>
+                <LottieView
+                  source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                  autoPlay
+                  loop
+                  style={{
+                    width: 250,
+                    height: 250,
+                    alignSelf: 'center',
+                    backgroundColor: backgroundColor,
+                  }}
+                />
+                <EB20>알림함이 텅 비었어요!</EB20>
+              </View>
+            }
+          />
+        )}
+      </View>
     </View>
   );
 }

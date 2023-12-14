@@ -17,45 +17,184 @@ const SelectedStateHeader = ({scrollY}) => {
   return (
     <View style={[styles.headerContainer]}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {state.selectedCategory && (
-          <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{state.selectedCategory}</B12>
+        {/* //TODO: 주석 삭제 */}
+        {/* {state.selectedCategory && state.categoryId != 0 && ( */}
+        {state.searchOption.selectedCategory &&
+          state.searchOption.categoryId != 0 && (
+            <AnimatedButton
+              style={styles.chip}
+              onPress={async () => {
+                actions.dispatchSearchOption({
+                  type: 'SET_CATEGORY',
+                  payload: {
+                    categoryId: 0,
+                    selectedCategory: '전체',
+                    reset: 1,
+                  },
+                });
+                // TODO: 주석 삭제
+                // actions.setCategoryId(0);
+                // actions.loadData();
+              }}>
+              <B12 customStyle={styles.chipText}>
+                {state.searchOption.selectedCategory}
+              </B12>
+              <View
+                style={{
+                  marginLeft: 5,
+                  alignSelf: 'auto',
+                  paddingTop: 0.7,
+                }}>
+                <Close
+                  width={10}
+                  height={10}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={3}
+                  scale={10 / 24}
+                />
+              </View>
+            </AnimatedButton>
+          )}
+        {/* //TODO: 주석 삭제 */}
+        {/* {state.selectedRange !== null && state.selectedRange != '전체가격' && ( */}
+        {state.searchOption.selectedRange !== null &&
+          state.searchOption.selectedRange != '전체가격' && (
+            <AnimatedButton
+              style={styles.chip}
+              onPress={async () => {
+                actions.dispatchSearchOption({
+                  type: 'SET_SELECTED_RANGE',
+                  payload: {
+                    selectedRange: '전체가격',
+                    priceMin: 0,
+                    priceMax: 999999999,
+                    reset: 1,
+                  },
+                });
+                //TODO: 주석 삭제
+                // actions.setSelectedRange('전체가격');
+                // actions.setPriceMin(0);
+                // actions.setPriceMax(999999999);
+                // actions.loadData();
+              }}>
+              <B12 customStyle={styles.chipText}>
+                {state.searchOption.selectedRange}
+              </B12>
+              <View
+                style={{
+                  marginLeft: 5,
+                  alignSelf: 'auto',
+                  paddingTop: 0.7,
+                }}>
+                <Close
+                  width={10}
+                  height={10}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={3}
+                  scale={10 / 24}
+                />
+              </View>
+            </AnimatedButton>
+          )}
+        {/* //TODO: 주석 삭제 */}
+        {/* {state.selectedSort && state.selectedSort != '많은 판매' && ( */}
+        {state.searchOption.selectedSort &&
+          state.searchOption.selectedSort != '많은 판매' && (
+            <AnimatedButton
+              style={styles.chip}
+              onPress={() => {
+                actions.dispatchSearchOption({
+                  type: 'SET_SORT',
+                  payload: {
+                    selectedSort: '많은 판매',
+                    sortAttribute: 'sales_volume',
+                    sortWay: 'DESC',
+                    reset: 1,
+                  },
+                });
+                //TODO: 주석 삭제
+                // actions.setSortAttribute('sales_volume');
+                // actions.setSortWay('DESC');
+                // actions.setSelectedSort('많은 판매');
+                // actions.loadData();
+              }}>
+              <B12 customStyle={styles.chipText}>
+                {state.searchOption.selectedSort}
+              </B12>
+              <View
+                style={{
+                  marginLeft: 5,
+                  alignSelf: 'auto',
+                  paddingTop: 0.7,
+                }}>
+                <Close
+                  width={10}
+                  height={10}
+                  stroke={COLOR_BLACK}
+                  strokeWidth={3}
+                  scale={10 / 24}
+                />
+              </View>
+            </AnimatedButton>
+          )}
+        {state.searchOption.search && (
+          <AnimatedButton
+            style={styles.chip}
+            onPress={() => {
+              actions.dispatchSearchOption({
+                type: 'SET_SEARCH',
+                payload: {
+                  search: null,
+                  reset: 1,
+                },
+              });
+              actions.setSearch('');
+            }}>
+            <B12 customStyle={styles.chipText}>{state.searchOption.search}</B12>
+            <View
+              style={{
+                marginLeft: 5,
+                alignSelf: 'auto',
+                paddingTop: 0.7,
+              }}>
+              <Close
+                width={10}
+                height={10}
+                stroke={COLOR_BLACK}
+                strokeWidth={3}
+                scale={10 / 24}
+              />
+            </View>
           </AnimatedButton>
         )}
-        {state.selectedRange !== null && (
-          <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{state.selectedRange}</B12>
+        {(state.searchOption.selectedCategory &&
+          state.searchOption.categoryId != 0) ||
+        (state.searchOption.selectedRange !== null &&
+          state.searchOption.selectedRange != '전체가격') ||
+        (state.searchOption.selectedSort &&
+          state.searchOption.selectedSort != '많은 판매') ||
+        state.searchOption.search ? (
+          <AnimatedButton
+            style={styles.filterIconContainer}
+            onPress={() => {
+              actions.dispatchSearchOption({
+                type: 'RESET_ALL',
+                payload: {
+                  reset: 1,
+                },
+              });
+
+              // actions.loadData_reset();
+            }}>
+            <Refresh
+              width={20}
+              height={20}
+              stroke={COLOR_BLACK}
+              strokeWidth={1.2}
+              scale={1.1}
+            />
           </AnimatedButton>
-        )}
-        {state.selectedSort && (
-          <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{state.selectedSort}</B12>
-          </AnimatedButton>
-        )}
-        {state.search && (
-          <AnimatedButton style={styles.chip}>
-            <B12 customStyle={styles.chipText}>{state.search}</B12>
-          </AnimatedButton>
-        )}
-        <AnimatedButton
-          style={styles.filterIconContainer}
-          onPress={() => {
-            actions.setSelectedRange('전체가격');
-            actions.setPriceMax(999999999);
-            actions.setPriceMin(0);
-            actions.setSearch('');
-            actions.setSortAttribute('sales_volume');
-            actions.setSortWay('DESC');
-            actions.setSelectedSort('많은 판매');
-          }}>
-          <Refresh
-            width={20}
-            height={20}
-            stroke={COLOR_BLACK}
-            strokeWidth={1.2}
-            scale={1.1}
-          />
-        </AnimatedButton>
+        ) : null}
       </ScrollView>
     </View>
   );
@@ -74,15 +213,17 @@ const styles = StyleSheet.create({
     // height: 40,
   },
   chip: {
-    paddingHorizontal: 16,
-    paddingVertical: 0,
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     borderRadius: 8,
     backgroundColor: COLOR_WHITE, // Light gray background for chip
     marginRight: 8,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
+    alignSelf: 'center',
   },
   chipText: {color: COLOR_BLACK},
   filterIconContainer: {
@@ -90,8 +231,8 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 0.5,
     borderRadius: 40,
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 8,

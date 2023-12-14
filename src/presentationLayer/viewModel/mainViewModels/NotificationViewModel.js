@@ -24,7 +24,10 @@ export const useNotificationViewModel = () => {
     await actions.setLoading(true);
     await getNoticeListData()
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[NotificationViewModel.js] loadData - getNoticeListData',
+        );
       })
       .then(res => {
         actions.setNotificationData(res.DSdata.info);
@@ -41,7 +44,10 @@ export const useNotificationViewModel = () => {
       // console.log(state.notificationData[index].id);
       await deleteNoticeData(state.notificationData[index].id)
         .then(res => {
-          return topActions.setStateAndError(res);
+          return topActions.setStateAndError(
+            res,
+            '[NotificationViewModel.js] noti_delete - deleteNoticeData',
+          );
         })
         .then(res => {
           console.log('Deleted');
@@ -154,9 +160,9 @@ export const useNotificationViewModel = () => {
       return moment().add(9, 'hours').diff(dateString, 'hours') + ' 시간 전';
     } else if (diff < 604800) {
       return moment().add(9, 'hours').diff(dateString, 'days') + ' 일 전';
-    } else if (weeks < 3024000) {
+    } else if (diff < 3024000) {
       return moment().add(9, 'hours').diff(dateString, 'weeks') + ' 주 전';
-    } else if (months < 36288000) {
+    } else if (diff < 36288000) {
       return moment().add(9, 'hours').diff(dateString, 'months') + ' 달 전';
     } else {
       return moment().add(9, 'hours').diff(dateString, 'years') + ' 년 전';
