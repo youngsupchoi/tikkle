@@ -64,6 +64,7 @@ export async function LoginKakaoData(
       message =
         '카카오 계정의 전화번호로 등록된 계정이 있고 다른 카카오 계정과 연동이 되어있어요.';
     }
+    //
 
     return {
       DScode: 1,
