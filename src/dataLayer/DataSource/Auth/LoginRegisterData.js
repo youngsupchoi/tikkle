@@ -1,6 +1,12 @@
 import {apiModel} from '../../APIModel/ApiModel';
 import {resetToken} from '../../APIModel/ResetToken';
-export async function loginRegisterData(name, birthday, nick, phone, gender, source_tikkling_id) {
+export async function loginRegisterData(
+  name,
+  birthday,
+  phone,
+  gender,
+  source_tikkling_id,
+) {
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
@@ -9,7 +15,7 @@ export async function loginRegisterData(name, birthday, nick, phone, gender, sou
   const body = {
     name: name,
     birthday: birthday,
-    nick: nick,
+    nick: ' ',
     phone: phone,
     gender: gender,
     source_tikkling_id: source_tikkling_id,
@@ -29,7 +35,7 @@ export async function loginRegisterData(name, birthday, nick, phone, gender, sou
     };
   }
 
-  //console.log(response);
+  console.log(response);
 
   //------ control result & error of post_auth_registerUser -----------------------------------------//
 
@@ -52,7 +58,7 @@ export async function loginRegisterData(name, birthday, nick, phone, gender, sou
     }
 
     return {
-      DScode: 1,
+      DScode: 2,
       DSdata: null,
       DSmessage: message,
     };

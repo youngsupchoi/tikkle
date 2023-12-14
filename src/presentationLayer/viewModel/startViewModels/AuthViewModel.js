@@ -9,7 +9,7 @@ import moment from 'moment';
 import {checkPhoneNumberData} from 'src/dataLayer/DataSource/Auth/CheckPhoneNumberData';
 import {get_auth_makeOtp} from 'src/components/Axios/get_auth_makeOTP';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-// import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
+import {loginRegisterData} from 'src/dataLayer/DataSource/Auth/LoginRegisterData';
 // import {checkNickDuplicationData} from 'src/dataLayer/DataSource/Auth/CheckNickDuplicationData';
 import {loginPhoneData} from 'src/dataLayer/DataSource/Auth/LoginPhoneData';
 import {Platform} from 'react-native';
@@ -27,6 +27,7 @@ import {
 } from '@react-native-seoul/kakao-login';
 import {LoginKakaoData} from 'src/dataLayer/DataSource/Auth/LoginKakaoData';
 import {LoginAppleData} from 'src/dataLayer/DataSource/Auth/LoginAppleData';
+import {LoginAppleRegister} from 'src/dataLayer/DataSource/Auth/LoginAppleRegister';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
@@ -321,30 +322,8 @@ export const useStartViewModel = () => {
   const completeSignUp = async () => {
     try {
       // console.log('유저닉', state.userNick, state.birthday, state.name);
-      await checkNickDuplicationData(state.userNick).then(res => {
-        actions.setIdInputButtonPressed(true);
-        topActions.setStateAndError(
-          res,
-          '[AuthViewModel.js] completeSignUp - checkNickDuplicationData',
-        );
-        if (res.DScode !== 0) {
-          throw new Error(JSON.stringify(res));
-        }
-      });
-      console.log('hihi');
       const source_tikkling_id = await checkDynamicLink();
 
-      // 이름과 생일 데이터 처리
-      const fullName =
-        state.firstName && state.lastName
-          ? state.firstName + state.lastName
-          : state.name;
-      console.log(
-        `${state.year}-${state.birthday.substring(
-          0,
-          2,
-        )}-${state.birthday.substring(2, 4)}`,
-      );
       const birthDate =
         state.month && state.day
           ? `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
@@ -357,15 +336,26 @@ export const useStartViewModel = () => {
             )}-${state.birthday.substring(2, 4)}`;
 
       await loginRegisterData(
-        fullName,
+        state.lastName,
         birthDate,
-        state.userNick,
         state.phoneNumber,
         state.formattedGender,
         source_tikkling_id,
-      ).then(res => {
-        topActions.setStateAndError(res, actions.setFriendTikklingData);
-      });
+      )
+        .then(res => {
+          topActions.setStateAndError(res);
+        })
+        .then(() => {
+          //  애플아이디 저장
+          if (state.appleId && state.appleId !== '') {
+            try {
+              LoginAppleRegister(state.appleId, state.phoneNumber);
+            } catch (err) {
+              console.log(err);
+            }
+          }
+        });
+
       navigation.reset({
         index: 0,
         routes: [
@@ -375,6 +365,7 @@ export const useStartViewModel = () => {
         ],
       });
     } catch (err) {
+      console.log('#################');
       const error = JSON.parse(err.message);
       if (error.DScode) {
         actions.setIdInputButtonPressed(false);

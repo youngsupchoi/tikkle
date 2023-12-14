@@ -60,6 +60,9 @@ export async function LoginKakaoData(
       message = '성별의 형식이 올바르지 않아요.';
     } else if (response.data.detail_code === '03') {
       message = '만 14세 미만은 Tikkle 서비스를 사용하실 수 없어요.';
+    } else if (response.data.detail_code === '22') {
+      message =
+        '카카오 계정의 전화번호로 등록된 계정이 있고 다른 카카오 계정과 연동이 되어있어요.';
     }
 
     return {
