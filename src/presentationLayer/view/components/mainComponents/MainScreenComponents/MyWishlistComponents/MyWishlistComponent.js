@@ -28,6 +28,7 @@ import Add from 'src/assets/icons/Add';
 import ProductOptionsModal from 'src/presentationLayer/view/components/productComponents/ProductDetailScreenComponents/ProductOptionsModal';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Help from 'src/assets/icons/Help';
+import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 import {
   HEADER_HEIGHT,
   StatusBarHeight,
@@ -60,6 +61,27 @@ export default function MyWishlistComponent() {
     actions.navigation.navigate('startTikkling', wishlist);
     actions.setShowProductOptionsModal(false);
   };
+
+  const product_data = () => {
+    const wishlist = {
+      brand_name: state.selectedWishlistData.brand_name,
+      category_id: state.selectedWishlistData.category_id,
+      created_at: state.selectedWishlistData.created_at,
+      description: state.selectedWishlistData.description,
+      is_deleted: state.selectedWishlistData.is_deleted,
+      name: state.selectedWishlistData.name,
+      price: state.selectedWishlistData.price + state.optionPrice,
+      product_id: state.selectedWishlistData.product_id,
+      quantity: state.selectedWishlistData.quantity,
+      sales_volume: state.selectedWishlistData,
+      thumbnail_image: state.selectedWishlistData.thumbnail_image,
+      views: state.selectedWishlistData.views,
+      wishlist_count: state.selectedWishlistData.wishlist_count,
+      product_option: state.selectedOptions,
+    };
+    return wishlist;
+  };
+
   return (
     <View
       style={{
@@ -410,19 +432,22 @@ export default function MyWishlistComponent() {
       {/* {console.log('modalshow', state.showProductOptionsModal)} */}
 
       {state.selectedWishlistData ? (
-        <ProductOptionsModal
-          productBrand={state.selectedWishlistData.brand_name}
-          productImage={state.selectedWishlistData.thumbnail_image}
-          productName={state.selectedWishlistData.name}
-          productPrice={state.selectedWishlistData.price}
-          productOptions={state.productOptions}
-          showModal={state.showProductOptionsModal}
-          setShowModal={actions.setShowProductOptionsModal}
-          buttonPress={startTikklingButtonPress}
-          selectedOptions={state.selectedOptions}
-          setSelectedOptions={actions.setSelectedOptions}
-          setOptionPrice={actions.setOptionPrice}
-        />
+        <StartTikklingViewStateProvider>
+          <ProductOptionsModal
+            productBrand={state.selectedWishlistData.brand_name}
+            productImage={state.selectedWishlistData.thumbnail_image}
+            productName={state.selectedWishlistData.name}
+            productPrice={state.selectedWishlistData.price}
+            productOptions={state.productOptions}
+            showModal={state.showProductOptionsModal}
+            setShowModal={actions.setShowProductOptionsModal}
+            buttonPress={startTikklingButtonPress}
+            product_data={product_data}
+            selectedOptions={state.selectedOptions}
+            setSelectedOptions={actions.setSelectedOptions}
+            setOptionPrice={actions.setOptionPrice}
+          />
+        </StartTikklingViewStateProvider>
       ) : null}
     </View>
   );

@@ -111,6 +111,7 @@ export default function StartTikklingScreen({route}) {
   useEffect(() => {
     actions.setCreateTikklingButtonPressed(false);
   }, []);
+
   return (
     <View style={{}}>
       <StatusBar

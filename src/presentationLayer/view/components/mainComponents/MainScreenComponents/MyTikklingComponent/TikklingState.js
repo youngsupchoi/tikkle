@@ -37,6 +37,11 @@ export default function TikklingState({state_id}) {
   const [tooltip_3, setTooltip_3] = React.useState(false);
   const [tooltip_4, setTooltip_4] = React.useState(false);
 
+  let position = 'bottom';
+  if (state_id == 0) {
+    position = 'top';
+  }
+
   return (
     <View
       style={{
@@ -92,7 +97,7 @@ export default function TikklingState({state_id}) {
             </View>
           </View>
         }
-        placement="bottom"
+        placement={position}
         animated={true}
         backgroundColor="rgba(0,0,0,0.1)"
         // backgroundColor="transparent"
@@ -182,7 +187,7 @@ export default function TikklingState({state_id}) {
             </View>
           </View>
         }
-        placement="bottom"
+        placement={position}
         animated={true}
         backgroundColor="rgba(0,0,0,0.1)"
         // backgroundColor="transparent"
@@ -257,7 +262,7 @@ export default function TikklingState({state_id}) {
             </View>
           </View>
         }
-        placement="bottom"
+        placement={position}
         animated={true}
         backgroundColor="rgba(0,0,0,0.1)"
         // backgroundColor="transparent"
@@ -350,7 +355,7 @@ export default function TikklingState({state_id}) {
             </View>
           </View>
         }
-        placement="bottom"
+        placement={position}
         animated={true}
         backgroundColor="rgba(0,0,0,0.1)"
         // backgroundColor="transparent"

@@ -6,12 +6,18 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import {
+  windowHeight,
+  windowWidth,
+  screenHeight,
+} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import React, {useEffect, useState} from 'react';
 import Modal from 'react-native-modal';
 import {
   B12,
   B15,
   B17,
+  EB,
   B20,
   M11,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
@@ -21,10 +27,17 @@ import {
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_SEPARATOR,
+  COLOR_SECOND_BLACK,
+  COLOR_SECONDARY,
+  COLOR_PRIMARY_OUTLINE,
+  backgroundColor,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {useNavigation} from '@react-navigation/native';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
+import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
+import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import TikklingState from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingState';
 
 const OptionList = ({category, options, onSelect, selectedValue}) => {
   return (
@@ -61,7 +74,9 @@ const OptionList = ({category, options, onSelect, selectedValue}) => {
                 {item.option}
               </B15>
               <M11
-                customStyle={{color: isSelected ? COLOR_WHITE : COLOR_PRIMARY}}>
+                customStyle={{
+                  color: isSelected ? COLOR_WHITE : COLOR_PRIMARY,
+                }}>
                 +{item.additional_amount.toLocaleString()}원
               </M11>
             </AnimatedButton>
@@ -81,16 +96,21 @@ export default function ProductOptionsModal({
   showModal,
   setShowModal,
   buttonPress,
+  product_data,
   selectedOptions,
   setSelectedOptions,
   setOptionPrice,
 }) {
+  const {state, actions} = useStartTikklingViewModel();
+  const {topActions} = useTopViewModel();
+
   const handleOptionSelect = (category, option) => {
     setSelectedOptions(prev => ({
       ...prev,
       [category]: option,
     }));
   };
+
   const isButtonActive =
     Object.keys(selectedOptions || {}).length ===
     Object.keys(productOptions || {}).length;
@@ -109,14 +129,25 @@ export default function ProductOptionsModal({
       return total + (optionDetails ? optionDetails.additional_amount : 0);
     }, 0);
   };
+
   const additionalAmountTotal = getTotalAdditionalAmount();
+
   useEffect(() => {
     setOptionPrice(additionalAmountTotal);
   }, [additionalAmountTotal]);
 
+  useEffect(() => {
+    actions.setSelectedItem(product_data);
+  }, []);
+
+  useEffect(() => {
+    actions.loadData();
+    // console.log(route);
+  }, []);
+
   return (
     <View style={styles.productOptionsModalContainer}>
-      {console.log(selectedOptions, productOptions, additionalAmountTotal)}
+      {/* {console.log(selectedOptions, productOptions, additionalAmountTotal)} */}
       <Modal
         avoidKeyboard
         // onSwipeComplete={() => setShowModal(false)}
@@ -131,52 +162,107 @@ export default function ProductOptionsModal({
         <View style={styles.modalContent}>
           <View
             style={{
+              marginVertical: 8,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              borderColor: COLOR_SEPARATOR,
+              borderBottomWidth: 1,
+              paddingBottom: 12,
+              height: 62,
+            }}>
+            <TikklingState state_id={0} />
+          </View>
+
+          <View
+            style={{
               flexDirection: 'row',
+              justifyContent: 'center',
               width: '100%',
             }}>
             <Image
               source={{uri: productImage}}
               style={{width: 80, height: 80, borderRadius: 12}}
             />
-            <View style={{flex: 1, paddingLeft: 12}}>
-              <B12>{productBrand}</B12>
-              <B17>{productName}</B17>
-              <View style={{alignSelf: 'flex-end'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                flex: 1,
+                paddingLeft: 12,
+                justifyContent: 'space-between',
+              }}>
+              <View style={{flexDirection: 'column'}}>
+                <B12>{productBrand}</B12>
+                <B17>{productName}</B17>
+              </View>
+
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    alignItems: 'center', // 중앙 정렬을 위해 추가
-                    justifyContent: 'center', // 중앙 정렬을 위해 추가
-                    borderColor: COLOR_PRIMARY,
-                    borderWidth: 1,
                     borderRadius: 12,
-                    padding: 4,
-                    paddingLeft: 6,
-                    paddingRight: 8,
+                    alignItems: 'center',
                   }}>
-                  <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} />
-                  <B12 customStyle={{marginLeft: 4}}>
+                  <Refresh
+                    width={24}
+                    height={24}
+                    stroke={COLOR_BLACK}
+                    strokeWidth={2}
+                    scale={1.3}
+                  />
+                </View>
+              </View>
+
+              {/* <View
+                style={{
+                  alignSelf: 'center',
+                  flexDirection: 'row',
+                  alignItems: 'center', // 중앙 정렬을 위해 추가
+                  justifyContent: 'center', // 중앙 정렬을 위해 추가
+                  borderColor: COLOR_PRIMARY,
+                  borderWidth: 1,
+                  borderRadius: 12,
+                  padding: 4,
+                  paddingLeft: 6,
+                  paddingRight: 8,
+                }}>
+                <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} />
+                <B12 customStyle={{marginLeft: 4}}>
+                  {(productPrice / 5000).toLocaleString()} 개
+                </B12>
+              </View> */}
+              <View style={styles.itemContainer}>
+                <View style={styles.iconContainer}>
+                  <BubbleFilled fill={COLOR_PRIMARY} />
+                </View>
+                <View>
+                  <B12 customStyle={styles.labelText}>남은 티클</B12>
+                  <B17 customStyle={styles.dataText}>
                     {(productPrice / 5000).toLocaleString()} 개
-                  </B12>
+                  </B17>
                 </View>
               </View>
             </View>
           </View>
+
           <View
             style={{
               width: '100%',
               height: 2,
-              backgroundColor: COLOR_SEPARATOR,
+              borderBottomWidth: 1,
+              borderBottomColor: COLOR_SEPARATOR,
               marginTop: 12,
               marginBottom: 16,
             }}
           />
+
           <B20>옵션 선택</B20>
           <View
             style={{
               width: '100%',
-              marginTop: 12,
-              marginBottom: 16,
+              height: 8,
             }}
           />
 
@@ -193,7 +279,13 @@ export default function ProductOptionsModal({
             : null}
 
           <AnimatedButton
-            onPress={isButtonActive ? buttonPress : null}
+            onPress={() => {
+              if (isButtonActive) {
+                console.log('@@@@@@@@@@@# : ', state.selectedItem.price);
+                console.log('@@@@@@@@@@@# : ', selectedOptions);
+                actions.tikklingStartButtonPress(selectedOptions, product_data);
+              }
+            }}
             style={[
               {
                 width: '100%',
@@ -209,6 +301,7 @@ export default function ProductOptionsModal({
             ]}>
             <B15 customStyle={{color: COLOR_WHITE}}>티클링 시작하기</B15>
           </AnimatedButton>
+          <View style={{height: 16}} />
         </View>
       </Modal>
     </View>
@@ -225,6 +318,103 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'white',
     padding: 16,
+    paddingTop: 0,
     borderRadius: 16,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // borderColor: COLOR_PRIMARY,
+    // borderWidth: 1,
+    // padding: 12,
+    // paddingVertical: 16,
+    // width: 0.4 * windowWidth,
+    // padding: 4,
+    paddingRight: 24,
+    borderRadius: 20,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    // padding: 12,
+    marginRight: 10,
+    // backgroundColor: COLOR_SECONDARY,
+    borderRadius: 100,
+  },
+  innerRowDirection: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+  imageStyle: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLOR_SEPARATOR,
+  },
+  innerViewStyle: {
+    padding: 0,
+    width: windowWidth - 96 - 80,
+  },
+  productNameContainer: {
+    flexDirection: 'row',
+    marginLeft: 12,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  productDetails: {
+    width: windowWidth - 96 - 80 - 12 + 20,
+  },
+  mainContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    backgroundBottomColor: COLOR_WHITE,
+  },
+  centeredContainer: {
+    alignItems: 'center',
+  },
+  congratulationsText: {
+    fontFamily: EB,
+    marginBottom: 12,
+  },
+  infoText: {
+    color: COLOR_SECOND_BLACK,
+  },
+  lottieStyle: {
+    width: 200,
+    height: 200,
+    alignSelf: 'center',
+  },
+  detailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 12,
+  },
+  leftDetailsContainer: {
+    alignItems: 'flex-start',
+  },
+  labelText: {
+    fontFamily: EB,
+    color: COLOR_GRAY,
+  },
+  dataText: {
+    color: COLOR_BLACK,
+  },
+  buttonStyle: {
+    padding: 4,
+    paddingLeft: 12,
+    paddingRight: 24,
+    borderRadius: 100,
+    backgroundColor: COLOR_PRIMARY,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderColor: COLOR_PRIMARY_OUTLINE,
+    borderWidth: 2,
+  },
+  buttonText: {
+    color: COLOR_WHITE,
+    fontFamily: EB,
   },
 });
