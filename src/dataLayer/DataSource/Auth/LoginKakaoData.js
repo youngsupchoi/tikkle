@@ -13,13 +13,20 @@ export async function LoginKakaoData(
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
+  let formattedGender;
+  if (gender === 'male' || gender === 'female') {
+    formattedGender = gender;
+  } else {
+    formattedGender = 'others';
+  }
   //------ call post_auth_loginKakao -------------------------------------------------------//
   let response;
+  console.log(formattedGender);
   const body = {
     name: name,
     birthday: birthday,
     phone: phone,
-    gender: gender,
+    gender: formattedGender,
     source_tikkling_id: source_tikkling_id,
     kakao_email: kakao_email,
     kakao_image: kakao_image,
