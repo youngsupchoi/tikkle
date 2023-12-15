@@ -157,15 +157,20 @@ export const useStartTikklingViewModel = () => {
   }
 
   //-------------------------------------------------------------------
-  const tikklingStartButtonPress = async (product_option, product_data) => {
+  const tikklingStartButtonPress = async (productOption, product_data) => {
     try {
       actions.setCreateTikklingButtonPressed(true);
 
       const data = await product_data();
+      let product_option;
       // put_user_address();
       // console.log('opt', product_option);
       //TODO: product_option
-      if (product_option == null || product_option == undefined) {
+      {
+        console.log(productOption);
+      }
+      if (Object.keys(productOption).length === 0 || productOption == null) {
+        console.log('프로덕트옵션', productOption);
         product_option = {default: 'default'};
       }
       const tikkle = Number(data.price) / 5000;

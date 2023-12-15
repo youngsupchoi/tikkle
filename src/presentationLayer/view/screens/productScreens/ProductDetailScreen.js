@@ -516,6 +516,7 @@ export default function ProductDetailScreen(route) {
                       actions
                         .hasOptions(state.data.id)
                         .then(optionStatus => {
+                          console.log(optionStatus);
                           if (optionStatus) {
                             actions.setShowProductOptionsModal(true);
                             const wishlist = {
@@ -534,6 +535,7 @@ export default function ProductDetailScreen(route) {
                               wishlist_count: state.data.wishlist_count,
                             };
                           } else {
+                            actions.setShowProductOptionsModal(true);
                             const wishlist = {
                               brand_name: state.data.brand_name,
                               category_id: state.data.category_id,
@@ -549,10 +551,10 @@ export default function ProductDetailScreen(route) {
                               views: state.data.views,
                               wishlist_count: state.data.wishlist_count,
                             };
-                            actions.navigation.navigate(
-                              'startTikkling',
-                              wishlist,
-                            );
+                            // actions.navigation.navigate(
+                            //   'startTikkling',
+                            //   wishlist,
+                            // );
                           }
                         })
                         .catch(() => {

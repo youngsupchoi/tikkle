@@ -111,9 +111,11 @@ export default function ProductOptionsModal({
     }));
   };
 
+  const isFirstKeyDefault = Object.keys(productOptions || {})[0] === 'default';
   const isButtonActive =
+    isFirstKeyDefault ||
     Object.keys(selectedOptions || {}).length ===
-    Object.keys(productOptions || {}).length;
+      Object.keys(productOptions || {}).length;
 
   const getTotalAdditionalAmount = () => {
     return Object.keys(selectedOptions).reduce((total, category) => {
@@ -178,105 +180,102 @@ export default function ProductOptionsModal({
               flexDirection: 'row',
               justifyContent: 'center',
               width: '100%',
+              marginVertical: 12,
             }}>
-            <Image
-              source={{uri: productImage}}
-              style={{width: 80, height: 80, borderRadius: 12}}
-            />
             <View
               style={{
-                flexDirection: 'row',
-                flex: 1,
-                paddingLeft: 12,
-                justifyContent: 'space-between',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '30%',
               }}>
-              <View style={{flexDirection: 'column'}}>
-                <B12>{productBrand}</B12>
-                <B17>{productName}</B17>
-              </View>
-
+              <Image
+                source={{uri: productImage}}
+                style={{width: 80, height: 80, borderRadius: 12}}
+              />
               <View
                 style={{
+                  paddingTop: 12,
+                }}>
+                <B12 customStyle={{color: COLOR_GRAY}}>{productBrand}</B12>
+                <B17 numberOfLines={2} ellipsizeMode="tail">
+                  {productName}
+                </B17>
+              </View>
+            </View>
+
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '30%',
+              }}>
+              <Refresh
+                width={24}
+                height={24}
+                stroke={COLOR_BLACK}
+                strokeWidth={2}
+                scale={1.3}
+              />
+            </View>
+
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '30%',
+              }}>
+              <View
+                style={{
+                  width: 80,
+                  height: 80,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <View
-                  style={{
-                    borderRadius: 12,
-                    alignItems: 'center',
-                  }}>
-                  <Refresh
-                    width={24}
-                    height={24}
-                    stroke={COLOR_BLACK}
-                    strokeWidth={2}
-                    scale={1.3}
-                  />
-                </View>
+                <BubbleFilled fill={COLOR_PRIMARY} width={40} height={40} />
               </View>
-
-              {/* <View
-                style={{
-                  alignSelf: 'center',
-                  flexDirection: 'row',
-                  alignItems: 'center', // 중앙 정렬을 위해 추가
-                  justifyContent: 'center', // 중앙 정렬을 위해 추가
-                  borderColor: COLOR_PRIMARY,
-                  borderWidth: 1,
-                  borderRadius: 12,
-                  padding: 4,
-                  paddingLeft: 6,
-                  paddingRight: 8,
-                }}>
-                <BubbleFilled width={16} height={16} fill={COLOR_PRIMARY} />
-                <B12 customStyle={{marginLeft: 4}}>
+              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                <B12 customStyle={styles.labelText}>목표 티클</B12>
+                <B17 customStyle={styles.dataText}>
                   {(productPrice / 5000).toLocaleString()} 개
-                </B12>
-              </View> */}
-              <View style={styles.itemContainer}>
-                <View style={styles.iconContainer}>
-                  <BubbleFilled fill={COLOR_PRIMARY} />
-                </View>
-                <View>
-                  <B12 customStyle={styles.labelText}>남은 티클</B12>
-                  <B17 customStyle={styles.dataText}>
-                    {(productPrice / 5000).toLocaleString()} 개
-                  </B17>
-                </View>
+                </B17>
               </View>
             </View>
           </View>
 
-          <View
-            style={{
-              width: '100%',
-              height: 2,
-              borderBottomWidth: 1,
-              borderBottomColor: COLOR_SEPARATOR,
-              marginTop: 12,
-              marginBottom: 16,
-            }}
-          />
+          {console.log(productOptions)}
+          {isFirstKeyDefault ? null : (
+            <View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 2,
+                  borderBottomWidth: 1,
+                  borderBottomColor: COLOR_SEPARATOR,
+                  marginTop: 12,
+                  marginBottom: 16,
+                }}
+              />
+              <B20>옵션 선택</B20>
+              <View
+                style={{
+                  width: '100%',
+                  height: 8,
+                }}
+              />
 
-          <B20>옵션 선택</B20>
-          <View
-            style={{
-              width: '100%',
-              height: 8,
-            }}
-          />
-
-          {productOptions
-            ? Object.keys(productOptions).map(category => (
-                <OptionList
-                  key={category}
-                  category={category}
-                  options={productOptions[category]}
-                  onSelect={handleOptionSelect}
-                  selectedValue={selectedOptions[category]}
-                />
-              ))
-            : null}
+              {productOptions
+                ? Object.keys(productOptions).map(category => (
+                    <OptionList
+                      key={category}
+                      category={category}
+                      options={productOptions[category]}
+                      onSelect={handleOptionSelect}
+                      selectedValue={selectedOptions[category]}
+                    />
+                  ))
+                : null}
+            </View>
+          )}
 
           <AnimatedButton
             onPress={() => {

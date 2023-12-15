@@ -221,6 +221,7 @@ export default function StartTikklingScreen({route}) {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
+              {console.log(state.selectedItem)}
               <View
                 style={{
                   paddingVertical: 12,
