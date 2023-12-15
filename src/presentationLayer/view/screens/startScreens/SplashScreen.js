@@ -70,16 +70,13 @@ export default function SplashScreen() {
         backgroundColor: COLOR_WHITE,
       }}>
       <StatusBar backgroundColor={COLOR_WHITE} />
-      <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <SplashLogo />
       </View>
       <View
         style={{
-          flex: 1,
-          // position: 'absolute',
-          // bottom: 80,
-          // left: 48,
-          // right: 48,
+          bottom: 0,
+          marginBottom: 48,
         }}>
         <View
           style={{
