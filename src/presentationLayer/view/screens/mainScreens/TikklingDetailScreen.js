@@ -117,13 +117,14 @@ export default function TikklingDetailScreen() {
 
   useEffect(() => {
     if (topState.openDeepLink == true) {
+      // deepLink로 들어온 경우
       // console.log('openDeepLink');
       topActions.setOpenDeepLink(false);
       actions.open_event_modal(actions.setEventModalVisible_detail);
+
+      //친구 추가
+      actions.create_friend();
     }
-    // if (Platform.OS === 'android') {
-    //   actions.open_event_modal();
-    // }
   }, []);
 
   useEffect(() => {
