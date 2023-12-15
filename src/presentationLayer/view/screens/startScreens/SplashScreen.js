@@ -31,7 +31,6 @@ import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/co
 
 export default function SplashScreen() {
   const navigation = useNavigation();
-  SystemNavigationBar.setNavigationColor(COLOR_PRIMARY);
   const [version_modal, setVersion_modal] = useState(false);
   const {topState, topActions} = useTopViewModel();
 

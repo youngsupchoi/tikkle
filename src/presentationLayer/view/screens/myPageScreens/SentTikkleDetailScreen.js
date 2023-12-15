@@ -296,7 +296,7 @@ export default function SentTikkleDetailScreen({route}) {
               </B20>
 
               <View style={styles.detailDataStyle}>
-                <B15>주문 번호</B15>
+                <B15>결제 코드</B15>
                 <M15 customStyle={{color: COLOR_GRAY}}>{item.merchant_uid}</M15>
                 {/* <MarqueeText
                   text={item.merchant_uid}
