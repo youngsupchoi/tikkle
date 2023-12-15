@@ -70,7 +70,7 @@ export default function SignUpScreen0() {
       <StatusBar backgroundColor={COLOR_WHITE} />
       <View
         style={{
-          flex: 2,
+          flex: 1,
           alignItems: 'center',
           alignContent: 'center',
           justifyContent: 'center',
@@ -80,11 +80,8 @@ export default function SignUpScreen0() {
       </View>
       <View
         style={{
-          flex: 1,
-          // position: 'absolute',
-          // bottom: 80,
-          // left: 48,
-          // right: 48,
+          bottom: 0,
+          marginBottom: 48,
         }}>
         <View
           style={{
@@ -144,15 +141,6 @@ export default function SignUpScreen0() {
             />
           </AnimatedButton>
         </View>
-        {/* <AppleButton
-          buttonStyle={AppleButton.Style.BLACK}
-          buttonType={AppleButton.Type.SIGN_UP}
-          style={{
-            width: windowWidth - 48, // You must specify a width
-            height: ((windowWidth - 48) / 60) * 9, // You must specify a height
-          }}
-          onPress={() => onAppleButtonPress()}
-        /> */}
       </View>
     </View>
   );
