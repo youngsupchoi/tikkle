@@ -146,7 +146,11 @@ export default function ProfileScreen() {
                     <View style={{alignItems: 'flex-start', marginLeft: 16}}>
                       <B17>{state.userData_profile.name}님</B17>
                       <View style={{height: 5}} />
-                      {state.timeUnitlNextBirthday == 0 ? (
+                      {state.timeUnitlNextBirthday == '0000-00-00' ? (
+                        <M11 customStyle={{color: COLOR_GRAY}}>
+                          생일을 입력해주세요!
+                        </M11>
+                      ) : state.timeUnitlNextBirthday == 0 ? (
                         <M11 customStyle={{color: COLOR_GRAY}}>
                           생일을 축하해요!
                         </M11>
