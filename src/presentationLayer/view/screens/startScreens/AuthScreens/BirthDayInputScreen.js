@@ -54,11 +54,11 @@ export default function SignUpScreen5() {
         <M15>티클은 만 14세 이상의 회원만 가입 가능합니다.</M15>
       </View>
       <BirthInput />
-      <View style={{marginTop: 12, alignItems: 'center'}}>
+      {/* <View style={{marginTop: 12, alignItems: 'center'}}>
         <B12 customStyle={{color: COLOR_ERROR}}>
           입력 후 변경이 불가능하니 신중하게 입력해주세요.
         </B12>
-      </View>
+      </View> */}
       <BirthSubmit />
     </View>
   );
