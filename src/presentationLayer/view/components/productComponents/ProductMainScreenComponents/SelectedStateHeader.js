@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
     borderColor: COLOR_SEPARATOR,
     borderWidth: 1,
     alignSelf: 'center',
+    marginVertical: 8,
   },
   chipText: {color: COLOR_BLACK},
   filterIconContainer: {
@@ -236,6 +237,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 8,
+    marginVertical: 8,
   },
 });
 

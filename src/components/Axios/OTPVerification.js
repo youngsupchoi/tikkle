@@ -4,7 +4,7 @@ export function verifyOTP(encryptOTP, inputOTP) {
   return new Promise((resolve, reject) => {
     // Check if either argument is undefined
     if (encryptOTP === undefined || inputOTP === undefined) {
-      console.log('One or both of the OTP values is undefined!');
+      //console.log('One or both of the OTP values is undefined!');
       return reject(new Error('Invalid OTP values provided'));
     }
 

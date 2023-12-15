@@ -32,7 +32,8 @@ import {CreateTikklingShareLink} from 'src/dataLayer/DataSource/Tikkling/CreateT
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductOptionData';
 import {CheckEvent} from 'src/dataLayer/DataSource/Auth/CheckEvent';
-
+import {createNewFriendData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendData';
+import {CreateNewFriendDeepData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendDeepData';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -87,7 +88,6 @@ export const useMainViewModel = () => {
     actions.setShowProductOptionsModal(false);
     actions.setRefundButtonPressed(false);
   };
-
 
   const loadData = async () => {
     try {
@@ -234,7 +234,12 @@ export const useMainViewModel = () => {
         ? state.detailAddress
         : state.userData.detail_address,
     )
-      .then(res => topActions.setStateAndError(res))
+      .then(res =>
+        topActions.setStateAndError(
+          res,
+          '[MainViewModel.js] endTikklingGoods - updateEndTikklingBuyData',
+        ),
+      )
       .then(() => {
         topActions.showSnackbar('배송요청이 완료되었습니다.', 1);
         console.log(state.zonecode, state.address, state.detailAddress);
@@ -718,6 +723,15 @@ export const useMainViewModel = () => {
     AsyncStorage.setItem(state.event_name, 'false');
   };
 
+  //add friend when open deep link
+  async function create_friend() {
+    const id = route_tikkling_id;
+    console.log('@@@', id);
+    try {
+      await CreateNewFriendDeepData(id);
+    } catch {}
+  }
+
   return {
     ref: {
       ...ref,
@@ -758,6 +772,7 @@ export const useMainViewModel = () => {
       convertBackgroundImageToBase64,
       open_event_modal,
       async_notShowEvent,
+      create_friend,
     },
   };
 };

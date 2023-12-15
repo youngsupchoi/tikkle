@@ -62,7 +62,10 @@ export const useStartViewModel = () => {
 
     await LoginAppleData(appleAuthRequestResponse.user)
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[useStartViewModel] onAppleButtonPress - LoginAppleData',
+        );
       })
       .then(res => {
         if (res.DSdata.login === false) {
@@ -153,7 +156,10 @@ export const useStartViewModel = () => {
         );
       })
       .then(res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[useStartViewModel] onKakaoButtonPress - LoginKakaoData',
+        );
       });
 
     if (ret.DSdata.goOnboarding) {
@@ -197,7 +203,10 @@ export const useStartViewModel = () => {
     const hash = Platform.OS === 'android' ? await getHash() : '000000';
     const res = await checkPhoneNumberData(state.phoneNumber, hash).then(
       res => {
-        return topActions.setStateAndError(res);
+        return topActions.setStateAndError(
+          res,
+          '[useStartViewModel] phoneInputbuttonPress - checkPhoneNumberData',
+        );
       },
     );
 
@@ -281,7 +290,7 @@ export const useStartViewModel = () => {
           if (message === 'login') {
             loginPhoneData(state.userId)
               .then(() => {
-                topActions.setStateAndError(res);
+                topActions.setStateAndError(res, '[useStartViewModel] login');
               })
               .then(() => {
                 navigation.reset({
@@ -343,7 +352,10 @@ export const useStartViewModel = () => {
         source_tikkling_id,
       )
         .then(res => {
-          topActions.setStateAndError(res);
+          topActions.setStateAndError(
+            res,
+            '[useStartViewModel] completeSignUp - loginRegisterData',
+          );
         })
         .then(() => {
           //  애플아이디 저장

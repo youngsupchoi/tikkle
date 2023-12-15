@@ -140,7 +140,7 @@ export const useProductDetailViewModel = () => {
   const cutImage = async in_images => {
     // console.log('sdfsdfsdfsdf', data.images);
     const images = JSON.parse(in_images);
-    console.log('images : ', images);
+    //console.log('images : ', images);
     /// 이미지 표시하기
     const components = [];
 

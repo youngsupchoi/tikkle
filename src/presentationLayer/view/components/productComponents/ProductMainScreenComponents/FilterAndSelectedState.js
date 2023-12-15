@@ -15,14 +15,14 @@ export default function FilterAndSelectedState() {
     <View
       style={{
         // paddingHorizontal: 16,
-        marginBottom: 8,
-        marginTop: 4,
+        marginBottom: 0,
+        marginTop: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         width: windowWidth - 32,
       }}>
-      <View style={{width: windowWidth}}>
+      <View style={{width: windowWidth, marginBottom: 4, marginTop: 4}}>
         <SelectedStateHeader />
       </View>
       {/* <AnimatedButton

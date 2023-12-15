@@ -35,11 +35,11 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 });
 
 const onMessageReceived = message => {
-  console.log('background message: ', message);
+  //console.log('background message: ', message);
   if (Platform.OS === 'ios') {
     const {link = null} = notification?.data || {}; // <---- 1
     const pushDeepLink = message?.data?.link;
-    console.log('pushDeepLink : ', pushDeepLink);
+    //console.log('pushDeepLink : ', pushDeepLink);
     pushDeepLink && Linking.openURL(pushDeepLink);
     Vibration.vibrate([400]);
   }

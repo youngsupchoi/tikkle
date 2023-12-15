@@ -79,7 +79,7 @@ class FCMService {
   ) => {
     if (Platform.OS === 'android') {
       const channelId = 'fcm_fallback_notification_channel';
-      console.log('Channel ID: ', channelId);
+      //console.log('Channel ID: ', channelId);
       PushNotification.createChannel(
         {
           channelId: channelId, // (required)
