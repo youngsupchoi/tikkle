@@ -157,28 +157,29 @@ export const useStartTikklingViewModel = () => {
   }
 
   //-------------------------------------------------------------------
-  const tikklingStartButtonPress = async product_option => {
+  const tikklingStartButtonPress = async (product_option, product_data) => {
     try {
       actions.setCreateTikklingButtonPressed(true);
 
+      const data = await product_data();
       // put_user_address();
       // console.log('opt', product_option);
       //TODO: product_option
       if (product_option == null || product_option == undefined) {
         product_option = {default: 'default'};
       }
-      const tikkle = Number(selectedItem.price) / 5000;
+      const tikkle = Number(data.price) / 5000;
       console.log(
         'hihihi',
         tikkle,
-        state.selectedItem.product_id,
+        data.product_id,
         state.eventType,
         product_option,
       );
 
       await createTikklingData(
         tikkle,
-        state.selectedItem.product_id,
+        data.product_id,
         state.eventType,
         product_option,
       )

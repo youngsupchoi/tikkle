@@ -283,7 +283,7 @@ export default function ProductOptionsModal({
               if (isButtonActive) {
                 console.log('@@@@@@@@@@@# : ', state.selectedItem.price);
                 console.log('@@@@@@@@@@@# : ', selectedOptions);
-                actions.tikklingStartButtonPress(selectedOptions);
+                actions.tikklingStartButtonPress(selectedOptions, product_data);
               }
             }}
             style={[
