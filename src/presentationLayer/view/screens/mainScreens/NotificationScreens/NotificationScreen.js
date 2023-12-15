@@ -280,15 +280,16 @@ export default function NotificationScreen() {
 
         <AnimatedButton
           style={{
-            padding: 5,
             // backgroundColor: 'red',
             position: 'absolute',
-            paddingLeft: 10,
-            top: 15,
-            right: 15,
+            padding: 10,
+            paddingRight: 5,
+
+            top: 0,
+            right: 0,
             flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
           onPress={() => actions.onDeleteComplete(index)}>
           <Close

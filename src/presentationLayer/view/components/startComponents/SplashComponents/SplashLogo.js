@@ -10,12 +10,13 @@ import {COLOR_PRIMARY} from 'src/presentationLayer/view/components/globalCompone
 
 export const SplashLogo = () => {
   let s = StatusBarHeight;
+
   if (Platform.OS === 'ios') {
     s = s * 2;
   }
 
   return (
-    <View style={{marginBottom: s}}>
+    <View>
       <UNIQUE50 customStyle={{color: COLOR_PRIMARY}}>TIKKLE</UNIQUE50>
     </View>
   );

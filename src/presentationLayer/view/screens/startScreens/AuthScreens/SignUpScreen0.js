@@ -57,39 +57,6 @@ export default function SignUpScreen0() {
     }
   }, []); // passing in an empty array as the second argument ensures this is only ran once when component mounts initially.
 
-  // useEffect(() => {
-  //   console.log(
-  //     state.phoneNumber,
-  //     state.name,
-  //     state.formattedGender,
-  //     state.birthday,
-  //     state.year,
-  //     state.userNick,
-  //     state.kakaoEmail,
-  //     state.profileImageUrl,
-  //   );
-  //   if (
-  //     state.phoneNumber &&
-  //     state.name &&
-  //     state.formattedGender &&
-  //     state.birthday &&
-  //     state.userNick &&
-  //     state.kakaoEmail &&
-  //     state.profileImageUrl
-  //   ) {
-  //     actions.completeSignUp();
-  //   }
-  // }, [
-  //   state.phoneNumber,
-  //   state.name,
-  //   state.formattedGender,
-  //   state.birthday,
-  //   state.yaer,
-  //   state.userNick,
-  //   state.kakaoEmail,
-  //   state.profileImageUrl,
-  // ]);
-
   return (
     <View
       style={{
@@ -101,7 +68,14 @@ export default function SignUpScreen0() {
         backgroundColor: COLOR_WHITE,
       }}>
       <StatusBar backgroundColor={COLOR_WHITE} />
-      <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
+      <View
+        style={{
+          flex: 2,
+          alignItems: 'center',
+          alignContent: 'center',
+          justifyContent: 'center',
+          // backgroundColor: 'blue',
+        }}>
         <SplashLogo />
       </View>
       <View
