@@ -7,7 +7,7 @@ import {
   Animated,
   StatusBar,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   StatusBarHeight,
   SPACING_1,
@@ -70,6 +70,7 @@ import KRW from 'src/assets/icons/KRW';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import Refresh from 'src/assets/icons/Refresh';
 import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import ArrowUpFilled from 'src/assets/icons/ArrowUpFilled';
 
 const containerWidth = windowWidth - SPACING_6;
 
@@ -79,6 +80,12 @@ export default function ProductDetailScreen(route) {
 
   const [selected, setSelected] = useState('상세정보');
   const [buttikkletooltip, setButtikkletooltip] = useState(false);
+
+  const scrollViewRef = useRef(); // ScrollView 참조 생성
+
+  const scrollToTop = () => {
+    scrollViewRef.current?.scrollTo({y: 0, animated: true}); // 상단으로 스크롤
+  };
 
   const scrollY = new Animated.Value(0);
   const imageScale = scrollY.interpolate({
@@ -127,6 +134,7 @@ export default function ProductDetailScreen(route) {
           />
           {/* {console.log('##', state.data)} */}
           <Animated.ScrollView
+            ref={scrollViewRef} // ScrollView 참조 설정
             scrollEventThrottle={16} // Ensures onScroll is called every 16ms
             onScroll={Animated.event(
               [{nativeEvent: {contentOffset: {y: scrollY}}}],
@@ -587,6 +595,13 @@ export default function ProductDetailScreen(route) {
               </View>
             </View>
           </View>
+
+          <View style={styles.scrollToTopButtonContainer}>
+            <AnimatedButton onPress={scrollToTop}>
+              <ArrowUpFilled width={50} height={50} />
+            </AnimatedButton>
+          </View>
+
           <ProductOptionsModal
             productBrand={state.data.brand_name}
             productImage={state.data.thumbnail_image}
@@ -785,5 +800,11 @@ const styles = StyleSheet.create({
   },
   undoText: {
     color: COLOR_PRIMARY,
+  },
+  scrollToTopButtonContainer: {
+    position: 'absolute', // 절대 위치 설정
+    right: 10, // 오른쪽에서 20px
+    bottom: 80, // 하단에서 20px
+    zIndex: 10, // 다른 요소 위에 배치
   },
 });
