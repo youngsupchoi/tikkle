@@ -1,12 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Image,
-  Text,
-  Animated,
-  StatusBar,
-} from 'react-native';
+import {View, StyleSheet, Animated, StatusBar} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   StatusBarHeight,

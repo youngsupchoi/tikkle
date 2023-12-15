@@ -22,7 +22,7 @@ export default function FixedCategoryCarousel() {
     <View
       style={{
         // paddingHorizontal: 16,
-        marginBottom: 4,
+        marginBottom: 0,
         marginTop: 4,
         flexDirection: 'row',
         justifyContent: 'space-between',
