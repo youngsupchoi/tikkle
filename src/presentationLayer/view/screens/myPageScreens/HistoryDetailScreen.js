@@ -50,6 +50,7 @@ import {
   windowHeight,
   windowWidth,
 } from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import Gift from 'src/assets/icons/Gift';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
@@ -399,23 +400,12 @@ export default function HistoryDetailScreen(route) {
                         borderRadius: 100,
                         marginBottom: 12,
                       }}>
-                      <CalendarFilled fill={COLOR_PRIMARY} />
+                      <Gift width={24} height={24} />
                     </View>
-                    <B12 customStyle={styles.labelText}>남은 시간</B12>
-                    <View>
-                      {route_data.state_id == 1 ? (
-                        <TimerComponent
-                          timerStyle={{
-                            color: COLOR_BLACK,
-                            fontSize: 17,
-                            fontFamily: B,
-                          }}
-                          deadline={route_data.funding_limit}
-                        />
-                      ) : (
-                        <B15>종료</B15>
-                      )}
-                    </View>
+                    <B12 customStyle={styles.labelText}>총 티클 수</B12>
+                    <B17 customStyle={styles.dataText}>
+                      {route_data.tikkle_quantity} 개
+                    </B17>
                   </View>
                 </View>
                 {/* 옮기기 */}
@@ -475,7 +465,7 @@ export default function HistoryDetailScreen(route) {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}>
-                  <B15 customStyle={{marginBottom: 10}}>티클링 기간</B15>
+                  <B15 customStyle={{marginBottom: 10}}>티클링 시작</B15>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -485,12 +475,6 @@ export default function HistoryDetailScreen(route) {
                     }}>
                     <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
                       {route_data.created_at.split('T')[0]}
-                    </M15>
-                    <B15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      {'  ~  '}
-                    </B15>
-                    <M15 customStyle={{color: COLOR_GRAY, marginBottom: 10}}>
-                      {route_data.funding_limit.split('T')[0]}
                     </M15>
                   </View>
                 </View>
@@ -616,7 +600,7 @@ export default function HistoryDetailScreen(route) {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}>
-                  <B15 customStyle={{marginBottom: 10}}>상품 총 티클 개수</B15>
+                  <B15 customStyle={{marginBottom: 10}}>목표 티클 개수</B15>
 
                   <M15
                     customStyle={{

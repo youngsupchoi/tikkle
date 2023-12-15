@@ -21,23 +21,26 @@ import moment from 'moment';
 
 export default function StopedButtonComponent({ButtonIcon, ButtonText}) {
   const {state, actions} = useMainViewModel();
+
   const handleButtonPress = () => {
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
 
     const cur = moment().add(9, 'hours');
-    const limit = moment(state.myTikklingData.funding_limit)
-      .endOf('day')
-      .add(9, 'hours');
+
+    // const limit = moment(state.myTikklingData.funding_limit)
+    //   .endOf('day')
+    //   .add(9, 'hours');
 
     if (tikkleQuantity === tikkleCount) {
       actions.setShowEndModal(true);
-    } else if (limit.diff(cur) > 0) {
-      actions.setShowBuyModal(true);
+      // } else if (limit.diff(cur) > 0) {
+      //   actions.setShowBuyModal(true);
     } else {
       actions.setShowCancelModal(true);
     }
   };
+
   return (
     <View
       style={{

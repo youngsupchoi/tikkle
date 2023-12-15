@@ -383,7 +383,6 @@ export default function WishlistManagementScreen() {
                     justifyContent: 'space-between',
                   }}>
                   <B20>진행중인 티클링</B20>
-                  <B12>D-{daysUntil(myTikklingdata.funding_limit)}</B12>
                 </View>
                 <View
                   style={{

@@ -191,7 +191,7 @@ export default function SentTikkleDetailScreen({route}) {
                   <View
                     style={{
                       flexDirection: 'row',
-                      justifyContent: 'space-between',
+                      justifyContent: 'flex-start',
                       marginBottom: 4,
                     }}>
                     <View
@@ -203,6 +203,7 @@ export default function SentTikkleDetailScreen({route}) {
                         borderRadius: 20,
                         padding: 6,
                         paddingHorizontal: 10,
+                        marginRight: 4,
                       }}>
                       <BubbleFilled
                         width={16}
@@ -234,9 +235,13 @@ export default function SentTikkleDetailScreen({route}) {
                         {formatDate(item.tikkling_created_at.split('T')[0])}
                       </M11>
                       <M11 customStyle={{color: COLOR_BLACK}}>{' ~ '}</M11>
-                      <M11 customStyle={{color: COLOR_BLACK}}>
-                        {formatDate(item.funding_limit.split('T')[0])}
-                      </M11>
+                      {item.tikkling_terminated_at ? (
+                        <M11 customStyle={{color: COLOR_BLACK}}>
+                          {formatDate(
+                            item.tikkling_terminated_at.split('T')[0],
+                          )}
+                        </M11>
+                      ) : null}
                     </View>
                   </View>
                 </View>

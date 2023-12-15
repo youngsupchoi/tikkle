@@ -79,6 +79,7 @@ import InstaGuideModal from 'src/presentationLayer/view/components/mainComponent
 import ViewShot from 'react-native-view-shot';
 import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
+import Gift from 'src/assets/icons/Gift';
 
 export default function TikklingDetailScreen() {
   const navigation = useNavigation();
@@ -565,23 +566,12 @@ export default function TikklingDetailScreen() {
                         borderRadius: 100,
                         marginBottom: 12,
                       }}>
-                      <CalendarFilled fill={COLOR_PRIMARY} />
+                      <Gift width={24} height={24} />
                     </View>
-                    <B12 customStyle={styles.labelText}>남은 시간</B12>
-                    <View>
-                      {state.route_data.state_id == 1 ? (
-                        <TimerComponent
-                          timerStyle={{
-                            color: COLOR_BLACK,
-                            fontSize: 17,
-                            fontFamily: B,
-                          }}
-                          deadline={state.route_data.funding_limit}
-                        />
-                      ) : (
-                        <B15>종료</B15>
-                      )}
-                    </View>
+                    <B12 customStyle={styles.labelText}>목표 티클 수</B12>
+                    <B17 customStyle={styles.dataText}>
+                      {state.route_data.tikkle_quantity} 개
+                    </B17>
                   </View>
                 </View>
 

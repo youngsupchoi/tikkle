@@ -31,6 +31,7 @@ import FlagFilled from 'src/assets/icons/FlagFilled';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import CalendarFilled from 'src/assets/icons/CalendarFilled';
 import moment from 'moment';
+import Gift from 'src/assets/icons/Gift';
 
 export default function FriendsTikklingCarousel(data) {
   const [showBuyModal, setShowBuyModal] = useState(null);
@@ -256,21 +257,10 @@ export default function FriendsTikklingCarousel(data) {
                         padding: 8,
                         borderRadius: 30,
                       }}>
-                      <CalendarFilled
-                        fill={COLOR_PRIMARY}
-                        width={16}
-                        height={16}
-                      />
+                      <Gift width={16} height={16} />
                     </View>
                     <View style={{marginLeft: 4}}>
-                      <TimerComponent
-                        timerStyle={{
-                          fontSize: 12,
-                          fontFamily: B,
-                          color: COLOR_BLACK,
-                        }}
-                        deadline={item.funding_limit}
-                      />
+                      <B12>{item.tikkle_quantity}개</B12>
                     </View>
                   </View>
                 </View>
@@ -283,9 +273,10 @@ export default function FriendsTikklingCarousel(data) {
               <View style={{marginTop: 0}}>
                 <AnimatedButton
                   onPress={() => {
-                    moment().isAfter(moment(item.funding_limit).endOf('day'))
-                      ? null
-                      : setShowBuyModal(item.tikkling_id);
+                    setShowBuyModal(item.tikkling_id);
+                    // moment().isAfter(moment(item.funding_limit).endOf('day'))
+                    //   ? null
+                    //   : setShowBuyModal(item.tikkling_id);
                   }}
                   style={{
                     padding: 4,
@@ -297,10 +288,11 @@ export default function FriendsTikklingCarousel(data) {
                     flexDirection: 'row',
                     justifyContent: 'center',
                   }}
-                  disabled={
-                    // new Date(item.funding_limit) < new Date()
-                    moment().isAfter(moment(item.funding_limit).endOf('day'))
-                  }>
+                  // disabled={
+                  //   // new Date(item.funding_limit) < new Date()
+                  //   moment().isAfter(moment(item.funding_limit).endOf('day'))
+                  // }
+                >
                   <B15 customStyle={{color: COLOR_WHITE}}>
                     {'티클 선물하기'}
                   </B15>

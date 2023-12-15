@@ -178,7 +178,6 @@ export const useStartTikklingViewModel = () => {
       //   product_option,
       // );
       await createTikklingData(
-        state.endDate,
         state.selectedItem.price / 5000,
         state.selectedItem.product_id,
         state.eventType,

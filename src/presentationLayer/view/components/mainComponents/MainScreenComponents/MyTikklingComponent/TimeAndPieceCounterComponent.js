@@ -23,6 +23,7 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import CalendarFilled from 'src/assets/icons/CalendarFilled';
+import Gift from 'src/assets/icons/Gift';
 
 export default function TimeAndPieceCounter() {
   const {state, actions} = useMainViewModel();
@@ -44,23 +45,15 @@ export default function TimeAndPieceCounter() {
       <View>
         <View style={styles.itemContainer}>
           <View style={styles.iconContainer}>
-            <CalendarFilled fill={COLOR_PRIMARY} />
+            {/* <CalendarFilled fill={COLOR_PRIMARY} /> */}
+            <Gift width={24} height={24} />
           </View>
           <View>
-            <B12 customStyle={styles.labelText}>남은 시간</B12>
+            <B12 customStyle={styles.labelText}>목표 티클 수</B12>
             <View style={styles.textContainer}>
-              {state.myTikklingData.state_id == 1 ? (
-                <TimerComponent
-                  timerStyle={{
-                    color: COLOR_BLACK,
-                    fontSize: 17,
-                    fontFamily: B,
-                  }}
-                  deadline={state.myTikklingData.funding_limit}
-                />
-              ) : (
-                <B15>종료</B15>
-              )}
+              <B17 customStyle={styles.dataText}>
+                {state.myTikklingData.tikkle_quantity} 개
+              </B17>
             </View>
           </View>
         </View>
