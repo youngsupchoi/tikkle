@@ -3,7 +3,6 @@ import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
 export async function createTikklingData(
-  funding_limit,
   tikkle_quantity,
   product_id,
   type,
@@ -33,7 +32,7 @@ export async function createTikklingData(
   //------ call post_tikkling_create -------------------------------------------------------//
   let response;
   const body = {
-    funding_limit: funding_limit,
+    funding_limit: '2099-12-14',
     tikkle_quantity: tikkle_quantity,
     product_id: product_id,
     type: '기념일',
