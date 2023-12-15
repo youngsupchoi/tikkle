@@ -63,6 +63,7 @@ import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import Refresh from 'src/assets/icons/Refresh';
 import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 import ArrowUpFilled from 'src/assets/icons/ArrowUpFilled';
+import {StartTikklingViewStateProvider} from 'src/presentationLayer/viewState/tikklingStates/StartTikklingState';
 
 const containerWidth = windowWidth - SPACING_6;
 
@@ -105,8 +106,30 @@ export default function ProductDetailScreen(route) {
       wishlist_count: state.data.wishlist_count,
       product_option: state.selectedOptions,
     };
+
     actions.navigation.navigate('startTikkling', wishlist);
     actions.setShowProductOptionsModal(false);
+  };
+
+  const product_data = () => {
+    const wishlist = {
+      brand_name: state.data.brand_name,
+      category_id: state.data.category_id,
+      created_at: state.data.created_at,
+      description: state.data.description,
+      is_deleted: state.data.is_deleted,
+      name: state.data.name,
+      price: state.data.price + state.optionPrice,
+      product_id: state.data.id,
+      quantity: state.data.quantity,
+      sales_volume: state.data,
+      thumbnail_image: state.data.thumbnail_image,
+      views: state.data.views,
+      wishlist_count: state.data.wishlist_count,
+      product_option: state.selectedOptions,
+    };
+
+    return wishlist;
   };
 
   useEffect(() => {
@@ -594,19 +617,22 @@ export default function ProductDetailScreen(route) {
             </AnimatedButton>
           </View>
 
-          <ProductOptionsModal
-            productBrand={state.data.brand_name}
-            productImage={state.data.thumbnail_image}
-            productName={state.data.name}
-            productPrice={state.data.price}
-            productOptions={state.productOptions}
-            showModal={state.showProductOptionsModal}
-            setShowModal={actions.setShowProductOptionsModal}
-            buttonPress={startTikklingButtonPress}
-            selectedOptions={state.selectedOptions}
-            setSelectedOptions={actions.setSelectedOptions}
-            setOptionPrice={actions.setOptionPrice}
-          />
+          <StartTikklingViewStateProvider>
+            <ProductOptionsModal
+              productBrand={state.data.brand_name}
+              productImage={state.data.thumbnail_image}
+              productName={state.data.name}
+              productPrice={state.data.price}
+              productOptions={state.productOptions}
+              showModal={state.showProductOptionsModal}
+              setShowModal={actions.setShowProductOptionsModal}
+              buttonPress={startTikklingButtonPress}
+              product_data={product_data}
+              selectedOptions={state.selectedOptions}
+              setSelectedOptions={actions.setSelectedOptions}
+              setOptionPrice={actions.setOptionPrice}
+            />
+          </StartTikklingViewStateProvider>
         </View>
       )}
     </View>

@@ -23,9 +23,7 @@ export const useStartTikklingViewModel = () => {
 
   const navigation = useNavigation();
   const route = useRoute();
-  const [selectedItem, setSelectedItem] = useState(
-    route.params ? route.params : null,
-  );
+  const [selectedItem, setSelectedItem] = useState({});
 
   // 5. 필요한 로직 작성하기 (예: 데이터 검색)
 
@@ -163,22 +161,23 @@ export const useStartTikklingViewModel = () => {
     try {
       actions.setCreateTikklingButtonPressed(true);
 
-      put_user_address();
+      // put_user_address();
       // console.log('opt', product_option);
       //TODO: product_option
       if (product_option == null || product_option == undefined) {
         product_option = {default: 'default'};
       }
-      // console.log(
-      //   'hihihi',
-      //   state.endDate,
-      //   state.selectedItem.price / 5000,
-      //   state.selectedItem.product_id,
-      //   state.eventType,
-      //   product_option,
-      // );
+      const tikkle = Number(selectedItem.price) / 5000;
+      console.log(
+        'hihihi',
+        tikkle,
+        state.selectedItem.product_id,
+        state.eventType,
+        product_option,
+      );
+
       await createTikklingData(
-        state.selectedItem.price / 5000,
+        tikkle,
         state.selectedItem.product_id,
         state.eventType,
         product_option,

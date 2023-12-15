@@ -38,7 +38,7 @@ export async function createTikklingData(
     type: '기념일',
     product_option: product_option,
   };
-
+  console.log('body : ', body.tikkle_quantity);
   try {
     response = await apiModel(
       'post_tikkling_create',
@@ -46,6 +46,7 @@ export async function createTikklingData(
       body,
       null,
     );
+    console.log('response : ', response);
     if (!response) {
       //  error
       throw new Error();
