@@ -17,6 +17,7 @@ import {updateMyAddressData} from 'src/dataLayer/DataSource/User/UpdateMyAddress
 import {deleteUserData} from 'src/dataLayer/DataSource/User/DeleteUserData';
 import {getImportPaymentData} from 'src/dataLayer/DataSource/Payment/GetImportPaymentData';
 import {updateRefundMyPaymentData} from 'src/dataLayer/DataSource/Payment/UpdateRefundMyPaymentData';
+import {updateMyBirthData} from 'src/dataLayer/DataSource/User/UpdateMyBirthData';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -571,6 +572,49 @@ export const useMyPageViewModel = () => {
     }
   }
 
+  async function changeBirth() {
+    const birthDate =
+      state.month && state.day
+        ? `${state.year}-${state.month.padStart(2, '0')}-${state.day.padStart(
+            2,
+            '0',
+          )}`
+        : `${state.year}-${state.birthday.substring(
+            0,
+            2,
+          )}-${state.birthday.substring(2, 4)}`;
+
+    console.log('birthDate : ', birthDate);
+
+    try {
+      await actions.setLoading_profileEdit(true);
+      actions.setDay('');
+      actions.setYear('');
+      actions.setMonth('');
+      await updateMyBirthData(birthDate)
+        .then(async res => {
+          return topActions.setStateAndError(
+            res,
+            '[MyPageViewModel.js] changeBirth - UpdateMyBirthData',
+          );
+        })
+        .then(async res => {
+          await actions.setLoading_profileEdit(false);
+          if (res.DSdata.success === true) {
+            topActions.showSnackbar('생일 업데이트에 성공했어요', 1);
+          } else {
+            topActions.showSnackbar('생일 업데이트에 실패했어요', 0);
+          }
+        });
+    } catch {
+      await actions.setLoading_profileEdit(false);
+      await topActions.showSnackbar(
+        '서버오류로 주소 정보 업데이트에 실패했어요',
+        0,
+      );
+    }
+  }
+
   return {
     ref: {
       ...ref,
@@ -604,6 +648,7 @@ export const useMyPageViewModel = () => {
       logout,
       getHistoryPaymentData,
       refundPayment,
+      changeBirth,
     },
   };
 };

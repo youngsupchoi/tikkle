@@ -64,6 +64,11 @@ export const MyPageViewStateProvider = ({children}) => {
   const [refund_tikkling_id, setRefund_tikkling_id] = useState(null);
   const [refund_merchant_uid, setRefund_merchant_uid] = useState(null);
 
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
+  const [birthday, setBirthday] = useState('');
+
   const state = {
     message,
     DScode,
@@ -96,6 +101,10 @@ export const MyPageViewStateProvider = ({children}) => {
     refundModal,
     refund_tikkling_id,
     refund_merchant_uid,
+    year,
+    month,
+    day,
+    birthday,
   };
 
   const actions = {
@@ -130,6 +139,10 @@ export const MyPageViewStateProvider = ({children}) => {
     setRefundModal,
     setRefund_tikkling_id,
     setRefund_merchant_uid,
+    setYear,
+    setMonth,
+    setDay,
+    setBirthday,
   };
 
   return (
