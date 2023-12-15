@@ -110,6 +110,7 @@ export default function ProductSearchLandingScreen() {
           <ArrowUpFilled width={50} height={50} fill={COLOR_PRIMARY} />
         </AnimatedButton>
       </View>
+
       <ProductFilter />
     </View>
   );
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
 
   scrollToTopButtonContainer: {
     position: 'absolute', // 절대 위치 설정
-    right: 20, // 오른쪽에서 20px
+    right: 10, // 오른쪽에서 20px
     bottom: 20, // 하단에서 20px
     zIndex: 10, // 다른 요소 위에 배치
   },

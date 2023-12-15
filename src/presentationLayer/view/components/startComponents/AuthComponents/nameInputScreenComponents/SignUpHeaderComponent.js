@@ -27,7 +27,7 @@ export default function SignUpHeader() {
         <View style={styles.selectedPagination} />
         <View style={styles.pagination} />
         <View style={styles.pagination} />
-        <View style={styles.pagination} />
+        {/* <View style={styles.pagination} /> */}
       </View>
     );
   };
