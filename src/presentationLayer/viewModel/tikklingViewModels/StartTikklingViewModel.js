@@ -172,6 +172,8 @@ export const useStartTikklingViewModel = () => {
       if (Object.keys(productOption).length === 0 || productOption == null) {
         console.log('프로덕트옵션', productOption);
         product_option = {default: 'default'};
+      } else {
+        product_option = productOption;
       }
       const tikkle = Number(data.price) / 5000;
       console.log(
