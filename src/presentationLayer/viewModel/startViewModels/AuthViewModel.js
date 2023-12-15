@@ -19,7 +19,7 @@ import {appleAuth} from '@invertase/react-native-apple-authentication';
 import {
   KakaoAccessTokenInfo,
   KakaoProfile,
-  getProfile as getKakaoProfile,
+  // getProfile as getKakaoProfile,
   login,
   logout,
   unlink,
@@ -132,22 +132,29 @@ export const useStartViewModel = () => {
   }
 
   const onKakaoButtonPress = async () => {
+    let birthDate;
     const ret = await signIn()
       .then(async res => {
-        // console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber));//
-        // console.log('name: ', res.nickname);
-        // console.log('gender: ', res.gender);
-        // console.log('birthYear: ', res.birthyear);
-        // console.log('birthday: ', res.birthday);
-        // console.log('userNick: ', extractUsername(res.email));
-        // console.log('email: ', res.email);
-        // console.log('profileImageUrl: ', res.profileImageUrl);
-        // console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
+        console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber)); //
+        console.log('name: ', res.nickname);
+        console.log('gender: ', res.gender);
+        console.log('birthYear: ', res.birthyear);
+        console.log('birthday: ', res.birthday);
+        console.log('userNick: ', extractUsername(res.email));
+        console.log('email: ', res.email);
+        console.log('profileImageUrl: ', res.profileImageUrl);
+        console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
+        birthDate = `${res.birthyear}-${res.birthday.substring(
+          0,
+          2,
+        )}-${res.birthday.substring(2, 4)}`;
 
+        console.log('birthdate: ', birthDate);
         const source_tikkling_id = await checkDynamicLink();
         return await LoginKakaoData(
           res.nickname,
-          res.birthday,
+          // res.birthday,
+          birthDate,
           formatKakaoPhoneNumber(res.phoneNumber),
           res.gender,
           source_tikkling_id,
@@ -343,7 +350,6 @@ export const useStartViewModel = () => {
               0,
               2,
             )}-${state.birthday.substring(2, 4)}`;
-
       await loginRegisterData(
         state.lastName,
         birthDate,

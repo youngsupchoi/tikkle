@@ -3,7 +3,7 @@ import {resetToken} from '../../APIModel/ResetToken';
 
 export async function LoginKakaoData(
   name,
-  birthday,
+  birthDate,
   phone,
   gender,
   source_tikkling_id,
@@ -24,7 +24,7 @@ export async function LoginKakaoData(
   console.log(formattedGender);
   const body = {
     name: name,
-    birthday: birthday,
+    birthday: birthDate,
     phone: phone,
     gender: formattedGender,
     source_tikkling_id: source_tikkling_id,
