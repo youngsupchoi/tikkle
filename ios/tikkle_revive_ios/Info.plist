@@ -54,10 +54,6 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakao0123456789</string>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
