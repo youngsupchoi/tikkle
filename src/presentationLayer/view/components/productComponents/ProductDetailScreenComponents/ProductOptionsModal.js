@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
 import {
   windowHeight,
   windowWidth,
@@ -38,6 +39,7 @@ import BubbleFilled from 'src/assets/icons/BubbleFilled';
 import {useStartTikklingViewModel} from 'src/presentationLayer/viewModel/tikklingViewModels/StartTikklingViewModel';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import TikklingState from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingState';
+import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 
 const OptionList = ({category, options, onSelect, selectedValue}) => {
   return (
@@ -140,6 +142,7 @@ export default function ProductOptionsModal({
 
   useEffect(() => {
     actions.setSelectedItem(product_data);
+    actions.setStartTikklingButtonPressed(false);
   }, []);
 
   useEffect(() => {
@@ -242,7 +245,7 @@ export default function ProductOptionsModal({
             </View>
           </View>
 
-          {console.log(productOptions)}
+          {/* {console.log(productOptions)} */}
           {isFirstKeyDefault ? null : (
             <View>
               <View
@@ -278,27 +281,51 @@ export default function ProductOptionsModal({
           )}
 
           <AnimatedButton
-            onPress={() => {
-              if (isButtonActive) {
-                console.log('@@@@@@@@@@@# : ', state.selectedItem.price);
-                console.log('@@@@@@@@@@@# : ', selectedOptions);
-                actions.tikklingStartButtonPress(selectedOptions, product_data);
+            onPress={async () => {
+              // console.log('@@@@@@@@@@@');
+              if (isButtonActive && !state.startTikklingButtonPressed) {
+                await actions.setStartTikklingButtonPressed(true);
+                // console.log('@@@@@@@@@@@# : ', state.selectedItem.price);
+                // console.log('@@@@@@@@@@@# : ', selectedOptions);
+                await actions.tikklingStartButtonPress(
+                  selectedOptions,
+                  product_data,
+                );
               }
             }}
+            disabled={state.startTikklingButtonPressed}
             style={[
               {
                 width: '100%',
+                height: 50,
                 backgroundColor: COLOR_PRIMARY,
                 padding: 12,
                 alignItems: 'center',
                 borderRadius: 12,
                 marginTop: 12,
+                justifyContent: 'center',
               },
               isButtonActive
                 ? {backgroundColor: COLOR_PRIMARY}
                 : {backgroundColor: COLOR_GRAY},
             ]}>
-            <B15 customStyle={{color: COLOR_WHITE}}>티클링 시작하기</B15>
+            {state.startTikklingButtonPressed ? (
+              <LottieView
+                pointerEvents="none"
+                source={require('src/assets/animations/loading2.json')} // replace with your Lottie file path
+                autoPlay
+                style={{width: 400, height: 50}}
+              />
+            ) : (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <B15 customStyle={{color: COLOR_WHITE}}>티클링 시작하기</B15>
+              </View>
+            )}
           </AnimatedButton>
           <View style={{height: 16}} />
         </View>

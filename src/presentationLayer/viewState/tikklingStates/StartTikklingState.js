@@ -46,6 +46,9 @@ export const StartTikklingViewStateProvider = ({children}) => {
   const [eventModalVisible, setEventModalVisible] = useState(false);
   const [eventModalImage, setEventModalImage] = useState(null);
 
+  const [startTikklingButtonPressed, setStartTikklingButtonPressed] =
+    useState(false);
+
   const events = [
     {
       type: 'birthday',
@@ -83,6 +86,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     birthdayAvailable,
     eventModalVisible,
     eventModalImage,
+    startTikklingButtonPressed,
   };
   const actions = {
     setUserData,
@@ -106,6 +110,7 @@ export const StartTikklingViewStateProvider = ({children}) => {
     setBirthdayAvailable,
     setEventModalVisible,
     setEventModalImage,
+    setStartTikklingButtonPressed,
   };
 
   return (
