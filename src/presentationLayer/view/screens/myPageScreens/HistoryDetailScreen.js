@@ -442,20 +442,15 @@ export default function HistoryDetailScreen(route) {
                         </M15>
                       </View>
                     ) : (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'left',
-                          alignItems: 'center',
-                          marginLeft: 8,
+                      <M15
+                        customStyle={{
+                          color: '#0000FF',
+                          marginBottom: 10,
+                          textDecorationLine: 'underline',
                         }}>
-                        <M15 customStyle={{color: '#0645AD', marginBottom: 10}}>
-                          {company_name + '  '}
-                        </M15>
-                        <M17 customStyle={{color: '#0645AD', marginBottom: 10}}>
-                          {invoice_number}
-                        </M17>
-                      </View>
+                        {company_name + '  '}
+                        {invoice_number}
+                      </M15>
                     )}
                   </AnimatedButton>
                 ) : null}

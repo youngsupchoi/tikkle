@@ -94,13 +94,13 @@ export default function HomeHeader(props) {
           TIKKLE
         </UNIQUE27>
 
-        <AnimatedButton
+        {/* <AnimatedButton
           onPress={() => {
             navigation.navigate('onboarding');
           }}
           style={{marginLeft: 10, marginBottom: 3, width: 20, height: 20}}>
           <Help width={20} height={20} />
-        </AnimatedButton>
+        </AnimatedButton> */}
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {/* <AnimatedButton
