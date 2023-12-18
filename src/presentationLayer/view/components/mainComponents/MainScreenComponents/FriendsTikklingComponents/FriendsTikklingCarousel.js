@@ -235,7 +235,7 @@ export default function FriendsTikklingCarousel(data) {
                     </View>
 
                     <View style={{marginLeft: 4}}>
-                      <B12>{item.tikkle_quantity - item.tikkle_count}개</B12>
+                      <B12> {item.tikkle_quantity - item.tikkle_count}개</B12>
                     </View>
                   </View>
 
@@ -260,7 +260,7 @@ export default function FriendsTikklingCarousel(data) {
                       <Gift width={16} height={16} />
                     </View>
                     <View style={{marginLeft: 4}}>
-                      <B12>{item.tikkle_quantity}개</B12>
+                      <B12> {item.tikkle_quantity}개</B12>
                     </View>
                   </View>
                 </View>
