@@ -30,6 +30,10 @@ const FriendsEvents = props => {
 
   const calculateDaysUntilNextBirthday = birthdayString => {
     const input = birthdayString;
+
+    if (birthdayString === '0000-00-00') {
+      return -1;
+    }
     const input_split = input.split('-');
     const cur = moment().startOf('day').add(9, 'hours');
 
@@ -54,6 +58,8 @@ const FriendsEvents = props => {
     const diff = calculateDaysUntilNextBirthday(friend.birthday);
     //console.log('diff of', friend, '\n diff : ', diff);
     switch (diff) {
+      case -1:
+        break;
       case 0:
         sortedData['오늘'].push(friend);
         break;

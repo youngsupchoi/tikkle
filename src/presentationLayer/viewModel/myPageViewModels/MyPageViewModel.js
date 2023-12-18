@@ -66,7 +66,13 @@ export const useMyPageViewModel = () => {
 
   const calculateDaysUntilNextBirthday = birthdayString => {
     const input = birthdayString;
+
+    if (birthdayString === '0000-00-00') {
+      return -1;
+    }
+    console.log('input : ', input);
     const input_split = input.split('-');
+    console.log('input_split : ', input_split);
     const cur = moment().startOf('day').add(9, 'hours');
 
     const cur_year = moment(cur).year();
@@ -87,7 +93,7 @@ export const useMyPageViewModel = () => {
       return `오늘은 생일이에요!`;
     }
     actions.setTimeUnitlNextBirthday(diff);
-
+    console.log('diff : ', diff);
     return;
   };
 
