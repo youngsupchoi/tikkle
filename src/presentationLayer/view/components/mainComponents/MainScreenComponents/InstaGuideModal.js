@@ -239,6 +239,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
     const pageWidth = event.nativeEvent.layoutMeasurement.width;
     const currentPage = Math.floor(offsetX / pageWidth + 0.5);
     setCurrentPage(currentPage);
+    setCurrentDetailText(currentPage);
   };
 
   useEffect(() => {
@@ -256,7 +257,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
         animated: true,
       });
       setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
-      setCurrentDetailText(currentDetailText + 1);
+      setCurrentDetailText(nextPage);
     }
   };
 
