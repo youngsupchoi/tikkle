@@ -29,9 +29,19 @@ export default function EditRefundAccount() {
       <View style={styles.headerContainer}>
         <B17>환불 계좌</B17>
         <AnimatedButton
-          style={{paddingRight: 50}}
-          onPress={() => actions.storeAccountData()}>
-          <B17 customStyle={{color: COLOR_PRIMARY}}>저장</B17>
+          style={styles.valid}
+          onPress={() => {
+            if (!state.newAccount || !state.selectedBankCode) {
+              return;
+            } else {
+              actions.storeAccountData();
+            }
+          }}>
+          {!state.newAccount || !state.selectedBa ? (
+            <B17 customStyle={{color: COLOR_GRAY}}>저장</B17>
+          ) : (
+            <B17 customStyle={{color: COLOR_PRIMARY}}>저장</B17>
+          )}
         </AnimatedButton>
       </View>
       <View
@@ -92,5 +102,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  invalid: {
+    shadowOpacity: 0,
+    marginRight: 50,
+  },
+  valid: {
+    shadowOpacity: 0,
+    marginRight: 50,
   },
 });

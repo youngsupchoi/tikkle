@@ -79,6 +79,33 @@ export default function DeliveryScreen(route) {
 
   return (
     <View style={{width: windowWidth, height: windowHeight}}>
+      <View style={styles.header}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <AnimatedButton
+            onPress={() => navigation.goBack()}
+            style={{
+              width: 20,
+              height: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+              // elevation: 1,
+            }}>
+            <ArrowLeft
+              stroke={COLOR_BLACK}
+              width={20}
+              height={20}
+              strokeWidth={1.5}
+              scale={0.85}
+            />
+          </AnimatedButton>
+
+          <View style={styles.small_header}>
+            <View>
+              <B17>송장 번호 조회</B17>
+            </View>
+          </View>
+        </View>
+      </View>
       {/* {console.log('DDDD', link)} */}
       <WebView
         style={{flex: 1}}
@@ -90,4 +117,24 @@ export default function DeliveryScreen(route) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    height: HEADER_HEIGHT,
+    borderBottomColor: COLOR_SEPARATOR,
+    backgroundColor: backgroundColor,
+    borderBottomWidth: 1,
+  },
+  small_header: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+    // paddingHorizontal: 24,
+    marginLeft: 16,
+    paddingVertical: 6,
+    // height: HEADER_HEIGHT,
+  },
+});

@@ -212,16 +212,37 @@ export const useNotificationViewModel = () => {
     actions.setRefreshing(false);
   };
 
+  // /**
+  //  * NotificationScreen에서 삭제가 완료되었을 때 호출되는 함수
+  //  */
+  // const onDeleteComplete = index => {
+  //   noti_delete(index)
+  //     .then(() => {
+  //       loadData();
+  //     })
+  //     .catch(error => {
+  //       actions.setRefreshing(false);
+  //       console.log("[Error in MyPageViewModel's onDeleteComplete]\n", error);
+  //     });
+  //   actions.setRefreshing(false);
+  // };
+
+  /**
+   * NotificationScreen에서 삭제가 완료되었을 때 호출되는 함수
+   */
   const onDeleteComplete = index => {
-    noti_delete(index)
-      .then(() => {
-        loadData();
-      })
-      .catch(error => {
-        actions.setRefreshing(false);
-        console.log("[Error in MyPageViewModel's onDeleteComplete]\n", error);
-      });
-    actions.setRefreshing(false);
+    const newData = [...state.notificationData]; // Make a copy of the data
+    newData.splice(index, 1); // Remove the item at the specified index
+    actions.setNotificationData(newData);
+
+    try {
+      noti_delete(index);
+    } catch (error) {
+      console.log(
+        "[Error in NotificationViewModel's onDeleteComplete]\n",
+        error,
+      );
+    }
   };
 
   return {

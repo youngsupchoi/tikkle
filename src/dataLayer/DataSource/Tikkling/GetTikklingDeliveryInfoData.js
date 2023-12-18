@@ -32,6 +32,7 @@ export async function GetTikklingDeliveryInfoData(tikkling_id) {
       null,
       tikkling_id,
     );
+    // console.log('response : ', response);
 
     if (!response) {
       //  error
@@ -45,7 +46,7 @@ export async function GetTikklingDeliveryInfoData(tikkling_id) {
     };
   }
 
-  //console.log('data : ', response.data.data[0]);
+  // console.log('data : ', response.data.data[0]);
 
   //------ control result & error of get_tikkling_info -----------------------------------------//
 

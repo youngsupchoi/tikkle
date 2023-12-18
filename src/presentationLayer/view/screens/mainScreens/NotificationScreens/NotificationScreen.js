@@ -364,12 +364,14 @@ export default function NotificationScreen() {
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
-            refreshControl={
-              <RefreshControl
-                refreshing={state.refreshing}
-                onRefresh={actions.onRefresh}
-              />
-            }
+            // refreshControl={
+            //   <RefreshControl
+            //     refreshing={state.refreshing}
+            //     onRefresh={() => {
+            //       actions.onRefresh();
+            //     }}
+            //   />
+            // }
             data={state.notificationData}
             renderItem={renderItem}
             ListFooterComponent={
