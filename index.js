@@ -8,6 +8,7 @@ import messaging from '@react-native-firebase/messaging';
 import {Settings} from 'react-native-fbsdk-next';
 import * as Sentry from '@sentry/react-native';
 import {SENTRY_DSN, META_APP_ID} from '@env';
+import VersionCheck from 'react-native-version-check';
 
 // Setting the facebook app id using setAppID
 // Remember to set CFBundleURLSchemes in Info.plist on iOS if needed
@@ -19,12 +20,16 @@ Sentry.init({
   dsn: SENTRY_DSN,
 });
 
-Sentry.setTag('from', 'TIKKLE');
-
 function HeadlessCheck({isHeadless}) {
   if (isHeadless) {
     return null;
   }
+
+  const CurrentVersion = VersionCheck.getCurrentVersion();
+  Sentry.setTag('from', 'TIKKLE');
+  Sentry.setTag('platform', Platform.OS);
+  Sentry.setTag('version', CurrentVersion);
+
   Sentry.wrap(App);
 
   return <App />;
