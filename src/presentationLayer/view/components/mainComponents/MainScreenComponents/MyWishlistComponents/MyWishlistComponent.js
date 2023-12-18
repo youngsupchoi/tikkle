@@ -231,40 +231,9 @@ export default function MyWishlistComponent() {
                         actions
                           .hasOptions(state.wishlistData[index].product_id)
                           .then(optionStatus => {
-                            console.log(optionStatus);
-                            if (optionStatus) {
-                              actions.setShowProductOptionsModal(true);
-                            } else {
-                              const wishlist = {
-                                brand_name:
-                                  state.wishlistData[index].brand_name,
-                                category_id:
-                                  state.wishlistData[index].category_id,
-                                created_at:
-                                  state.wishlistData[index].created_at,
-                                description:
-                                  state.wishlistData[index].description,
-                                is_deleted:
-                                  state.wishlistData[index].is_deleted,
-                                name: state.wishlistData[index].name,
-                                price:
-                                  state.wishlistData[index].price +
-                                  state.optionPrice,
-                                product_id:
-                                  state.wishlistData[index].product_id,
-                                quantity: state.wishlistData[index].quantity,
-                                sales_volume: state.wishlistData[index],
-                                thumbnail_image:
-                                  state.wishlistData[index].thumbnail_image,
-                                views: state.wishlistData[index].views,
-                                wishlist_count:
-                                  state.wishlistData[index].wishlist_count,
-                              };
-                              actions.navigation.navigate(
-                                'startTikkling',
-                                wishlist,
-                              );
-                            }
+                            // console.log(optionStatus);
+
+                            actions.setShowProductOptionsModal(true);
                           })
                           .catch(error => {
                             console.log('Error occurred', error);
