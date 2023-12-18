@@ -36,6 +36,16 @@
 				<string>kakaod887c85791eefc06f749efec74c22acd</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>tikkle</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tikkle</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>

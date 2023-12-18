@@ -62,20 +62,20 @@ export default function NotificationScreen() {
           } else if (item.notification_type_id == 2) {
             navigation.navigate('main');
           } else if (item.notification_type_id == 3) {
-            if (item.deep_link) {
-              const tikkling_id = parseInt(item.deep_link.split('/')[3]);
-
-              navigation.navigate('tikklingDetail', {
-                tikkling_id: tikkling_id,
-                from: true,
-              });
-            }
-
             // if (item.deep_link) {
-            //   Linking.openURL(item.deep_link);
-            // } else {
-            //   navigation.navigate('main');
+            //   const tikkling_id = parseInt(item.deep_link.split('/')[3]);
+
+            //   navigation.navigate('tikklingDetail', {
+            //     tikkling_id: tikkling_id,
+            //     from: true,
+            //   });
             // }
+
+            if (item.deep_link) {
+              Linking.openURL(item.deep_link);
+            } else {
+              navigation.navigate('main');
+            }
           } else if (item.notification_type_id == 4) {
             navigation.navigate('search');
           } else if (item.notification_type_id == 5) {
