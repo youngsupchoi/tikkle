@@ -78,6 +78,12 @@ export default function ProfileScreen() {
         />
       }>
       <ProfileHeader>Profile</ProfileHeader>
+      <AnimatedButton
+        onPress={() => {
+          actions.calculateDaysUntilNextBirthday('0000-00-00');
+        }}>
+        <B15 customStyle={{color: COLOR_GRAY, marginLeft: 3}}>@@</B15>
+      </AnimatedButton>
       {state.loading_profile ? (
         <GlobalLoader />
       ) : (
