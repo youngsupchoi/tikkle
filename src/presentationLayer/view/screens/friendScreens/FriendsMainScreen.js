@@ -42,6 +42,7 @@ import {
   EB,
   M11,
   M15,
+  R,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import Detail from 'src/assets/icons/Detail';
 import {useFriendMainViewModel} from 'src/presentationLayer/viewModel/friendViewModels/FriendsMainViewModel';
@@ -72,6 +73,12 @@ export default function FriendsManagementScreen() {
   const toggleDropdown = () => {
     actions.setDropdownVisible_friend(!state.isDropdownVisible_friend);
   };
+
+  // 전체 아이템 수 계산
+  const totalItemsCount = Object.values(state.groupedData).reduce(
+    (total, sectionData) => total + sectionData.length,
+    0,
+  );
 
   useEffect(() => {
     actions.get_friend_data(state.mode_friend);
@@ -106,17 +113,6 @@ export default function FriendsManagementScreen() {
           dropdownStyle={styles.dropdown}
           dropdownTextStyle={styles.dropdownText}
           dropdownTextHighlightStyle={styles.dropdownTextHighlight}
-          renderRightComponent={() => (
-            <View style={{marginLeft: 8}}>
-              <ArrowDown
-                width={16}
-                height={16}
-                stroke={COLOR_BLACK}
-                strokeWidth={2}
-                scale={16 / 24}
-              />
-            </View>
-          )}
         />
         <AnimatedButton
           onPress={() => {
@@ -132,6 +128,17 @@ export default function FriendsManagementScreen() {
           <Contract width={30} height={30} />
           <M11>연락처 동기화</M11>
         </AnimatedButton>
+      </View>
+
+      <View style={styles.listHeader}>
+        <B15 customStyle={styles.headerText}>친구</B15>
+        <B15
+          customStyle={[
+            styles.headerText,
+            {fontFamily: EB, color: COLOR_BLACK},
+          ]}>
+          {totalItemsCount}명
+        </B15>
       </View>
 
       <View style={styles.searchBarContainer}>
@@ -299,6 +306,7 @@ export default function FriendsManagementScreen() {
           <GlobalLoader />
         ) : (
           <SectionList
+            stickyHeaderHiddenOnScroll
             contentContainerStyle={{
               paddingTop: 12,
               marginTop: 4,
@@ -365,21 +373,25 @@ export default function FriendsManagementScreen() {
                     );
                   }
             }
-            stickySectionHeadersEnabled={false}
-            renderSectionHeader={({section: {title}}) => (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingVertical: 4,
-                }}>
-                <B15
-                  customStyle={{
-                    paddingHorizontal: 24,
+            stickySectionHeadersEnabled={true}
+            renderSectionHeader={({section: {title}, index}) => (
+              <View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingVertical: 4,
+                    backgroundColor: backgroundColor,
+                    top: 0,
                   }}>
-                  {title}
-                </B15>
+                  <B15
+                    customStyle={{
+                      paddingHorizontal: 16,
+                    }}>
+                    {title}
+                  </B15>
+                </View>
               </View>
             )}
             ListFooterComponent={() => {
@@ -509,6 +521,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   searchBarContainer: {
+    margin: 0,
     marginTop: 8,
     flexDirection: 'row',
     alignSelf: 'center',
@@ -536,6 +549,14 @@ const styles = StyleSheet.create({
   },
   listHeader: {
     paddingHorizontal: 24,
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    paddingTop: 8,
+  },
+  headerText: {
+    color: COLOR_GRAY,
+    fontFamily: B,
+    marginRight: 8,
   },
   listItem: {
     flexDirection: 'row',
