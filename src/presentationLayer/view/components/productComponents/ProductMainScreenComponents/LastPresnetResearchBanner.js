@@ -26,21 +26,19 @@ export default function LastPresentResearchBanner() {
       <LinearGradient
         colors={['rgba(205,242,250,0.4)', 'rgba(252,139,254,0.4)']} // 배경 이미지 위에 약간의 그라디언트 오버레이
         style={styles.linearGradient}>
-        <BlurView style={styles.blurView} blurType="regular" blurAmount={10}>
-          <AnimatedButton
-            onPress={() => {
-              actions.setShowLastPresentModal(true);
-            }}
-            style={styles.buttonStyle}>
-            <ThumbUpFilled fill={COLOR_WHITE} width={32} height={32} />
-            <B15 customStyle={[styles.textStyle, {fontFamily: R}]}>
-              티클 선물
-            </B15>
-            <B15 customStyle={[styles.textStyle, {fontFamily: EB}]}>
-              추천 받기
-            </B15>
-          </AnimatedButton>
-        </BlurView>
+        {/* <BlurView style={styles.blurView} blurType="regular" blurAmount={10}> */}
+        <AnimatedButton
+          onPress={() => {
+            actions.setShowLastPresentModal(true);
+          }}
+          style={styles.buttonStyle}>
+          <ThumbUpFilled fill={COLOR_WHITE} width={32} height={32} />
+          <B15 customStyle={[styles.textStyle, {fontFamily: R}]}>티클 선물</B15>
+          <B15 customStyle={[styles.textStyle, {fontFamily: EB}]}>
+            추천 받기
+          </B15>
+        </AnimatedButton>
+        {/* </BlurView> */}
       </LinearGradient>
     </ImageBackground>
   );
@@ -53,8 +51,11 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     flex: 1,
-    justifyContent: 'center',
+    padding: 6,
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   blurView: {
     padding: 6,
