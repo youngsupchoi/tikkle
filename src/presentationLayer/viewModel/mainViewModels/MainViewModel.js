@@ -141,7 +141,6 @@ export const useMainViewModel = () => {
               }
             });
         } catch (error) {
-          r;
           console.log(error);
         }
       }
