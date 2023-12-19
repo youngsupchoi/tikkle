@@ -59,8 +59,8 @@ export default function HomeHeader(props) {
           console.log('@@@ ');
           // AsyncStorage.setItem('refund_delivery', 'delivery_413');
 
-          const event_modal = await AsyncStorage.getItem('refund_delivery');
-          console.log('@@@', event_modal);
+          // const event_modal = await AsyncStorage.getItem('refund_delivery');
+          // console.log('@@@', event_modal);
           // AsyncStorage.setItem('event_modal', 'false');
         }}>
         <UNIQUE27>@@@@@</UNIQUE27>

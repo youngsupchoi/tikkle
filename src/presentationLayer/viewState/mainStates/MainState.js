@@ -98,10 +98,10 @@ export const MainViewStateProvider = ({children}) => {
   const [refundButtonPressed, setRefundButtonPressed] = useState(false);
 
   const [refundCheckVisible, setRefundCheckVisible] = useState(false);
+  const [refundData, setRefundData] = useState(null);
 
   const [deliveryCheckVisible, setDeliveryCheckVisible] = useState(false);
-
-  const [delivery_check_link, setDelivery_check_link] = useState({});
+  const [delivery_check_link, setDelivery_check_link] = useState(null);
 
   const [endTikklingId, setEndTikklingId] = useState(null);
   const [endTikklingInfo, setEndTikklingInfo] = useState(null);
@@ -177,6 +177,7 @@ export const MainViewStateProvider = ({children}) => {
     endTikklingId,
     endTikklingInfo,
     delivery_check_link,
+    refundData,
   };
 
   const actions = {
@@ -242,6 +243,7 @@ export const MainViewStateProvider = ({children}) => {
     setEndTikklingId,
     setEndTikklingInfo,
     setDelivery_check_link,
+    setRefundData,
   };
 
   return (

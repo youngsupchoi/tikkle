@@ -54,7 +54,7 @@ const RefundCheck = props => {
     <View style={{paddingTop: 10}}>
       <TikklingState state_id={6} />
       {/* 수정필요 ! 없애기 */}
-      {state.endTikklingInfo ? (
+      {state.refundData ? (
         <View style={styles.container}>
           <View
             style={{
@@ -96,35 +96,40 @@ const RefundCheck = props => {
                   marginVertical: 5,
                 }}>
                 <B17 customStyle={{color: COLOR_BLACK}}>{'환급 상태 : '}</B17>
-                <B17 customStyle={{color: COLOR_PRIMARY}}>환급 진행중</B17>
+                {state.refundData.state_id == 2 ? (
+                  <B17 customStyle={{color: COLOR_PRIMARY}}>환급 완료</B17>
+                ) : (
+                  <B17 customStyle={{color: COLOR_PRIMARY}}>환급 진행중</B17>
+                )}
               </View>
             </View>
           </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              position: 'absolute',
-              bottom: 16,
-              right: 16,
-            }}>
-            <AnimatedButton
-              onPress={() => {
-                console.log('PRESS');
-                AsyncStorage.removeItem('refund_delivery');
-                navigation.reset({
-                  index: 0,
-                  routes: [
-                    {
-                      name: 'main',
-                    },
-                  ],
-                });
-              }}
-              style={styles.buttonStyle_2}>
-              <B15 customStyle={styles.buttonText_2}>환급 완료</B15>
-            </AnimatedButton>
-          </View>
+          {state.refundData.state_id == 2 ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                position: 'absolute',
+                bottom: 16,
+                right: 16,
+              }}>
+              <AnimatedButton
+                onPress={() => {
+                  // console.log('PRESS');
+                  AsyncStorage.removeItem('refund_delivery');
+                  navigation.reset({
+                    index: 0,
+                    routes: [
+                      {
+                        name: 'main',
+                      },
+                    ],
+                  });
+                }}
+                style={styles.buttonStyle_2}>
+                <B15 customStyle={styles.buttonText_2}>창 닫기</B15>
+              </AnimatedButton>
+            </View>
+          ) : null}
         </View>
       ) : (
         <View style={styles.container_load}>

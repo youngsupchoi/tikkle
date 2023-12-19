@@ -51,6 +51,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Help from 'src/assets/icons/Help.svg';
 import TikklingState from './MyTikklingComponent/TikklingState';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //-------------------------------------------------------------------------
 
 const DeliveryCheck = props => {
@@ -58,7 +59,7 @@ const DeliveryCheck = props => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log('DeliveryCheck tikkkling id : ', state.endTikklingId);
+    // console.log('DeliveryCheck tikkkling id : ', state.endTikklingId);
     //get data
   }, []);
 
@@ -107,37 +108,57 @@ const DeliveryCheck = props => {
                   justifyContent: 'flex-start',
                   marginVertical: 5,
                 }}>
+                {console.log('@@ :', state.delivery_check_link)}
                 <B17 customStyle={{color: COLOR_BLACK}}>{'배송 상태 : '}</B17>
-                <B17 customStyle={{color: COLOR_PRIMARY}}>배송중</B17>
+                {state.delivery_check_link ? (
+                  <B17 customStyle={{color: COLOR_PRIMARY}}>배송중</B17>
+                ) : (
+                  <B17 customStyle={{color: COLOR_PRIMARY}}>배송 준비 중</B17>
+                )}
               </View>
             </View>
           </View>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              position: 'absolute',
-              bottom: 16,
-              right: 16,
-            }}>
-            <AnimatedButton
-              onPress={() => {
-                console.log('PRESS');
-                // navigation.navigate('CustomerCenter');
-              }}
-              style={styles.buttonStyle}>
-              <B15 customStyle={styles.buttonText}>배송 조회</B15>
-            </AnimatedButton>
-            <View style={{width: 12}} />
-            <AnimatedButton
-              onPress={() => {
-                console.log('PRESS');
-                // navigation.navigate('Delivery', state.delivery_check_link);
-              }}
-              style={styles.buttonStyle_2}>
-              <B15 customStyle={styles.buttonText_2}>수령확인</B15>
-            </AnimatedButton>
-          </View>
+          {state.delivery_check_link ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                position: 'absolute',
+                bottom: 16,
+                right: 16,
+              }}>
+              <AnimatedButton
+                onPress={() => {
+                  // console.log('PRESS');
+                  navigation.navigate(
+                    'deliveryScreen',
+                    state.delivery_check_link,
+                  );
+                }}
+                style={styles.buttonStyle}>
+                <B15 customStyle={styles.buttonText}>배송 조회</B15>
+              </AnimatedButton>
+              <View style={{width: 12}} />
+              <AnimatedButton
+                onPress={() => {
+                  console.log('PRESS');
+                  //완료 코드
+
+                  // AsyncStorage.removeItem('refund_delivery');
+                  // navigation.reset({
+                  //   index: 0,
+                  //   routes: [
+                  //     {
+                  //       name: 'main',
+                  //     },
+                  //   ],
+                  // });
+                }}
+                style={styles.buttonStyle_2}>
+                <B15 customStyle={styles.buttonText_2}>수령확인</B15>
+              </AnimatedButton>
+            </View>
+          ) : null}
         </View>
       ) : (
         <View style={styles.container_load}>

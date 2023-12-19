@@ -66,6 +66,12 @@ const ProductInqire = () => (
   </Safe>
 );
 
+const Delivery = () => (
+  <Safe>
+    <DeliveryScreen />
+  </Safe>
+);
+
 const TikklingDetail = () => (
   <Safe>
     <MainViewStateProvider>
@@ -432,7 +438,7 @@ export default function MainStackNavigator() {
         /> */}
         {/* <MainStack.Screen name="payment" component={PaymentScreen} /> */}
         <MainStack.Screen name="hectoPayment" component={HectoPaymentScreen} />
-        <MainStack.Screen name="deliveryScreen" component={DeliveryScreen} />
+        <MainStack.Screen name="deliveryScreen" component={Delivery} />
 
         {/* <MainStack.Screen
           name="paymentSuccess"

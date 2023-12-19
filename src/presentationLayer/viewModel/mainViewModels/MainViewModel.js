@@ -35,6 +35,9 @@ import {CheckEvent} from 'src/dataLayer/DataSource/Auth/CheckEvent';
 import {createNewFriendData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendData';
 import {CreateNewFriendDeepData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendDeepData';
 import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikklingData';
+import {GetOtherTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetOtherTikklingData';
+import {GetTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingDeliveryInfoData';
+import {GetTikklingRefundInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingRefundInfoData';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
@@ -87,42 +90,58 @@ export const useMainViewModel = () => {
       return;
     } else if (typeof refund_delivery === 'string') {
       const type = refund_delivery.split('_')[0];
-      const tikkling_id = parseInt(refund_delivery.split('_')[1]);
+      const tikkling_id = refund_delivery.split('_')[1];
       actions.setEndTikklingId(tikkling_id);
 
       if (type == 'delivery') {
         actions.setDeliveryCheckVisible(true);
         try {
-          await getMyEndTikklingData() //임시 함수
+          await GetOtherTikklingData(tikkling_id) //임시 함수
             .then(res => {
               return topActions.setStateAndError(
                 res,
-                '[MainViewModel.js] check_refund_delivery - getMyEndTikklingData',
+                '[MainViewModel.js] check_refund_delivery - GetOtherTikklingData',
               );
             })
+            .then(async res => {
+              actions.setEndTikklingInfo(res.DSdata.info);
+              return await GetTikklingDeliveryInfoData(tikkling_id);
+            })
             .then(res => {
-              // console.log('Return : ', res.DSdata.info[0]);
-              actions.setEndTikklingInfo(res.DSdata.info[0]);
-              // actions.setDelivery_check_link(res.DSdata.info[0].delivery_link);
+              // console.log('Return : ', res);
+              if (res.DSdata != null && res.DSdata.info != null) {
+                // console.log('Return : ', res.DSdata.info.delivery_check_link);
+                actions.setDelivery_check_link(
+                  res.DSdata.info.delivery_check_link,
+                );
+              }
             });
         } catch (error) {
           console.log(error);
         }
       } else if (type == 'refund') {
         actions.setRefundCheckVisible(true);
+
         try {
-          await getMyEndTikklingData() //임시 함수
+          await GetOtherTikklingData(tikkling_id) //임시 함수
             .then(res => {
               return topActions.setStateAndError(
                 res,
-                '[MainViewModel.js] check_refund_delivery - getMyEndTikklingData',
+                '[MainViewModel.js] check_refund_delivery - GetOtherTikklingData',
               );
             })
+            .then(async res => {
+              actions.setEndTikklingInfo(res.DSdata.info);
+              return await GetTikklingRefundInfoData(tikkling_id);
+            })
             .then(res => {
-              // console.log('Return : ', res.DSdata.info[0]);
-              actions.setEndTikklingInfo(res.DSdata.info[0]);
+              if (res.DSdata != null && res.DSdata.refund != null) {
+                // console.log('### : ', res.DSdata.refund.refund);
+                actions.setRefundData(res.DSdata.refund.refund);
+              }
             });
         } catch (error) {
+          r;
           console.log(error);
         }
       }
