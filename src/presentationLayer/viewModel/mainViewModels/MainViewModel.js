@@ -34,6 +34,8 @@ import {getProductOptionData} from 'src/dataLayer/DataSource/Product/GetProductO
 import {CheckEvent} from 'src/dataLayer/DataSource/Auth/CheckEvent';
 import {createNewFriendData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendData';
 import {CreateNewFriendDeepData} from 'src/dataLayer/DataSource/Friend/CreateNewFriendDeepData';
+import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikklingData';
+
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -62,16 +64,6 @@ export const useMainViewModel = () => {
     // }
   };
 
-  // // 토큰 가져오기 -> 다른 방식으로 쓰는데 혹시몰라서 남겨둠
-  // const getDeviceToken = async () => {
-  //   await messaging()
-  //     .getToken()
-  //     .then(async res => {
-  //       await updateDeviceTokenData(res);
-  //       // console.log('Device Token: ', res);
-  //     });
-  // };
-
   const resetButtonAndModalState = async () => {
     actions.setPaymentButtonPressed(false);
     actions.setInstagramButtonPressed(false);
@@ -89,7 +81,56 @@ export const useMainViewModel = () => {
     actions.setRefundButtonPressed(false);
   };
 
+  const check_refund_delivery = async () => {
+    const refund_delivery = await AsyncStorage.getItem('refund_delivery');
+    if (refund_delivery == undefined || refund_delivery == null) {
+      return;
+    } else if (typeof refund_delivery === 'string') {
+      const type = refund_delivery.split('_')[0];
+      const tikkling_id = parseInt(refund_delivery.split('_')[1]);
+      actions.setEndTikklingId(tikkling_id);
+
+      if (type == 'delivery') {
+        actions.setDeliveryCheckVisible(true);
+        try {
+          await getMyEndTikklingData() //임시 함수
+            .then(res => {
+              return topActions.setStateAndError(
+                res,
+                '[MainViewModel.js] check_refund_delivery - getMyEndTikklingData',
+              );
+            })
+            .then(res => {
+              // console.log('Return : ', res.DSdata.info[0]);
+              actions.setEndTikklingInfo(res.DSdata.info[0]);
+              // actions.setDelivery_check_link(res.DSdata.info[0].delivery_link);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (type == 'refund') {
+        actions.setRefundCheckVisible(true);
+        try {
+          await getMyEndTikklingData() //임시 함수
+            .then(res => {
+              return topActions.setStateAndError(
+                res,
+                '[MainViewModel.js] check_refund_delivery - getMyEndTikklingData',
+              );
+            })
+            .then(res => {
+              // console.log('Return : ', res.DSdata.info[0]);
+              actions.setEndTikklingInfo(res.DSdata.info[0]);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  };
+
   const loadData = async () => {
+    check_refund_delivery();
     try {
       await actions.setLoading(true);
       await getHomeScreenData()
@@ -241,8 +282,16 @@ export const useMainViewModel = () => {
         ),
       )
       .then(() => {
+        //저장소에 저장
+
+        AsyncStorage.setItem(
+          'refund_delivery',
+          'delivery_' + String(state.myTikklingData.tikkling_id),
+        );
+
         topActions.showSnackbar('배송요청이 완료되었습니다.', 1);
-        console.log(state.zonecode, state.address, state.detailAddress);
+
+        //console.log(state.zonecode, state.address, state.detailAddress);
         loadData();
       });
   };
@@ -263,6 +312,11 @@ export const useMainViewModel = () => {
         );
       })
       .then(async res => {
+        AsyncStorage.setItem(
+          'refund_delivery',
+          'refund_' + String(state.myTikklingData.tikkling_id),
+        );
+
         topActions.showSnackbar('환급 신청이 완료되었습니다.', 1);
       });
 

@@ -55,7 +55,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
 import CompleteTikklingBackground from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/CompleteTikklingBackground';
 import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
-
+import DeliveryCheck from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/DeliveryCheck';
+import RefundCheck from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/RefundCheck';
 // Get the screen width
 const {width} = Dimensions.get('window');
 
@@ -264,6 +265,8 @@ export default function HomeScreen({route}) {
           <GlobalLoader />
         ) : (
           <View>
+            {state.deliveryCheckVisible ? <DeliveryCheck /> : null}
+            {state.refundCheckVisible ? <RefundCheck /> : null}
             {/* {state.isTikkling ? null : (
                 <Animated.View style={[animatedStyleSecondHero]}>
                   <SecondHero />

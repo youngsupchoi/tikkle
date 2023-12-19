@@ -46,7 +46,7 @@ export async function getMyEndTikklingData() {
     };
   }
 
-  //console.log(response);
+  // console.log('###', response.data.data[0]);
 
   //------ control result & error of getMyEndTikklingData-----------------------------------------//
 

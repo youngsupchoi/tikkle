@@ -363,13 +363,26 @@ export default function TikklingState({state_id}) {
         onClose={() => {
           setTooltip_4(false);
         }}>
-        <AnimatedButton
-          onPress={() => {
-            setTooltip_4(true);
-          }}
-          style={{...styles.buttonStyle}}>
-          <B15 customStyle={styles.buttonText}>{'교환/환급'}</B15>
-        </AnimatedButton>
+        {state_id == 6 ? (
+          <View style={{flexDirection: 'column', alignItems: 'center'}}>
+            <AnimatedButton
+              onPress={() => {
+                setTooltip_4(true);
+              }}
+              style={{...styles.buttonStyle_selec, top: 5}}>
+              <B15 customStyle={styles.buttonText_selec}>{'배송/환급'}</B15>
+            </AnimatedButton>
+            <View style={styles.arrow} />
+          </View>
+        ) : (
+          <AnimatedButton
+            onPress={() => {
+              setTooltip_4(true);
+            }}
+            style={{...styles.buttonStyle}}>
+            <B15 customStyle={styles.buttonText}>{'배송/환급'}</B15>
+          </AnimatedButton>
+        )}
       </Tooltip>
     </View>
   );

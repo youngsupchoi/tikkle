@@ -39,18 +39,18 @@ export const useStartTikklingViewModel = () => {
       })
       .then(async res => {
         // console.log('$$ :', res);
-        if (res.DSdata.info.tikkling_ticket == 0) {
-          topActions.showSnackbar(
-            '티클링 티켓이 부족합니다!\n티클링 티켓을 얻으려면 티클을 선물하세요.',
-            0,
-          );
-          navigation.goBack();
-        } else {
-          actions.setUserData(res.DSdata.info);
-          if (calculateDaysUntilNextBirthday(res.DSdata.info.birthday) <= 7) {
-            actions.setBirthdayAvailable(true);
-          }
+        // if (res.DSdata.info.tikkling_ticket == 0) {
+        //   topActions.showSnackbar(
+        //     '티클링 티켓이 부족합니다!\n티클링 티켓을 얻으려면 티클을 선물하세요.',
+        //     0,
+        //   );
+        //   navigation.goBack();
+        // } else {
+        actions.setUserData(res.DSdata.info);
+        if (calculateDaysUntilNextBirthday(res.DSdata.info.birthday) <= 7) {
+          actions.setBirthdayAvailable(true);
         }
+        // }
       });
     actions.setLoading(false);
   };

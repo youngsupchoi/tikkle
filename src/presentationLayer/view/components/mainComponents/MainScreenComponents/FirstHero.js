@@ -373,14 +373,14 @@ const FirstHero = props => {
                     console.log(state.myTikklingData.tikkling_id);
                     actions.endTikklingGoods();
                     actions.setShowEndModal(false);
-                    actions.navigation.reset({
-                      index: 0,
-                      routes: [
-                        {
-                          name: 'main',
-                        },
-                      ],
-                    });
+                    // actions.navigation.reset({
+                    //   index: 0,
+                    //   routes: [
+                    //     {
+                    //       name: 'main',
+                    //     },
+                    //   ],
+                    // });
                   }}
                   style={modalStyles.confirmButton}>
                   <B15 customStyle={modalStyles.whiteText}>

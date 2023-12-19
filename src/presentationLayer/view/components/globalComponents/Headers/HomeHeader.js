@@ -56,8 +56,10 @@ export default function HomeHeader(props) {
     <View style={styles.headerContainer}>
       {/* <AnimatedButton
         onPress={async () => {
-          // console.log('@@@ ');
-          const event_modal = await AsyncStorage.getItem('1+1');
+          console.log('@@@ ');
+          // AsyncStorage.setItem('refund_delivery', 'delivery_413');
+
+          const event_modal = await AsyncStorage.getItem('refund_delivery');
           console.log('@@@', event_modal);
           // AsyncStorage.setItem('event_modal', 'false');
         }}>

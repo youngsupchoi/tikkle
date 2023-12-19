@@ -48,6 +48,7 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import PushNotification from 'react-native-push-notification';
 import {M} from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import SignUpScreen0 from 'src/presentationLayer/view/screens/startScreens/AuthScreens/SignUpScreen0';
+import DeliveryScreen from 'src/presentationLayer/view/screens/myPageScreens/DeliveryScreen';
 
 const ProductDetail = () => (
   <Safe color={COLOR_WHITE}>
@@ -403,6 +404,7 @@ export default function MainStackNavigator() {
         <MainStack.Screen name="notification" component={Notification} />
         <MainStack.Screen name="tikklingDetail" component={TikklingDetail} />
         <SignUpStack.Screen name="onboarding" component={Onboarding_} />
+
         <MainStack.Screen
           name="notificationSetting"
           component={NotificationSetting}
@@ -430,6 +432,8 @@ export default function MainStackNavigator() {
         /> */}
         {/* <MainStack.Screen name="payment" component={PaymentScreen} /> */}
         <MainStack.Screen name="hectoPayment" component={HectoPaymentScreen} />
+        <MainStack.Screen name="deliveryScreen" component={DeliveryScreen} />
+
         {/* <MainStack.Screen
           name="paymentSuccess"
           component={PaymentSuccessScreen}
