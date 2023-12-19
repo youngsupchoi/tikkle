@@ -280,53 +280,84 @@ export default function ProductOptionsModal({
             </View>
           )}
 
-          <AnimatedButton
-            onPress={async () => {
-              // console.log('@@@@@@@@@@@');
-              if (isButtonActive && !state.startTikklingButtonPressed) {
-                await actions.setStartTikklingButtonPressed(true);
-                // console.log('@@@@@@@@@@@# : ', state.selectedItem.price);
-                // console.log('@@@@@@@@@@@# : ', selectedOptions);
-                await actions.tikklingStartButtonPress(
-                  selectedOptions,
-                  product_data,
-                );
-              }
-            }}
-            disabled={state.startTikklingButtonPressed}
-            style={[
-              {
-                width: '100%',
-                height: 50,
-                backgroundColor: COLOR_PRIMARY,
-                padding: 12,
-                alignItems: 'center',
-                borderRadius: 12,
-                marginTop: 12,
-                justifyContent: 'center',
-              },
-              isButtonActive
-                ? {backgroundColor: COLOR_PRIMARY}
-                : {backgroundColor: COLOR_GRAY},
-            ]}>
-            {state.startTikklingButtonPressed ? (
-              <LottieView
-                pointerEvents="none"
-                source={require('src/assets/animations/loading2.json')} // replace with your Lottie file path
-                autoPlay
-                style={{width: 400, height: 50}}
-              />
-            ) : (
+          {state.userData.tikkling_ticket <= 0 ? (
+            <AnimatedButton
+              disabled={true}
+              style={[
+                {
+                  width: '100%',
+                  height: 50,
+                  backgroundColor: COLOR_PRIMARY,
+                  padding: 12,
+                  alignItems: 'center',
+                  borderRadius: 12,
+                  marginTop: 12,
+                  justifyContent: 'center',
+                },
+                isButtonActive
+                  ? {backgroundColor: COLOR_PRIMARY}
+                  : {backgroundColor: COLOR_GRAY},
+              ]}>
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <B15 customStyle={{color: COLOR_WHITE}}>티클링 시작하기</B15>
+                <B15 customStyle={{color: COLOR_WHITE}}>
+                  티클링 티켓이 부족해요
+                </B15>
               </View>
-            )}
-          </AnimatedButton>
+            </AnimatedButton>
+          ) : (
+            <AnimatedButton
+              onPress={async () => {
+                // console.log('@@@@@@@@@@@');
+                if (isButtonActive && !state.startTikklingButtonPressed) {
+                  await actions.setStartTikklingButtonPressed(true);
+                  // console.log('@@@@@@@@@@@# : ', state.selectedItem.price);
+                  // console.log('@@@@@@@@@@@# : ', selectedOptions);
+                  await actions.tikklingStartButtonPress(
+                    selectedOptions,
+                    product_data,
+                  );
+                }
+              }}
+              disabled={state.startTikklingButtonPressed}
+              style={[
+                {
+                  width: '100%',
+                  height: 50,
+                  backgroundColor: COLOR_PRIMARY,
+                  padding: 12,
+                  alignItems: 'center',
+                  borderRadius: 12,
+                  marginTop: 12,
+                  justifyContent: 'center',
+                },
+                isButtonActive
+                  ? {backgroundColor: COLOR_PRIMARY}
+                  : {backgroundColor: COLOR_GRAY},
+              ]}>
+              {state.startTikklingButtonPressed ? (
+                <LottieView
+                  pointerEvents="none"
+                  source={require('src/assets/animations/loading2.json')} // replace with your Lottie file path
+                  autoPlay
+                  style={{width: 400, height: 50}}
+                />
+              ) : (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <B15 customStyle={{color: COLOR_WHITE}}>티클링 시작하기</B15>
+                </View>
+              )}
+            </AnimatedButton>
+          )}
           <View style={{height: 16}} />
         </View>
       </Modal>

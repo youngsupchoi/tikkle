@@ -97,6 +97,15 @@ export const MainViewStateProvider = ({children}) => {
 
   const [refundButtonPressed, setRefundButtonPressed] = useState(false);
 
+  const [refundCheckVisible, setRefundCheckVisible] = useState(false);
+  const [refundData, setRefundData] = useState(null);
+
+  const [deliveryCheckVisible, setDeliveryCheckVisible] = useState(false);
+  const [delivery_check_link, setDelivery_check_link] = useState(null);
+
+  const [endTikklingId, setEndTikklingId] = useState(null);
+  const [endTikklingInfo, setEndTikklingInfo] = useState(null);
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -162,7 +171,13 @@ export const MainViewStateProvider = ({children}) => {
     event_image,
     event_name,
     eventModalVisible_detail,
-    refundButtonPressed
+    refundButtonPressed,
+    refundCheckVisible,
+    deliveryCheckVisible,
+    endTikklingId,
+    endTikklingInfo,
+    delivery_check_link,
+    refundData,
   };
 
   const actions = {
@@ -222,7 +237,13 @@ export const MainViewStateProvider = ({children}) => {
     setEvent_image,
     setEvent_name,
     setEventModalVisible_detail,
-    setRefundButtonPressed
+    setRefundButtonPressed,
+    setRefundCheckVisible,
+    setDeliveryCheckVisible,
+    setEndTikklingId,
+    setEndTikklingInfo,
+    setDelivery_check_link,
+    setRefundData,
   };
 
   return (

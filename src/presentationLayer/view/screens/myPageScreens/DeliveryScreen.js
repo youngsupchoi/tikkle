@@ -53,19 +53,7 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
-import ArrowRight from 'src/assets/icons/ArrowRight';
-import BubbleFilled from 'src/assets/icons/BubbleFilled';
-import CalendarFilled from 'src/assets/icons/CalendarFilled';
-import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-import DetailImages from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/DetailImages';
-import {getRecivedTikkleData} from 'src/dataLayer/DataSource/Tikkling/GetRecivedTikkleData';
-import {GetTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingDeliveryInfoData';
-import Footer from 'src/presentationLayer/view/components/globalComponents/Headers/FooterComponent';
-import Noti_Refund from 'src/assets/icons/Noti_Refund';
-import LinearGradient from 'react-native-linear-gradient';
-import FlagFilled from 'src/assets/icons/FlagFilled';
-import BarComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ProgressBar/ProgressBar';
 import WebView from 'react-native-webview';
 
 export default function DeliveryScreen(route) {

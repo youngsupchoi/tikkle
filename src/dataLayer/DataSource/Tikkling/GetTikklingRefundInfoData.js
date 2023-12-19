@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function GetRecentTikklingDeliveryInfoData() {
+export async function GetTikklingRefundInfoData(tikkling_id) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -27,11 +27,12 @@ export async function GetRecentTikklingDeliveryInfoData() {
 
   try {
     response = await apiModel(
-      'get_tikkling_deliveryinfo',
+      'get_tikkling_refundinfo',
       authorization,
       null,
-      '0',
+      tikkling_id,
     );
+    // console.log('response : ', response);
 
     if (!response) {
       //  error
@@ -45,18 +46,18 @@ export async function GetRecentTikklingDeliveryInfoData() {
     };
   }
 
-  //console.log('data : ', response.data.data[0]);
+  // console.log('data : ', response.data.data[0]);
 
-  //------ control result & error-----------------------------------------//
+  //------ control result & error of get_tikkling_info -----------------------------------------//
 
   if (response.status === 404) {
     return {
       DScode: 0,
       DSdata: null,
-      DSmessage: '배송내역이 없습니다.',
+      DSmessage: '해당 티클링의 환급 내역이 없습니다.',
     };
   }
-  if (response.status === 500) {
+  if (response.status !== 200) {
     return {
       DScode: 2,
       DSdata: null,
@@ -64,10 +65,7 @@ export async function GetRecentTikklingDeliveryInfoData() {
     };
   }
 
-  const info = response.data.data;
-  if (info === null) {
-    info = [];
-  }
+  const refund = response.data.data;
 
   //------ update token ---------------------------------------------------//
 
@@ -82,7 +80,7 @@ export async function GetRecentTikklingDeliveryInfoData() {
 
   return {
     DScode: 0,
-    DSdata: {info: info},
-    DSmessage: '성공적으로 최근 배송정보를 조회했습니다.',
+    DSdata: {refund: refund},
+    DSmessage: '성공적으로 티클링에 대한 환급 내역을 불러왔습니다.',
   };
 }

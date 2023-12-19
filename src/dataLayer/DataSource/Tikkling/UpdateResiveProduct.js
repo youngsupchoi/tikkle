@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function GetRecentTikklingDeliveryInfoData() {
+export async function UpdateResiveProduct(tikkling_id) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -19,20 +19,24 @@ export async function GetRecentTikklingDeliveryInfoData() {
     };
   }
 
+  //console.log('auth get : ', authorization);
+
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
 
-  //------ call get_tikkling_deliveryinfo -------------------------------------------------------//
+  //------ call put_tikkling_deliveryconfirm -------------------------------------------------------//
   let response;
+  const body = {
+    tikkling_id: tikkling_id,
+  };
 
   try {
     response = await apiModel(
-      'get_tikkling_deliveryinfo',
+      'put_tikkling_deliveryconfirm',
       authorization,
+      body,
       null,
-      '0',
     );
-
     if (!response) {
       //  error
       throw new Error();
@@ -45,18 +49,10 @@ export async function GetRecentTikklingDeliveryInfoData() {
     };
   }
 
-  //console.log('data : ', response.data.data[0]);
+  //console.log(response);
 
-  //------ control result & error-----------------------------------------//
-
-  if (response.status === 404) {
-    return {
-      DScode: 0,
-      DSdata: null,
-      DSmessage: '배송내역이 없습니다.',
-    };
-  }
-  if (response.status === 500) {
+  //------ control result & error of put_tikkling_deliveryconfirm-----------------------------------------//
+  if (response.status !== 200) {
     return {
       DScode: 2,
       DSdata: null,
@@ -64,25 +60,27 @@ export async function GetRecentTikklingDeliveryInfoData() {
     };
   }
 
-  const info = response.data.data;
-  if (info === null) {
-    info = [];
+  if (response.data.detail_code !== '00') {
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
   }
 
   //------ update token ---------------------------------------------------//
-
+  //console.log('response.data.returnToken : ', response.data.returnToken);
   if (response.data.returnToken) {
     const response_setToken = await resetToken(
       response.data.returnToken,
       authorization,
     );
   }
-
   //------ return response ------------------------------------------------//
 
   return {
     DScode: 0,
-    DSdata: {info: info},
-    DSmessage: '성공적으로 최근 배송정보를 조회했습니다.',
+    DSdata: {success: true},
+    DSmessage: '배송정보 수령처리에 성공했어요.',
   };
 }

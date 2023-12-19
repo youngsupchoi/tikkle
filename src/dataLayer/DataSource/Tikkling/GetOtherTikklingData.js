@@ -2,7 +2,7 @@ import {apiModel} from '../../APIModel/ApiModel';
 import {getToken} from '../../APIModel/GetToken';
 import {resetToken} from '../../APIModel/ResetToken';
 
-export async function GetRecentTikklingDeliveryInfoData() {
+export async function GetOtherTikklingData(tikkling_id) {
   //------ get token ------------------------------------------------------//
   let authorization = null;
 
@@ -21,19 +21,18 @@ export async function GetRecentTikklingDeliveryInfoData() {
 
   //------ collect data ---------------------------------------------------//
   /** if there is some data control for company that will be added here **/
-
-  //------ call get_tikkling_deliveryinfo -------------------------------------------------------//
-  let response;
+  //------ call get_tikkling_info -------------------------------------------------------//
+  let response2;
 
   try {
-    response = await apiModel(
-      'get_tikkling_deliveryinfo',
+    response2 = await apiModel(
+      'get_tikkling_info',
       authorization,
       null,
-      '0',
+      tikkling_id,
     );
-
-    if (!response) {
+    // console.log('response2 : ', response2);
+    if (!response2) {
       //  error
       throw new Error();
     }
@@ -45,18 +44,24 @@ export async function GetRecentTikklingDeliveryInfoData() {
     };
   }
 
-  //console.log('data : ', response.data.data[0]);
+  // console.log('data : ', response2);
 
-  //------ control result & error-----------------------------------------//
+  //------ control result & error of get_tikkling_info -----------------------------------------//
 
-  if (response.status === 404) {
+  if (response2.status === 400) {
+    // input data error
+    return {
+      DScode: 2,
+      DSdata: null,
+      DSmessage: '요청을 처리하는 동안 문제가 발생했어요. 다시 시도해주세요.',
+    };
+  } else if (response2.status === 404) {
     return {
       DScode: 0,
-      DSdata: null,
-      DSmessage: '배송내역이 없습니다.',
+      DSdata: {is_tikkling: false},
+      DSmessage: '진행중인 티클링이 없어요.',
     };
-  }
-  if (response.status === 500) {
+  } else if (response2.status !== 200) {
     return {
       DScode: 2,
       DSdata: null,
@@ -64,16 +69,13 @@ export async function GetRecentTikklingDeliveryInfoData() {
     };
   }
 
-  const info = response.data.data;
-  if (info === null) {
-    info = [];
-  }
+  const info = response2.data.data[0];
 
   //------ update token ---------------------------------------------------//
 
-  if (response.data.returnToken) {
+  if (response2.data.returnToken) {
     const response_setToken = await resetToken(
-      response.data.returnToken,
+      response2.data.returnToken,
       authorization,
     );
   }
@@ -83,6 +85,6 @@ export async function GetRecentTikklingDeliveryInfoData() {
   return {
     DScode: 0,
     DSdata: {info: info},
-    DSmessage: '성공적으로 최근 배송정보를 조회했습니다.',
+    DSmessage: '티클링이 진행중이에요.',
   };
 }
