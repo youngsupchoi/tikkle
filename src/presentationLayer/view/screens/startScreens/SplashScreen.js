@@ -33,13 +33,19 @@ export default function SplashScreen() {
   const navigation = useNavigation();
 
   const [version_modal, setVersion_modal] = useState(false);
+  const [inspection_mes, setInspection_mes] = useState(false);
   const {topState, topActions} = useTopViewModel();
 
   useEffect(() => {
     // 앱이 최신버전인지 확인
 
     CheckVersion().then(async res => {
-      if (res.DSdata.updata) {
+      // console.log('@@@@@@', res);
+      if (res.DSdata.inspection_time != 'false') {
+        // console.log('@@@@@@inspection@@@@@@');
+        setInspection_mes(res.DSdata.inspection_time);
+        setVersion_modal(true);
+      } else if (res.DSdata.updata) {
         // console.log('@@@@@@version@@@@@@');
         setVersion_modal(true);
       } else {
@@ -158,12 +164,21 @@ export default function SplashScreen() {
                 justifyContent: 'space-between',
                 alignItems: 'flex-end',
               }}>
-              <B22
-                customStyle={{
-                  color: COLOR_PRIMARY,
-                }}>
-                앱이 이전 버전이에요!
-              </B22>
+              {inspection_mes ? (
+                <B22
+                  customStyle={{
+                    color: COLOR_PRIMARY,
+                  }}>
+                  앱이 점검중이에요!
+                </B22>
+              ) : (
+                <B22
+                  customStyle={{
+                    color: COLOR_PRIMARY,
+                  }}>
+                  앱이 이전 버전이에요!
+                </B22>
+              )}
             </View>
             <View>
               <LottieView
@@ -186,41 +201,52 @@ export default function SplashScreen() {
                 justifyContent: 'center',
               }}>
               <View style={{paddingVertical: 24}}>
-                <B15>{'앱이 최신버전으로 업데이트 되었습니다!'}</B15>
+                {inspection_mes ? (
+                  <View style={{alignItems: 'center'}}>
+                    <B15>{'<점검시간>'}</B15>
+                    <B15>{inspection_mes}</B15>
+                  </View>
+                ) : (
+                  <B15>{'앱이 최신버전으로 업데이트 되었습니다!'}</B15>
+                )}
               </View>
             </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                bottom: 0,
-                width: windowWidth - 48,
-              }}>
-              <TouchableOpacity
-                onPress={() => {
-                  if (Platform.OS === 'ios') {
-                    Linking.openURL(
-                      'itms-apps://itunes.apple.com/app/id6471217574',
-                    );
-                  } else if (Platform.OS === 'android') {
-                    Linking.openURL(
-                      'https://play.google.com/store/apps/details?id=com.tikkle_revive_ios',
-                    );
-                  }
-                }}
+            {inspection_mes ? null : (
+              <View
                 style={{
-                  width: '100%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: 10,
-                  backgroundColor: COLOR_PRIMARY,
-                  borderBottomLeftRadius: 12,
-                  borderBottomRightRadius: 12,
-                  height: 60,
+                  flexDirection: 'row',
+                  bottom: 0,
+                  width: windowWidth - 48,
                 }}>
-                <B20 customStyle={{color: COLOR_WHITE}}>업데이트 하러 가기</B20>
-              </TouchableOpacity>
-            </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (Platform.OS === 'ios') {
+                      Linking.openURL(
+                        'itms-apps://itunes.apple.com/app/id6471217574',
+                      );
+                    } else if (Platform.OS === 'android') {
+                      Linking.openURL(
+                        'https://play.google.com/store/apps/details?id=com.tikkle_revive_ios',
+                      );
+                    }
+                  }}
+                  style={{
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 10,
+                    backgroundColor: COLOR_PRIMARY,
+                    borderBottomLeftRadius: 12,
+                    borderBottomRightRadius: 12,
+                    height: 60,
+                  }}>
+                  <B20 customStyle={{color: COLOR_WHITE}}>
+                    업데이트 하러 가기
+                  </B20>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </View>
       </Modal>
