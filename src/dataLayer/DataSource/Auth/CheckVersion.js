@@ -43,7 +43,10 @@ export async function CheckVersion() {
   if (response.status != 200) {
     return {
       DScode: 0,
-      DSdata: {updata: true},
+      DSdata: {
+        updata: true,
+        inspection_time: response.data.data.inspection_time,
+      },
       DSmessage: '업데이트가 필요해요.',
     };
   }
@@ -52,7 +55,10 @@ export async function CheckVersion() {
 
   return {
     DScode: 0,
-    DSdata: {updata: false},
+    DSdata: {
+      updata: false,
+      inspection_time: response.data.data.inspection_time,
+    },
     DSmessage: '업데이트가 필요하지 않아요.',
   };
 }
