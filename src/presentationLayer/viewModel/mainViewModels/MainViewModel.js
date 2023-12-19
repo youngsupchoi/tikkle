@@ -38,7 +38,7 @@ import {getMyEndTikklingData} from 'src/dataLayer/DataSource/User/GetMyEndTikkli
 import {GetOtherTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetOtherTikklingData';
 import {GetTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingDeliveryInfoData';
 import {GetTikklingRefundInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingRefundInfoData';
-
+import {UpdateResiveProduct} from 'src/dataLayer/DataSource/Tikkling/UpdateResiveProduct';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -798,10 +798,19 @@ export const useMainViewModel = () => {
   //add friend when open deep link
   async function create_friend() {
     const id = route_tikkling_id;
-    console.log('@@@', id);
+    // console.log('@@@', id);
     try {
       await CreateNewFriendDeepData(id);
     } catch {}
+  }
+
+  async function endTikkling_send(tikkling_id) {
+    //send
+    try {
+      await UpdateResiveProduct(tikkling_id);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return {
@@ -845,6 +854,7 @@ export const useMainViewModel = () => {
       open_event_modal,
       async_notShowEvent,
       create_friend,
+      endTikkling_send,
     },
   };
 };

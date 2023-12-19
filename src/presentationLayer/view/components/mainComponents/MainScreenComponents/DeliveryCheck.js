@@ -95,7 +95,7 @@ const DeliveryCheck = props => {
                 width: windowWidth - 32 - 100 - 6 - 32,
               }}>
               <View style={{marginBottom: 0}}>
-                <B15 customStyle={{fontFamily: EB}}>
+                <B15 numberOfLines={1} customStyle={{fontFamily: EB}}>
                   {state.endTikklingInfo.product_name}
                 </B15>
               </View>
@@ -108,7 +108,6 @@ const DeliveryCheck = props => {
                   justifyContent: 'flex-start',
                   marginVertical: 5,
                 }}>
-                {console.log('@@ :', state.delivery_check_link)}
                 <B17 customStyle={{color: COLOR_BLACK}}>{'배송 상태 : '}</B17>
                 {state.delivery_check_link ? (
                   <B17 customStyle={{color: COLOR_PRIMARY}}>배송중</B17>
@@ -143,16 +142,16 @@ const DeliveryCheck = props => {
                 onPress={() => {
                   console.log('PRESS');
                   //완료 코드
-
-                  // AsyncStorage.removeItem('refund_delivery');
-                  // navigation.reset({
-                  //   index: 0,
-                  //   routes: [
-                  //     {
-                  //       name: 'main',
-                  //     },
-                  //   ],
-                  // });
+                  actions.endTikkling_send(state.endTikklingId);
+                  AsyncStorage.removeItem('refund_delivery');
+                  navigation.reset({
+                    index: 0,
+                    routes: [
+                      {
+                        name: 'main',
+                      },
+                    ],
+                  });
                 }}
                 style={styles.buttonStyle_2}>
                 <B15 customStyle={styles.buttonText_2}>수령확인</B15>
