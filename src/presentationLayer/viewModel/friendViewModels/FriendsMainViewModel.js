@@ -39,7 +39,7 @@ export const useFriendMainViewModel = () => {
             );
           })
           .then(res => {
-            console.log('getFriendDataSetStateError', res);
+            // console.log('getFriendDataSetStateError', res);
             actions.setGetFriendData(res.DSdata.info);
           });
       } else if (mode_friend === 'block') {

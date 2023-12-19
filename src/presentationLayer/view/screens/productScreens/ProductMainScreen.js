@@ -20,6 +20,8 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowUpFilled from 'src/assets/icons/ArrowUpFilled';
+import LastPresentResearchModal from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/LastPresentResearchModal';
+import LastPresentResearchBanner from 'src/presentationLayer/view/components/productComponents/ProductMainScreenComponents/LastPresnetResearchBanner';
 
 export default function ProductSearchLandingScreen() {
   const {state, actions} = useProductMainViewModel();
@@ -35,6 +37,13 @@ export default function ProductSearchLandingScreen() {
   const scrollToTop = () => {
     scrollViewRef.current?.scrollTo({y: 0, animated: true}); // 상단으로 스크롤
   };
+
+  useEffect(() => {
+    console.log('lastpresentamount', state.lastPresentAmount);
+    if (state.lastPresentAmount === 0) {
+      actions.setShowLastPresentModal(true);
+    }
+  }, [state.lastPresentAmount === 0]);
   //FIXME: 이코드가 필요한가?
   useEffect(() => {
     actions.dispatchSearchOption({
@@ -60,7 +69,6 @@ export default function ProductSearchLandingScreen() {
         value > state.parentHeight - 1000 &&
         !state.itemLoading
       ) {
-        console.log('스크롤 실행');
         actions.getNewData(state.getNum);
       }
       prevScrollY = value;
@@ -88,6 +96,7 @@ export default function ProductSearchLandingScreen() {
         style={styles.container}>
         <View style={styles.searchContainer}>
           <ProductSearch />
+          <LastPresentResearchBanner />
         </View>
 
         {/* <View style={styles.categoryCarouselContainer}>
@@ -112,6 +121,7 @@ export default function ProductSearchLandingScreen() {
       </View>
 
       <ProductFilter />
+      <LastPresentResearchModal />
     </View>
   );
 }

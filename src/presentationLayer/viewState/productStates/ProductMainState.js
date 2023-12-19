@@ -157,6 +157,23 @@ export const ProductMainViewStateProvider = ({children}) => {
   const [titleText, setTitleText] = useState('');
   const [contentText, setContentText] = useState('');
 
+  const [showLastPresentModal, setShowLastPresentModal] = useState(false);
+  const [selectedCoffee, setSelectedCoffee] = useState(1);
+  const [selectedChicken, setSelectedChicken] = useState(1);
+  const [selectedOthers, setSelectedOthers] = useState(1);
+  const [lastPresentAmount, setLastPresentAmount] = useState(55000);
+  const [lastPresentAmountRange, setLastPresentAmountRange] = useState([
+    lastPresentAmount * 0.5,
+    lastPresentAmount * 1.5,
+  ]);
+  const [tempSelectedCoffee, setTempSelectedCoffee] = useState(1);
+  const [tempSelectedChicken, setTempSelectedChicken] = useState(1);
+  const [tempSelectedOthers, setTempSelectedOthers] = useState(1);
+  const [tempLastPresentAmount, setTempLastPresentAmount] = useState(55000);
+  const [tempLastPresentAmountRange, setTempLastPresentAmountRange] = useState([
+    tempLastPresentAmount * 0.5,
+    tempLastPresentAmount * 1.5,
+  ]);
   const categories = [
     {
       id: 1,
@@ -209,6 +226,17 @@ export const ProductMainViewStateProvider = ({children}) => {
     inquireLoading,
     titleText,
     contentText,
+    showLastPresentModal,
+    selectedCoffee,
+    selectedChicken,
+    selectedOthers,
+    lastPresentAmount,
+    lastPresentAmountRange,
+    tempSelectedCoffee,
+    tempSelectedChicken,
+    tempSelectedOthers,
+    tempLastPresentAmount,
+    tempLastPresentAmountRange,
   };
 
   const actions = {
@@ -233,6 +261,17 @@ export const ProductMainViewStateProvider = ({children}) => {
     setInquireLoading,
     setTitleText,
     setContentText,
+    setShowLastPresentModal,
+    setSelectedCoffee,
+    setSelectedChicken,
+    setSelectedOthers,
+    setLastPresentAmount,
+    setLastPresentAmountRange,
+    setTempSelectedCoffee,
+    setTempSelectedChicken,
+    setTempSelectedOthers,
+    setTempLastPresentAmount,
+    setTempLastPresentAmountRange,
   };
 
   return (

@@ -29,10 +29,10 @@ import {useProductMainViewModel} from 'src/presentationLayer/viewModel/productVi
 import LottieView from 'lottie-react-native';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
+import ThumbsUp from 'src/assets/icons/ThumbsUp';
 
 export default function SearchedProductItems({productData, category}) {
   const {state, actions} = useProductMainViewModel();
-
   // useEffect(() => {
   //   if (state.searchedData.length === 0) {
   //     actions.setLoading(true);
@@ -97,6 +97,38 @@ export default function SearchedProductItems({productData, category}) {
                       <B15>{item.price / 5000}</B15>
                     </View>
                   </View>
+                  {item.price >= state.lastPresentAmountRange[0] &&
+                  item.price <= state.lastPresentAmountRange[1] ? (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        top: 12,
+                        left: 12,
+                        zIndex: 3,
+                        alignItems: 'center',
+                        padding: 2,
+                      }}>
+                      <ThumbsUp
+                        fill={COLOR_PRIMARY}
+                        width={16}
+                        height={16}
+                        stroke="white"
+                        strokeWidth="1"
+                      />
+
+                      <View style={{marginTop: 4}}>
+                        <B12
+                          customStyle={{
+                            color: COLOR_PRIMARY,
+                            textShadowColor: 'rgba(255, 255, 255, 1)', // 텍스트 테두리의 색상
+                            textShadowOffset: {width: 0, height: 0}, // 텍스트 테두리의 위치
+                            textShadowRadius: 5, // 텍스트 테두리의 블러 반경
+                          }}>
+                          추천!
+                        </B12>
+                      </View>
+                    </View>
+                  ) : null}
                 </View>
 
                 <View style={styles.textContainer}>

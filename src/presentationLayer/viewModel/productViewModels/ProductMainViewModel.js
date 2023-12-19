@@ -6,6 +6,8 @@ import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/Top
 import {getProductListData} from 'src/dataLayer/DataSource/Product/GetProductListData';
 import {createMyInquireData} from 'src/dataLayer/DataSource/User/CreateMyInquireData';
 import {useNavigation} from '@react-navigation/native';
+import {getMyUserInfoData} from 'src/dataLayer/DataSource/User/GetMyUserInfoData';
+import {updateUserLastPresentAmount} from 'src/dataLayer/DataSource/Product/UpdateUserLastPresentAmount';
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)categoryId
 export const useProductMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -42,6 +44,16 @@ export const useProductMainViewModel = () => {
         } else {
           actions.setNoitems(false);
         }
+      });
+    await getMyUserInfoData()
+      .then(async res => {
+        return topActions.setStateAndError(
+          res,
+          '[ProductDetailViewModel.js] isTikkling - getMyUserInfoData',
+        );
+      })
+      .then(async res => {
+        actions.setLastPresentAmount(res.DSdata.info.last_present_amount);
       });
     await actions.setLoading(false);
   };
@@ -83,7 +95,6 @@ export const useProductMainViewModel = () => {
   };
 
   const onRefresh = async () => {
-    console.log('onRefresh');
     //actions.setRefreshing(true);
     await loadData();
     //actions.setRefreshing(false);
@@ -193,6 +204,77 @@ export const useProductMainViewModel = () => {
     await actions.setInquireLoading(false);
   }
 
+  //lastPresentResearchModal
+
+  const minusOrAdd = (method, target) => {
+    let amountChange = 0;
+
+    if (method === 'minus') {
+      if (target === 'coffee' && state.tempSelectedCoffee > 0) {
+        amountChange = -5000;
+      } else if (target === 'chicken' && state.tempSelectedChicken > 0) {
+        amountChange = -20000;
+      } else if (target === 'others' && state.tempSelectedOthers > 0) {
+        amountChange = -30000;
+      }
+    } else if (method === 'add') {
+      if (target === 'coffee') {
+        amountChange = 5000;
+      } else if (target === 'chicken') {
+        amountChange = 20000;
+      } else if (target === 'others') {
+        amountChange = 30000;
+      }
+    }
+
+    if (amountChange !== 0) {
+      // Update the selected product count
+      actions[
+        'setTempSelected' + target.charAt(0).toUpperCase() + target.slice(1)
+      ](
+        state[
+          'tempSelected' + target.charAt(0).toUpperCase() + target.slice(1)
+        ] + (amountChange > 0 ? 1 : -1),
+      );
+
+      // Update the lastPresentAmount
+      const newLastPresentAmount = state.tempLastPresentAmount + amountChange;
+      actions.setTempLastPresentAmount(newLastPresentAmount);
+
+      // Update the lastPresentAmountRange
+      const lowerBound = newLastPresentAmount * 0.5;
+      const upperBound = newLastPresentAmount * 1.5;
+      actions.setTempLastPresentAmountRange([lowerBound, upperBound]);
+    }
+  };
+
+  const submitButtonPressed = async () => {
+    // 임시 상태 값을 확정적으로 state에 반영하는 로직
+    actions.setSelectedCoffee(state.tempSelectedCoffee);
+    actions.setSelectedChicken(state.tempSelectedChicken);
+    actions.setSelectedOthers(state.tempSelectedOthers);
+
+    // lastPresentAmount를 업데이트하고 즉시 해당 값을 사용
+    const newLastPresentAmount = state.tempLastPresentAmount;
+    actions.setLastPresentAmount(newLastPresentAmount);
+
+    // lastPresentAmountRange 업데이트
+    const lowerBound = newLastPresentAmount * 0.5;
+    const upperBound = newLastPresentAmount * 1.5;
+    actions.setLastPresentAmountRange([lowerBound, upperBound]);
+
+    // updateUserLastPresentAmount는 새로 업데이트된 lastPresentAmount 값을 사용
+    await updateUserLastPresentAmount(newLastPresentAmount).then(res => {
+      return topActions.setStateAndError(
+        res,
+        '[ProductMainViewModel.js] submitButtonPressed - updateUserLastPresentAmount',
+      );
+    });
+
+    // 마지막으로 모달 숨김 처리
+    actions.setShowLastPresentModal(false);
+  };
+
   return {
     ref,
     state: {
@@ -206,6 +288,8 @@ export const useProductMainViewModel = () => {
       changeCategory,
       sendMail,
       loadData_reset,
+      minusOrAdd,
+      submitButtonPressed,
     },
   };
 };
