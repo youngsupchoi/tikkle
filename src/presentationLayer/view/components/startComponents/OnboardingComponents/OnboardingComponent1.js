@@ -15,31 +15,36 @@ import {
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AutoHeightImage from 'react-native-auto-height-image';
+import {COLOR_BLACK, COLOR_PRIMARY} from '../../globalComponents/Colors/Colors';
+import Box from 'src/assets/icons/Box.svg';
 
 export default function OnboardingComponent1() {
   return (
     <View style={styles.onboardingComponentContainer}>
-      {/* <View style={styles.title}>
-        <B28 customStyle={{fontFamily: EB}}>소원을 포스팅하세요.</B28>
+      <View style={{height: 100}} />
+      <View style={{marginLeft: 30}}>
+        <M15 customStyle={{fontSize: 30, lineHeight: 35}}>나를 위한</M15>
       </View>
-      <View style={styles.detail}>
-        <M15 customStyle={{fontSize: 13}}>
-          원하는 아이템을 선택하고, 소원을 공유해 보세요.
-        </M15>
-        <M15 customStyle={{fontSize: 13, marginTop: 12}}>
-          매 티클링마다 1개의 티클링 티켓이 사용됩니다.
-        </M15>
-      </View> */}
-      <AutoHeightImage
-        width={windowWidth * 0.85}
-        source={require('src/assets/images/onboardingVisuals/ios_screen1.png')}
-        style={{marginTop: -30}}
-      />
-      {/* <Image
-        resizeMode="contain"
-        source={require('src/assets/images/onboardingVisuals/screen1.png')}
-        style={styles.onboardingImage}
-      /> */}
+
+      <View style={{marginLeft: 30, marginTop: 10}}>
+        <View style={{flexDirection: 'row'}}>
+          <B28
+            customStyle={{fontSize: 60, lineHeight: 70, color: COLOR_PRIMARY}}>
+            {'티클링'}
+          </B28>
+          <B28 customStyle={{fontSize: 60, lineHeight: 70, color: COLOR_BLACK}}>
+            {'을'}
+          </B28>
+        </View>
+
+        <B28 customStyle={{fontSize: 60, lineHeight: 70, color: COLOR_BLACK}}>
+          {'열고'}
+        </B28>
+      </View>
+
+      <View style={{position: 'absolute', bottom: 250, right: 10}}>
+        <Box width={280} height={280} stroke={COLOR_BLACK} strokeWidth={1.5} />
+      </View>
     </View>
   );
 }
@@ -47,9 +52,11 @@ export default function OnboardingComponent1() {
 const styles = StyleSheet.create({
   onboardingComponentContainer: {
     width: windowWidth,
-    height: windowHeight - HEADER_HEIGHT - StatusBarHeight - 16,
+    height: windowHeight - 2 * HEADER_HEIGHT - StatusBarHeight - 16,
     // backgroundColor: 'red',
-    alignItems: 'center',
+    // alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignContent: 'center',
   },
   title: {
     marginTop: 32,
