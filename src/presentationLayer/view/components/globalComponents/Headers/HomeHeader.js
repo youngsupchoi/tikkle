@@ -42,6 +42,8 @@ import {firebase} from '@react-native-firebase/app';
 import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import KakaoShareLink from 'react-native-kakao-share-link';
 // import VersionCheck from 'react-native-version-check';
 
 export default function HomeHeader(props) {
@@ -56,12 +58,7 @@ export default function HomeHeader(props) {
     <View style={styles.headerContainer}>
       {/* <AnimatedButton
         onPress={async () => {
-          console.log('@@@ ');
-          // AsyncStorage.setItem('refund_delivery', 'delivery_413');
-
-          // const event_modal = await AsyncStorage.getItem('refund_delivery');
-          // console.log('@@@', event_modal);
-          // AsyncStorage.setItem('event_modal', 'false');
+          console.log('@@@ ', state.myTikklingData);
         }}>
         <UNIQUE27>@@@@@</UNIQUE27>
       </AnimatedButton> */}

@@ -39,6 +39,8 @@ import {GetOtherTikklingData} from 'src/dataLayer/DataSource/Tikkling/GetOtherTi
 import {GetTikklingDeliveryInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingDeliveryInfoData';
 import {GetTikklingRefundInfoData} from 'src/dataLayer/DataSource/Tikkling/GetTikklingRefundInfoData';
 import {UpdateResiveProduct} from 'src/dataLayer/DataSource/Tikkling/UpdateResiveProduct';
+import KakaoShareLink from 'react-native-kakao-share-link';
+
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useMainViewModel = () => {
   // 뷰 스테이트의 상태와 액션 가져오기
@@ -578,6 +580,48 @@ export const useMainViewModel = () => {
     }
   };
 
+  const onKakaoButtonPressed = async (name, tikkling_id, image_url) => {
+    try {
+      console.log('카카토 버튼 눌림', name, tikkling_id);
+
+      await CreateTikklingShareLink(name, tikkling_id).then(async res => {
+        console.log(res.DSdata.short_link);
+        const response = await KakaoShareLink.sendFeed({
+          content: {
+            title: name + '님에게 선물을 보내기',
+            imageUrl: image_url,
+            link: {
+              webUrl: res.DSdata.short_link,
+              mobileWebUrl: res.DSdata.short_link,
+            },
+            description: '티클에서 기억에 남는 선물을 보내보세요.',
+          },
+          // social: {
+          //   commentCount: 10,
+          //   likeCount: 5,
+          // },
+          buttons: [
+            {
+              title: '웹에서 보기',
+              link: {
+                webUrl: res.DSdata.short_link,
+                mobileWebUrl: res.DSdata.short_link,
+              },
+            },
+          ],
+        });
+        console.log(response);
+      });
+    } catch (error) {
+      console.log(error);
+      if (error === 'User did not share') {
+        return;
+      } else {
+        console.log('Error sharing:', error);
+      }
+    }
+  };
+
   const cancel_action = async () => {
     try {
       updateCancelTikklingData(state.myTikklingData.tikkling_id)
@@ -855,6 +899,7 @@ export const useMainViewModel = () => {
       async_notShowEvent,
       create_friend,
       endTikkling_send,
+      onKakaoButtonPressed,
     },
   };
 };
