@@ -387,7 +387,7 @@ export default function MainStackNavigator() {
           headerShown: false,
           // gestureEnabled: true,
           // cardOverlayEnabled: true,
-          cardStyleInterpolator: customCardStyleInterpolator,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           // transitionSpec: customTransitionSpec,
         }}>
         <MainStack.Screen name="splash" component={SplashScreen} />
@@ -400,8 +400,7 @@ export default function MainStackNavigator() {
             headerShown: false,
             gestureEnabled: true,
             cardOverlayEnabled: false,
-            // cardStyleInterpolator:
-            //   CardStyleInterpolators.forScaleFromCenterAndroid,
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           }}
         />
         <MainStack.Screen name="startTikkling" component={StartTikkling} />

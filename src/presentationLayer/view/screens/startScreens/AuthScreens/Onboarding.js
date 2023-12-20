@@ -63,11 +63,12 @@ export default function Onboarding() {
 
         <View style={{...styles.headerItems, alignItems: 'center'}}>
           <UNIQUE22>TIKKLE</UNIQUE22>
+          {/* <B15>초간단 설명서</B15> */}
         </View>
         <View style={{...styles.headerItems, alignItems: 'flex-end'}}></View>
       </View>
 
-      <View style={styles.paginationWrapper}>
+      {/* <View style={styles.paginationWrapper}>
         {[...Array(3).keys()].map(index => (
           <View
             key={index}
@@ -77,22 +78,22 @@ export default function Onboarding() {
             ]}
           />
         ))}
-      </View>
+      </View> */}
 
-      <ScrollView
+      {/* <ScrollView
         horizontal
         pagingEnabled
         // scrollEnabled={false}
         onScroll={handleScroll}
         scrollEventThrottle={16} // 조정 가능한 값으로, 스크롤 이벤트의 빈도를 조절합니다.
         ref={scrollViewRef}
-        showsHorizontalScrollIndicator={false}>
-        <OnboardingComponent1 />
-        <OnboardingComponent2 />
-        <OnboardingComponent3 />
-      </ScrollView>
+        showsHorizontalScrollIndicator={false}> */}
+      <OnboardingComponent1 />
+      {/* <OnboardingComponent2 />
+        <OnboardingComponent3 /> */}
+      {/* </ScrollView> */}
 
-      {currentPage < 2 ? (
+      {/* {currentPage < 2 ? (
         <AnimatedButton style={styles.main_button} onPress={handleNextPress}>
           <B20 customStyle={{color: COLOR_WHITE}}>다음</B20>
         </AnimatedButton>
@@ -111,7 +112,7 @@ export default function Onboarding() {
           }}>
           <B20 customStyle={{color: COLOR_WHITE}}>티클 시작하기</B20>
         </AnimatedButton>
-      )}
+      )} */}
     </View>
   );
 }
@@ -130,7 +131,8 @@ const styles = StyleSheet.create({
     width: windowWidth,
   },
   headerItems: {
-    width: '33%',
+    // width: '33%',
+    paddingTop: StatusBarHeight,
   },
   paginationWrapper: {
     justifyContent: 'center',
