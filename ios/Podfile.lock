@@ -160,6 +160,11 @@ PODS:
   - KakaoSDKCommon/Network (2.11.1):
     - Alamofire (~> 5.1)
     - KakaoSDKCommon/Common (= 2.11.1)
+  - KakaoSDKShare (2.11.1):
+    - KakaoSDKCommon (= 2.11.1)
+    - KakaoSDKTemplate (= 2.11.1)
+  - KakaoSDKTemplate (2.11.1):
+    - KakaoSDKCommon/Common (= 2.11.1)
   - KakaoSDKUser (2.11.1):
     - KakaoSDKAuth (= 2.11.1)
   - libevent (2.1.12)
@@ -500,6 +505,11 @@ PODS:
     - React-Core
   - react-native-image-base64 (0.1.4):
     - React
+  - react-native-kakao-share-link (1.0.10):
+    - KakaoSDKCommon (= 2.11.1)
+    - KakaoSDKShare (= 2.11.1)
+    - KakaoSDKTemplate (= 2.11.1)
+    - React-Core
   - react-native-otp-verify (1.1.6):
     - React-Core
   - react-native-pager-view (6.2.1):
@@ -751,6 +761,7 @@ DEPENDENCIES:
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - react-native-image-base64 (from `../node_modules/react-native-image-base64`)
+  - react-native-kakao-share-link (from `../node_modules/react-native-kakao-share-link`)
   - react-native-otp-verify (from `../node_modules/react-native-otp-verify`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -820,6 +831,8 @@ SPEC REPOS:
     - GoogleUtilities
     - KakaoSDKAuth
     - KakaoSDKCommon
+    - KakaoSDKShare
+    - KakaoSDKTemplate
     - KakaoSDKUser
     - libevent
     - lottie-ios
@@ -894,6 +907,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk-next"
   react-native-image-base64:
     :path: "../node_modules/react-native-image-base64"
+  react-native-kakao-share-link:
+    :path: "../node_modules/react-native-kakao-share-link"
   react-native-otp-verify:
     :path: "../node_modules/react-native-otp-verify"
   react-native-pager-view:
@@ -1015,6 +1030,8 @@ SPEC CHECKSUMS:
   kakao-login: d3dad7a7bc1a3d187cedb4de83b1ec2e9b1cda30
   KakaoSDKAuth: bb2dfa7be30daa8403c9cfc8001aa6fde7a5b779
   KakaoSDKCommon: 555e1bb46595b842ded01cf7888cc17bbae4e113
+  KakaoSDKShare: 9752730ce3339536f9d7812eb70eccb87643e9a6
+  KakaoSDKTemplate: f8ee0b33f649e436c1aaf2a3a6bd6aa3dcae2451
   KakaoSDKUser: 08c0a4f40bebdebdf948a9e3d0e44ed5c2754f99
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: 809ecf2d460ed650a6aed7aa88b2ec45fab4779c
@@ -1042,6 +1059,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 8847cb359cf259ddae5ed165217e15573a654519
   react-native-fbsdk-next: 9c40664b1501be29572795c2e4c8e347f39f556f
   react-native-image-base64: 2ff9ac788639c87a91361ab6652cc95e871b1e54
+  react-native-kakao-share-link: f9be590aec95928451f6ce1a622ef9c91a48d79b
   react-native-otp-verify: 3dbd8a52ceb8d4dfc775bddd6fc98a453091ed5f
   react-native-pager-view: d211379f61895b6349bd7e571b44a26d005c2975
   react-native-safe-area-context: 7aa8e6d9d0f3100a820efb1a98af68aa747f9284

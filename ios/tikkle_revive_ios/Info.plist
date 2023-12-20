@@ -61,6 +61,8 @@
 	</array>
 	<key>KAKAO_APP_KEY</key>
 	<string>d887c85791eefc06f749efec74c22acd</string>
+	<!-- <key>KAKAO_APP_SCHEME</key>
++ <string>kakaotalk://</string> -->
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakao0123456789</string>

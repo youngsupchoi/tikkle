@@ -140,6 +140,36 @@ export default function ButtonComponent({
             onPress={async () => {
               if (FromDetail == true) {
                 //detail에서 눌렀을 때
+                // console.log(state.route_data);
+                await actions.onKakaoButtonPressed(
+                  state.route_data.user_name,
+                  state.route_data.tikkling_id,
+                  state.route_data.thumbnail_image,
+                );
+              } else {
+                //main에서 눌렀을 때
+                await actions.onKakaoButtonPressed(
+                  state.userData.name,
+                  state.myTikklingData.tikkling_id,
+                  state.myTikklingData.thumbnail_image,
+                );
+              }
+            }}
+            style={{
+              // backgroundColor: 'blue',
+              padding: 8,
+              paddingHorizontal: 12,
+
+              borderRadius: 12,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <B15>KA</B15>
+          </AnimatedButton>
+          <AnimatedButton
+            onPress={async () => {
+              if (FromDetail == true) {
+                //detail에서 눌렀을 때
                 await actions.onClipboardButtonPressed(
                   state.route_data.user_name,
                   state.route_data.tikkling_id,
