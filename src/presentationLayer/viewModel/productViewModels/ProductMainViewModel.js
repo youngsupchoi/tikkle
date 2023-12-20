@@ -144,7 +144,7 @@ export const useProductMainViewModel = () => {
     await actions.setItemLoading(true);
     const temp = [];
     temp.push(...state.searchedData);
-    console.log('@@@ getNewdata : ', state.searchOption.categoryId);
+    //console.log('@@@ getNewdata : ', state.searchOption.categoryId);
     await getProductListData(
       state.searchOption.categoryId,
       state.searchOption.priceMin,
