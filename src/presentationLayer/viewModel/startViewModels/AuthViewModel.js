@@ -28,6 +28,7 @@ import {
 import {LoginKakaoData} from 'src/dataLayer/DataSource/Auth/LoginKakaoData';
 import {LoginAppleData} from 'src/dataLayer/DataSource/Auth/LoginAppleData';
 import {LoginAppleRegister} from 'src/dataLayer/DataSource/Auth/LoginAppleRegister';
+import {UpdateKakaoImage} from 'src/dataLayer/DataSource/User/UpdateKakaoImage';
 
 // 3. 뷰 모델 hook 이름 변경하기 (작명규칙: use + view이름 + ViewModel)
 export const useStartViewModel = () => {
@@ -133,17 +134,19 @@ export const useStartViewModel = () => {
 
   const onKakaoButtonPress = async () => {
     let birthDate;
+    let kakaoImage;
     const ret = await signIn()
       .then(async res => {
-        console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber)); //
-        console.log('name: ', res.nickname);
-        console.log('gender: ', res.gender);
-        console.log('birthYear: ', res.birthyear);
-        console.log('birthday: ', res.birthday);
-        console.log('userNick: ', extractUsername(res.email));
-        console.log('email: ', res.email);
-        console.log('profileImageUrl: ', res.profileImageUrl);
-        console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
+        // console.log('phone: ', formatKakaoPhoneNumber(res.phoneNumber)); //
+        // console.log('name: ', res.nickname);
+        // console.log('gender: ', res.gender);
+        // console.log('birthYear: ', res.birthyear);
+        // console.log('birthday: ', res.birthday);
+        // console.log('userNick: ', extractUsername(res.email));
+        // console.log('email: ', res.email);
+        // console.log('profileImageUrl: ', res.profileImageUrl);
+        // console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
+        kakaoImage = res.profileImageUrl;
         birthDate = `${res.birthyear}-${res.birthday.substring(
           0,
           2,
@@ -168,6 +171,12 @@ export const useStartViewModel = () => {
           '[useStartViewModel] onKakaoButtonPress - LoginKakaoData',
         );
       });
+
+    try {
+      UpdateKakaoImage(kakaoImage);
+    } catch (err) {
+      console.log(err);
+    }
 
     if (ret.DSdata.goOnboarding) {
       navigation.reset({
