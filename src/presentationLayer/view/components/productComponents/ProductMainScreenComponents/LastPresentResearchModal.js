@@ -30,17 +30,6 @@ import Chicken from 'src/assets/icons/Chicken';
 
 export default function LastPresentResearchModal() {
   const {state, actions} = useProductMainViewModel();
-
-  const priceRanges = [
-    {label: '전체가격', min: 0, max: null},
-    {label: '0~5만원', min: 0, max: 50000},
-    {label: '5만~10만', min: 50000, max: 100000},
-    {label: '10만~20만', min: 100000, max: 200000},
-    {label: '20만~30만', min: 200000, max: 300000},
-    {label: '30만~50만', min: 300000, max: 500000},
-    {label: '50만~100만', min: 500000, max: 1000000},
-    {label: '100만 이상', min: 1000000, max: 999999999},
-  ];
   return (
     <View style={styles.filterContainer}>
       <Modal
@@ -49,11 +38,9 @@ export default function LastPresentResearchModal() {
         onBackdropPress={() => actions.setShowLastPresentModal(false)}
         isVisible={state.showLastPresentModal}
         backdropOpacity={0.5}
-        style={{margin: 0}} // 이 부분이 추가되었습니다.
-        animationIn="slideInUp" // 이 부분이 추가되었습니다.
-        animationOut="slideOutDown" // 이 부분이 추가되었습니다.
-      >
-        {/* //TODO: component로 분리 */}
+        style={{margin: 0}}
+        animationIn="slideInUp"
+        animationOut="slideOutDown">
         <View style={styles.modalContent}>
           <View style={styles.headerContainer}>
             <B20 customStyle={{fontSize: 24}}>티클이 선물을 추천해드려요!</B20>

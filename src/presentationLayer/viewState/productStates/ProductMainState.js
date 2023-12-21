@@ -158,18 +158,19 @@ export const ProductMainViewStateProvider = ({children}) => {
   const [contentText, setContentText] = useState('');
 
   const [showLastPresentModal, setShowLastPresentModal] = useState(false);
-  const [selectedCoffee, setSelectedCoffee] = useState(1);
-  const [selectedChicken, setSelectedChicken] = useState(1);
-  const [selectedOthers, setSelectedOthers] = useState(1);
-  const [lastPresentAmount, setLastPresentAmount] = useState(55000);
+  const [selectedCoffee, setSelectedCoffee] = useState(0);
+  const [selectedChicken, setSelectedChicken] = useState(0);
+  const [selectedOthers, setSelectedOthers] = useState(0);
+  const [lastPresentAmount, setLastPresentAmount] = useState(0);
+  const [hasLastPresentAmount, setHasLastPresentAmount] = useState();
   const [lastPresentAmountRange, setLastPresentAmountRange] = useState([
     lastPresentAmount * 0.5,
     lastPresentAmount * 1.5,
   ]);
-  const [tempSelectedCoffee, setTempSelectedCoffee] = useState(1);
-  const [tempSelectedChicken, setTempSelectedChicken] = useState(1);
-  const [tempSelectedOthers, setTempSelectedOthers] = useState(1);
-  const [tempLastPresentAmount, setTempLastPresentAmount] = useState(55000);
+  const [tempSelectedCoffee, setTempSelectedCoffee] = useState(0);
+  const [tempSelectedChicken, setTempSelectedChicken] = useState(0);
+  const [tempSelectedOthers, setTempSelectedOthers] = useState(0);
+  const [tempLastPresentAmount, setTempLastPresentAmount] = useState(0);
   const [tempLastPresentAmountRange, setTempLastPresentAmountRange] = useState([
     tempLastPresentAmount * 0.5,
     tempLastPresentAmount * 1.5,
@@ -237,6 +238,7 @@ export const ProductMainViewStateProvider = ({children}) => {
     tempSelectedOthers,
     tempLastPresentAmount,
     tempLastPresentAmountRange,
+    hasLastPresentAmount,
   };
 
   const actions = {
@@ -272,6 +274,7 @@ export const ProductMainViewStateProvider = ({children}) => {
     setTempSelectedOthers,
     setTempLastPresentAmount,
     setTempLastPresentAmountRange,
+    setHasLastPresentAmount,
   };
 
   return (

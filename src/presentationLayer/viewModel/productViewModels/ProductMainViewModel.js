@@ -53,6 +53,10 @@ export const useProductMainViewModel = () => {
         );
       })
       .then(async res => {
+        console.log(res.DSdata.info.last_present_amount);
+        actions.setHasLastPresentAmount(
+          res.DSdata.info.last_present_amount == 0 ? false : true,
+        );
         actions.setLastPresentAmount(res.DSdata.info.last_present_amount);
       });
     await actions.setLoading(false);

@@ -40,10 +40,11 @@ export default function ProductSearchLandingScreen() {
 
   useEffect(() => {
     console.log('lastpresentamount', state.lastPresentAmount);
-    if (state.lastPresentAmount === 0) {
+    console.log('haslastpresentamount', state.hasLastPresentAmount);
+    if (state.hasLastPresentAmount == false) {
       actions.setShowLastPresentModal(true);
     }
-  }, [state.lastPresentAmount === 0]);
+  }, [state.hasLastPresentAmount]);
   //FIXME: 이코드가 필요한가?
   useEffect(() => {
     actions.dispatchSearchOption({
