@@ -602,7 +602,7 @@ export const useMainViewModel = () => {
           // },
           buttons: [
             {
-              title: '웹에서 보기',
+              title: '티클 앱에서 보기',
               link: {
                 webUrl: res.DSdata.short_link,
                 mobileWebUrl: res.DSdata.short_link,
