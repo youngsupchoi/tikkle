@@ -59,6 +59,9 @@ export default function HomeHeader(props) {
 
   const {topActions} = useTopViewModel();
 
+  const TIKKLE = 'TIKKLE';
+  const COLORS = [COLOR_CHRISTMAS_GREEN_ONE, COLOR_CHRISTMAS_RED_TWO];
+
   return (
     <View style={styles.headerContainer}>
       {/* <AnimatedButton
@@ -85,57 +88,26 @@ export default function HomeHeader(props) {
       </View> */}
       <View
         style={{
-          // backgroundColor: 'blue',
           flexDirection: 'row',
           alignItems: 'center',
-          // flex: 1,
         }}>
         <AutoHeightImage
           source={require('src/assets/images/ChristmasCherry.png')}
-          style={{position: 'absolute', zIndex: -2, top: 0, left: -8}}
+          style={styles.cherryImage}
           width={16}
         />
         <AutoHeightImage
           source={require('src/assets/images/ChristmasGift.png')}
-          style={{position: 'absolute', zIndex: 1, bottom: 6, right: 16}}
+          style={styles.giftImage}
           width={20}
         />
-        <UNIQUE27
-          customStyle={{
-            color: COLOR_CHRISTMAS_GREEN_ONE,
-          }}>
-          T
-        </UNIQUE27>
-        <UNIQUE27
-          customStyle={{
-            color: COLOR_CHRISTMAS_RED_TWO,
-          }}>
-          I
-        </UNIQUE27>
-        <UNIQUE27
-          customStyle={{
-            color: COLOR_CHRISTMAS_GREEN_ONE,
-          }}>
-          K
-        </UNIQUE27>
-        <UNIQUE27
-          customStyle={{
-            color: COLOR_CHRISTMAS_RED_TWO,
-          }}>
-          K
-        </UNIQUE27>
-        <UNIQUE27
-          customStyle={{
-            color: COLOR_CHRISTMAS_GREEN_ONE,
-          }}>
-          L
-        </UNIQUE27>
-        <UNIQUE27
-          customStyle={{
-            color: COLOR_CHRISTMAS_RED_TWO,
-          }}>
-          E
-        </UNIQUE27>
+        {TIKKLE.split('').map((letter, index) => (
+          <UNIQUE27
+            key={index}
+            customStyle={{color: COLORS[index % COLORS.length]}}>
+            {letter}
+          </UNIQUE27>
+        ))}
 
         <AnimatedButton
           onPress={() => {
@@ -272,5 +244,17 @@ const styles = StyleSheet.create({
     position: 'sticky',
     top: 0,
     zIndex: 100,
+  },
+  cherryImage: {
+    position: 'absolute',
+    zIndex: -2,
+    top: 0,
+    left: -8,
+  },
+  giftImage: {
+    position: 'absolute',
+    zIndex: 1,
+    bottom: 6,
+    right: 16,
   },
 });

@@ -324,7 +324,8 @@ const styles = StyleSheet.create({
     color: COLOR_PRIMARY,
   },
   buttonContainer: {
-    width: '100%',
+    width: windowWidth - 48,
+    alignSelf: 'center',
     paddingVertical: 8,
     flexDirection: 'row',
     justifyContent: 'center',

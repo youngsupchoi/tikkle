@@ -95,25 +95,39 @@ export default function FriendsManagementScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <ModalDropdown
-          options={[modalText]}
-          defaultIndex={0}
-          defaultValue={'친구 목록'}
-          onSelect={(index, value) => {
-            if (value === '친구 목록') {
-              setModalText('차단 목록');
-              actions.setMode_friend('unblock');
-            } else if (value === '차단 목록') {
-              setModalText('친구 목록');
-              actions.setMode_friend('block');
-            }
-          }}
-          style={styles.dropdownButton}
-          textStyle={styles.dropdownButtonText}
-          dropdownStyle={styles.dropdown}
-          dropdownTextStyle={styles.dropdownText}
-          dropdownTextHighlightStyle={styles.dropdownTextHighlight}
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4,
+          }}>
+          <ModalDropdown
+            options={[modalText]}
+            defaultIndex={0}
+            defaultValue={'친구 목록'}
+            onSelect={(index, value) => {
+              if (value === '친구 목록') {
+                setModalText('차단 목록');
+                actions.setMode_friend('unblock');
+              } else if (value === '차단 목록') {
+                setModalText('친구 목록');
+                actions.setMode_friend('block');
+              }
+            }}
+            style={styles.dropdownButton}
+            textStyle={styles.dropdownButtonText}
+            dropdownStyle={styles.dropdown}
+            dropdownTextStyle={styles.dropdownText}
+            dropdownTextHighlightStyle={styles.dropdownTextHighlight}
+          />
+          <ArrowDown
+            width={16}
+            height={16}
+            stroke={COLOR_BLACK}
+            strokeWidth={2}
+            scale={16 / 24}
+          />
+        </View>
         <AnimatedButton
           onPress={() => {
             console.log('연락처 동기화');
@@ -122,23 +136,11 @@ export default function FriendsManagementScreen() {
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            // width: 60,
             height: 40,
           }}>
           <Contract width={30} height={30} />
           <M11>연락처 동기화</M11>
         </AnimatedButton>
-      </View>
-
-      <View style={styles.listHeader}>
-        <B15 customStyle={styles.headerText}>친구</B15>
-        <B15
-          customStyle={[
-            styles.headerText,
-            {fontFamily: EB, color: COLOR_BLACK},
-          ]}>
-          {totalItemsCount}명
-        </B15>
       </View>
 
       <View style={styles.searchBarContainer}>
@@ -305,190 +307,202 @@ export default function FriendsManagementScreen() {
         {state.refreshing ? (
           <GlobalLoader />
         ) : (
-          <SectionList
-            stickyHeaderHiddenOnScroll
-            contentContainerStyle={{
-              paddingTop: 12,
-              marginTop: 4,
-            }}
-            refreshControl={
-              <RefreshControl
-                refreshing={state.refreshing}
-                onRefresh={actions.onRefresh}
-              />
-            }
-            sections={Object.keys(state.groupedData).map(key => ({
-              title: key,
-              data: state.groupedData[key],
-            }))}
-            keyExtractor={(item, index) => String(item.id)}
-            ListEmptyComponent={
-              state.mode_friend === 'unblock'
-                ? () => {
-                    return (
-                      <View
-                        style={{
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          height: windowWidth,
-                        }}>
-                        <LottieView
-                          source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
-                          autoPlay
-                          loop
+          <View>
+            <View style={styles.listHeader}>
+              <B15 customStyle={styles.headerText}>친구</B15>
+              <B15
+                customStyle={[
+                  styles.headerText,
+                  {fontFamily: EB, color: COLOR_BLACK},
+                ]}>
+                {totalItemsCount}명
+              </B15>
+            </View>
+            <SectionList
+              contentContainerStyle={{
+                paddingTop: 12,
+              }}
+              refreshControl={
+                <RefreshControl
+                  refreshing={state.refreshing}
+                  onRefresh={actions.onRefresh}
+                />
+              }
+              sections={Object.keys(state.groupedData).map(key => ({
+                title: key,
+                data: state.groupedData[key],
+              }))}
+              keyExtractor={(item, index) => String(item.id)}
+              ListEmptyComponent={
+                state.mode_friend === 'unblock'
+                  ? () => {
+                      return (
+                        <View
                           style={{
-                            width: 250,
-                            height: 250,
-                            alignSelf: 'center',
-                            backgroundColor: backgroundColor,
-                          }}
-                        />
-                        <M15>아직 사용 중인 친구가 없네요</M15>
-                        <B22>전화번호로 친구를 찾아 보세요!</B22>
-                      </View>
-                    );
-                  }
-                : () => {
-                    return (
-                      <View
-                        style={{
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          height: windowWidth,
-                        }}>
-                        <LottieView
-                          source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
-                          autoPlay
-                          loop
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: windowWidth,
+                          }}>
+                          <LottieView
+                            source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                            autoPlay
+                            loop
+                            style={{
+                              width: 250,
+                              height: 250,
+                              alignSelf: 'center',
+                              backgroundColor: backgroundColor,
+                            }}
+                          />
+                          <M15>아직 사용 중인 친구가 없네요</M15>
+                          <B22>전화번호로 친구를 찾아 보세요!</B22>
+                        </View>
+                      );
+                    }
+                  : () => {
+                      return (
+                        <View
                           style={{
-                            width: 250,
-                            height: 250,
-                            alignSelf: 'center',
-                            backgroundColor: backgroundColor,
-                          }}
-                        />
-                        <B22>좋아요!</B22>
-                        <M15>차단된 친구가 없네요</M15>
-                      </View>
-                    );
-                  }
-            }
-            stickySectionHeadersEnabled={true}
-            renderSectionHeader={({section: {title}, index}) => (
-              <View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingVertical: 4,
-                    backgroundColor: backgroundColor,
-                    top: 0,
-                  }}>
-                  <B15
-                    customStyle={{
-                      paddingHorizontal: 16,
-                    }}>
-                    {title}
-                  </B15>
-                </View>
-              </View>
-            )}
-            ListFooterComponent={() => {
-              return (
-                <View style={{marginBottom: 200}}>
-                  {/* <View style={{height: 100}} />
-                  <Footer /> */}
-                </View>
-              );
-            }}
-            // ItemSeparatorComponent={() => {
-            //   return (
-            //     <View
-            //       style={{
-            //         width: '100%',
-            //         height: 1,
-            //         backgroundColor: COLOR_SEPARATOR,
-            //       }}
-            //     />
-            //   );
-            // }}
-            renderItem={({item, index}) => {
-              return (
-                <View key={item.id} style={styles.flatListItemContainer}>
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: windowWidth,
+                          }}>
+                          <LottieView
+                            source={require('src/assets/animations/NoSearch.json')} // replace with your Lottie file path
+                            autoPlay
+                            loop
+                            style={{
+                              width: 250,
+                              height: 250,
+                              alignSelf: 'center',
+                              backgroundColor: backgroundColor,
+                            }}
+                          />
+                          <B22>좋아요!</B22>
+                          <M15>차단된 친구가 없네요</M15>
+                        </View>
+                      );
+                    }
+              }
+              stickySectionHeadersEnabled={true}
+              renderSectionHeader={({section: {title}, index}) => (
+                <View>
                   <View
                     style={{
                       flexDirection: 'row',
-                      alignItems: 'center',
                       justifyContent: 'space-between',
+                      alignItems: 'center',
+                      paddingVertical: 6,
+                      backgroundColor: backgroundColor,
+                      top: 0,
                     }}>
-                    <Image
-                      source={{
-                        uri:
-                          item.image !== null
-                            ? item.image
-                            : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
-                      }}
-                      style={styles.listItemImage}
-                    />
-                    <View style={styles.listItemTextContainer}>
-                      <B15>{item.name}</B15>
-                      {/* <B15 customStyle={{color: COLOR_GRAY}}> {' ' + item}</B15> */}
-                    </View>
-                  </View>
-                  <View style={{position: 'absolute', right: 20, top: 25}}>
-                    {state.mode_friend === 'unblock' ? (
-                      <AnimatedButton
-                        onPress={() => {
-                          actions.block_friend(item);
-                        }}>
-                        <View
-                          style={{
-                            padding: 8,
-                            paddingVertical: 4,
-                            borderColor: COLOR_ERROR,
-                            borderWidth: 1,
-                            borderRadius: 4,
-                          }}>
-                          <M11 customStyle={{color: COLOR_ERROR}}>차단하기</M11>
-                        </View>
-                      </AnimatedButton>
-                    ) : (
-                      // <AnimatedButton
-                      //   onPress={() => {
-                      //     actions.unblock_friend(item);
-                      //   }}>
-                      //   <UnBlock
-                      //     width={24}
-                      //     height={24}
-                      //     stroke={COLOR_SUCCESS}
-                      //     strokeWidth={2}
-                      //   />
-                      // </AnimatedButton>
-
-                      <AnimatedButton
-                        onPress={() => {
-                          actions.unblock_friend(item);
-                        }}>
-                        <View
-                          style={{
-                            padding: 8,
-                            paddingVertical: 4,
-                            borderColor: COLOR_SUCCESS,
-                            borderWidth: 1,
-                            borderRadius: 4,
-                          }}>
-                          <M11 customStyle={{color: COLOR_SUCCESS}}>
-                            차단 해제
-                          </M11>
-                        </View>
-                      </AnimatedButton>
-                    )}
+                    <B15
+                      customStyle={{
+                        paddingHorizontal: 16,
+                      }}>
+                      {title}
+                    </B15>
                   </View>
                 </View>
-              );
-            }}
-          />
+              )}
+              ListFooterComponent={() => {
+                return (
+                  <View style={{marginBottom: 200}}>
+                    {/* <View style={{height: 100}} />
+                  <Footer /> */}
+                  </View>
+                );
+              }}
+              // ItemSeparatorComponent={() => {
+              //   return (
+              //     <View
+              //       style={{
+              //         width: '100%',
+              //         height: 1,
+              //         backgroundColor: COLOR_SEPARATOR,
+              //       }}
+              //     />
+              //   );
+              // }}
+              renderItem={({item, index}) => {
+                return (
+                  <View key={item.id} style={styles.flatListItemContainer}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Image
+                        source={{
+                          uri:
+                            item.image !== null
+                              ? item.image
+                              : 'https://optimumsolutions.co.nz/wp-content/uploads/2021/06/profile-placeholder-768x605.jpg',
+                        }}
+                        style={styles.listItemImage}
+                      />
+                      <View style={styles.listItemTextContainer}>
+                        <B15>{item.name}</B15>
+                        {/* <B15 customStyle={{color: COLOR_GRAY}}> {' ' + item}</B15> */}
+                      </View>
+                    </View>
+                    <View style={{position: 'absolute', right: 20, top: 25}}>
+                      {state.mode_friend === 'unblock' ? (
+                        <AnimatedButton
+                          onPress={() => {
+                            actions.block_friend(item);
+                          }}>
+                          <View
+                            style={{
+                              padding: 8,
+                              paddingVertical: 4,
+                              borderColor: COLOR_ERROR,
+                              borderWidth: 1,
+                              borderRadius: 4,
+                            }}>
+                            <M11 customStyle={{color: COLOR_ERROR}}>
+                              차단하기
+                            </M11>
+                          </View>
+                        </AnimatedButton>
+                      ) : (
+                        // <AnimatedButton
+                        //   onPress={() => {
+                        //     actions.unblock_friend(item);
+                        //   }}>
+                        //   <UnBlock
+                        //     width={24}
+                        //     height={24}
+                        //     stroke={COLOR_SUCCESS}
+                        //     strokeWidth={2}
+                        //   />
+                        // </AnimatedButton>
+
+                        <AnimatedButton
+                          onPress={() => {
+                            actions.unblock_friend(item);
+                          }}>
+                          <View
+                            style={{
+                              padding: 8,
+                              paddingVertical: 4,
+                              borderColor: COLOR_SUCCESS,
+                              borderWidth: 1,
+                              borderRadius: 4,
+                            }}>
+                            <M11 customStyle={{color: COLOR_SUCCESS}}>
+                              차단 해제
+                            </M11>
+                          </View>
+                        </AnimatedButton>
+                      )}
+                    </View>
+                  </View>
+                );
+              }}
+            />
+          </View>
         )}
       </Animated.View>
 
@@ -513,7 +527,6 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     paddingHorizontal: 16,
-    paddingRight: 80,
     alignItems: 'center',
     justifyContent: 'space-between',
     position: 'sticky',
@@ -551,7 +564,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    paddingTop: 8,
+    paddingVertical: 8,
+    position: 'absolute',
+    zIndex: 100,
   },
   headerText: {
     color: COLOR_GRAY,
@@ -639,7 +654,6 @@ const styles = StyleSheet.create({
   },
 
   dropdownButton: {
-    width: '100%',
     height: 40,
     justifyContent: 'center',
   },
