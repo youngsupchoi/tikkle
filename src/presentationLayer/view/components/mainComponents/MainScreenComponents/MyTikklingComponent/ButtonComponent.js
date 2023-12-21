@@ -275,6 +275,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     borderRadius: linearGradientBorderRadius,
     flexDirection: 'row',
+    gap: 8,
   },
   shareButtonVertical: {
     paddingVertical: 8,

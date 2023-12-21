@@ -15,7 +15,7 @@ export async function updatePaymentFailData(merchant_uid) {
     return {
       DScode: 3,
       DSdata: null,
-      DSmessage: '로그인이 만료 되었어요. 다시 로그인해주세요.',
+      DSmessage: '로그인이 만료되었어요. 다시 로그인해주세요.',
     };
   }
 
@@ -70,6 +70,6 @@ export async function updatePaymentFailData(merchant_uid) {
   return {
     DScode: 0,
     DSdata: {success: true},
-    DSmessage: '결제가 중단되어 결제가 취소 되었어요.',
+    DSmessage: '결제가 취소되었어요.',
   };
 }
