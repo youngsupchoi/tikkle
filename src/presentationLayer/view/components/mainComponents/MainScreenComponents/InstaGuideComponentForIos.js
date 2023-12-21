@@ -21,8 +21,7 @@ import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/M
 
 export default function InstaGuideComponentForIos() {
   const {state, actions} = useMainViewModel();
-  const InataGuideForIos =
-    'https://d2da4yi19up8sp.cloudfront.net/InataGuideForIos.png';
+  const InataGuideForIos = 'https://d2da4yi19up8sp.cloudfront.net/share_2.png';
   return (
     <AutoHeightImage
       width={state.instaGuideImageSize}
