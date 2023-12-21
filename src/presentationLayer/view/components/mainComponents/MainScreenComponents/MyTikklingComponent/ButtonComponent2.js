@@ -23,7 +23,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Instagram from 'src/assets/icons/Instagram';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
-const linearGradientBorderRadius = 12;
+const linearGradientBorderRadius = 100;
 
 const ShareButtonHorizontal = ({
   colors,
@@ -48,12 +48,12 @@ const ShareButtonHorizontal = ({
         style={styles.linearGradientForeground}
       />
       <View style={styles.iconContainer}>{icon}</View>
-      <View>
+      {/* <View>
         <M11 customStyle={{color: colors.text}}>{text1}</M11>
         <B12 customStyle={{color: colors.text, fontSize: 14, fontFamily: EB}}>
           {text2}
         </B12>
-      </View>
+      </View> */}
     </AnimatedButton>
   );
 };
@@ -85,7 +85,7 @@ const ShareButtonVertical = ({colors, icon, text1, text2, onPress, width}) => {
   );
 };
 
-export default function ButtonComponent({
+export default function ButtonComponent2({
   ButtonIcon,
   ButtonText,
   IsStopped,
@@ -149,100 +149,77 @@ export default function ButtonComponent({
   return (
     <View>
       {IsStopped ? (
-        <View style={{gap: 12}}>
-          <AnimatedButton
-            onPress={() => {
-              handleButtonPress();
-            }}
-            style={[styles.buttonStyle, {backgroundColor: COLOR_PRIMARY}]}>
-            <B15 customStyle={[styles.buttonText, {color: COLOR_WHITE}]}>
-              {Number(state.myTikklingData.tikkle_count) == 0
-                ? '취소하기'
-                : '추가 구매하기'}
-            </B15>
-          </AnimatedButton>
-          <AnimatedButton
-            onPress={() => {
-              {
-                Number(state.myTikklingData.tikkle_count) == 0
-                  ? actions.setShowCancelModal(true)
-                  : actions.setShowRefundModal(true);
-              }
-            }}
-            style={styles.buttonStyle}>
-            <B15 customStyle={styles.buttonText}>
-              {Number(state.myTikklingData.tikkle_count) == 0
-                ? '취소하기'
-                : '환급하기'}
-            </B15>
-          </AnimatedButton>
-        </View>
+        <AnimatedButton
+          onPress={() => {
+            {
+              Number(state.myTikklingData.tikkle_count) == 0
+                ? actions.setShowCancelModal(true)
+                : actions.setShowRefundModal(true);
+            }
+          }}
+          style={styles.buttonStyle}>
+          <B15 customStyle={styles.buttonText}>
+            {Number(state.myTikklingData.tikkle_count) == 0 ? '취소' : '환급'}
+          </B15>
+        </AnimatedButton>
       ) : (
         <View>
           <View style={styles.buttonContainer}>
-            <View style={{width: '70%', gap: 8}}>
-              <ShareButtonHorizontal
-                colors={{
-                  background: [
-                    COLOR_INSTAGRAM_ORANGE,
-                    COLOR_INSTAGRAM_PINK,
-                    COLOR_INSTAGRAM_PURPLE,
-                  ],
-                  foreground: [
-                    'rgba(255,255,255,0.2)',
-                    'rgba(255,255,255,0.2)',
-                  ],
-                  text: COLOR_WHITE,
-                }}
-                icon={
-                  <Instagram
-                    stroke={COLOR_WHITE}
-                    width={24}
-                    height={24}
-                    strokeWidth={1.5}
-                  />
-                }
-                text1="인스타그램 스토리"
-                text2="공유하기"
-                onPress={actions.handleInstagramPress}
-                width={'100%'}
-              />
-
-              <ShareButtonHorizontal
-                colors={{
-                  background: [COLOR_KAKAO_YELLOW, COLOR_KAKAO_YELLOW],
-                  foreground: [
-                    'rgba(255,255,255,0.2)',
-                    'rgba(255,255,255,0.2)',
-                  ],
-                  text: COLOR_KAKAO_BROWN,
-                }}
-                icon={
-                  <Image
-                    // source={require('src/assets/images/kakaoLogoWithoutBackground.png')}
-                    // style={{width: 20, height: 20}}
-                    source={require('src/assets/images/KaKao.png')}
-                    style={{width: 23, height: 20}}
-                  />
-                }
-                text1="카카오톡"
-                text2="공유하기"
-                onPress={handleKakaoPress}
-                width={'100%'}
-              />
-            </View>
-            <ShareButtonVertical
+            <ShareButtonHorizontal
               colors={{
-                background: [COLOR_PRIMARY, COLOR_PRIMARY],
+                background: [
+                  COLOR_INSTAGRAM_ORANGE,
+                  COLOR_INSTAGRAM_PINK,
+                  COLOR_INSTAGRAM_PURPLE,
+                ],
+                foreground: ['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.2)'],
+                text: COLOR_WHITE,
+              }}
+              icon={
+                <Instagram
+                  stroke={COLOR_WHITE}
+                  width={32}
+                  height={32}
+                  strokeWidth={1.5}
+                  scale={32 / 24}
+                />
+              }
+              text1="인스타그램 스토리"
+              text2="공유하기"
+              onPress={actions.handleInstagramPress}
+            />
+
+            <ShareButtonHorizontal
+              colors={{
+                background: [COLOR_KAKAO_YELLOW, COLOR_KAKAO_YELLOW],
+                foreground: ['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.2)'],
+                text: COLOR_KAKAO_BROWN,
+              }}
+              icon={
+                <Image
+                  // source={require('src/assets/images/kakaoLogoWithoutBackground.png')}
+                  // style={{width: 20, height: 20}}
+                  source={require('src/assets/images/KaKao.png')}
+                  style={{width: 32, height: 28}}
+                />
+              }
+              text1="카카오톡"
+              text2="공유하기"
+              onPress={handleKakaoPress}
+            />
+            <ShareButtonHorizontal
+              colors={{
+                background: [COLOR_WHITE, COLOR_WHITE],
                 foreground: ['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.2)'],
                 text: COLOR_PRIMARY,
               }}
               icon={
                 <Clipboard
-                  width={24}
-                  height={24}
                   stroke={COLOR_PRIMARY}
-                  strokeWidth={2.5}
+                  width={32}
+                  height={32}
+                  strokeWidth={2}
+                  scale={1}
                 />
               }
               text1="공유링크"
@@ -251,15 +228,15 @@ export default function ButtonComponent({
             />
           </View>
           {console.log(FromDetail)}
-          {/* {FromDetail ? ( */}
-          <AnimatedButton
-            style={styles.buyTikkleButton}
-            onPress={() => {
-              handleButtonPress();
-            }}>
-            <B15 customStyle={styles.buyTikkleText}>티클 선물하기</B15>
-          </AnimatedButton>
-          {/* ) : null} */}
+          {FromDetail ? (
+            <AnimatedButton
+              style={styles.buyTikkleButton}
+              onPress={() => {
+                handleButtonPress();
+              }}>
+              <B15 customStyle={styles.buyTikkleText}>티클 선물하기</B15>
+            </AnimatedButton>
+          ) : null}
         </View>
       )}
     </View>
@@ -267,14 +244,10 @@ export default function ButtonComponent({
 }
 const styles = StyleSheet.create({
   shareButton: {
-    width: '30%',
-    paddingVertical: 4,
-    paddingLeft: 16,
-    paddingRight: 12,
-    alignItems: 'center',
-    // justifyContent: 'center',
+    padding: 12,
     borderRadius: linearGradientBorderRadius,
-    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   shareButtonVertical: {
     paddingVertical: 8,
@@ -296,12 +269,12 @@ const styles = StyleSheet.create({
   },
   linearGradientForeground: {
     position: 'absolute',
-    left: 2,
-    right: 2,
-    bottom: 2,
-    top: 2,
+    left: 1,
+    right: 1,
+    bottom: 1,
+    top: 1,
     zIndex: 0,
-    borderRadius: linearGradientBorderRadius - 2,
+    borderRadius: linearGradientBorderRadius - 1,
   },
   iconContainer: {
     padding: 8,
@@ -327,12 +300,13 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: 8,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     // alignItems: 'center',
-    gap: 8,
+    gap: 24,
+    padding: 24,
   },
   buyTikkleButton: {
-    width: windowWidth - 64,
+    width: windowWidth - 48,
     alignSelf: 'center',
     padding: 12,
     backgroundColor: COLOR_PRIMARY,

@@ -8,13 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {RefreshControl} from 'react-native-gesture-handler';
 import {
-  StatusBarHeight,
-  SPACING_1,
-  SPACING_2,
-  SPACING_3,
-  SPACING_4,
   SPACING_6,
   HEADER_HEIGHT,
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
@@ -34,6 +28,7 @@ import {
   M,
   H,
   UNIQUE22,
+  R,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {
   COLOR_BLACK,
@@ -41,14 +36,11 @@ import {
   COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
-  COLOR_PRIMARY_OUTLINE,
-  COLOR_SECOND_SEPARATOR,
   COLOR_SEPARATOR,
   COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
-import TimerComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/HomeTimer';
 import {
   windowHeight,
   windowWidth,
@@ -57,9 +49,7 @@ import BuyTikkleModal from 'src/presentationLayer/view/components/mainComponents
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import ArrowLeft from 'src/assets/icons/ArrowLeft';
-import ArrowRight from 'src/assets/icons/ArrowRight';
 import BubbleFilled from 'src/assets/icons/BubbleFilled';
-import CalendarFilled from 'src/assets/icons/CalendarFilled';
 import GlobalLoader from 'src/presentationLayer/view/components/globalComponents/globalLoader/globalLoader';
 import LinearGradient from 'react-native-linear-gradient';
 import FlagFilled from 'src/assets/icons/FlagFilled';
@@ -67,19 +57,15 @@ import BarComponent from 'src/presentationLayer/view/components/mainComponents/M
 import ButtonComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent';
 import {Linking} from 'react-native';
 import Share from 'react-native-share';
-const containerWidth = windowWidth - SPACING_6;
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import {G} from 'react-native-svg';
 import Present from 'src/assets/icons/Present';
 import WhoParticipated from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/WhoParticipated';
-import Profile from 'src/assets/icons/Profile';
-import Tooltip from 'react-native-walkthrough-tooltip';
-import Delivery from 'src/assets/icons/Delivery';
 import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
 import ViewShot from 'react-native-view-shot';
 import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
 import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
 import Gift from 'src/assets/icons/Gift';
+import ButtonComponent2 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent2';
 
 export default function TikklingDetailScreen() {
   const navigation = useNavigation();
@@ -206,24 +192,28 @@ export default function TikklingDetailScreen() {
             <B20
               customStyle={{
                 color: COLOR_WHITE,
-                fontFamily: EB,
+                fontFamily: H,
                 fontSize: 32,
                 lineHeight: 48,
               }}>
-              {console.log(state.route_data.user_name)}
               {state.route_data.user_name}님에게
             </B20>
             <B20
               customStyle={{
                 color: COLOR_WHITE,
-                fontFamily: EB,
+                fontFamily: H,
                 fontSize: 32,
                 lineHeight: 48,
               }}>
-              축하 선물 보내러 가기
+              선물 보내기
             </B20>
             <M15
-              customStyle={{color: COLOR_WHITE, fontSize: 20, lineHeight: 44}}>
+              customStyle={{
+                color: COLOR_WHITE,
+                fontSize: 20,
+                lineHeight: 44,
+                fontFamily: R,
+              }}>
               잊을 수 없는 경험을 선물해보세요.
             </M15>
           </View>
@@ -252,8 +242,6 @@ export default function TikklingDetailScreen() {
                     }
                   }}
                   style={{
-                    // width: 40,
-                    // height: 40,
                     padding: 10,
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -334,43 +322,11 @@ export default function TikklingDetailScreen() {
             <ScrollView>
               <View
                 style={{
-                  marginHorizontal: 16,
+                  marginHorizontal: 0,
                   backgroundColor: COLOR_WHITE,
-                  borderRadius: 16,
                   padding: 12,
-                  borderWidth: 1,
-                  borderColor: COLOR_SEPARATOR,
+                  height: windowHeight,
                 }}>
-                <View style={styles.renderItemHeaderContainer}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}>
-                    <Image
-                      resizeMode="contain"
-                      style={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: 12,
-                        borderColor: COLOR_SEPARATOR,
-                        borderWidth: 1,
-                      }}
-                      source={{
-                        uri: state.route_data.user_image,
-                      }}
-                    />
-
-                    <B15 customStyle={{marginLeft: 8, fontSize: 15}}>
-                      {state.route_data.user_name}
-                      {'  '}
-                    </B15>
-                    {/* <M15 customStyle={{color: COLOR_GRAY, fontSize: 15}}>
-                      {state.route_data.user_nick}
-                    </M15> */}
-                  </View>
-                </View>
-
                 {/* title */}
                 {/* 옮기기 */}
 
@@ -388,6 +344,7 @@ export default function TikklingDetailScreen() {
                     borderWidth: 1,
                     alignSelf: 'center',
                     marginBottom: 8,
+                    marginTop: 12,
                   }}>
                   <View
                     style={{
@@ -575,7 +532,7 @@ export default function TikklingDetailScreen() {
                   </View>
                 </View>
 
-                <View style={{height: 56}}>
+                <View style={{}}>
                   {state.route_data.state_id === 1 ? (
                     <ButtonComponent
                       ButtonIcon={ButtonIcon}
@@ -650,6 +607,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     height: HEADER_HEIGHT,
+    backgroundColor: COLOR_WHITE,
   },
   small_header: {
     flexDirection: 'row',

@@ -10,6 +10,7 @@ import {
   M15,
   B20,
   B17,
+  R,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import LottieView from 'lottie-react-native';
 import {
@@ -19,6 +20,7 @@ import {
   COLOR_PRIMARY_OUTLINE,
   COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
+  COLOR_SUCCESS,
   COLOR_WHITE,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
@@ -81,7 +83,10 @@ const RefundCheck = props => {
                 // backgroundColor: 'blue',
                 width: windowWidth - 32 - 100 - 6 - 32,
               }}>
-              <View style={{marginBottom: 0}}>
+              <View
+                style={{
+                  gap: 8,
+                }}>
                 <B15 customStyle={{fontFamily: EB}}>
                   {state.endTikklingInfo.product_name}
                 </B15>
@@ -93,13 +98,24 @@ const RefundCheck = props => {
                   flexDirection: 'row',
                   flex: 1,
                   justifyContent: 'flex-start',
-                  marginVertical: 5,
                 }}>
-                <B17 customStyle={{color: COLOR_BLACK}}>{'환급 상태 : '}</B17>
+                <B15 customStyle={{color: COLOR_BLACK, fontFamily: R}}>
+                  {'환급이 '}
+                </B15>
                 {state.refundData.state_id == 2 ? (
-                  <B17 customStyle={{color: COLOR_PRIMARY}}>환급 완료</B17>
+                  <View style={{flexDirection: 'row'}}>
+                    <B15 customStyle={{color: COLOR_PRIMARY}}>완료</B15>
+                    <B15 customStyle={{color: COLOR_BLACK, fontFamily: R}}>
+                      되었어요!
+                    </B15>
+                  </View>
                 ) : (
-                  <B17 customStyle={{color: COLOR_PRIMARY}}>환급 진행중</B17>
+                  <View style={{flexDirection: 'row'}}>
+                    <B15 customStyle={{color: COLOR_SUCCESS}}>진행 중</B15>
+                    <B15 customStyle={{color: COLOR_BLACK, fontFamily: R}}>
+                      이에요!
+                    </B15>
+                  </View>
                 )}
               </View>
             </View>

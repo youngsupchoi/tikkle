@@ -48,6 +48,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Help from 'src/assets/icons/Help.svg';
 import AddFilled from 'src/assets/icons/AddFilled';
+import ButtonComponent2 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/ButtonComponent2';
 
 //-------------------------------------------------------------------------
 
@@ -93,13 +94,27 @@ const FirstHero = props => {
   //TOOD: 각 경우마다 버튼 actions을 설정해줘야함
   if (state.myTikklingData.state_id == 1) {
     ButtonIcon = (
-      <AddFilled
-        width={24}
-        height={24}
-        stroke={COLOR_PRIMARY}
-        scale={1}
-        strokeWidth={1}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 4,
+          padding: 4,
+          paddingRight: 12,
+          borderColor: COLOR_PRIMARY,
+          borderWidth: 1,
+          borderRadius: 100,
+          marginLeft: 4,
+        }}>
+        <AddFilled
+          width={24}
+          height={24}
+          stroke={COLOR_PRIMARY}
+          scale={1}
+          strokeWidth={1}
+        />
+        <B12 customStyle={{color: COLOR_PRIMARY}}>구매하기</B12>
+      </View>
     );
     ButtonText = '티클 구매하기';
   } else {
