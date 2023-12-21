@@ -140,8 +140,10 @@ export default function ButtonComponent({
             }}
             icon={
               <Image
-                source={require('src/assets/images/kakaoLogoWithoutBackground.png')}
-                style={{width: 20, height: 20}}
+                // source={require('src/assets/images/kakaoLogoWithoutBackground.png')}
+                // style={{width: 20, height: 20}}
+                source={require('src/assets/images/KaKao.png')}
+                style={{width: 23, height: 20}}
               />
             }
             text1="카카오톡"
@@ -163,7 +165,7 @@ export default function ButtonComponent({
                 strokeWidth={2.5}
               />
             }
-            text1="클립보드"
+            text1="공유링크"
             text2="복사하기"
             onPress={handleClipboardPress}
           />
