@@ -126,11 +126,11 @@ export default function App() {
               <MainStackNavigator />
             </SafeAreaProvider>
           )}
-          {/* <StatusBar
+          <StatusBar
             translucent
             barStyle={'dark-content'}
             backgroundColor={backgroundColor}
-          /> */}
+          />
           {/* <TEST_SAMPLESCREEN /> */}
         </TopViewProvider>
       </PaperProvider>
