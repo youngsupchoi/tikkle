@@ -67,7 +67,7 @@ const FriendsEvents = props => {
         sortedData['내일'].push(friend);
         break;
       default:
-        if (diff < 7) {
+        if (diff <= 7) {
           const date = formatDate(moment().add(diff, 'days'));
           if (sortedData[date]) {
             sortedData[date] = sortedData[date].concat(friend);
