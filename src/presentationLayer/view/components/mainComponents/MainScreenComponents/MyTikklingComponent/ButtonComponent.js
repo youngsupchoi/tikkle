@@ -251,15 +251,15 @@ export default function ButtonComponent({
             />
           </View>
           {console.log(FromDetail)}
-          {/* {FromDetail ? ( */}
-          <AnimatedButton
-            style={styles.buyTikkleButton}
-            onPress={() => {
-              handleButtonPress();
-            }}>
-            <B15 customStyle={styles.buyTikkleText}>티클 선물하기</B15>
-          </AnimatedButton>
-          {/* ) : null} */}
+          {FromDetail ? (
+            <AnimatedButton
+              style={styles.buyTikkleButton}
+              onPress={() => {
+                handleButtonPress();
+              }}>
+              <B15 customStyle={styles.buyTikkleText}>티클 선물하기</B15>
+            </AnimatedButton>
+          ) : null}
         </View>
       )}
     </View>
