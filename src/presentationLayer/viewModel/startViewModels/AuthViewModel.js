@@ -146,7 +146,7 @@ export const useStartViewModel = () => {
         // console.log('email: ', res.email);
         // console.log('profileImageUrl: ', res.profileImageUrl);
         // console.log('thumbnailImageUrl: ', res.thumbnailImageUrl);
-        kakaoImage = res.profileImageUrl;
+        kakaoImage = res.thumbnailImageUrl;
         birthDate = `${res.birthyear}-${res.birthday.substring(
           0,
           2,
@@ -162,7 +162,7 @@ export const useStartViewModel = () => {
           res.gender,
           source_tikkling_id,
           res.email,
-          res.profileImageUrl,
+          res.thumbnailImageUrl,
         );
       })
       .then(res => {

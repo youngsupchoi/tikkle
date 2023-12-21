@@ -508,12 +508,12 @@ export const useMainViewModel = () => {
     await actions.setLoading(true);
     try {
       let uri;
-      console.log('인스타그램 버튼 눌림', name, tikkling_id);
+      // console.log('인스타그램 버튼 눌림', name, tikkling_id);
 
       await CreateTikklingShareLink(name, tikkling_id)
         .then(async res => {
           uri = await state.viewShotRef.current?.capture?.();
-          console.log(uri);
+          // console.log(uri);
           Clipboard.setString(res.DSdata.short_link);
           console.log(res);
           return res.DSdata.short_link;
