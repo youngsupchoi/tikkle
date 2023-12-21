@@ -110,8 +110,15 @@ export const backgroundColor = '#F5F3F6';
 export const COLOR_PRIMARY = '#6462E7';
 export const COLOR_SECONDARY = '#E6E4F2';
 export const COLOR_PRIMARY_OUTLINE = '#6462C7';
+
 export const COLOR_INSTAGRAM_PURPLE = '#BD5DDF';
 export const COLOR_INSTAGRAM_PINK = '#DD2F82';
 export const COLOR_INSTAGRAM_ORANGE = '#FCAB48';
+
 export const COLOR_KAKAO_YELLOW = '#FDDC3F';
 export const COLOR_KAKAO_BROWN = '#3A2929';
+
+export const COLOR_CHRISTMAS_GREEN_ONE = '#306A37';
+export const COLOR_CHRISTMAS_GREEN_TWO = '#204D22';
+export const COLOR_CHRISTMAS_RED_ONE = '#AF413A';
+export const COLOR_CHRISTMAS_RED_TWO = '#EC342C';

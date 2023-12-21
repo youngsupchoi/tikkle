@@ -2,6 +2,10 @@ import {View, StyleSheet, Linking} from 'react-native';
 import React, {useState} from 'react';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {
+  COLOR_CHRISTMAS_GREEN_ONE,
+  COLOR_CHRISTMAS_GREEN_TWO,
+  COLOR_CHRISTMAS_RED_ONE,
+  COLOR_CHRISTMAS_RED_TWO,
   COLOR_ERROR,
   COLOR_GRAY,
   COLOR_PRIMARY,
@@ -44,6 +48,7 @@ import {AppEventsLogger} from 'react-native-fbsdk-next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import KakaoShareLink from 'react-native-kakao-share-link';
+import AutoHeightImage from 'react-native-auto-height-image';
 // import VersionCheck from 'react-native-version-check';
 
 export default function HomeHeader(props) {
@@ -83,14 +88,53 @@ export default function HomeHeader(props) {
           // backgroundColor: 'blue',
           flexDirection: 'row',
           alignItems: 'center',
-          flex: 1,
+          // flex: 1,
         }}>
+        <AutoHeightImage
+          source={require('src/assets/images/ChristmasCherry.png')}
+          style={{position: 'absolute', zIndex: -2, top: 0, left: -8}}
+          width={16}
+        />
+        <AutoHeightImage
+          source={require('src/assets/images/ChristmasGift.png')}
+          style={{position: 'absolute', zIndex: 1, bottom: 6, right: 16}}
+          width={20}
+        />
         <UNIQUE27
           customStyle={{
-            paddingLeft: 2,
-            color: COLOR_GRAY,
+            color: COLOR_CHRISTMAS_GREEN_ONE,
           }}>
-          TIKKLE
+          T
+        </UNIQUE27>
+        <UNIQUE27
+          customStyle={{
+            color: COLOR_CHRISTMAS_RED_TWO,
+          }}>
+          I
+        </UNIQUE27>
+        <UNIQUE27
+          customStyle={{
+            color: COLOR_CHRISTMAS_GREEN_ONE,
+          }}>
+          K
+        </UNIQUE27>
+        <UNIQUE27
+          customStyle={{
+            color: COLOR_CHRISTMAS_RED_TWO,
+          }}>
+          K
+        </UNIQUE27>
+        <UNIQUE27
+          customStyle={{
+            color: COLOR_CHRISTMAS_GREEN_ONE,
+          }}>
+          L
+        </UNIQUE27>
+        <UNIQUE27
+          customStyle={{
+            color: COLOR_CHRISTMAS_RED_TWO,
+          }}>
+          E
         </UNIQUE27>
 
         <AnimatedButton
