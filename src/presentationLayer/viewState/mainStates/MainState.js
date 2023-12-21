@@ -1,5 +1,6 @@
 import {createContext, useContext, useState, useRef} from 'react';
 import {Animated} from 'react-native';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 const MainViewContext = createContext();
 
 export const useMainViewState = () => {
@@ -106,6 +107,8 @@ export const MainViewStateProvider = ({children}) => {
   const [endTikklingId, setEndTikklingId] = useState(null);
   const [endTikklingInfo, setEndTikklingInfo] = useState(null);
 
+  const instaGuideImageSize = windowWidth - 48;
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -178,6 +181,7 @@ export const MainViewStateProvider = ({children}) => {
     endTikklingInfo,
     delivery_check_link,
     refundData,
+    instaGuideImageSize,
   };
 
   const actions = {

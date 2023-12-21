@@ -16,12 +16,14 @@ import {
   M15,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import AutoHeightImage from 'react-native-auto-height-image';
+import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 
 export default function InstaGuideComponent2() {
+  const {state, actions} = useMainViewModel();
   const pic2 = 'https://d2da4yi19up8sp.cloudfront.net/instaGuide2.png';
   return (
     <AutoHeightImage
-      width={windowWidth * 0.8}
+      width={state.instaGuideImageSize}
       resizeMode="contain"
       source={{
         uri: pic2,

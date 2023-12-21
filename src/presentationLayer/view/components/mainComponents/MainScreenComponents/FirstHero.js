@@ -47,6 +47,7 @@ import Location from 'src/assets/icons/Location';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Help from 'src/assets/icons/Help.svg';
+import AddFilled from 'src/assets/icons/AddFilled';
 
 //-------------------------------------------------------------------------
 
@@ -92,12 +93,12 @@ const FirstHero = props => {
   //TOOD: 각 경우마다 버튼 actions을 설정해줘야함
   if (state.myTikklingData.state_id == 1) {
     ButtonIcon = (
-      <Present
+      <AddFilled
         width={24}
         height={24}
-        stroke={COLOR_WHITE}
-        scale={1.3}
-        strokeWidth={1.5}
+        stroke={COLOR_PRIMARY}
+        scale={1}
+        strokeWidth={1}
       />
     );
     ButtonText = '티클 구매하기';
@@ -107,20 +108,20 @@ const FirstHero = props => {
         <Delivery
           width={24}
           height={24}
-          stroke={COLOR_WHITE}
-          scale={1.0}
+          stroke={COLOR_PRIMARY}
+          scale={1}
           strokeWidth={2}
         />
       );
       ButtonText = '상품 받기';
     } else {
       ButtonIcon = (
-        <Present
+        <AddFilled
           width={24}
           height={24}
-          stroke={COLOR_WHITE}
-          scale={1.3}
-          strokeWidth={2}
+          stroke={COLOR_PRIMARY}
+          scale={1}
+          strokeWidth={1}
         />
       );
       ButtonText = '남은 티클 구매하기';
@@ -166,8 +167,12 @@ const FirstHero = props => {
                   <B22 customStyle={{marginBottom: 12}}>이동!</B22>
                 </AnimatedButton> */}
                 <TikklingProgressCard />
-                <ProgressVisualization />
-                <TimeAndPieceCounter />
+                <ProgressVisualization
+                  ButtonIcon={ButtonIcon}
+                  ButtonText={ButtonText}
+                  FromDetail={false}
+                />
+                {/* <TimeAndPieceCounter /> */}
               </View>
             )}
           </View>

@@ -857,6 +857,55 @@ export const useMainViewModel = () => {
     }
   }
 
+  const handleInstagramPress = () => {
+    // if (FromDetail == true) {
+    //   //detail에서 눌렀을 때
+    //   // console.log(
+    //   //   'detail에서 눌렀을 때',
+    //   //   state.route_data.user_name,
+    //   //   state.route_data.tikkling_id,
+    //   // );
+    //   await actions.onInstagramShareButtonPressed(
+    //     state.route_data.user_name,
+    //     state.route_data.tikkling_id,
+    //   );
+    // } else {
+    actions.setIsInstagramButtonModalVisible(true);
+    // }
+  };
+
+  const handleKakaoPress = async () => {
+    if (FromDetail) {
+      await actions.onKakaoButtonPressed(
+        state.route_data.user_name,
+        state.route_data.tikkling_id,
+        state.route_data.thumbnail_image,
+      );
+    } else {
+      await actions.onKakaoButtonPressed(
+        state.userData.name,
+        state.myTikklingData.tikkling_id,
+        state.myTikklingData.thumbnail_image,
+      );
+    }
+  };
+
+  const handleClipboardPress = async () => {
+    if (FromDetail == true) {
+      //detail에서 눌렀을 때
+      await actions.onClipboardButtonPressed(
+        state.route_data.user_name,
+        state.route_data.tikkling_id,
+      );
+    } else {
+      //main에서 눌렀을 때
+      await actions.onClipboardButtonPressed(
+        state.userData.name,
+        state.myTikklingData.tikkling_id,
+      );
+    }
+  };
+
   return {
     ref: {
       ...ref,
@@ -900,6 +949,9 @@ export const useMainViewModel = () => {
       create_friend,
       endTikkling_send,
       onKakaoButtonPressed,
+      handleInstagramPress,
+      handleKakaoPress,
+      handleClipboardPress,
     },
   };
 };

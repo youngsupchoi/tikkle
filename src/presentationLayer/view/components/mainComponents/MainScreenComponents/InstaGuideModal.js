@@ -1,16 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import Modal from 'react-native-modal'; // 추가
-import {useTopViewModel} from 'src/presentationLayer/viewModel/topViewModels/TopViewModel';
-import LinearGradient from 'react-native-linear-gradient';
 import {
   COLOR_BLACK,
-  COLOR_ERROR,
   COLOR_PRIMARY,
-  COLOR_SEPARATOR,
-  COLOR_SUCCESS,
   COLOR_GRAY,
-  COLOR_WHITE,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
@@ -20,27 +14,19 @@ import {
   Easing,
 } from 'react-native-reanimated';
 import {
-  B12,
   B15,
   B17,
-  B20,
   B22,
+  B28,
   EB,
-  M11,
+  H,
+  R,
+  UNIQUE,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import LottieView from 'lottie-react-native';
-import {
-  windowHeight,
-  windowWidth,
-} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
-import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
-import {CurrentRenderContext} from '@react-navigation/native';
+
 import {ScrollView} from 'react-native-gesture-handler';
-import OnboardingComponent1 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent1';
-import OnboardingComponent2 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent2';
-import OnboardingComponent3 from 'src/presentationLayer/view/components/startComponents/OnboardingComponents/OnboardingComponent3';
-import {Image} from 'react-native-svg';
 import InstaGuideComponent1 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent1';
 import InstaGuideComponent2 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent2';
 import InstaGuideComponent3 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent3';
@@ -58,168 +44,60 @@ const InstaGuideModal = ({name, tikkling_id}) => {
   const getDisplayText = value => {
     switch (value) {
       case 0:
-        return '스티커 버튼 클릭';
+        return '스티커 버튼을 클릭합니다.';
       case 1:
-        return '링크 공유 스티커 선택';
+        return '링크 공유 스티커를 선택합니다.';
       case 2:
         return Platform.OS === 'ios'
-          ? '티클앱에 돌아와 링크를 복사'
-          : '자동으로 복사된 링크를 붙여넣기!';
+          ? '홈 버튼을 눌러 티클앱에 돌아와 링크를 복사합니다.'
+          : '클립보드에 복사된 링크를 붙여 넣습니다.';
       case 3:
         return Platform.OS === 'ios'
-          ? '복사된 링크를 붙여넣기!'
+          ? '클립보드에 복사된 링크를 붙여 넣습니다.'
           : '자유롭게 꾸며서 티클링을 공유해보세요!';
       default:
         return '자유롭게 꾸며서 티클링을 공유해보세요!';
     }
   };
 
+  const Button = ({onPress, text, style}) => (
+    <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
+      <B15 customStyle={styles.buttonText}>{text}</B15>
+    </TouchableOpacity>
+  );
+
   const Buttons = () => {
-    if (currentPage == 0) {
-      return (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            marginTop: 20,
-            marginBottom: 20,
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              handleBeforePress();
-            }}
-            style={{
-              width: windowWidth * 0.375,
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 10,
-              backgroundColor: COLOR_GRAY,
-              borderRadius: 12,
-            }}>
-            <B15 customStyle={{color: 'white'}}>닫기</B15>
-          </TouchableOpacity>
-          <View style={{width: 10}}></View>
+    const isLastPage = currentPage === numOfPage - 1;
+    const isFirstPage = currentPage === 0;
 
-          <TouchableOpacity
-            onPress={
-              // console.log(topState, topActions.hideModal)
-              //topActions.hideModal
-              handleNextPress
-            }
-            style={{
-              width: windowWidth * 0.375,
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 10,
-              backgroundColor: COLOR_PRIMARY,
-              borderRadius: 12,
-            }}>
-            <B15 customStyle={{color: 'white'}}>다음</B15>
-          </TouchableOpacity>
-        </View>
-      );
-    } else if (currentPage != numOfPage - 1) {
-      return (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              handleBeforePress();
-            }}
-            style={{
-              // position: 'absolute',
-              // bottom: 0,
-              width: windowWidth * 0.375,
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 10,
-              backgroundColor: COLOR_GRAY,
-              borderRadius: 12,
-              marginBottom: 25,
-            }}>
-            <B15 customStyle={{color: 'white'}}>이전</B15>
-          </TouchableOpacity>
-          <View style={{width: 10}}></View>
+    const nextButtonPress = isLastPage
+      ? () => {
+          actions.setIsInstagramButtonModalVisible(false);
+          actions.onInstagramShareButtonPressed(name, tikkling_id);
+        }
+      : handleNextPress;
 
-          <TouchableOpacity
-            onPress={
-              // console.log(topState, topActions.hideModal)
-              //topActions.hideModal
-              handleNextPress
-            }
-            style={{
-              // position: 'absolute',
-              // bottom: 0,
-              width: windowWidth * 0.375,
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 10,
-              backgroundColor: COLOR_PRIMARY,
-              borderRadius: 12,
-              marginBottom: 25,
-            }}>
-            <B15 customStyle={{color: 'white'}}>다음</B15>
-          </TouchableOpacity>
-        </View>
-      );
-    } else {
-      return (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              handleBeforePress();
-            }}
-            style={{
-              // position: 'absolute',
-              // bottom: 0,
-              width: windowWidth * 0.375,
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 10,
-              backgroundColor: COLOR_GRAY,
-              borderRadius: 12,
-              marginBottom: 25,
-            }}>
-            <B15 customStyle={{color: 'white'}}>이전</B15>
-          </TouchableOpacity>
-          <View style={{width: 10}}></View>
+    const nextButtonText = isLastPage ? '공유하기' : '다음';
+    const prevButtonPress = isFirstPage
+      ? () => actions.setIsInstagramButtonModalVisible(false)
+      : handleBeforePress;
+    const prevButtonText = isFirstPage ? '닫기' : '이전';
 
-          <TouchableOpacity
-            onPress={() => {
-              // console.log(topState, topActions.hideModal)
-              //topActions.hideModal
-              actions.setIsInstagramButtonModalVisible(false);
-
-              actions.onInstagramShareButtonPressed(name, tikkling_id);
-            }}
-            style={{
-              // position: 'absolute',
-              // bottom: 0,
-              width: windowWidth * 0.375,
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 10,
-              backgroundColor: COLOR_PRIMARY,
-              borderRadius: 12,
-              marginBottom: 25,
-            }}>
-            <B15 customStyle={{color: 'white'}}>공유하기</B15>
-          </TouchableOpacity>
-        </View>
-      );
-    }
+    return (
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={prevButtonPress}
+          text={prevButtonText}
+          style={styles.prevButton}
+        />
+        <View style={styles.buttonSpacer}></View>
+        <Button
+          onPress={nextButtonPress}
+          text={nextButtonText}
+          style={styles.nextButton}
+        />
+      </View>
+    );
   };
 
   useEffect(() => {
@@ -252,7 +130,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
 
     if (nextPage < numOfPage) {
       scrollViewRef.current?.scrollTo({
-        x: nextPage * windowWidth * 0.8,
+        x: nextPage * state.instaGuideImageSize,
         y: 0,
         animated: true,
       });
@@ -267,7 +145,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
       actions.setIsInstagramButtonModalVisible(false);
     }
     scrollViewRef.current?.scrollTo({
-      x: nextPage * windowWidth * 0.8,
+      x: nextPage * state.instaGuideImageSize,
       y: 0,
       animated: true,
     });
@@ -276,7 +154,6 @@ const InstaGuideModal = ({name, tikkling_id}) => {
   };
 
   return (
-    // <View>
     <Modal
       isVisible={state.isInstagramButtonModalVisible}
       style={styles.modal}
@@ -292,12 +169,12 @@ const InstaGuideModal = ({name, tikkling_id}) => {
         style={[
           {
             backgroundColor: backgroundColor,
-            borderRadius: 24,
+            borderRadius: 16,
             width: windowWidth - 32,
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'absolute',
             alignSelf: 'center',
+            padding: 16,
           },
         ]}>
         <View
@@ -306,30 +183,31 @@ const InstaGuideModal = ({name, tikkling_id}) => {
           }}>
           <View
             style={{
-              marginTop: 32,
+              marginTop: 16,
               marginBottom: 16,
               alignItems: 'center',
             }}>
-            <B20
+            <B28
               customStyle={{
                 color: COLOR_BLACK,
-                fontFamily: EB,
+                fontFamily: H,
+                fontSize: 24,
               }}>
-              티클링 공유하기
-            </B20>
+              스토리 공유 가이드
+            </B28>
             <B15
               customStyle={{
                 color: COLOR_GRAY,
-                marginTop: 8,
+                fontFamily: R,
               }}>
               with Instagram
             </B15>
           </View>
-          <View style={{height: windowWidth * 0.8}}>
+          <View style={{height: state.instaGuideImageSize}}>
             <ScrollView
               style={{
-                width: windowWidth * 0.8,
-                borderRadius: 30,
+                width: state.instaGuideImageSize,
+                borderRadius: 12,
               }}
               horizontal
               pagingEnabled
@@ -344,11 +222,17 @@ const InstaGuideModal = ({name, tikkling_id}) => {
               <InstaGuideComponent4 />
             </ScrollView>
           </View>
-          <View style={{marginTop: 20, alignItems: 'center'}}>
-            <B17 customStyle={{color: COLOR_PRIMARY, fontFamily: EB}}>
-              {currentDetailText + 1}단계
+          <View style={{marginVertical: 16, alignItems: 'center'}}>
+            <B17
+              customStyle={{
+                color: COLOR_PRIMARY,
+                fontFamily: UNIQUE,
+                fontSize: 24,
+                lineHeight: 32,
+              }}>
+              Step {currentDetailText + 1}.
             </B17>
-            <B15 customStyle={{marginTop: 12}}>
+            <B15 customStyle={{fontFamily: R}}>
               {getDisplayText(currentDetailText)}
             </B15>
           </View>
@@ -357,59 +241,39 @@ const InstaGuideModal = ({name, tikkling_id}) => {
             <Buttons />
           </View>
         </View>
-        {/* </BlurView> */}
       </View>
     </Modal>
-    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   modal: {
     margin: 0, // 모든 방향의 마진을 0으로 설정
-    zIndex: 1000,
+    zIndex: 10,
   },
-  buttonGradient: {
+  buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 25,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    // elevation: 2, // this is for android shadow
-    // shadowColor: '#000', // this is for ios shadow
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
   },
-  buttonGradient: {
-    flexDirection: 'row',
+  button: {
+    width: windowWidth * 0.375,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 12, // Matched with the buttonContainer
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    width: '100%', // Ensures the gradient fills the buttonContainer
-  },
-  container: {
-    flexDirection: 'row', // 텍스트를 중앙에 위치시키기 위해 변경
-    alignItems: 'center',
-    zIndex: 2,
-    marginHorizontal: 24,
+    padding: 10,
     borderRadius: 12,
-    // elevation: 3,
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   // iOS용 그림자 위치
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.2, // iOS용 그림자 투명도
-    // shadowRadius: 3, // iOS용 그림자 반경
-    flexDirection: 'row',
   },
-  closeText: {
+  prevButton: {
+    backgroundColor: COLOR_GRAY,
+  },
+  nextButton: {
+    backgroundColor: COLOR_PRIMARY,
+  },
+  buttonText: {
     color: 'white',
+  },
+  buttonSpacer: {
+    width: 10,
   },
 });
 

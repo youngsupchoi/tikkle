@@ -7,7 +7,7 @@ export const COLOR_BACKGROUND_TOSS = '#F2F3F5';
 export const COLOR_ERROR = '#FF6B6B';
 export const COLOR_SUCCESS = '#81C784';
 export const COLOR_SEPARATOR = '#dddddd';
-export const COLOR_SECOND_SEPARATOR = '#dddddd';
+export const COLOR_SECOND_SEPARATOR = '#eeeeee';
 export const COLOR_GRAY = '#888888';
 
 export const COLOR_PRIMARY_TEXT = '#F0FFFF';
@@ -110,3 +110,8 @@ export const backgroundColor = '#F5F3F6';
 export const COLOR_PRIMARY = '#6462E7';
 export const COLOR_SECONDARY = '#E6E4F2';
 export const COLOR_PRIMARY_OUTLINE = '#6462C7';
+export const COLOR_INSTAGRAM_PURPLE = '#BD5DDF';
+export const COLOR_INSTAGRAM_PINK = '#DD2F82';
+export const COLOR_INSTAGRAM_ORANGE = '#FCAB48';
+export const COLOR_KAKAO_YELLOW = '#FDDC3F';
+export const COLOR_KAKAO_BROWN = '#3A2929';
