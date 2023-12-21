@@ -67,7 +67,6 @@ export default function SignUpScreen0() {
         //backgroundColor: 'blue',
         backgroundColor: COLOR_WHITE,
       }}>
-      <StatusBar backgroundColor={COLOR_WHITE} />
       <View
         style={{
           flex: 1,

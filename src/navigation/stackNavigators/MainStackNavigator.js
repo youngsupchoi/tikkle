@@ -26,7 +26,7 @@ import {
   COLOR_PRIMARY,
   backgroundColor,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
-import {Easing, Linking, Platform, SafeAreaView} from 'react-native';
+import {Easing, Linking, Platform, SafeAreaView, StatusBar} from 'react-native';
 import {StartViewStateProvider} from 'src/presentationLayer/viewState/startStates/AuthState';
 import ProductDetailScreen from 'src/presentationLayer/view/screens/productScreens/ProductDetailScreen';
 import ProductInqireScreen from 'src/presentationLayer/view/screens/productScreens/ProductInqireScreen';
@@ -52,6 +52,11 @@ import DeliveryScreen from 'src/presentationLayer/view/screens/myPageScreens/Del
 
 const ProductDetail = () => (
   <Safe color={COLOR_WHITE}>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={COLOR_WHITE}
+    />
     <ProductDetailViewStateProvider>
       <ProductDetailScreen />
     </ProductDetailViewStateProvider>
@@ -60,6 +65,11 @@ const ProductDetail = () => (
 
 const ProductInqire = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <ProductMainViewStateProvider>
       <ProductInqireScreen />
     </ProductMainViewStateProvider>
@@ -68,12 +78,22 @@ const ProductInqire = () => (
 
 const Delivery = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <DeliveryScreen />
   </Safe>
 );
 
 const TikklingDetail = () => (
-  <Safe>
+  <Safe color={COLOR_WHITE}>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={COLOR_WHITE}
+    />
     <MainViewStateProvider>
       <TikklingDetailScreen />
     </MainViewStateProvider>
@@ -82,6 +102,11 @@ const TikklingDetail = () => (
 
 const StartTikkling = ({route}) => (
   <Safe color={COLOR_WHITE}>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={COLOR_WHITE}
+    />
     <StartTikklingViewStateProvider>
       <StartTikklingScreen route={route} />
     </StartTikklingViewStateProvider>
@@ -90,6 +115,11 @@ const StartTikkling = ({route}) => (
 
 const Onboarding_ = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <MainViewStateProvider>
       <Onboarding />
     </MainViewStateProvider>
@@ -98,6 +128,11 @@ const Onboarding_ = () => (
 
 const Notification = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <NotificationViewStateProvider>
       <NotificationScreen />
     </NotificationViewStateProvider>
@@ -106,6 +141,11 @@ const Notification = () => (
 
 const NotificationSetting = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <NotificationSettingViewStateProvider>
       <NotificationSettingScreen />
     </NotificationSettingViewStateProvider>
@@ -114,36 +154,66 @@ const NotificationSetting = () => (
 
 const SignUp0 = () => (
   <Safe color={COLOR_WHITE}>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={COLOR_WHITE}
+    />
     <SignUpScreen0 />
   </Safe>
 );
 
 const SignUp1 = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <SignUpScreen1 />
   </Safe>
 );
 
 const SignUp2 = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <SignUpScreen2 />
   </Safe>
 );
 
 const SignUp3 = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <SignUpScreen3 />
   </Safe>
 );
 
 const SignUp4 = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <SignUpScreen4 />
   </Safe>
 );
 
 const SignUp5 = () => (
   <Safe>
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={backgroundColor}
+    />
     <SignUpScreen5 />
   </Safe>
 );

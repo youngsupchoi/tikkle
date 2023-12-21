@@ -114,11 +114,11 @@ export default function StartTikklingScreen({route}) {
 
   return (
     <View style={{}}>
-      <StatusBar
+      {/* <StatusBar
         translucent
         barStyle={'dark-content'}
         backgroundColor={COLOR_WHITE}
-      />
+      /> */}
       <BackHeader
         style={{backgroundColor: COLOR_WHITE}}
         tikkling_ticket={state.userData.tikkling_ticket}>

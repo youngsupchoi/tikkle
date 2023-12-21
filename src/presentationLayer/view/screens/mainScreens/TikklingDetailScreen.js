@@ -224,7 +224,7 @@ export default function TikklingDetailScreen() {
           <View
             style={{
               paddingTop: 0,
-              backgroundColor: backgroundColor,
+              backgroundColor: COLOR_WHITE,
               height: windowHeight,
             }}>
             <View style={styles.header}>

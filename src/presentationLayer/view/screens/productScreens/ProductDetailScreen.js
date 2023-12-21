@@ -142,11 +142,11 @@ export default function ProductDetailScreen(route) {
         <GlobalLoader />
       ) : (
         <View>
-          <StatusBar
+          {/* <StatusBar
             translucent
             barStyle={'dark-content'}
             backgroundColor={COLOR_WHITE}
-          />
+          /> */}
           {/* {console.log('##', state.data)} */}
           <Animated.ScrollView
             ref={scrollViewRef} // ScrollView 참조 설정
