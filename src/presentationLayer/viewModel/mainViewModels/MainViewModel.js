@@ -438,10 +438,9 @@ export const useMainViewModel = () => {
     actions.setShowStopModal(!state.showStopModal);
   };
 
-  async function convertBackgroundImageToBase64() {
-    const imageUri =
-      'https://d2da4yi19up8sp.cloudfront.net/instagram_background_2.png';
-
+  async function convertBackgroundImageToBase64(type) {
+    const imageUri = state.instaShareImageUrl[type];
+    console.log('######', imageUri);
     try {
       const response = await fetch(imageUri);
       const blob = await response.blob();
@@ -504,7 +503,7 @@ export const useMainViewModel = () => {
     }
   }
 
-  const onInstagramShareButtonPressed = async (name, tikkling_id) => {
+  const onInstagramShareButtonPressed = async (name, tikkling_id, type) => {
     await actions.setLoading(true);
     try {
       let uri;
@@ -519,7 +518,7 @@ export const useMainViewModel = () => {
           return res.DSdata.short_link;
         })
         .then(async () => {
-          const backgroundBase64 = await convertBackgroundImageToBase64();
+          const backgroundBase64 = await convertBackgroundImageToBase64(type);
           const stickerBase64 = await convertStickerImageToBase64(uri);
           if (state.hasInstagramInstalled) {
             const res = await Share.shareSingle({

@@ -31,6 +31,7 @@ import InstaGuideComponent1 from 'src/presentationLayer/view/components/mainComp
 import InstaGuideComponent2 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent2';
 import InstaGuideComponent3 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent3';
 import InstaGuideComponent4 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent4';
+import InstaGuideComponent5 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent5';
 import InstaGuideComponentForIos from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponentForIos';
 
 const InstaGuideModal = ({name, tikkling_id}) => {
@@ -39,7 +40,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
   const [currentDetailText, setCurrentDetailText] = useState(0);
   const translateY = useSharedValue(0);
   const opacity = useSharedValue(0);
-  const numOfPage = Platform.OS === 'ios' ? 5 : 4;
+  const numOfPage = Platform.OS === 'ios' ? 6 : 5;
 
   const getDisplayText = value => {
     switch (value) {
@@ -55,8 +56,12 @@ const InstaGuideModal = ({name, tikkling_id}) => {
         return Platform.OS === 'ios'
           ? '클립보드에 복사된 링크를 붙여 넣습니다.'
           : '자유롭게 꾸며서 티클링을 공유해보세요!';
+      case 4:
+        return Platform.OS === 'ios'
+          ? '자유롭게 꾸며서 티클링을 공유해보세요!'
+          : '공유할 스토리 템플릿을 선택하세요.';
       default:
-        return '자유롭게 꾸며서 티클링을 공유해보세요!';
+        return '공유할 스토리 템플릿을 선택하세요.';
     }
   };
 
@@ -70,14 +75,16 @@ const InstaGuideModal = ({name, tikkling_id}) => {
     const isLastPage = currentPage === numOfPage - 1;
     const isFirstPage = currentPage === 0;
 
-    const nextButtonPress = isLastPage
-      ? () => {
-          actions.setIsInstagramButtonModalVisible(false);
-          actions.onInstagramShareButtonPressed(name, tikkling_id);
-        }
-      : handleNextPress;
+    // const nextButtonPress = isLastPage
+    //   ? () => {
+    //       actions.setIsInstagramButtonModalVisible(false);
+    //       actions.onInstagramShareButtonPressed(name, tikkling_id);
+    //     }
+    //   : handleNextPress;
 
-    const nextButtonText = isLastPage ? '공유하기' : '다음';
+    // const nextButtonText = isLastPage ? '공유하기' : '다음';
+    const nextButtonText = '다음';
+
     const prevButtonPress = isFirstPage
       ? () => actions.setIsInstagramButtonModalVisible(false)
       : handleBeforePress;
@@ -90,12 +97,16 @@ const InstaGuideModal = ({name, tikkling_id}) => {
           text={prevButtonText}
           style={styles.prevButton}
         />
-        <View style={styles.buttonSpacer}></View>
-        <Button
-          onPress={nextButtonPress}
-          text={nextButtonText}
-          style={styles.nextButton}
-        />
+        {isLastPage ? null : (
+          <View style={{flexDirection: 'row'}}>
+            <View style={styles.buttonSpacer}></View>
+            <Button
+              onPress={handleNextPress}
+              text={nextButtonText}
+              style={styles.nextButton}
+            />
+          </View>
+        )}
       </View>
     );
   };
@@ -220,6 +231,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
               {Platform.OS === 'ios' ? <InstaGuideComponentForIos /> : null}
               <InstaGuideComponent3 />
               <InstaGuideComponent4 />
+              <InstaGuideComponent5 name={name} tikkling_id={tikkling_id} />
             </ScrollView>
           </View>
           <View style={{marginVertical: 16, alignItems: 'center'}}>
