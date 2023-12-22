@@ -88,6 +88,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
     const prevButtonPress = isFirstPage
       ? () => actions.setIsInstagramButtonModalVisible(false)
       : handleBeforePress;
+
     const prevButtonText = isFirstPage ? '닫기' : '이전';
 
     return (
@@ -145,8 +146,8 @@ const InstaGuideModal = ({name, tikkling_id}) => {
         y: 0,
         animated: true,
       });
-      setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
-      setCurrentDetailText(nextPage);
+      // setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
+      // setCurrentDetailText(nextPage);
     }
   };
 
@@ -160,8 +161,8 @@ const InstaGuideModal = ({name, tikkling_id}) => {
       y: 0,
       animated: true,
     });
-    setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
-    setCurrentDetailText(currentDetailText - 1);
+    // setCurrentPage(nextPage); // 현재 페이지 상태 업데이트
+    // setCurrentDetailText(currentDetailText - 1);
   };
 
   return (
