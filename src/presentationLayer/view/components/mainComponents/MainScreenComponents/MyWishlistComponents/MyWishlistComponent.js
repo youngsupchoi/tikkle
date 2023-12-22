@@ -1,5 +1,5 @@
-import {View, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import {View, Image, ScrollView} from 'react-native';
+import React, {useEffect, useRef} from 'react';
 import {useMainViewModel} from 'src/presentationLayer/viewModel/mainViewModels/MainViewModel';
 import {
   COLOR_BLACK,
@@ -35,11 +35,29 @@ import {
 } from 'src/presentationLayer/view/components/globalComponents/Spacing/BaseSpacing';
 import {useNavigation} from '@react-navigation/native';
 
+import InstaGuideComponent1 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent1';
+import InstaGuideComponent2 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent2';
+import InstaGuideComponent3 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent3';
+import InstaGuideComponent4 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent4';
+import InstaGuideComponent5 from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponent5';
+import InstaGuideComponentForIos from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideComponentForIos';
+
 export default function MyWishlistComponent() {
   const {state, ref, actions} = useMainViewModel();
   const [wishlist_tooltip, setWishlist_tooltip] = React.useState(false);
   const [tikkling_tooltip, setTikkling_tooltip] = React.useState(false);
   const navigation = useNavigation();
+
+  const handleScroll = event => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    // console.log('offsetX', event.nativeEvent.layoutMeasurement.width);
+    const pageWidth = event.nativeEvent.layoutMeasurement.width;
+    const currentPage = Math.floor(offsetX / pageWidth + 0.5);
+    // setCurrentPage(currentPage);
+    // setCurrentDetailText(currentPage);
+  };
+
+  const scrollViewRef = useRef();
 
   const startTikklingButtonPress = () => {
     const wishlist = {
@@ -118,49 +136,6 @@ export default function MyWishlistComponent() {
             alignItems: 'center',
           }}>
           <B20 customStyle={{fontFamily: EB}}>내 위시리스트</B20>
-
-          {/* <Tooltip
-            topAdjustment={Platform.OS === 'android' ? -StatusBarHeight : 0}
-            isVisible={wishlist_tooltip}
-            content={
-              <View style={{width: 350}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: 3,
-                  }}>
-                  <B15 customStyle={{marginLeft: 10, color: COLOR_PRIMARY}}>
-                    {'위시리스트'}
-                  </B15>
-                </View>
-                <View
-                  style={{
-                    marginBottom: 3,
-                  }}>
-                  <M15>
-                    {'• 상품을 자장해두고 언제든지 티클링을 시작해 보세요!'}
-                  </M15>
-                </View>
-              </View>
-            }
-            placement="top"
-            animated={true}
-            backgroundColor="rgba(0,0,0,0.1)"
-            // backgroundColor="transparent"
-            disableShadow={true}
-            onClose={() => {
-              setWishlist_tooltip(false);
-            }}>
-            <AnimatedButton
-              style={{marginLeft: 10}}
-              onPress={() => {
-                setWishlist_tooltip(true);
-              }}>
-              <Help width={22} height={22} />
-            </AnimatedButton>
-          </Tooltip> */}
         </View>
 
         <AnimatedButton
@@ -178,94 +153,304 @@ export default function MyWishlistComponent() {
         </AnimatedButton>
       </View>
       <View style={{padding: 20, paddingTop: 8}}>
-        {state.wishlistData.length !== 0 ? (
-          state.wishlistData.map((wishlist, index) => {
-            return (
-              <AnimatedButton
-                key={actions.keyExtractor(wishlist, index)}
-                onPress={() => {
-                  // console.log('wishlist', wishlist);
-                  const product_id = wishlist.product_id;
-                  navigation.navigate('productDetail', {product_id});
-                }}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginVertical: 12,
-                  alignItems: 'center',
-                  backgroundColor: COLOR_WHITE,
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Image
-                    resizeMode="cover"
-                    source={{
-                      uri: wishlist.thumbnail_image,
-                    }}
-                    style={{width: 80, height: 80, borderRadius: 16}}
-                  />
-                  <View style={{marginLeft: 12}}>
-                    <B17 customStyle={{fontFamily: EB}}>
-                      {wishlist.name.length > 17
-                        ? wishlist.name.substring(0, 14) + '...'
-                        : wishlist.name}
-                    </B17>
-                    <B15 customStyle={{color: COLOR_GRAY}}>
-                      {wishlist.brand_name}
-                    </B15>
-                    <B12 customStyle={{color: COLOR_GRAY}}>
-                      ￦{wishlist.price.toLocaleString()}
-                    </B12>
-                  </View>
-                </View>
-                {state.myTikklingData !== undefined ? null : (
-                  <AnimatedButton
-                    onPress={() => {
-                      try {
-                        actions.setSelectedWishlistData(
-                          state.wishlistData[index],
-                        );
-                        actions
-                          .hasOptions(state.wishlistData[index].product_id)
-                          .then(optionStatus => {
-                            // console.log(optionStatus);
-
-                            actions.setShowProductOptionsModal(true);
-                          })
-                          .catch(error => {
-                            console.log('Error occurred', error);
-                          });
-                      } catch (error) {
-                        console.error('Error occurred:', error);
-                      }
-                    }}
-                    style={{
-                      padding: 4,
-                      paddingHorizontal: 8,
-                      backgroundColor: COLOR_SECONDARY,
-                      borderRadius: 8,
-                      position: 'absolute',
-                      right: 10,
-                      bottom: 10,
-                      borderColor: COLOR_PRIMARY,
-                      borderWidth: 0.5,
-                    }}>
-                    <B12
-                      customStyle={{
-                        fontFamily: EB,
-                        color: COLOR_PRIMARY,
+        {state.wishlistData.length >= 3 ? (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={true}
+            style={{
+              width: 325,
+            }}
+            horizontal
+            pagingEnabled
+            onScroll={handleScroll}
+            scrollEventThrottle={16} // 조정 가능한 값으로, 스크롤 이벤트의 빈도를 조절합니다.
+            ref={scrollViewRef}>
+            {state.wishlistData.map((wishlist, index) => {
+              if (index % 3 == 0) {
+                return (
+                  <View key={actions.keyExtractor(wishlist, index)}>
+                    <AnimatedButton
+                      onPress={() => {
+                        // console.log('wishlist', wishlist);
+                        const product_id = wishlist.product_id;
+                        navigation.navigate('productDetail', {product_id});
+                      }}
+                      style={{
+                        width: 325,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        marginVertical: 12,
+                        alignItems: 'center',
+                        backgroundColor: COLOR_WHITE,
                       }}>
-                      티클링 시작
-                    </B12>
-                  </AnimatedButton>
-                )}
-              </AnimatedButton>
-            );
-          })
-        ) : (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}>
+                        <Image
+                          resizeMode="cover"
+                          source={{
+                            uri: wishlist.thumbnail_image,
+                          }}
+                          style={{width: 80, height: 80, borderRadius: 16}}
+                        />
+                        <View style={{marginLeft: 12}}>
+                          <B17 customStyle={{fontFamily: EB}}>
+                            {wishlist.name.length > 17
+                              ? wishlist.name.substring(0, 14) + '...'
+                              : wishlist.name}
+                          </B17>
+                          <B15 customStyle={{color: COLOR_GRAY}}>
+                            {wishlist.brand_name}
+                          </B15>
+                          <B12 customStyle={{color: COLOR_GRAY}}>
+                            ￦{wishlist.price.toLocaleString()}
+                          </B12>
+                        </View>
+                      </View>
+                      {state.myTikklingData !== undefined ? null : (
+                        <AnimatedButton
+                          onPress={() => {
+                            try {
+                              actions.setSelectedWishlistData(
+                                state.wishlistData[index],
+                              );
+                              actions
+                                .hasOptions(
+                                  state.wishlistData[index].product_id,
+                                )
+                                .then(optionStatus => {
+                                  // console.log(optionStatus);
+
+                                  actions.setShowProductOptionsModal(true);
+                                })
+                                .catch(error => {
+                                  console.log('Error occurred', error);
+                                });
+                            } catch (error) {
+                              console.error('Error occurred:', error);
+                            }
+                          }}
+                          style={{
+                            padding: 4,
+                            paddingHorizontal: 8,
+                            backgroundColor: COLOR_SECONDARY,
+                            borderRadius: 8,
+                            position: 'absolute',
+                            right: 10,
+                            bottom: 10,
+                            borderColor: COLOR_PRIMARY,
+                            borderWidth: 0.5,
+                          }}>
+                          <B12
+                            customStyle={{
+                              fontFamily: EB,
+                              color: COLOR_PRIMARY,
+                            }}>
+                            티클링 시작
+                          </B12>
+                        </AnimatedButton>
+                      )}
+                    </AnimatedButton>
+
+                    {state.wishlistData.length > index + 1 ? (
+                      <AnimatedButton
+                        onPress={() => {
+                          // console.log('wishlist', wishlist);
+                          const product_id =
+                            state.wishlistData[index + 1].product_id;
+                          navigation.navigate('productDetail', {product_id});
+                        }}
+                        style={{
+                          width: 325,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          marginVertical: 12,
+                          alignItems: 'center',
+                          backgroundColor: COLOR_WHITE,
+                        }}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}>
+                          <Image
+                            resizeMode="cover"
+                            source={{
+                              uri: state.wishlistData[index + 1]
+                                .thumbnail_image,
+                            }}
+                            style={{width: 80, height: 80, borderRadius: 16}}
+                          />
+                          <View style={{marginLeft: 12}}>
+                            <B17 customStyle={{fontFamily: EB}}>
+                              {state.wishlistData[index + 1].name.length > 17
+                                ? state.wishlistData[index + 1].name.substring(
+                                    0,
+                                    14,
+                                  ) + '...'
+                                : state.wishlistData[index + 1].name}
+                            </B17>
+                            <B15 customStyle={{color: COLOR_GRAY}}>
+                              {state.wishlistData[index + 1].brand_name}
+                            </B15>
+                            <B12 customStyle={{color: COLOR_GRAY}}>
+                              ￦
+                              {state.wishlistData[
+                                index + 1
+                              ].price.toLocaleString()}
+                            </B12>
+                          </View>
+                        </View>
+                        {state.myTikklingData !== undefined ? null : (
+                          <AnimatedButton
+                            onPress={() => {
+                              try {
+                                actions.setSelectedWishlistData(
+                                  state.wishlistData[index + 1],
+                                );
+                                actions
+                                  .hasOptions(
+                                    state.wishlistData[index + 1].product_id,
+                                  )
+                                  .then(optionStatus => {
+                                    // console.log(optionStatus);
+
+                                    actions.setShowProductOptionsModal(true);
+                                  })
+                                  .catch(error => {
+                                    console.log('Error occurred', error);
+                                  });
+                              } catch (error) {
+                                console.error('Error occurred:', error);
+                              }
+                            }}
+                            style={{
+                              padding: 4,
+                              paddingHorizontal: 8,
+                              backgroundColor: COLOR_SECONDARY,
+                              borderRadius: 8,
+                              position: 'absolute',
+                              right: 10,
+                              bottom: 10,
+                              borderColor: COLOR_PRIMARY,
+                              borderWidth: 0.5,
+                            }}>
+                            <B12
+                              customStyle={{
+                                fontFamily: EB,
+                                color: COLOR_PRIMARY,
+                              }}>
+                              티클링 시작
+                            </B12>
+                          </AnimatedButton>
+                        )}
+                      </AnimatedButton>
+                    ) : null}
+
+                    {state.wishlistData.length > index + 2 ? (
+                      <AnimatedButton
+                        onPress={() => {
+                          // console.log('wishlist', wishlist);
+                          const product_id =
+                            state.wishlistData[index + 2].product_id;
+                          navigation.navigate('productDetail', {product_id});
+                        }}
+                        style={{
+                          width: 325,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          marginVertical: 12,
+                          alignItems: 'center',
+                          backgroundColor: COLOR_WHITE,
+                        }}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}>
+                          <Image
+                            resizeMode="cover"
+                            source={{
+                              uri: state.wishlistData[index + 2]
+                                .thumbnail_image,
+                            }}
+                            style={{width: 80, height: 80, borderRadius: 16}}
+                          />
+                          <View style={{marginLeft: 12}}>
+                            <B17 customStyle={{fontFamily: EB}}>
+                              {state.wishlistData[index + 2].name.length > 17
+                                ? state.wishlistData[index + 2].name.substring(
+                                    0,
+                                    14,
+                                  ) + '...'
+                                : state.wishlistData[index + 2].name}
+                            </B17>
+                            <B15 customStyle={{color: COLOR_GRAY}}>
+                              {state.wishlistData[index + 2].brand_name}
+                            </B15>
+                            <B12 customStyle={{color: COLOR_GRAY}}>
+                              ￦
+                              {state.wishlistData[
+                                index + 2
+                              ].price.toLocaleString()}
+                            </B12>
+                          </View>
+                        </View>
+                        {state.myTikklingData !== undefined ? null : (
+                          <AnimatedButton
+                            onPress={() => {
+                              try {
+                                actions.setSelectedWishlistData(
+                                  state.wishlistData[index + 2],
+                                );
+                                actions
+                                  .hasOptions(
+                                    state.wishlistData[index + 2].product_id,
+                                  )
+                                  .then(optionStatus => {
+                                    // console.log(optionStatus);
+
+                                    actions.setShowProductOptionsModal(true);
+                                  })
+                                  .catch(error => {
+                                    console.log('Error occurred', error);
+                                  });
+                              } catch (error) {
+                                console.error('Error occurred:', error);
+                              }
+                            }}
+                            style={{
+                              padding: 4,
+                              paddingHorizontal: 8,
+                              backgroundColor: COLOR_SECONDARY,
+                              borderRadius: 8,
+                              position: 'absolute',
+                              right: 10,
+                              bottom: 10,
+                              borderColor: COLOR_PRIMARY,
+                              borderWidth: 0.5,
+                            }}>
+                            <B12
+                              customStyle={{
+                                fontFamily: EB,
+                                color: COLOR_PRIMARY,
+                              }}>
+                              티클링 시작
+                            </B12>
+                          </AnimatedButton>
+                        )}
+                      </AnimatedButton>
+                    ) : null}
+                  </View>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </ScrollView>
+        ) : state.wishlistData.length == 0 ? (
           <View
             style={{
               alignItems: 'center',
@@ -396,6 +581,95 @@ export default function MyWishlistComponent() {
               />
             </AnimatedButton>
           </View>
+        ) : (
+          state.wishlistData.map((wishlist, index) => {
+            return (
+              <View key={actions.keyExtractor(wishlist, index)}>
+                <AnimatedButton
+                  onPress={() => {
+                    // console.log('wishlist', wishlist);
+                    const product_id = wishlist.product_id;
+                    navigation.navigate('productDetail', {product_id});
+                  }}
+                  style={{
+                    width: 325,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginVertical: 12,
+                    alignItems: 'center',
+                    backgroundColor: COLOR_WHITE,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <Image
+                      resizeMode="cover"
+                      source={{
+                        uri: wishlist.thumbnail_image,
+                      }}
+                      style={{width: 80, height: 80, borderRadius: 16}}
+                    />
+                    <View style={{marginLeft: 12}}>
+                      <B17 customStyle={{fontFamily: EB}}>
+                        {wishlist.name.length > 17
+                          ? wishlist.name.substring(0, 14) + '...'
+                          : wishlist.name}
+                      </B17>
+                      <B15 customStyle={{color: COLOR_GRAY}}>
+                        {wishlist.brand_name}
+                      </B15>
+                      <B12 customStyle={{color: COLOR_GRAY}}>
+                        ￦{wishlist.price.toLocaleString()}
+                      </B12>
+                    </View>
+                  </View>
+                  {state.myTikklingData !== undefined ? null : (
+                    <AnimatedButton
+                      onPress={() => {
+                        try {
+                          actions.setSelectedWishlistData(
+                            state.wishlistData[index],
+                          );
+                          actions
+                            .hasOptions(state.wishlistData[index].product_id)
+                            .then(optionStatus => {
+                              // console.log(optionStatus);
+
+                              actions.setShowProductOptionsModal(true);
+                            })
+                            .catch(error => {
+                              console.log('Error occurred', error);
+                            });
+                        } catch (error) {
+                          console.error('Error occurred:', error);
+                        }
+                      }}
+                      style={{
+                        padding: 4,
+                        paddingHorizontal: 8,
+                        backgroundColor: COLOR_SECONDARY,
+                        borderRadius: 8,
+                        position: 'absolute',
+                        right: 10,
+                        bottom: 10,
+                        borderColor: COLOR_PRIMARY,
+                        borderWidth: 0.5,
+                      }}>
+                      <B12
+                        customStyle={{
+                          fontFamily: EB,
+                          color: COLOR_PRIMARY,
+                        }}>
+                        티클링 시작
+                      </B12>
+                    </AnimatedButton>
+                  )}
+                </AnimatedButton>
+              </View>
+            );
+          })
         )}
       </View>
       {/* {console.log('modalshow', state.showProductOptionsModal)} */}
