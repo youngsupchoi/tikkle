@@ -109,6 +109,15 @@ export const MainViewStateProvider = ({children}) => {
 
   const instaGuideImageSize = windowWidth - 48;
 
+  const instaShareImageUrl = [
+    'https://d2da4yi19up8sp.cloudfront.net/instagram_background_2.png',
+    'https://d2da4yi19up8sp.cloudfront.net/instagram_background_3.png',
+  ];
+  const instaShareEX = [
+    'https://d2da4yi19up8sp.cloudfront.net/ex_00.png',
+    'https://d2da4yi19up8sp.cloudfront.net/ex_11.png',
+  ];
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -182,6 +191,8 @@ export const MainViewStateProvider = ({children}) => {
     delivery_check_link,
     refundData,
     instaGuideImageSize,
+    instaShareImageUrl,
+    instaShareEX,
   };
 
   const actions = {
