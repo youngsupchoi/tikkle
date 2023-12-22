@@ -118,6 +118,8 @@ export const MainViewStateProvider = ({children}) => {
     'https://d2da4yi19up8sp.cloudfront.net/ex_11.png',
   ];
 
+  const [templateType, setTemplateType] = useState(null);
+
   // ... 다른 상태들
   const ref = {
     dropdownAnimation,
@@ -193,6 +195,7 @@ export const MainViewStateProvider = ({children}) => {
     instaGuideImageSize,
     instaShareImageUrl,
     instaShareEX,
+    templateType,
   };
 
   const actions = {
@@ -259,6 +262,7 @@ export const MainViewStateProvider = ({children}) => {
     setEndTikklingInfo,
     setDelivery_check_link,
     setRefundData,
+    setTemplateType,
   };
 
   return (

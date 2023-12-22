@@ -8,6 +8,8 @@ import {
 import React, {useEffect} from 'react';
 import HomeHeader from 'src/presentationLayer/view/components/globalComponents/Headers/HomeHeader';
 import {
+  COLOR_CHRISTMAS_RED_ONE,
+  COLOR_CHRISTMAS_RED_TWO,
   COLOR_PRIMARY,
   COLOR_WHITE,
   backgroundColor,
@@ -20,8 +22,12 @@ import {
   B12,
   B15,
   B20,
+  CHRISTMAS_TILE24,
+  CHRISTMAS_TILE32,
   EB,
+  M11,
   M15,
+  R,
   UNIQUE22,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import {HomeLoader} from 'src/presentationLayer/view/components/globalComponents/Skeletons/Skeletons';
@@ -57,15 +63,8 @@ import CompleteTikklingBackground from 'src/presentationLayer/view/components/ma
 import EventModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/EventModal';
 import DeliveryCheck from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/DeliveryCheck';
 import RefundCheck from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/RefundCheck';
+import ViewShotComponent from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ViewShotComponents/ViewShotComponent';
 // Get the screen width
-const {width} = Dimensions.get('window');
-
-// Function to scale the font size
-const scaleText = size => {
-  const scale = width / 500; // 320 is an example base width
-  const newSize = size * scale;
-  return Math.round(newSize);
-};
 
 export default function HomeScreen({route}) {
   const {ref, state, actions} = useMainViewModel();
@@ -176,76 +175,8 @@ export default function HomeScreen({route}) {
           itemImage={state.myTikklingData.thumbnail_image}
         /> */}
       </View>
-      <ViewShot
-        style={{
-          position: 'absolute',
-          top: 1000,
-          zIndex: -100,
-          // marginBottom: 500,
-        }}
-        ref={state.viewShotRef}>
-        <UNIQUE22
-          customStyle={{
-            color: COLOR_WHITE,
-            width: windowWidth - 48,
-            textAlign: 'center',
-            fontSize: 36,
-            lineHeight: 44,
-          }}>
-          TIKKLE
-        </UNIQUE22>
-        <View
-          style={{
-            padding: 24,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: windowWidth - 48,
-          }}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 0.75}}
-            colors={['rgba(135,134,218,100)', 'rgba(53,51,143,100)']}
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 0,
-              borderRadius: 23,
-            }}
-          />
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={['rgba(100,98,231,100)', 'rgba(100,98,231,88)']}
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 0,
-              borderRadius: 20,
-              borderWidth: 3,
-              borderColor: 'transparent',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              width: '100%',
-              justifyContent: 'center',
-            }}>
-            <B20 customStyle={styles.B20_screen}>
-              {state.userData.name}님에게
-            </B20>
-            <B20 customStyle={styles.B20_screen}>축하 선물 보내러 가기</B20>
-            <M15 customStyle={styles.M15_screen}>
-              잊을 수 없는 경험을 선물해보세요.
-            </M15>
-          </View>
-        </View>
-        <View style={{height: 400}} />
-      </ViewShot>
+      <ViewShotComponent />
+
       <ScrollView
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
@@ -325,18 +256,5 @@ const styles = StyleSheet.create({
   },
   homeFooter: {
     height: 50,
-  },
-
-  B20_screen: {
-    color: COLOR_WHITE,
-    fontFamily: EB,
-    fontSize: scaleText(32), // Scaled font size
-    lineHeight: 48,
-  },
-  M15_screen: {
-    color: COLOR_WHITE,
-    fontFamily: EB, // Assuming you want the same font family
-    fontSize: scaleText(20), // Scaled font size
-    lineHeight: 44,
   },
 });

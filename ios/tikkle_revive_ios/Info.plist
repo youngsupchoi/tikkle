@@ -61,8 +61,6 @@
 	</array>
 	<key>KAKAO_APP_KEY</key>
 	<string>d887c85791eefc06f749efec74c22acd</string>
-	<!-- <key>KAKAO_APP_SCHEME</key>
-+ <string>kakaotalk://</string> -->
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakao0123456789</string>
@@ -141,7 +139,7 @@
 	<key>NSContactsUsageDescription</key>
 	<string>연락처 상 가입된 친구가 있다면 자동으로 친구가 추가됩니다. 그 외의 용도로는 절대 저장 또는 사용하지 않습니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photos to allow you to choose a profile picture.</string>
 	<key>UIAppFonts</key>
@@ -159,6 +157,7 @@
 		<string>BMHANNA_11yrs_otf.otf</string>
 		<string>Modak-Regular.ttf</string>
 		<string>BebasNeue-Regular.ttf</string>
+		<string>BlackHanSans-Regular.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

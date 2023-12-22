@@ -49,6 +49,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import KakaoShareLink from 'react-native-kakao-share-link';
 import AutoHeightImage from 'react-native-auto-height-image';
+import ChristmasLogo27 from 'src/presentationLayer/view/components/globalComponents/logo/ChristmasLogo27';
 // import VersionCheck from 'react-native-version-check';
 
 export default function HomeHeader(props) {
@@ -58,9 +59,6 @@ export default function HomeHeader(props) {
   const navigation = useNavigation();
 
   const {topActions} = useTopViewModel();
-
-  const TIKKLE = 'TIKKLE';
-  const COLORS = [COLOR_CHRISTMAS_GREEN_ONE, COLOR_CHRISTMAS_RED_TWO];
 
   return (
     <View style={styles.headerContainer}>
@@ -91,23 +89,7 @@ export default function HomeHeader(props) {
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <AutoHeightImage
-          source={require('src/assets/images/ChristmasCherry.png')}
-          style={styles.cherryImage}
-          width={16}
-        />
-        <AutoHeightImage
-          source={require('src/assets/images/ChristmasGift.png')}
-          style={styles.giftImage}
-          width={20}
-        />
-        {TIKKLE.split('').map((letter, index) => (
-          <UNIQUE27
-            key={index}
-            customStyle={{color: COLORS[index % COLORS.length]}}>
-            {letter}
-          </UNIQUE27>
-        ))}
+        <ChristmasLogo27 />
 
         <AnimatedButton
           onPress={() => {
@@ -244,17 +226,5 @@ const styles = StyleSheet.create({
     position: 'sticky',
     top: 0,
     zIndex: 100,
-  },
-  cherryImage: {
-    position: 'absolute',
-    zIndex: -2,
-    top: 0,
-    left: -8,
-  },
-  giftImage: {
-    position: 'absolute',
-    zIndex: 1,
-    bottom: 6,
-    right: 16,
   },
 });

@@ -506,6 +506,7 @@ export const useMainViewModel = () => {
   const onInstagramShareButtonPressed = async (name, tikkling_id, type) => {
     await actions.setLoading(true);
     try {
+      actions.setTemplateType(type);
       let uri;
       // console.log('인스타그램 버튼 눌림', name, tikkling_id);
 
