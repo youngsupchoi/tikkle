@@ -6,6 +6,8 @@ import {
   COLOR_PRIMARY,
   COLOR_GRAY,
   backgroundColor,
+  COLOR_WHITE,
+  COLOR_SEPARATOR,
 } from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 import {
   useSharedValue,
@@ -18,6 +20,7 @@ import {
   B17,
   B22,
   B28,
+  CHRISTMAS_TITLE,
   EB,
   H,
   R,
@@ -59,9 +62,9 @@ const InstaGuideModal = ({name, tikkling_id}) => {
       case 4:
         return Platform.OS === 'ios'
           ? '자유롭게 꾸며서 티클링을 공유해보세요!'
-          : '공유할 스토리 템플릿을 선택하세요.';
+          : '공유할 스토리 템플릿을 선택하세요!';
       default:
-        return '공유할 스토리 템플릿을 선택하세요.';
+        return '공유할 스토리 템플릿을 선택하세요!';
     }
   };
 
@@ -180,7 +183,7 @@ const InstaGuideModal = ({name, tikkling_id}) => {
       <View
         style={[
           {
-            backgroundColor: backgroundColor,
+            backgroundColor: COLOR_WHITE,
             borderRadius: 16,
             width: windowWidth - 32,
             alignItems: 'center',
@@ -202,8 +205,9 @@ const InstaGuideModal = ({name, tikkling_id}) => {
             <B28
               customStyle={{
                 color: COLOR_BLACK,
-                fontFamily: H,
-                fontSize: 24,
+                fontFamily: CHRISTMAS_TITLE,
+                fontSize: 28,
+                lineHeight: 32,
               }}>
               스토리 공유 가이드
             </B28>
@@ -242,12 +246,26 @@ const InstaGuideModal = ({name, tikkling_id}) => {
                 fontFamily: UNIQUE,
                 fontSize: 24,
                 lineHeight: 32,
+                backgroundColor: COLOR_WHITE,
+                paddingHorizontal: 12,
+                zIndex: 1,
               }}>
               Step {currentDetailText + 1}.
             </B17>
-            <B15 customStyle={{fontFamily: R}}>
-              {getDisplayText(currentDetailText)}
-            </B15>
+            <View
+              style={{
+                padding: 24,
+                borderColor: COLOR_SEPARATOR,
+                borderWidth: 1,
+                borderRadius: 12,
+                width: windowWidth - 64,
+                alignItems: 'center',
+                top: -20,
+              }}>
+              <B15 customStyle={{fontFamily: R}}>
+                {getDisplayText(currentDetailText)}
+              </B15>
+            </View>
           </View>
 
           <View style={{marginTop: 12}}>
