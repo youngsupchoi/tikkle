@@ -20,6 +20,11 @@
 //kakao sdk
 #import <RNKakaoLogins.h>
 
+//code push sdk
+#import <CodePush/CodePush.h>
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
 
 @implementation AppDelegate
 
@@ -61,6 +66,12 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     
   #endif
 
+  // App Center SDK 초기화
+  [AppCenterReactNative register];  // App Center 기본 모듈
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];  // 애널리틱스 활성화
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];  // 크래시 리포팅 활성화
+
+
 
   // if ([FIRApp defaultApp] == nil) { // 추가 (line:35)
     // [FIRApp configure];
@@ -94,7 +105,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
 #else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  return [CodePush bundleURL]; // 이 부분을 수정했습니다.
 #endif
 }
 

@@ -32,7 +32,7 @@ const scaleText = size => {
   return Math.round(newSize);
 };
 
-export default function ViewShotComponent() {
+export default function ViewShotComponent(isMine = true) {
   const {ref, state, actions} = useMainViewModel();
 
   return (
@@ -97,8 +97,10 @@ export default function ViewShotComponent() {
                 width: '100%',
                 justifyContent: 'center',
               }}>
+              {console.log(state.route_data.user_name)}
               <B20 customStyle={styles.B20_screen1}>
-                {state.userData.name}님에게
+                {isMine ? state.userData.name : state.route_data.user_name}
+                님에게
               </B20>
               <B20 customStyle={styles.B20_screen2}>축하 선물 보내러 가기</B20>
               <M15 customStyle={styles.M15_screen}>
@@ -129,20 +131,13 @@ export default function ViewShotComponent() {
           </View>
           <View style={{marginTop: scaleText(4)}}>
             <M11 customStyle={styles.CHRISTMAS_DESCRIPTION11_screen}>
-              이번 크리스마스,
-            </M11>
-            <M11 customStyle={styles.CHRISTMAS_DESCRIPTION11_screen}>
               산타 할아버지가 굴뚝에 끼여
             </M11>
             <M11 customStyle={styles.CHRISTMAS_DESCRIPTION11_screen}>
-              조금 난감한 상황이에요!
+              착한 아이에게 선물을 줄 수 없대요!
             </M11>
-            {/* <M11 customStyle={styles.CHRISTMAS_DESCRIPTION11_screen}>
-              착한 아이에게 선물을 줄 수 없대요..
-            </M11> */}
-            <View style={{marginTop: scaleText(12)}}>
+            <View style={{marginTop: scaleText(8)}}>
               <M11 customStyle={styles.CHRISTMAS_DESCRIPTION11_screen}>
-                착한 아이{' '}
                 <B12 customStyle={styles.CHRISTMAS_DESCRIPTION12_screen}>
                   {state.userData.name}
                 </B12>

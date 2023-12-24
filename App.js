@@ -38,8 +38,13 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import codePush from 'react-native-code-push';
 
-export default function App() {
+// const codePushOptions = {
+//   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+// };
+
+function App() {
   SystemNavigationBar.navigationShow();
   SystemNavigationBar.setNavigationColor(backgroundColor);
   SystemNavigationBar.setBarMode('dark');
@@ -137,3 +142,5 @@ export default function App() {
     </GestureHandlerRootView>
   );
 }
+
+export default codePush(App);
