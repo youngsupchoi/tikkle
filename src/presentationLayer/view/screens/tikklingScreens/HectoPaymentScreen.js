@@ -54,7 +54,14 @@ export function HectoPaymentScreen(route) {
       await topActions.showSnackbar('서버오류로 결제 취소에 실패했어요', 0);
     }
 
-    navigation.replace('main', response);
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'main',
+        },
+      ],
+    });
   }
 
   //console.log('넘어옴 : ', data);

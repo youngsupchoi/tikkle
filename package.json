@@ -9,7 +9,19 @@
     "start": "react-native start",
     "test": "jest",
     "ios_apk": "react-native run-ios --variant=release",
-    "android_apk": "react-native run-android --variant=release"
+    "android_apk": "react-native run-android --variant=release",
+    "ios:dev:d": "react-native run-ios --scheme Develop --configuration Debug --simulator='iPhone 12'",
+    "ios:dev:r": "react-native run-ios --scheme Develop --configuration Release --device 'TEST iPhone'",
+    "ios:stg:d": "react-native run-ios --scheme Stage --configuration Debug --simulator='iPhone 12'",
+    "ios:stg:r": "react-native run-ios --scheme Stage --configuration Release --simulator='iPhone 12'",
+    "ios:prd:d": "react-native run-ios --scheme Product --configuration Debug --simulator='iPhone 12'",
+    "ios:prd:r": "react-native run-ios --scheme Product --configuration Release --device 'TEST iPhone'",
+    "android:dev:d": "react-native run-android --variant=developdebug",
+    "android:dev:r": "react-native run-android --variant=developrelease",
+    "android:stg:d": "react-native run-android --variant=stagedebug",
+    "android:stg:r": "react-native run-android --variant=stagerelease",
+    "android:prd:d": "react-native run-android --variant=productdebug",
+    "android:prd:r": "react-native run-android --variant=productrelease"
   },
   "dependencies": {
     "@actbase/react-daum-postcode": "^1.0.4",

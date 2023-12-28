@@ -3,6 +3,18 @@ apply plugin: "com.android.application"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "com.facebook.react"
 
+project.ext.envConfigFiles = [
+    developdebug: "env/.env.develop",
+    developrelease: "env/.env.develop", 
+    stagedebug: "env/.env.stage",
+    stagerelease: "env/.env.stage",
+    productdebug: "env/.env.product",    
+    productrelease: "env/.env.product",
+    anothercustombuild: ".env",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -80,8 +92,8 @@ android {
         applicationId "com.tikkle_revive_ios"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 22
-        versionName "1.0.22"
+        versionCode 24
+        versionName "1.0.24"
 resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.valueOf(System.currentTimeMillis())
         
     }
@@ -122,6 +134,16 @@ resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.valueOf(System.currentTime
             resValue "string", "CodePushDeploymentKey", "hGIUuZZunASs8TK4pmj9Ojls2YIla7yWa0-Yq"
     }
 }
+
+    flavorDimensions "version"
+    productFlavors {
+        develop {
+        }
+        stage {
+        }
+        product {
+        }
+    }
 
 }
 

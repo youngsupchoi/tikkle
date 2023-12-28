@@ -274,6 +274,7 @@ export default function FriendsTikklingCarousel(data) {
                 <AnimatedButton
                   onPress={() => {
                     setShowBuyModal(item.tikkling_id);
+                    console.log(item.user_id);
                     // moment().isAfter(moment(item.funding_limit).endOf('day'))
                     //   ? null
                     //   : setShowBuyModal(item.tikkling_id);
@@ -293,9 +294,7 @@ export default function FriendsTikklingCarousel(data) {
                   //   moment().isAfter(moment(item.funding_limit).endOf('day'))
                   // }
                 >
-                  <B15 customStyle={{color: COLOR_WHITE}}>
-                    {'티클 선물하기'}
-                  </B15>
+                  <B15 customStyle={{color: COLOR_WHITE}}>{'마음 전하기'}</B15>
                 </AnimatedButton>
               </View>
             </View>

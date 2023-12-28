@@ -27,6 +27,8 @@ export default function ProgressVisualization({
   const handleButtonPress = () => {
     const tikkleQuantity = state.myTikklingData.tikkle_quantity;
     const tikkleCount = Number(state.myTikklingData.tikkle_count);
+    const isMine = state.userData.id == state.myTikklingData.user_id;
+    console.log(isMine);
     // const fundingLimit = new Date(state.myTikklingData.funding_limit);
 
     if (FromDetail == true) {

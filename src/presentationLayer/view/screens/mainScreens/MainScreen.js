@@ -175,7 +175,12 @@ export default function HomeScreen({route}) {
           itemImage={state.myTikklingData.thumbnail_image}
         /> */}
       </View>
-      <ViewShotComponent />
+      {state.list_data && state.myTikklingData ? (
+        <ViewShotComponent
+          list_data={state.list_data}
+          itemImage={state.myTikklingData.thumbnail_image}
+        />
+      ) : null}
 
       <ScrollView
         stickyHeaderIndices={[0]}

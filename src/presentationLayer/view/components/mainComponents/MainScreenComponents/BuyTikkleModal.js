@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {PG} from '@env';
-import {View, StyleSheet, TextInput, Animated} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Animated,
+  Switch,
+  Platform,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {
@@ -12,6 +19,7 @@ import {
   B15,
   B12,
   M15,
+  B20,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
 import Bubble from 'src/assets/icons/Bubble';
 import {
@@ -19,6 +27,7 @@ import {
   COLOR_GRAY,
   COLOR_PRIMARY,
   COLOR_PRIMARY_OUTLINE,
+  COLOR_SECONDARY,
   COLOR_SECOND_BLACK,
   COLOR_SEPARATOR,
   COLOR_WHITE,
@@ -39,7 +48,10 @@ import Add from 'src/assets/icons/Add';
 import Minus from 'src/assets/icons/Minus';
 import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
 
+const lineHeight = 24;
+const numberOfLines = 10; // 줄의 개수 설정
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
   //토큰 가져오기
@@ -110,6 +122,14 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   const [selectedValue, setSelectedValue] = useState(1);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [sendTikkle, setSendTikkle] = useState(true);
+  const toggleSwitch = () => setSendTikkle(previousState => !previousState);
+
+  const lines = [];
+  for (let i = 2; i < numberOfLines; i++) {
+    lines.push(<View key={i} style={[styles.line, {top: lineHeight * i}]} />);
+  }
+
   const totalPieces = data.tikkle_quantity;
   let gatheredPieces = data.tikkle_count;
 
@@ -132,6 +152,17 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
   const [serverMessage, setServerMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const isMine = state.userData.id == data.user_id;
+
+  const onlyMessageSendingPress = async () => {
+    if (data.state_id == 1) {
+      await post_tikkling_sendtikkle(data).then(res => {
+        if (res.success === true) {
+          console.log(res);
+        }
+      });
+    }
+  };
 
   const buttonPress = async () => {
     actions.setPaymentButtonPressed(true);
@@ -226,86 +257,170 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
             <View>
               <View
                 style={{
-                  margin: 10,
+                  margin: 8,
                   flexDirection: 'row',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
                 }}>
-                <B22>티클을 선물할까요?</B22>
-                <Tooltip
-                  // topAdjustment={
-                  //   Platform.OS === 'android' ? -StatusBarHeight : 0
-                  // }
-                  isVisible={buttikkletooltip}
-                  content={
-                    <View style={{padding: 12, paddingVertical: 4}}>
-                      <View>
-                        <B15 customStyle={{color: COLOR_PRIMARY}}>{'티클'}</B15>
-                        {/* <AnimatedButton
-                          onPress={() => {
-                            //Linking.openURL('https://www.lifoli.co.kr');
-                          }}>
-                          <B12
-                            customStyle={{marginRight: 10, color: COLOR_GRAY}}>
-                            {'더보기'}
-                          </B12>
-                        </AnimatedButton> */}
-                      </View>
-                      <View style={{}}>
-                        <View style={{}}>
-                          <M11 customStyle={{}}>
-                            {'티클은 5000원의 가치를 지니는 선물 조각이에요.'}
-                          </M11>
-                          <M11 customStyle={{}}>
-                            {'친구에게 티클을 선물해서 기념일을 축하해주세요!'}
-                          </M11>
-                        </View>
-                      </View>
-                    </View>
-                  }
-                  placement="top"
-                  animated={true}
-                  backgroundColor="rgba(0,0,0,0.1)"
-                  // backgroundColor="transparent"
-                  disableShadow={true}
-                  onClose={() => {
-                    setButtikkletooltip(false);
-                  }}>
-                  <AnimatedButton
-                    style={{marginLeft: 10}}
-                    onPress={() => {
-                      setButtikkletooltip(true);
-                    }}>
-                    <Help width={22} height={22} />
-                  </AnimatedButton>
-                </Tooltip>
-              </View>
-              <View style={{marginTop: 10}}>
-                {/* <M11 customStyle={{color: COLOR_GRAY}}>
-                  마음을 담은 메시지를 보내보세요.
-                </M11> */}
                 <View
                   style={{
-                    padding: 12,
-                    borderColor: COLOR_SEPARATOR,
-                    borderWidth: 1,
-                    borderRadius: 8,
-                    marginTop: 8,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    maxWidth: '50%',
                   }}>
-                  <TextInput
-                    multiline
-                    style={{
-                      color: COLOR_BLACK,
-                      fontFamily: M,
-                      fontSize: 15,
-                      // lineHeight: 24,
-                    }}
-                    onChangeText={value => setMessage(value)}
-                    placeholder="축하 메시지를 입력해주세요."
-                    placeholderTextColor={COLOR_GRAY}
-                  />
+                  <B20>
+                    {isMine ? '티클 구매하기' : `${data.user_name}님에게`}
+                  </B20>
+                  {isMine ? (
+                    <Tooltip
+                      isVisible={buttikkletooltip}
+                      content={
+                        <View style={{padding: 12, paddingVertical: 0}}>
+                          <View>
+                            <B15 customStyle={{color: COLOR_PRIMARY}}>
+                              {'티클'}
+                            </B15>
+                          </View>
+                          <View style={{}}>
+                            <View style={{}}>
+                              <M11 customStyle={{}}>
+                                {
+                                  '티클은 5,000원의 가치를 지니는 선물 조각이에요.'
+                                }
+                              </M11>
+                              <M11 customStyle={{}}>
+                                {
+                                  '친구에게 티클을 선물해서 기념일을 축하해주세요!'
+                                }
+                              </M11>
+                            </View>
+                          </View>
+                        </View>
+                      }
+                      placement="top"
+                      animated={true}
+                      backgroundColor="rgba(0,0,0,0.1)"
+                      // backgroundColor="transparent"
+                      disableShadow={true}
+                      onClose={() => {
+                        setButtikkletooltip(false);
+                      }}>
+                      <AnimatedButton
+                        style={{marginLeft: 4}}
+                        onPress={() => {
+                          setButtikkletooltip(true);
+                        }}>
+                        <Help width={22} height={22} />
+                      </AnimatedButton>
+                    </Tooltip>
+                  ) : null}
+                </View>
+                <View>
+                  {isMine ? null : (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 12,
+                        borderRadius: 12,
+                        borderColor: COLOR_SEPARATOR,
+                        borderWidth: 1,
+                        padding: 8,
+                        paddingLeft: 12,
+                      }}>
+                      <View
+                        style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <B12 customStyle={{color: COLOR_GRAY}}>
+                          티클 선물하기
+                        </B12>
+                        <Tooltip
+                          isVisible={buttikkletooltip}
+                          content={
+                            <View style={{padding: 12, paddingVertical: 0}}>
+                              <View>
+                                <B15 customStyle={{color: COLOR_PRIMARY}}>
+                                  {'티클'}
+                                </B15>
+                              </View>
+                              <View style={{}}>
+                                <View style={{}}>
+                                  <M11 customStyle={{}}>
+                                    {
+                                      '티클은 5,000원의 가치를 지니는 선물 조각이에요.'
+                                    }
+                                  </M11>
+                                  <M11 customStyle={{}}>
+                                    {
+                                      '친구에게 티클을 선물해서 기념일을 축하해주세요!'
+                                    }
+                                  </M11>
+                                </View>
+                              </View>
+                            </View>
+                          }
+                          placement="top"
+                          animated={true}
+                          backgroundColor="rgba(0,0,0,0.1)"
+                          // backgroundColor="transparent"
+                          disableShadow={true}
+                          onClose={() => {
+                            setButtikkletooltip(false);
+                          }}>
+                          <AnimatedButton
+                            style={{marginLeft: 4}}
+                            onPress={() => {
+                              setButtikkletooltip(true);
+                            }}>
+                            <Help width={22} height={22} />
+                          </AnimatedButton>
+                        </Tooltip>
+                      </View>
+                      <Switch
+                        trackColor={{false: '#767577', true: COLOR_PRIMARY}}
+                        thumbColor={sendTikkle ? COLOR_SECONDARY : '#f4f3f4'}
+                        ios_backgroundColor={COLOR_GRAY}
+                        onValueChange={toggleSwitch}
+                        value={sendTikkle}
+                      />
+                    </View>
+                  )}
                 </View>
               </View>
+              {isMine ? null : (
+                <View style={{marginTop: 0}}>
+                  {/* <M11 customStyle={{color: COLOR_GRAY}}>
+                  마음을 담은 메시지를 보내보세요.
+                </M11> */}
+                  <View
+                    style={{
+                      padding: 12,
+                      borderColor: COLOR_SEPARATOR,
+                      borderWidth: 1,
+                      borderRadius: 8,
+                      marginTop: 8,
+                    }}>
+                    <View style={styles.linesContainer}>{lines}</View>
+                    <TextInput
+                      numberOfLines={8}
+                      multiline
+                      style={{
+                        color: COLOR_BLACK,
+                        fontFamily: M,
+                        fontSize: 15,
+                        lineHeight: lineHeight,
+                        minHeight: windowWidth / 2,
+                        maxHeight: 8 * lineHeight,
+                      }}
+                      onChangeText={value => setMessage(value)}
+                      placeholder="마음을 담은 메시지를 전달해주세요."
+                      placeholderTextColor={COLOR_GRAY}
+                      underlineColorAndroid={COLOR_BLACK} // 안드로이드에서 밑줄 색상 설정
+                    />
+                    {Platform.OS === 'ios' && <View style={styles.underline} />}
+                    {/* iOS에서 밑줄 추가 */}
+                  </View>
+                </View>
+              )}
             </View>
           ) : (
             <View
@@ -325,14 +440,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                       <B15 customStyle={{color: COLOR_PRIMARY}}>
                         {'남은 티클 구매'}
                       </B15>
-                      {/* <AnimatedButton
-                        onPress={() => {
-                          // Linking.openURL('https://www.lifoli.co.kr');
-                        }}>
-                        <B12 customStyle={{marginRight: 10, color: COLOR_GRAY}}>
-                          {'더보기'}
-                        </B12>
-                      </AnimatedButton> */}
                     </View>
                     <View style={{}}>
                       <View style={{flexDirection: 'row'}}>
@@ -368,142 +475,172 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
             </View>
           )}
 
-          <View style={styles.amountContainer}>
-            <View>
-              {selectedValue > 1 && data.state_id == 1 ? (
-                <AnimatedButton
-                  onPress={() => {
-                    if (selectedValue > 1) {
-                      setSelectedValue(selectedValue - 1);
-                    }
-                  }}
-                  style={{
-                    borderColor: COLOR_PRIMARY,
-                    borderWidth: 1,
-                    padding: 12,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 12,
-                  }}>
-                  <Minus
-                    width={24}
-                    height={24}
-                    stroke={COLOR_PRIMARY}
-                    strokeWidth={2}
-                  />
-                </AnimatedButton>
-              ) : (
-                <AnimatedButton
-                  style={{
-                    borderColor: COLOR_GRAY,
-                    borderWidth: 1,
-                    padding: 12,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 12,
-                  }}>
-                  <Minus
-                    width={24}
-                    height={24}
-                    stroke={COLOR_GRAY}
-                    strokeWidth={2}
-                  />
-                </AnimatedButton>
-              )}
-            </View>
-            <View style={styles.amountItem}>
-              <View style={styles.itemContainer}>
-                <BubbleFilled
-                  // width={(24 * 5) / 6}
-                  // height={(24 * 5) / 6}
-                  // scale={(0.8 * 5) / 6}
-                  width={24}
-                  height={24}
-                  fill={COLOR_PRIMARY}
-                />
-                {/* <B17 customStyle={styles.itemTitle}>티클 수</B17> */}
+          {sendTikkle ? (
+            <View style={styles.amountContainer}>
+              <View>
+                {selectedValue > 1 && data.state_id == 1 ? (
+                  <AnimatedButton
+                    onPress={() => {
+                      if (selectedValue > 1) {
+                        setSelectedValue(selectedValue - 1);
+                      }
+                    }}
+                    style={{
+                      borderColor: COLOR_PRIMARY,
+                      borderWidth: 1,
+                      padding: 12,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 12,
+                    }}>
+                    <Minus
+                      width={24}
+                      height={24}
+                      stroke={COLOR_PRIMARY}
+                      strokeWidth={2}
+                    />
+                  </AnimatedButton>
+                ) : (
+                  <AnimatedButton
+                    style={{
+                      borderColor: COLOR_GRAY,
+                      borderWidth: 1,
+                      padding: 12,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 12,
+                    }}>
+                    <Minus
+                      width={24}
+                      height={24}
+                      stroke={COLOR_GRAY}
+                      strokeWidth={2}
+                    />
+                  </AnimatedButton>
+                )}
               </View>
-              <M20 customStyle={styles.itemDetail}>
-                {data.state_id == 1
-                  ? selectedValue
-                  : data.tikkle_quantity - data.tikkle_count}
-                개
-              </M20>
-            </View>
+              <View style={styles.amountItem}>
+                <View style={styles.itemContainer}>
+                  <BubbleFilled
+                    // width={(24 * 5) / 6}
+                    // height={(24 * 5) / 6}
+                    // scale={(0.8 * 5) / 6}
+                    width={24}
+                    height={24}
+                    fill={COLOR_PRIMARY}
+                  />
+                  {/* <B17 customStyle={styles.itemTitle}>티클 수</B17> */}
+                </View>
+                <M20 customStyle={styles.itemDetail}>
+                  {data.state_id == 1
+                    ? selectedValue
+                    : data.tikkle_quantity - data.tikkle_count}
+                  개
+                </M20>
+              </View>
 
-            <View>
-              {selectedValue < totalPieces - gatheredPieces &&
-              data.state_id == 1 ? (
-                <AnimatedButton
-                  onPress={() => {
-                    if (selectedValue < totalPieces - gatheredPieces) {
-                      setSelectedValue(selectedValue + 1);
-                    }
-                  }}
-                  style={{
-                    borderColor: COLOR_PRIMARY,
-                    borderWidth: 1,
-                    padding: 12,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 12,
-                  }}>
-                  <Add
-                    width={24}
-                    height={24}
-                    stroke={COLOR_PRIMARY}
-                    strokeWidth={2}
-                  />
-                </AnimatedButton>
-              ) : (
-                <AnimatedButton
-                  onPress={() => {
-                    if (selectedValue < totalPieces - gatheredPieces) {
-                      setSelectedValue(selectedValue + 1);
-                    }
-                  }}
-                  style={{
-                    borderColor: COLOR_GRAY,
-                    borderWidth: 1,
-                    padding: 12,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 12,
-                  }}>
-                  <Add
-                    width={24}
-                    height={24}
-                    stroke={COLOR_GRAY}
-                    strokeWidth={2}
-                  />
-                </AnimatedButton>
-              )}
+              <View>
+                {selectedValue < totalPieces - gatheredPieces &&
+                data.state_id == 1 ? (
+                  <AnimatedButton
+                    onPress={() => {
+                      if (selectedValue < totalPieces - gatheredPieces) {
+                        setSelectedValue(selectedValue + 1);
+                      }
+                    }}
+                    style={{
+                      borderColor: COLOR_PRIMARY,
+                      borderWidth: 1,
+                      padding: 12,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 12,
+                    }}>
+                    <Add
+                      width={24}
+                      height={24}
+                      stroke={COLOR_PRIMARY}
+                      strokeWidth={2}
+                    />
+                  </AnimatedButton>
+                ) : (
+                  <AnimatedButton
+                    onPress={() => {
+                      if (selectedValue < totalPieces - gatheredPieces) {
+                        setSelectedValue(selectedValue + 1);
+                      }
+                    }}
+                    style={{
+                      borderColor: COLOR_GRAY,
+                      borderWidth: 1,
+                      padding: 12,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 12,
+                    }}>
+                    <Add
+                      width={24}
+                      height={24}
+                      stroke={COLOR_GRAY}
+                      strokeWidth={2}
+                    />
+                  </AnimatedButton>
+                )}
+              </View>
             </View>
-          </View>
-          <View style={styles.buttonsContainer}>
-            <AnimatedButton
-              onPress={() => {
-                buttonPress();
-              }}
-              style={[
-                styles.presentButton,
-                state.paymentButtonPressed ? styles.inactiveButton : {},
-              ]}
-              disabled={state.paymentButtonPressed}>
-              <B17 customStyle={{color: COLOR_WHITE}}>
-                {state.paymentButtonPressed
-                  ? `처리중입니다`
-                  : `${
-                      data.state_id == 1
-                        ? (selectedValue * 5000).toLocaleString()
-                        : (
-                            (data.tikkle_quantity - data.tikkle_count) *
-                            5000
-                          ).toLocaleString()
-                    }원 결제하기`}
-              </B17>
-            </AnimatedButton>
-          </View>
+          ) : null}
+
+          {sendTikkle ? (
+            <View style={styles.buttonsContainer}>
+              <AnimatedButton
+                onPress={() => {
+                  buttonPress();
+                }}
+                style={[
+                  styles.presentButton,
+                  state.paymentButtonPressed ? styles.inactiveButton : {},
+                ]}
+                disabled={state.paymentButtonPressed}>
+                <B17 customStyle={{color: COLOR_WHITE}}>
+                  {state.paymentButtonPressed
+                    ? `처리중입니다`
+                    : isMine
+                    ? `${
+                        data.state_id == 1
+                          ? (selectedValue * 5000).toLocaleString()
+                          : (
+                              (data.tikkle_quantity - data.tikkle_count) *
+                              5000
+                            ).toLocaleString()
+                      }원 결제하기`
+                    : `마음을 담은 ${
+                        data.state_id == 1
+                          ? (selectedValue * 5000).toLocaleString()
+                          : (
+                              (data.tikkle_quantity - data.tikkle_count) *
+                              5000
+                            ).toLocaleString()
+                      }원 선물하기`}
+                </B17>
+              </AnimatedButton>
+            </View>
+          ) : (
+            <View style={styles.buttonsContainer}>
+              <AnimatedButton
+                onPress={() => {
+                  onlyMessageSendingPress();
+                }}
+                style={
+                  ([styles.presentButton],
+                  message == '' ? styles.inactiveButton : styles.presentButton)
+                }
+                disabled={state.paymentButtonPressed}>
+                <B17 customStyle={{color: COLOR_WHITE}}>
+                  {`따뜻한 마음 보내기`}
+                </B17>
+              </AnimatedButton>
+            </View>
+          )}
         </View>
       </Modal>
       {/* {errorMessage !== '' ? <Modal
@@ -583,5 +720,24 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR_GRAY, // Change to a color that indicates inactivity
     shadowOpacity: 0, // Remove shadow for inactive button
     borderColor: COLOR_GRAY,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    width: '100%',
+  },
+  linesContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 12, // padding 고려
+    right: 12, // padding 고려
+    bottom: 0,
+  },
+  line: {
+    borderBottomColor: COLOR_SEPARATOR,
+    borderBottomWidth: 1,
+    position: 'absolute',
+    left: 0,
+    right: 0,
   },
 });

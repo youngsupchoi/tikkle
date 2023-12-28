@@ -6,7 +6,10 @@ import {
   H,
   R,
 } from 'src/presentationLayer/view/components/globalComponents/Typography/Typography';
-import {COLOR_PRIMARY} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
+import {
+  COLOR_BLACK,
+  COLOR_PRIMARY,
+} from 'src/presentationLayer/view/components/globalComponents/Colors/Colors';
 
 export default function OnboardingThirdBox() {
   return (
@@ -27,10 +30,12 @@ const styles = StyleSheet.create({
     fontFamily: R,
     fontSize: 24,
     lineHeight: 36,
+    color: COLOR_BLACK,
   },
   title: {
     fontFamily: B,
     fontSize: 54,
+    color: COLOR_BLACK,
   },
   emphasizedTitle: {
     fontFamily: H,

@@ -438,8 +438,9 @@ export const useMainViewModel = () => {
     actions.setShowStopModal(!state.showStopModal);
   };
 
-  async function convertBackgroundImageToBase64(type) {
-    const imageUri = state.instaShareImageUrl[type];
+  async function convertBackgroundImageToBase64(uri) {
+    // const imageUri = state.instaShareImageUrl[type];
+    const imageUri = uri;
     console.log('######', imageUri);
     try {
       const response = await fetch(imageUri);
@@ -507,20 +508,26 @@ export const useMainViewModel = () => {
     await actions.setLoading(true);
     try {
       actions.setTemplateType(type);
-      let uri;
+      let backgroundUri;
+      let stickerUri;
       // console.log('인스타그램 버튼 눌림', name, tikkling_id);
 
       await CreateTikklingShareLink(name, tikkling_id)
         .then(async res => {
-          uri = await state.viewShotRef.current?.capture?.();
-          // console.log(uri);
+          backgroundUri = await state.viewShotRef.current?.capture?.();
+          console.log(backgroundUri);
+          stickerUri = await state.viewShotRefSticker.current?.capture?.();
+          console.log(stickerUri);
           Clipboard.setString(res.DSdata.short_link);
-          console.log(res);
+          console.log(res, backgroundUri, stickerUri);
           return res.DSdata.short_link;
         })
         .then(async () => {
-          const backgroundBase64 = await convertBackgroundImageToBase64(type);
-          const stickerBase64 = await convertStickerImageToBase64(uri);
+          const backgroundBase64 = await convertBackgroundImageToBase64(
+            backgroundUri,
+          );
+          const stickerBase64 = await convertStickerImageToBase64(stickerUri);
+          console.log(backgroundBase64, stickerBase64);
           if (state.hasInstagramInstalled) {
             const res = await Share.shareSingle({
               appId: '1661497471012290', // Note: replace this with your own appId from facebook developer account, it won't work without it. (https://developers.facebook.com/docs/development/register/)

@@ -62,6 +62,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* tikkle_revive_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tikkle_revive_iosTests.m; sourceTree = "<group>"; };
 		070A5E90150F4BDFBEE60E99 /* BlackHanSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BlackHanSans-Regular.ttf"; path = "../src/assets/fonts/BlackHanSans-Regular.ttf"; sourceTree = "<group>"; };
+		076351455488DAF02F0E4331 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.staging.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.staging.xcconfig"; sourceTree = "<group>"; };
 		0E71B5E60B964B5282F16037 /* AppleSDGothicNeoT.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoT.ttf; path = ../src/assets/fonts/AppleSDGothicNeoT.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* tikkle_revive_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tikkle_revive_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = tikkle_revive_ios/AppDelegate.h; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 		98E492B37E893C51D5B5FC7E /* Pods-tikkle_revive_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.debug.xcconfig"; sourceTree = "<group>"; };
 		BAD8163DCE224509A207431F /* AppleSDGothicNeoEB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AppleSDGothicNeoEB.ttf; path = ../src/assets/fonts/AppleSDGothicNeoEB.ttf; sourceTree = "<group>"; };
 		C7879B829E0162C9784CFB9C /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios-tikkle_revive_iosTests/Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CEEF08D23E4ABC582A2821F1 /* Pods-tikkle_revive_ios.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tikkle_revive_ios.staging.xcconfig"; path = "Target Support Files/Pods-tikkle_revive_ios/Pods-tikkle_revive_ios.staging.xcconfig"; sourceTree = "<group>"; };
 		CF3C48BAEE3E42AA96539913 /* CherryBombOne-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CherryBombOne-Regular.ttf"; path = "../src/assets/fonts/CherryBombOne-Regular.ttf"; sourceTree = "<group>"; };
 		ECC5E10769E0FB77662C23DD /* Pods_tikkle_revive_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tikkle_revive_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -221,6 +223,8 @@
 				F8095861310D7B1948314CF8 /* Pods-tikkle_revive_ios.release.xcconfig */,
 				C7879B829E0162C9784CFB9C /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.debug.xcconfig */,
 				FC298C424874F248D3A4744B /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */,
+				CEEF08D23E4ABC582A2821F1 /* Pods-tikkle_revive_ios.staging.xcconfig */,
+				076351455488DAF02F0E4331 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -686,7 +690,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.21;
+				MARKETING_VERSION = 1.0.24;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -716,7 +720,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.21;
+				MARKETING_VERSION = 1.0.24;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -864,7 +868,7 @@
 		};
 		5AEF63422B380BEF0027CEF1 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8095861310D7B1948314CF8 /* Pods-tikkle_revive_ios.release.xcconfig */;
+			baseConfigurationReference = CEEF08D23E4ABC582A2821F1 /* Pods-tikkle_revive_ios.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -878,7 +882,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.21;
+				MARKETING_VERSION = 1.0.24;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -893,7 +897,7 @@
 		};
 		5AEF63432B380BEF0027CEF1 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC298C424874F248D3A4744B /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.release.xcconfig */;
+			baseConfigurationReference = 076351455488DAF02F0E4331 /* Pods-tikkle_revive_ios-tikkle_revive_iosTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

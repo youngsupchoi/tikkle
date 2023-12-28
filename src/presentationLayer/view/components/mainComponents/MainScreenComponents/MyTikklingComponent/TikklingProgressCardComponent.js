@@ -22,6 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Animated from 'react-native-reanimated';
 import AnimatedButton from 'src/presentationLayer/view/components/globalComponents/Buttons/AnimatedButton';
 import {useNavigation} from '@react-navigation/core';
+import CakeWithCandles from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/ViewShotComponents/CakeWithCandles';
 export default function TikklingProgressCard({ButtonIcon, ButtonText}) {
   const {state, actions} = useMainViewModel();
 
@@ -42,6 +43,12 @@ export default function TikklingProgressCard({ButtonIcon, ButtonText}) {
         alignSelf: 'center',
         marginBottom: 8,
       }}>
+      {/* <CakeWithCandles
+        list_data={state.list_data}
+        itemImage={state.myTikklingData.thumbnail_image}
+        width={windowWidth - 64}
+        height={((windowWidth - 64) / 3) * 2}
+      /> */}
       <View
         style={{
           position: 'absolute',

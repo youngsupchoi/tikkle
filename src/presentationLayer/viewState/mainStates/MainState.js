@@ -48,6 +48,7 @@ export const MainViewStateProvider = ({children}) => {
   const dropdownAnimation = useRef(new Animated.Value(0)).current;
   const snackbarAnimation = useRef(new Animated.Value(0)).current;
   const viewShotRef = useRef();
+  const viewShotRefSticker = useRef();
 
   const [bankDropDownVisible_home, setBankDropDownVisible_home] =
     useState(false);
@@ -180,6 +181,7 @@ export const MainViewStateProvider = ({children}) => {
     instagramButtonPressed,
     isInstagramButtonModalVisible,
     viewShotRef,
+    viewShotRefSticker,
     eventModalVisible,
     notShowEvent,
     event_image,

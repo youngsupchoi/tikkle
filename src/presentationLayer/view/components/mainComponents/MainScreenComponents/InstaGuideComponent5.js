@@ -53,7 +53,7 @@ export default function InstaGuideComponent5({name, tikkling_id}) {
               borderWidth: 1,
               borderRadius: 100,
             }}>
-            <B12 customStyle={{color: COLOR_PRIMARY}}>크리스마스 템플릿</B12>
+            <B12 customStyle={{color: COLOR_PRIMARY}}>케이크 템플릿</B12>
           </View>
         </View>
         <AnimatedButton
@@ -64,7 +64,7 @@ export default function InstaGuideComponent5({name, tikkling_id}) {
           }}
           style={{marginTop: 10}}>
           <AutoHeightImage
-            source={{uri: state.instaShareEX[1]}}
+            source={require('src/assets/images/cakeTemplate.png')}
             width={state.instaGuideImageSize / 2 - 5}
             style={{borderRadius: 10}}
           />

@@ -209,15 +209,6 @@ const FirstHero = props => {
                         <B15 customStyle={{color: COLOR_PRIMARY}}>
                           {'상품 교환'}
                         </B15>
-                        {/* <AnimatedButton
-                          onPress={() => {
-                            //Linking.openURL('https://www.lifoli.co.kr');
-                          }}>
-                          <B12
-                            customStyle={{marginRight: 10, color: COLOR_GRAY}}>
-                            {'더보기'}
-                          </B12>
-                        </AnimatedButton> */}
                       </View>
                       <View>
                         <View>
