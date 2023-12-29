@@ -10,6 +10,7 @@ project.ext.envConfigFiles = [
     stagerelease: "env/.env.stage",
     productdebug: "env/.env.product",    
     productrelease: "env/.env.product",
+    release: ".env",
     anothercustombuild: ".env",
 ]
 

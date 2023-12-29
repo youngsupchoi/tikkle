@@ -52,7 +52,7 @@ import {windowWidth} from 'src/presentationLayer/view/components/globalComponent
 import {postTikklingSendMessageData} from 'src/dataLayer/DataSource/Payment/PostTikklingSendMessageData';
 
 import {TextInput} from 'react-native-paper';
-const lineHeight = 24;
+const lineHeight = 28;
 const numberOfLines = 10; // 줄의 개수 설정
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   //-------------------------------------------------------------------------
@@ -148,7 +148,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
   const [selectedValue, setSelectedValue] = useState(1);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [sendTikkle, setSendTikkle] = useState(true);
+  const [sendTikkle, setSendTikkle] = useState(false);
   const toggleSwitch = () => setSendTikkle(previousState => !previousState);
 
   const lines = [];
@@ -421,6 +421,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                   <View
                     style={{
                       padding: 12,
+                      paddingVertical: 0,
                       borderColor: COLOR_SEPARATOR,
                       borderWidth: 1,
                       borderRadius: 8,
@@ -433,16 +434,17 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                       cursorColor={COLOR_GRAY}
                       numberOfLines={8}
                       textColor={COLOR_BLACK}
-                      underlineColor={COLOR_SEPARATOR}
-                      underlineColorAndroid={COLOR_SEPARATOR}
+                      underlineColor={'transparent'}
+                      underlineColorAndroid={'transparent'}
+                      activeUnderlineColor={'transparent'}
                       multiline
                       style={{
                         color: COLOR_BLACK,
                         width: '100%',
                         fontFamily: M,
                         fontSize: 15,
-                        lineHeight: lineHeight + 6,
-                        minHeight: windowWidth / 2,
+                        lineHeight: lineHeight,
+                        minHeight: lineHeight * 8,
                         maxHeight: 8 * lineHeight,
                         alignSelf: 'flex-start',
                         alignItems: 'flex-start',
@@ -450,6 +452,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                         textAlignVertical: 'top',
                         backgroundColor: 'transparent',
                         borderColor: 'transparent',
+                        paddingTop: 0,
                       }}
                       onChangeText={value => setMessage(value)}
                       placeholder="마음을 담은 메시지를 전달해주세요."
