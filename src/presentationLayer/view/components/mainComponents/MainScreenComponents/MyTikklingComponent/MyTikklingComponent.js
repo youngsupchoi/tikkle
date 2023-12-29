@@ -28,6 +28,7 @@ import Profile from 'src/assets/icons/Profile';
 import Noti_GetTikkle from 'src/assets/icons/Noti_GetTikkle';
 import InstaGuideModal from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/InstaGuideModal';
 import TikklingState from 'src/presentationLayer/view/components/mainComponents/MainScreenComponents/MyTikklingComponent/TikklingState';
+import Config from 'react-native-config';
 
 import ModalDropdown from 'react-native-modal-dropdown';
 import Close from 'src/assets/icons/Close';
@@ -55,6 +56,8 @@ const MyTikklingComponent = () => {
             }}>
             <B20 customStyle={styles.headerText}>내 티클링</B20>
 
+            {/* <B12 style={styles.text}>ENV : {Config.ENV}</B12>
+            <B12 style={styles.text}>ENV : {Config.BASE_URL}</B12> */}
             <AnimatedButton
               onPress={() => {
                 actions.setShowWhoParticipatedModal(true);

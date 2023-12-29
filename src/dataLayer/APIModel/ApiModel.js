@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {BASE_URL, USER_AGENT, MAKEOTP_URL, EMAIL_URL} from '@env';
+import Config from 'react-native-config';
 
 const api = axios.create({
-  baseURL: `https://${BASE_URL}`,
+  baseURL: `https://${Config.BASE_URL}`,
   headers: {
     'User-Agent': USER_AGENT,
   },
@@ -13,7 +14,6 @@ export async function apiModel(lambda_name, authorization, body, query) {
   let url = '/dev/' + lambda_name;
   const method = lambda_name.split('_')[0].toUpperCase();
   const headers = {authorization: authorization};
-
   // method
   if (method === 'GET') {
     ///GET

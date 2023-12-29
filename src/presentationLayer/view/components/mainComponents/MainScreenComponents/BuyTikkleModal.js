@@ -3,7 +3,7 @@ import {PG} from '@env';
 import {
   View,
   StyleSheet,
-  TextInput,
+  // TextInput,
   Animated,
   Switch,
   Platform,
@@ -49,7 +49,9 @@ import Minus from 'src/assets/icons/Minus';
 import Help from 'src/assets/icons/Help';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import {windowWidth} from 'src/presentationLayer/view/components/globalComponents/Containers/MainContainer';
+import {postTikklingSendMessageData} from 'src/dataLayer/DataSource/Payment/PostTikklingSendMessageData';
 
+import {TextInput} from 'react-native-paper';
 const lineHeight = 24;
 const numberOfLines = 10; // 줄의 개수 설정
 export default function BuyTikkleModal({data, showModal, onCloseModal}) {
@@ -85,6 +87,30 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
       //에러 처리 필요 -> 정해야함
       console.log(
         '[Error in BuyTikklingModal post_tikkling_sendtikkle]\n',
+        error,
+      );
+    }
+  }
+
+  async function post_tikkling_sendmessage(item) {
+    try {
+      return (ret = await postTikklingSendMessageData(item.tikkling_id, message)
+        .then(res => {
+          return topActions.setStateAndError(
+            res,
+            '[BuyTikklingModal.js] post_tikkling_sendmessage - postTikklingSendMessageData',
+          );
+        })
+        .then(res => {
+          // console.log('$$$', res);
+          setErrorMessage('');
+          setReceivedMessage(res.DSdata);
+          return res.DSdata;
+        }));
+    } catch (error) {
+      //에러 처리 필요 -> 정해야함
+      console.log(
+        '[Error in BuyTikklingModal post_tikkling_sendmessage]\n',
         error,
       );
     }
@@ -156,9 +182,13 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
 
   const onlyMessageSendingPress = async () => {
     if (data.state_id == 1) {
-      await post_tikkling_sendtikkle(data).then(res => {
+      await post_tikkling_sendmessage(data).then(res => {
         if (res.success === true) {
-          console.log(res);
+          topActions.showSnackbar('메시지가 성공적으로 전달되었어요 :)', 1);
+          onCloseButtonPress();
+        } else {
+          topActions.showSnackbar('메시지 전송을 실패했어요..', 0);
+          onCloseButtonPress();
         }
       });
     }
@@ -196,7 +226,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
         } else {
           setServerMessage(res.message);
           actions.setPaymentButtonPressed(false);
-          topActions.showSnackbar('결제에 실패했어요!', 1);
+          topActions.showSnackbar('결제에 실패했어요!', 0);
           onCloseButtonPress();
         }
       });
@@ -388,9 +418,6 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
               </View>
               {isMine ? null : (
                 <View style={{marginTop: 0}}>
-                  {/* <M11 customStyle={{color: COLOR_GRAY}}>
-                  마음을 담은 메시지를 보내보세요.
-                </M11> */}
                   <View
                     style={{
                       padding: 12,
@@ -398,25 +425,37 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                       borderWidth: 1,
                       borderRadius: 8,
                       marginTop: 8,
+                      alignItems: 'flex-start',
+                      justifyContent: 'flex-start',
                     }}>
                     <View style={styles.linesContainer}>{lines}</View>
                     <TextInput
+                      cursorColor={COLOR_GRAY}
                       numberOfLines={8}
+                      textColor={COLOR_BLACK}
+                      underlineColor={COLOR_SEPARATOR}
+                      underlineColorAndroid={COLOR_SEPARATOR}
                       multiline
                       style={{
                         color: COLOR_BLACK,
+                        width: '100%',
                         fontFamily: M,
                         fontSize: 15,
-                        lineHeight: lineHeight,
+                        lineHeight: lineHeight + 6,
                         minHeight: windowWidth / 2,
                         maxHeight: 8 * lineHeight,
+                        alignSelf: 'flex-start',
+                        alignItems: 'flex-start',
+                        justifyContent: 'flex-start',
+                        textAlignVertical: 'top',
+                        backgroundColor: 'transparent',
+                        borderColor: 'transparent',
                       }}
                       onChangeText={value => setMessage(value)}
                       placeholder="마음을 담은 메시지를 전달해주세요."
                       placeholderTextColor={COLOR_GRAY}
-                      underlineColorAndroid={COLOR_BLACK} // 안드로이드에서 밑줄 색상 설정
                     />
-                    {Platform.OS === 'ios' && <View style={styles.underline} />}
+                    {/* {Platform.OS === 'ios' && <View style={styles.underline} />} */}
                     {/* iOS에서 밑줄 추가 */}
                   </View>
                 </View>
@@ -613,7 +652,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                               5000
                             ).toLocaleString()
                       }원 결제하기`
-                    : `마음을 담은 ${
+                    : `${
                         data.state_id == 1
                           ? (selectedValue * 5000).toLocaleString()
                           : (
@@ -635,9 +674,7 @@ export default function BuyTikkleModal({data, showModal, onCloseModal}) {
                   message == '' ? styles.inactiveButton : styles.presentButton)
                 }
                 disabled={state.paymentButtonPressed}>
-                <B17 customStyle={{color: COLOR_WHITE}}>
-                  {`따뜻한 마음 보내기`}
-                </B17>
+                <B17 customStyle={{color: COLOR_WHITE}}>{`보내기`}</B17>
               </AnimatedButton>
             </View>
           )}

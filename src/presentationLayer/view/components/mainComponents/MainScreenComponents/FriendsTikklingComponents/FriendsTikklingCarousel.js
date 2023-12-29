@@ -294,7 +294,9 @@ export default function FriendsTikklingCarousel(data) {
                   //   moment().isAfter(moment(item.funding_limit).endOf('day'))
                   // }
                 >
-                  <B15 customStyle={{color: COLOR_WHITE}}>{'마음 전하기'}</B15>
+                  <B15 customStyle={{color: COLOR_WHITE}}>
+                    {'마음 선물하기'}
+                  </B15>
                 </AnimatedButton>
               </View>
             </View>

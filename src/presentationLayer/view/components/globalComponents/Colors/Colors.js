@@ -6,15 +6,15 @@ export const COLOR_BACKGROUND_TYPES = '#F3F4F8';
 export const COLOR_BACKGROUND_TOSS = '#F2F3F5';
 export const COLOR_ERROR = '#FF6B6B';
 export const COLOR_SUCCESS = '#38A93D';
-export const COLOR_SEPARATOR = '#dddddd';
-export const COLOR_SECOND_SEPARATOR = '#eeeeee';
+export const COLOR_SEPARATOR = '#eeeeee';
+export const COLOR_SECOND_SEPARATOR = '#dddddd';
 export const COLOR_GRAY = '#888888';
 
 export const COLOR_PRIMARY_TEXT = '#F0FFFF';
 
 export const textColor = COLOR_BLACK;
 // export const backgroundColor = COLOR_BACKGROUND_WHITE;
-export const backgroundColor = '#F5F3F6';
+export const backgroundColor = '#FcFcFF';
 
 // let prim = '';
 // let sec = '';

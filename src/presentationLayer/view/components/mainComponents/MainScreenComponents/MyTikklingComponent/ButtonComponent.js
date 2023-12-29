@@ -257,7 +257,7 @@ export default function ButtonComponent({
               onPress={() => {
                 handleButtonPress();
               }}>
-              <B15 customStyle={styles.buyTikkleText}>티클 선물하기</B15>
+              <B15 customStyle={styles.buyTikkleText}>마음 선물하기</B15>
             </AnimatedButton>
           ) : null}
         </View>
